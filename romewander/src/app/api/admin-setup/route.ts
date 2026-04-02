@@ -7,7 +7,7 @@ export async function GET() {
         process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    const email = '${process.env.ADMIN_EMAIL || "admin@yourdomain.com"}';
+    const email = '{process.env.ADMIN_EMAIL || "admin@yourdomain.com"}';
     const password = 'wonders-admin-secure-login';
 
     // Check if user exists

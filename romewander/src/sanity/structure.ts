@@ -94,18 +94,18 @@ export const structure: StructureResolver = (S) => {
                             S.divider(),
 
                             S.listItem()
-                                .title('✨ ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
+                                .title('✨ {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
                                 .icon(Eye)
                                 .child(
                                     S.list()
-                                        .title('${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Content')
+                                        .title('{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Content')
                                         .items([
                                             S.listItem()
                                                 .title('🎯 Tours')
                                                 .icon(Map)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Tours for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
+                                                        .title('Tours for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
                                                         .filter('_type == "tour" && $siteId in sites[]._ref')
                                                         .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
                                                         .defaultOrdering([{ field: 'title', direction: 'asc' }])
@@ -115,7 +115,7 @@ export const structure: StructureResolver = (S) => {
                                                 .icon(FileText)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Posts for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
+                                                        .title('Posts for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
                                                         .filter('_type == "post" && site._ref == $siteId')
                                                         .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
                                                 ),
@@ -124,7 +124,7 @@ export const structure: StructureResolver = (S) => {
                                                 .icon(Settings)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Settings for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
+                                                        .title('Settings for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
                                                         .filter('_type == "settings" && site._ref == $siteId')
                                                         .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
                                                 ),

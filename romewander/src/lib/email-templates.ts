@@ -20,7 +20,7 @@ export function generateCustomerEmail(
   const brandDomain = process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '').replace('http://', '') || 'yourdomain.com';
   const brandColor = data.metadata?.brandColor || '#047857';
   const brandLight = data.metadata?.brandLight || '#d1fae5';
-  const logoUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/logo.png`;
+  const logoUrl = `{process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/logo.png`;
   const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 329 929 4414';
   const providerPhone = process.env.NEXT_PUBLIC_PROVIDER_PHONE || supportPhone;
   const bookingRef = data.orderId.slice(-8).toUpperCase();
