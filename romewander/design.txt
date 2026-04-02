@@ -1,0 +1,390 @@
+Here's your complete **Vatican Travel Agency Website Blueprint** — grid placements, content flow, design rules, and everything you need to clone it in Antigravity (or any builder).
+
+---
+
+# 🏛️ VATICANO — Premium Travel Agency Website
+## Full Design System & Content Blueprint
+
+---
+
+## DESIGN PHILOSOPHY (Merging Both References)
+
+**From Goyto (Image 1):** Dynamic hero, destination cards, floating UI elements, bold typography mixing serif + italic accent, search bar overlaid on hero, statistics bar, testimonials, special offers section, newsletter footer.
+
+**From Pickled Bakersfield (Image 2):** Marquee announcement bar, clean nav, editorial grid sections, striped/checkered decorative backgrounds, icon feature row, two-tone split sections (dark left / image right), bulleted audience section.
+
+**Vatican Twist:** Marble textures, Vatican gold (#C9A84C), deep papal purple (#3D1A6E), ivory white, ancient serif headlines, modern body font. Tone = *sacred luxury meets world-class concierge*.
+
+---
+
+## 🎨 DESIGN TOKENS
+
+```
+PRIMARY:    #C9A84C  (Vatican Gold)
+SECONDARY:  #3D1A6E  (Papal Purple)
+DARK:       #1A1210  (Roman Stone Black)
+LIGHT:      #F5F0E8  (Ivory Parchment)
+ACCENT:     #7B2D2D  (Cardinal Red)
+
+HEADLINE FONT:  "Playfair Display" — bold italic for accents
+BODY FONT:      "Cormorant Garamond" — 18px, generous leading
+NAV FONT:       "Josefin Sans" — all caps, tracked
+ACCENT FONT:    "Great Vibes" — script, for taglines only
+```
+
+---
+
+## 📐 FULL PAGE GRID BLUEPRINT
+
+---
+
+### SECTION 0 — MARQUEE ANNOUNCEMENT BAR
+*(From Pickled design)*
+
+```
+[FULL WIDTH — 48px height]
+Background: #3D1A6E
+Scrolling marquee text: "PRIVATE PAPAL AUDIENCE ACCESS  •  SISTINE CHAPEL AFTER-HOURS  •  SWISS GUARD ESCORTED TOURS  •"
+Font: Josefin Sans, 11px, #C9A84C, letter-spacing: 0.2em
+```
+
+**Grid:** 1 column, full bleed, sticky top.
+
+---
+
+### SECTION 1 — NAVIGATION
+```
+[FULL WIDTH — 80px height]
+Background: #F5F0E8 / blur backdrop
+Logo:        Far left — "VATICANO" in Playfair Display Bold + small cross glyph
+Nav Links:   Center — HOME · TOURS · EXPERIENCES · PILGRIMAGE · BLOG · CONTACT
+CTA Button:  Far right — "Book Now" pill, background #C9A84C, text #1A1210
+```
+
+**Grid:** `grid-template-columns: 200px 1fr auto` — 3 columns.
+
+---
+
+### SECTION 2 — HERO (Full Screen)
+*(From Goyto's hero — dominant section)*
+
+```
+HEIGHT: 100vh
+LAYOUT: 2 overlapping zones
+
+LEFT ZONE (60% width):
+  - Eyebrow text: "✦ WELCOME TO VATICANO ✦" — Josefin Sans, gold, tracked
+  - H1 Line 1: "Discover the" — Playfair Display, 72px, dark
+  - H1 Line 2: "Eternal City" — Great Vibes script, 90px, #C9A84C italic
+  - H1 Line 3: "With Us" — Playfair Display, 72px, dark
+  - Body: 18px Cormorant, 2-line description
+  - SEARCH BAR (floated, overlapping bottom edge):
+      [ 📍 Destination ] [ 🗓 Travel Date ] [ 👥 Pilgrims ] [ 🔍 Search ] 
+      — white card, 8px radius, gold search button
+
+RIGHT ZONE (40%):
+  - Full-height cutout/PNG of person with luggage OR Vatican aerial photo
+  - Floating card (top-right): ✈️ "5,000+ Sacred Sites Visited"
+  - Floating card (bottom-left of image): ⭐ "4.9 Rating · 12,000 Pilgrims"
+
+BACKGROUND:
+  - Left half: ivory #F5F0E8 with subtle marble SVG texture
+  - Right half: bleeds into photo
+  - Decorative: faint gold cross watermark, 10% opacity
+```
+
+**Grid:** `grid-template-columns: 60% 40%`, hero overlaps navbar by -20px (negative margin top trick).
+
+---
+
+### SECTION 3 — TRUST / STATS BAR
+*(Thin strip between Hero and Destinations)*
+
+```
+HEIGHT: 80px
+Background: #3D1A6E
+4 stats evenly spaced:
+  [✦ 15,000+ Pilgrims Served]  [✦ 48 Exclusive Vatican Routes]  [✦ 24/7 Concierge Support]  [✦ Since 1987]
+Font: Josefin Sans, white, small caps
+```
+
+**Grid:** `grid-template-columns: repeat(4, 1fr)` — 4 equal columns, centered content.
+
+---
+
+### SECTION 4 — TOP DESTINATIONS
+*(Goyto's destination cards section)*
+
+```
+HEADER (centered):
+  Eyebrow: "✦ SACRED DESTINATIONS ✦" — gold, Josefin, tracked
+  H2: "Top Vatican & Rome" — Playfair 48px
+  H2 accent: "Experiences" — Great Vibes script, gold
+
+CARD GRID: 3 columns
+  Each card (ratio ~3:4 portrait):
+    - Full-bleed photo
+    - Price badge: top-left, #C9A84C pill
+    - Duration badge: bottom-left, dark pill
+    - Location name: bottom, white Playfair Bold
+    - Short desc: Cormorant, white 80% opacity
+    - Arrow CTA bottom-right
+
+CARDS:
+  1. Sistine Chapel After-Hours Tour — from €840 — 1 Day
+  2. Private Papal Audience Package — from €1,240 — 3 Days
+  3. Vatican Gardens Secret Walk — from €560 — 1 Day
+
+Below cards: centered "View All Experiences →" — ghost button, gold border
+```
+
+**Grid:** `grid-template-columns: repeat(3, 1fr)`, gap: 24px. Section padding: 100px 80px.
+
+---
+
+### SECTION 5 — ABOUT / WHY US (Split)
+*(Goyto's "Experience the World" section merged with Pickled's two-tone split)*
+
+```
+LAYOUT: 2 columns, 50/50
+
+LEFT (dark background #1A1210):
+  Eyebrow: "✦ ABOUT OUR COMPANY ✦" — gold
+  H2: "Experience the Holy City" — Playfair, white, 48px
+  H2 accent: "With Our Experts" — Great Vibes, gold
+  Body: 3 lines Cormorant, ivory
+  
+  Feature list (4 items with icons):
+    ⊕ Certified Vatican Guides
+    ⊕ Papal Audience Access
+    ⊕ Save Your Budget
+    ⊕ Free Pre-Trip Consultation
+  
+  Stats bubble: "24/7 Concierge Support" — gold circle badge
+  Social proof: Avatar row + "3,200+ Satisfied Pilgrims"
+  CTA: "Learn More" — gold pill button
+
+RIGHT (photo):
+  - Dynamic photo of a guide in Vatican
+  - Floating card (overlapping left edge, -30px):
+      "✈️ Perfect Detailing" card in white with shadow
+```
+
+**Grid:** `grid-template-columns: 1fr 1fr`. Min-height: 600px. Left padded 80px.
+
+---
+
+### SECTION 6 — NATURE / EXPERIENCE GALLERY
+*(Goyto's "Discover the Touch of Nature" — organic shaped images)*
+
+```
+BACKGROUND: #F5F0E8
+HEADER: centered
+  Eyebrow: "✦ TRAVEL DESTINATION ✦"
+  H2: "Discover the" + "Soul of Rome" (script)
+  Subheading: 2-line Cormorant
+
+IMAGE COLLAGE: 5 images in organic/arch shapes
+  — 2 large arch-top images (left and right)
+  — 2 circle images (center row)
+  — 1 tall arch centered (bottom)
+  Images: Vatican dome, St. Peter's Square crowd, Swiss Guards, catacombs, Tiber at sunset
+
+Below: centered "View More Destinations →"
+```
+
+**Grid:** CSS Grid with named areas or absolute positioned overlapping layout. Shapes via `border-radius: 50% 50% 0 0` (arch) or `50%` (circle).
+
+---
+
+### SECTION 7 — HOW IT WORKS (3 Steps)
+*(Goyto's "Your Next Trip Steps")*
+
+```
+BACKGROUND: white
+HEADER: centered — "Your Sacred Journey" + "3 Easy Steps"
+
+STEP CARDS: 3 columns
+  Step 1: 🗺 Choose Destination — icon + title + 2-line desc
+  Step 2: 🎟 Reserve Your Place — icon + title + 2-line desc  
+  Step 3: ✈️ Begin Your Pilgrimage — icon + title + 2-line desc
+
+Connector line between steps: dashed gold line, horizontal
+```
+
+**Grid:** `grid-template-columns: repeat(3, 1fr)`. Connector is a `::after` pseudo-element or SVG overlay.
+
+---
+
+### SECTION 8 — SPECIAL OFFER BANNER
+*(Goyto's "Get Special Offer" section)*
+
+```
+LAYOUT: Full-width card, background #3D1A6E, rounded 24px
+  LEFT: 
+    "LIMITED OFFER" eyebrow — gold
+    "30% OFF" — massive Playfair, gold, 120px
+    "On All Papal Audience Packages" — white
+    Offer expiry countdown timer
+    CTA: "Claim Offer" — white pill
+
+  RIGHT:
+    Cutout image of pilgrim / Vatican panorama
+    Floating decorative cross + sparkle elements
+```
+
+**Grid:** `grid-template-columns: 1fr 1fr`. Section margin: 0 80px (contained, not full-bleed).
+
+---
+
+### SECTION 9 — FEATURE ICONS ROW
+*(Pickled's "Why You'll Love This" section)*
+
+```
+BACKGROUND: #F5F0E8
+HEADER: centered — "WHY CHOOSE VATICANO"
+
+4 ICONS: evenly spaced
+  [🏛 Exclusive Access] [📿 Certified Guides] [🤝 Community of Faith] [📅 Easy Planning]
+  Each: custom SVG icon (gold), caps label, 2-line description in Cormorant
+
+Below: "Find Out More →" — dark pill button
+```
+
+**Grid:** `grid-template-columns: repeat(4, 1fr)`. Icon size: 48px.
+
+---
+
+### SECTION 10 — TESTIMONIALS
+*(Goyto's "What's Our Clients Saying")*
+
+```
+BACKGROUND: #1A1210
+HEADER: "What Our Pilgrims Say" — white + gold script
+
+TESTIMONIAL CARDS: 3 columns
+  Each card (white, 16px radius, shadow):
+    - " quote opening mark — large, gold
+    - Quote text — Cormorant Italic, dark, 18px
+    - Avatar + Name + Location
+    - ⭐⭐⭐⭐⭐ stars
+
+QUOTES:
+  1. "The after-hours Sistine Chapel was a spiritual transformation..." — Maria T., Milan
+  2. "Our guide knew secrets even locals don't know..." — James K., Dublin  
+  3. "Worth every cent. The papal blessing was unforgettable." — Sofia R., Porto
+```
+
+**Grid:** `grid-template-columns: repeat(3, 1fr)`. Dark background section, 100px padding.
+
+---
+
+### SECTION 11 — BOOKING PLATFORM CTA
+*(Goyto's "World Leading Tour Booking Platform")*
+
+```
+LAYOUT: Full-width, Background image (Vatican aerial) + dark overlay 60%
+HEIGHT: 400px
+
+Centered content:
+  H2: "Vaticano Is Your" — white Playfair
+  H2 accent: "Sacred Journey Platform" — gold script
+  3 bullet stats: 15,000 Pilgrims · 48 Routes · 4.9★ Rating
+  CTA: "Start Your Journey" — gold pill, large
+
+Floating decorative elements: faint Latin cross, ornamental borders
+```
+
+**Grid:** Single column, centered flex. Background-attachment: fixed (parallax).
+
+---
+
+### SECTION 12 — BLOG / NEWS
+*(Goyto's "Get More Update News & Blog")*
+
+```
+HEADER: "Sacred Travel" + "News & Insights" (script)
+
+BLOG CARDS: 3 columns
+  Each card:
+    - Photo (16:9)
+    - Category pill: "Pilgrimage Tips" / "Vatican News" / "Travel Guide"
+    - Date — Josefin Sans, muted
+    - Headline — Playfair Bold
+    - 2-line excerpt — Cormorant
+    - "Read More →" gold link
+
+POSTS:
+  1. "5 Hidden Vatican Rooms Most Tourists Never See"
+  2. "How to Secure a Papal Audience in 2025"
+  3. "The Best Time to Visit St. Peter's Basilica"
+```
+
+**Grid:** `grid-template-columns: repeat(3, 1fr)`, gap: 32px.
+
+---
+
+### SECTION 13 — NEWSLETTER BANNER
+*(From both references)*
+
+```
+BACKGROUND: linear-gradient(135deg, #3D1A6E, #C9A84C)
+HEIGHT: 200px
+Layout: 2 columns
+
+LEFT: "Subscribe for Sacred Travel Updates" — white Playfair
+RIGHT: Email input + "Subscribe" gold button, inline
+       Fine print: "Join 8,000+ pilgrims. No spam."
+```
+
+**Grid:** `grid-template-columns: 1fr 1fr`, aligned center.
+
+---
+
+### SECTION 14 — FOOTER
+
+```
+BACKGROUND: #1A1210
+LAYOUT: 5 columns
+
+Col 1: Logo + 3-line brand description + social icons (gold)
+Col 2: TOURS — 5 links
+Col 3: COMPANY — 5 links
+Col 4: SUPPORT — 5 links
+Col 5: CONTACT — address, phone, email + Vatican map thumbnail
+
+Bottom bar: "© 2025 Vaticano · Privacy · Terms" — small, muted
+            Right: Payment icons (Visa, Mastercard, etc.)
+```
+
+**Grid:** `grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr`.
+
+---
+
+## 📱 RESPONSIVE BREAKPOINTS
+
+| Breakpoint | Change |
+|---|---|
+| 1280px | Full desktop layout |
+| 1024px | Nav collapses, 2-col grids |
+| 768px | All grids → 1 col, hero stacks |
+| 480px | Font scale -20%, full-bleed sections |
+
+---
+
+## ✨ ANTIGRAVITY-SPECIFIC IMPLEMENTATION NOTES
+
+1. **Marquee bar** → Use a native Marquee element or Ticker component, infinite loop
+2. **Hero overlapping search bar** → Set hero to `position: relative`, search bar `position: absolute; bottom: -40px; z-index: 10`
+3. **Floating cards on hero** → Absolutely positioned inside the grid cell, `transform: rotate(-3deg)` for dynamism
+4. **Arch image shapes** → `border-radius: 50% 50% 0 0 / 60% 60% 0 0`
+5. **Section transitions** → Use diagonal clip-path: `clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%)` on section bottoms
+6. **Stats bar** → `overflow: hidden` with a subtle sliding animation on scroll
+7. **Card hover** → `transform: translateY(-8px)`, shadow deepens, gold border appears
+8. **Gold accents** → Use consistently at 20% of visual weight (not dominant)
+9. **Marble texture** → SVG noise filter or CSS `background-image` with low-opacity marble PNG
+10. **Parallax** → On hero + CTA banner sections, `background-attachment: fixed`
+
+---
+
+This gives you every section, every column ratio, every color decision, and every content piece to rebuild both reference sites as a **unified Vatican luxury travel experience**. The grid proportions mirror Goyto's dynamism while Pickled's editorial restraint keeps it from feeling cluttered.
