@@ -18,9 +18,10 @@ export function generateCustomerEmail(
   // All brand values come from env or metadata — no hardcoded agency names
   const brandName = process.env.NEXT_PUBLIC_SITE_NAME || data.metadata?.siteName || siteId;
   const brandDomain = process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '').replace('http://', '') || 'yourdomain.com';
+  const isWonders = siteId === "wondersofrome";
   const brandColor = data.metadata?.brandColor || '#047857';
   const brandLight = data.metadata?.brandLight || '#d1fae5';
-  const logoUrl = `{process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/logo.png`;
+  const logoUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"}/logo.png`;
   const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 329 929 4414';
   const providerPhone = process.env.NEXT_PUBLIC_PROVIDER_PHONE || supportPhone;
   const bookingRef = data.orderId.slice(-8).toUpperCase();
