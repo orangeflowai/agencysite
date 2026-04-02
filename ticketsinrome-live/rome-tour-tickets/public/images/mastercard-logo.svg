@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 38" width="60" height="38">
+  <rect width="60" height="38" rx="6" fill="#F7F7F7" stroke="#E5E5E5" stroke-width="1"/>
+  <!-- Mastercard circles -->
+  <circle cx="22" cy="19" r="11" fill="#EB001B"/>
+  <circle cx="38" cy="19" r="11" fill="#F79E1B"/>
+  <!-- Overlap blend -->
+  <path d="M30 10.2a11 11 0 0 1 0 17.6A11 11 0 0 1 30 10.2z" fill="#FF5F00"/>
+</svg>

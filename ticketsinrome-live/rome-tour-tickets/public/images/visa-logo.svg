@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 38" width="60" height="38">
+  <rect width="60" height="38" rx="6" fill="#1A1F71"/>
+  <!-- Visa wordmark -->
+  <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle"
+        font-family="Arial,sans-serif" font-size="16" font-weight="bold"
+        font-style="italic" fill="#FFFFFF" letter-spacing="-0.5">VISA</text>
+</svg>
