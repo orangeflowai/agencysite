@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Terms and Conditions | {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
-    description: 'Terms and Conditions for use of {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} services and website.',
+    title: `Terms and Conditions | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`,
+    description: `Terms and Conditions for use of ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} services and website.`,
 };
 
 export default function TermsAndConditions() {
@@ -70,8 +70,8 @@ export default function TermsAndConditions() {
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">Contact Us</h3>
                     <p>For any questions or concerns regarding these terms:</p>
                     <ul className="list-none pl-0 space-y-2">
-                        <li><strong>Email:</strong> <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a></li>
-                        <li><strong>Phone:</strong> <a href={`tel:{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}`} className="text-emerald-700 font-bold hover:underline">351 419 9425</a></li>
+                        <li><strong>Email:</strong> <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a></li>
+                        <li><strong>Phone:</strong> <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}`} className="text-emerald-700 font-bold hover:underline">351 419 9425</a></li>
                     </ul>
                 </div>
 

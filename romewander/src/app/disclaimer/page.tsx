@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Disclaimer | {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
-    description: 'Disclaimer for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} website usage and travel risks.',
+    title: `Disclaimer | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`,
+    description: `Disclaimer for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} website usage and travel risks.`,
 };
 
 export default function Disclaimer() {
@@ -51,7 +51,7 @@ export default function Disclaimer() {
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">5. Contact Us</h3>
                     <p>
-                        If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a>.
+                        If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a>.
                     </p>
                 </div>
             </div>

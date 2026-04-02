@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps) {
 
     if (!post) {
         return {
-            title: 'Post Not Found - {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
+            title: `Post Not Found - ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`,
         };
     }
 
