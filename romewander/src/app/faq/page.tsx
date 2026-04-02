@@ -16,8 +16,8 @@ const faqCategories = [
         icon: <CreditCard className="w-6 h-6 text-emerald-600" />,
         items: [
             {
-                question: "How do I book a tour with {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}?",
-                answer: "You can book directly through our website at {process.env.NEXT_PUBLIC_SITE_URL?.replace("https://","") || "yourdomain.com"}. Simply select your tour, choose a date and time, and follow the checkout process."
+                question: `How do I book a tour with ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}?`,
+                answer: `You can book directly through our website at ${process.env.NEXT_PUBLIC_SITE_URL?.replace("https://","") || "yourdomain.com"}. Simply select your tour, choose a date and time, and follow the checkout process.`
             },
             {
                 question: "Is my payment secure?",
@@ -48,7 +48,7 @@ const faqCategories = [
             },
             {
                 question: "Can I change the date of my tour?",
-                answer: "We’ll do our best to help! Please contact us at {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"} at least 72 hours before your tour. Changes are subject to ticket availability and site capacity."
+                answer: `We’ll do our best to help! Please contact us at ${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"} at least 72 hours before your tour. Changes are subject to ticket availability and site capacity.`
             },
             {
                 question: "What happens if it rains?",
@@ -176,7 +176,7 @@ export default function FAQPage() {
                         We’re here to help! Our team is available 9:00 AM – 6:00 PM (Rome Time).
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
+                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
                             <Mail size={18} />
                             {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}
                         </a>

@@ -424,7 +424,7 @@ function SuccessContent() {
                                 onClick={() => {
                                     if (navigator.share) {
                                         navigator.share({
-                                            title: 'My {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Booking',
+                                            title: `My ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Booking`,
                                             text: `I just booked ${booking?.tour_title} on ${booking?.date}!`,
                                             url: window.location.href,
                                         });

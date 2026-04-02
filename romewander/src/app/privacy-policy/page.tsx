@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Privacy Policy | {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
-    description: 'Privacy Policy for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. Learn how we collect, use, and protect your personal information.',
+    title: `Privacy Policy | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`,
+    description: `Privacy Policy for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. Learn how we collect, use, and protect your personal information.`,
 };
 
 export default function PrivacyPolicy() {
@@ -112,7 +112,7 @@ export default function PrivacyPolicy() {
                     </ul>
 
                     <h3 id="deletion" className="text-2xl font-bold text-gray-900 mt-12">10. Can I delete my Personal Data from {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}?</h3>
-                    <p>Please write an email to <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a> with your name, email address, and phone number to request removal. We will require identity verification before processing the request.</p>
+                    <p>Please write an email to <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a> with your name, email address, and phone number to request removal. We will require identity verification before processing the request.</p>
 
                     <h3 id="children" className="text-2xl font-bold text-gray-900 mt-12">11. Children’s Online Privacy Protection</h3>
                     <p>We comply with COPPA. Our Service does not address anyone under the age of 18. If we discover a child under 18 has provided us with Personal Information, we will delete it immediately.</p>
@@ -121,7 +121,7 @@ export default function PrivacyPolicy() {
                     <p>We may update this policy from time to time. We will notify you by posting the new Privacy Policy on this page. Changes are effective immediately upon posting.</p>
 
                     <h3 id="contact" className="text-2xl font-bold text-gray-900 mt-12">13. Contact Information & Feedback</h3>
-                    <p>If you wish to modify, correct, or delete your personal information, please contact us at <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a>.</p>
+                    <p>If you wish to modify, correct, or delete your personal information, please contact us at <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a>.</p>
                     <p>For our full contact info, visit: <a href="/contact" className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"}/contact/</a></p>
                 </div>
             </div>
