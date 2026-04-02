@@ -3,7 +3,6 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import StickyRomeSection from "@/components/StickyRomeSection";
 import TrustBadges from "@/components/TrustBadges";
-import TourCard from "@/components/TourCard";
 import Footer from "@/components/Footer";
 import ProductRow from "@/components/ProductRow";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -15,20 +14,17 @@ import dynamic from 'next/dynamic';
 
 export const revalidate = 3600;
 
-// Lazy Load Components Below Fold
 const RomeGallery = dynamic(() => import('@/components/RomeGallery'), {
-  loading: () => <div className="h-96 w-full bg-gray-50 animate-pulse" />
+  loading: () => <div className="h-96 w-full animate-pulse" style={{ backgroundColor: '#F5F0E8' }} />,
 });
-const SocialProof = dynamic(() => import('@/components/SocialProof'), { ssr: true }); // Keep SSR for SEO/trust
+const SocialProof = dynamic(() => import('@/components/SocialProof'), { ssr: true });
 const FAQ = dynamic(() => import('@/components/FAQ'));
 
 export default async function Home() {
   let tours = await getTours();
   const settings = await getSettings();
 
-  // Fallback if Sanity is empty (Pre-seed state)
   if (!tours || tours.length === 0) {
-     
     tours = fallbackTours.map(t => ({
       ...t,
       _id: t.id,
@@ -37,94 +33,136 @@ export default async function Home() {
     })) as any;
   }
 
-  // Group tours by category
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const vaticanTours = tours.filter((t: any) => t.category === 'vatican');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const otherTours = tours.filter((t: any) => t.category !== 'vatican').slice(0, 4);
+  const otherTours = tours.filter((t: any) => t.category !== 'vatican').slice(0, 8);
 
   return (
-    <main className="min-h-screen bg-theme-light selection:bg-theme-secondary selection:text-white">
+    <main className="min-h-screen selection:bg-theme-secondary selection:text-white" style={{ backgroundColor: '#F5F0E8' }}>
       <Navbar />
       <Hero settings={settings} />
 
-      {/* Spacer for Hero search bar overlap — bar is ~88px tall, translateY 50% = 44px */}
+      {/* Spacer for overlapping search bar */}
       <div style={{ height: '60px' }} aria-hidden="true" />
 
-      {/* Live Visitor Counter */}
-      <div className="flex justify-center py-4 bg-white/50">
+      {/* Stats ticker */}
+      <div
+        className="py-3 overflow-hidden"
+        style={{ backgroundColor: '#1A1210' }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
+            {[
+              { stat: '15,000+', label: 'Pilgrims Served' },
+              { stat: '48', label: 'Vatican Routes' },
+              { stat: '4.9 ★', label: 'Average Rating' },
+              { stat: '24/7', label: 'Concierge Support' },
+            ].map((item) => (
+              <div key={item.label} className="text-center px-4 py-2">
+                <p
+                  className="font-serif font-bold text-xl md:text-2xl leading-none"
+                  style={{ color: '#C9A84C' }}
+                >
+                  {item.stat}
+                </p>
+                <p
+                  className="font-nav text-[9px] uppercase tracking-[0.2em] mt-1"
+                  style={{ color: 'rgba(245,240,232,0.5)' }}
+                >
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Live visitor counter */}
+      <div className="flex justify-center py-3" style={{ backgroundColor: '#F5F0E8' }}>
         <LiveVisitorCounter />
       </div>
 
-      {/* Social Proof - High Impact Placement */}
+      {/* Social Proof reviews */}
       <SocialProof />
 
+      {/* Full-screen cinematic scroll section */}
       <StickyRomeSection />
 
-      {/* Main Content Area - Subtle Alternating Backgrounds */}
-      <div className="flex flex-col">
+      {/* Vatican Tours Section */}
+      <AnimatedSection id="vatican" delay={0.1}>
+        <ProductRow
+          title="Vatican Museums & St. Peter's"
+          subtitle="Skip the line to the Sistine Chapel, Gardens & Dome"
+          tours={vaticanTours}
+          link="/category/vatican"
+          dark={false}
+        />
+      </AnimatedSection>
 
-        {/* 1. Vatican Section */}
-        <AnimatedSection id="vatican" delay={0.1}>
-          <div className="bg-theme-light py-12 lg:py-24">
-            <ProductRow
-              title="Vatican Museums & St. Peter's"
-              subtitle="Skip the line to the Sistine Chapel, Gardens, and the Dome."
-              tours={vaticanTours}
-              link="/category/vatican"
-            />
-          </div>
-        </AnimatedSection>
+      {/* Visual Break Gallery */}
+      <RomeGallery />
 
-        {/* 2. Visual Break - Rome Gallery */}
-        <RomeGallery />
+      {/* Premium / Dark CTA Section */}
+      <AnimatedSection id="exclusive" delay={0.2}>
+        <ProductRow
+          title="Premium Papal Experiences"
+          subtitle="Exclusive access to events & rare collections"
+          tours={otherTours}
+          link="/category/vatican"
+          dark={true}
+        />
+      </AnimatedSection>
 
-        {/* 3. Exclusive Papal Tours (Mockup split of Vatican tours) */}
-        <AnimatedSection id="exclusive" delay={0.2}>
-          <div className="bg-theme-dark text-theme-light py-12 lg:py-24">
-            <ProductRow
-              title="Premium Audiances"
-              subtitle="Get exclusive access to Papal events and rare collections."
-              tours={otherTours}
-              link="/category/vatican"
-            />
-          </div>
-        </AnimatedSection>
-
-      </div>
-
-      {/* Floating Reviews */}
+      {/* Reviews section */}
       <AnimatedSection delay={0.5}>
-        <div className="bg-gradient-to-b from-white to-cream-100 py-12">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-2 gradient-text-rome">
-              What Our Travelers Say
-            </h2>
-            <p className="text-center text-gray-600 mb-8">
-              Join thousands of happy travelers exploring Rome
+        <section className="py-20 md:py-28" style={{ background: 'linear-gradient(to bottom, #F5F0E8, #ffffff)' }}>
+          <div className="container mx-auto px-6 md:px-16 mb-12 text-center">
+            <p
+              className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
+              style={{ color: '#C9A84C' }}
+            >
+              ✦ TESTIMONIALS ✦
             </p>
-            <FloatingReviews />
+            <h2
+              className="font-serif font-bold leading-[1.1]"
+              style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#1A1210' }}
+            >
+              What Our Pilgrims Say
+            </h2>
+            <p className="font-accent italic text-2xl mt-2" style={{ color: '#C9A84C' }}>
+              Stories from the Eternal City
+            </p>
           </div>
-        </div>
+          <FloatingReviews />
+        </section>
       </AnimatedSection>
 
       {/* Trust Badges */}
       <AnimatedSection delay={0.6}>
-        <div className="bg-white py-12">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">
-              Book with Confidence
+        <section className="py-16" style={{ backgroundColor: '#ffffff' }}>
+          <div className="container mx-auto px-6 md:px-16 text-center mb-8">
+            <p
+              className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-3"
+              style={{ color: '#C9A84C' }}
+            >
+              ✦ BOOK WITH CONFIDENCE ✦
+            </p>
+            <h2
+              className="font-serif font-bold"
+              style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', color: '#1A1210' }}
+            >
+              Why Choose RomeWander
             </h2>
-            <TrustBadges />
           </div>
-        </div>
+          <TrustBadges />
+        </section>
       </AnimatedSection>
 
-      <div id="faq" className="bg-white">
+      {/* FAQ */}
+      <div id="faq" style={{ backgroundColor: '#F5F0E8' }}>
         <FAQ />
       </div>
+
       <Footer />
     </main>
   );
 }
-
