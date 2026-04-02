@@ -305,7 +305,7 @@ export default function Navbar() {
                             className={clsx(
                                 "relative p-2 rounded-full transition-colors",
                                 (isScrolled || isMobileMenuOpen)
-                                    ? "text-sky-900 bg-gray-100/50"
+                                    ? "text-theme-dark bg-gray-100/50"
                                     : "text-white bg-black/20 backdrop-blur-sm"
                             )}
                         >
@@ -321,7 +321,7 @@ export default function Navbar() {
                             className={clsx(
                                 "relative z-[250] p-2 rounded-full transition-colors",
                                 (isScrolled || isMobileMenuOpen)
-                                    ? "text-sky-900 bg-gray-100/50"
+                                    ? "text-theme-dark bg-gray-100/50"
                                     : "text-white bg-black/20 backdrop-blur-sm"
                             )}
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -380,7 +380,10 @@ export default function Navbar() {
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className="text-2xl font-bold text-black hover:text-sky-600 transition-colors"
+                                    className="text-2xl font-serif font-bold transition-colors"
+                                    style={{ color: '#1A1210' }}
+                                    onMouseEnter={e => (e.currentTarget.style.color = '#C9A84C')}
+                                    onMouseLeave={e => (e.currentTarget.style.color = '#1A1210')}
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     {link.name}
