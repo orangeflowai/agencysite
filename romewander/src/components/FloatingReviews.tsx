@@ -1,89 +1,102 @@
 'use client';
 
+import { Star, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
 
-interface Review {
-  id: number;
-  name: string;
-  rating: number;
-  text: string;
-  verified: boolean;
-  delay: number;
-}
-
-const reviews: Review[] = [
-  {
-    id: 1,
-    name: 'Emily R.',
-    rating: 5,
-    text: 'The hop-on hop-off bus was perfect for exploring!',
-    verified: true,
-    delay: 0,
-  },
-  {
-    id: 2,
-    name: 'David K.',
-    rating: 5,
-    text: 'Audio guide was informative and entertaining.',
-    verified: true,
-    delay: 2,
-  },
-  {
-    id: 3,
-    name: 'Sophie B.',
-    rating: 5,
-    text: 'Saw all the major sights in one day!',
-    verified: true,
-    delay: 4,
-  },
+const reviews = [
+    { name: 'James H.', location: 'USA', avatar: 'J', text: 'We did the Sistine Chapel after-hours tour and it was absolutely transcendent. Standing alone in that space, surrounded by Michelangelo\'s masterwork, is something I\'ll never forget.', rating: 5 },
+    { name: 'Maria G.', location: 'United Kingdom', avatar: 'M', text: 'Francesca made the Vatican Museums come alive. The skip-the-line access was a lifesaver — we saw three times more than friends who went independently!', rating: 5 },
+    { name: 'Robert D.', location: 'Australia', avatar: 'R', text: 'The Papal Audience package exceeded every expectation. Our guide knew exactly where to stand, when to move, and turned what could be overwhelming into pure magic.', rating: 5 },
+    { name: 'Sophie B.', location: 'France', avatar: 'S', text: 'As a Catholic, visiting the Vatican had been a lifelong dream. RomeWander turned it into reality. The Swiss Guard escorted walk was extraordinary.', rating: 5 },
+    { name: 'Alessandro R.', location: 'Italy', avatar: 'A', text: 'Even as a Roman, I learned things I never knew. The private Vatican Gardens walk at sunset is a completely different world from the usual tourist trail.', rating: 5 },
+    { name: 'Chen W.', location: 'Singapore', avatar: 'C', text: 'Totally worth it for the early morning access to the Sistine Chapel alone. Absolute silence, golden light — magical. The guide\'s knowledge of the artwork was breathtaking.', rating: 5 },
+    { name: 'Elena M.', location: 'Spain', avatar: 'E', text: 'I brought my elderly parents — RomeWander arranged everything perfectly. Private transport, priority entry, personal guide. It was seamless and incredibly moving for our family.', rating: 5 },
+    { name: 'Thomas K.', location: 'Germany', avatar: 'T', text: 'The Colosseum and Forum private tour was phenomenal. No crowds, expert historian as guide. Walking where gladiators walked with real context changed everything.', rating: 5 },
 ];
 
-export default function FloatingReviews() {
-  return (
-    <div className="relative w-full py-8">
-      <div className="flex flex-wrap gap-4 justify-center">
-        {reviews.map((review) => (
-          <motion.div
-            key={review.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: review.delay,
-              repeat: Infinity,
-              repeatType: 'reverse',
-              repeatDelay: 8,
+function ReviewCard({ review }: { review: typeof reviews[0] }) {
+    return (
+        <div
+            className="w-[340px] shrink-0 relative p-7 shadow-xl"
+            style={{
+                backgroundColor: '#ffffff',
+                border: '1px solid rgba(201,168,76,0.2)',
+                borderRadius: '2px',
             }}
-            className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg max-w-xs border border-gray-100"
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-semibold">
-                {review.name.charAt(0)}
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <p className="font-semibold text-gray-900">{review.name}</p>
-                  {review.verified && (
-                    <span className="text-xs bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full">
-                      Verified
-                    </span>
-                  )}
-                </div>
-                <div className="flex gap-0.5">
-                  {[...Array(review.rating)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-3 h-3 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-              </div>
+        >
+            <Quote
+                className="absolute top-5 right-5"
+                size={32}
+                style={{ color: 'rgba(201,168,76,0.15)' }}
+            />
+
+            {/* Stars */}
+            <div className="flex items-center gap-0.5 mb-4">
+                {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={13} style={{ fill: '#C9A84C', color: '#C9A84C' }} />
+                ))}
             </div>
-            <p className="text-sm text-gray-700">{review.text}</p>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
+
+            {/* Review text */}
+            <p
+                className="font-serif italic text-base leading-relaxed mb-5 min-h-[80px] line-clamp-4"
+                style={{ color: '#1A1210' }}
+            >
+                &ldquo;{review.text}&rdquo;
+            </p>
+
+            {/* Author */}
+            <div className="flex items-center gap-3 border-t pt-4" style={{ borderColor: 'rgba(201,168,76,0.15)' }}>
+                <div
+                    className="w-10 h-10 flex items-center justify-center text-sm font-serif font-bold shrink-0"
+                    style={{
+                        backgroundColor: '#3D1A6E',
+                        color: '#C9A84C',
+                        borderRadius: '2px',
+                    }}
+                >
+                    {review.avatar}
+                </div>
+                <div>
+                    <p className="font-nav font-bold text-xs uppercase tracking-widest" style={{ color: '#1A1210' }}>
+                        {review.name}
+                    </p>
+                    <p className="font-nav text-[10px] uppercase tracking-wider" style={{ color: '#3D1A6E', opacity: 0.6 }}>
+                        {review.location}
+                    </p>
+                </div>
+                <div
+                    className="ml-auto font-nav text-[9px] uppercase tracking-widest px-2 py-1"
+                    style={{ backgroundColor: 'rgba(201,168,76,0.1)', color: '#C9A84C', borderRadius: '999px' }}
+                >
+                    Verified
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default function FloatingReviews() {
+    const doubled = [...reviews, ...reviews];
+
+    return (
+        <div className="relative w-full overflow-hidden">
+            {/* Left + right fade */}
+            <div
+                className="absolute inset-y-0 left-0 w-32 pointer-events-none z-10"
+                style={{ background: 'linear-gradient(to right, #F5F0E8, transparent)' }}
+            />
+            <div
+                className="absolute inset-y-0 right-0 w-32 pointer-events-none z-10"
+                style={{ background: 'linear-gradient(to left, #F5F0E8, transparent)' }}
+            />
+
+            {/* Scrolling row — two copies for seamless loop */}
+            <div className="flex gap-6 animate-marquee" style={{ width: 'max-content' }}>
+                {doubled.map((review, i) => (
+                    <ReviewCard key={i} review={review} />
+                ))}
+            </div>
+        </div>
+    );
 }

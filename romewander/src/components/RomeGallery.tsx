@@ -2,98 +2,184 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
+// High-quality Vatican & Rome images from Pexels / Unsplash with correct IDs
 const images = [
-  { src: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=75&w=600', alt: 'Colosseum, Rome' },
-  { src: 'https://images.unsplash.com/photo-1531572753322-ad063cecc140?auto=format&fit=crop&q=75&w=600', alt: "St Peter's Basilica, Vatican" },
-  { src: 'https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&q=75&w=600', alt: 'Trevi Fountain, Rome' },
-  { src: 'https://images.unsplash.com/photo-1525874684015-58379d421a52?auto=format&fit=crop&q=75&w=600', alt: 'Roman Forum, Rome' },
-  { src: 'https://images.unsplash.com/photo-1548585744-4e87b61edba7?auto=format&fit=crop&q=75&w=600', alt: 'Pantheon, Rome' },
-  { src: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&q=75&w=600', alt: 'Spanish Steps, Rome' },
+  {
+    src: 'https://images.pexels.com/photos/532263/pexels-photo-532263.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    alt: 'St. Peter\'s Basilica, Vatican City',
+    label: "St. Peter's Basilica",
+    span: 'col-span-2 row-span-2',
+  },
+  {
+    src: 'https://images.pexels.com/photos/1701595/pexels-photo-1701595.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
+    alt: 'Vatican Museums Grand Gallery',
+    label: 'Vatican Museums',
+    span: 'col-span-1 row-span-1',
+  },
+  {
+    src: 'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
+    alt: 'Sistine Chapel ceiling detail',
+    label: 'Sistine Chapel',
+    span: 'col-span-1 row-span-1',
+  },
+  {
+    src: 'https://images.pexels.com/photos/2422461/pexels-photo-2422461.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
+    alt: 'Colosseum at sunset, Rome',
+    label: 'The Colosseum',
+    span: 'col-span-1 row-span-1',
+  },
+  {
+    src: 'https://images.pexels.com/photos/356966/pexels-photo-356966.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
+    alt: 'Trevi Fountain, Rome',
+    label: 'Trevi Fountain',
+    span: 'col-span-1 row-span-1',
+  },
+  {
+    src: 'https://images.pexels.com/photos/1797161/pexels-photo-1797161.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
+    alt: 'Roman Forum ancient ruins',
+    label: 'Roman Forum',
+    span: 'col-span-1 row-span-1',
+  },
 ];
 
 export default function RomeGallery() {
   return (
-    <section className="py-24 bg-theme-light border-t border-theme-primary/10 overflow-hidden relative">
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/marble-clean.png")' }} />
-      
-      {/* Vatican Header */}
-      <div className="container mx-auto px-4 mb-16 text-center relative z-10">
-        <motion.h2 
+    <section
+      className="py-24 overflow-hidden"
+      style={{ backgroundColor: '#1A1210' }}
+    >
+      <div className="container mx-auto px-6 md:px-16">
+
+        {/* Header */}
+        <div className="text-center mb-16">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
+            style={{ color: '#C9A84C' }}
+          >
+            ✦ SACRED DESTINATIONS ✦
+          </motion.p>
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-serif font-bold text-theme-dark mb-4 leading-tight"
-        >
-          Relics of the <span className="text-theme-primary italic">Eternal City</span>
-        </motion.h2>
-        <div className="w-24 h-1 bg-theme-primary mx-auto mb-8" />
-        <p className="text-theme-dark/60 text-lg md:text-xl font-serif max-w-2xl mx-auto italic">
-          Experience the sacred architecture and historical depth of Rome through our lens of absolute luxury.
-        </p>
-      </div>
+            className="font-serif font-bold text-white leading-tight mb-4"
+            style={{ fontSize: 'clamp(36px, 5vw, 60px)' }}
+          >
+            Relics of the{' '}
+            <span className="font-accent italic" style={{ color: '#C9A84C' }}>
+              Eternal City
+            </span>
+          </motion.h2>
+          <div className="w-16 h-px mx-auto mb-6" style={{ backgroundColor: 'rgba(201,168,76,0.4)' }} />
+          <p
+            className="font-serif italic text-lg max-w-xl mx-auto"
+            style={{ color: 'rgba(245,240,232,0.55)' }}
+          >
+            Sacred architecture and timeless history, experienced through the lens of absolute luxury.
+          </p>
+        </div>
 
-      {/* Asymmetric "Altarpiece" Layout */}
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
-          
-          {/* Large Centerpiece */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
+        {/* Masonry-style Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4" style={{ gridAutoRows: '220px' }}>
+
+          {/* Large hero image — spans 2 cols × 2 rows */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="md:col-span-8 relative aspect-[16/10] overflow-hidden shadow-2xl border-8 border-white"
+            transition={{ duration: 0.7 }}
+            className="relative overflow-hidden group col-span-2 row-span-2 cursor-pointer"
+            style={{ borderRadius: '2px' }}
           >
             <Image
-              src={images[1].src}
-              alt={images[1].alt}
+              src={images[0].src}
+              alt={images[0].alt}
               fill
-              className="object-cover transition-transform duration-1000 hover:scale-105"
+              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-theme-dark/40 to-transparent" />
-            <div className="absolute bottom-6 left-6">
-                <p className="text-white font-serif text-2xl font-bold italic">{images[1].alt}</p>
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(to top, rgba(26,18,16,0.85) 30%, transparent)' }} />
+            <div className="absolute bottom-5 left-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p className="font-nav text-[9px] uppercase tracking-[0.25em] mb-1" style={{ color: '#C9A84C' }}>Sacred Site</p>
+              <p className="font-serif font-bold text-xl text-white">{images[0].label}</p>
+            </div>
+            {/* Always visible gold tag */}
+            <div
+              className="absolute top-4 left-4 font-nav text-[9px] uppercase tracking-[0.2em] px-3 py-1.5"
+              style={{ backgroundColor: 'rgba(201,168,76,0.9)', color: '#1A1210', borderRadius: '999px' }}
+            >
+              Featured
             </div>
           </motion.div>
 
-          {/* Side Stack */}
-          <div className="md:col-span-4 flex flex-col gap-6">
-             <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex-1 relative min-h-[250px] overflow-hidden shadow-xl border-4 border-white"
-             >
-                <Image src={images[0].src} alt={images[0].alt} fill className="object-cover" />
-             </motion.div>
-             <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex-1 relative min-h-[250px] overflow-hidden shadow-xl border-4 border-white"
-             >
-                <Image src={images[2].src} alt={images[2].alt} fill className="object-cover" />
-             </motion.div>
-          </div>
+          {/* 4 smaller images — 1 col × 1 row each */}
+          {images.slice(1, 5).map((img, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              className="relative overflow-hidden group cursor-pointer"
+              style={{ borderRadius: '2px' }}
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                sizes="(max-width: 768px) 50vw, 25vw"
+              />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'rgba(26,18,16,0.55)' }} />
+              <p className="absolute bottom-3 left-3 right-3 font-nav text-[9px] uppercase tracking-wider text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg">
+                {img.label}
+              </p>
+            </motion.div>
+          ))}
 
-          {/* Bottom Row */}
-          <div className="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-            {images.slice(3, 6).map((img, i) => (
-                <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 * i }}
-                    className="relative aspect-square overflow-hidden shadow-lg border-4 border-white group"
-                >
-                    <Image src={img.src} alt={img.alt} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
-                    <div className="absolute inset-0 bg-theme-primary/10 group-hover:bg-transparent transition-colors" />
-                </motion.div>
-            ))}
-          </div>
-
+          {/* Bottom wide image — 2 cols */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="relative overflow-hidden group cursor-pointer col-span-2"
+            style={{ borderRadius: '2px' }}
+          >
+            <Image
+              src={images[5].src}
+              alt={images[5].alt}
+              fill
+              className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'rgba(26,18,16,0.55)' }} />
+            <p className="absolute bottom-3 left-4 font-nav text-[9px] uppercase tracking-wider text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              {images[5].label}
+            </p>
+          </motion.div>
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-14"
+        >
+          <Link
+            href="/category/vatican"
+            className="inline-block font-nav font-bold uppercase tracking-[0.2em] text-sm py-4 px-12 transition-all hover:scale-105"
+            style={{ border: '1px solid rgba(201,168,76,0.5)', color: '#C9A84C', borderRadius: '2px', backgroundColor: 'transparent' }}
+          >
+            View All Experiences →
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

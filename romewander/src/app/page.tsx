@@ -41,8 +41,9 @@ export default async function Home() {
       <Navbar />
       <Hero settings={settings} />
 
-      {/* Spacer for overlapping search bar */}
+      {/* Spacer — Hero search bar translateY(50%) needs clearance (bar≈88px → 44px overlap) */}
       <div style={{ height: '60px' }} aria-hidden="true" />
+
 
       {/* Stats ticker */}
       <div
