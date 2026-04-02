@@ -737,7 +737,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const [isHydrated, setIsHydrated] = useState(false);
 
     useEffect(() => {
-        const saved = localStorage.getItem(`${process.env.NEXT_PUBLIC_SITE_ID || 'agency'}-lang`) as Language;
+        const saved = localStorage.getItem(`{process.env.NEXT_PUBLIC_SITE_ID || 'agency'}-lang`) as Language;
         if (saved && ['en', 'it', 'es', 'fr', 'de', 'pt', 'ru'].includes(saved)) {
             setLanguageState(saved);
         }
@@ -746,7 +746,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
     const setLanguage = useCallback((lang: Language) => {
         setLanguageState(lang);
-        localStorage.setItem(`${process.env.NEXT_PUBLIC_SITE_ID || 'agency'}-lang`, lang);
+        localStorage.setItem(`{process.env.NEXT_PUBLIC_SITE_ID || 'agency'}-lang`, lang);
         document.documentElement.lang = lang;
     }, []);
 

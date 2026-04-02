@@ -6,8 +6,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Cancellation & Refund Policy | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
-    description: 'Cancellation and Refund Policy for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} bookings.',
+    title: 'Cancellation & Refund Policy | {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
+    description: 'Cancellation and Refund Policy for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} bookings.',
 };
 
 export default function CancellationPolicy() {
@@ -21,7 +21,7 @@ export default function CancellationPolicy() {
 
                 <div className="prose prose-lg prose-emerald text-gray-600 max-w-none space-y-8">
                     <p className="lead text-xl text-gray-800 font-medium">
-                        At ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, we understand that travel plans can change. This policy outlines the conditions under which you may cancel your bookings and your eligibility for refunds.
+                        At {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, we understand that travel plans can change. This policy outlines the conditions under which you may cancel your bookings and your eligibility for refunds.
                     </p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">1. Booking Options at Checkout</h3>
@@ -33,7 +33,7 @@ export default function CancellationPolicy() {
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">2. General Cancellation Rules</h3>
                     <p>
-                        All cancellation requests must be submitted in writing via email to <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}" className="text-emerald-700 font-bold hover:underline">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a> or by contacting our customer service at <a href="tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}" className="text-emerald-700 font-bold hover:underline">351 419 9425</a>. The timing is calculated in Rome local time (CET/CEST).
+                        All cancellation requests must be submitted in writing via email to <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a> or by contacting our customer service at <a href={`tel:{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}`} className="text-emerald-700 font-bold hover:underline">351 419 9425</a>. The timing is calculated in Rome local time (CET/CEST).
                     </p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">3. Refund Eligibility Tiers</h3>
@@ -90,14 +90,14 @@ export default function CancellationPolicy() {
                         <li><strong>Within 72 hours:</strong> Treated as a cancellation and subject to the above refund policy.</li>
                     </ul>
 
-                    <h3 className="text-2xl font-bold text-gray-900 mt-12">7. Cancellations by ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mt-12">7. Cancellations by {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</h3>
                     <p>If we cancel your tour (due to weather, site closures, strikes, etc.), you will receive a <strong>full 100% refund</strong> or the option to reschedule to an alternative date.</p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">8. Late Arrivals</h3>
                     <p>Tours run on a strict schedule. Late arrivals may result in missing the tour with <strong>no refund</strong>. We strongly recommend arriving 15–20 minutes early.</p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">9. Travel Insurance Recommendation</h3>
-                    <p>We strongly recommend purchasing comprehensive travel insurance that covers tour cancellations, medical emergencies, and lost luggage. ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} is not responsible for any costs arising from cancellations due to personal reasons.</p>
+                    <p>We strongly recommend purchasing comprehensive travel insurance that covers tour cancellations, medical emergencies, and lost luggage. {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} is not responsible for any costs arising from cancellations due to personal reasons.</p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">10. Processing of Refunds</h3>
                     <p>Approved refunds are processed back to the original payment method within <strong>5–10 business days</strong>.</p>
@@ -105,12 +105,12 @@ export default function CancellationPolicy() {
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">11. Contact Us</h3>
                     <p>For any questions:</p>
                     <ul className="list-none pl-0 space-y-2">
-                        <li><strong>Email:</strong> <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}" className="text-emerald-700 font-bold hover:underline">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a></li>
-                        <li><strong>Phone/WhatsApp:</strong> <a href="tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}" className="text-emerald-700 font-bold hover:underline">351 419 9425</a></li>
+                        <li><strong>Email:</strong> <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a></li>
+                        <li><strong>Phone/WhatsApp:</strong> <a href={`tel:{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}`} className="text-emerald-700 font-bold hover:underline">351 419 9425</a></li>
                     </ul>
 
                     <p className="mt-12 text-center font-bold text-gray-900">
-                        Thank you for choosing ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. We look forward to giving you an unforgettable experience in the Eternal City!
+                        Thank you for choosing {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. We look forward to giving you an unforgettable experience in the Eternal City!
                     </p>
                 </div>
 

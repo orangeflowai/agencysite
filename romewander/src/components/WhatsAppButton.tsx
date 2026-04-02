@@ -6,7 +6,7 @@ import { useSite } from '@/components/SiteProvider';
 
 export default function WhatsAppButton() {
     const site = useSite();
-    const phoneNumber = (site as any)?.whatsappNumber || '${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}';
+    const phoneNumber = (site as any)?.whatsappNumber || '{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}';
     const message = encodeURIComponent("Ciao! I'm interested in booking a tour.");
 
     return (

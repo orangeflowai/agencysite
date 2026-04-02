@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Privacy Policy | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
-    description: 'Privacy Policy for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. Learn how we collect, use, and protect your personal information.',
+    title: 'Privacy Policy | {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
+    description: 'Privacy Policy for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. Learn how we collect, use, and protect your personal information.',
 };
 
 export default function PrivacyPolicy() {
@@ -20,15 +20,15 @@ export default function PrivacyPolicy() {
 
                 <div className="prose prose-lg prose-emerald text-gray-600 max-w-none space-y-8">
                     <p className="lead text-xl text-gray-800 font-medium">
-                        At ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, we care about the privacy of your data and are committed to protecting it. We will not use or share your information with anyone except as described in this Privacy Policy.
+                        At {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, we care about the privacy of your data and are committed to protecting it. We will not use or share your information with anyone except as described in this Privacy Policy.
                     </p>
 
                     <p>
-                        We use your Personal Information for providing and improving the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. The privacy policy we share is subject to terms and conditions, available here for review: <a href="/terms-and-conditions" className="text-emerald-700 font-bold hover:underline">${process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"}/terms-and-conditions/</a>
+                        We use your Personal Information for providing and improving the Service. By using the Service, you agree to the collection and use of information in accordance with this policy. The privacy policy we share is subject to terms and conditions, available here for review: <a href="/terms-and-conditions" className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"}/terms-and-conditions/</a>
                     </p>
 
                     <p>
-                        This Privacy Policy explains what information we collect about you and why, what we do with that information, and how we handle that information. Throughout this policy, when we write “Tickets in Rome” or “we” or “us,” we’re referring to ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, and our subsidiaries and other affiliates.
+                        This Privacy Policy explains what information we collect about you and why, what we do with that information, and how we handle that information. Throughout this policy, when we write “Tickets in Rome” or “we” or “us,” we’re referring to {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, and our subsidiaries and other affiliates.
                     </p>
 
                     <div className="bg-white p-8 rounded-xl border border-gray-100 shadow-sm my-8">
@@ -65,11 +65,11 @@ export default function PrivacyPolicy() {
                     </ul>
 
                     <h3 id="other-info" className="text-2xl font-bold text-gray-900 mt-12">3. Other Information we collect</h3>
-                    <p>We automatically log certain information regarding the devices you use to access ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}:</p>
+                    <p>We automatically log certain information regarding the devices you use to access {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}:</p>
                     <ul className="list-disc pl-5 space-y-1">
                         <li><strong>Geographical Location:</strong> Identified by an IP address or equivalent identifier.</li>
                         <li><strong>Log Data:</strong> Browser type, settings, date/time of usage, and cookie data.</li>
-                        <li><strong>Usage Information:</strong> Information on how you interact with the ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Site and Services.</li>
+                        <li><strong>Usage Information:</strong> Information on how you interact with the {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Site and Services.</li>
                     </ul>
 
                     <h3 id="usage" className="text-2xl font-bold text-gray-900 mt-12">4. How do we use your personal information?</h3>
@@ -96,7 +96,7 @@ export default function PrivacyPolicy() {
                         <li>Remember your settings between visits.</li>
                         <li>Improve site speed and security.</li>
                     </ul>
-                    <p><em>Note: You can adjust your browser settings (Chrome, Firefox, etc.) to delete or block cookies, though some parts of the ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} site may not load correctly without them.</em></p>
+                    <p><em>Note: You can adjust your browser settings (Chrome, Firefox, etc.) to delete or block cookies, though some parts of the {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} site may not load correctly without them.</em></p>
 
                     <h3 id="widgets" className="text-2xl font-bold text-gray-900 mt-12">7. Third-Party Widgets</h3>
                     <p>Our site may use third-party applications. Your interaction with these widgets is governed by the privacy policies of the companies providing them.</p>
@@ -111,8 +111,8 @@ export default function PrivacyPolicy() {
                         <li><strong>Security:</strong> While we use commercially acceptable means to protect your Personal Information, no method of electronic storage is 100% secure.</li>
                     </ul>
 
-                    <h3 id="deletion" className="text-2xl font-bold text-gray-900 mt-12">10. Can I delete my Personal Data from ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}?</h3>
-                    <p>Please write an email to <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}" className="text-emerald-700 font-bold hover:underline">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a> with your name, email address, and phone number to request removal. We will require identity verification before processing the request.</p>
+                    <h3 id="deletion" className="text-2xl font-bold text-gray-900 mt-12">10. Can I delete my Personal Data from {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}?</h3>
+                    <p>Please write an email to <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a> with your name, email address, and phone number to request removal. We will require identity verification before processing the request.</p>
 
                     <h3 id="children" className="text-2xl font-bold text-gray-900 mt-12">11. Children’s Online Privacy Protection</h3>
                     <p>We comply with COPPA. Our Service does not address anyone under the age of 18. If we discover a child under 18 has provided us with Personal Information, we will delete it immediately.</p>
@@ -121,8 +121,8 @@ export default function PrivacyPolicy() {
                     <p>We may update this policy from time to time. We will notify you by posting the new Privacy Policy on this page. Changes are effective immediately upon posting.</p>
 
                     <h3 id="contact" className="text-2xl font-bold text-gray-900 mt-12">13. Contact Information & Feedback</h3>
-                    <p>If you wish to modify, correct, or delete your personal information, please contact us at <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}" className="text-emerald-700 font-bold hover:underline">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a>.</p>
-                    <p>For our full contact info, visit: <a href="/contact" className="text-emerald-700 font-bold hover:underline">${process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"}/contact/</a></p>
+                    <p>If you wish to modify, correct, or delete your personal information, please contact us at <a href={`mailto:{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a>.</p>
+                    <p>For our full contact info, visit: <a href="/contact" className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"}/contact/</a></p>
                 </div>
             </div>
 

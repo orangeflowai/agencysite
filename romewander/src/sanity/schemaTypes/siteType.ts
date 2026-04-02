@@ -22,7 +22,7 @@ export const siteType = defineType({
             title: 'Site Name',
             type: 'string',
             validation: (rule) => rule.required(),
-            description: 'Display name of the website (e.g., "${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}")',
+            description: 'Display name of the website (e.g., "{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}")',
             group: 'general',
         }),
         defineField({
@@ -66,14 +66,14 @@ export const siteType = defineType({
             name: 'logoText',
             title: 'Logo Text',
             type: 'string',
-            description: 'Text logo if no image logo (e.g., "${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}")',
+            description: 'Text logo if no image logo (e.g., "{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}")',
             group: 'branding',
         }),
         defineField({
             name: 'logoTextAccent',
             title: 'Logo Accent Text',
             type: 'string',
-            description: 'Accent part of logo (e.g., "Rome" in "${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}")',
+            description: 'Accent part of logo (e.g., "Rome" in "{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}")',
             group: 'branding',
         }),
         defineField({
@@ -140,7 +140,7 @@ export const siteType = defineType({
                     name: 'companyName',
                     title: 'Company Name',
                     type: 'string',
-                    description: 'e.g., "${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} S.r.l."',
+                    description: 'e.g., "{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} S.r.l."',
                 }),
                 defineField({
                     name: 'vatNumber',
@@ -199,7 +199,7 @@ export const siteType = defineType({
             name: 'whatsappNumber',
             title: 'WhatsApp Number',
             type: 'string',
-            description: 'WhatsApp number for the floating button (digits only, e.g., ${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""})',
+            description: 'WhatsApp number for the floating button (digits only, e.g., {process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""})',
             group: 'contact',
         }),
         defineField({
