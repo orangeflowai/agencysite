@@ -12,24 +12,24 @@ import PaymentLogos from './PaymentLogos';
 // Category mapping with icons and descriptions
 const categoryLinks = [
     {
-        id: 'colosseum',
-        href: '/category/colosseum',
-        translationKey: 'footer.colosseum'
-    },
-    {
         id: 'vatican',
         href: '/category/vatican',
-        translationKey: 'footer.vatican'
+        label: 'Vatican Museums'
     },
     {
-        id: 'city',
-        href: '/category/city',
-        translationKey: 'footer.city'
+        id: 'sistine',
+        href: '/category/vatican',
+        label: 'Sistine Chapel'
     },
     {
-        id: 'hidden-gems',
-        href: '/category/hidden-gems',
-        translationKey: 'footer.hidden'
+        id: 'papal',
+        href: '/category/vatican',
+        label: 'Papal Audiences'
+    },
+    {
+        id: 'private',
+        href: '/private-tours',
+        label: 'Private Experiences'
     },
 ];
 
@@ -48,23 +48,23 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     // Get site settings with fallbacks
-    const siteTitle = site?.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}';
-    const logoText = site?.logoText || 'Wonders of';
-    const logoTextAccent = site?.logoTextAccent || 'Rome';
+    const siteTitle = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'RomeWander';
+    const logoText = site?.logoText || 'Rome';
+    const logoTextAccent = site?.logoTextAccent || 'Wander';
     const logo = site?.logo?.asset?.url;
 
-    // Business info — only show if set in Sanity, never show placeholder data
+    // Business info
     const businessInfo = site?.businessInfo;
-    const companyName = businessInfo?.companyName || site?.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}';
+    const companyName = businessInfo?.companyName || site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'RomeWander';
     const vatNumber = businessInfo?.vatNumber || '';
     const reaNumber = businessInfo?.reaNumber || '';
     const registeredAddress = businessInfo?.registeredAddress || '';
     const shareCapital = businessInfo?.shareCapital;
 
     // Contact info
-    const contactEmail = site?.contactEmail || '{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}';
-    const contactPhone = site?.contactPhone || '{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}';
-    const officeAddress = site?.officeAddress || t('footer.address');
+    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@romewander.com';
+    const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 389 892 2088';
+    const officeAddress = site?.officeAddress || 'Via della Conciliazione, 00193 Rome, Italy';
 
     // Social links
     const socialLinks = site?.socialLinks;
@@ -159,7 +159,7 @@ export default function Footer() {
                                             className="hover:text-gold transition-colors flex items-center group"
                                         >
                                             <div className="w-0 group-hover:w-4 h-px bg-gold mr-0 group-hover:mr-2 transition-all opacity-0 group-hover:opacity-100" />
-                                            {t(category.translationKey)}
+                                            {category.label}
                                         </Link>
                                     </li>
                                 ))}
@@ -172,7 +172,7 @@ export default function Footer() {
                                             size={12}
                                             className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all duration-300 mr-2"
                                         />
-                                        {t('footer.blog')}
+                                        Vatican Travel Blog
                                     </Link>
                                 </li>
                                 <li>
@@ -184,7 +184,7 @@ export default function Footer() {
                                             size={12}
                                             className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all duration-300 mr-2"
                                         />
-                                        {t('footer.all_tours') || 'All Tours'}
+                                        All Vatican Tours
                                     </Link>
                                 </li>
                             </ul>

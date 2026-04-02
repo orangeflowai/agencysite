@@ -1,60 +1,45 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Shield, Award, CheckCircle, Star, Clock, ThumbsUp } from 'lucide-react';
+import { Shield, Award, CheckCircle, Clock, MapPin, ThumbsUp } from 'lucide-react';
 
 const badges = [
   {
     icon: Shield,
     title: 'Secure Booking',
     subtitle: 'SSL Encrypted',
-    color: 'sky',
   },
   {
     icon: Award,
     title: 'Top Rated',
-    subtitle: '4.9/5 Stars',
-    color: 'yellow',
+    subtitle: '4.9 / 5 Stars',
   },
   {
     icon: CheckCircle,
-    title: 'Verified Tours',
-    subtitle: 'Licensed Guides',
-    color: 'blue',
+    title: 'Certified Guides',
+    subtitle: 'Vatican Licensed',
   },
   {
-    icon: Star,
+    icon: MapPin,
     title: 'Best Price',
     subtitle: 'Guaranteed',
-    color: 'orange',
   },
   {
     icon: Clock,
     title: 'Free Cancel',
-    subtitle: '24h Before',
-    color: 'emerald',
+    subtitle: '24h Before Tour',
   },
   {
     icon: ThumbsUp,
     title: '50,000+',
-    subtitle: 'Happy Travelers',
-    color: 'rose',
+    subtitle: 'Happy Pilgrims',
   },
 ];
 
-const colorClasses: Record<string, string> = {
-  sky: 'from-sky-400 to-sky-600',
-  yellow: 'from-yellow-400 to-yellow-600',
-  blue: 'from-blue-400 to-blue-600',
-  orange: 'from-orange-400 to-orange-600',
-  emerald: 'from-emerald-400 to-emerald-600',
-  rose: 'from-rose-400 to-rose-600',
-};
-
 export default function TrustBadges() {
   return (
-    <div className="w-full py-8">
-      <div className="grid grid-cols-3 md:grid-cols-6 gap-4 max-w-5xl mx-auto">
+    <div className="w-full py-6">
+      <div className="grid grid-cols-3 md:grid-cols-6 gap-4 max-w-5xl mx-auto px-4">
         {badges.map((badge, index) => {
           const Icon = badge.icon;
           return (
@@ -65,34 +50,51 @@ export default function TrustBadges() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
               whileHover={{ scale: 1.05, y: -4 }}
-              className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-gray-100 text-center cursor-pointer"
+              className="flex flex-col items-center text-center cursor-pointer group"
             >
-              <div className={`w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-br ${colorClasses[badge.color]} flex items-center justify-center`}>
-                <Icon className="w-6 h-6 text-white" />
+              <div
+                className="w-14 h-14 mx-auto mb-3 flex items-center justify-center transition-all duration-300 group-hover:shadow-lg"
+                style={{
+                  backgroundColor: 'rgba(201,168,76,0.1)',
+                  border: '1px solid rgba(201,168,76,0.35)',
+                  borderRadius: '2px',
+                  color: '#C9A84C',
+                }}
+              >
+                <Icon size={22} />
               </div>
-              <h3 className="font-semibold text-gray-900 text-sm mb-1">{badge.title}</h3>
-              <p className="text-xs text-gray-500">{badge.subtitle}</p>
+              <h3
+                className="font-nav font-bold text-[11px] uppercase tracking-widest mb-1"
+                style={{ color: '#1A1210' }}
+              >
+                {badge.title}
+              </h3>
+              <p className="text-[10px] font-sans" style={{ color: '#3D1A6E' }}>
+                {badge.subtitle}
+              </p>
             </motion.div>
           );
         })}
       </div>
 
-      {/* TripAdvisor + Review platforms row */}
-      <div className="flex items-center justify-center gap-8 mt-8 flex-wrap">
-        <div className="flex items-center gap-2 text-gray-500 text-sm font-medium">
-          <span className="text-green-600 font-black text-lg">●</span>
+      {/* Review platforms row */}
+      <div className="flex items-center justify-center gap-8 mt-10 flex-wrap">
+        <div className="flex items-center gap-2 text-sm font-sans" style={{ color: '#1A1210' }}>
+          <span className="font-black text-lg" style={{ color: '#00AA6C' }}>●</span>
           <span>TripAdvisor</span>
-          <div className="flex text-yellow-400">{'★★★★★'}</div>
+          <span style={{ color: '#C9A84C' }}>★★★★★</span>
         </div>
-        <div className="flex items-center gap-2 text-gray-500 text-sm font-medium">
-          <span className="text-blue-600 font-black text-lg">G</span>
+        <div className="h-4 w-px" style={{ backgroundColor: 'rgba(201,168,76,0.3)' }} />
+        <div className="flex items-center gap-2 text-sm font-sans" style={{ color: '#1A1210' }}>
+          <span className="font-black text-lg" style={{ color: '#4285F4' }}>G</span>
           <span>Google Reviews</span>
-          <div className="flex text-yellow-400">{'★★★★★'}</div>
+          <span style={{ color: '#C9A84C' }}>★★★★★</span>
         </div>
-        <div className="flex items-center gap-2 text-gray-500 text-sm font-medium">
-          <span className="text-orange-500 font-black text-lg">V</span>
+        <div className="h-4 w-px" style={{ backgroundColor: 'rgba(201,168,76,0.3)' }} />
+        <div className="flex items-center gap-2 text-sm font-sans" style={{ color: '#1A1210' }}>
+          <span className="font-black text-lg" style={{ color: '#F46036' }}>V</span>
           <span>Viator</span>
-          <div className="flex text-yellow-400">{'★★★★★'}</div>
+          <span style={{ color: '#C9A84C' }}>★★★★★</span>
         </div>
       </div>
     </div>
