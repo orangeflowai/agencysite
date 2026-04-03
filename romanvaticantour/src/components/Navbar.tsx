@@ -133,7 +133,7 @@ export default function Navbar() {
                         {site?.logo ? (
                             <Image
                                 src={urlFor(site.logo).url()}
-                                alt={site.title || '${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}'}
+                                alt={site.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}'}
                                 width={150}
                                 height={48}
                                 className="h-8 md:h-10 lg:h-12 w-auto object-contain drop-shadow-md"
@@ -143,7 +143,7 @@ export default function Navbar() {
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
                                 src="/logo.png"
-                                alt="${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}"
+                                alt="{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}"
                                 width={150}
                                 height={48}
                                 className="h-8 md:h-10 lg:h-12 w-auto object-contain drop-shadow-md"

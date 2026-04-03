@@ -48,22 +48,22 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     // Get site settings with fallbacks
-    const siteTitle = site?.title || '${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}';
+    const siteTitle = site?.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}';
     const logoText = site?.logoText || 'Wonders of';
     const logoTextAccent = site?.logoTextAccent || 'Rome';
     const logo = site?.logo?.asset?.url;
 
     // Business info — only show if set in Sanity, never show placeholder data
     const businessInfo = site?.businessInfo;
-    const companyName = businessInfo?.companyName || site?.title || '${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}';
+    const companyName = businessInfo?.companyName || site?.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}';
     const vatNumber = businessInfo?.vatNumber || '';
     const reaNumber = businessInfo?.reaNumber || '';
     const registeredAddress = businessInfo?.registeredAddress || '';
     const shareCapital = businessInfo?.shareCapital;
 
     // Contact info
-    const contactEmail = site?.contactEmail || '${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}';
-    const contactPhone = site?.contactPhone || '${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}';
+    const contactEmail = site?.contactEmail || '{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}';
+    const contactPhone = site?.contactPhone || '{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}';
     const officeAddress = site?.officeAddress || t('footer.address');
 
     // Social links

@@ -5,8 +5,8 @@ import Footer from "@/components/Footer";
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Terms and Conditions | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
-    description: 'Terms and Conditions for use of ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} services and website.',
+    title: `Terms and Conditions | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`,
+    description: `Terms and Conditions for use of ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} services and website.`,
 };
 
 export default function TermsAndConditions() {
@@ -20,17 +20,17 @@ export default function TermsAndConditions() {
 
                 <div className="prose prose-lg prose-emerald text-gray-600 max-w-none space-y-8">
                     <p className="lead text-xl text-gray-800 font-medium">
-                        Please read these Terms and Conditions carefully before booking any services with ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. By making a booking and payment, you agree to be bound by these terms. Contact us first if anything is unclear.
+                        Please read these Terms and Conditions carefully before booking any services with {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. By making a booking and payment, you agree to be bound by these terms. Contact us first if anything is unclear.
                     </p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">Coupons, Discounts & Promotions</h3>
                     <p>Promotions and codes apply only to direct website bookings unless stated otherwise. They cannot usually be combined. See email confirmations for any expiration or special rules.</p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">Liability & Limitations</h3>
-                    <p>${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} is not liable for personal injury, loss/damage to property or luggage, death, or any other loss during tours or transfers. We accept no responsibility for delays, inconveniences, or problems caused by events outside our reasonable control (force majeure), including war, strikes, weather, natural disasters, government restrictions, or site closures.</p>
+                    <p>{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} is not liable for personal injury, loss/damage to property or luggage, death, or any other loss during tours or transfers. We accept no responsibility for delays, inconveniences, or problems caused by events outside our reasonable control (force majeure), including war, strikes, weather, natural disasters, government restrictions, or site closures.</p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">Travel Insurance Recommendation</h3>
-                    <p>We strongly advise all travelers to purchase comprehensive travel insurance that covers trip cancellation, medical emergencies, evacuation, and lost belongings. ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} is not responsible for any related costs if these events occur.</p>
+                    <p>We strongly advise all travelers to purchase comprehensive travel insurance that covers trip cancellation, medical emergencies, evacuation, and lost belongings. {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} is not responsible for any related costs if these events occur.</p>
 
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">SMS / WhatsApp Updates</h3>
                     <p>If you opt in during checkout, you agree to receive booking-related messages (confirmations, changes, logistics) via SMS or WhatsApp. Standard message/data rates may apply. We never share your number or use it for marketing — only for your order.</p>
@@ -70,8 +70,8 @@ export default function TermsAndConditions() {
                     <h3 className="text-2xl font-bold text-gray-900 mt-12">Contact Us</h3>
                     <p>For any questions or concerns regarding these terms:</p>
                     <ul className="list-none pl-0 space-y-2">
-                        <li><strong>Email:</strong> <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}" className="text-emerald-700 font-bold hover:underline">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a></li>
-                        <li><strong>Phone:</strong> <a href="tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}" className="text-emerald-700 font-bold hover:underline">351 419 9425</a></li>
+                        <li><strong>Email:</strong> <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a></li>
+                        <li><strong>Phone:</strong> <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}`} className="text-emerald-700 font-bold hover:underline">351 419 9425</a></li>
                     </ul>
                 </div>
 

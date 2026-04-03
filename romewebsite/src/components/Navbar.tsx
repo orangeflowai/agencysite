@@ -127,13 +127,13 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Top Row / Main Bar: Logo & Links & Search (Side by Side) */}
-                <div className="flex items-center gap-3 lg:gap-4">
+                <div className="relative z-[10000] flex items-center gap-3 lg:gap-4">
                     {/* Logo Image - From Sanity or Local fallback */}
                     <Link href="/" className="z-50 shrink-0">
                         {site?.logo ? (
                             <Image
                                 src={urlFor(site.logo).url()}
-                                alt={site.title || '${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}'}
+                                alt={site.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}'}
                                 width={150}
                                 height={48}
                                 className="h-8 md:h-10 lg:h-12 w-auto object-contain drop-shadow-md"

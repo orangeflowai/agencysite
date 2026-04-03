@@ -94,7 +94,7 @@ function SuccessContent() {
 
     async function fetchTourDetails(slug: string) {
         try {
-            // Use a default meeting point for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}
+            // Use a default meeting point for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}
             setTour({
                 meetingPoint: 'Via Vespasiano 20, Rome (near Ottaviano Metro)',
                 duration: '3 hours',
@@ -188,7 +188,7 @@ function SuccessContent() {
                             <CheckCircle className="w-10 h-10 text-white" />
                         </div>
                         <h1 className="text-3xl font-bold text-white mb-2">Booking Confirmed!</h1>
-                        <p className="text-emerald-100">Grazie! Your ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} adventure awaits</p>
+                        <p className="text-emerald-100">Grazie! Your {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} adventure awaits</p>
                     </div>
 
                     <div className="p-8">
@@ -424,7 +424,7 @@ function SuccessContent() {
                                 onClick={() => {
                                     if (navigator.share) {
                                         navigator.share({
-                                            title: 'My ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Booking',
+                                            title: `My ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Booking`,
                                             text: `I just booked ${booking?.tour_title} on ${booking?.date}!`,
                                             url: window.location.href,
                                         });

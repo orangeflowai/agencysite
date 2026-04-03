@@ -11,6 +11,7 @@ import LiveVisitorCounter from "@/components/LiveVisitorCounter";
 import { getTours, getSettings } from "@/lib/sanityService";
 import { tours as fallbackTours } from "@/lib/toursData";
 import dynamic from 'next/dynamic';
+import HighlightSection from '@/components/HighlightSection';
 
 export const revalidate = 3600;
 
@@ -77,10 +78,6 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Live visitor counter */}
-      <div className="flex justify-center py-3" style={{ backgroundColor: '#F5F0E8' }}>
-        <LiveVisitorCounter />
-      </div>
 
       {/* Social Proof reviews */}
       <SocialProof />
@@ -102,6 +99,17 @@ export default async function Home() {
       {/* Visual Break Gallery */}
       <RomeGallery />
 
+      {/* Highlight Section — Image 3 style */}
+      <HighlightSection
+        eyebrow="WHAT ARE WE HERE FOR?"
+        title="Vatican & Rome's Greatest Experiences, Simplified"
+        body="Finding skip-the-line access that doesn't feel rushed, with guides who actually know the stories — it can feel like a wild goose chase. At RomeWander, your next great tour should be just a click away."
+        ctaText="Browse All Tours"
+        ctaHref="/category/vatican"
+        imageUrl="https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80"
+        imageAlt="Inside the Vatican Museums"
+      />
+
       {/* Premium / Dark CTA Section */}
       <AnimatedSection id="exclusive" delay={0.2}>
         <ProductRow
@@ -113,36 +121,14 @@ export default async function Home() {
         />
       </AnimatedSection>
 
-      {/* Reviews section */}
-      <AnimatedSection delay={0.5}>
-        <section className="py-20 md:py-28" style={{ background: 'linear-gradient(to bottom, #F5F0E8, #ffffff)' }}>
-          <div className="container mx-auto px-6 md:px-16 mb-12 text-center">
-            <p
-              className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
-              style={{ color: '#C9A84C' }}
-            >
-              ✦ TESTIMONIALS ✦
-            </p>
-            <h2
-              className="font-serif font-bold leading-[1.1]"
-              style={{ fontSize: 'clamp(32px, 4.5vw, 52px)', color: '#1A1210' }}
-            >
-              What Our Pilgrims Say
-            </h2>
-            <p className="font-accent italic text-2xl mt-2" style={{ color: '#C9A84C' }}>
-              Stories from the Eternal City
-            </p>
-          </div>
-          <FloatingReviews />
-        </section>
-      </AnimatedSection>
+
 
       {/* Trust Badges */}
       <AnimatedSection delay={0.6}>
         <section className="py-16" style={{ backgroundColor: '#ffffff' }}>
           <div className="container mx-auto px-6 md:px-16 text-center mb-8">
             <p
-              className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-3"
+              className="font-nav text-[10px] tracking-[0.35em] uppercaese font-bold mb-3"
               style={{ color: '#C9A84C' }}
             >
               ✦ BOOK WITH CONFIDENCE ✦
@@ -155,6 +141,7 @@ export default async function Home() {
             </h2>
           </div>
           <TrustBadges />
+
         </section>
       </AnimatedSection>
 

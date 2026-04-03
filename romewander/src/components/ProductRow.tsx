@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Clock, Users, ArrowUpRight } from 'lucide-react';
 import { urlFor } from '@/sanity/lib/image';
 
 interface ProductRowProps {
@@ -11,232 +12,210 @@ interface ProductRowProps {
     subtitle?: string;
     tours: any[];
     link?: string;
-    dark?: boolean; // Allow dark variant
+    dark?: boolean;
 }
 
-const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80';
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80';
 
-function ArchCard({ tour, index }: { tour: any; index: number }) {
-    const [imgError, setImgError] = useState(false);
-
+function TourCard({ tour, index }: { tour: any; index: number }) {
     const rawImageUrl =
         tour.mainImage?.asset?.url
             ? tour.mainImage.asset.url
             : typeof tour.mainImage === 'string'
-                ? tour.mainImage
-                : tour.mainImage
-                    ? urlFor(tour.mainImage).width(600).height(800).url()
-                    : FALLBACK_IMAGE;
-
-    const imageUrl = imgError ? FALLBACK_IMAGE : rawImageUrl;
+            ? tour.mainImage
+            : tour.mainImage
+            ? urlFor(tour.mainImage).width(700).height(480).format('webp').url()
+            : FALLBACK_IMAGE;
 
     const duration = tour.duration
         ? `${tour.duration}${typeof tour.duration === 'number' ? ' hrs' : ''}`
         : tour.durationHours
-            ? `${tour.durationHours} hrs`
-            : tour.groupSize
-                ? null
-                : '3 hrs';
+        ? `${tour.durationHours} hrs`
+        : '3 hrs';
+
+    const groupSize = tour.groupSize || tour.maxGroupSize;
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.55, delay: index * 0.12 }}
-            className="group relative shrink-0"
-            style={{ width: 'clamp(260px, 22vw, 340px)' }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="group shrink-0 flex flex-col bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+            style={{ width: 'clamp(280px, 24vw, 360px)' }}
         >
-            <Link
-                href={`/tour/${tour.slug?.current || '#'}`}
-                className="block relative overflow-hidden cursor-pointer"
-                style={{ borderRadius: '9999px 9999px 8px 8px', aspectRatio: '3/4' }}
-            >
-                {/* Photo */}
+            {/* Image — top 60% */}
+            <Link href={`/tour/${tour.slug?.current || '#'}`} className="block relative overflow-hidden" style={{ aspectRatio: '4/3', flexShrink: 0 }}>
                 <Image
-                    src={imageUrl}
-                    alt={tour.title || 'Vatican tour'}
+                    src={rawImageUrl}
+                    alt={tour.title || 'Rome tour'}
                     fill
-                    sizes="(max-width: 768px) 85vw, 340px"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    onError={() => setImgError(true)}
+                    sizes="(max-width: 768px) 90vw, 360px"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgUE/8QAIRAAAQMEAwEAAAAAAAAAAAAAAQIDBAUREiExQVH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AqjqnWEdTHcDK01oSmhAFkkAHJNOgbGMsYrmuuYfduNriblgikMkfPjh+XfPoHnuAGT//2Q=="
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = FALLBACK_IMAGE; }}
                 />
-
-                {/* Dark gradient */}
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: 'linear-gradient(to top, rgba(26,18,16,0.90) 30%, rgba(26,18,16,0.1) 70%)' }}
-                />
-
-                {/* PRICE BADGE */}
+                {/* Price badge */}
                 {tour.price && (
-                    <div
-                        className="absolute top-4 left-4 font-nav font-bold text-xs uppercase tracking-widest px-3 py-1.5 shadow-lg"
-                        style={{ backgroundColor: '#C9A84C', color: '#1A1210', borderRadius: '999px' }}
-                    >
+                    <div className="absolute top-3 left-3 px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-full shadow-lg" style={{ backgroundColor: '#C9A84C', color: '#1A1210' }}>
                         from €{tour.price}
                     </div>
                 )}
-
-                {/* DURATION BADGE */}
-                {duration && (
-                    <div
-                        className="absolute bottom-[90px] left-4 font-nav font-bold text-[10px] uppercase tracking-widest px-3 py-1.5"
-                        style={{
-                            backgroundColor: 'rgba(26,18,16,0.85)',
-                            color: '#F5F0E8',
-                            borderRadius: '999px',
-                            border: '1px solid rgba(201,168,76,0.4)',
-                        }}
-                    >
-                        ⏱ {duration}
-                    </div>
-                )}
-
-                {/* Arrow CTA */}
-                <div
-                    className="absolute bottom-[90px] right-4 w-10 h-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-45"
-                    style={{ backgroundColor: 'rgba(201,168,76,0.9)', borderRadius: '50%', color: '#1A1210' }}
-                >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="7" y1="17" x2="17" y2="7" />
-                        <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                </div>
-
-                {/* Title + desc */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 pb-6">
-                    <h3 className="font-serif font-bold text-white leading-snug line-clamp-2 text-lg mb-1 drop-shadow-md">
-                        {tour.title}
-                    </h3>
-                    {tour.shortDescription && (
-                        <p className="font-sans text-white/75 text-xs line-clamp-1">
-                            {tour.shortDescription}
-                        </p>
-                    )}
+                {/* Arrow hover CTA */}
+                <div className="absolute top-3 right-3 w-9 h-9 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0" style={{ backgroundColor: 'white', color: '#1A1210' }}>
+                    <ArrowUpRight size={16} />
                 </div>
             </Link>
+
+            {/* Body */}
+            <div className="flex flex-col flex-1 p-5">
+                {/* Category tag */}
+                {tour.category && (
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: '#C9A84C' }}>
+                        {tour.category.replace('-', ' ')}
+                    </span>
+                )}
+
+                <Link href={`/tour/${tour.slug?.current || '#'}`}>
+                    <h3 className="font-serif font-bold text-base leading-snug mb-3 line-clamp-2 hover:opacity-70 transition-opacity" style={{ color: '#1A1210' }}>
+                        {tour.title}
+                    </h3>
+                </Link>
+
+                {tour.shortDescription && (
+                    <p className="text-xs leading-relaxed line-clamp-2 mb-4 flex-1" style={{ color: '#6B5C45' }}>
+                        {tour.shortDescription}
+                    </p>
+                )}
+
+                {/* Tags row */}
+                <div className="flex items-center gap-3 mb-4 flex-wrap">
+                    <span className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: '#6B5C45' }}>
+                        <Clock size={12} style={{ color: '#C9A84C' }} />
+                        {duration}
+                    </span>
+                    {groupSize && (
+                        <span className="flex items-center gap-1.5 text-[11px] font-semibold" style={{ color: '#6B5C45' }}>
+                            <Users size={12} style={{ color: '#C9A84C' }} />
+                            {typeof groupSize === 'number' ? `Up to ${groupSize}` : groupSize}
+                        </span>
+                    )}
+                    {tour.languages && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: '#F5F0E8', color: '#6B5C45' }}>
+                            🌐 {typeof tour.languages === 'string' ? tour.languages : tour.languages[0] || 'EN'}
+                        </span>
+                    )}
+                </div>
+
+                {/* CTA */}
+                <Link
+                    href={`/tour/${tour.slug?.current || '#'}`}
+                    className="mt-auto flex items-center justify-between py-3 px-4 rounded-xl text-sm font-bold transition-all group/btn"
+                    style={{ backgroundColor: '#1A1210', color: '#F5F0E8' }}
+                >
+                    <span>Book Now</span>
+                    <ArrowUpRight size={16} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                </Link>
+            </div>
         </motion.div>
     );
 }
 
 const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, dark = false }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
-    const [isHovered, setIsHovered] = useState(false);
 
-    // Gentle auto-scroll
-    useEffect(() => {
-        const container = scrollRef.current;
-        if (!container) return;
-        let animationFrameId: number;
-        const scroll = () => {
-            if (!isHovered && container) {
-                container.scrollLeft += 0.4;
-                if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) {
-                    container.scrollLeft = 0;
-                }
-            }
-            animationFrameId = requestAnimationFrame(scroll);
-        };
-        animationFrameId = requestAnimationFrame(scroll);
-        return () => cancelAnimationFrame(animationFrameId);
-    }, [isHovered, tours]);
+    const scroll = useCallback((dir: 'left' | 'right') => {
+        const c = scrollRef.current;
+        if (!c) return;
+        const cardW = c.querySelector('[class*="shrink-0"]')?.clientWidth || 340;
+        c.scrollBy({ left: dir === 'right' ? cardW + 24 : -(cardW + 24), behavior: 'smooth' });
+    }, []);
 
     if (!tours || tours.length === 0) return null;
 
-    const bgColor = dark ? '#1A1210' : '#F5F0E8';
+    const bgColor = dark ? '#1A1210' : 'transparent';
     const titleColor = dark ? '#F5F0E8' : '#1A1210';
-    const eyebrowColor = '#C9A84C';
 
     return (
-        <section className="py-20 md:py-28 overflow-hidden" style={{ backgroundColor: bgColor }}>
-            {/* Section Header */}
-            <div className="container mx-auto px-6 md:px-16 mb-14 text-center">
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
-                    style={{ color: eyebrowColor }}
-                >
-                    ✦ SACRED EXPERIENCES ✦
-                </motion.p>
-                <motion.h2
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="font-serif font-bold leading-[1.1] mb-4"
-                    style={{ fontSize: 'clamp(36px, 5vw, 60px)', color: titleColor }}
-                >
-                    {title}
-                </motion.h2>
-                {subtitle && (
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="font-accent italic text-2xl md:text-3xl"
-                        style={{ color: eyebrowColor }}
-                    >
-                        {subtitle}
-                    </motion.p>
-                )}
-            </div>
+        <section className="py-16 md:py-24 overflow-hidden" style={{ backgroundColor: bgColor }}>
+            {/* Header */}
+            <div className="container mx-auto px-6 md:px-12 mb-10">
+                <div className="flex items-end justify-between flex-wrap gap-4">
+                    <div>
+                        <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-3" style={{ color: '#C9A84C' }}>
+                            ✦ CURATED EXPERIENCES ✦
+                        </p>
+                        <h2 className="font-serif font-bold leading-[1.1]" style={{ fontSize: 'clamp(28px, 4vw, 52px)', color: titleColor }}>
+                            {title}
+                        </h2>
+                        {subtitle && (
+                            <p className="mt-2 text-sm md:text-base max-w-lg" style={{ color: dark ? '#C9A84C' : '#6B5C45' }}>
+                                {subtitle}
+                            </p>
+                        )}
+                    </div>
 
-            {/* Arch-Gallery Scroll Container */}
-            <div
-                className="relative"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                onTouchStart={() => setIsHovered(true)}
-                onTouchEnd={() => setIsHovered(false)}
-            >
-                <div
-                    ref={scrollRef}
-                    className="flex items-end gap-6 md:gap-8 overflow-x-auto no-scrollbar pb-4"
-                    style={{
-                        scrollBehavior: 'auto',
-                        WebkitOverflowScrolling: 'touch',
-                        paddingLeft: 'clamp(24px, 8vw, 120px)',
-                        paddingRight: 'clamp(24px, 8vw, 120px)',
-                    }}
-                >
-                    {tours.map((tour, index) => (
-                        <div
-                            key={tour._id || tour.id || index}
-                            style={{ marginBottom: index % 3 === 1 ? '40px' : index % 3 === 2 ? '20px' : '0px' }}
+                    {/* Arrows + View All */}
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => scroll('left')}
+                            aria-label="Scroll left"
+                            className="w-10 h-10 rounded-full border flex items-center justify-center transition-colors hover:bg-opacity-10"
+                            style={{ borderColor: '#C9A84C', color: '#C9A84C' }}
                         >
-                            <ArchCard tour={tour} index={index} />
-                        </div>
-                    ))}
+                            <ChevronLeft size={18} />
+                        </button>
+                        <button
+                            onClick={() => scroll('right')}
+                            aria-label="Scroll right"
+                            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+                            style={{ backgroundColor: '#C9A84C', color: '#1A1210' }}
+                        >
+                            <ChevronRight size={18} />
+                        </button>
+                        {link && (
+                            <Link
+                                href={link}
+                                className="hidden md:inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider ml-2 transition-opacity hover:opacity-70"
+                                style={{ color: '#C9A84C' }}
+                            >
+                                View All <ArrowUpRight size={14} />
+                            </Link>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            {/* View All CTA */}
+            {/* Scroll container */}
+            <div
+                ref={scrollRef}
+                className="flex gap-5 md:gap-6 overflow-x-auto no-scrollbar pb-4"
+                style={{
+                    scrollSnapType: 'x mandatory',
+                    WebkitOverflowScrolling: 'touch',
+                    paddingLeft: 'clamp(24px, 6vw, 96px)',
+                    paddingRight: 'clamp(24px, 6vw, 96px)',
+                }}
+            >
+                {tours.map((tour, index) => (
+                    <div key={tour._id || tour.id || index} style={{ scrollSnapAlign: 'start' }}>
+                        <TourCard tour={tour} index={index} />
+                    </div>
+                ))}
+            </div>
+
+            {/* Mobile View All */}
             {link && (
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
-                    className="text-center mt-14"
-                >
+                <div className="md:hidden text-center mt-8 px-6">
                     <Link
                         href={link}
-                        className="inline-block font-nav font-bold uppercase tracking-[0.2em] text-sm py-4 px-12 transition-all hover:scale-105"
-                        style={{
-                            border: '2px solid #C9A84C',
-                            color: dark ? '#C9A84C' : '#C9A84C',
-                            borderRadius: '2px',
-                            backgroundColor: 'transparent',
-                        }}
+                        className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider py-3 px-8 border-2 rounded-xl"
+                        style={{ borderColor: '#C9A84C', color: '#C9A84C' }}
                     >
-                        View All Experiences →
+                        View All Experiences <ArrowUpRight size={14} />
                     </Link>
-                </motion.div>
+                </div>
             )}
         </section>
     );

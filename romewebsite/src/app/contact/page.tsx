@@ -87,7 +87,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg text-black mb-1">Email Us</h3>
-                                    <p className="text-gray-600 font-medium hover:text-olive transition-colors cursor-pointer">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</p>
+                                    <p className="text-gray-600 font-medium hover:text-olive transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</p>
                                     <p className="text-gray-400 text-xs mt-1 uppercase tracking-wider font-bold">24/7 Support</p>
                                 </div>
                             </div>

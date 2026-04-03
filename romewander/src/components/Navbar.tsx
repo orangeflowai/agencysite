@@ -130,7 +130,7 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Top Row / Main Bar: Logo & Links & Search (Side by Side) */}
-                <div className="flex items-center gap-3 lg:gap-4">
+                <div className="relative z-[10000] flex items-center gap-3 lg:gap-4">
                     {/* Logo Image - From Sanity or Local fallback */}
                     <Link href="/" className="z-50 shrink-0">
                         {site?.logo ? (
@@ -339,7 +339,8 @@ export default function Navbar() {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="fixed inset-0 bg-cream flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[9999] overflow-y-auto"
+                            className="fixed inset-0 flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[9999] overflow-y-auto"
+                            style={{ backgroundColor: '#F5F0E8' }}
                         >
                             {/* Mobile Search Widget */}
                             <div className="w-full max-w-sm bg-white rounded-sm p-6 shadow-2xl space-y-6">

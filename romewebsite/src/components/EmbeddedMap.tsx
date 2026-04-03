@@ -47,7 +47,7 @@ function toEmbedUrl(url: string, fallbackAddress: string): string {
 export default function EmbeddedMap({ location, locationUrl, className = '' }: EmbeddedMapProps) {
     const embedUrl = locationUrl
         ? toEmbedUrl(locationUrl, location)
-        : `https://www.google.com/maps/embed/v1/place?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}&q=${encodeURIComponent(location + ', Rome, Italy')}`;
+        : `https://www.google.com/maps/embed/v1/place?key={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}&q=${encodeURIComponent(location + ', Rome, Italy')}`;
 
     return (
         <div className={`w-full overflow-hidden border border-forest/20 shadow-2xl ${className}`}>

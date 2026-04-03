@@ -6,7 +6,7 @@ import { TrendingUp, Users, Globe, ShieldCheck, ArrowRight, Mail } from 'lucide-
 import Link from 'next/link';
 
 export const metadata = {
-    title: 'Become a Partner | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
+    title: `Become a Partner | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`,
     description: 'Partner with Rome\'s leading tour provider. Earn high commissions and offer unforgettable experiences to your clients.',
 };
 
@@ -21,13 +21,13 @@ export default function BecomeAPartner() {
                 <div className="container mx-auto px-4 py-32 relative z-10 text-center">
                     <span className="inline-block py-1 px-3 rounded-full bg-emerald-800 border border-emerald-700 text-emerald-100 text-sm font-bold tracking-wider mb-6">B2B PARTNERSHIP</span>
                     <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-none">
-                        Grow with <span className="text-emerald-400">${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</span>
+                        Grow with <span className="text-emerald-400">{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</span>
                     </h1>
                     <p className="text-emerald-100 text-xl md:text-2xl max-w-2xl mx-auto font-medium mb-10 leading-relaxed">
                         Join our network of travel agencies, influencers, and affiliates. Offer your clients exclusive skip-the-line access to Rome's wonders.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}" className="px-8 py-4 bg-white text-emerald-900 font-bold rounded-lg hover:bg-emerald-50 transition-all transform hover:-translate-y-1 shadow-lg shadow-emerald-900/50 flex items-center gap-2">
+                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="px-8 py-4 bg-white text-emerald-900 font-bold rounded-lg hover:bg-emerald-50 transition-all transform hover:-translate-y-1 shadow-lg shadow-emerald-900/50 flex items-center gap-2">
                             <Mail size={20} />
                             Contact Partnership Team
                         </a>

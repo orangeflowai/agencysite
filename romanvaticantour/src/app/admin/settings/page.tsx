@@ -245,7 +245,7 @@ export default function SettingsPage() {
                                     type="text"
                                     value={businessForm.companyName}
                                     onChange={(e) => setBusinessForm({ ...businessForm, companyName: e.target.value })}
-                                    placeholder="e.g., ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} S.r.l."
+                                    placeholder={`e.g., ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} S.r.l.`}
                                     className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                                 />
                             </div>
@@ -378,7 +378,7 @@ export default function SettingsPage() {
                                         type="tel"
                                         value={contactForm.whatsappNumber}
                                         onChange={(e) => setContactForm({ ...contactForm, whatsappNumber: e.target.value })}
-                                        placeholder="${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""} (digits only)"
+                                        placeholder={`${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""} (digits only)`}
                                         className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
                                     />
                                 </div>

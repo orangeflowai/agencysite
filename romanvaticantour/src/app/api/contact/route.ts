@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
         const data = await resend.emails.send({
             from: 'Contact Form <onboarding@resend.dev>',
-            to: ['${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}'],
+            to: ['{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}'],
             subject: `New Contact Message from ${firstName} ${lastName || ''}`,
             replyTo: email,
             html: `
