@@ -47,7 +47,7 @@ export default function Navbar() {
   return (
     <nav
       className={clsx(
-        'fixed top-0 left-0 right-0 z-[9999] transition-all duration-300',
+        'fixed top-0 left-0 right-0 z-[10001] transition-all duration-300',
         scrolled || menuOpen
           ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 py-3'
           : 'bg-transparent py-5'
