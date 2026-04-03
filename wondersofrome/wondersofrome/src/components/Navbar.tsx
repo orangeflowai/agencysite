@@ -106,6 +106,7 @@ export default function Navbar() {
     ];
 
     return (
+        <>
         <nav
             className={clsx(
                 'fixed top-0 left-0 right-0 z-[10001] transition-all duration-300 border-b border-transparent',
@@ -313,70 +314,71 @@ export default function Navbar() {
                         </button>
                     </div>
                 </div>
-
-                {/* Mobile Menu */}
-                <AnimatePresence>
-                    {isMobileMenuOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            className="fixed inset-0 bg-[#fefce8] flex flex-col items-center justify-start pt-28 space-y-8 lg:hidden p-4 z-[9998] overflow-y-auto"
-                        >
-                            {/* Mobile Search Widget */}
-                            <div className="w-full max-w-sm bg-white rounded-2xl p-4 shadow-xl space-y-4">
-                                <p className="text-xs font-bold text-gray-400 uppercase">Search Tours</p>
-                                <select
-                                    value={destination}
-                                    onChange={(e) => setDestination(e.target.value)}
-                                    className="w-full p-3 bg-gray-50 rounded-lg text-lg font-bold outline-none border border-gray-100 focus:border-[#d4af37] transition-colors"
-                                >
-                                    {searchOptions.map(opt => (
-                                        <option key={opt.slug} value={opt.title}>{opt.title}</option>
-                                    ))}
-                                </select>
-                                <div className="flex gap-2">
-                                    <input
-                                        type="date"
-                                        value={date}
-                                        onChange={(e) => setDate(e.target.value)}
-                                        className="w-full p-3 bg-gray-50 rounded-lg font-bold outline-none border border-gray-100 focus:border-[#d4af37] transition-colors"
-                                    />
-                                    <div className="flex items-center bg-gray-50 rounded-lg border border-gray-100 px-2 w-32 justify-between">
-                                        <button onClick={() => setGuests(Math.max(1, guests - 1))} className="p-2"><Minus size={14} /></button>
-                                        <span className="font-bold">{guests}</span>
-                                        <button onClick={() => setGuests(guests + 1)} className="p-2"><Plus size={14} /></button>
-                                    </div>
-                                </div>
-                                <button onClick={handleSearch} className="w-full bg-[#0f172a] hover:bg-[#d4af37] text-[#d4af37] hover:text-[#0f172a] font-bold py-3 rounded-xl shadow-lg transition-colors border border-[#d4af37]/50">
-                                    Search
-                                </button>
-                            </div>
-
-                            <div className="h-px w-full max-w-sm bg-gray-200" />
-
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className="text-2xl font-bold text-slate-800 hover:text-[#d4af37] transition-colors"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
-
-                            {/* Mobile Language Selector */}
-                            <div className="border-t border-gray-100 pt-6 w-full max-w-sm">
-                                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 text-center">Language</p>
-                                <div className="flex justify-center">
-                                    <LanguageSwitcher />
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
             </div>
         </nav>
+
+        {/* Mobile Menu Overlay — OUTSIDE nav, in root stacking context */}
+        <AnimatePresence>
+            {isMobileMenuOpen && (
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="fixed inset-0 bg-[#fefce8] flex flex-col items-center justify-start pt-28 space-y-8 lg:hidden p-4 z-[10000] overflow-y-auto"
+                >
+                    {/* Mobile Search Widget */}
+                    <div className="w-full max-w-sm bg-white rounded-2xl p-4 shadow-xl space-y-4">
+                        <p className="text-xs font-bold text-gray-400 uppercase">Search Tours</p>
+                        <select
+                            value={destination}
+                            onChange={(e) => setDestination(e.target.value)}
+                            className="w-full p-3 bg-gray-50 rounded-lg text-lg font-bold outline-none border border-gray-100 focus:border-[#d4af37] transition-colors"
+                        >
+                            {searchOptions.map(opt => (
+                                <option key={opt.slug} value={opt.title}>{opt.title}</option>
+                            ))}
+                        </select>
+                        <div className="flex gap-2">
+                            <input
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                className="w-full p-3 bg-gray-50 rounded-lg font-bold outline-none border border-gray-100 focus:border-[#d4af37] transition-colors"
+                            />
+                            <div className="flex items-center bg-gray-50 rounded-lg border border-gray-100 px-2 w-32 justify-between">
+                                <button onClick={() => setGuests(Math.max(1, guests - 1))} className="p-2"><Minus size={14} /></button>
+                                <span className="font-bold">{guests}</span>
+                                <button onClick={() => setGuests(guests + 1)} className="p-2"><Plus size={14} /></button>
+                            </div>
+                        </div>
+                        <button onClick={handleSearch} className="w-full bg-[#0f172a] hover:bg-[#d4af37] text-[#d4af37] hover:text-[#0f172a] font-bold py-3 rounded-xl shadow-lg transition-colors border border-[#d4af37]/50">
+                            Search
+                        </button>
+                    </div>
+
+                    <div className="h-px w-full max-w-sm bg-gray-200" />
+
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            className="text-2xl font-bold text-slate-800 hover:text-[#d4af37] transition-colors"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
+
+                    {/* Mobile Language Selector */}
+                    <div className="border-t border-gray-100 pt-6 w-full max-w-sm">
+                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 text-center">Language</p>
+                        <div className="flex justify-center">
+                            <LanguageSwitcher />
+                        </div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
+        </>
     );
 }

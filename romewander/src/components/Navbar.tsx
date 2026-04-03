@@ -330,79 +330,79 @@ export default function Navbar() {
                         </button>
                     </div>
                 </div>
-
-                {/* Mobile Menu */}
-                <AnimatePresence>
-                    {isMobileMenuOpen && (
-                        <motion.div
-                            data-mobile-menu-open="true"
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            className="fixed inset-0 flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[9998] overflow-y-auto"
-                            style={{ backgroundColor: '#F5F0E8' }}
-                        >
-                            {/* Mobile Search Widget */}
-                            <div className="w-full max-w-sm bg-white rounded-sm p-6 shadow-2xl space-y-6">
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Search Tours</p>
-                                <select
-                                    value={destination}
-                                    onChange={(e) => setDestination(e.target.value)}
-                                    className="w-full p-4 bg-gray-50 rounded-sm text-lg font-bold outline-none border border-gray-100 focus:border-theme-primary transition-colors"
-                                >
-                                    {searchOptions.map(opt => (
-                                        <option key={opt.slug} value={opt.title}>{opt.title}</option>
-                                    ))}
-                                </select>
-                                <div className="flex flex-col gap-3">
-                                    <input
-                                        type="date"
-                                        value={date}
-                                        onChange={(e) => setDate(e.target.value)}
-                                        className="w-full p-4 bg-gray-50 rounded-sm font-bold outline-none border border-gray-100 focus:border-theme-primary transition-colors"
-                                    />
-                                    <div className="flex items-center bg-gray-50 rounded-sm border border-gray-100 px-3 py-1 justify-between h-14">
-                                        <span className="text-xs font-bold text-gray-400 uppercase">Guests</span>
-                                        <div className="flex items-center gap-4">
-                                            <button onClick={() => setGuests(Math.max(1, guests - 1))} className="p-2"><Minus size={14} /></button>
-                                            <span className="font-bold w-6 text-center">{guests}</span>
-                                            <button onClick={() => setGuests(guests + 1)} className="p-2"><Plus size={14} /></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button onClick={handleSearch} className="w-full bg-theme-primary text-white font-black uppercase tracking-widest py-4 rounded-sm shadow-xl hover:bg-theme-dark transition-colors">
-                                    Search
-                                </button>
-                            </div>
-
-                            <div className="h-px w-full max-w-sm bg-gray-200" />
-
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className="text-2xl font-serif font-bold transition-colors"
-                                    style={{ color: '#1A1210' }}
-                                    onMouseEnter={e => (e.currentTarget.style.color = '#C9A84C')}
-                                    onMouseLeave={e => (e.currentTarget.style.color = '#1A1210')}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
-
-                            {/* Mobile Language Selector */}
-                            <div className="border-t border-gray-100 pt-6 w-full max-w-sm">
-                                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 text-center">Language</p>
-                                <div className="flex justify-center">
-                                    <LanguageSwitcher />
-                                </div>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
             </div>
         </nav>
+
+        {/* Mobile Menu Overlay — MUST be OUTSIDE nav to escape its stacking context */}
+        <AnimatePresence>
+            {isMobileMenuOpen && (
+                <motion.div
+                    data-mobile-menu-open="true"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    className="fixed inset-0 flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[10000] overflow-y-auto"
+                    style={{ backgroundColor: '#F5F0E8' }}
+                >
+                    {/* Mobile Search Widget */}
+                    <div className="w-full max-w-sm bg-white rounded-sm p-6 shadow-2xl space-y-6">
+                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Search Tours</p>
+                        <select
+                            value={destination}
+                            onChange={(e) => setDestination(e.target.value)}
+                            className="w-full p-4 bg-gray-50 rounded-sm text-lg font-bold outline-none border border-gray-100 focus:border-theme-primary transition-colors"
+                        >
+                            {searchOptions.map(opt => (
+                                <option key={opt.slug} value={opt.title}>{opt.title}</option>
+                            ))}
+                        </select>
+                        <div className="flex flex-col gap-3">
+                            <input
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                                className="w-full p-4 bg-gray-50 rounded-sm font-bold outline-none border border-gray-100 focus:border-theme-primary transition-colors"
+                            />
+                            <div className="flex items-center bg-gray-50 rounded-sm border border-gray-100 px-3 py-1 justify-between h-14">
+                                <span className="text-xs font-bold text-gray-400 uppercase">Guests</span>
+                                <div className="flex items-center gap-4">
+                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="p-2"><Minus size={14} /></button>
+                                    <span className="font-bold w-6 text-center">{guests}</span>
+                                    <button onClick={() => setGuests(guests + 1)} className="p-2"><Plus size={14} /></button>
+                                </div>
+                            </div>
+                        </div>
+                        <button onClick={handleSearch} className="w-full bg-theme-primary text-white font-black uppercase tracking-widest py-4 rounded-sm shadow-xl hover:bg-theme-dark transition-colors">
+                            Search
+                        </button>
+                    </div>
+
+                    <div className="h-px w-full max-w-sm bg-gray-200" />
+
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            className="text-2xl font-serif font-bold transition-colors"
+                            style={{ color: '#1A1210' }}
+                            onMouseEnter={e => (e.currentTarget.style.color = '#C9A84C')}
+                            onMouseLeave={e => (e.currentTarget.style.color = '#1A1210')}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            {link.name}
+                        </Link>
+                    ))}
+
+                    {/* Mobile Language Selector */}
+                    <div className="border-t border-gray-100 pt-6 w-full max-w-sm">
+                        <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 text-center">Language</p>
+                        <div className="flex justify-center">
+                            <LanguageSwitcher />
+                        </div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
         </>
     );
 }

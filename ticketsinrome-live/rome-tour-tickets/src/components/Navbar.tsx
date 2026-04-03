@@ -45,6 +45,7 @@ export default function Navbar() {
     pathname === href || pathname.startsWith(href + '/');
 
   return (
+    <>
     <nav
       className={clsx(
         'fixed top-0 left-0 right-0 z-[10001] transition-all duration-300',
@@ -159,48 +160,49 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 26, stiffness: 220 }}
-            className="fixed inset-0 bg-white z-[9998] flex flex-col items-center justify-start pt-28 px-6 overflow-y-auto"
-          >
-            <nav className="flex flex-col gap-4 w-full text-center mb-10">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={clsx(
-                    'text-2xl font-black uppercase tracking-tight py-3 border-b border-gray-50 transition-colors',
-                    isActive(link.href) ? 'text-emerald-600' : 'text-gray-900 hover:text-emerald-600'
-                  )}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
-
-            <Link
-              href="/search"
-              onClick={() => setMenuOpen(false)}
-              className="w-full py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-black text-base uppercase tracking-widest rounded-2xl text-center shadow-lg shadow-[#f97316]/30 mb-6 transition-colors"
-            >
-              Book Now
-            </Link>
-
-            <div className="border-t border-gray-100 pt-5">
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Language</p>
-              <LanguageSwitcher />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </nav>
+
+    {/* Mobile menu overlay — OUTSIDE nav to escape stacking context */}
+    <AnimatePresence>
+      {menuOpen && (
+        <motion.div
+          initial={{ opacity: 0, x: '100%' }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: '100%' }}
+          transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+          className="fixed inset-0 bg-white z-[10000] flex flex-col items-center justify-start pt-28 px-6 overflow-y-auto"
+        >
+          <nav className="flex flex-col gap-4 w-full text-center mb-10">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className={clsx(
+                  'text-2xl font-black uppercase tracking-tight py-3 border-b border-gray-50 transition-colors',
+                  isActive(link.href) ? 'text-emerald-600' : 'text-gray-900 hover:text-emerald-600'
+                )}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          <Link
+            href="/search"
+            onClick={() => setMenuOpen(false)}
+            className="w-full py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-black text-base uppercase tracking-widest rounded-2xl text-center shadow-lg shadow-[#f97316]/30 mb-6 transition-colors"
+          >
+            Book Now
+          </Link>
+
+          <div className="border-t border-gray-100 pt-5">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Language</p>
+            <LanguageSwitcher />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   );
 }
