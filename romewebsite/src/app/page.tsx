@@ -1,13 +1,11 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import StickyRomeSection from "@/components/StickyRomeSection";
 import TrustBadges from "@/components/TrustBadges";
-import TourCard from "@/components/TourCard";
 import Footer from "@/components/Footer";
 import ProductRow from "@/components/ProductRow";
 import AnimatedSection from "@/components/AnimatedSection";
-import FloatingReviews from "@/components/FloatingReviews";
+import HighlightSection from "@/components/HighlightSection";
 import LiveVisitorCounter from "@/components/LiveVisitorCounter";
 import { getTours, getSettings } from "@/lib/sanityService";
 import { tours as fallbackTours } from "@/lib/toursData";
@@ -15,20 +13,18 @@ import dynamic from 'next/dynamic';
 
 export const revalidate = 3600;
 
-// Lazy Load Components Below Fold
 const RomeGallery = dynamic(() => import('@/components/RomeGallery'), {
-  loading: () => <div className="h-96 w-full bg-gray-50 animate-pulse" />
+  loading: () => <div className="h-96 w-full animate-pulse" style={{ backgroundColor: '#F5F0E8' }} />,
 });
-const SocialProof = dynamic(() => import('@/components/SocialProof'), { ssr: true }); // Keep SSR for SEO/trust
+const SocialProof = dynamic(() => import('@/components/SocialProof'), { ssr: true });
+const StickyRomeSection = dynamic(() => import('@/components/StickyRomeSection'));
 const FAQ = dynamic(() => import('@/components/FAQ'));
 
 export default async function Home() {
   let tours = await getTours();
   const settings = await getSettings();
 
-  // Fallback if Sanity is empty (Pre-seed state)
   if (!tours || tours.length === 0) {
-     
     tours = fallbackTours.map(t => ({
       ...t,
       _id: t.id,
@@ -37,106 +33,127 @@ export default async function Home() {
     })) as any;
   }
 
-  // Group tours by category
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const vaticanTours = tours.filter((t: any) => t.category === 'vatican');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const colosseumTours = tours.filter((t: any) => t.category === 'colosseum');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cityTours = tours.filter((t: any) => t.category === 'city');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hiddenGemsTours = tours.filter((t: any) => t.category === 'hidden-gems');
 
   return (
-    <main className="min-h-screen bg-cream selection:bg-forest/20 selection:text-forest">
+    <main className="min-h-screen selection:bg-theme-secondary selection:text-white" style={{ backgroundColor: '#F5F0E8' }}>
       <Navbar />
       <Hero settings={settings} />
 
-      {/* Live Visitor Counter */}
-      <div className="flex justify-center py-8 bg-forest/[0.02] border-y border-forest/5">
-        <LiveVisitorCounter />
+      {/* Spacer for hero search overlap */}
+      <div style={{ height: '60px' }} aria-hidden="true" />
+
+      {/* Stats ticker */}
+      <div className="py-3 overflow-hidden" style={{ backgroundColor: '#1A1210' }}>
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
+            {[
+              { stat: '15,000+', label: 'Pilgrims Served' },
+              { stat: '48', label: 'Vatican Routes' },
+              { stat: '4.9 ★', label: 'Average Rating' },
+              { stat: '24/7', label: 'Concierge Support' },
+            ].map((item) => (
+              <div key={item.label} className="text-center px-4 py-2">
+                <p className="font-serif font-bold text-xl md:text-2xl leading-none" style={{ color: '#C9A84C' }}>
+                  {item.stat}
+                </p>
+                <p className="font-nav text-[9px] uppercase tracking-[0.2em] mt-1" style={{ color: 'rgba(245,240,232,0.5)' }}>
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Social Proof - High Impact Placement */}
+      {/* Social Proof */}
       <SocialProof />
 
+      {/* Cinema scroll section */}
       <StickyRomeSection />
 
-      {/* Main Content Area - Subtle Alternating Backgrounds */}
-      <div className="flex flex-col">
+      {/* Vatican Tours */}
+      <AnimatedSection id="vatican" delay={0.1}>
+        <ProductRow
+          title="Vatican Museums & St. Peter's"
+          subtitle="Skip the line to the Sistine Chapel, Gardens & Dome"
+          tours={vaticanTours}
+          link="/category/vatican"
+          dark={false}
+        />
+      </AnimatedSection>
 
-        {/* 1. Vatican Section */}
-        <AnimatedSection id="vatican" delay={0.1}>
-          <div className="bg-cream py-16 lg:py-32 border-b border-forest/10">
-            <ProductRow
-              title="Vatican Museums & St. Peter's"
-              subtitle="Skip the line to the Sistine Chapel, Gardens, and the Dome."
-              tours={vaticanTours}
-              link="/category/vatican"
-            />
-          </div>
-        </AnimatedSection>
+      {/* Gallery break */}
+      <RomeGallery />
 
-        {/* 2. Visual Break - Rome Gallery */}
-        <RomeGallery />
+      {/* Highlight Section — Image 3 style */}
+      <HighlightSection
+        eyebrow="WHAT ARE WE HERE FOR?"
+        title="Vatican & Rome's Greatest Experiences, Simplified"
+        body="Finding skip-the-line access that doesn't feel rushed, with guides who actually know the stories — it can feel like a wild goose chase. At RomeWander, your next great tour should be just a click away."
+        ctaText="Browse All Tours"
+        ctaHref="/category/vatican"
+        imageUrl="https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80"
+        imageAlt="Inside the Vatican Museums"
+      />
 
-        {/* 3. Colosseum Section */}
-        <AnimatedSection id="colosseum" delay={0.2}>
-          <div className="bg-forest/[0.03] py-16 lg:py-32 border-b border-forest/10">
-            <ProductRow
-              title="Colosseum & Ancient Rome"
-              subtitle="Walk in the footsteps of Gladiators. Arena, Underground, and Forum."
-              tours={colosseumTours}
-              link="/category/colosseum"
-            />
-          </div>
-        </AnimatedSection>
+      {/* Premium / Dark Section */}
+      <AnimatedSection id="exclusive" delay={0.2}>
+        <ProductRow
+          title="Premium Papal Experiences"
+          subtitle="Exclusive access to events & rare collections"
+          tours={colosseumTours.slice(0, 6)}
+          link="/category/colosseum"
+          dark={true}
+        />
+      </AnimatedSection>
 
-        {/* 4. City & Hidden Gems */}
-        <AnimatedSection id="city" delay={0.3}>
-          <div className="bg-cream py-16 lg:py-32 border-b border-forest/10">
-            <ProductRow
-              title="Rome City Tours"
-              subtitle="Explore the Pantheon, Trevi Fountain, Spanish Steps and iconic squares."
-              tours={cityTours}
-              link="/category/city"
-            />
-          </div>
-        </AnimatedSection>
+      {/* City Tours */}
+      <AnimatedSection id="city" delay={0.3}>
+        <ProductRow
+          title="Rome City Tours"
+          subtitle="Explore the Pantheon, Trevi Fountain, Spanish Steps and iconic squares."
+          tours={cityTours}
+          link="/category/city"
+          dark={false}
+        />
+      </AnimatedSection>
 
-        {/* 5. Day Trips */}
-        <AnimatedSection id="hidden-gems" delay={0.4}>
-          <div className="bg-forest/[0.03] py-16 lg:py-32 border-b border-forest/10">
-            <ProductRow
-              title="Italy Hidden Gems"
-              subtitle="Catacombs, Golf Cart tours, Day trips, Food tours & unique experiences."
-              tours={hiddenGemsTours}
-              link="/category/hidden-gems"
-            />
-          </div>
-        </AnimatedSection>
-
-      </div>
-
-
+      {/* Hidden Gems */}
+      <AnimatedSection id="hidden-gems" delay={0.4}>
+        <ProductRow
+          title="Italy Hidden Gems"
+          subtitle="Catacombs, Golf Cart tours, Day trips, Food tours & unique experiences."
+          tours={hiddenGemsTours}
+          link="/category/hidden-gems"
+          dark={true}
+        />
+      </AnimatedSection>
 
       {/* Trust Badges */}
       <AnimatedSection delay={0.6}>
-        <div className="bg-cream py-24">
-          <div className="container mx-auto px-4">
-            <h2 className="font-serif text-3xl font-bold text-center mb-12 text-forest italic underline decoration-forest/10 underline-offset-8">
-              Book with Confidence
+        <section className="py-20" style={{ backgroundColor: '#ffffff' }}>
+          <div className="container mx-auto px-6 md:px-16 text-center mb-12">
+            <p className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-3" style={{ color: '#C9A84C' }}>
+              ✦ BOOK WITH CONFIDENCE ✦
+            </p>
+            <h2 className="font-serif font-bold" style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', color: '#1A1210' }}>
+              Why Choose RomeWander
             </h2>
-            <TrustBadges />
           </div>
-        </div>
+          <TrustBadges />
+        </section>
       </AnimatedSection>
 
-      <div id="faq" className="bg-white">
+      {/* FAQ */}
+      <div id="faq" style={{ backgroundColor: '#F5F0E8' }}>
         <FAQ />
       </div>
+
       <Footer />
     </main>
   );
 }
-

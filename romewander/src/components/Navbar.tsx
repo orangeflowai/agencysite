@@ -117,7 +117,7 @@ export default function Navbar() {
 
     return (
         <>
-        <div className="fixed top-0 left-0 right-0 z-[110]">
+        <div className="fixed top-0 left-0 right-0 z-[10001]">
             <Marquee />
         </div>
         <nav
@@ -339,7 +339,7 @@ export default function Navbar() {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="fixed inset-0 flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[9999] overflow-y-auto"
+                            className="fixed inset-0 flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[9998] overflow-y-auto"
                             style={{ backgroundColor: '#F5F0E8' }}
                         >
                             {/* Mobile Search Widget */}

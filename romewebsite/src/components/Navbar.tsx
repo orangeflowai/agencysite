@@ -119,7 +119,7 @@ export default function Navbar() {
     return (
         <nav
             className={clsx(
-                'fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b border-transparent',
+                'fixed top-0 left-0 right-0 z-[10001] transition-all duration-300 border-b border-transparent',
                 (isScrolled || isMobileMenuOpen)
                     ? 'bg-cream shadow-sm border-forest/10 py-2'
                     : 'bg-transparent py-3 md:py-4'
@@ -336,7 +336,7 @@ export default function Navbar() {
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
-                            className="fixed inset-0 bg-cream flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[9999] overflow-y-auto"
+                            className="fixed inset-0 bg-cream flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[9998] overflow-y-auto"
                         >
                             {/* Mobile Search Widget */}
                             <div className="w-full max-w-sm bg-white border border-forest/10 p-4 space-y-4">

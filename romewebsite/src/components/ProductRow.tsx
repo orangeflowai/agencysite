@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor } from '@/lib/image';
 
 interface ProductRowProps {
     title: string;
