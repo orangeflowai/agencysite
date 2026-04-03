@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/**' },
       { protocol: 'https', hostname: 'api.dicebear.com', pathname: '/**' },
       { protocol: 'https', hostname: 'i.pravatar.cc', pathname: '/**' },
+      // Cloudflare R2 — standard public bucket URLs
+      { protocol: 'https', hostname: '*.r2.cloudflarestorage.com', pathname: '/**' },
+      { protocol: 'https', hostname: '*.pub.r2.dev', pathname: '/**' },
       // Your Supabase storage bucket — auto-detected from NEXT_PUBLIC_SUPABASE_URL
       { protocol: 'https', hostname: supabaseHostname(), pathname: '/**' },
     ],

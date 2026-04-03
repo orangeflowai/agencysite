@@ -1,102 +1,87 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Shield, Award, CheckCircle, Clock, MapPin, ThumbsUp } from 'lucide-react';
+import { Shield, Award, Clock, ThumbsUp } from 'lucide-react';
 
-const badges = [
+const features = [
   {
-    icon: Shield,
-    title: 'Secure Booking',
-    subtitle: 'SSL Encrypted',
+    Icon: Award,
+    title: 'ROME TOUR\nEXPERTS',
+    description: 'Licensed & accredited guides with 10+ years leading Vatican and Colosseum tours. Fully ATAC and Italian Ministry certified.',
   },
   {
-    icon: Award,
-    title: 'Top Rated',
-    subtitle: '4.9 / 5 Stars',
+    Icon: Shield,
+    title: 'WORRY-FREE\nBOOKING',
+    description: 'Free cancellation up to 24 hours before your tour. Instant confirmation email with your official booking voucher.',
   },
   {
-    icon: CheckCircle,
-    title: 'Certified Guides',
-    subtitle: 'Vatican Licensed',
+    Icon: Clock,
+    title: '24 HOUR\nSUPPORT',
+    description: 'Multilingual support team available 24hrs a day via WhatsApp, email, and phone throughout your Rome holiday.',
   },
   {
-    icon: MapPin,
-    title: 'Best Price',
-    subtitle: 'Guaranteed',
-  },
-  {
-    icon: Clock,
-    title: 'Free Cancel',
-    subtitle: '24h Before Tour',
-  },
-  {
-    icon: ThumbsUp,
-    title: '50,000+',
-    subtitle: 'Happy Pilgrims',
+    Icon: ThumbsUp,
+    title: 'EXCELLENT\nCUSTOMER SERVICE',
+    description: 'Rated 5★ on Google and TripAdvisor by over 50,000 happy travellers. We are here to make your Rome trip unforgettable.',
   },
 ];
 
 export default function TrustBadges() {
   return (
-    <div className="w-full py-6">
-      <div className="grid grid-cols-3 md:grid-cols-6 gap-4 max-w-5xl mx-auto px-4">
-        {badges.map((badge, index) => {
-          const Icon = badge.icon;
-          return (
-            <motion.div
-              key={badge.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              whileHover={{ scale: 1.05, y: -4 }}
-              className="flex flex-col items-center text-center cursor-pointer group"
+    <div className="w-full py-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 max-w-5xl mx-auto">
+        {features.map(({ Icon, title, description }, index) => (
+          <motion.div
+            key={title}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: index * 0.12 }}
+            className="flex flex-col items-center text-center group"
+          >
+            {/* Circular Icon Container */}
+            <div
+              className="w-24 h-24 rounded-full flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-105 shadow-sm"
+              style={{ backgroundColor: '#F5F0E8', border: '2px solid rgba(201,168,76,0.2)' }}
             >
-              <div
-                className="w-14 h-14 mx-auto mb-3 flex items-center justify-center transition-all duration-300 group-hover:shadow-lg"
-                style={{
-                  backgroundColor: 'rgba(201,168,76,0.1)',
-                  border: '1px solid rgba(201,168,76,0.35)',
-                  borderRadius: '2px',
-                  color: '#C9A84C',
-                }}
-              >
-                <Icon size={22} />
-              </div>
-              <h3
-                className="font-nav font-bold text-[11px] uppercase tracking-widest mb-1"
-                style={{ color: '#1A1210' }}
-              >
-                {badge.title}
-              </h3>
-              <p className="text-[10px] font-sans" style={{ color: '#3D1A6E' }}>
-                {badge.subtitle}
-              </p>
-            </motion.div>
-          );
-        })}
+              <Icon className="w-9 h-9" style={{ color: '#C9A84C' }} strokeWidth={1.5} />
+            </div>
+
+            {/* Title */}
+            <h3
+              className="font-bold text-sm tracking-widest mb-3 uppercase leading-snug whitespace-pre-line"
+              style={{ color: '#1A1210', fontFamily: 'var(--font-sans, sans-serif)' }}
+            >
+              {title}
+            </h3>
+
+            {/* Description */}
+            <p
+              className="text-xs leading-relaxed max-w-[180px]"
+              style={{ color: '#6B5C45' }}
+            >
+              {description}
+            </p>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Review platforms row */}
-      <div className="flex items-center justify-center gap-8 mt-10 flex-wrap">
-        <div className="flex items-center gap-2 text-sm font-sans" style={{ color: '#1A1210' }}>
-          <span className="font-black text-lg" style={{ color: '#00AA6C' }}>●</span>
-          <span>TripAdvisor</span>
-          <span style={{ color: '#C9A84C' }}>★★★★★</span>
-        </div>
-        <div className="h-4 w-px" style={{ backgroundColor: 'rgba(201,168,76,0.3)' }} />
-        <div className="flex items-center gap-2 text-sm font-sans" style={{ color: '#1A1210' }}>
-          <span className="font-black text-lg" style={{ color: '#4285F4' }}>G</span>
-          <span>Google Reviews</span>
-          <span style={{ color: '#C9A84C' }}>★★★★★</span>
-        </div>
-        <div className="h-4 w-px" style={{ backgroundColor: 'rgba(201,168,76,0.3)' }} />
-        <div className="flex items-center gap-2 text-sm font-sans" style={{ color: '#1A1210' }}>
-          <span className="font-black text-lg" style={{ color: '#F46036' }}>V</span>
-          <span>Viator</span>
-          <span style={{ color: '#C9A84C' }}>★★★★★</span>
-        </div>
-      </div>
+      {/* Platform trust strip */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.5 }}
+        className="flex items-center justify-center gap-10 mt-14 pt-10 flex-wrap opacity-50 hover:opacity-100 transition-opacity duration-500"
+        style={{ borderTop: '1px solid rgba(26,18,16,0.1)' }}
+      >
+        {[['TripAdvisor', '★★★★★'], ['Google', '★★★★★'], ['Viator Elite', ''], ['GetYourGuide', '']].map(([name, stars]) => (
+          <div key={name} className="flex items-center gap-2">
+            <span className="font-serif text-base font-bold italic" style={{ color: '#1A1210' }}>{name}</span>
+            {stars && <span className="text-xs" style={{ color: '#C9A84C' }}>{stars}</span>}
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 }

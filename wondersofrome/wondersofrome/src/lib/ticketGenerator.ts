@@ -1,6 +1,3 @@
-import { jsPDF } from 'jspdf';
-import QRCode from 'qrcode';
-
 export interface TicketData {
     bookingRef: string;
     tourTitle: string;
@@ -23,6 +20,11 @@ export interface TicketData {
 }
 
 export async function generateTicketPDF(data: TicketData): Promise<Uint8Array> {
+    const [{ jsPDF }, QRCode] = await Promise.all([
+        import('jspdf'),
+        import('qrcode').then(m => m.default || m)
+    ]);
+
     const doc = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',

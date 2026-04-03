@@ -1,6 +1,3 @@
-import { jsPDF } from 'jspdf';
-import QRCode from 'qrcode';
-
 export interface TicketData {
     bookingRef: string;
     tourTitle: string;
@@ -23,6 +20,11 @@ export interface TicketData {
 }
 
 export async function generateTicketPDF(data: TicketData): Promise<Uint8Array> {
+    const [{ jsPDF }, QRCode] = await Promise.all([
+        import('jspdf'),
+        import('qrcode').then(m => m.default || m)
+    ]);
+
     const doc = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
@@ -34,7 +36,7 @@ export async function generateTicketPDF(data: TicketData): Promise<Uint8Array> {
     const contentWidth = pageWidth - (margin * 2);
     let y = 20;
 
-    // Colors - Sky blue theme for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}
+    // Colors - Sky blue theme for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}
     const primaryColor = process.env.NEXT_PUBLIC_BRAND_COLOR || '#059669';
     const secondaryColor = '#6b7280';
 
@@ -217,7 +219,7 @@ export async function generateTicketPDF(data: TicketData): Promise<Uint8Array> {
     doc.setTextColor(secondaryColor);
     doc.setFontSize(9);
     doc.text('This is your official booking voucher. Please present it at the meeting point.', margin, 290);
-    doc.text(`Booked via ${process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '') || 'yourdomain.com'}`, margin, 295);
+    doc.text(`Booked via {process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '') || 'yourdomain.com'}`, margin, 295);
 
     return new Uint8Array(doc.output('arraybuffer'));
 }

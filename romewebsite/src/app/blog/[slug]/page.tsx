@@ -22,12 +22,12 @@ export async function generateMetadata({ params }: PageProps) {
 
     if (!post) {
         return {
-            title: 'Post Not Found - ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}',
+            title: `Post Not Found - ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`,
         };
     }
 
     return {
-        title: `${post.title} | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Blog`,
+        title: `${post.title} | {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Blog`,
         description: post.excerpt,
         keywords: post.keywords,
         openGraph: {

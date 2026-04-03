@@ -38,7 +38,7 @@ export default function AboutPage() {
                             </p>
 
                             <p>
-                                That's the kind of magic we chase every day at <strong>${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</strong>.
+                                That's the kind of magic we chase every day at <strong>{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</strong>.
                             </p>
 
                             <p>
@@ -107,7 +107,7 @@ export default function AboutPage() {
                         <p className="text-gray-400 mb-10 text-lg relative z-10">Browse our tours or ping us on WhatsApp—we're always up for a chat about Rome's next great adventure.</p>
 
                         <div className="grid sm:grid-cols-2 gap-6 mb-12 relative z-10">
-                            <a href="https://wa.me/${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}" className="flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white py-4 px-8 rounded-2xl font-bold transition-all transform hover:scale-[1.02]">
+                            <a href={`https://wa.me/{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}`} className="flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white py-4 px-8 rounded-2xl font-bold transition-all transform hover:scale-[1.02]">
                                 <MessageCircle size={24} />
                                 WhatsApp Chat
                             </a>
@@ -123,7 +123,7 @@ export default function AboutPage() {
                             </div>
                             <div className="flex items-center gap-2">
                                 <Mail size={16} className="text-sky-500" />
-                                ${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}
+                                {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}
                             </div>
                             <div className="flex items-center gap-2">
                                 <Phone size={16} className="text-sky-500" />

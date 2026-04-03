@@ -118,20 +118,7 @@ export default async function Home() {
 
       </div>
 
-      {/* Floating Reviews */}
-      <AnimatedSection delay={0.5}>
-        <div className="bg-cream py-24 border-b border-forest/10">
-          <div className="container mx-auto px-4">
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-center mb-4 text-forest italic">
-              Global Traveler Perspectives
-            </h2>
-            <p className="font-sans text-[10px] text-center font-black uppercase tracking-[0.4em] text-forest/40 mb-16">
-              Insights from our collective journey
-            </p>
-            <FloatingReviews />
-          </div>
-        </div>
-      </AnimatedSection>
+
 
       {/* Trust Badges */}
       <AnimatedSection delay={0.6}>

@@ -116,7 +116,7 @@ export default function Navbar() {
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Top Row / Main Bar: Logo & Links & Search (Side by Side) */}
-                <div className="flex items-center justify-between lg:justify-start gap-3 lg:gap-4 w-full">
+                <div className="relative z-[10000] flex items-center justify-between lg:justify-start gap-3 lg:gap-4 w-full">
                     {/* Logo Image - From Sanity or Local fallback */}
                     <Link href="/" className="z-50 shrink-0">
                         {site?.logo ? (

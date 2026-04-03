@@ -71,7 +71,7 @@ export default function Footer() {
     const hasSocialLinks = socialLinks && (socialLinks.facebook || socialLinks.instagram || socialLinks.twitter);
 
     return (
-        <footer className="bg-[#0A0A0A] text-white/90 selection:bg-gold selection:text-black">
+        <footer className="selection:bg-gold selection:text-black" style={{ backgroundColor: '#1A1210', color: 'rgba(245,240,232,0.9)' }}>
             <Newsletter />
 
             {/* Main Footer */}
@@ -92,7 +92,7 @@ export default function Footer() {
                                     </span>
                                 </div>
                             </Link>
-                            <p className="text-stone-400 text-sm leading-relaxed max-w-xs">
+                            <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(245,240,232,0.6)' }}>
                                 {t('footer.about')}
                             </p>
 
@@ -242,8 +242,8 @@ export default function Footer() {
                             {/* Trust Badges */}
                             <div className="flex items-center gap-6 pt-6 border-t border-white/5">
                                 <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500" />
-                                <div className="h-8 w-px bg-white/5" />
-                                <p className="text-[10px] text-white/30 uppercase tracking-[0.2em]">Verified Luxury</p>
+                                <div className="h-8 w-px" style={{ backgroundColor: 'rgba(201,168,76,0.2)' }} />
+                                <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: 'rgba(245,240,232,0.4)' }}>Verified Luxury</p>
                             </div>
                         </div>
                     </div>

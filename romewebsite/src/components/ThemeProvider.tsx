@@ -22,7 +22,7 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
     
     // Optional: Load site-specific fonts
     if (DEFAULT_SITE_ID !== 'rome-tour-tickets') {
-      // Load Playfair Display for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}
+      // Load Playfair Display for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}
       const link = document.createElement('link');
       link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap';
       link.rel = 'stylesheet';
