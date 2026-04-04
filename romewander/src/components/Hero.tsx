@@ -29,6 +29,7 @@ export default function Hero({ settings }: HeroProps) {
 
     // Mouse Parallax (Desktop Only)
     useEffect(() => {
+        console.log("✦ Hero Section v2.2 Active");
         if (!videoWrapperRef.current) return;
 
         const handleMouseMove = (e: MouseEvent) => {
@@ -57,11 +58,11 @@ export default function Hero({ settings }: HeroProps) {
     };
 
     return (
-        <section className="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#1A1210] flex flex-col justify-center">
-            
+        <section className="relative w-full min-h-screen md:h-screen min-h-[700px] overflow-hidden bg-[#1A1210] flex flex-col justify-center">
+
             {/* ── PARALLAX WRAPPER & VIDEO ── */}
             <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-                <div 
+                <div
                     ref={videoWrapperRef}
                     className="absolute w-full h-full"
                     style={{ transform: 'scale(1.05)' }} // 1.05x scale prevents edges from showing during parallax
@@ -96,14 +97,14 @@ export default function Hero({ settings }: HeroProps) {
             {/* ── HERO CONTENT ── */}
             <div
                 className="relative z-10 flex flex-col items-center justify-center text-center px-4 md:px-16"
-                style={{ paddingTop: '120px', paddingBottom: '90px' }}
+                style={{ paddingTop: '140px', paddingBottom: '40px' }}
             >
                 {/* Eyebrow */}
                 <motion.p
                     initial={{ opacity: 0, y: -16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7 }}
-                    className="font-nav text-[10px] sm:text-[11px] tracking-[0.4em] uppercase font-bold mb-6 sm:mb-8 text-[#C9A84C]"
+                    className="font-nav text-[10px] sm:text-[11px] tracking-[0.4em] uppercase font-bold mb-6 sm:mb-8 text-[#F5F0E8]"
                 >
                     ✦ Welcome to RomeWander ✦
                 </motion.p>
@@ -123,7 +124,7 @@ export default function Hero({ settings }: HeroProps) {
                     </span>
                     <span
                         className="block font-accent italic px-2"
-                        style={{ fontSize: 'clamp(44px, 7.5vw, 116px)', color: '#C9A84C', lineHeight: 1 }}
+                        style={{ fontSize: 'clamp(44px, 7.5vw, 116px)', color: '#F5F0E8', lineHeight: 1 }}
                     >
                         Eternal City
                     </span>
@@ -140,7 +141,7 @@ export default function Hero({ settings }: HeroProps) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="font-sans text-white/80 max-w-xl mb-8 sm:mb-10 leading-relaxed px-4 text-sm sm:text-base md:text-lg"
+                    className="font-sans text-white/90 max-w-xl mb-8 sm:mb-10 leading-relaxed px-4 text-sm sm:text-base md:text-lg"
                 >
                     Private Vatican access · Sistine Chapel after-hours · Swiss Guard escorted walks. Curated for the discerning pilgrim.
                 </motion.p>
@@ -173,7 +174,7 @@ export default function Hero({ settings }: HeroProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8, duration: 0.7 }}
-                    className="hidden sm:flex flex-wrap gap-4 justify-center mb-4"
+                    className="hidden sm:flex flex-wrap gap-4 justify-center"
                 >
                     {[
                         { value: '15,000+', label: 'Pilgrims Served' },
@@ -189,23 +190,23 @@ export default function Hero({ settings }: HeroProps) {
                                 borderRadius: '2px',
                             }}
                         >
-                            <span className="font-serif font-bold text-lg" style={{ color: '#C9A84C' }}>{stat.value}</span>
+                            <span className="font-serif font-bold text-lg" style={{ color: '#F5F0E8' }}>{stat.value}</span>
                             <span className="font-nav text-[9px] uppercase tracking-widest text-white/60">{stat.label}</span>
                         </div>
                     ))}
                 </motion.div>
             </div>
 
-            {/* ── OVERLAPPING SEARCH BAR ── */}
+            {/* ── SEARCH BAR ── */}
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.8 }}
-                className="absolute bottom-0 left-0 right-0 z-20 px-4 md:px-16 xl:px-24 pb-0 pt-8"
-                style={{ transform: 'translateY(50%)' }} // Keep overlapping onto following section!
+                className="lg:absolute lg:bottom-0 left-0 right-0 z-20 px-4 md:px-16 xl:px-24 pb-8 lg:pb-0 pt-8"
+                style={{ transform: 'none' }} // Resetting transform for a cleaner relative flow on smaller screens
             >
                 <div
-                    className="w-full max-w-5xl mx-auto bg-white shadow-2xl"
+                    className="w-full max-w-5xl mx-auto bg-white shadow-2xl lg:transform lg:translate-y-1/2"
                     style={{ borderRadius: '2px', border: '1px solid rgba(201,168,76,0.25)' }}
                 >
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 md:divide-x divide-gray-100">
@@ -216,7 +217,7 @@ export default function Hero({ settings }: HeroProps) {
                             </label>
                             <input
                                 type="text"
-                                placeholder="Vatican, Sistine Chapel..."
+                                placeholder={settings?.heroSubtitle || "Vatican, Sistine Chapel..."}
                                 value={destination}
                                 onChange={e => setDestination(e.target.value)}
                                 onKeyDown={e => e.key === 'Enter' && handleSearch()}
@@ -247,7 +248,7 @@ export default function Hero({ settings }: HeroProps) {
                                 className="font-sans text-sm outline-none bg-transparent text-gray-500 w-full"
                             >
                                 <option value="">Select group size</option>
-                                {[1,2,3,4,5,6,7,8,9,10].map(n => (
+                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
                                     <option key={n} value={n}>{n} {n === 1 ? 'Pilgrim' : 'Pilgrims'}</option>
                                 ))}
                                 <option value="11+">11+ (Group)</option>
@@ -265,7 +266,7 @@ export default function Hero({ settings }: HeroProps) {
                     </div>
                 </div>
             </motion.div>
-            
+
         </section>
     );
 }

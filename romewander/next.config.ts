@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: supabaseHostname(), pathname: '/**' },
     ],
     formats: ['image/avif', 'image/webp'],
+    qualities: [75, 85],
     minimumCacheTTL: 86400,
   },
   async headers() {

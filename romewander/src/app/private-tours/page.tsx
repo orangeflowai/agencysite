@@ -10,9 +10,9 @@ export default async function PrivateToursPage() {
         title: 'Private Tours in Rome',
         subtitle: 'Exclusive experiences tailored just for you. Skip the crowds with your own personal guide.',
         images: [
-            '{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/7a7a1aaf8a210f4c317ff7fa391e6738.jpg',
-            '{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/bad62cca-199f-4e71-91f1-e478ba8a1b29.jpg',
-            '{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/e5b1479b445c00ff11bbad9415d42a31.jpg'
+            `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/7a7a1aaf8a210f4c317ff7fa391e6738.jpg`,
+            `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/bad62cca-199f-4e71-91f1-e478ba8a1b29.jpg`,
+            `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/e5b1479b445c00ff11bbad9415d42a31.jpg`
         ]
     };
 

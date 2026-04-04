@@ -20,36 +20,36 @@ const categoryMap: Record<string, { title: string; subtitle: string; images: str
         title: 'Vatican Museums Tours',
         subtitle: 'Skip the line to the Sistine Chapel, Gardens, and St. Peter’s Basilica.',
         images: [
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/05487657941d3eb0676bbf6ab64bbad7.jpg'),
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/5299212d395c8521d7c342332eaed823.jpg'),
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/05487657941d3eb0676bbf6ab64bbad7.jpg')
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/05487657941d3eb0676bbf6ab64bbad7.jpg`),
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/5299212d395c8521d7c342332eaed823.jpg`),
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/05487657941d3eb0676bbf6ab64bbad7.jpg`)
         ]
     },
     'colosseum': {
         title: 'Colosseum & Ancient Rome Tours',
         subtitle: 'Walk in the footsteps of Gladiators. Arena Floor, Underground, and Forum.',
         images: [
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/54d70ba36759f71567f18e252ff1959c.jpg'),
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/72be220be1e429973552a10c0b73b534.jpg'),
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/54d70ba36759f71567f18e252ff1959c.jpg')
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/54d70ba36759f71567f18e252ff1959c.jpg`),
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/72be220be1e429973552a10c0b73b534.jpg`),
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/54d70ba36759f71567f18e252ff1959c.jpg`)
         ]
     },
     'city': {
         title: 'City Tours',
         subtitle: 'Explore the Pantheon, Trevi Fountain, and Spanish Steps with a local expert.',
         images: [
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/7a7a1aaf8a210f4c317ff7fa391e6738.jpg'),
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/bad62cca-199f-4e71-91f1-e478ba8a1b29.jpg'),
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/7a7a1aaf8a210f4c317ff7fa391e6738.jpg')
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/7a7a1aaf8a210f4c317ff7fa391e6738.jpg`),
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/bad62cca-199f-4e71-91f1-e478ba8a1b29.jpg`),
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/7a7a1aaf8a210f4c317ff7fa391e6738.jpg`)
         ]
     },
     'hidden-gems': {
         title: 'Italy Hidden Gems',
         subtitle: 'Catacombs, Golf Cart tours, Day trips, Food tours & unique experiences.',
         images: [
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/e5b1479b445c00ff11bbad9415d42a31.jpg'),
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/f86b196f-a022-4f5b-9684-63979caa26af.jpg'),
-            supabaseImg('{process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/e5b1479b445c00ff11bbad9415d42a31.jpg')
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/e5b1479b445c00ff11bbad9415d42a31.jpg`),
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/f86b196f-a022-4f5b-9684-63979caa26af.jpg`),
+            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/e5b1479b445c00ff11bbad9415d42a31.jpg`)
         ]
     }
 };
