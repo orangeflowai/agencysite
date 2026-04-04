@@ -1,11 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { SUPABASE_BUCKET_URL } from '@/lib/constants';
+import gsap from 'gsap';
 
 interface HeroProps {
     settings?: {
@@ -22,12 +21,32 @@ export default function Hero({ settings }: HeroProps) {
     const [date, setDate] = useState('');
     const [guests, setGuests] = useState('');
 
-    // Use Sanity video if available, fallback to Pexels embed
-    const videoUrl = settings?.heroVideo?.asset?.url || null;
-    const fallbackImage = settings?.heroImage?.asset?.url || `${SUPABASE_BUCKET_URL}/vatican-hero-poster.jpg`;
+    // Refs for GSAP
+    const videoWrapperRef = useRef<HTMLDivElement>(null);
 
-    // Pexels Vatican / Rome video (public CDN)
-    const pexelsVideoUrl = 'https://videos.pexels.com/video-files/2169880/2169880-uhd_2560_1440_25fps.mp4';
+    // The assigned R2 video link
+    const videoUrl = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/Video_Generation_Complete.mp4';
+
+    // Mouse Parallax (Desktop Only)
+    useEffect(() => {
+        if (!videoWrapperRef.current) return;
+
+        const handleMouseMove = (e: MouseEvent) => {
+            const { clientX, clientY } = e;
+            const xOffset = ((clientX / window.innerWidth) - 0.5) * -2; // -1% to 1%
+            const yOffset = ((clientY / window.innerHeight) - 0.5) * -2;
+
+            gsap.to(videoWrapperRef.current, {
+                xPercent: xOffset,
+                yPercent: yOffset,
+                duration: 1,
+                ease: "power2.out"
+            });
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
 
     const handleSearch = () => {
         const params = new URLSearchParams();
@@ -38,25 +57,31 @@ export default function Hero({ settings }: HeroProps) {
     };
 
     return (
-        <section className="relative w-full overflow-hidden" style={{ minHeight: '100vh' }}>
-
-            {/* ── FULL-SCREEN VIDEO BACKGROUND ── */}
-            <div className="absolute inset-0 z-0">
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster={fallbackImage}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    src={videoUrl || pexelsVideoUrl}
-                />
-                {/* Multi-layer dark overlay for text contrast */}
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(26,18,16,0.55) 0%, rgba(26,18,16,0.4) 50%, rgba(26,18,16,0.75) 100%)' }} />
-                {/* Subtle vignette */}
-                <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(26,18,16,0.5) 100%)' }} />
+        <section className="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#1A1210] flex flex-col justify-center">
+            
+            {/* ── PARALLAX WRAPPER & VIDEO ── */}
+            <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <div 
+                    ref={videoWrapperRef}
+                    className="absolute w-full h-full"
+                    style={{ transform: 'scale(1.05)' }} // 1.05x scale prevents edges from showing during parallax
+                >
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
+                        className="absolute inset-0 w-full h-full object-cover"
+                        src={videoUrl}
+                    />
+                </div>
             </div>
+
+            {/* Multi-layer dark overlay for text contrast */}
+            <div className="absolute inset-0 z-[1] pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(26,18,16,0.6) 0%, rgba(26,18,16,0.3) 40%, rgba(26,18,16,0.85) 100%)' }} />
+            {/* Subtle vignette */}
+            <div className="absolute inset-0 z-[1] pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 40%, rgba(26,18,16,0.6) 100%)' }} />
 
             {/* Faint papal cross watermark */}
             <div
@@ -70,16 +95,15 @@ export default function Hero({ settings }: HeroProps) {
 
             {/* ── HERO CONTENT ── */}
             <div
-                className="relative z-10 flex flex-col items-center justify-center text-center px-6 md:px-16"
-                style={{ minHeight: '100vh', paddingTop: '100px', paddingBottom: '140px' }}
+                className="relative z-10 flex flex-col items-center justify-center text-center px-4 md:px-16"
+                style={{ paddingTop: '120px', paddingBottom: '90px' }}
             >
                 {/* Eyebrow */}
                 <motion.p
                     initial={{ opacity: 0, y: -16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7 }}
-                    className="font-nav text-[11px] tracking-[0.4em] uppercase font-bold mb-8"
-                    style={{ color: '#C9A84C' }}
+                    className="font-nav text-[10px] sm:text-[11px] tracking-[0.4em] uppercase font-bold mb-6 sm:mb-8 text-[#C9A84C]"
                 >
                     ✦ Welcome to RomeWander ✦
                 </motion.p>
@@ -89,23 +113,23 @@ export default function Hero({ settings }: HeroProps) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.9, delay: 0.1 }}
-                    className="leading-[1.0] mb-6 max-w-5xl"
+                    className="leading-[1.05] mb-4 sm:mb-6 max-w-5xl"
                 >
                     <span
-                        className="block font-serif font-black text-white"
-                        style={{ fontSize: 'clamp(48px, 7vw, 100px)' }}
+                        className="block font-serif font-black text-white px-2"
+                        style={{ fontSize: 'clamp(36px, 6vw, 100px)' }}
                     >
                         Discover the
                     </span>
                     <span
-                        className="block font-accent italic"
-                        style={{ fontSize: 'clamp(56px, 8.5vw, 116px)', color: '#C9A84C', lineHeight: 1 }}
+                        className="block font-accent italic px-2"
+                        style={{ fontSize: 'clamp(44px, 7.5vw, 116px)', color: '#C9A84C', lineHeight: 1 }}
                     >
                         Eternal City
                     </span>
                     <span
-                        className="block font-serif font-black text-white"
-                        style={{ fontSize: 'clamp(48px, 7vw, 100px)' }}
+                        className="block font-serif font-black text-white px-2"
+                        style={{ fontSize: 'clamp(36px, 6vw, 100px)' }}
                     >
                         with Purpose
                     </span>
@@ -116,8 +140,7 @@ export default function Hero({ settings }: HeroProps) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="font-sans text-white/75 max-w-xl mb-10 leading-relaxed"
-                    style={{ fontSize: 'clamp(16px, 2vw, 20px)' }}
+                    className="font-sans text-white/80 max-w-xl mb-8 sm:mb-10 leading-relaxed px-4 text-sm sm:text-base md:text-lg"
                 >
                     Private Vatican access · Sistine Chapel after-hours · Swiss Guard escorted walks. Curated for the discerning pilgrim.
                 </motion.p>
@@ -127,18 +150,18 @@ export default function Hero({ settings }: HeroProps) {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.55, duration: 0.7 }}
-                    className="flex flex-col sm:flex-row gap-4 mb-16"
+                    className="flex flex-col sm:flex-row gap-4 mb-10 sm:mb-16 w-full sm:w-auto px-4"
                 >
                     <Link
                         href="/category/vatican"
-                        className="font-nav font-bold uppercase tracking-widest text-sm px-10 py-5 transition-all hover:scale-105 hover:shadow-2xl"
+                        className="w-full sm:w-auto text-center font-nav font-bold uppercase tracking-widest text-xs sm:text-sm px-8 py-4 sm:py-5 transition-all hover:scale-105 hover:shadow-2xl"
                         style={{ backgroundColor: '#C9A84C', color: '#1A1210', borderRadius: '2px' }}
                     >
                         Explore Vatican Tours
                     </Link>
                     <Link
                         href="/private-tours"
-                        className="font-nav font-bold uppercase tracking-widest text-sm px-10 py-5 border-2 transition-all hover:scale-105 backdrop-blur-sm"
+                        className="w-full sm:w-auto text-center font-nav font-bold uppercase tracking-widest text-xs sm:text-sm px-8 py-4 sm:py-5 border-2 transition-all hover:scale-105 backdrop-blur-sm"
                         style={{ borderColor: 'rgba(201,168,76,0.7)', color: '#F5F0E8', borderRadius: '2px', backgroundColor: 'rgba(255,255,255,0.08)' }}
                     >
                         Private Experiences
@@ -150,7 +173,7 @@ export default function Hero({ settings }: HeroProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8, duration: 0.7 }}
-                    className="flex flex-wrap gap-4 justify-center mb-4"
+                    className="hidden sm:flex flex-wrap gap-4 justify-center mb-4"
                 >
                     {[
                         { value: '15,000+', label: 'Pilgrims Served' },
@@ -178,16 +201,16 @@ export default function Hero({ settings }: HeroProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.8 }}
-                className="absolute bottom-0 left-0 right-0 z-20 px-4 md:px-16 xl:px-24"
-                style={{ transform: 'translateY(50%)' }}
+                className="absolute bottom-0 left-0 right-0 z-20 px-4 md:px-16 xl:px-24 pb-0 pt-8"
+                style={{ transform: 'translateY(50%)' }} // Keep overlapping onto following section!
             >
                 <div
                     className="w-full max-w-5xl mx-auto bg-white shadow-2xl"
                     style={{ borderRadius: '2px', border: '1px solid rgba(201,168,76,0.25)' }}
                 >
-                    <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 md:divide-x divide-gray-100">
                         {/* Destination */}
-                        <div className="flex flex-col px-6 py-5">
+                        <div className="flex flex-col px-4 sm:px-6 py-4 sm:py-5 lg:col-span-1">
                             <label className="font-nav text-[9px] uppercase tracking-[0.25em] font-bold mb-1.5" style={{ color: '#C9A84C' }}>
                                 📍 Destination
                             </label>
@@ -197,12 +220,12 @@ export default function Hero({ settings }: HeroProps) {
                                 value={destination}
                                 onChange={e => setDestination(e.target.value)}
                                 onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                className="font-sans text-sm outline-none bg-transparent placeholder-gray-400"
+                                className="font-sans text-sm outline-none bg-transparent placeholder-gray-400 w-full"
                                 style={{ color: '#1A1210' }}
                             />
                         </div>
                         {/* Date */}
-                        <div className="flex flex-col px-6 py-5">
+                        <div className="flex flex-col px-4 sm:px-6 py-4 sm:py-5 border-t sm:border-t-0 sm:border-l border-gray-100 lg:col-span-1 md:border-l-0">
                             <label className="font-nav text-[9px] uppercase tracking-[0.25em] font-bold mb-1.5" style={{ color: '#C9A84C' }}>
                                 🗓 Travel Date
                             </label>
@@ -210,18 +233,18 @@ export default function Hero({ settings }: HeroProps) {
                                 type="date"
                                 value={date}
                                 onChange={e => setDate(e.target.value)}
-                                className="font-sans text-sm outline-none bg-transparent text-gray-500"
+                                className="font-sans text-sm outline-none bg-transparent text-gray-500 w-full"
                             />
                         </div>
                         {/* Pilgrims */}
-                        <div className="flex flex-col px-6 py-5">
+                        <div className="flex flex-col px-4 sm:px-6 py-4 sm:py-5 border-t lg:border-t-0 lg:col-span-1">
                             <label className="font-nav text-[9px] uppercase tracking-[0.25em] font-bold mb-1.5" style={{ color: '#C9A84C' }}>
                                 👥 Pilgrims
                             </label>
                             <select
                                 value={guests}
                                 onChange={e => setGuests(e.target.value)}
-                                className="font-sans text-sm outline-none bg-transparent text-gray-500"
+                                className="font-sans text-sm outline-none bg-transparent text-gray-500 w-full"
                             >
                                 <option value="">Select group size</option>
                                 {[1,2,3,4,5,6,7,8,9,10].map(n => (
@@ -233,8 +256,8 @@ export default function Hero({ settings }: HeroProps) {
                         {/* Search CTA */}
                         <button
                             onClick={handleSearch}
-                            className="flex items-center justify-center gap-3 font-nav font-bold uppercase tracking-widest text-sm px-8 py-5 transition-all hover:brightness-110 active:scale-95"
-                            style={{ backgroundColor: '#C9A84C', color: '#1A1210', borderRadius: '0 0 2px 2px' }}
+                            className="flex items-center justify-center gap-3 font-nav font-bold uppercase tracking-widest text-xs sm:text-sm px-6 sm:px-8 py-4 sm:py-5 transition-all hover:brightness-110 active:scale-95 w-full sm:col-span-2 lg:col-span-1 lg:ml-auto"
+                            style={{ backgroundColor: '#C9A84C', color: '#1A1210', borderRadius: '0' }}
                         >
                             <span>🔍</span>
                             <span>Search Tours</span>
@@ -242,6 +265,7 @@ export default function Hero({ settings }: HeroProps) {
                     </div>
                 </div>
             </motion.div>
+            
         </section>
     );
 }

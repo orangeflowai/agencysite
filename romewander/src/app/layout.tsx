@@ -12,7 +12,7 @@ import { getSite, DEFAULT_SITE_ID } from "@/lib/sanityService";
 import { CartProvider } from "@/context/CartContext";
 
 const playfair = Playfair_Display({
-  weight: ['400', '500', '600', '700', '800', '900'],
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-serif',
   display: 'swap',

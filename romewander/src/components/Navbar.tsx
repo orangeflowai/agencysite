@@ -117,20 +117,24 @@ export default function Navbar() {
 
     return (
         <>
-        <div className="fixed top-0 left-0 right-0 z-[10001]">
-            <Marquee />
-        </div>
-        <nav
-            className={clsx(
-                'fixed top-12 left-0 right-0 z-[100] transition-all duration-300 border-b border-transparent',
+        <header className="fixed top-0 left-0 right-0 z-[10002] flex flex-col w-full transition-all duration-300">
+            <div className="w-full relative z-[10001]">
+                <Marquee />
+            </div>
+            <nav
+                className={clsx(
+                    'w-full transition-all duration-300 border-b relative z-[10002]',
                 (isScrolled || isMobileMenuOpen)
-                    ? 'bg-theme-light shadow-md py-2'
-                    : 'bg-transparent py-3 md:py-4'
+                    ? 'bg-[#F5F0E8] border-gray-200 shadow-md py-2'
+                    : 'bg-gradient-to-b from-black/60 to-transparent border-transparent py-4'
             )}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Top Row / Main Bar: Logo & Links & Search (Side by Side) */}
-                <div className="relative z-[10000] flex items-center gap-3 lg:gap-4">
+                <div className="relative z-[10000] flex items-center justify-between w-full">
+                    
+                    {/* Left: Logo */}
+                    <div className="flex flex-1 justify-start">
                     {/* Logo Image - From Sanity or Local fallback */}
                     <Link href="/" className="z-50 shrink-0">
                         {site?.logo ? (
@@ -156,14 +160,15 @@ export default function Navbar() {
                             </div>
                         )}
                     </Link>
+                    </div>
 
-                    {/* Desktop Menu - Centered */}
-                    <div className="hidden lg:flex items-center gap-3 xl:gap-4 flex-1 justify-center">
+                    {/* Center: Desktop Menu */}
+                    <div className="hidden lg:flex items-center gap-4 xl:gap-6 flex-none justify-center">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
                             return (
                                 <Link
-                                    key={link.href}
+                                    key={link.name}
                                     href={link.href}
                                     className={clsx(
                                         "text-[10px] xl:text-xs font-bold uppercase tracking-wide transition-colors whitespace-nowrap relative pb-0.5",
@@ -182,108 +187,8 @@ export default function Navbar() {
                         })}
                     </div>
 
-                    {/* Integrated Compact Search Bar (Right Side) - Desktop */}
-                    <div className="hidden lg:flex items-center bg-white rounded-sm pl-3 pr-1.5 py-1.5 shadow-xl border border-gray-100 shrink-0 gap-2">
-                        {/* Destination */}
-                        <div className="flex items-center border-r border-gray-200 pr-3">
-                            <Search size={14} className="text-theme-primary mr-2 shrink-0" />
-                            <select
-                                value={destination}
-                                onChange={(e) => setDestination(e.target.value)}
-                                className="bg-transparent text-xs xl:text-sm font-bold text-gray-800 outline-none w-28 xl:w-32 cursor-pointer appearance-none truncate"
-                            >
-                                <option value="" disabled>{t('nav.search_placeholder') || "Search Tours"}</option>
-                                {searchOptions.map(opt => (
-                                    <option key={opt.slug} value={opt.title}>{opt.title}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* Date Picker - Popover with SmartCalendar */}
-                        <div className="flex items-center border-r border-gray-200 pr-3 relative group cursor-pointer" ref={calendarRef}>
-                            <div className="flex items-center" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
-                                <Calendar size={14} className="text-theme-primary mr-2 shrink-0" />
-                                <span className={clsx("text-xs xl:text-sm font-bold w-20 xl:w-24 uppercase truncate", date ? "text-gray-800" : "text-gray-400")}>
-                                    {date ? format(new Date(date), 'MMM dd') : 'Add Date'}
-                                </span>
-                            </div>
-
-                            {/* Calendar Popover */}
-                            <AnimatePresence>
-                                {isCalendarOpen && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-white rounded-sm shadow-2xl border border-gray-100 p-2 z-50 overflow-hidden w-auto"
-                                    >
-                                        <div className='p-2'>
-                                            <SmartCalendar
-                                                slug={activeSlug}
-                                                selectedDate={date ? new Date(date) : undefined}
-                                                onSelect={(d) => {
-                                                    setDate(d ? format(d, 'yyyy-MM-dd') : '');
-                                                    setIsCalendarOpen(false);
-                                                }}
-                                                basePrice={0}
-                                            />
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-
-                        {/* Helper: Guest Popover */}
-                        <div className="relative flex items-center pr-1 cursor-pointer" ref={guestRef}>
-                            <div
-                                className="flex items-center hover:bg-gray-50 rounded-sm px-2 py-1 transition-colors"
-                                onClick={() => setIsGuestOpen(!isGuestOpen)}
-                            >
-                                <Users size={14} className="text-theme-primary mr-2 shrink-0" />
-                                <span className="text-xs xl:text-sm font-bold text-gray-800 w-14 text-center select-none">
-                                    {guests}
-                                </span>
-                            </div>
-
-                            {/* Guest Stepper Popover */}
-                            <AnimatePresence>
-                                {isGuestOpen && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute top-full right-0 mt-4 w-48 bg-white rounded-sm shadow-2xl border border-gray-100 p-4 z-50 overflow-hidden"
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-sm font-bold text-gray-600">Guests</span>
-                                            <div className="flex items-center gap-3">
-                                                <button
-                                                    onClick={() => setGuests(Math.max(1, guests - 1))}
-                                                    className="w-8 h-8 rounded-sm bg-gray-100 flex items-center justify-center hover:bg-theme-primary hover:text-white transition-colors"
-                                                >
-                                                    <Minus size={14} />
-                                                </button>
-                                                <span className="font-bold w-4 text-center">{guests}</span>
-                                                <button
-                                                    onClick={() => setGuests(Math.min(20, guests + 1))}
-                                                    className="w-8 h-8 rounded-sm bg-gray-100 flex items-center justify-center hover:bg-theme-primary hover:text-white transition-colors"
-                                                >
-                                                    <Plus size={14} />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-
-                        <button
-                            onClick={handleSearch}
-                            className="bg-theme-primary hover:bg-theme-dark text-white rounded-sm p-3 transition-transform active:scale-95 shrink-0 shadow-md"
-                        >
-                            <Search size={16} />
-                        </button>
-                    </div>
+                    {/* Right: Search & Mobile Toggle */}
+                    <div className="flex flex-1 justify-end items-center gap-2 sm:gap-4">
 
                     {/* Right Side Actions: Cart + Language */}
                     <div className="flex items-center gap-3 shrink-0">
@@ -329,9 +234,12 @@ export default function Navbar() {
                             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
                     </div>
-                </div>
-            </div>
+                </div> {/* Close Right container */}
+                
+                </div> {/* Close Main flex row */}
+            </div> {/* Close max-w container */}
         </nav>
+        </header>
 
         {/* Mobile Menu Overlay — MUST be OUTSIDE nav to escape its stacking context */}
         <AnimatePresence>
