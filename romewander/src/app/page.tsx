@@ -1,12 +1,10 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import StickyRomeSection from "@/components/StickyRomeSection";
 import TrustBadges from "@/components/TrustBadges";
 import Footer from "@/components/Footer";
 import ProductRow from "@/components/ProductRow";
 import AnimatedSection from "@/components/AnimatedSection";
-import FloatingReviews from "@/components/FloatingReviews";
 import LiveVisitorCounter from "@/components/LiveVisitorCounter";
 import { getTours, getSettings } from "@/lib/sanityService";
 import { tours as fallbackTours } from "@/lib/toursData";
@@ -18,7 +16,7 @@ export const revalidate = 3600;
 const RomeGallery = dynamic(() => import('@/components/RomeGallery'), {
   loading: () => <div className="h-96 w-full animate-pulse" style={{ backgroundColor: '#F5F0E8' }} />,
 });
-const SocialProof = dynamic(() => import('@/components/SocialProof'), { ssr: true });
+const FloatingReviews = dynamic(() => import('@/components/FloatingReviews'), { ssr: true });
 const FAQ = dynamic(() => import('@/components/FAQ'));
 
 export default async function Home() {
@@ -42,8 +40,8 @@ export default async function Home() {
       <Navbar />
       <Hero settings={settings} />
 
-      {/* Spacer — Hero search bar translateY(50%) needs clearance (bar≈88px → 44px overlap) */}
-      <div style={{ height: '60px' }} aria-hidden="true" />
+      {/* Spacer — Hero search bar translateY(50%) needs clearance */}
+      <div style={{ height: '80px' }} aria-hidden="true" />
 
 
       {/* Stats ticker */}
@@ -79,11 +77,16 @@ export default async function Home() {
       </div>
 
 
-      {/* Social Proof reviews */}
-      <SocialProof />
+      {/* Replacement for SocialProof — Modern Cards */}
+      <div className="py-20" style={{ backgroundColor: '#F5F0E8' }}>
+        <div className="container mx-auto px-6 md:px-16 text-center mb-10">
+           <p className="font-nav text-[10px] tracking-[0.4em] uppercase font-bold mb-3 text-[#C9A84C]">✦ GUEST EXPERIENCES ✦</p>
+           <h2 className="font-serif font-bold text-4xl text-[#1A1210]">What our pilgrims say</h2>
+        </div>
+        <FloatingReviews />
+      </div>
 
-      {/* Full-screen cinematic scroll section */}
-      <StickyRomeSection />
+      {/* Full-screen cinematic scroll section removed */}
 
       {/* Vatican Tours Section */}
       <AnimatedSection id="vatican" delay={0.1}>
@@ -128,7 +131,7 @@ export default async function Home() {
         <section className="py-16" style={{ backgroundColor: '#ffffff' }}>
           <div className="container mx-auto px-6 md:px-16 text-center mb-8">
             <p
-              className="font-nav text-[10px] tracking-[0.35em] uppercaese font-bold mb-3"
+              className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-3"
               style={{ color: '#C9A84C' }}
             >
               ✦ BOOK WITH CONFIDENCE ✦

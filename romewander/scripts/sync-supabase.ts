@@ -49,7 +49,7 @@ async function syncToursToSupabase() {
     const batch = sanityTours.slice(i, i + batchSize);
     console.log(`Processing batch ${i / batchSize + 1} of ${Math.ceil(sanityTours.length / batchSize)}...`);
 
-    const promises = batch.map(async (tour) => {
+    const promises = batch.map(async (tour: any) => {
       if (!tour.slug) return false;
       const { error } = await supabase
         .from('tours')
