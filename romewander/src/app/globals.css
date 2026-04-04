@@ -119,7 +119,7 @@
    ============================================ */
 :root {
   --color-primary: #C9A84C;
-  --color-secondary: #3D1A6E;
+  --color-secondary: #F5F0E8;
   --color-dark: #1A1210;
   --color-light: #F5F0E8;
   --color-accent: #7B2D2D;
@@ -128,7 +128,7 @@
   --bg-gradient-end: #F5F0E8;
 
   --color-text-primary: #1A1210;
-  --color-text-secondary: #3D1A6E;
+  --color-text-secondary: #1A1210;
   --color-bg-primary: #F5F0E8;
   --color-bg-secondary: #ffffff;
 

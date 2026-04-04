@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Marquee from "@/components/Marquee";
 import Hero from "@/components/Hero";
 import TrustBadges from "@/components/TrustBadges";
 import Footer from "@/components/Footer";
@@ -37,12 +38,9 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen selection:bg-theme-secondary selection:text-white" style={{ backgroundColor: '#F5F0E8' }}>
+      <Marquee />
       <Navbar />
       <Hero settings={settings} />
-
-      {/* Spacer — Hero search bar translateY(50%) needs clearance */}
-      <div style={{ height: '80px' }} aria-hidden="true" />
-
 
       {/* Stats ticker */}
       <div
