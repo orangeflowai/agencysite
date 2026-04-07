@@ -54,7 +54,7 @@ export default function Navbar() {
         loadOptions();
     }, []);
 
-    const activeSlug = searchOptions.find(o => o.title === destination)?.slug || '';
+    const activeSlug = searchOptions.find((o: { title: string, slug: string }) => o.title === destination)?.slug || '';
 
     // Close calendar on click outside
     useEffect(() => {
@@ -134,7 +134,7 @@ export default function Navbar() {
                         {site?.logo ? (
                             <Image
                                 src={urlFor(site.logo).url()}
-                                alt={site.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}'}
+                                alt={site.title || process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}
                                 width={150}
                                 height={48}
                                 className="h-8 md:h-10 lg:h-12 w-auto object-contain drop-shadow-md"
@@ -146,7 +146,7 @@ export default function Navbar() {
                                     "font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none",
                                     (isScrolled || isMobileMenuOpen) ? "text-forest" : "text-cream"
                                 )}>
-                                    ROME <span className="italic">WEBSITE</span>
+                                    GOLDEN <span className="italic">ROME TOUR</span>
                                 </span>
                                 <span className="font-sans text-forest/40 text-[8px] uppercase font-black tracking-[0.4em] -mt-0.5 pl-1">
                                     Editorial Series
@@ -219,7 +219,7 @@ export default function Navbar() {
                                             <SmartCalendar
                                                 slug={activeSlug}
                                                 selectedDate={date ? new Date(date) : undefined}
-                                                onSelect={(d) => {
+                                                onSelect={(d: Date | undefined) => {
                                                     setDate(d ? format(d, 'yyyy-MM-dd') : '');
                                                     setIsCalendarOpen(false);
                                                 }}
@@ -317,7 +317,7 @@ export default function Navbar() {
 
                         <button
                             className={clsx(
-                                "relative z-[250] p-2 transition-colors",
+                                "relative z-[10005] p-2 transition-colors",
                                 (isScrolled || isMobileMenuOpen)
                                     ? "text-forest bg-forest/5"
                                     : "text-white bg-black/20 backdrop-blur-sm"
@@ -327,6 +327,7 @@ export default function Navbar() {
                             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
                     </div>
+                </div>
             </div>
         </nav>
 

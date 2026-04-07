@@ -27,8 +27,8 @@ const inter = Inter({
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite(DEFAULT_SITE_ID);
-  const siteName = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Tour Agency';
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+  const siteName = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com';
 
   return {
     title: site?.seo?.metaTitle || `${siteName} | Official Tours`,
@@ -52,8 +52,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const site = await getSite(DEFAULT_SITE_ID);
-  const siteName = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Tour Agency';
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+  const siteName = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com';
   const siteSlug = site?.slug?.current || DEFAULT_SITE_ID;
 
   return (

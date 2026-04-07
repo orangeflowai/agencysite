@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import ProductRow from "@/components/ProductRow";
 import AnimatedSection from "@/components/AnimatedSection";
 import HighlightSection from "@/components/HighlightSection";
-import LiveVisitorCounter from "@/components/LiveVisitorCounter";
 import { getTours, getSettings } from "@/lib/sanityService";
 import { tours as fallbackTours } from "@/lib/toursData";
 import dynamic from 'next/dynamic';
@@ -16,7 +15,7 @@ export const revalidate = 3600;
 const RomeGallery = dynamic(() => import('@/components/RomeGallery'), {
   loading: () => <div className="h-96 w-full animate-pulse" style={{ backgroundColor: '#F5F0E8' }} />,
 });
-const SocialProof = dynamic(() => import('@/components/SocialProof'), { ssr: true });
+const FloatingReviews = dynamic(() => import('@/components/FloatingReviews'), { ssr: true });
 const StickyRomeSection = dynamic(() => import('@/components/StickyRomeSection'));
 const FAQ = dynamic(() => import('@/components/FAQ'));
 
@@ -44,7 +43,7 @@ export default async function Home() {
       <Hero settings={settings} />
 
       {/* Spacer for hero search overlap */}
-      <div style={{ height: '60px' }} aria-hidden="true" />
+      <div className="h-20" aria-hidden="true" />
 
       {/* Stats ticker */}
       <div className="py-3 overflow-hidden" style={{ backgroundColor: '#1A1210' }}>
@@ -69,13 +68,19 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* Social Proof */}
-      <SocialProof />
+      {/* Premium Reviews Marquee */}
+      <div className="py-24" style={{ backgroundColor: '#F5F0E8' }}>
+        <div className="container mx-auto px-6 md:px-16 text-center mb-12">
+           <p className="font-nav text-[10px] tracking-[0.4em] uppercase font-bold mb-3 text-[#C9A84C]">✦ GUEST EXPERIENCES ✦</p>
+           <h2 className="font-serif font-bold text-4xl text-[#1A1210]">What our pilgrims say</h2>
+        </div>
+        <FloatingReviews />
+      </div>
 
       {/* Cinema scroll section */}
       <StickyRomeSection />
 
-      {/* Vatican Tours */}
+      {/* Vatican Tours Section */}
       <AnimatedSection id="vatican" delay={0.1}>
         <ProductRow
           title="Vatican Museums & St. Peter's"
@@ -86,7 +91,7 @@ export default async function Home() {
         />
       </AnimatedSection>
 
-      {/* Gallery break */}
+      {/* Visual Break Gallery */}
       <RomeGallery />
 
       {/* Highlight Section — Image 3 style */}
@@ -103,7 +108,7 @@ export default async function Home() {
       {/* Premium / Dark Section */}
       <AnimatedSection id="exclusive" delay={0.2}>
         <ProductRow
-          title="Premium Papal Experiences"
+          title="Colosseum & Ancient Rome"
           subtitle="Exclusive access to events & rare collections"
           tours={colosseumTours.slice(0, 6)}
           link="/category/colosseum"
@@ -111,7 +116,7 @@ export default async function Home() {
         />
       </AnimatedSection>
 
-      {/* City Tours */}
+      {/* City Tours Section */}
       <AnimatedSection id="city" delay={0.3}>
         <ProductRow
           title="Rome City Tours"
@@ -122,7 +127,7 @@ export default async function Home() {
         />
       </AnimatedSection>
 
-      {/* Hidden Gems */}
+      {/* Hidden Gems Section */}
       <AnimatedSection id="hidden-gems" delay={0.4}>
         <ProductRow
           title="Italy Hidden Gems"
@@ -135,13 +140,13 @@ export default async function Home() {
 
       {/* Trust Badges */}
       <AnimatedSection delay={0.6}>
-        <section className="py-20" style={{ backgroundColor: '#ffffff' }}>
+        <section className="py-24" style={{ backgroundColor: '#ffffff' }}>
           <div className="container mx-auto px-6 md:px-16 text-center mb-12">
             <p className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-3" style={{ color: '#C9A84C' }}>
               ✦ BOOK WITH CONFIDENCE ✦
             </p>
             <h2 className="font-serif font-bold" style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', color: '#1A1210' }}>
-              Why Choose RomeWander
+              Why Choose Our Services
             </h2>
           </div>
           <TrustBadges />

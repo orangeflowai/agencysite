@@ -1,24 +1,22 @@
-@import "tailwindcss";
-
 @theme {
   /* ============================================
-     BASE THEME VARIABLES (PICKLED EDITORIAL)
+     BASE THEME VARIABLES - GOLDEN ROME TOUR
      ============================================ */
   --color-cream: #FDFFF5;
   --color-cream-100: #F5F5DC;
-  --color-forest: #0f4c3a;
-  --color-forest-dark: #064e3b;
-  --color-forest-light: #166534;
-  --color-gold: #f59e0b;
-  
+
   /* Theme-aware colors */
-  --color-theme-primary: var(--color-primary, #0f4c3a);
-  --color-theme-primary-dark: var(--color-primary-dark, #064e3b);
-  --color-theme-accent: var(--color-accent, #f59e0b);
+  --color-theme-primary: var(--color-primary, #C9A84C);
+  --color-theme-secondary: var(--color-secondary, #F5F0E8);
+  --color-theme-dark: var(--color-dark, #1A1210);
+  --color-theme-light: var(--color-light, #F5F0E8);
+  --color-theme-accent: var(--color-accent, #7B2D2D);
 
   /* Font variables */
-  --font-serif: var(--font-serif, "Libre Baskerville", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif);
-  --font-sans: var(--font-sans, "Outfit", ui-sans-serif, system-ui, sans-serif);
+  --font-serif: var(--font-serif, "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", serif);
+  --font-sans: var(--font-sans, "Cormorant Garamond", ui-sans-serif, system-ui, sans-serif);
+  --font-nav: var(--font-nav, "Josefin Sans", ui-sans-serif, system-ui, sans-serif);
+  --font-accent: var(--font-accent, "Great Vibes", cursive);
 
   /* Spacing Scale */
   --space-xs: 0.5rem;
@@ -35,51 +33,30 @@
 }
 
 /* ============================================
-   ROMEWEBSITE THEME (Emerald/Gold Heritage)
+   GOLDEN ROME TOUR THEME (Vatican Gold / Papal Brown)
    ============================================ */
 :root {
-  --color-primary: #0f4c3a;
-  --color-primary-light: #166534;
-  --color-primary-dark: #064e3b;
-  --color-secondary: #f5f5dc;
-  --color-accent: #f59e0b;
-  --color-accent-light: #fbbf24;
-  --color-accent-dark: #d97706;
+  --color-primary: #C9A84C;
+  --color-secondary: #F5F0E8;
+  --color-dark: #1A1210;
+  --color-light: #F5F0E8;
+  --color-accent: #7B2D2D;
   
-  --bg-gradient-start: #FDFFF5;
-  --bg-gradient-end: #E0F7FA;
+  --bg-gradient-start: #F5F0E8;
+  --bg-gradient-end: #F5F0E8;
 
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #4b5563;
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f9fafb;
+  --color-text-primary: #1A1210;
+  --color-text-secondary: #1A1210;
+  --color-bg-primary: #F5F0E8;
+  --color-bg-secondary: #ffffff;
 
-  --background: #FDFFF5;
-  --foreground: #0f4c3a;
-
-  /* Editorial Utilities */
-  --color-checker-light: #FDFFF5;
-  --color-checker-dark: #f5f5dc; /* Slightly darker cream for checkerboard */
-}
-
-/* Sharp Edge Reset */
-* {
-  border-radius: 0 !important;
+  --background: #F5F0E8;
+  --foreground: #1A1210;
 }
 
 ::selection {
-  background-color: #0f4c3a;
-  color: #FDFFF5;
-}
-
-.bg-cream { background-color: #FDFFF5; }
-.bg-forest { background-color: #0f4c3a; color: #FDFFF5; }
-.bg-forest-black { background-color: #08291f; color: #FDFFF5; }
-.border-forest { border-color: #0f4c3a; }
-
-.grid-checkerboard > div:nth-child(4n+1),
-.grid-checkerboard > div:nth-child(4n+4) {
-  background-color: var(--color-checker-dark);
+  background-color: var(--color-primary);
+  color: white;
 }
 
 body {
@@ -88,9 +65,9 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  letter-spacing: -0.01em;
-  line-height: 1.6;
-  font-size: 16px;
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+  font-size: 18px;
 }
 
 /* ============================================
@@ -101,7 +78,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   font-weight: 700;
-  /* Color is set by Tailwind classes or defaults to text-primary */
 }
 
 /* Default heading colors for sections without explicit color classes */
@@ -337,17 +313,6 @@ body::before {
    TEXT CONTRAST FIX - SIMPLIFIED
    Ensure proper text colors on dark backgrounds
    ============================================ */
-
-/* Remove any global heading color overrides that might interfere */
-section h1,
-section h2,
-section h3,
-section h4,
-section h5,
-section h6,
-section p {
-  /* Let Tailwind classes control the color */
-}
 
 /* Ensure dark background sections have proper text contrast */
 .bg-neutral-900 h1,
