@@ -10,11 +10,8 @@ import { format } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
 
-// Site-specific Stripe publishable keys
-const PUBLISHABLE_KEYS: Record<string, string> = {
-    'rome-tour-tickets': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '',
-    // Keys resolved dynamically via getPublishableKey(siteId)
-};
+// Stripe publishable key — resolved from env by site ID suffix
+// e.g. NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_GOLDENROMETOUR for goldenrometour
 
 interface GuestType {
     name: string;
@@ -44,11 +41,15 @@ interface TimeSlot {
 export default function BookingWidget({ tour }: BookingWidgetProps) {
     const site = useSite();
     const { addToCart } = useCart();
-    const siteId = site?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug';
+    const siteId = site?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 
     // Initialize Stripe with site-specific key
+    // Reads NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_<SITEID_UPPER> then falls back to generic
     const stripePromise = useMemo(() => {
-        const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+        const suffix = (process.env.NEXT_PUBLIC_SITE_ID || siteId).toUpperCase().replace(/-/g, '_');
+        const key = (process.env as any)[`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_${suffix}`]
+            || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+            || '';
         if (!key) {
             console.error('Stripe publishable key not configured for site:', siteId);
             return null;

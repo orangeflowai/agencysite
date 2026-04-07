@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
-        const siteId = searchParams.get('site') || 'rome-tour-tickets';
+        const siteId = searchParams.get('site') || process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
         
         // Fetch add-ons for the specific site
         const addons = await client.fetch(`

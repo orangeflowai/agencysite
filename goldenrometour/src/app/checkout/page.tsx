@@ -146,7 +146,7 @@ function CheckoutContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const site = useSite();
-    const siteId = site?.slug?.current || 'rome-tour-tickets';
+    const siteId = site?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 
     // Get booking data from URL
     const [bookingData, setBookingData] = useState<BookingData | null>(null);

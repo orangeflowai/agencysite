@@ -177,7 +177,7 @@ const DEFAULT_ADDONS = [
 export async function POST(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
-        const siteId = searchParams.get('site') || process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug';
+        const siteId = searchParams.get('site') || process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
 
         // Get the site document - if it doesn't exist, create add-ons without site reference
         const siteQuery = `*[_type == "site" && slug.current == $siteId][0]`;
@@ -245,7 +245,7 @@ export async function POST(req: Request) {
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
-        const siteId = searchParams.get('site') || process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug';
+        const siteId = searchParams.get('site') || process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
 
         const siteQuery = `*[_type == "site" && slug.current == $siteId][0]`;
         const site = await client.fetch(siteQuery, { siteId });

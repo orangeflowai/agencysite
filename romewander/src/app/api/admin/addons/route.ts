@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(req: Request) {
     try {
         const { searchParams } = new URL(req.url);
-        const siteId = searchParams.get('site') || process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug';
+        const siteId = searchParams.get('site') || process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
 
         // First get the site document ID
         const siteQuery = `*[_type == "site" && slug.current == $siteId][0]._id`;

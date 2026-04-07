@@ -107,7 +107,7 @@ export const structure: StructureResolver = (S) => {
                                                     S.documentList()
                                                         .title('Tours for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
                                                         .filter('_type == "tour" && $siteId in sites[]._ref')
-                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
+                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour' })
                                                         .defaultOrdering([{ field: 'title', direction: 'asc' }])
                                                 ),
                                             S.listItem()
@@ -117,7 +117,7 @@ export const structure: StructureResolver = (S) => {
                                                     S.documentList()
                                                         .title('Posts for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
                                                         .filter('_type == "post" && site._ref == $siteId')
-                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
+                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour' })
                                                 ),
                                             S.listItem()
                                                 .title('⚙️ Settings')
@@ -126,7 +126,7 @@ export const structure: StructureResolver = (S) => {
                                                     S.documentList()
                                                         .title('Settings for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
                                                         .filter('_type == "settings" && site._ref == $siteId')
-                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
+                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour' })
                                                 ),
                                         ])
                                 ),

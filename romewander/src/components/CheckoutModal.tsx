@@ -118,7 +118,7 @@ export default function CheckoutModal({
     preGuestCounts = {},
 }: CheckoutModalProps) {
     const site = useSite();
-    const siteId = site?.slug?.current || 'rome-tour-tickets';
+    const siteId = site?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
     const scrollRef = useRef<HTMLDivElement>(null);
 
     // ── Steps: 1=Contact, 2=Addons/Upsell, 3=Payment, 4=Success ──
@@ -165,7 +165,11 @@ export default function CheckoutModal({
     // ── Stripe ──
     const [clientSecret, setClientSecret] = useState('');
     const [stripePromise] = useState(() => {
-        const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+        const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
+        const suffix = siteId.toUpperCase().replace(/-/g, '_');
+        const key = (process.env as any)[`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_${suffix}`]
+            || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+            || '';
         return key ? loadStripe(key) : null;
     });
 

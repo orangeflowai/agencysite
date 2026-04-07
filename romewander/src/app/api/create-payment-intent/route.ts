@@ -9,7 +9,7 @@ async function getSiteIdFromRequest(req: Request): Promise<string> {
     const headersList = await headers();
     const siteHeader = headersList.get('x-site-id');
     if (siteHeader) return siteHeader;
-    return process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug';
+    return process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
 }
 
 export async function POST(req: Request) {

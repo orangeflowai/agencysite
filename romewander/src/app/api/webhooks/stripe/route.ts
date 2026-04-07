@@ -16,7 +16,7 @@ function determineSiteFromEvent(event: any): string {
     if (event.data?.object?.metadata?.siteId) {
         return event.data.object.metadata.siteId;
     }
-    return process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug';
+    return process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
 }
 
 import { generateCustomerEmail, generateAdminEmail } from '@/lib/email-templates';

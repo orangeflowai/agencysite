@@ -33,7 +33,7 @@ interface GlobalThemeProviderProps {
  */
 export default function GlobalThemeProvider({ children }: GlobalThemeProviderProps) {
     const site = useSite();
-    const siteId = site?.slug?.current || 'rome-tour-tickets';
+    const siteId = site?.slug?.current || 'goldenrometour';
 
     useEffect(() => {
         // Load custom theme from localStorage (set by admin panel) or Sanity
@@ -42,7 +42,7 @@ export default function GlobalThemeProvider({ children }: GlobalThemeProviderPro
                 const root = document.documentElement;
 
                 // 1. Apply default theme for this site (Baseline)
-                const defaultTheme = DEFAULT_THEMES[siteId] || DEFAULT_THEMES['rome-tour-tickets'];
+                const defaultTheme = DEFAULT_THEMES[siteId] || DEFAULT_THEMES['default'];
                 Object.entries(defaultTheme).forEach(([key, value]) => {
                     root.style.setProperty(key, value);
                 });

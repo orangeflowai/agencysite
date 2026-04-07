@@ -14,7 +14,7 @@ interface AdminContextType {
 const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 export function AdminProvider({ children }: { children: React.ReactNode }) {
-    // Default to env var or 'rome-tour-tickets'
+    // Default to env var or site-specific ID
     const [selectedSiteId, setSelectedSiteId] = useState<string>('');
     const [sites, setSites] = useState<Site[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +27,7 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
 
                 // Check localStorage for preference
                 const storedSite = localStorage.getItem('admin_selected_site');
-                const defaultSite = process.env.NEXT_PUBLIC_SITE_ID || 'rome-tour-tickets';
+                const defaultSite = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 
                 console.log('Available Sites:', siteList);
 

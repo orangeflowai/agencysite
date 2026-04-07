@@ -85,7 +85,7 @@ export default function AddOnsAdminPage() {
     const fetchAddOns = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`/api/admin/addons?site=${currentSite?.slug?.current || 'rome-tour-tickets'}`);
+            const response = await fetch(`/api/admin/addons?site=${currentSite?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour'}`);
             if (!response.ok) throw new Error('Failed to fetch');
             const data = await response.json();
             setAddOns(data.addOns || []);

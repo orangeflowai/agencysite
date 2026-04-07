@@ -130,7 +130,7 @@ export async function createBlogPost(data: CreatePostData) {
         // Resolve SITE REFERENCE
         // We need the _id of the site document based on the slug (siteId)
         // If no siteId provided, fallback to default? Better to require it.
-        const siteSlug = data.siteId || process.env.NEXT_PUBLIC_SITE_ID || 'rome-tour-tickets';
+        const siteSlug = data.siteId || process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
 
         // Fetch site _id
         const siteQuery = `*[_type == "site" && slug.current == $slug][0]._id`;
@@ -169,7 +169,7 @@ export async function createBlogPost(data: CreatePostData) {
 
 export async function getAllTours(siteId?: string) {
     try {
-        const targetSite = siteId || process.env.NEXT_PUBLIC_SITE_ID || 'rome-tour-tickets';
+        const targetSite = siteId || process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
         // Fetch minimal data needed for context - FILTERED BY SITE
         const query = `*[_type == "tour" && $targetSite in sites[]->slug.current]{title, "slug": slug.current, description, keywords}`;
         const tours = await client.fetch(query, { targetSite }, { next: { revalidate: 0 } });

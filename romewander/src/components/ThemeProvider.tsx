@@ -21,7 +21,7 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
     document.body.setAttribute('data-site', DEFAULT_SITE_ID);
     
     // Optional: Load site-specific fonts
-    if (DEFAULT_SITE_ID !== 'rome-tour-tickets') {
+    if (DEFAULT_SITE_ID !== 'romewander') {
       // Load Playfair Display for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}
       const link = document.createElement('link');
       link.href = 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap';
@@ -59,5 +59,5 @@ export function getThemeClasses(siteId: string = DEFAULT_SITE_ID) {
     },
   };
 
-  return themes[siteId as keyof typeof themes] || themes['rome-tour-tickets'];
+  return themes[siteId as keyof typeof themes] || themes['default'];
 }

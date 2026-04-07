@@ -133,7 +133,7 @@ export function urlFor(source: any) {
 }
 
 // Site Configuration
-export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug';
+export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
 
 // Helper to get site reference from slug
 async function getSiteRefBySlug(slug: string): Promise<string | null> {
