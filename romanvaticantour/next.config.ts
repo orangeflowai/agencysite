@@ -7,6 +7,9 @@ function supabaseHostname(): string {
 }
 
 const nextConfig: NextConfig = {
+  compiler: {
+    styledComponents: true,
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com', pathname: '/**' },
@@ -14,11 +17,17 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/**' },
       { protocol: 'https', hostname: 'api.dicebear.com', pathname: '/**' },
       { protocol: 'https', hostname: 'i.pravatar.cc', pathname: '/**' },
-      // Your Supabase storage bucket — auto-detected from NEXT_PUBLIC_SUPABASE_URL
+      // Cloudflare R2
+      { protocol: 'https', hostname: '6802e5ddd9360c77c3e4945d0a21c78a.r2.cloudflarestorage.com', pathname: '/romeagencywebsites/**' },
+      { protocol: 'https', hostname: 'pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev', pathname: '/**' },
+      // Supabase storage
       { protocol: 'https', hostname: supabaseHostname(), pathname: '/**' },
     ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,
+    qualities: [40, 60, 75, 80, 85, 90],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   async headers() {
     return [

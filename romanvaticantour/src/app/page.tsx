@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import StickyRomeSection from "@/components/StickyRomeSection";
+import SaaSBentoFeatures from "@/components/SaaSBentoFeatures";
+import SaaSTourGrid from "@/components/SaaSTourGrid";
 import TrustBadges from "@/components/TrustBadges";
-import TourCard from "@/components/TourCard";
 import Footer from "@/components/Footer";
-import ProductRow from "@/components/ProductRow";
 import AnimatedSection from "@/components/AnimatedSection";
 import FloatingReviews from "@/components/FloatingReviews";
 import LiveVisitorCounter from "@/components/LiveVisitorCounter";
@@ -17,9 +16,8 @@ export const revalidate = 3600;
 
 // Lazy Load Components Below Fold
 const RomeGallery = dynamic(() => import('@/components/RomeGallery'), {
-  loading: () => <div className="h-96 w-full bg-gray-50 animate-pulse" />
+  loading: () => <div className="h-96 w-full bg-neutral-100 animate-pulse" />
 });
-const SocialProof = dynamic(() => import('@/components/SocialProof'), { ssr: true }); // Keep SSR for SEO/trust
 const FAQ = dynamic(() => import('@/components/FAQ'));
 
 export default async function Home() {
@@ -28,7 +26,6 @@ export default async function Home() {
 
   // Fallback if Sanity is empty (Pre-seed state)
   if (!tours || tours.length === 0) {
-     
     tours = fallbackTours.map(t => ({
       ...t,
       _id: t.id,
@@ -43,104 +40,80 @@ export default async function Home() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const colosseumTours = tours.filter((t: any) => t.category === 'colosseum');
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const cityTours = tours.filter((t: any) => t.category === 'city');
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const hiddenGemsTours = tours.filter((t: any) => t.category === 'hidden-gems');
+  const otherTours = tours.filter((t: any) => t.category !== 'vatican' && t.category !== 'colosseum');
 
   return (
-    <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
+    <main className="min-h-screen bg-white">
       <Navbar />
+      
+      {/* High-Impact SaaS Split Hero */}
       <Hero settings={settings} />
 
-      {/* Live Visitor Counter */}
-      <div className="flex justify-center py-4 bg-white/50">
+      {/* Trust Badges - Logo Strip immediately following hero */}
+      <TrustBadges />
+
+      {/* Live Visitor Counter - Social Proof integration */}
+      <div className="flex justify-center py-6 bg-neutral-50 border-b border-neutral-100">
         <LiveVisitorCounter />
       </div>
 
-      {/* Social Proof - High Impact Placement */}
-      <SocialProof />
+      {/* Bento Box Value Proposition */}
+      <SaaSBentoFeatures />
 
-      <StickyRomeSection />
-
-      {/* Main Content Area - Subtle Alternating Backgrounds */}
+      {/* Features/Pricing-style Tour Grids */}
       <div className="flex flex-col">
 
-        {/* 1. Vatican Section */}
+        {/* 1. Primary Highlight: Vatican */}
         <AnimatedSection id="vatican" delay={0.1}>
-          <div className="bg-white py-12 lg:py-24">
-            <ProductRow
-              title="Vatican Museums & St. Peter's"
-              subtitle="Skip the line to the Sistine Chapel, Gardens, and the Dome."
-              tours={vaticanTours}
-              link="/category/vatican"
-            />
-          </div>
+          <SaaSTourGrid
+            title="The Vatican Collection"
+            subtitle="Secure your skip-the-line access to the Sistine Chapel, Museums, and St. Peter's Basilica."
+            tours={vaticanTours}
+            link="/category/vatican"
+            dark={false}
+          />
         </AnimatedSection>
 
         {/* 2. Visual Break - Rome Gallery */}
         <RomeGallery />
 
-        {/* 3. Colosseum Section */}
+        {/* 3. Secondary Highlight: Colosseum (Dark Mode) */}
         <AnimatedSection id="colosseum" delay={0.2}>
-          <div className="bg-cream-100 py-12 lg:py-24">
-            <ProductRow
-              title="Colosseum & Ancient Rome"
-              subtitle="Walk in the footsteps of Gladiators. Arena, Underground, and Forum."
-              tours={colosseumTours}
-              link="/category/colosseum"
-            />
-          </div>
+          <SaaSTourGrid
+            title="Ancient Rome Experiences"
+            subtitle="Explore the Colosseum, Roman Forum, and Palatine Hill with expert archaeologists."
+            tours={colosseumTours}
+            link="/category/colosseum"
+            dark={true}
+          />
         </AnimatedSection>
 
-        {/* 4. City & Hidden Gems */}
-        <AnimatedSection id="city" delay={0.3}>
-          <div className="bg-white py-12 lg:py-24">
-            <ProductRow
-              title="Rome City Tours"
-              subtitle="Explore the Pantheon, Trevi Fountain, Spanish Steps and iconic squares."
-              tours={cityTours}
-              link="/category/city"
-            />
-          </div>
-        </AnimatedSection>
-
-        {/* 5. Day Trips */}
-        <AnimatedSection id="hidden-gems" delay={0.4}>
-          <div className="bg-emerald-50/50 py-12 lg:py-24">
-            <ProductRow
-              title="Italy Hidden Gems"
-              subtitle="Catacombs, Golf Cart tours, Day trips, Food tours & unique experiences."
-              tours={hiddenGemsTours}
-              link="/category/hidden-gems"
-            />
-          </div>
-        </AnimatedSection>
+        {/* 4. Other Tours (Light Mode again) */}
+        {otherTours.length > 0 && (
+          <AnimatedSection id="explore" delay={0.3}>
+             <SaaSTourGrid
+                title="City & Hidden Gems"
+                subtitle="Complete your Roman holiday with food tours, catacombs, and city highlights."
+                tours={otherTours}
+                link="/search"
+                dark={false}
+              />
+          </AnimatedSection>
+        )}
 
       </div>
 
-      {/* Floating Reviews */}
-      <AnimatedSection delay={0.5}>
-        <div className="bg-gradient-to-b from-white to-cream-100 py-12">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-2 gradient-text-rome">
-              What Our Travelers Say
+      {/* Floating Reviews as SaaS Testimonials */}
+      <AnimatedSection delay={0.4}>
+        <div className="bg-neutral-50 py-24 border-t border-neutral-200">
+          <div className="container mx-auto px-6 md:px-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-center mb-4 text-neutral-900">
+              Trusted by Pilgrims & Travelers
             </h2>
-            <p className="text-center text-gray-600 mb-8">
-              Join thousands of happy travelers exploring Rome
+            <p className="text-center text-neutral-500 mb-12 max-w-2xl mx-auto">
+              Read why thousands of people rate us 5 stars.
             </p>
             <FloatingReviews />
-          </div>
-        </div>
-      </AnimatedSection>
-
-      {/* Trust Badges */}
-      <AnimatedSection delay={0.6}>
-        <div className="bg-white py-12">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">
-              Book with Confidence
-            </h2>
-            <TrustBadges />
           </div>
         </div>
       </AnimatedSection>
@@ -148,8 +121,8 @@ export default async function Home() {
       <div id="faq" className="bg-white">
         <FAQ />
       </div>
+      
       <Footer />
     </main>
   );
 }
-

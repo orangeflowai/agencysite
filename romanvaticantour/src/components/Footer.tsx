@@ -94,55 +94,39 @@ export default function Footer() {
                             </p>
 
                              {/* Social Links - SaaS Style */}
-                             <div className="flex items-center space-x-3">
-                                    <a href="#" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
-                                        <Facebook size={18} />
-                                    </a>
-                                    <a href="#" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
-                                        <Instagram size={18} />
-                                    </a>
-                                    <a href="#" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
-                                        <Twitter size={18} />
-                                    </a>
-                             </div>
-                                    {socialLinks?.instagram && (
-                                        <a
-                                            href={socialLinks.instagram}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label="Instagram"
-                                            className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-sky-600 hover:text-white transition-all duration-300"
-                                        >
+                             <div className="flex flex-wrap gap-3">
+                                {/* Fallback/Static Links (if no dynamic ones exist) */}
+                                {!hasSocialLinks && (
+                                    <>
+                                        <a href="#" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                            <Facebook size={18} />
+                                        </a>
+                                        <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
                                             <Instagram size={18} />
                                         </a>
-                                    )}
-                                    {socialLinks?.twitter && (
-                                        <a
-                                            href={socialLinks.twitter}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label="Twitter"
-                                            className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-sky-600 hover:text-white transition-all duration-300"
-                                        >
+                                        <a href="#" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
                                             <Twitter size={18} />
                                         </a>
-                                    )}
-                                    {/* Fallback social links if none configured */}
-                                    {!hasSocialLinks && !site && (
-                                        <>
-                                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-sky-600 hover:text-white transition-all duration-300">
-                                                <Facebook size={18} />
-                                            </a>
-                                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-sky-600 hover:text-white transition-all duration-300">
-                                                <Instagram size={18} />
-                                            </a>
-                                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-10 h-10 rounded-full bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-sky-600 hover:text-white transition-all duration-300">
-                                                <Twitter size={18} />
-                                            </a>
-                                        </>
-                                    )}
-                                </div>
-                            )}
+                                    </>
+                                )}
+
+                                {/* Dynamic CMS Links */}
+                                {socialLinks?.facebook && (
+                                    <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                        <Facebook size={18} />
+                                    </a>
+                                )}
+                                {socialLinks?.instagram && (
+                                    <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                        <Instagram size={18} />
+                                    </a>
+                                )}
+                                {socialLinks?.twitter && (
+                                    <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                        <Twitter size={18} />
+                                    </a>
+                                )}
+                             </div>
                         </div>
 
                         {/* Explore Categories */}
