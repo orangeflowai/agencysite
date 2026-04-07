@@ -128,6 +128,7 @@ export const client = createClient({
 const builder = createImageUrlBuilder(client);
 
 export function urlFor(source: any) {
+    if (typeof source === 'string') { const s: any = { url: () => source, width: () => s, height: () => s, fit: () => s, auto: () => s, quality: () => s }; return s; }
     if (!source) return { width: () => ({ url: () => '' }), height: () => ({ url: () => '' }), url: () => '' };
     return builder.image(source);
 }
