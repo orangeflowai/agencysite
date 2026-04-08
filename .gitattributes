@@ -1,0 +1,12 @@
+# Force LF line endings for all text files — prevents CRLF breaking Tailwind v4 CSS parsing
+* text=auto eol=lf
+
+# Explicitly enforce LF for these file types
+*.ts   text eol=lf
+*.tsx  text eol=lf
+*.css  text eol=lf
+*.mjs  text eol=lf
+*.js   text eol=lf
+*.json text eol=lf
+*.md   text eol=lf
+*.env* text eol=lf
