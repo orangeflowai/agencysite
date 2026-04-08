@@ -71,14 +71,18 @@ export default function Footer() {
                         {/* Brand Column */}
                         <div className="space-y-8">
                             <Link href="/" className="inline-block">
-                                <div className="flex flex-col items-start justify-center">
-                                    <span className="font-serif text-3xl font-bold tracking-tighter leading-none text-cream underline decoration-forest/40 decoration-1 underline-offset-8">
-                                        ROME <span className="italic text-forest">WEBSITE</span>
-                                    </span>
-                                    <span className="font-sans text-forest/40 text-[8px] uppercase font-black tracking-[0.4em] mt-4">
-                                        Editorial Series
-                                    </span>
-                                </div>
+                                {site?.logo ? (
+                                    <img src={site.logo.asset.url} alt={site.title || 'Golden Rome Tour'} className="h-10 w-auto object-contain" />
+                                ) : (
+                                    <div className="flex flex-col items-start justify-center">
+                                        <span className="font-serif text-3xl font-bold tracking-tighter leading-none text-cream">
+                                            GOLDEN <span className="italic text-[#C9A84C]">ROME TOUR</span>
+                                        </span>
+                                        <span className="font-sans text-[#C9A84C]/60 text-[8px] uppercase font-black tracking-[0.4em] mt-2">
+                                            Editorial Series
+                                        </span>
+                                    </div>
+                                )}
                             </Link>
                             <p className="text-forest/40 text-xs leading-relaxed max-w-xs font-sans uppercase tracking-widest">
                                 A documentary approach to the eternal city. High-impact experiences Curated for the discerning traveler.
@@ -162,7 +166,7 @@ export default function Footer() {
 
                     {/* Bottom Bar */}
                     <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] text-cream/30 uppercase font-black tracking-widest">
-                        <p>&copy; {currentYear} Rome Editorial Series. All rights reserved.</p>
+                        <p>&copy; {currentYear} {site?.title || 'Golden Rome Tour'}. All rights reserved.</p>
 
                         {/* Company Details */}
                         <div className="text-center md:text-right flex flex-col md:items-end gap-1">

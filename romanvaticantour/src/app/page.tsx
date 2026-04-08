@@ -7,7 +7,6 @@ import TrustBadges from "@/components/TrustBadges";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
 import FloatingReviews from "@/components/FloatingReviews";
-import LiveVisitorCounter from "@/components/LiveVisitorCounter";
 import { getTours, getSettings } from "@/lib/sanityService";
 import { tours as fallbackTours } from "@/lib/toursData";
 import dynamic from 'next/dynamic';
@@ -49,13 +48,8 @@ export default async function Home() {
       {/* High-Impact SaaS Split Hero */}
       <Hero settings={settings} />
 
-      {/* Trust Badges - Logo Strip immediately following hero */}
+      {/* Trust Badges */}
       <TrustBadges />
-
-      {/* Live Visitor Counter - Social Proof integration */}
-      <div className="flex justify-center py-6 bg-neutral-50 border-b border-neutral-100">
-        <LiveVisitorCounter />
-      </div>
 
       {/* Bento Box Value Proposition */}
       <SaaSBentoFeatures />

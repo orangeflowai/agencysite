@@ -52,12 +52,12 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
                     {tours.slice(0, 3).map((tour, idx) => (
                         <motion.div
                             key={tour._id}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: '-50px' }}
-                            transition={{ duration: 0.5, delay: idx * 0.1 }}
-                            className={`flex flex-col rounded-3xl border overflow-hidden shadow-saas transition-all hover:shadow-saas-xl hover:-translate-y-1 ${
-                                dark ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-neutral-200'
+                            transition={{ duration: 0.4, delay: idx * 0.08 }}
+                            className={`flex flex-col rounded-2xl border overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                                dark ? 'bg-neutral-900/80 backdrop-blur-sm border-neutral-800' : 'bg-white/80 backdrop-blur-sm border-neutral-200/60'
                             }`}
                         >
                             <div className="relative h-56 w-full bg-neutral-100">

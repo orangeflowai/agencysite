@@ -2,8 +2,24 @@
   /* ============================================
      BASE THEME VARIABLES - GOLDEN ROME TOUR
      ============================================ */
-  --color-cream: #FDFFF5;
+  --color-cream: #F5F0E8;
   --color-cream-100: #F5F5DC;
+  --color-cream-50: #FDFAF5;
+
+  /* Forest palette — core brand colors */
+  --color-forest: #1A1210;
+  --color-forest-50: #F5F0E8;
+  --color-forest-100: #E8DDD0;
+  --color-forest-200: #C9B8A0;
+  --color-forest-400: #6B5C45;
+  --color-forest-600: #3D2B1F;
+  --color-forest-800: #1A1210;
+  --color-forest-black: #0B0806;
+
+  /* Gold accent */
+  --color-gold: #C9A84C;
+  --color-gold-light: #E8C97A;
+  --color-gold-dark: #A07830;
 
   /* Theme-aware colors */
   --color-theme-primary: var(--color-primary, #C9A84C);
@@ -46,7 +62,7 @@
   --bg-gradient-end: #F5F0E8;
 
   --color-text-primary: #1A1210;
-  --color-text-secondary: #1A1210;
+  --color-text-secondary: #3D2B1F;
   --color-bg-primary: #F5F0E8;
   --color-bg-secondary: #ffffff;
 
@@ -495,4 +511,37 @@ nav[class*="fixed"] {
   margin-bottom: revert;
   letter-spacing: revert;
   font-weight: revert;
+}
+
+/* ============================================
+   GLASSMORPHISM UTILITIES
+   ============================================ */
+.glass {
+  background: rgba(245, 240, 232, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+}
+.glass-dark {
+  background: rgba(26, 18, 16, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 168, 76, 0.1);
+}
+.glass-white {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Performance: GPU-accelerate animated elements */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Highlighted text */
+.highlight {
+  color: var(--color-primary);
+  font-style: italic;
 }

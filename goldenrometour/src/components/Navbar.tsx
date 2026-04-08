@@ -120,10 +120,10 @@ export default function Navbar() {
         <>
         <nav
             className={clsx(
-                'fixed top-0 left-0 right-0 z-[10001] transition-all duration-300 border-b border-transparent',
+                'fixed top-0 left-0 right-0 z-[10001] transition-all duration-500 border-b',
                 (isScrolled || isMobileMenuOpen)
-                    ? 'bg-cream shadow-sm border-forest/10 py-2'
-                    : 'bg-transparent py-3 md:py-4'
+                    ? 'bg-[#F5F0E8]/85 backdrop-blur-xl shadow-sm border-[#1A1210]/10 py-2'
+                    : 'bg-transparent border-transparent py-3 md:py-4'
             )}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -239,7 +239,7 @@ export default function Navbar() {
                             >
                                 <Users size={14} className="text-forest mr-3 shrink-0" />
                                 <span className="text-xs xl:text-sm font-sans font-black text-forest w-14 text-center select-none uppercase tracking-widest">
-                                    {guests} pxl
+                                    {guests} pax
                                 </span>
                             </div>
 
@@ -336,10 +336,11 @@ export default function Navbar() {
             {isMobileMenuOpen && (
                 <motion.div
                     data-mobile-menu-open="true"
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="fixed inset-0 bg-cream flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[10000] overflow-y-auto"
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="fixed inset-0 bg-[#F5F0E8]/90 backdrop-blur-2xl flex flex-col items-center justify-start pt-24 space-y-8 lg:hidden p-4 z-[10000] overflow-y-auto"
                 >
                     {/* Mobile Search Widget */}
                     <div className="w-full max-w-sm bg-white border border-forest/10 p-4 space-y-4">
@@ -377,7 +378,7 @@ export default function Navbar() {
                         <Link
                             key={link.name}
                             href={link.href}
-                            className="text-2xl font-bold text-black hover:text-sky-600 transition-colors"
+                            className="text-2xl font-serif font-bold italic text-forest hover:text-[#C9A84C] transition-colors"
                             onClick={() => setIsMobileMenuOpen(false)}
                         >
                             {link.name}

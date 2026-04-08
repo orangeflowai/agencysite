@@ -82,15 +82,16 @@ export default function Footer() {
                         {/* Brand Column */}
                         <div className="space-y-8">
                             <Link href="/" className="inline-block group">
-                                <span className="text-2xl font-black tracking-tight text-white flex items-center gap-2">
-                                    <div className="w-8 h-8 bg-sky-500 rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform">
-                                        <div className="w-4 h-4 border-2 border-white rounded-sm" />
-                                    </div>
-                                    ROMAN<span className="text-sky-400">VATICAN</span>
-                                </span>
+                                {site?.logo ? (
+                                    <img src={site.logo.asset.url} alt={site.title || 'Roman Vatican Tour'} className="h-10 w-auto object-contain" />
+                                ) : (
+                                    <span className="text-2xl font-black tracking-tight text-white">
+                                        ROMAN<span className="text-sky-400">VATICAN</span>
+                                    </span>
+                                )}
                             </Link>
                             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
-                                The modern benchmark for Roman exploration. SaaS-driven efficiency, human-led storytelling.
+                                {site?.seo?.metaDescription || 'Skip-the-line Vatican & Rome tours. Expert guides, instant confirmation, unforgettable experiences.'}
                             </p>
 
                              {/* Social Links - SaaS Style */}
@@ -232,7 +233,7 @@ export default function Footer() {
 
                     {/* Bottom Bar */}
                     <div className="border-t border-slate-800/50 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] text-slate-500">
-                        <p>&copy; {currentYear} RomanVatican Tour. Built for speed.</p>
+                        <p>&copy; {currentYear} {site?.title || 'Roman Vatican Tour'}. All rights reserved.</p>
 
                         {/* Company Details */}
                         <div className="text-center md:text-right flex flex-col md:items-end gap-1">

@@ -608,3 +608,35 @@ nav[class*="fixed"] {
   letter-spacing: revert;
   font-weight: revert;
 }
+
+/* ============================================
+   GLASSMORPHISM UTILITIES
+   ============================================ */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.glass-dark {
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-sky {
+  background: rgba(14, 165, 233, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+}
+
+/* Performance: GPU-accelerate animated elements */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Highlighted text */
+.highlight {
+  color: var(--color-theme-primary, #0EA5E9);
+}
