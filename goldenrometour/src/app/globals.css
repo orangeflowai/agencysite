@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @theme {
   /* ============================================
      BASE THEME VARIABLES - GOLDEN ROME TOUR
@@ -21,29 +23,34 @@
   --color-gold-light: #E8C97A;
   --color-gold-dark: #A07830;
 
-  /* Theme-aware colors */
-  --color-theme-primary: var(--color-primary, #C9A84C);
-  --color-theme-secondary: var(--color-secondary, #F5F0E8);
-  --color-theme-dark: var(--color-dark, #1A1210);
-  --color-theme-light: var(--color-light, #F5F0E8);
-  --color-theme-accent: var(--color-accent, #7B2D2D);
+  /* Neutral scale for components */
+  --color-neutral-50:  #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
 
-  /* Font variables */
+  /* Amber for ratings */
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+
+  /* Theme-aware colors — NO self-references, use plain fallback values */
+  --color-theme-primary: #C9A84C;
+  --color-theme-secondary: #F5F0E8;
+  --color-theme-dark: #1A1210;
+  --color-theme-light: #F5F0E8;
+  --color-theme-accent: #7B2D2D;
+
+  /* Font variables — Next.js injects --font-serif/sans via layout.tsx, fallbacks used otherwise */
   --font-serif: var(--font-serif, "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", serif);
   --font-sans: var(--font-sans, "Cormorant Garamond", ui-sans-serif, system-ui, sans-serif);
   --font-nav: var(--font-nav, "Josefin Sans", ui-sans-serif, system-ui, sans-serif);
-  --font-accent: var(--font-accent, "Great Vibes", cursive);
-
-  /* Spacing Scale */
-  --space-xs: 0.5rem;
-  --space-sm: 0.75rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  --space-4xl: 6rem;
-  --space-5xl: 8rem;
 
   --animate-flight: flight 20s linear infinite;
 }

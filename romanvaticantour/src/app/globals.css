@@ -92,7 +92,7 @@
   --color-theme-primary-dark: var(--color-primary-dark, #1e40af);
   --color-theme-accent: var(--color-accent, #0c4a6e);
 
-  /* Font variables */
+  /* Font variables — Next.js injects --font-serif/sans via layout.tsx, fallbacks used otherwise */
   --font-serif: var(--font-serif, "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif);
   --font-sans: var(--font-sans, "Inter", ui-sans-serif, system-ui, sans-serif);
 

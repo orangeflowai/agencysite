@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -18,7 +18,8 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
-const inter = Inter({
+// Cormorant Garamond — editorial body font for Golden Rome Tour
+const cormorant = Cormorant_Garamond({
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-sans',
@@ -77,7 +78,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         />
       </head>
       <body
-        className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
+        className={`${cormorant.variable} ${playfair.variable} font-sans antialiased`}
         data-site-id={siteSlug}
         data-site={siteSlug}
         suppressHydrationWarning
