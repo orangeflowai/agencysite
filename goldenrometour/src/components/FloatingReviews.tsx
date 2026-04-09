@@ -18,20 +18,20 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
             className="w-[340px] shrink-0 relative p-7 shadow-xl"
             style={{
                 backgroundColor: '#ffffff',
-                border: '1px solid rgba(201,168,76,0.2)',
+                border: '1px solid rgba(26,18,16,0.1)',
                 borderRadius: '2px',
             }}
         >
             <Quote
                 className="absolute top-5 right-5"
                 size={32}
-                style={{ color: 'rgba(201,168,76,0.15)' }}
+                style={{ color: 'rgba(26,18,16,0.08)' }}
             />
 
             {/* Stars */}
             <div className="flex items-center gap-0.5 mb-4">
                 {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={13} style={{ fill: '#C9A84C', color: '#C9A84C' }} />
+                    <Star key={i} size={13} style={{ fill: '#1A1210', color: '#1A1210' }} />
                 ))}
             </div>
 
@@ -44,12 +44,12 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
             </p>
 
             {/* Author */}
-            <div className="flex items-center gap-3 border-t pt-4" style={{ borderColor: 'rgba(201,168,76,0.15)' }}>
+            <div className="flex items-center gap-3 border-t pt-4" style={{ borderColor: 'rgba(26,18,16,0.1)' }}>
                 <div
                     className="w-10 h-10 flex items-center justify-center text-sm font-serif font-bold shrink-0"
                     style={{
                         backgroundColor: '#1A1210',
-                        color: '#C9A84C',
+                        color: '#F5F0E8',
                         borderRadius: '2px',
                     }}
                 >
@@ -59,13 +59,13 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                     <p className="font-nav font-bold text-xs uppercase tracking-widest" style={{ color: '#1A1210' }}>
                         {review.name}
                     </p>
-                    <p className="font-nav text-[10px] uppercase tracking-wider" style={{ color: '#C9A84C', opacity: 0.8 }}>
+                    <p className="font-nav text-[10px] uppercase tracking-wider" style={{ color: '#1A1210', opacity: 0.5 }}>
                         {review.location}
                     </p>
                 </div>
                 <div
                     className="ml-auto font-nav text-[9px] uppercase tracking-widest px-2 py-1"
-                    style={{ backgroundColor: 'rgba(201,168,76,0.1)', color: '#C9A84C', borderRadius: '999px' }}
+                    style={{ backgroundColor: 'rgba(26,18,16,0.05)', color: '#1A1210', borderRadius: '999px' }}
                 >
                     Verified
                 </div>

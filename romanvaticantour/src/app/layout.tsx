@@ -10,6 +10,7 @@ import GlobalThemeProvider from "@/components/GlobalThemeProvider";
 import GoogleTranslate from "@/components/GoogleTranslate";
 import { getSite, DEFAULT_SITE_ID } from "@/lib/sanityService";
 import { CartProvider } from "@/context/CartContext";
+import PageTransition from "@/components/PageTransition";
 
 const playfair = Playfair_Display({
   weight: ['400', '500', '600', '700', '800', '900'],
@@ -90,7 +91,9 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
                 <SmoothScroll>
                   <WhatsAppButton />
                   <CookieBanner />
-                  {children}
+                  <PageTransition>
+                    {children}
+                  </PageTransition>
                 </SmoothScroll>
               </CartProvider>
             </LanguageProvider>

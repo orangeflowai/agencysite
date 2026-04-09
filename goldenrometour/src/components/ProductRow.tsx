@@ -47,9 +47,11 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
 
     if (!tours || tours.length === 0) return null;
 
-    const bgColor = dark ? '#1A1210' : '#F5F0E8';
+    const bgColor = dark ? '#555B02' : '#F5F0E8';
     const titleColor = dark ? '#F5F0E8' : '#1A1210';
-    const subtitleColor = dark ? 'rgba(201,168,76,0.8)' : 'rgba(26,18,16,0.6)';
+    const subtitleColor = dark ? 'rgba(245,240,232,0.6)' : 'rgba(26,18,16,0.6)';
+    const accentColor = dark ? '#F5F0E8' : '#1A1210';
+    const accentColorMuted = dark ? 'rgba(245,240,232,0.3)' : 'rgba(26,18,16,0.3)';
 
     return (
         <section className="py-20 md:py-32 overflow-hidden transition-colors duration-500" style={{ backgroundColor: bgColor }}>
@@ -63,8 +65,8 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             viewport={{ once: true }}
                             className="flex items-center gap-3 mb-4"
                         >
-                            <div className="w-10 h-px bg-[#C9A84C]" />
-                            <p className="font-nav text-[10px] tracking-[0.4em] uppercase font-bold" style={{ color: '#C9A84C' }}>
+                            <div className="w-10 h-px" style={{ backgroundColor: accentColor }} />
+                            <p className="font-nav text-[10px] tracking-[0.4em] uppercase font-bold text-forest opacity-60" style={{ color: accentColor }}>
                                 Essential Rome
                             </p>
                         </motion.div>
@@ -98,23 +100,24 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             {scrollSnaps.map((_, index) => (
                                 <div 
                                     key={index} 
-                                    className={`h-1 transition-all duration-300 rounded-full ${index === selectedIndex ? 'w-8 bg-[#C9A84C]' : 'w-2 bg-[#C9A84C]/20'}`} 
+                                    className={`h-1 transition-all duration-300 rounded-full ${index === selectedIndex ? 'w-8' : 'w-2'}`} 
+                                    style={{ backgroundColor: index === selectedIndex ? accentColor : accentColorMuted }}
                                 />
                             ))}
                         </div>
                         <button
                             onClick={scrollPrev}
                             disabled={!prevBtnEnabled}
-                            className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${!prevBtnEnabled ? 'opacity-30 Slab-not-allowed cursor-not-allowed' : 'hover:bg-[#C9A84C] hover:border-[#C9A84C] hover:text-white'}`}
-                            style={{ borderColor: 'rgba(201,168,76,0.4)', color: '#C9A84C' }}
+                            className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${!prevBtnEnabled ? 'opacity-30 cursor-not-allowed' : 'hover:scale-105 select-none'}`}
+                            style={{ borderColor: accentColorMuted, color: accentColor }}
                         >
                             <ChevronLeft size={20} />
                         </button>
                         <button
                             onClick={scrollNext}
                             disabled={!nextBtnEnabled}
-                            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${!nextBtnEnabled ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110 shadow-lg'}`}
-                            style={{ backgroundColor: '#C9A84C', color: '#1A1210' }}
+                            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${!nextBtnEnabled ? 'opacity-30 cursor-not-allowed' : 'hover:scale-105 shadow-lg select-none'}`}
+                            style={{ backgroundColor: accentColor, color: bgColor }}
                         >
                             <ChevronRight size={20} />
                         </button>
@@ -139,9 +142,10 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                         <div className="embla__slide flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0">
                             <Link 
                                 href={link}
-                                className="h-full flex flex-col items-center justify-center border-2 border-dashed border-[#C9A84C]/30 rounded-2xl p-12 group hover:border-[#C9A84C] transition-all bg-white/5"
+                                className="h-full flex flex-col items-center justify-center border-2 border-dashed rounded-2xl p-12 group transition-all bg-white/5 opacity-80 hover:opacity-100"
+                                style={{ borderColor: accentColorMuted }}
                             >
-                                <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 flex items-center justify-center mb-4 group-hover:bg-[#C9A84C] group-hover:text-[#1A1210] transition-all">
+                                <div className="w-16 h-16 rounded-full border flex items-center justify-center mb-4 transition-all" style={{ borderColor: accentColor, color: accentColor }}>
                                     <ArrowUpRight size={32} />
                                 </div>
                                 <span className="font-nav text-xs uppercase tracking-[0.3em] font-bold" style={{ color: titleColor }}>

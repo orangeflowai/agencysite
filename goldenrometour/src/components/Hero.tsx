@@ -24,8 +24,7 @@ export default function Hero({ settings }: HeroProps) {
     const [destination, setDestination] = useState('');
     const [date, setDate] = useState('');
     const [guests, setGuests] = useState('2');
-
-    const rawImageUrl = settings?.heroImage?.asset?.url || `${SUPABASE_BUCKET_URL}/hero-poster.jpg`;
+    const rawImageUrl = settings?.heroImage?.asset?.url || `https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/f02afd2b49eb147f3aeac6fac279128f.jpg`;
 
     const handleSearch = () => {
         const params = new URLSearchParams();
@@ -74,7 +73,7 @@ export default function Hero({ settings }: HeroProps) {
                     transition={{ duration: 0.6, delay: 0.6 }}
                     className="flex flex-col sm:flex-row gap-6"
                 >
-                    <Link href="/search" className="bg-forest text-cream px-12 py-5 font-sans font-black uppercase tracking-widest text-sm hover:invert transition-all flex items-center justify-center gap-3">
+                    <Link href="/search" className="bg-[#555B02] text-[#F5F0E8] px-12 py-5 font-sans font-black uppercase tracking-widest text-sm hover:invert transition-all flex items-center justify-center gap-3">
                         <span>Explore Collection</span>
                         <Search className="w-4 h-4" />
                     </Link>
@@ -126,7 +125,7 @@ export default function Hero({ settings }: HeroProps) {
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 1 }}
-                    className="absolute bottom-12 right-12 bg-cream p-8 max-w-[280px] z-30 shadow-2xl"
+                    className="absolute bottom-12 right-12 glass p-8 max-w-[280px] z-30 shadow-2xl border border-white/20"
                 >
                     <p className="font-sans font-black text-[10px] uppercase tracking-[0.3em] text-forest/40 mb-4 tracking-widest">Featured Space</p>
                     <h3 className="font-serif text-2xl font-bold text-forest mb-4">The Secret Rooms of the Vatican.</h3>
@@ -141,11 +140,11 @@ export default function Hero({ settings }: HeroProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.2 }}
-                className="hidden lg:block absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-40 w-full max-w-6xl px-8"
+                className="hidden lg:block absolute bottom-12 left-1/2 -translate-x-1/2 z-40 w-full max-w-5xl px-8"
             >
-                <div className="bg-forest p-1 border border-forest">
-                    <div className="bg-cream p-1 flex flex-col md:flex-row items-stretch">
-                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-stone-50 transition-colors">
+                <div className="glass shadow-2xl p-1 border border-white/20 rounded-xl overflow-hidden">
+                    <div className="bg-cream/40 backdrop-blur-xl flex flex-col md:flex-row items-stretch rounded-lg">
+                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-cream/60 transition-colors">
                             <Map className="w-4 h-4 text-forest/30 mr-4" />
                             <div className="flex-1">
                                 <label className="block text-[8px] font-black text-forest/40 uppercase tracking-widest mb-1">Architecture / Area</label>
@@ -159,7 +158,7 @@ export default function Hero({ settings }: HeroProps) {
                             </div>
                         </div>
 
-                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-stone-50 transition-colors">
+                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-cream/60 transition-colors">
                             <Calendar className="w-4 h-4 text-forest/30 mr-4" />
                             <div className="flex-1">
                                 <label className="block text-[8px] font-black text-forest/40 uppercase tracking-widest mb-1">Departure</label>
@@ -172,7 +171,7 @@ export default function Hero({ settings }: HeroProps) {
                             </div>
                         </div>
 
-                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-stone-50 transition-colors">
+                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-cream/60 transition-colors">
                             <Users className="w-4 h-4 text-forest/30 mr-4" />
                             <div className="flex-1">
                                 <label className="block text-[8px] font-black text-forest/40 uppercase tracking-widest mb-1">Audience Size</label>
@@ -191,7 +190,7 @@ export default function Hero({ settings }: HeroProps) {
 
                         <button
                             onClick={handleSearch}
-                            className="bg-forest text-cream px-12 py-8 font-sans font-black uppercase tracking-[0.2em] text-xs hover:bg-stone-900 transition-all"
+                            className="bg-[#555B02] text-[#F5F0E8] px-12 py-8 font-sans font-black uppercase tracking-[0.2em] text-xs hover:scale-105 transition-all shadow-xl rounded-r-lg"
                         >
                             Confirm Selection
                         </button>

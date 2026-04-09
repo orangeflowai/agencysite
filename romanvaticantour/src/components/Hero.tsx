@@ -24,7 +24,7 @@ export default function Hero({ settings }: HeroProps) {
     const [destination, setDestination] = useState('');
     const [date, setDate] = useState('');
 
-    const rawImageUrl = settings?.heroImage?.asset?.url || `${SUPABASE_BUCKET_URL}/hero-poster.jpg`;
+    const rawImageUrl = settings?.heroImage?.asset?.url || `https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/hero-poster.jpg`;
     
     const handleSearch = () => {
         const params = new URLSearchParams();
@@ -151,7 +151,7 @@ export default function Hero({ settings }: HeroProps) {
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                                 
                                 {/* SaaS style interactive widget floating over image */}
-                                <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-saas border border-white/40">
+                                <div className="absolute bottom-6 left-6 right-6 glass-white backdrop-blur-3xl rounded-2xl p-4 shadow-saas-xl border border-white/60">
                                     <div className="flex items-center justify-between mb-4">
                                         <div>
                                             <h3 className="font-bold text-neutral-900 flex items-center gap-2">

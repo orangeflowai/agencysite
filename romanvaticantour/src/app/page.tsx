@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
+import HeroStickyGrid from "@/components/HeroStickyGrid";
 import SaaSBentoFeatures from "@/components/SaaSBentoFeatures";
 import SaaSTourGrid from "@/components/SaaSTourGrid";
 import TrustBadges from "@/components/TrustBadges";
@@ -14,9 +14,7 @@ import dynamic from 'next/dynamic';
 export const revalidate = 3600;
 
 // Lazy Load Components Below Fold
-const RomeGallery = dynamic(() => import('@/components/RomeGallery'), {
-  loading: () => <div className="h-96 w-full bg-neutral-100 animate-pulse" />
-});
+// Cleaned up the old dynamic StickyGridScroll import
 const FAQ = dynamic(() => import('@/components/FAQ'));
 
 export default async function Home() {
@@ -45,8 +43,8 @@ export default async function Home() {
     <main className="min-h-screen bg-white">
       <Navbar />
       
-      {/* High-Impact SaaS Split Hero */}
-      <Hero settings={settings} />
+      {/* High-Impact SaaS Split Hero merged with Sticky Grid */}
+      <HeroStickyGrid settings={settings} tours={[...vaticanTours, ...colosseumTours, ...otherTours]} />
 
       {/* Trust Badges */}
       <TrustBadges />
@@ -68,8 +66,7 @@ export default async function Home() {
           />
         </AnimatedSection>
 
-        {/* 2. Visual Break - Rome Gallery */}
-        <RomeGallery />
+      
 
         {/* 3. Secondary Highlight: Colosseum (Dark Mode) */}
         <AnimatedSection id="colosseum" delay={0.2}>

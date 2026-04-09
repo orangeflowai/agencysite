@@ -35,12 +35,12 @@ export default function HighlightSection({
                     viewport={{ once: true }}
                     transition={{ duration: 0.7 }}
                     className="flex-1 flex flex-col justify-center px-10 md:px-16 lg:px-20 py-16 lg:py-24"
-                    style={{ backgroundColor: '#1A1210' }}
+                    style={{ backgroundColor: '#555B02' }}
                 >
                     {eyebrow && (
                         <p
-                            className="text-[10px] font-bold uppercase tracking-[0.3em] mb-5"
-                            style={{ color: '#C9A84C' }}
+                            className="text-[10px] font-bold uppercase tracking-[0.3em] mb-5 opacity-60"
+                            style={{ color: '#F5F0E8' }}
                         >
                             {eyebrow}
                         </p>
@@ -59,8 +59,8 @@ export default function HighlightSection({
                     </p>
                     <Link
                         href={ctaHref}
-                        className="self-start inline-flex items-center gap-2 font-bold uppercase tracking-[0.2em] text-sm py-3 px-8 rounded-full transition-all hover:scale-105 hover:opacity-90"
-                        style={{ backgroundColor: '#C9A84C', color: '#1A1210' }}
+                        className="self-start inline-flex items-center gap-2 font-bold uppercase tracking-[0.2em] text-sm py-3 px-8 rounded-full transition-all hover:scale-105 shadow-xl"
+                        style={{ backgroundColor: '#555B02', color: '#F5F0E8' }}
                     >
                         {ctaText}
                     </Link>
@@ -76,8 +76,8 @@ export default function HighlightSection({
                     style={{
                         backgroundColor: '#F5F0E8',
                         backgroundImage: `
-                            linear-gradient(rgba(201,168,76,0.12) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(201,168,76,0.12) 1px, transparent 1px)
+                            linear-gradient(rgba(26,18,16,0.05) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(26,18,16,0.05) 1px, transparent 1px)
                         `,
                         backgroundSize: '40px 40px',
                     }}
@@ -103,7 +103,7 @@ export default function HighlightSection({
                     {/* Decorative floating badge */}
                     <div
                         className="absolute top-8 right-8 lg:top-12 lg:right-12 w-20 h-20 rounded-full flex flex-col items-center justify-center text-center shadow-lg"
-                        style={{ backgroundColor: '#1A1210', color: '#C9A84C' }}
+                        style={{ backgroundColor: '#1A1210', color: '#F5F0E8' }}
                     >
                         <span className="font-serif font-bold text-xl leading-none">50K</span>
                         <span className="text-[9px] font-bold uppercase tracking-wider leading-tight mt-0.5 opacity-80">Guests</span>
