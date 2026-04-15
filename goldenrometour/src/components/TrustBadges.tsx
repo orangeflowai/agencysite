@@ -8,95 +8,92 @@ const features = [
         Icon: Award,
         title: 'ROME TOUR\nEXPERTS',
         description: 'Licensed & accredited guides with 10+ years leading Vatican and Colosseum tours. Fully ATAC and Italian Ministry certified.',
-        accent: '#C9A84C',
+        accent: '#555B02',
     },
     {
         Icon: Shield,
         title: 'WORRY-FREE\nBOOKING',
         description: 'Free cancellation up to 24 hours before your tour. Instant confirmation email with your official booking voucher.',
-        accent: '#1A3626',
+        accent: '#555B02',
     },
     {
         Icon: Clock,
         title: '24 HOUR\nSUPPORT',
         description: 'Multilingual support team available 24hrs a day via WhatsApp, email, and phone throughout your Rome holiday.',
-        accent: '#7B2D2D',
+        accent: '#555B02',
     },
     {
         Icon: ThumbsUp,
         title: 'EXCELLENT\nCUSTOMER SERVICE',
         description: 'Rated 5★ on Google and TripAdvisor by over 50,000 happy travellers. We are here to make your Rome trip unforgettable.',
-        accent: '#C9A84C',
+        accent: '#555B02',
     },
 ];
 
 export default function TrustBadges() {
     return (
-        <div className="w-full py-4">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-5xl mx-auto">
-                {features.map(({ Icon, title, description, accent }, index) => (
-                    <motion.div
-                        key={title}
-                        initial={{ opacity: 0, y: 24 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.55, delay: index * 0.12 }}
-                        className="group relative flex flex-col items-center text-center"
-                    >
-                        {/* Glass Icon Card */}
-                        <div
-                            className="relative w-24 h-24 rounded-2xl flex items-center justify-center mb-5 transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-1 overflow-hidden"
-                            style={{
-                                background: 'rgba(245, 240, 232, 0.8)',
-                                backdropFilter: 'blur(12px)',
-                                WebkitBackdropFilter: 'blur(12px)',
-                                border: `1px solid rgba(201,168,76,0.2)`,
-                                boxShadow: `0 8px 32px rgba(26,18,16,0.06), 0 0 0 1px rgba(255,255,255,0.6) inset`,
-                            }}
+        <section className="w-full py-16 bg-[#F5F0E8] relative overflow-hidden">
+            <div className="container mx-auto px-6 relative z-10">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                    {features.map(({ Icon, title, description, accent }, index) => (
+                        <motion.div
+                            key={title}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.7, delay: index * 0.15 }}
+                            className="group relative flex flex-col items-center text-center p-8 rounded-[2.5rem] transition-all duration-500 hover:bg-white/40 border border-transparent hover:border-white/60 hover:shadow-2xl hover:shadow-[#555B02]/5"
                         >
-                            {/* Subtle gradient overlay */}
-                            <div
-                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
-                                style={{ background: `linear-gradient(135deg, ${accent}10, ${accent}05)` }}
-                            />
-                            <Icon className="w-9 h-9 relative z-10 transition-transform duration-500 group-hover:scale-110" style={{ color: accent }} strokeWidth={1.5} />
-                        </div>
+                            {/* Glass Icon Card with Layered Effect */}
+                            <div className="relative mb-8">
+                                <div className="absolute inset-0 bg-[#555B02]/10 blur-2xl rounded-full scale-0 group-hover:scale-150 transition-transform duration-700 opacity-0 group-hover:opacity-100"></div>
+                                <div
+                                    className="relative w-24 h-24 rounded-3xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 overflow-hidden shadow-sm"
+                                    style={{
+                                        background: 'rgba(255, 255, 255, 0.6)',
+                                        backdropFilter: 'blur(16px)',
+                                        WebkitBackdropFilter: 'blur(16px)',
+                                        border: '1px solid rgba(255, 255, 255, 0.8)',
+                                        boxShadow: '0 8px 32px rgba(85, 91, 2, 0.05)',
+                                    }}
+                                >
+                                    <Icon className="w-10 h-10 relative z-10 transition-colors duration-500" style={{ color: accent }} strokeWidth={1.25} />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                </div>
+                            </div>
 
-                        <h3
-                            className="font-bold text-[11px] tracking-widest mb-3 uppercase leading-snug whitespace-pre-line"
-                            style={{ color: '#1A1210', fontFamily: 'var(--font-sans, sans-serif)' }}
-                        >
-                            {title}
-                        </h3>
+                            <h3
+                                className="font-serif font-bold text-sm tracking-widest mb-4 uppercase leading-relaxed whitespace-pre-line text-[#555B02]"
+                            >
+                                {title}
+                            </h3>
 
-                        <p className="text-xs leading-relaxed max-w-[180px]" style={{ color: '#6B5C45' }}>
-                            {description}
-                        </p>
-                    </motion.div>
-                ))}
-            </div>
+                            <p className="font-sans text-xs leading-relaxed text-[#1A1210]/60 max-w-[220px]">
+                                {description}
+                            </p>
+                        </motion.div>
+                    ))}
+                </div>
 
-            {/* Platform trust strip */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="flex items-center justify-center gap-10 mt-14 pt-10 flex-wrap hover:opacity-100 transition-opacity duration-500"
-                style={{ borderTop: '1px solid rgba(26,18,16,0.08)', opacity: 0.55 }}
-            >
-                {[['TripAdvisor', '★★★★★'], ['Google', '★★★★★'], ['Viator Elite', ''], ['GetYourGuide', '']].map(([name, stars]) => (
-                    <div key={name} className="flex items-center gap-2 group cursor-default">
-                        <span
-                            className="font-serif text-base font-bold italic transition-colors group-hover:opacity-80"
-                            style={{ color: '#1A1210' }}
-                        >
-                            {name}
-                        </span>
-                        {stars && <span className="text-xs" style={{ color: '#C9A84C' }}>{stars}</span>}
+                {/* Platform trust strip - Refined */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.8 }}
+                    className="flex flex-col items-center mt-20 pt-12 border-t border-[#555B02]/10"
+                >
+                    <p className="font-sans font-black text-[9px] uppercase tracking-[0.4em] text-[#555B02]/30 mb-8">Trusted by Global Travelers</p>
+                    <div className="flex items-center justify-center gap-12 lg:gap-20 flex-wrap opacity-40 hover:opacity-100 transition-opacity duration-700">
+                        {[['TripAdvisor', '★★★★★'], ['Google', '★★★★★'], ['Viator', 'Elite'], ['GetYourGuide', 'Certified']].map(([name, stars]) => (
+                            <div key={name} className="flex flex-col items-center gap-1 group cursor-default">
+                                <span className="font-serif text-xl font-bold italic text-[#555B02]">{name}</span>
+                                {stars && <span className="text-[10px] font-black tracking-widest text-[#555B02]/60 uppercase">{stars}</span>}
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </motion.div>
-        </div>
+                </motion.div>
+            </div>
+        </section>
     );
 }

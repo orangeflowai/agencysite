@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
-import HeroStickyGrid from "@/components/HeroStickyGrid";
+import GooeyHero from "@/components/GooeyHero";
+import TrustCalendar from "@/components/TrustCalendar";
 import SaaSBentoFeatures from "@/components/SaaSBentoFeatures";
 import SaaSTourGrid from "@/components/SaaSTourGrid";
-import TrustBadges from "@/components/TrustBadges";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
 import FloatingReviews from "@/components/FloatingReviews";
@@ -42,15 +42,16 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-white">
       <Navbar />
-      
-      {/* High-Impact SaaS Split Hero merged with Sticky Grid */}
-      <HeroStickyGrid settings={settings} tours={[...vaticanTours, ...colosseumTours, ...otherTours]} />
 
-      {/* Trust Badges */}
-      <TrustBadges />
+      {/* High-Impact Interactive Hero */}
+      <GooeyHero />
+
+      {/* Trust & Interactive Booking Section */}
+      <TrustCalendar tours={tours} />
 
       {/* Bento Box Value Proposition */}
       <SaaSBentoFeatures />
+
 
       {/* Features/Pricing-style Tour Grids */}
       <div className="flex flex-col">
@@ -66,7 +67,7 @@ export default async function Home() {
           />
         </AnimatedSection>
 
-      
+
 
         {/* 3. Secondary Highlight: Colosseum (Dark Mode) */}
         <AnimatedSection id="colosseum" delay={0.2}>
@@ -78,20 +79,6 @@ export default async function Home() {
             dark={true}
           />
         </AnimatedSection>
-
-        {/* 4. Other Tours (Light Mode again) */}
-        {otherTours.length > 0 && (
-          <AnimatedSection id="explore" delay={0.3}>
-             <SaaSTourGrid
-                title="City & Hidden Gems"
-                subtitle="Complete your Roman holiday with food tours, catacombs, and city highlights."
-                tours={otherTours}
-                link="/search"
-                dark={false}
-              />
-          </AnimatedSection>
-        )}
-
       </div>
 
       {/* Floating Reviews as SaaS Testimonials */}
@@ -112,7 +99,7 @@ export default async function Home() {
       <div id="faq" className="bg-white">
         <FAQ />
       </div>
-      
+
       <Footer />
     </main>
   );

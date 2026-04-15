@@ -88,11 +88,17 @@ export default function Footer() {
                                 A documentary approach to the eternal city. High-impact experiences Curated for the discerning traveler.
                             </p>
 
-                            {/* Social Links - Grayscale Editorial */}
-                            <div className="flex items-center space-x-6">
-                                <a href="#" className="text-forest/40 hover:text-cream transition-colors"><Facebook size={18} /></a>
-                                <a href="#" className="text-forest/40 hover:text-cream transition-colors"><Instagram size={18} /></a>
-                                <a href="#" className="text-forest/40 hover:text-cream transition-colors"><Twitter size={18} /></a>
+                            {/* Social Links - Editorial Style */}
+                            <div className="flex items-center space-x-4">
+                                <Link href="/" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
+                                    <Facebook size={16} />
+                                </Link>
+                                <Link href="/" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
+                                    <Instagram size={16} />
+                                </Link>
+                                <Link href="/" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
+                                    <Twitter size={16} />
+                                </Link>
                             </div>
                         </div>
 

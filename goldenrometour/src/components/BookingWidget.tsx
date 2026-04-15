@@ -9,6 +9,7 @@ import SmartCalendar from './ui/SmartCalendar';
 import { format } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
+import CheckoutDrawer from './CheckoutDrawer';
 
 // Stripe publishable key — resolved from env by site ID suffix
 // e.g. NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_GOLDENROMETOUR for goldenrometour
@@ -91,6 +92,8 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
     // Checkout State
     const [checkingOut, setCheckingOut] = useState(false);
     const [validationError, setValidationError] = useState('');
+    const [showDrawer, setShowDrawer] = useState(false);
+    const [drawerData, setDrawerData] = useState<any>(null);
 
     // Derived State
     const totalGuests = Object.values(counts || {}).reduce((sum, count) => sum + (count || 0), 0);
@@ -175,7 +178,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
     };
 
     const processCheckout = async (details: GuestDetail[]) => {
-        const bookingData = {
+        const data = {
             tour: {
                 _id: tour._id,
                 title: tour.title,
@@ -184,20 +187,16 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                 guestTypes: tour.guestTypes,
                 mainImage: tour.mainImage,
                 category: tour.category,
-                meetingPoint: tour['meetingPoint'],
-                maxParticipants: tour['maxParticipants'],
+                meetingPoint: (tour as any).meetingPoint,
             },
             date: selectedDate,
             time: selectedTime,
             guestCounts: counts,
             totalPrice,
-            guestDetails: details,
         };
-
-        const encodedData = encodeURIComponent(JSON.stringify(bookingData));
-        window.location.href = `/checkout?data=${encodedData}`;
+        setDrawerData(data);
+        setShowDrawer(true);
     };
-
     // Helper for Stepper
     const Stepper = ({ name, value, min = 0, max = 50 }: { name: string, value: number, min?: number, max?: number }) => (
         <div className="flex items-center gap-3">
@@ -414,9 +413,14 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     <p className="text-[10px] font-bold text-gray-400 mt-0.5 tracking-tight uppercase">Full refund up to 24h before</p>
                 </div>
             </div>
+
+            {/* Checkout Drawer */}
+            {showDrawer && (
+                <CheckoutDrawer
+                    bookingData={drawerData}
+                    onClose={() => setShowDrawer(false)}
+                />
+            )}
         </div>
     );
 }
-
-// Import urlFor for images
-import { urlFor } from '@/sanity/lib/image';

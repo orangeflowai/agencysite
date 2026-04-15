@@ -53,7 +53,7 @@ export async function GET() {
             // Batch insert for this tour
             const { error } = await supabaseAdmin
                 .from('inventory')
-                .upsert(rows, { onConflict: 'tour_slug, date, time' });
+                .upsert(rows, { onConflict: 'tour_slug,date,time' });
 
             if (error) {
                 console.error(`Error seeding ${tour.slug}:`, error);

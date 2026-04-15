@@ -7,8 +7,8 @@ export async function GET() {
         process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    const email = `${process.env.ADMIN_EMAIL || "admin@yourdomain.com"}`;
-    const password = 'wonders-admin-secure-login';
+    const email = process.env.ADMIN_EMAIL || 'admin@yourdomain.com';
+    const password = process.env.ADMIN_INITIAL_PASSWORD || 'change-me-immediately';
 
     // Check if user exists
     const { data: users } = await supabase.auth.admin.listUsers();
@@ -21,7 +21,7 @@ export async function GET() {
             user_metadata: { role: 'admin' }
         });
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ message: 'Admin user updated', email, password });
+        return NextResponse.json({ message: 'Admin user updated', email });
     } else {
         // Create user
         const { error } = await supabase.auth.admin.createUser({
@@ -31,6 +31,6 @@ export async function GET() {
             user_metadata: { role: 'admin' }
         });
         if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-        return NextResponse.json({ message: 'Admin user created', email, password });
+        return NextResponse.json({ message: 'Admin user created', email });
     }
 }

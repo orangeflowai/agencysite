@@ -197,22 +197,20 @@ export default function Hero({ settings }: HeroProps) {
                 </motion.div>
             </div>
 
-            {/* ── SEARCH BAR ── */}
+            {/* ── SEARCH BAR (GLASS) ── */}
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.8 }}
-                className="lg:absolute lg:bottom-0 left-0 right-0 z-20 px-4 md:px-16 xl:px-24 pb-8 lg:pb-0 pt-8"
-                style={{ transform: 'none' }} // Resetting transform for a cleaner relative flow on smaller screens
+                transition={{ delay: 1, duration: 1 }}
+                className="lg:absolute lg:bottom-12 left-0 right-0 z-20 px-6 md:px-16 xl:px-24 pt-12 lg:pt-0"
             >
                 <div
-                    className="w-full max-w-5xl mx-auto bg-white shadow-2xl lg:transform lg:translate-y-1/2"
-                    style={{ borderRadius: '2px', border: '1px solid rgba(201,168,76,0.25)' }}
+                    className="w-full max-w-6xl mx-auto glass shadow-2xl overflow-hidden rounded-[2rem] border border-white/20"
                 >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 md:divide-x divide-gray-100">
+                    <div className="bg-white/10 backdrop-blur-2xl flex flex-col lg:flex-row items-stretch overflow-hidden">
                         {/* Destination */}
-                        <div className="flex flex-col px-4 sm:px-6 py-4 sm:py-5 lg:col-span-1">
-                            <label className="font-nav text-[9px] uppercase tracking-[0.25em] font-bold mb-1.5" style={{ color: '#C9A84C' }}>
+                        <div className="flex-1 flex flex-col px-8 py-6 border-b lg:border-b-0 lg:border-r border-white/10 group focus-within:bg-white/10 transition-all duration-300">
+                            <label className="font-nav text-[10px] uppercase tracking-[0.3em] font-black mb-2 text-[#C9A84C]/80">
                                 📍 Destination
                             </label>
                             <input
@@ -221,47 +219,49 @@ export default function Hero({ settings }: HeroProps) {
                                 value={destination}
                                 onChange={e => setDestination(e.target.value)}
                                 onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                className="font-sans text-sm outline-none bg-transparent placeholder-gray-400 w-full"
-                                style={{ color: '#1A1210' }}
+                                className="font-serif text-xl outline-none bg-transparent placeholder-white/30 text-white w-full"
                             />
                         </div>
+                        
                         {/* Date */}
-                        <div className="flex flex-col px-4 sm:px-6 py-4 sm:py-5 border-t sm:border-t-0 sm:border-l border-gray-100 lg:col-span-1 md:border-l-0">
-                            <label className="font-nav text-[9px] uppercase tracking-[0.25em] font-bold mb-1.5" style={{ color: '#C9A84C' }}>
+                        <div className="flex-1 flex flex-col px-8 py-6 border-b lg:border-b-0 lg:border-r border-white/10 group focus-within:bg-white/10 transition-all duration-300">
+                            <label className="font-nav text-[10px] uppercase tracking-[0.3em] font-black mb-2 text-[#C9A84C]/80">
                                 🗓 Travel Date
                             </label>
                             <input
                                 type="date"
                                 value={date}
                                 onChange={e => setDate(e.target.value)}
-                                className="font-sans text-sm outline-none bg-transparent text-gray-500 w-full"
+                                className="font-sans text-sm outline-none bg-transparent text-white/50 w-full focus:text-white transition-colors"
+                                style={{ colorScheme: 'dark' }}
                             />
                         </div>
+                        
                         {/* Pilgrims */}
-                        <div className="flex flex-col px-4 sm:px-6 py-4 sm:py-5 border-t lg:border-t-0 lg:col-span-1">
-                            <label className="font-nav text-[9px] uppercase tracking-[0.25em] font-bold mb-1.5" style={{ color: '#C9A84C' }}>
+                        <div className="flex-1 flex flex-col px-8 py-6 border-b lg:border-b-0 lg:border-r border-white/10 group focus-within:bg-white/10 transition-all duration-300">
+                            <label className="font-nav text-[10px] uppercase tracking-[0.3em] font-black mb-2 text-[#C9A84C]/80">
                                 👥 Pilgrims
                             </label>
                             <select
                                 value={guests}
                                 onChange={e => setGuests(e.target.value)}
-                                className="font-sans text-sm outline-none bg-transparent text-gray-500 w-full"
+                                className="font-sans text-sm outline-none bg-transparent text-white/50 w-full focus:text-white transition-colors cursor-pointer appearance-none"
                             >
-                                <option value="">Select group size</option>
+                                <option value="" className="bg-[#1A1210]">Select group size</option>
                                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
-                                    <option key={n} value={n}>{n} {n === 1 ? 'Pilgrim' : 'Pilgrims'}</option>
+                                    <option key={n} value={n} className="bg-[#1A1210]">{n} {n === 1 ? 'Pilgrim' : 'Pilgrims'}</option>
                                 ))}
-                                <option value="11+">11+ (Group)</option>
+                                <option value="11+" className="bg-[#1A1210]">11+ (Group)</option>
                             </select>
                         </div>
+                        
                         {/* Search CTA */}
                         <button
                             onClick={handleSearch}
-                            className="flex items-center justify-center gap-3 font-nav font-bold uppercase tracking-widest text-xs sm:text-sm px-6 sm:px-8 py-4 sm:py-5 transition-all hover:brightness-110 active:scale-95 w-full sm:col-span-2 lg:col-span-1 lg:ml-auto"
-                            style={{ backgroundColor: '#C9A84C', color: '#1A1210', borderRadius: '0' }}
+                            className="flex items-center justify-center gap-4 bg-[#C9A84C] text-[#1A1210] font-nav font-black uppercase tracking-[0.25em] text-xs px-12 py-8 transition-all hover:bg-[#d4b766] active:scale-95 group/btn lg:w-[240px]"
                         >
-                            <span>🔍</span>
-                            <span>Search Tours</span>
+                            <span>Search</span>
+                            <Search size={16} className="group-hover/btn:scale-125 transition-transform" />
                         </button>
                     </div>
                 </div>

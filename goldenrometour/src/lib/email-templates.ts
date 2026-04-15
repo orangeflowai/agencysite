@@ -18,22 +18,24 @@ export function generateCustomerEmail(
   // All brand values come from env or metadata — no hardcoded agency names
   const brandName = process.env.NEXT_PUBLIC_SITE_NAME || data.metadata?.siteName || siteId;
   const brandDomain = process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '').replace('http://', '') || 'yourdomain.com';
-  const isWonders = siteId === "wondersofrome";
   const brandColor = data.metadata?.brandColor || '#047857';
   const brandLight = data.metadata?.brandLight || '#d1fae5';
-  const logoUrl = `${process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"}/logo.png`;
+  const logoUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/logo.png`;
   const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 329 929 4414';
   const providerPhone = process.env.NEXT_PUBLIC_PROVIDER_PHONE || supportPhone;
   const bookingRef = data.orderId.slice(-8).toUpperCase();
-  
+
   // Extract meeting point and create map URL
-  // Priority: tour meetingPoint from Sanity → metadata → fallback address
+  // Priority: tour meetingPoint from Sanity → metadata → env fallback
   const meetingPoint = data.metadata.meetingPoint && data.metadata.meetingPoint !== 'See booking confirmation for details'
     ? data.metadata.meetingPoint
-    : (isWonders ? 'Via Tunisi 43, 00192 Roma RM, Italy' : 'Via Germanico 8, 00192 Roma RM, Italy');
+    : (process.env.NEXT_PUBLIC_DEFAULT_MEETING_POINT || 'See booking confirmation for details');
+  const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY || '';
   const encodedAddress = encodeURIComponent(meetingPoint);
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-  const staticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${encodedAddress}&zoom=15&size=600x200&markers=color:red%7C${encodedAddress}&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`;
+  const staticMapUrl = googleMapsApiKey
+    ? `https://maps.googleapis.com/maps/api/staticmap?center=${encodedAddress}&zoom=15&size=600x200&markers=color:red%7C${encodedAddress}&key=${googleMapsApiKey}`
+    : '';
 
   // Parse add-ons
   let addOnsHtml = '';
@@ -169,7 +171,7 @@ export function generateCustomerEmail(
                     <tr>
                       <td style="padding:0;">
                         <a href="${googleMapsUrl}" target="_blank" style="display:block;">
-                          <img src="${staticMapUrl}" alt="Meeting Point Map" style="width:100%;height:auto;display:block;border:none;" />
+                          ${staticMapUrl ? `<img src="${staticMapUrl}" alt="Meeting Point Map" style="width:100%;height:auto;display:block;border:none;" />` : ''}
                         </a>
                       </td>
                     </tr>

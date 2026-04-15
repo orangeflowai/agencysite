@@ -48,22 +48,22 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     // Get site settings with fallbacks
-    const siteTitle = site?.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}';
+    const siteTitle = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Your Agency';
     const logoText = site?.logoText || 'Wonders of';
     const logoTextAccent = site?.logoTextAccent || 'Rome';
     const logo = site?.logo?.asset?.url;
 
     // Business info — only show if set in Sanity, never show placeholder data
     const businessInfo = site?.businessInfo;
-    const companyName = businessInfo?.companyName || site?.title || '{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}';
+    const companyName = businessInfo?.companyName || site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Your Agency';
     const vatNumber = businessInfo?.vatNumber || '';
     const reaNumber = businessInfo?.reaNumber || '';
     const registeredAddress = businessInfo?.registeredAddress || '';
     const shareCapital = businessInfo?.shareCapital;
 
     // Contact info
-    const contactEmail = site?.contactEmail || '{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}';
-    const contactPhone = site?.contactPhone || '{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}';
+    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@yourdomain.com';
+    const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '';
     const officeAddress = site?.officeAddress || t('footer.address');
 
     // Social links
@@ -99,15 +99,15 @@ export default function Footer() {
                                 {/* Fallback/Static Links (if no dynamic ones exist) */}
                                 {!hasSocialLinks && (
                                     <>
-                                        <a href="#" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                        <Link href="/" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-sky-500/50">
                                             <Facebook size={18} />
-                                        </a>
-                                        <a href="#" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                        </Link>
+                                        <Link href="/" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-sky-500/50">
                                             <Instagram size={18} />
-                                        </a>
-                                        <a href="#" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                        </Link>
+                                        <Link href="/" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-sky-500/50">
                                             <Twitter size={18} />
-                                        </a>
+                                        </Link>
                                     </>
                                 )}
 

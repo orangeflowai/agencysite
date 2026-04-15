@@ -26,7 +26,7 @@ export async function POST(request: Request) {
         if (process.env.RESEND_API_KEY) {
             try {
                 const result = await resend.emails.send({
-                    from: 'Vatican Tickets <onboarding@resend.dev>',
+                    from: `${process.env.NEXT_PUBLIC_SITE_NAME || 'Bookings'} <${process.env.EMAIL_FROM || 'onboarding@resend.dev'}>`,
                     to: body.email,
                     subject: `Booking Confirmed: ${body.tourTitle}`,
                     html: `

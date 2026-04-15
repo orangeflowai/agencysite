@@ -175,7 +175,7 @@ function SuccessContent() {
                                         <div className="border-t pt-2 mt-3">
                                             <div className="flex justify-between">
                                                 <span className="font-bold text-gray-900">Total Paid</span>
-                                                <span className="font-bold text-emerald-600 text-xl">€{booking.total_price.toFixed(2)}</span>
+                                                <span className="font-bold text-emerald-600 text-xl">€{(booking.total_price / 100).toFixed(2)}</span>
                                             </div>
                                         </div>
                                     </div>

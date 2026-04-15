@@ -23,10 +23,12 @@ import TrustBadges from '@/components/TrustBadges';
 
 // Site-specific Stripe keys
 const getStripeKey = (siteId: string) => {
-    if (siteId) { // use site-specific key if configured
-        return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_WONDERS || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
-    }
-    return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+    const suffix = siteId.toUpperCase().replace(/-/g, '_');
+    return (
+        process.env[`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_${suffix}`] ||
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ||
+        ''
+    );
 };
 
 import { LucideIcon } from 'lucide-react';
@@ -1061,9 +1063,9 @@ function CheckoutContent() {
                             <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-xl p-5 text-white">
                                 <p className="text-base font-bold">Need help?</p>
                                 <p className="text-emerald-100 text-sm mt-1">Our team is available 7 days a week</p>
-                                <a href={`tel:${(site?.contactPhone || '{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}').replace(/\s/g, '')}`} className="flex items-center gap-2 mt-3 text-lg font-bold hover:underline">
+                                <a href={`tel:${(site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '').replace(/\s/g, '')}`} className="flex items-center gap-2 mt-3 text-lg font-bold hover:underline">
                                     <Phone className="w-5 h-5" />
-                                    {site?.contactPhone || '{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}'}
+                                    {site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || ''}
                                 </a>
                                 <p className="text-emerald-200 text-xs mt-2">8am – 8pm Rome time (CET)</p>
                             </div>

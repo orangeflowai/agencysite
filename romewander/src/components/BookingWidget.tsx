@@ -10,6 +10,7 @@ import SmartCalendar from './ui/SmartCalendar';
 import { format } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
+import CheckoutDrawer from './CheckoutDrawer';
 import { urlFor } from '@/sanity/lib/image';
 import dynamic from 'next/dynamic';
 
@@ -69,7 +70,8 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
     const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
     const [loadingAvailability, setLoadingAvailability] = useState(false);
     const [validationError, setValidationError] = useState('');
-    const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+    const [showDrawer, setShowDrawer] = useState(false);
+    const [drawerData, setDrawerData] = useState<any>(null);
 
     const totalGuests = Object.values(counts || {}).reduce((s, c) => s + (c || 0), 0);
     const totalPrice = useMemo(() =>
@@ -143,7 +145,18 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
 
     const handleBookNow = () => {
         if (!validate()) return;
-        setIsCheckoutModalOpen(true);
+        const data = {
+            tour: {
+                _id: tour._id, title: tour.title, slug: tour.slug,
+                price: tour.price, guestTypes: tour.guestTypes,
+                mainImage: tour.mainImage, category: tour.category,
+                meetingPoint: tour.meetingPoint,
+            },
+            date: selectedDate, time: selectedTime,
+            guestCounts: counts, totalPrice,
+        };
+        setDrawerData(data);
+        setShowDrawer(true);
     };
 
     // Helper Stepper
@@ -341,15 +354,13 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                 </div>
             </div>
 
-            {/* Checkout Modal */}
-            <CheckoutModal
-                isOpen={isCheckoutModalOpen}
-                onClose={() => setIsCheckoutModalOpen(false)}
-                tour={tour}
-                preSelectedDate={selectedDate}
-                preSelectedTime={selectedTime}
-                preGuestCounts={counts}
-            />
+            {/* Checkout Drawer */}
+            {showDrawer && (
+                <CheckoutDrawer
+                    bookingData={drawerData}
+                    onClose={() => setShowDrawer(false)}
+                />
+            )}
         </>
     );
 }

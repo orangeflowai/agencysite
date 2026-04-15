@@ -1,137 +1,126 @@
+'use server'
 
-'use server';
+import { revalidatePath } from 'next/cache'
 
-import { createClient } from "next-sanity";
-import { revalidatePath } from "next/cache";
-import { apiVersion, dataset, projectId } from "@/sanity/env";
+const PAYLOAD_URL = process.env.PAYLOAD_API_URL
+const PAYLOAD_TENANT = process.env.PAYLOAD_TENANT || process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour'
+const PAYLOAD_API_KEY = process.env.PAYLOAD_API_KEY
 
-const client = createClient({
-    projectId,
-    dataset,
-    apiVersion,
-    useCdn: false, // Write operations shouldn't use CDN
-    token: process.env.SANITY_API_TOKEN, // REQUIRED for write access
-});
-
-function generateKey() {
-    return crypto.randomUUID().split('-')[0]; // Simple short key
+const payloadHeaders = {
+  'Content-Type': 'application/json',
+  'x-tenant-id': PAYLOAD_TENANT,
+  ...(PAYLOAD_API_KEY && { Authorization: `Bearer ${PAYLOAD_API_KEY}` }),
 }
 
+/**
+ * Update a tour — writes to Payload CMS if configured, falls back to Sanity.
+ */
 export async function updateTour(formData: FormData) {
-    if (!process.env.SANITY_API_TOKEN) {
-        return { success: false, error: "Missing SANITY_API_TOKEN" };
-    }
+  const _id = formData.get('_id') as string
+  const slug = formData.get('slug') as string
 
-    const _id = formData.get('_id') as string;
-    if (!_id) {
-        return { success: false, error: "Missing Tour ID" };
-    }
+  if (!_id && !slug) return { success: false, error: 'Missing tour ID or slug' }
 
+  // ── Payload path ──────────────────────────────────────────
+  if (PAYLOAD_URL && PAYLOAD_API_KEY) {
     try {
-        const patch: any = {
-            title: formData.get('title'),
-            price: Number(formData.get('price')),
-            duration: formData.get('duration'),
-            groupSize: formData.get('groupSize'),
-            category: formData.get('category'), // New
-            badge: formData.get('badge'), // New
-            rating: Number(formData.get('rating')), // New
-            reviewCount: Number(formData.get('reviewCount')), // New
-            meetingPoint: formData.get('meetingPoint') || undefined,
-            maxParticipants: Number(formData.get('maxParticipants')) || undefined,
-            // sites: formData.getAll('sites') // Don't overwrite sites unless explicitly creating/managing them
-        };
+      // Find tour by slug in Payload
+      const findRes = await fetch(
+        `${PAYLOAD_URL}/api/tours?where[slug][equals]=${slug}&where[tenant][equals]=${PAYLOAD_TENANT}&limit=1`,
+        { headers: payloadHeaders }
+      )
+      const findData = await findRes.json()
+      const tour = findData.docs?.[0]
+      if (!tour) return { success: false, error: `Tour "${slug}" not found in Payload` }
 
-        // Handle Guest Types (Participants)
-        const guestTypesJson = formData.get('guestTypes') as string;
-        if (guestTypesJson) {
-            try {
-                patch.guestTypes = JSON.parse(guestTypesJson);
-            } catch (e) {
-                console.error("Failed to parse guestTypes JSON", e);
-            }
-        }
+      const patch: Record<string, any> = {
+        title: formData.get('title'),
+        price: Number(formData.get('price')),
+        duration: formData.get('duration') || undefined,
+        category: formData.get('category') || undefined,
+        badge: formData.get('badge') || undefined,
+        rating: Number(formData.get('rating')) || undefined,
+        reviewCount: Number(formData.get('reviewCount')) || undefined,
+        meetingPoint: formData.get('meetingPoint') || undefined,
+        maxParticipants: Number(formData.get('maxParticipants')) || undefined,
+      }
 
-        // Handle Array Fields (Split by newline or comma)
-        const highlights = formData.get('highlights') as string;
-        if (highlights) patch.highlights = highlights.split('\n').filter(Boolean);
+      const highlights = formData.get('highlights') as string
+      if (highlights) patch.highlights = highlights.split('\n').filter(Boolean).map(item => ({ item }))
+      const includes = formData.get('includes') as string
+      if (includes) patch.includes = includes.split('\n').filter(Boolean).map(item => ({ item }))
+      const excludes = formData.get('excludes') as string
+      if (excludes) patch.excludes = excludes.split('\n').filter(Boolean).map(item => ({ item }))
+      const importantInfo = formData.get('importantInfo') as string
+      if (importantInfo) patch.importantInfo = importantInfo.split('\n').filter(Boolean).map(item => ({ item }))
+      const tags = formData.get('tags') as string
+      if (tags) patch.tags = tags.split(',').map(t => ({ tag: t.trim() })).filter(t => t.tag)
 
-        const includes = formData.get('includes') as string;
-        if (includes) patch.includes = includes.split('\n').filter(Boolean);
+      const updateRes = await fetch(`${PAYLOAD_URL}/api/tours/${tour.id}`, {
+        method: 'PATCH',
+        headers: payloadHeaders,
+        body: JSON.stringify(patch),
+      })
 
-        const excludes = formData.get('excludes') as string;
-        if (excludes) patch.excludes = excludes.split('\n').filter(Boolean);
+      if (!updateRes.ok) {
+        const err = await updateRes.json()
+        return { success: false, error: err.message || 'Payload update failed' }
+      }
 
-        const importantInfo = formData.get('importantInfo') as string;
-        if (importantInfo) patch.importantInfo = importantInfo.split('\n').filter(Boolean);
-
-        // Tags (Comma separated)
-        const tags = formData.get('tags') as string;
-        if (tags) {
-            patch.tags = tags.split(',').map(t => t.trim()).filter(Boolean);
-        }
-
-        // Handle Main Image Upload
-        const imageFile = formData.get('image') as File;
-        if (imageFile && imageFile.size > 0) {
-            console.log("Uploading new main image...", imageFile.name);
-            const asset = await client.assets.upload('image', imageFile, {
-                filename: imageFile.name
-            });
-
-            patch.mainImage = {
-                _type: 'image',
-                asset: {
-                    _type: 'reference',
-                    _ref: asset._id
-                }
-            };
-        }
-
-        // Handle Gallery Upload (Append to existing)
-        const galleryFiles = formData.getAll('gallery') as File[];
-        const galleryPatches: any[] = [];
-
-        if (galleryFiles && galleryFiles.length > 0) {
-            console.log(`Uploading ${galleryFiles.length} gallery images...`);
-
-            for (const file of galleryFiles) {
-                if (file.size > 0) {
-                    const asset = await client.assets.upload('image', file, {
-                        filename: file.name
-                    });
-
-                    galleryPatches.push({
-                        _type: 'image',
-                        _key: generateKey(), // Ensure unique key
-                        asset: {
-                            _type: 'reference',
-                            _ref: asset._id
-                        }
-                    });
-                }
-            }
-        }
-
-        console.log("Patching tour:", _id, patch);
-
-        // Transaction to update fields AND append to gallery
-        const transaction = client.transaction()
-            .patch(_id, p => p.set(patch));
-
-        if (galleryPatches.length > 0) {
-            transaction.patch(_id, p => p.setIfMissing({ gallery: [] }).append('gallery', galleryPatches));
-        }
-
-        await transaction.commit();
-
-        revalidatePath('/admin/products');
-        const slug = formData.get('slug') as string;
-        if (slug) revalidatePath(`/tour/${slug}`);
-
-        return { success: true };
-    } catch (error) {
-        console.error("Update Tour Error:", error);
-        return { success: false, error: "Failed to update tour" };
+      revalidatePath('/admin/products')
+      if (slug) revalidatePath(`/tour/${slug}`)
+      return { success: true }
+    } catch (e: any) {
+      console.error('[tourActions] Payload update failed:', e)
+      return { success: false, error: e.message }
     }
+  }
+
+  // ── Sanity fallback ───────────────────────────────────────
+  if (!process.env.SANITY_API_TOKEN) {
+    return { success: false, error: 'Neither PAYLOAD_API_KEY nor SANITY_API_TOKEN is configured' }
+  }
+
+  try {
+    const { createClient } = await import('next-sanity')
+    const { apiVersion, dataset, projectId } = await import('@/sanity/env')
+    const client = createClient({ projectId, dataset, apiVersion, useCdn: false, token: process.env.SANITY_API_TOKEN })
+
+    const patch: any = {
+      title: formData.get('title'),
+      price: Number(formData.get('price')),
+      duration: formData.get('duration'),
+      category: formData.get('category'),
+      badge: formData.get('badge'),
+      rating: Number(formData.get('rating')),
+      reviewCount: Number(formData.get('reviewCount')),
+      meetingPoint: formData.get('meetingPoint') || undefined,
+      maxParticipants: Number(formData.get('maxParticipants')) || undefined,
+    }
+
+    const highlights = formData.get('highlights') as string
+    if (highlights) patch.highlights = highlights.split('\n').filter(Boolean)
+    const includes = formData.get('includes') as string
+    if (includes) patch.includes = includes.split('\n').filter(Boolean)
+    const excludes = formData.get('excludes') as string
+    if (excludes) patch.excludes = excludes.split('\n').filter(Boolean)
+    const importantInfo = formData.get('importantInfo') as string
+    if (importantInfo) patch.importantInfo = importantInfo.split('\n').filter(Boolean)
+    const tags = formData.get('tags') as string
+    if (tags) patch.tags = tags.split(',').map((t: string) => t.trim()).filter(Boolean)
+
+    const imageFile = formData.get('image') as File
+    if (imageFile && imageFile.size > 0) {
+      const asset = await client.assets.upload('image', imageFile, { filename: imageFile.name })
+      patch.mainImage = { _type: 'image', asset: { _type: 'reference', _ref: asset._id } }
+    }
+
+    await client.patch(_id).set(patch).commit()
+    revalidatePath('/admin/products')
+    if (slug) revalidatePath(`/tour/${slug}`)
+    return { success: true }
+  } catch (e: any) {
+    console.error('[tourActions] Sanity update failed:', e)
+    return { success: false, error: 'Failed to update tour' }
+  }
 }

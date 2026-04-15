@@ -44,3 +44,8 @@ Thumbs.db
 # PM2
 **/ecosystem.config.js
 wondersofrome_app/
+
+# Large data exports
+**/*.ndjson
+**/sanity-export.ndjson
+standalone_hold.py

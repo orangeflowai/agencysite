@@ -96,17 +96,17 @@ export default function Footer() {
                                 {t('footer.about')}
                             </p>
 
-                             {/* Social Links - Minimalist Gold */}
+                             {/* Social Links - Sacred Luxury Style */}
                              <div className="flex items-center space-x-4">
-                                    <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center text-white/40 hover:text-gold hover:border-gold transition-all duration-500">
+                                    <Link href="/" aria-label="Facebook" className="w-12 h-12 rounded-full border border-gold/10 bg-white/5 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-500 backdrop-blur-xl">
                                         <Facebook size={18} />
-                                    </a>
-                                    <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center text-white/40 hover:text-gold hover:border-gold transition-all duration-500">
+                                    </Link>
+                                    <Link href="/" aria-label="Instagram" className="w-12 h-12 rounded-full border border-gold/10 bg-white/5 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-500 backdrop-blur-xl">
                                         <Instagram size={18} />
-                                    </a>
-                                    <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center text-white/40 hover:text-gold hover:border-gold transition-all duration-500">
+                                    </Link>
+                                    <Link href="/" aria-label="Twitter" className="w-12 h-12 rounded-full border border-gold/10 bg-white/5 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-500 backdrop-blur-xl">
                                         <Twitter size={18} />
-                                    </a>
+                                    </Link>
                              </div>
                                     {socialLinks?.instagram && (
                                         <a

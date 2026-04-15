@@ -86,7 +86,7 @@ export const structure: StructureResolver = (S) => {
                                                     S.documentList()
                                                         .title('Settings for Rome Tour Tickets')
                                                         .filter('_type == "settings" && site._ref == $siteId')
-                                                        .params({ siteId: 'rome-tour-tickets' })
+                                                        .params({ siteId: 'rome-tour-tickets` })
                                                 ),
                                         ])
                                 ),
@@ -94,19 +94,19 @@ export const structure: StructureResolver = (S) => {
                             S.divider(),
 
                             S.listItem()
-                                .title('✨ {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
+                                .title(`✨ ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
                                 .icon(Eye)
                                 .child(
                                     S.list()
-                                        .title('{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Content')
+                                        .title(`$${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Content`)
                                         .items([
                                             S.listItem()
-                                                .title('🎯 Tours')
+                                                .title(`🎯 Tours`)
                                                 .icon(Map)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Tours for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
-                                                        .filter('_type == "tour" && $siteId in sites[]._ref')
+                                                        .title(`Tours for $${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
+                                                        .filter(`_type == "tour" && $siteId in sites[]._ref')
                                                         .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour' })
                                                         .defaultOrdering([{ field: 'title', direction: 'asc' }])
                                                 ),
@@ -115,7 +115,7 @@ export const structure: StructureResolver = (S) => {
                                                 .icon(FileText)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Posts for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
+                                                        .title(`Posts for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
                                                         .filter('_type == "post" && site._ref == $siteId')
                                                         .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour' })
                                                 ),
@@ -124,7 +124,7 @@ export const structure: StructureResolver = (S) => {
                                                 .icon(Settings)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Settings for {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}')
+                                                        .title(`Settings for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
                                                         .filter('_type == "settings" && site._ref == $siteId')
                                                         .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour' })
                                                 ),

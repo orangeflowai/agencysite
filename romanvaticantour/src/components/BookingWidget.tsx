@@ -9,6 +9,7 @@ import SmartCalendar from './ui/SmartCalendar';
 import { format } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
+import CheckoutDrawer from './CheckoutDrawer';
 
 // Site-specific Stripe publishable keys
 // Stripe publishable key — resolved from env by site ID suffix
@@ -91,6 +92,8 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
     // Checkout State
     const [checkingOut, setCheckingOut] = useState(false);
     const [validationError, setValidationError] = useState('');
+    const [showDrawer, setShowDrawer] = useState(false);
+    const [drawerData, setDrawerData] = useState<any>(null);
 
     // Derived State
     const totalGuests = Object.values(counts || {}).reduce((sum, count) => sum + (count || 0), 0);
@@ -175,27 +178,18 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
     };
 
     const processCheckout = async (details: GuestDetail[]) => {
-        const bookingData = {
+        const data = {
             tour: {
-                _id: tour._id,
-                title: tour.title,
-                slug: tour.slug,
-                price: tour.price,
-                guestTypes: tour.guestTypes,
-                mainImage: tour.mainImage,
-                category: tour.category,
+                _id: tour._id, title: tour.title, slug: tour.slug,
+                price: tour.price, guestTypes: tour.guestTypes,
+                mainImage: tour.mainImage, category: tour.category,
                 meetingPoint: tour['meetingPoint'],
-                maxParticipants: tour['maxParticipants'],
             },
-            date: selectedDate,
-            time: selectedTime,
-            guestCounts: counts,
-            totalPrice,
-            guestDetails: details,
+            date: selectedDate, time: selectedTime,
+            guestCounts: counts, totalPrice,
         };
-
-        const encodedData = encodeURIComponent(JSON.stringify(bookingData));
-        window.location.href = `/checkout?data=${encodedData}`;
+        setDrawerData(data);
+        setShowDrawer(true);
     };
 
     // Helper for Stepper
@@ -224,6 +218,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
     );
 
     return (
+        <>
         <div className="space-y-4">
             <div className="bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden">
 
@@ -415,6 +410,11 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                 </div>
             </div>
         </div>
+
+        {showDrawer && (
+            <CheckoutDrawer bookingData={drawerData} onClose={() => setShowDrawer(false)} />
+        )}
+        </>
     );
 }
 

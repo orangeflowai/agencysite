@@ -5,9 +5,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
-import { SUPABASE_BUCKET_URL } from '@/lib/constants';
 import Image from 'next/image';
-import { Search, Map, Calendar, Users } from 'lucide-react';
+import { Search, Map, Calendar, Users, ArrowRight } from 'lucide-react';
 
 interface HeroProps {
     settings?: {
@@ -24,7 +23,10 @@ export default function Hero({ settings }: HeroProps) {
     const [destination, setDestination] = useState('');
     const [date, setDate] = useState('');
     const [guests, setGuests] = useState('2');
-    const rawImageUrl = settings?.heroImage?.asset?.url || `https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/f02afd2b49eb147f3aeac6fac279128f.jpg`;
+    
+    // Robust image resolution
+    const rawImageUrl = settings?.heroImage?.asset?.url || 
+                       `https://images.unsplash.com/photo-1529154036614-a60975f5c760?q=80&w=2000&auto=format&fit=crop`;
 
     const handleSearch = () => {
         const params = new URLSearchParams();
@@ -35,49 +37,55 @@ export default function Hero({ settings }: HeroProps) {
     };
 
     return (
-        <section className="relative w-full h-auto lg:h-screen flex flex-col lg:flex-row bg-cream overflow-hidden border-b border-forest">
+        <section className="relative w-full min-h-screen lg:h-screen flex flex-col lg:flex-row bg-[#F5F0E8] overflow-hidden">
+            {/* Background Texture/Grain */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')] z-0"></div>
+
             {/* LEFT CONTENT (EDITORIAL) */}
-            <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-16 xl:p-24 space-y-10 border-r border-forest relative z-10">
+            <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-16 xl:p-24 space-y-12 relative z-10 border-r border-[#555B02]/10 bg-[#F5F0E8]/80 backdrop-blur-sm">
                 <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="flex items-center gap-4"
                 >
-                    <span className="font-sans font-black text-xs uppercase tracking-[0.4em] text-forest/40">
+                    <div className="w-12 h-px bg-[#555B02]"></div>
+                    <span className="font-sans font-black text-[10px] uppercase tracking-[0.5em] text-[#555B02]/60">
                         Boutique Travel Concierge
                     </span>
                 </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                    <h1 className="font-serif text-5xl md:text-7xl xl:text-8xl text-forest leading-[1] font-bold">
+                <div className="space-y-8">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.2 }}
+                        className="font-serif text-6xl md:text-8xl xl:text-9xl text-[#555B02] leading-[0.9] font-bold tracking-tighter"
+                    >
                         {settings?.heroTitle || "A Rare Path Through Rome."}
-                    </h1>
-                </motion.div>
+                    </motion.h1>
 
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="font-sans text-lg md:text-xl text-forest max-w-xl leading-relaxed opacity-80"
-                >
-                    {settings?.heroSubtitle || "We avoid the standard. Our collection of private experiences is selected for those who seek the architectural, the historical, and the genuinely rare."}
-                </motion.p>
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.4 }}
+                        className="font-sans text-xl md:text-2xl text-[#1A1210] max-w-xl leading-relaxed opacity-70 italic font-serif"
+                    >
+                        {settings?.heroSubtitle || "We avoid the standard. Our collection of private experiences is selected for those who seek the architectural, the historical, and the genuinely rare."}
+                    </motion.p>
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="flex flex-col sm:flex-row gap-6"
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="flex flex-col sm:flex-row gap-6 pt-4"
                 >
-                    <Link href="/search" className="bg-[#555B02] text-[#F5F0E8] px-12 py-5 font-sans font-black uppercase tracking-widest text-sm hover:invert transition-all flex items-center justify-center gap-3">
+                    <Link href="/search" className="group bg-[#555B02] text-[#F5F0E8] px-14 py-6 font-sans font-black uppercase tracking-[0.2em] text-xs hover:scale-105 transition-all flex items-center justify-center gap-4 shadow-2xl shadow-[#555B02]/20">
                         <span>Explore Collection</span>
-                        <Search className="w-4 h-4" />
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
-                    <Link href="/private-tours" className="border-2 border-forest text-forest px-12 py-5 font-sans font-black uppercase tracking-widest text-sm hover:bg-forest hover:text-cream transition-all text-center">
+                    <Link href="/private-tours" className="border border-[#555B02]/20 text-[#555B02] px-14 py-6 font-sans font-black uppercase tracking-[0.2em] text-xs hover:bg-[#555B02]/5 transition-all text-center backdrop-blur-md">
                         Private Access
                     </Link>
                 </motion.div>
@@ -86,113 +94,117 @@ export default function Hero({ settings }: HeroProps) {
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.8 }}
-                    className="flex items-center gap-12 pt-8 border-t border-forest/10"
+                    transition={{ duration: 1, delay: 0.8 }}
+                    className="flex items-center gap-16 pt-12 border-t border-[#555B02]/10"
                 >
-                    <div>
-                        <p className="font-serif text-2xl font-bold text-forest">Since 1987</p>
-                        <p className="font-sans text-[10px] uppercase font-black tracking-widest text-forest/50">Heritage Agency</p>
+                    <div className="group cursor-default">
+                        <p className="font-serif text-3xl font-bold text-[#555B02] group-hover:scale-110 transition-transform origin-left">1987</p>
+                        <p className="font-sans text-[9px] uppercase font-black tracking-[0.3em] text-[#555B02]/40 mt-1">Heritage Agency</p>
                     </div>
-                    <div>
-                        <p className="font-serif text-2xl font-bold text-forest">32 Routes</p>
-                        <p className="font-sans text-[10px] uppercase font-black tracking-widest text-forest/50">Curated Monthly</p>
+                    <div className="group cursor-default">
+                        <p className="font-serif text-3xl font-bold text-[#555B02] group-hover:scale-110 transition-transform origin-left">32</p>
+                        <p className="font-sans text-[9px] uppercase font-black tracking-[0.3em] text-[#555B02]/40 mt-1">Curated Routes</p>
                     </div>
                 </motion.div>
             </div>
 
             {/* RIGHT IMAGE (EDITORIAL) */}
-            <div className="w-full lg:w-1/2 relative h-[50vh] lg:h-full group overflow-hidden">
+            <div className="w-full lg:w-1/2 relative h-[60vh] lg:h-full overflow-hidden group">
                 <motion.div
                     initial={{ scale: 1.1, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
                     className="w-full h-full"
                 >
                     <Image
                         src={rawImageUrl}
                         alt="Vintage Rome"
                         fill
-                        className="object-cover sepia-[0.2] contrast-[1.1] brightness-[0.9]"
+                        className="object-cover sepia-[0.1] contrast-[1.05] brightness-[0.95] group-hover:scale-105 transition-transform duration-[3000ms]"
                         priority
                     />
                 </motion.div>
                 
                 {/* Vintage Border Inset */}
-                <div className="absolute inset-8 border border-cream/30 z-20 pointer-events-none" />
+                <div className="absolute inset-10 border border-white/20 z-20 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-l from-black/20 via-transparent to-transparent"></div>
 
-                {/* Floating Content Card (Minimalist) */}
+                {/* Floating Content Card (Glassmorphism) */}
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 1 }}
-                    className="absolute bottom-12 right-12 glass p-8 max-w-[280px] z-30 shadow-2xl border border-white/20"
+                    transition={{ duration: 1, delay: 1.2 }}
+                    className="absolute bottom-16 right-16 glass-white p-10 max-w-[320px] z-30 shadow-2xl border border-white/40 rounded-2xl backdrop-blur-2xl"
                 >
-                    <p className="font-sans font-black text-[10px] uppercase tracking-[0.3em] text-forest/40 mb-4 tracking-widest">Featured Space</p>
-                    <h3 className="font-serif text-2xl font-bold text-forest mb-4">The Secret Rooms of the Vatican.</h3>
-                    <Link href="/tour/vatican-secrets" className="font-sans font-black text-[11px] uppercase tracking-widest text-forest border-b border-forest pb-1 hover:opacity-50 transition-all">
-                        View Details
+                    <div className="w-8 h-px bg-[#555B02]/30 mb-6"></div>
+                    <p className="font-sans font-black text-[9px] uppercase tracking-[0.4em] text-[#555B02]/50 mb-4">Featured Highlight</p>
+                    <h3 className="font-serif text-3xl font-bold text-[#555B02] mb-6 leading-tight italic">The Secret Rooms of the Vatican.</h3>
+                    <Link href="/tour/vatican-secrets" className="group inline-flex items-center gap-2 font-sans font-black text-[10px] uppercase tracking-[0.2em] text-[#555B02] transition-all">
+                        <span className="border-b border-[#555B02]/30 pb-1 group-hover:border-[#555B02] transition-colors">View Details</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </Link>
                 </motion.div>
             </div>
 
-            {/* MINIMALIST SEARCH OVERLAY */}
+            {/* FLOATING SEARCH WIDGET (GLASS) */}
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2 }}
-                className="hidden lg:block absolute bottom-12 left-1/2 -translate-x-1/2 z-40 w-full max-w-5xl px-8"
+                transition={{ duration: 1, delay: 1.5 }}
+                className="hidden lg:block absolute bottom-12 left-1/2 -translate-x-1/2 z-40 w-full max-w-6xl px-12"
             >
-                <div className="glass shadow-2xl p-1 border border-white/20 rounded-xl overflow-hidden">
-                    <div className="bg-cream/40 backdrop-blur-xl flex flex-col md:flex-row items-stretch rounded-lg">
-                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-cream/60 transition-colors">
-                            <Map className="w-4 h-4 text-forest/30 mr-4" />
+                <div className="glass shadow-[0_32px_80px_rgba(85,91,2,0.15)] p-1.5 border border-white/40 rounded-[2rem] overflow-hidden backdrop-blur-3xl">
+                    <div className="bg-[#F5F0E8]/50 backdrop-blur-md flex flex-row items-stretch rounded-[1.8rem]">
+                        <div className="flex-1 flex items-center px-10 py-6 border-r border-[#555B02]/10 group focus-within:bg-[#F5F0E8]/80 transition-all duration-500">
+                            <Map className="w-5 h-5 text-[#555B02]/40 mr-5 group-hover:scale-110 transition-transform" />
                             <div className="flex-1">
-                                <label className="block text-[8px] font-black text-forest/40 uppercase tracking-widest mb-1">Architecture / Area</label>
+                                <label className="block text-[9px] font-black text-[#555B02]/50 uppercase tracking-[0.3em] mb-2">Location / Interest</label>
                                 <input
                                     type="text"
-                                    placeholder="Search the collection..."
-                                    className="w-full bg-transparent outline-none font-serif text-lg text-forest placeholder:text-forest/20"
+                                    placeholder="Search architectural gems..."
+                                    className="w-full bg-transparent outline-none font-serif text-xl text-[#555B02] placeholder:text-[#555B02]/20"
                                     value={destination}
                                     onChange={(e) => setDestination(e.target.value)}
                                 />
                             </div>
                         </div>
 
-                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-cream/60 transition-colors">
-                            <Calendar className="w-4 h-4 text-forest/30 mr-4" />
+                        <div className="flex-1 flex items-center px-10 py-6 border-r border-[#555B02]/10 group focus-within:bg-[#F5F0E8]/80 transition-all duration-500">
+                            <Calendar className="w-5 h-5 text-[#555B02]/40 mr-5 group-hover:scale-110 transition-transform" />
                             <div className="flex-1">
-                                <label className="block text-[8px] font-black text-forest/40 uppercase tracking-widest mb-1">Departure</label>
+                                <label className="block text-[9px] font-black text-[#555B02]/50 uppercase tracking-[0.3em] mb-2">Desired Date</label>
                                 <input
                                     type="date"
-                                    className="w-full bg-transparent outline-none font-sans text-sm font-bold text-forest"
+                                    className="w-full bg-transparent outline-none font-sans text-sm font-bold text-[#555B02]"
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
                                 />
                             </div>
                         </div>
 
-                        <div className="flex-1 flex items-center px-8 py-4 border-r border-forest/10 group focus-within:bg-cream/60 transition-colors">
-                            <Users className="w-4 h-4 text-forest/30 mr-4" />
+                        <div className="flex-1 flex items-center px-10 py-6 border-r border-[#555B02]/10 group focus-within:bg-[#F5F0E8]/80 transition-all duration-500">
+                            <Users className="w-5 h-5 text-[#555B02]/40 mr-5 group-hover:scale-110 transition-transform" />
                             <div className="flex-1">
-                                <label className="block text-[8px] font-black text-forest/40 uppercase tracking-widest mb-1">Audience Size</label>
+                                <label className="block text-[9px] font-black text-[#555B02]/50 uppercase tracking-[0.3em] mb-2">Guests</label>
                                 <select
-                                    className="w-full bg-transparent outline-none font-sans text-sm font-bold text-forest appearance-none"
+                                    className="w-full bg-transparent outline-none font-sans text-sm font-bold text-[#555B02] appearance-none cursor-pointer"
                                     value={guests}
                                     onChange={(e) => setGuests(e.target.value)}
                                 >
                                     <option value="1">Individual (1)</option>
                                     <option value="2">Duo (2)</option>
-                                    <option value="4">Party (4)</option>
-                                    <option value="8">Group (8)</option>
+                                    <option value="4">Small Group (4)</option>
+                                    <option value="8">Private Party (8+)</option>
                                 </select>
                             </div>
                         </div>
 
                         <button
                             onClick={handleSearch}
-                            className="bg-[#555B02] text-[#F5F0E8] px-12 py-8 font-sans font-black uppercase tracking-[0.2em] text-xs hover:scale-105 transition-all shadow-xl rounded-r-lg"
+                            className="bg-[#555B02] text-[#F5F0E8] px-16 font-sans font-black uppercase tracking-[0.3em] text-[10px] hover:bg-[#6b7303] transition-all flex items-center gap-3 group/btn rounded-r-[1.8rem]"
                         >
-                            Confirm Selection
+                            <span>Find Experiences</span>
+                            <Search className="w-4 h-4 group-hover/btn:scale-125 transition-transform" />
                         </button>
                     </div>
                 </div>
