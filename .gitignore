@@ -99,3 +99,4 @@ contextrules.txt
 **/public/fonts/*.woff2
 agency-template/
 ticketsinrome-copy/
+.kiro/
