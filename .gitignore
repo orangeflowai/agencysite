@@ -81,3 +81,19 @@ payload-admin/.env.migration
 
 # Kiro internal
 .kiro/specs/
+
+# Only track 3 Vercel sites — exclude everything else
+wondersofrome/
+wondersofrome_app/
+ticketsinrome-live/
+payload-admin/
+agency-template/
+animations.txt
+contextrules.txt
+
+# Large public assets (use CDN/R2 instead)
+**/public/pexels-*.jpg
+**/public/pexels-*.jpeg
+**/public/fonts/*.ttf
+**/public/fonts/*.woff
+**/public/fonts/*.woff2
