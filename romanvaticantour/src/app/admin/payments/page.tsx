@@ -186,7 +186,7 @@ export default function PaymentMethodsPage() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-8">
                 <div className="bg-white p-4 rounded-xl border border-gray-200">
-                    <p className="text-2xl font-bold text-emerald-600">{enabledCount}</p>
+                    <p className="text-2xl font-bold text-primary">{enabledCount}</p>
                     <p className="text-sm text-gray-500">Enabled Methods</p>
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200">
@@ -225,7 +225,7 @@ export default function PaymentMethodsPage() {
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:opacity-90 disabled:opacity-50 transition-colors"
                     >
                         {saving ? (
                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -250,7 +250,7 @@ export default function PaymentMethodsPage() {
                             >
                                 <div className="flex items-center gap-4">
                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                                        method.enabled ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'
+                                        method.enabled ? 'bg-emerald-100 text-primary' : 'bg-gray-100 text-gray-400'
                                     }`}>
                                         <Icon className="w-6 h-6" />
                                     </div>
@@ -276,7 +276,7 @@ export default function PaymentMethodsPage() {
                                     onClick={() => toggleMethod(method.id)}
                                     className={`p-2 rounded-lg transition-colors ${
                                         method.enabled 
-                                            ? 'text-emerald-600 hover:bg-emerald-50' 
+                                            ? 'text-primary hover:bg-background' 
                                             : 'text-gray-400 hover:bg-gray-100'
                                     }`}
                                 >
@@ -295,13 +295,13 @@ export default function PaymentMethodsPage() {
             {/* Recommended Setup */}
             <div className="mt-8 bg-white rounded-xl border border-gray-200 p-6">
                 <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-emerald-600" />
+                    <Shield className="w-5 h-5 text-primary" />
                     Recommended Payment Setup
                 </h2>
                 
                 <div className="space-y-4 text-sm text-gray-600">
                     <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">1</div>
+                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-primary flex items-center justify-center text-xs font-bold">1</div>
                         <div>
                             <p className="font-medium text-gray-900">Enable Cards + Link</p>
                             <p>These are essential for all customers. Link provides 1-click checkout for returning users.</p>
@@ -309,7 +309,7 @@ export default function PaymentMethodsPage() {
                     </div>
                     
                     <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">2</div>
+                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-primary flex items-center justify-center text-xs font-bold">2</div>
                         <div>
                             <p className="font-medium text-gray-900">Add PayPal</p>
                             <p>Many tourists prefer PayPal for security. It can increase conversion by 5-10%.</p>
@@ -317,7 +317,7 @@ export default function PaymentMethodsPage() {
                     </div>
                     
                     <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">3</div>
+                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-primary flex items-center justify-center text-xs font-bold">3</div>
                         <div>
                             <p className="font-medium text-gray-900">Enable Local Bank Methods</p>
                             <p>Add iDEAL (Netherlands), Bancontact (Belgium), and giropay (Germany) for European tourists.</p>
@@ -325,7 +325,7 @@ export default function PaymentMethodsPage() {
                     </div>
                     
                     <div className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold">4</div>
+                        <div className="w-6 h-6 rounded-full bg-emerald-100 text-primary flex items-center justify-center text-xs font-bold">4</div>
                         <div>
                             <p className="font-medium text-gray-900">Consider Buy Now, Pay Later</p>
                             <p>Klarna or Afterpay can increase average order value for expensive private tours.</p>

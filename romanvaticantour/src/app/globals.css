@@ -111,7 +111,7 @@
 }
 
 /* ============================================
-   ROMANVATICANTOUR SAAS THEME (Capchase Style)
+   ROMANVATICANTOUR — Crimson & Parchment Theme
    ============================================ */
 :root {
   --card: #faf7f5;
@@ -156,6 +156,12 @@
   --destructive-foreground: #ffffff;
   --sidebar-accent-foreground: #7f1d1d;
   --sidebar-primary-foreground: #ffffff;
+  /* gradient for body */
+  --bg-gradient-start: #faf7f5;
+  --bg-gradient-end: #fdf2d6;
+  /* text helpers */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #57534e;
 }
 
 .dark {
@@ -192,6 +198,10 @@
   --destructive-foreground: #ffffff;
   --sidebar-accent-foreground: #fef3c7;
   --sidebar-primary-foreground: #faf7f5;
+  --bg-gradient-start: #1c1917;
+  --bg-gradient-end: #292524;
+  --color-text-primary: #f5f5f4;
+  --color-text-secondary: #d6d3d1;
 }
 
 @theme inline {
@@ -237,12 +247,10 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  
-  /* Retain animated flight and other custom keys */
   --animate-flight: flight 20s linear infinite;
-  --shadow-saas: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  --shadow-saas-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-  --shadow-saas-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-saas: 0 4px 6px -1px rgba(155,44,44,0.06), 0 2px 4px -1px rgba(155,44,44,0.04);
+  --shadow-saas-md: 0 10px 15px -3px rgba(155,44,44,0.1), 0 4px 6px -2px rgba(155,44,44,0.05);
+  --shadow-saas-xl: 0 20px 25px -5px rgba(155,44,44,0.12), 0 10px 10px -5px rgba(155,44,44,0.05);
 }
 
 

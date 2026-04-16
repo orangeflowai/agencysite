@@ -131,7 +131,7 @@ export async function POST(req: Request) {
                 customer_email: bookingDetails?.leadTraveler?.email || 'pending@example.com',
                 customer_phone: bookingDetails?.leadTraveler?.phone || null,
                 guests: guests,
-                total_price: Math.round(totalAmount * 100),
+                total_price: totalAmount, // stored in euros to match webhook
                 status: 'pending_payment',
                 stripe_session_id: session.id,
                 adults: adults || 0,

@@ -62,7 +62,7 @@ export default function AdminLogin() {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 placeholder="admin@example.com"
                                 required
                             />
@@ -77,7 +77,7 @@ export default function AdminLogin() {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 placeholder="••••••••"
                                 required
                             />
@@ -88,7 +88,7 @@ export default function AdminLogin() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-70 flex items-center justify-center"
+                        className="w-full bg-emerald-600 hover:opacity-90 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-70 flex items-center justify-center"
                     >
                         {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Sign In Dashboard'}
                     </button>

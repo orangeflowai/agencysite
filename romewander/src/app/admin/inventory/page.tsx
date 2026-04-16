@@ -31,7 +31,7 @@ export default function InventoryPage() {
         loadTours();
     }, [selectedSiteId]);
 
-    if (loading) return <div className="h-96 flex items-center justify-center"><Loader2 className="animate-spin text-emerald-600 w-8 h-8" /></div>;
+    if (loading) return <div className="h-96 flex items-center justify-center"><Loader2 className="animate-spin text-primary w-8 h-8" /></div>;
 
     return (
         <div className="p-6 max-w-[1600px] mx-auto h-screen flex flex-col">

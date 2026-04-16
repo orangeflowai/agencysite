@@ -60,7 +60,7 @@ export default function AdminBlogPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
         );
     }
@@ -91,7 +91,7 @@ export default function AdminBlogPage() {
                     <Link
                         href="/studio/structure/post"
                         target="_blank"
-                        className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition-colors shadow-sm"
+                        className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-bold rounded-lg hover:opacity-90 transition-colors shadow-sm"
                     >
                         <Plus size={18} />
                         Create New Post
@@ -150,7 +150,7 @@ export default function AdminBlogPage() {
                                     <Link
                                         href={`/studio/structure/post;${post._id}`}
                                         target="_blank"
-                                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-bold text-emerald-700 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors"
+                                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-sm font-bold text-foreground bg-background rounded-lg hover:bg-emerald-100 transition-colors"
                                     >
                                         <Edit size={14} />
                                         Edit in Studio
@@ -158,7 +158,7 @@ export default function AdminBlogPage() {
                                     <Link
                                         href={`/blog/${post.slug?.current}`}
                                         target="_blank"
-                                        className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-gray-50 rounded-lg transition-colors"
+                                        className="p-2 text-gray-400 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
                                         title="View Live"
                                     >
                                         <ExternalLink size={18} />

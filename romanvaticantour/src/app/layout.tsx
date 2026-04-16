@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Libre_Baskerville, Poppins } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -12,15 +12,15 @@ import { getSite, DEFAULT_SITE_ID } from "@/lib/sanityService";
 import { CartProvider } from "@/context/CartContext";
 import PageTransition from "@/components/PageTransition";
 
-const playfair = Playfair_Display({
-  weight: ['400', '500', '600', '700', '800', '900'],
+const libreBaskerville = Libre_Baskerville({
+  weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-serif',
   display: 'swap',
 });
 
-const inter = Inter({
-  weight: ['300', '400', '500', '600', '700'],
+const poppins = Poppins({
+  weight: ['300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
@@ -78,7 +78,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         />
       </head>
       <body
-        className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
+        className={`${poppins.variable} ${libreBaskerville.variable} font-sans antialiased`}
         data-site-id={siteSlug}
         data-site={siteSlug}
         suppressHydrationWarning

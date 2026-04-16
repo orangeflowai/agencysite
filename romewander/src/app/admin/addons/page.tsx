@@ -244,7 +244,7 @@ export default function AddOnsAdminPage() {
                 </div>
                 <button
                     onClick={handleNew}
-                    className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-colors"
                 >
                     <Plus className="w-5 h-5" />
                     Add New
@@ -282,7 +282,7 @@ export default function AddOnsAdminPage() {
                                             id: editingAddOn ? prev.id : { current: generateSlug(name) }
                                         }));
                                     }}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                     placeholder="e.g., Hotel Pickup Service"
                                 />
                             </div>
@@ -300,7 +300,7 @@ export default function AddOnsAdminPage() {
                                         ...prev, 
                                         id: { current: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }
                                     }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none font-mono text-sm"
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none font-mono text-sm"
                                     placeholder="hotel-pickup"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">Used in code. Lowercase, no spaces.</p>
@@ -318,7 +318,7 @@ export default function AddOnsAdminPage() {
                                     step="0.01"
                                     value={formData.price}
                                     onChange={e => setFormData(prev => ({ ...prev, price: parseFloat(e.target.value) || 0 }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                 />
                             </div>
 
@@ -330,7 +330,7 @@ export default function AddOnsAdminPage() {
                                 <select
                                     value={formData.pricingType}
                                     onChange={e => setFormData(prev => ({ ...prev, pricingType: e.target.value as 'perPerson' | 'perBooking' | 'perHour' }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                 >
                                     <option value="perBooking">Per Booking (flat rate)</option>
                                     <option value="perPerson">Per Person (× adults)</option>
@@ -351,7 +351,7 @@ export default function AddOnsAdminPage() {
                                             max="24"
                                             value={formData.minHours || 1}
                                             onChange={e => setFormData(prev => ({ ...prev, minHours: parseInt(e.target.value) || 1 }))}
-                                            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                         />
                                     </div>
                                     <div>
@@ -364,7 +364,7 @@ export default function AddOnsAdminPage() {
                                             max="24"
                                             value={formData.maxHours || 8}
                                             onChange={e => setFormData(prev => ({ ...prev, maxHours: parseInt(e.target.value) || 8 }))}
-                                            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                         />
                                     </div>
                                 </div>
@@ -378,7 +378,7 @@ export default function AddOnsAdminPage() {
                                 <select
                                     value={formData.category}
                                     onChange={e => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                 >
                                     {CATEGORIES.map(cat => (
                                         <option key={cat.value} value={cat.value}>{cat.label}</option>
@@ -399,13 +399,13 @@ export default function AddOnsAdminPage() {
                                             onClick={() => setFormData(prev => ({ ...prev, icon: icon.value }))}
                                             className={`p-2 rounded-lg border-2 transition-all ${
                                                 formData.icon === icon.value 
-                                                    ? 'border-emerald-500 bg-emerald-50' 
+                                                    ? 'border-primary bg-background' 
                                                     : 'border-gray-200 hover:border-gray-300'
                                             }`}
                                             title={icon.label}
                                         >
                                             <icon.icon className={`w-5 h-5 mx-auto ${
-                                                formData.icon === icon.value ? 'text-emerald-600' : 'text-gray-600'
+                                                formData.icon === icon.value ? 'text-primary' : 'text-gray-600'
                                             }`} />
                                         </button>
                                     ))}
@@ -423,7 +423,7 @@ export default function AddOnsAdminPage() {
                                     maxLength={150}
                                     value={formData.description}
                                     onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                     placeholder="Brief description shown on checkout"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">{formData.description?.length || 0}/150 characters</p>
@@ -438,7 +438,7 @@ export default function AddOnsAdminPage() {
                                     rows={3}
                                     value={formData.longDescription}
                                     onChange={e => setFormData(prev => ({ ...prev, longDescription: e.target.value }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                     placeholder="More detailed description (optional)"
                                 />
                             </div>
@@ -452,7 +452,7 @@ export default function AddOnsAdminPage() {
                                     type="number"
                                     value={formData.sortOrder}
                                     onChange={e => setFormData(prev => ({ ...prev, sortOrder: parseInt(e.target.value) || 0 }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                     placeholder="0 = first"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">Lower numbers appear first</p>
@@ -465,7 +465,7 @@ export default function AddOnsAdminPage() {
                                         type="checkbox"
                                         checked={formData.popular}
                                         onChange={e => setFormData(prev => ({ ...prev, popular: e.target.checked }))}
-                                        className="w-5 h-5 text-emerald-600 rounded focus:ring-emerald-500"
+                                        className="w-5 h-5 text-primary rounded focus:ring-primary"
                                     />
                                     <span className="text-sm text-gray-700">Mark as Popular</span>
                                 </label>
@@ -475,7 +475,7 @@ export default function AddOnsAdminPage() {
                                         type="checkbox"
                                         checked={formData.available}
                                         onChange={e => setFormData(prev => ({ ...prev, available: e.target.checked }))}
-                                        className="w-5 h-5 text-emerald-600 rounded focus:ring-emerald-500"
+                                        className="w-5 h-5 text-primary rounded focus:ring-primary"
                                     />
                                     <span className="text-sm text-gray-700">Available</span>
                                 </label>
@@ -494,7 +494,7 @@ export default function AddOnsAdminPage() {
                             <button
                                 type="submit"
                                 disabled={saving}
-                                className="flex items-center gap-2 px-6 py-2 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                                className="flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 transition-colors disabled:opacity-50"
                             >
                                 {saving ? (
                                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -516,7 +516,7 @@ export default function AddOnsAdminPage() {
                     placeholder="Search add-ons..."
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none"
                 />
             </div>
 
@@ -527,7 +527,7 @@ export default function AddOnsAdminPage() {
                     <p className="text-sm text-gray-500">Total Add-ons</p>
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200">
-                    <p className="text-2xl font-bold text-emerald-600">{addOns.filter(a => a.available).length}</p>
+                    <p className="text-2xl font-bold text-primary">{addOns.filter(a => a.available).length}</p>
                     <p className="text-sm text-gray-500">Available</p>
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-200">
@@ -539,7 +539,7 @@ export default function AddOnsAdminPage() {
             {/* List */}
             {loading ? (
                 <div className="flex items-center justify-center py-12">
-                    <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+                    <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
             ) : filteredAddOns.length === 0 ? (
                 <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
@@ -547,7 +547,7 @@ export default function AddOnsAdminPage() {
                     <p className="text-gray-500">No add-ons found</p>
                     <button
                         onClick={handleNew}
-                        className="mt-4 text-emerald-600 font-medium hover:underline"
+                        className="mt-4 text-primary font-medium hover:underline"
                     >
                         Create your first add-on
                     </button>
@@ -565,7 +565,7 @@ export default function AddOnsAdminPage() {
                             <div className="p-4 flex items-center gap-4">
                                 {/* Icon */}
                                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                                    addon.available ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'
+                                    addon.available ? 'bg-emerald-100 text-primary' : 'bg-gray-100 text-gray-400'
                                 }`}>
                                     <IconComponent iconName={addon.icon} />
                                 </div>
@@ -611,7 +611,7 @@ export default function AddOnsAdminPage() {
                                         onClick={() => toggleAvailability(addon)}
                                         className={`p-2 rounded-lg transition-colors ${
                                             addon.available 
-                                                ? 'text-emerald-600 hover:bg-emerald-50' 
+                                                ? 'text-primary hover:bg-background' 
                                                 : 'text-gray-400 hover:bg-gray-100'
                                         }`}
                                         title={addon.available ? 'Hide' : 'Show'}

@@ -117,7 +117,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                 <div className="flex items-center gap-2">
                     <Filter size={16} className="text-gray-400" />
                     <select
-                        className="bg-gray-50 border border-gray-200 text-sm rounded-lg p-2 font-medium text-gray-700 outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="bg-gray-50 border border-gray-200 text-sm rounded-lg p-2 font-medium text-gray-700 outline-none focus:ring-2 focus:ring-primary"
                         value={selectedTourSlug}
                         onChange={(e) => setSelectedTourSlug(e.target.value)}
                     >
@@ -151,10 +151,10 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                             key={day.toString()}
                             className={`min-h-[140px] bg-white p-2 relative group flex flex-col gap-1 transition-colors
                                 ${!isCurrentMonth ? 'bg-gray-50/50 text-gray-400' : ''}
-                                ${isToday ? 'bg-emerald-50/30' : ''}
+                                ${isToday ? 'bg-background/30' : ''}
                             `}
                         >
-                            <span className={`text-sm font-bold mb-2 ml-1 ${isToday ? 'text-emerald-600' : 'text-gray-700'}`}>
+                            <span className={`text-sm font-bold mb-2 ml-1 ${isToday ? 'text-primary' : 'text-gray-700'}`}>
                                 {format(day, 'd')}
                             </span>
 
@@ -184,7 +184,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                                                     ? 'bg-gray-50 border-transparent text-gray-400 hover:bg-gray-100 hover:border-gray-200'
                                                     : isSoldOut
                                                         ? 'bg-red-50 border-red-100 text-red-600 hover:border-red-300'
-                                                        : 'bg-emerald-50 border-emerald-100 text-emerald-700 hover:border-emerald-300'
+                                                        : 'bg-background border-emerald-100 text-foreground hover:border-emerald-300'
                                                 }
                                             `}
                                         >
@@ -203,7 +203,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
 
             {loading && (
                 <div className="absolute inset-0 bg-white/50 flex items-center justify-center z-50">
-                    <Loader2 className="animate-spin text-emerald-600" />
+                    <Loader2 className="animate-spin text-primary" />
                 </div>
             )}
 

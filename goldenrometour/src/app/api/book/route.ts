@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
@@ -31,7 +33,7 @@ export async function POST(request: Request) {
                     subject: `Booking Confirmed: ${body.tourTitle}`,
                     html: `
                         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                            <div style="background: #4a5d4a; padding: 30px; text-align: center;">
+                            <div style="background: ${process.env.NEXT_PUBLIC_BRAND_COLOR || "#4a5d4a"}; padding: 30px; text-align: center;">
                                 <h1 style="color: white; margin: 0;">Booking Confirmed!</h1>
                             </div>
                             <div style="padding: 30px; background: #f9f9f7;">
@@ -39,7 +41,7 @@ export async function POST(request: Request) {
                                 <p>Thank you for your booking! Your reservation has been confirmed.</p>
                                 
                                 <div style="background: white; border-radius: 8px; padding: 20px; margin: 20px 0; border: 1px solid #e5e5e5;">
-                                    <h3 style="margin-top: 0; color: #4a5d4a;">Booking Details</h3>
+                                    <h3 style="margin-top: 0; color: ${process.env.NEXT_PUBLIC_BRAND_COLOR || "#4a5d4a"};">Booking Details</h3>
                                     <p><strong>Tour:</strong> ${body.tourTitle}</p>
                                     <p><strong>Date:</strong> ${body.date}</p>
                                     <p><strong>Guests:</strong> ${body.guests}</p>

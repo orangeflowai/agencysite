@@ -444,7 +444,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                                     </label>
                                                     <div className="mt-1 space-y-1">
                                                         {officialLinks.length > 0 && (
-                                                            <div className="flex items-center gap-1.5 text-emerald-600 text-xs">
+                                                            <div className="flex items-center gap-1.5 text-primary text-xs">
                                                                 <Check className="w-3.5 h-3.5" />
                                                                 <span>{officialLinks.length} official website citation{officialLinks.length > 1 ? 's' : ''}</span>
                                                             </div>

@@ -86,7 +86,7 @@ export default function CalendarDiagnostic() {
                 <button
                     onClick={runDiagnostics}
                     disabled={running}
-                    className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700 disabled:opacity-50"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-medium rounded-lg hover:opacity-90 disabled:opacity-50"
                 >
                     {running ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
                     {running ? 'Running...' : 'Run Diagnostics'}

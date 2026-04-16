@@ -47,10 +47,15 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
 
     // Initialize Stripe with site-specific key
     const stripePromise = useMemo(() => {
-        const suffix = (process.env.NEXT_PUBLIC_SITE_ID || siteId).toUpperCase().replace(/-/g, '_');
-        const key = (process.env as any)[`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_${suffix}`]
-            || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-            || '';
+        // Next.js inlines NEXT_PUBLIC_ vars at build time — must reference them explicitly
+        const keyMap: Record<string, string> = {
+            'wondersofrome': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_WONDERSOFROME || '',
+            'rome-tour-tickets': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME_TOUR_TICKETS || '',
+            'goldenrometour': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_GOLDENROMETOUR || '',
+            'romanvaticantour': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROMANVATICANTOUR || '',
+            'romewander': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROMEWANDER || '',
+        };
+        const key = keyMap[siteId] || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
         if (!key) {
             console.error('Stripe publishable key not configured for site:', siteId);
             return null;

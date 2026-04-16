@@ -110,7 +110,7 @@ export default function SettingsPage() {
                 <button
                     onClick={handleSave}
                     disabled={saving}
-                    className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground font-medium rounded-xl hover:opacity-90 transition-colors disabled:opacity-50"
                 >
                     {saving ? (
                         <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Saving...</>
@@ -151,8 +151,8 @@ export default function SettingsPage() {
                     {/* Site Info */}
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
                         <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-emerald-50 rounded-lg">
-                                <Globe className="w-5 h-5 text-emerald-600" />
+                            <div className="p-2 bg-background rounded-lg">
+                                <Globe className="w-5 h-5 text-primary" />
                             </div>
                             <h2 className="font-semibold text-gray-900">Website Profile</h2>
                         </div>
@@ -216,7 +216,7 @@ export default function SettingsPage() {
                             ].map((item, i) => (
                                 <label key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors">
                                     <span className="text-sm font-medium text-gray-700">{item.label}</span>
-                                    <input type="checkbox" defaultChecked={item.checked} className="w-5 h-5 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500" />
+                                    <input type="checkbox" defaultChecked={item.checked} className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary" />
                                 </label>
                             ))}
                         </div>
@@ -246,7 +246,7 @@ export default function SettingsPage() {
                                     value={businessForm.companyName}
                                     onChange={(e) => setBusinessForm({ ...businessForm, companyName: e.target.value })}
                                     placeholder={`e.g., ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} S.r.l.`}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -256,7 +256,7 @@ export default function SettingsPage() {
                                     value={businessForm.vatNumber}
                                     onChange={(e) => setBusinessForm({ ...businessForm, vatNumber: e.target.value })}
                                     placeholder="e.g., 03188940591"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -266,7 +266,7 @@ export default function SettingsPage() {
                                     value={businessForm.reaNumber}
                                     onChange={(e) => setBusinessForm({ ...businessForm, reaNumber: e.target.value })}
                                     placeholder="e.g., 319122"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -276,7 +276,7 @@ export default function SettingsPage() {
                                     value={businessForm.shareCapital}
                                     onChange={(e) => setBusinessForm({ ...businessForm, shareCapital: e.target.value })}
                                     placeholder="e.g., Capitale Sociale: €10.000 i.v."
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2 md:col-span-2">
@@ -286,7 +286,7 @@ export default function SettingsPage() {
                                     value={businessForm.registeredAddress}
                                     onChange={(e) => setBusinessForm({ ...businessForm, registeredAddress: e.target.value })}
                                     placeholder="e.g., Via Nettunense 188, Aprilia (LT) 04011"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -296,7 +296,7 @@ export default function SettingsPage() {
                                     value={businessForm.pecEmail}
                                     onChange={(e) => setBusinessForm({ ...businessForm, pecEmail: e.target.value })}
                                     placeholder="Legal certified email"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -306,7 +306,7 @@ export default function SettingsPage() {
                                     value={businessForm.sdiCode}
                                     onChange={(e) => setBusinessForm({ ...businessForm, sdiCode: e.target.value })}
                                     placeholder="Codice Destinatario"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                         </div>
@@ -353,7 +353,7 @@ export default function SettingsPage() {
                                         value={contactForm.contactEmail}
                                         onChange={(e) => setContactForm({ ...contactForm, contactEmail: e.target.value })}
                                         placeholder="info@example.com"
-                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             </div>
@@ -366,7 +366,7 @@ export default function SettingsPage() {
                                         value={contactForm.contactPhone}
                                         onChange={(e) => setContactForm({ ...contactForm, contactPhone: e.target.value })}
                                         placeholder="+39 123 456 7890"
-                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             </div>
@@ -379,7 +379,7 @@ export default function SettingsPage() {
                                         value={contactForm.whatsappNumber}
                                         onChange={(e) => setContactForm({ ...contactForm, whatsappNumber: e.target.value })}
                                         placeholder={`${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""} (digits only)`}
-                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                                 <p className="text-xs text-gray-400">Used for the floating WhatsApp button. Digits only, no + or spaces.</p>
@@ -393,7 +393,7 @@ export default function SettingsPage() {
                                         onChange={(e) => setContactForm({ ...contactForm, officeAddress: e.target.value })}
                                         placeholder="Full office address"
                                         rows={3}
-                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all resize-none"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none"
                                     />
                                 </div>
                             </div>
@@ -419,7 +419,7 @@ export default function SettingsPage() {
                                     <input
                                         type="url"
                                         placeholder={`https://${platform.toLowerCase()}.com/...`}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             ))}
@@ -449,12 +449,12 @@ export default function SettingsPage() {
                                     key={key}
                                     onClick={() => setTheme(key)}
                                     className={`relative p-4 rounded-xl border-2 transition-all ${!isCustom && theme.name === preset.name
-                                        ? 'border-emerald-500 bg-emerald-50/50'
+                                        ? 'border-primary bg-background/50'
                                         : 'border-gray-200 hover:border-gray-300 bg-white'
                                         }`}
                                 >
                                     {!isCustom && theme.name === preset.name && (
-                                        <div className="absolute top-2 right-2 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center">
+                                        <div className="absolute top-2 right-2 w-5 h-5 bg-background0 rounded-full flex items-center justify-center">
                                             <Check className="w-3 h-3 text-white" />
                                         </div>
                                     )}
@@ -486,7 +486,7 @@ export default function SettingsPage() {
                             <div className="flex gap-2">
                                 <button
                                     onClick={applyCustomTheme}
-                                    className="px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors"
+                                    className="px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:opacity-90 transition-colors"
                                 >
                                     Apply Custom
                                 </button>
@@ -585,7 +585,7 @@ export default function SettingsPage() {
                                     type="checkbox"
                                     checked={gdprForm.showCookieBanner}
                                     onChange={(e) => setGdprForm({ ...gdprForm, showCookieBanner: e.target.checked })}
-                                    className="w-6 h-6 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                                    className="w-6 h-6 rounded border-gray-300 text-primary focus:ring-primary"
                                 />
                             </label>
 
@@ -595,7 +595,7 @@ export default function SettingsPage() {
                                 <select
                                     value={gdprForm.gdprComplianceRegion}
                                     onChange={(e) => setGdprForm({ ...gdprForm, gdprComplianceRegion: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all bg-white"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-white"
                                 >
                                     <option value="eu">EU (Full GDPR)</option>
                                     <option value="italy">Italy Only</option>
@@ -611,7 +611,7 @@ export default function SettingsPage() {
                                     type="text"
                                     value={gdprForm.cookieBannerTitle}
                                     onChange={(e) => setGdprForm({ ...gdprForm, cookieBannerTitle: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
 
@@ -621,7 +621,7 @@ export default function SettingsPage() {
                                     value={gdprForm.cookieBannerText}
                                     onChange={(e) => setGdprForm({ ...gdprForm, cookieBannerText: e.target.value })}
                                     rows={3}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all resize-none"
+                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none"
                                 />
                             </div>
 
@@ -632,7 +632,7 @@ export default function SettingsPage() {
                                         type="text"
                                         value={gdprForm.acceptButtonText}
                                         onChange={(e) => setGdprForm({ ...gdprForm, acceptButtonText: e.target.value })}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -641,7 +641,7 @@ export default function SettingsPage() {
                                         type="text"
                                         value={gdprForm.declineButtonText}
                                         onChange={(e) => setGdprForm({ ...gdprForm, declineButtonText: e.target.value })}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             </div>
@@ -653,7 +653,7 @@ export default function SettingsPage() {
                                         type="text"
                                         value={gdprForm.privacyPolicyLink}
                                         onChange={(e) => setGdprForm({ ...gdprForm, privacyPolicyLink: e.target.value })}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -662,7 +662,7 @@ export default function SettingsPage() {
                                         type="text"
                                         value={gdprForm.privacyPolicyText}
                                         onChange={(e) => setGdprForm({ ...gdprForm, privacyPolicyText: e.target.value })}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             </div>
@@ -698,13 +698,13 @@ export default function SettingsPage() {
                     <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
                         <h3 className="font-bold text-gray-900 mb-4">Calendar Color Legend</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="flex items-center gap-3 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                            <div className="flex items-center gap-3 p-4 bg-background rounded-xl border border-emerald-100">
                                 <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                                    <div className="w-4 h-4 bg-emerald-500 rounded-full"></div>
+                                    <div className="w-4 h-4 bg-background0 rounded-full"></div>
                                 </div>
                                 <div>
                                     <p className="font-semibold text-emerald-900">Green</p>
-                                    <p className="text-sm text-emerald-700">High availability (&gt;10 spots)</p>
+                                    <p className="text-sm text-foreground">High availability (&gt;10 spots)</p>
                                 </div>
                             </div>
                             <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-xl border border-amber-100">

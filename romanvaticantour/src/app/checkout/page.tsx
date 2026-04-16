@@ -413,7 +413,7 @@ function CheckoutContent() {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-gray-600">Loading checkout...</p>
                 </div>
             </div>
@@ -427,7 +427,7 @@ function CheckoutContent() {
                     <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
                     <h2 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h2>
                     <p className="text-gray-600 mb-6">{error || 'Booking data not found'}</p>
-                    <Link href="/" className="inline-flex items-center gap-2 text-emerald-600 font-medium hover:underline">
+                    <Link href="/" className="inline-flex items-center gap-2 text-primary font-medium hover:underline">
                         <ArrowLeft className="w-4 h-4" /> Back to Home
                     </Link>
                 </div>
@@ -471,7 +471,7 @@ function CheckoutContent() {
                                     { num: 3, label: 'Payment' },
                                 ].map((s, i) => (
                                     <div key={s.num} className="flex items-center">
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${step >= s.num ? 'bg-emerald-600 text-white' : 'bg-gray-100 text-gray-400'
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${step >= s.num ? 'bg-primary text-primary-foreground' : 'bg-gray-100 text-gray-400'
                                             }`}>
                                             {step > s.num ? <Check className="w-5 h-5" /> : s.num}
                                         </div>
@@ -479,7 +479,7 @@ function CheckoutContent() {
                                             }`}>
                                             {s.label}
                                         </span>
-                                        {i < 2 && <div className={`w-16 h-0.5 mx-3 ${step > s.num ? 'bg-emerald-600' : 'bg-gray-200'}`} />}
+                                        {i < 2 && <div className={`w-16 h-0.5 mx-3 ${step > s.num ? 'bg-primary' : 'bg-gray-200'}`} />}
                                     </div>
                                 ))}
                             </div>
@@ -489,7 +489,7 @@ function CheckoutContent() {
                         {step === 1 && (
                             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                                 <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                                    <User className="w-5 h-5 text-emerald-600" />
+                                    <User className="w-5 h-5 text-primary" />
                                     Lead Traveler Details
                                 </h2>
 
@@ -501,7 +501,7 @@ function CheckoutContent() {
                                         <input
                                             type="text"
                                             required
-                                            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                             value={leadTraveler.firstName}
                                             onChange={e => setLeadTraveler({ ...leadTraveler, firstName: e.target.value })}
                                             placeholder="As shown on ID"
@@ -514,7 +514,7 @@ function CheckoutContent() {
                                         <input
                                             type="text"
                                             required
-                                            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                             value={leadTraveler.lastName}
                                             onChange={e => setLeadTraveler({ ...leadTraveler, lastName: e.target.value })}
                                             placeholder="As shown on ID"
@@ -529,7 +529,7 @@ function CheckoutContent() {
                                             <input
                                                 type="email"
                                                 required
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                                 value={leadTraveler.email}
                                                 onChange={e => setLeadTraveler({ ...leadTraveler, email: e.target.value })}
                                                 placeholder="your@email.com"
@@ -545,7 +545,7 @@ function CheckoutContent() {
                                             <input
                                                 type="email"
                                                 required
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                                 value={leadTraveler.confirmEmail || ''}
                                                 onChange={e => setLeadTraveler({ ...leadTraveler, confirmEmail: e.target.value })}
                                                 placeholder="Repeat email"
@@ -581,7 +581,7 @@ function CheckoutContent() {
                         {step === 1 && guests.length > 0 && (
                             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                                 <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                                    <Users className="w-5 h-5 text-emerald-600" />
+                                    <Users className="w-5 h-5 text-primary" />
                                     Guest Names ({totalGuests})
                                 </h2>
 
@@ -595,7 +595,7 @@ function CheckoutContent() {
                                                 <input
                                                     type="text"
                                                     required
-                                                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                                     value={guest.name}
                                                     onChange={e => {
                                                         const newGuests = [...guests];
@@ -624,14 +624,14 @@ function CheckoutContent() {
                                 {/*
                                 <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                                     <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-                                        <Sparkles className="w-5 h-5 text-emerald-600" />
+                                        <Sparkles className="w-5 h-5 text-primary" />
                                         Enhance Your Experience
                                     </h2>
                                     <p className="text-gray-500 text-sm mb-6">Add these optional extras to make your tour even better</p>
 
                                     {addonsLoading ? (
                                         <div className="flex items-center justify-center py-8">
-                                            <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                                            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                                         </div>
                                     ) : addons.length === 0 ? (
                                         <div className="text-center py-8 text-gray-500">
@@ -649,7 +649,7 @@ function CheckoutContent() {
                                                     <div
                                                         key={addon.id}
                                                         className={`p-4 rounded-xl border-2 transition-all ${isSelected
-                                                            ? 'border-emerald-500 bg-emerald-50'
+                                                            ? 'border-primary bg-emerald-50'
                                                             : 'border-gray-200 hover:border-emerald-200'
                                                             }`}
                                                     >
@@ -681,7 +681,7 @@ function CheckoutContent() {
                                                                             </span>
                                                                         )}
                                                                     </h3>
-                                                                    <span className="font-bold text-emerald-600 shrink-0">
+                                                                    <span className="font-bold text-primary shrink-0">
                                                                         +€{displayPrice.toFixed(2)}
                                                                     </span>
                                                                 </div>
@@ -692,7 +692,7 @@ function CheckoutContent() {
                                                                     {addon.pricingType === 'perBooking' && `Flat rate`}
                                                                 </p>
                                                             </div>
-                                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-emerald-500 bg-emerald-500' : 'border-gray-300'
+                                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-primary bg-emerald-500' : 'border-gray-300'
                                                                 }`}>
                                                                 {isSelected && <Check className="w-4 h-4 text-white" />}
                                                             </div>
@@ -703,7 +703,7 @@ function CheckoutContent() {
                                                             <div className="mt-4 pt-4 border-t border-emerald-200" onClick={e => e.stopPropagation()}>
                                                                 <div className="flex items-center justify-between mb-2">
                                                                     <span className="text-sm font-medium text-gray-700">Number of hours:</span>
-                                                                    <span className="text-lg font-bold text-emerald-600">{selectedHours} hrs</span>
+                                                                    <span className="text-lg font-bold text-primary">{selectedHours} hrs</span>
                                                                 </div>
                                                                 <input
                                                                     type="range"
@@ -723,7 +723,7 @@ function CheckoutContent() {
                                                                 </div>
                                                                 <div className="mt-3 flex items-center justify-between bg-white rounded-lg p-3 border border-emerald-200">
                                                                     <span className="text-sm text-gray-600">Price for {selectedHours} hours:</span>
-                                                                    <span className="text-lg font-bold text-emerald-600">€{(addon.price * selectedHours).toFixed(2)}</span>
+                                                                    <span className="text-lg font-bold text-primary">€{(addon.price * selectedHours).toFixed(2)}</span>
                                                                 </div>
                                                             </div>
                                                         )}
@@ -783,7 +783,7 @@ function CheckoutContent() {
                                             <input
                                                 type="checkbox"
                                                 id="emailOptIn"
-                                                className="mt-1 w-5 h-5 text-emerald-600 rounded focus:ring-emerald-500"
+                                                className="mt-1 w-5 h-5 text-primary rounded focus:ring-primary"
                                                 checked={marketing.emailOptIn}
                                                 onChange={e => setMarketing({ ...marketing, emailOptIn: e.target.checked })}
                                             />
@@ -799,7 +799,7 @@ function CheckoutContent() {
                                             <input
                                                 type="checkbox"
                                                 id="smsOptIn"
-                                                className="mt-1 w-5 h-5 text-emerald-600 rounded focus:ring-emerald-500"
+                                                className="mt-1 w-5 h-5 text-primary rounded focus:ring-primary"
                                                 checked={marketing.smsOptIn}
                                                 onChange={e => setMarketing({ ...marketing, smsOptIn: e.target.checked })}
                                             />
@@ -818,7 +818,7 @@ function CheckoutContent() {
                                             </label>
                                             <textarea
                                                 rows={3}
-                                                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                                 value={marketing.specialRequests}
                                                 onChange={e => setMarketing({ ...marketing, specialRequests: e.target.value })}
                                                 placeholder="Any special requirements or questions for your guide..."
@@ -833,13 +833,13 @@ function CheckoutContent() {
                         {step === 3 && (
                             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
                                 <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-                                    <CreditCard className="w-5 h-5 text-emerald-600" />
+                                    <CreditCard className="w-5 h-5 text-primary" />
                                     Secure Payment
                                 </h2>
 
                                 {!clientSecret ? (
                                     <div className="flex items-center justify-center py-12">
-                                        <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+                                        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                                     </div>
                                 ) : (
                                     <Elements stripe={stripePromise} options={{
@@ -937,7 +937,7 @@ function CheckoutContent() {
                                                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(bookingData.tour.meetingPoint + ' Rome')}`}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="text-xs text-emerald-600 font-bold hover:underline ml-6"
+                                                        className="text-xs text-primary font-bold hover:underline ml-6"
                                                     >
                                                         View on Map
                                                     </a>
@@ -1012,7 +1012,7 @@ function CheckoutContent() {
                                             <span className="text-base font-bold text-gray-900">Total</span>
                                             <p className="text-xs text-gray-500">Including VAT & fees</p>
                                         </div>
-                                        <span className="text-3xl font-bold text-emerald-600">€{calculateTotal().toFixed(2)}</span>
+                                        <span className="text-3xl font-bold text-primary">€{calculateTotal().toFixed(2)}</span>
                                     </div>
                                 </div>
 
@@ -1124,7 +1124,7 @@ function PaymentForm({ totalAmount, onSuccess }: {
                     <input
                         type="checkbox"
                         id="policyAcceptance"
-                        className="mt-1 w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500 cursor-pointer"
+                        className="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
                         checked={policyAccepted}
                         onChange={(e) => setPolicyAccepted(e.target.checked)}
                     />

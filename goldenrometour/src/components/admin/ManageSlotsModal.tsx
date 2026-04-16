@@ -200,7 +200,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                                     type="number"
                                                     value={editSpots}
                                                     onChange={e => setEditSpots(parseInt(e.target.value) || 0)}
-                                                    className="w-20 p-1.5 rounded-lg border border-gray-200 text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none block"
+                                                    className="w-20 p-1.5 rounded-lg border border-gray-200 text-sm font-bold focus:ring-2 focus:ring-primary outline-none block"
                                                 />
                                             </div>
                                             <div>
@@ -210,14 +210,14 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                                     placeholder="Default"
                                                     value={editPrice}
                                                     onChange={e => setEditPrice(e.target.value === '' ? '' : parseFloat(e.target.value))}
-                                                    className="w-24 p-1.5 rounded-lg border border-gray-200 text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none block"
+                                                    className="w-24 p-1.5 rounded-lg border border-gray-200 text-sm font-bold focus:ring-2 focus:ring-primary outline-none block"
                                                 />
                                             </div>
                                         </div>
                                         <button
                                             onClick={() => handleSaveEdit(slot.id)}
                                             disabled={saving}
-                                            className="bg-emerald-600 hover:bg-emerald-700 text-white p-2 rounded-lg transition-colors"
+                                            className="bg-emerald-600 hover:opacity-90 text-white p-2 rounded-lg transition-colors"
                                         >
                                             {saving ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
                                         </button>
@@ -229,7 +229,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                     /* ── View Mode ── */
                                     <div className="p-3 flex items-center justify-between">
                                         <div className="flex items-center gap-3">
-                                            <div className={`p-2 rounded-full ${slot.available_slots === 0 ? 'bg-red-100 text-red-500' : 'bg-emerald-50 text-emerald-600'}`}>
+                                            <div className={`p-2 rounded-full ${slot.available_slots === 0 ? 'bg-red-100 text-red-500' : 'bg-background text-primary'}`}>
                                                 <Clock size={18} />
                                             </div>
                                             <div>
@@ -252,7 +252,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                             {/* Edit button */}
                                             <button
                                                 onClick={() => startEdit(slot)}
-                                                className="text-gray-400 hover:text-emerald-600 p-2 hover:bg-emerald-50 rounded-lg transition-colors"
+                                                className="text-gray-400 hover:text-primary p-2 hover:bg-background rounded-lg transition-colors"
                                                 title="Edit spots / price"
                                             >
                                                 <Pencil size={16} />
@@ -283,7 +283,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                     type="time"
                                     value={newTime}
                                     onChange={e => setNewTime(e.target.value)}
-                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
                                 />
                             </div>
                             <div className="w-24">
@@ -293,7 +293,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                     value={newCount}
                                     min={0}
                                     onChange={e => setNewCount(parseInt(e.target.value) || 0)}
-                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
                                 />
                             </div>
                             <div className="w-24">
@@ -303,13 +303,13 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                     placeholder="Default"
                                     value={newPrice}
                                     onChange={e => setNewPrice(e.target.value === '' ? '' : parseFloat(e.target.value))}
-                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none"
+                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
                                 />
                             </div>
                             <button
                                 onClick={handleAdd}
                                 disabled={adding}
-                                className="bg-emerald-600 hover:bg-emerald-700 text-white p-2.5 rounded-xl transition-transform active:scale-95 shadow-md shadow-emerald-200 h-[42px] w-[42px] flex items-center justify-center"
+                                className="bg-emerald-600 hover:opacity-90 text-white p-2.5 rounded-xl transition-transform active:scale-95 shadow-md shadow-emerald-200 h-[42px] w-[42px] flex items-center justify-center"
                             >
                                 {adding ? <Loader2 className="animate-spin w-5 h-5" /> : <Plus size={22} />}
                             </button>

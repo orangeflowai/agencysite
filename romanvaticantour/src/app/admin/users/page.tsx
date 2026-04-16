@@ -15,7 +15,7 @@ export default function UsersPage() {
                     <h1 className="text-2xl font-bold text-gray-900">Team Members</h1>
                     <p className="text-gray-500 mt-1">Manage admin access and permissions</p>
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl transition-colors">
+                <button className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:opacity-90 text-white font-medium rounded-xl transition-colors">
                     <Plus size={18} />
                     Invite Member
                 </button>
@@ -24,8 +24,8 @@ export default function UsersPage() {
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-emerald-50 rounded-lg">
-                            <Shield className="w-5 h-5 text-emerald-600" />
+                        <div className="p-2 bg-background rounded-lg">
+                            <Shield className="w-5 h-5 text-primary" />
                         </div>
                         <div>
                             <h2 className="font-semibold text-gray-900">Admin Access</h2>
@@ -39,7 +39,7 @@ export default function UsersPage() {
                         <div key={user.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
                             <div className="flex items-center gap-4">
                                 <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                                    <Users size={18} className="text-emerald-600" />
+                                    <Users size={18} className="text-primary" />
                                 </div>
                                 <div>
                                     <h3 className="font-medium text-gray-900">{user.name}</h3>
@@ -50,7 +50,7 @@ export default function UsersPage() {
                                 </div>
                             </div>
                             <div className="flex items-center gap-4">
-                                <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-medium rounded-full">
+                                <span className="px-3 py-1 bg-background text-foreground text-xs font-medium rounded-full">
                                     {user.role}
                                 </span>
                                 <span className="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full">

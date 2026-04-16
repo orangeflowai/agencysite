@@ -52,13 +52,13 @@ export default function SiteSwitcher() {
                             key={site._id}
                             onClick={() => setSelectedSiteId(site.slug.current)}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-all ${selectedSiteId === site.slug.current
-                                    ? 'bg-emerald-50 text-emerald-700'
+                                    ? 'bg-background text-foreground'
                                     : 'text-gray-600 hover:bg-gray-50'
                                 }`}
                         >
                             <div className={`w-2 h-2 rounded-full ${site.isActive ? 'bg-green-500' : 'bg-red-300'}`} />
                             <span className="flex-1 text-left truncate">{site.title}</span>
-                            {selectedSiteId === site.slug.current && <Check size={14} className="text-emerald-600" />}
+                            {selectedSiteId === site.slug.current && <Check size={14} className="text-primary" />}
                         </button>
                     ))}
                     <Popover.Arrow className="fill-white" />

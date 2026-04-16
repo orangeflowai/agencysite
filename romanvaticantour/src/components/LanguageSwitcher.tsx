@@ -14,6 +14,32 @@ const languages = [
     { code: 'ru', name: 'Русский', flag: '🇷🇺' },
 ];
 
+/** Remove Google Translate cookies and restore original page language without a full reload */
+function restoreToEnglish() {
+    const hostname = window.location.hostname;
+    // Clear googtrans cookie on all path/domain variants
+    ['/', ''].forEach(path => {
+        [hostname, '.' + hostname, ''].forEach(domain => {
+            const domainPart = domain ? `; domain=${domain}` : '';
+            document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${path || '/'}${domainPart}`;
+        });
+    });
+
+    // Remove GT body offset
+    document.body.style.removeProperty('top');
+
+    // Remove GT banner iframe if injected
+    const banner = document.querySelector('.goog-te-banner-frame') as HTMLElement | null;
+    if (banner) banner.style.display = 'none';
+
+    // Trigger GT's own "show original" via the hidden select
+    const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+    if (select && select.value !== '') {
+        select.value = '';
+        select.dispatchEvent(new Event('change'));
+    }
+}
+
 export default function LanguageSwitcher() {
     const { language, setLanguage } = useLanguage();
     const [isOpen, setIsOpen] = useState(false);
@@ -33,15 +59,24 @@ export default function LanguageSwitcher() {
 
     const handleLanguageChange = (langCode: string) => {
         setLanguage(langCode as any);
-        // Trigger Google Translate if available
-        if (typeof window !== 'undefined') {
-            const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
-            if (select) {
-                select.value = langCode === 'en' ? '' : langCode;
-                select.dispatchEvent(new Event('change'));
-            }
-        }
         setIsOpen(false);
+
+        if (typeof window === 'undefined') return;
+
+        if (langCode === 'en') {
+            restoreToEnglish();
+            return;
+        }
+
+        // Switch to non-English via Google Translate
+        const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
+        if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+        } else {
+            // GT not loaded yet — set cookie so it picks up on next render
+            document.cookie = `googtrans=/en/${langCode}; path=/`;
+        }
     };
 
     return (
@@ -66,12 +101,12 @@ export default function LanguageSwitcher() {
                             key={lang.code}
                             onClick={() => handleLanguageChange(lang.code)}
                             className={`w-full flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors ${
-                                language === lang.code ? 'text-sky-600 bg-sky-50/50' : 'text-gray-700'
+                                language === lang.code ? 'text-primary bg-background' : 'text-gray-700'
                             }`}
                         >
                             <div className="flex items-center gap-3">
                                 <span className="text-lg">{lang.flag}</span>
-                                <span className={language === lang.code ? 'font-medium' : ''}>{lang.name}</span>
+                                <span className={language === lang.code ? 'font-semibold' : ''}>{lang.name}</span>
                             </div>
                             {language === lang.code && <Check className="w-4 h-4" />}
                         </button>

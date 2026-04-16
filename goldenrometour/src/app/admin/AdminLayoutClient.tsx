@@ -34,10 +34,10 @@ function NavLink({ href, icon: Icon, children, external, onClick }: NavLinkProps
         <Link
             href={href}
             onClick={onClick}
-            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-50 hover:text-emerald-700 transition-all group"
+            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-50 hover:text-foreground transition-all group"
             target={external ? "_blank" : undefined}
         >
-            <Icon size={18} className="text-gray-400 group-hover:text-emerald-600 transition-colors" />
+            <Icon size={18} className="text-gray-400 group-hover:text-primary transition-colors" />
             <span className="flex-1">{children}</span>
             {external && <ChevronRight size={14} className="text-gray-300" />}
         </Link>
@@ -80,8 +80,8 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2 mt-6">Payments</div>
                 <NavLink href="/admin/payments" icon={Wallet} onClick={onClose}>Payment Methods</NavLink>
                 {/* External Link to Studio */}
-                <a href="/studio" target="_blank" className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-50 hover:text-emerald-700 transition-all group">
-                    <ExternalLink size={18} className="text-gray-400 group-hover:text-emerald-600 transition-colors" />
+                <a href="/studio" target="_blank" className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-50 hover:text-foreground transition-all group">
+                    <ExternalLink size={18} className="text-gray-400 group-hover:text-primary transition-colors" />
                     <span className="flex-1">Content Studio (CMS)</span>
                     <ChevronRight size={14} className="text-gray-300" />
                 </a>

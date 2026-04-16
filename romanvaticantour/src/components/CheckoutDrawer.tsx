@@ -96,10 +96,16 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const stripePromise = useMemo(() => {
-    const suffix = siteId.toUpperCase().replace(/-/g, '_')
-    const key = (process.env as any)[`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_${suffix}`]
-      || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
-    return key ? loadStripe(key) : null
+    // Next.js inlines NEXT_PUBLIC_ vars at build time — must reference them explicitly
+    const keyMap: Record<string, string> = {
+      'wondersofrome': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_WONDERSOFROME || '',
+      'rome-tour-tickets': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME_TOUR_TICKETS || '',
+      'goldenrometour': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_GOLDENROMETOUR || '',
+      'romanvaticantour': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROMANVATICANTOUR || '',
+      'romewander': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROMEWANDER || '',
+    };
+    const key = keyMap[siteId] || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+    return key ? loadStripe(key) : null;
   }, [siteId])
 
   const totalGuests = useMemo(() =>

@@ -28,10 +28,15 @@ export default function BookingsPage() {
     async function fetchBookings() {
         setLoading(true);
         try {
-            const { data, error } = await supabase
+            const siteId = process.env.NEXT_PUBLIC_SITE_ID || '';
+            const query = supabase
                 .from('bookings')
                 .select('*')
                 .order('created_at', { ascending: false });
+            // Filter by site_id so each admin only sees their own bookings
+            const { data, error } = siteId
+                ? await query.eq('site_id', siteId)
+                : await query;
 
             if (error) throw error;
             setBookings(data || []);
@@ -117,7 +122,7 @@ export default function BookingsPage() {
     };
 
     const statusColors: Record<string, string> = {
-        paid: 'bg-emerald-100 text-emerald-700',
+        paid: 'bg-emerald-100 text-foreground',
         pending: 'bg-amber-100 text-amber-700',
         cancelled: 'bg-red-100 text-red-700',
     };
@@ -131,7 +136,7 @@ export default function BookingsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <Loader2 className="animate-spin h-8 w-8 text-emerald-600" />
+                <Loader2 className="animate-spin h-8 w-8 text-primary" />
             </div>
         );
     }
@@ -167,7 +172,7 @@ export default function BookingsPage() {
                         key={tab.key}
                         onClick={() => { setStatusFilter(tab.key); setCurrentPage(1); }}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${statusFilter === tab.key
-                                ? 'bg-emerald-600 text-white shadow-sm'
+                                ? 'bg-primary text-primary-foreground shadow-sm'
                                 : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
                             }`}
                     >
@@ -186,7 +191,7 @@ export default function BookingsPage() {
                     placeholder="Search by customer name, email, or tour title..."
                     value={searchTerm}
                     onChange={e => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none"
                 />
             </div>
 
@@ -423,7 +428,7 @@ export default function BookingsPage() {
                                         key={page}
                                         onClick={() => setCurrentPage(page)}
                                         className={`w-8 h-8 text-sm rounded-lg ${currentPage === page
-                                                ? 'bg-emerald-600 text-white'
+                                                ? 'bg-primary text-primary-foreground'
                                                 : 'border border-gray-200 hover:bg-gray-50'
                                             }`}
                                     >

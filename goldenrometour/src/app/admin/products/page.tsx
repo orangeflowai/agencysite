@@ -155,7 +155,7 @@ export default function AdminProductsPage() {
                 <Link
                     href="/studio/structure/tour"
                     target="_blank"
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors border border-emerald-200"
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-foreground bg-background hover:bg-emerald-100 rounded-lg transition-colors border border-emerald-200"
                 >
                     <Plus size={16} />
                     New Tour (Sanity)
@@ -220,7 +220,7 @@ export default function AdminProductsPage() {
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="font-medium text-emerald-600">€{tour.price}</div>
+                                            <div className="font-medium text-primary">€{tour.price}</div>
                                         </td>
                                         <td className="px-6 py-4 text-gray-600">
                                             <span className="flex items-center gap-1"><Clock size={12} /> {tour.duration || '--'}</span>
@@ -235,7 +235,7 @@ export default function AdminProductsPage() {
                                                 <Link
                                                     href={`/tour/${tour.slug.current}`}
                                                     target="_blank"
-                                                    className="p-2 text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors"
+                                                    className="p-2 text-gray-400 hover:text-primary hover:bg-background rounded-lg transition-colors"
                                                     title="View Live"
                                                 >
                                                     <Eye size={16} />
@@ -274,28 +274,28 @@ export default function AdminProductsPage() {
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('general')}
-                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'general' ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'general' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
                             >
                                 General
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('pricing')}
-                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'pricing' ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'pricing' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
                             >
                                 Pricing & Guests
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('content')}
-                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'content' ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'content' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
                             >
                                 Content & Lists
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('logistics')}
-                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'logistics' ? 'border-emerald-500 text-emerald-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'logistics' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
                             >
                                 Logistics
                             </button>
@@ -312,7 +312,7 @@ export default function AdminProductsPage() {
                                                 type="text"
                                                 value={formData.title}
                                                 onChange={e => setFormData({ ...formData, title: e.target.value })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
@@ -321,7 +321,7 @@ export default function AdminProductsPage() {
                                                 type="number"
                                                 value={formData.price}
                                                 onChange={e => setFormData({ ...formData, price: Number(e.target.value) })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
@@ -331,7 +331,7 @@ export default function AdminProductsPage() {
                                                 value={formData.duration}
                                                 onChange={e => setFormData({ ...formData, duration: e.target.value })}
                                                 placeholder="e.g. 3 hours"
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
@@ -341,7 +341,7 @@ export default function AdminProductsPage() {
                                                 value={formData.groupSize}
                                                 onChange={e => setFormData({ ...formData, groupSize: e.target.value })}
                                                 placeholder="e.g. up to 12 people"
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         {/* New Fields */}
@@ -350,7 +350,7 @@ export default function AdminProductsPage() {
                                             <select
                                                 value={formData.category}
                                                 onChange={e => setFormData({ ...formData, category: e.target.value })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             >
                                                 <option value="">Select Category</option>
                                                 <option value="Colosseum Tours">Colosseum Tours</option>
@@ -366,7 +366,7 @@ export default function AdminProductsPage() {
                                                 value={formData.badge}
                                                 onChange={e => setFormData({ ...formData, badge: e.target.value })}
                                                 placeholder="e.g. Bestseller"
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
@@ -377,7 +377,7 @@ export default function AdminProductsPage() {
                                                 max="5"
                                                 value={formData.rating}
                                                 onChange={e => setFormData({ ...formData, rating: e.target.value })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
@@ -386,7 +386,7 @@ export default function AdminProductsPage() {
                                                 type="number"
                                                 value={formData.reviewCount}
                                                 onChange={e => setFormData({ ...formData, reviewCount: e.target.value })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                     </div>
@@ -412,7 +412,7 @@ export default function AdminProductsPage() {
                                                     type="file"
                                                     accept="image/*"
                                                     onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                                                    className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 text-sm text-gray-500"
+                                                    className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-background file:text-foreground hover:file:bg-emerald-100 text-sm text-gray-500"
                                                 />
                                             </div>
                                         </div>
@@ -462,7 +462,7 @@ export default function AdminProductsPage() {
                                             value={formData.tags}
                                             onChange={e => setFormData({ ...formData, tags: e.target.value })}
                                             placeholder="e.g. Selling Fast, 10% OFF, Featured"
-                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                         />
                                     </div>
                                 </div>
@@ -482,7 +482,7 @@ export default function AdminProductsPage() {
                                                 value={formData.maxParticipants as number}
                                                 onChange={e => setFormData({ ...formData, maxParticipants: Number(e.target.value) })}
                                                 placeholder="e.g. 10"
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         {(formData.guestTypes || []).map((gt: any, idx: number) => (
@@ -510,7 +510,7 @@ export default function AdminProductsPage() {
                                                                 newTypes[idx].name = e.target.value;
                                                                 setFormData({ ...formData, guestTypes: newTypes });
                                                             }}
-                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-emerald-500 text-sm font-medium"
+                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-primary text-sm font-medium"
                                                         />
                                                     </div>
                                                     <div>
@@ -523,7 +523,7 @@ export default function AdminProductsPage() {
                                                                 newTypes[idx].price = Number(e.target.value);
                                                                 setFormData({ ...formData, guestTypes: newTypes });
                                                             }}
-                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-emerald-500 text-sm font-medium"
+                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-primary text-sm font-medium"
                                                         />
                                                     </div>
                                                     <div className="col-span-2">
@@ -537,7 +537,7 @@ export default function AdminProductsPage() {
                                                                 newTypes[idx].description = e.target.value;
                                                                 setFormData({ ...formData, guestTypes: newTypes });
                                                             }}
-                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-emerald-500 text-sm font-medium"
+                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-primary text-sm font-medium"
                                                         />
                                                     </div>
                                                 </div>
@@ -550,7 +550,7 @@ export default function AdminProductsPage() {
                                                 const newTypes = [...(formData.guestTypes || []), { name: '', price: formData.price || 0, description: '' }];
                                                 setFormData({ ...formData, guestTypes: newTypes });
                                             }}
-                                            className="w-full py-3 border-2 border-dashed border-gray-200 rounded-xl text-gray-400 font-bold text-sm hover:border-emerald-200 hover:text-emerald-600 hover:bg-emerald-50 transition-all flex items-center justify-center gap-2"
+                                            className="w-full py-3 border-2 border-dashed border-gray-200 rounded-xl text-gray-400 font-bold text-sm hover:border-emerald-200 hover:text-primary hover:bg-background transition-all flex items-center justify-center gap-2"
                                         >
                                             <Plus size={16} />
                                             Add Participant Category
@@ -567,7 +567,7 @@ export default function AdminProductsPage() {
                                             value={formData.highlights}
                                             onChange={e => setFormData({ ...formData, highlights: e.target.value })}
                                             rows={5}
-                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium text-sm"
+                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium text-sm"
                                         />
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
@@ -577,7 +577,7 @@ export default function AdminProductsPage() {
                                                 value={formData.includes}
                                                 onChange={e => setFormData({ ...formData, includes: e.target.value })}
                                                 rows={5}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium text-sm"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium text-sm"
                                             />
                                         </div>
                                         <div>
@@ -586,7 +586,7 @@ export default function AdminProductsPage() {
                                                 value={formData.excludes}
                                                 onChange={e => setFormData({ ...formData, excludes: e.target.value })}
                                                 rows={5}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium text-sm"
+                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium text-sm"
                                             />
                                         </div>
                                     </div>
@@ -602,7 +602,7 @@ export default function AdminProductsPage() {
                                             value={formData.meetingPoint as string}
                                             onChange={e => setFormData({ ...formData, meetingPoint: e.target.value })}
                                             placeholder="e.g. Via di San Gregorio, 00184 Roma RM"
-                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium"
+                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
                                         />
                                     </div>
                                     <div>
@@ -612,7 +612,7 @@ export default function AdminProductsPage() {
                                             onChange={e => setFormData({ ...formData, importantInfo: e.target.value })}
                                             rows={5}
                                             placeholder="Dress code, ID requirements, etc."
-                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-emerald-500 font-medium text-sm"
+                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium text-sm"
                                         />
                                     </div>
                                 </div>
@@ -632,7 +632,7 @@ export default function AdminProductsPage() {
                                     type="submit"
                                     form="edit-tour-form" // Link button to the form
                                     disabled={saving}
-                                    className="flex-1 py-3 font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-lg shadow-emerald-200 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                                    className="flex-1 py-3 font-bold text-white bg-emerald-600 hover:opacity-90 rounded-xl shadow-lg shadow-emerald-200 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
                                     {saving ? 'Saving...' : 'Save Changes'}
                                 </button>

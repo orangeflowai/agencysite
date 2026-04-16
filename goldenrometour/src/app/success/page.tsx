@@ -74,9 +74,9 @@ function SuccessContent() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-cream flex items-center justify-center">
+            <div className="min-h-screen bg-background flex items-center justify-center">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
                     <p className="text-gray-600">Confirming your booking...</p>
                 </div>
             </div>
@@ -84,11 +84,11 @@ function SuccessContent() {
     }
 
     return (
-        <div className="min-h-screen bg-cream py-12 px-4">
+        <div className="min-h-screen bg-background py-12 px-4">
             <div className="max-w-2xl mx-auto">
                 {/* Success Header */}
-                <div className="bg-white rounded-2xl shadow-xl border border-emerald-100 overflow-hidden mb-6">
-                    <div className="bg-emerald-600 p-8 text-center">
+                <div className="bg-white rounded-2xl shadow-xl border border-border overflow-hidden mb-6">
+                    <div className="bg-primary p-8 text-center">
                         <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                             <CheckCircle className="w-10 h-10 text-white" />
                         </div>
@@ -110,7 +110,7 @@ function SuccessContent() {
                                 {/* Tour Details */}
                                 <div className="bg-gray-50 rounded-xl p-6 mb-6">
                                     <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <Calendar className="w-5 h-5 text-emerald-600" />
+                                        <Calendar className="w-5 h-5 text-primary" />
                                         Tour Details
                                     </h3>
                                     <div className="space-y-3">
@@ -139,7 +139,7 @@ function SuccessContent() {
                                 {/* Guests */}
                                 <div className="bg-gray-50 rounded-xl p-6 mb-6">
                                     <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <Users className="w-5 h-5 text-emerald-600" />
+                                        <Users className="w-5 h-5 text-primary" />
                                         Participants
                                     </h3>
                                     <div className="space-y-2">
@@ -175,7 +175,7 @@ function SuccessContent() {
                                         <div className="border-t pt-2 mt-3">
                                             <div className="flex justify-between">
                                                 <span className="font-bold text-gray-900">Total Paid</span>
-                                                <span className="font-bold text-emerald-600 text-xl">€{(booking.total_price / 100).toFixed(2)}</span>
+                                                <span className="font-bold text-primary text-xl">€{booking.total_price.toFixed(2)}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@ function SuccessContent() {
                                 {/* Customer Info */}
                                 <div className="bg-gray-50 rounded-xl p-6 mb-6">
                                     <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <Mail className="w-5 h-5 text-emerald-600" />
+                                        <Mail className="w-5 h-5 text-primary" />
                                         Contact Information
                                     </h3>
                                     <div className="space-y-2 text-sm">
@@ -225,7 +225,7 @@ function SuccessContent() {
                         <div className="flex flex-col sm:flex-row gap-3">
                             <Link
                                 href="/"
-                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-colors"
+                                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-xl hover:opacity-90 transition-colors"
                             >
                                 <Home size={18} />
                                 Back to Home
@@ -260,8 +260,8 @@ function SuccessContent() {
 export default function SuccessPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-cream flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+            <div className="min-h-screen bg-background flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         }>
             <SuccessContent />

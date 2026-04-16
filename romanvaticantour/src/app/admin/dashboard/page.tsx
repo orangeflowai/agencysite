@@ -45,10 +45,14 @@ export default function DashboardPage() {
     async function loadDashboard() {
         try {
             // Fetch all bookings
-            const { data: bookings, error } = await supabase
+            const siteId = process.env.NEXT_PUBLIC_SITE_ID || '';
+            const baseQuery = supabase
                 .from('bookings')
                 .select('*')
                 .order('created_at', { ascending: false });
+            const { data: bookings, error } = siteId
+                ? await baseQuery.eq('site_id', siteId)
+                : await baseQuery;
 
             if (error) throw error;
 
@@ -105,7 +109,7 @@ export default function DashboardPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center py-20">
-                <Loader2 className="animate-spin h-8 w-8 text-emerald-600" />
+                <Loader2 className="animate-spin h-8 w-8 text-primary" />
             </div>
         );
     }
@@ -159,7 +163,7 @@ export default function DashboardPage() {
                     <div className="flex items-center justify-between mb-6">
                         <div>
                             <h2 className="font-bold text-gray-900 flex items-center gap-2">
-                                <BarChart3 className="w-5 h-5 text-emerald-600" />
+                                <BarChart3 className="w-5 h-5 text-primary" />
                                 Revenue (Last 7 Days)
                             </h2>
                             <p className="text-sm text-gray-500 mt-1">€{(stats?.thisWeekRevenue || 0).toFixed(2)} total</p>
@@ -206,7 +210,7 @@ export default function DashboardPage() {
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-6 border-b border-gray-100 flex items-center justify-between">
                     <h2 className="font-bold text-gray-900">Recent Bookings</h2>
-                    <Link href="/admin/bookings" className="text-sm text-emerald-600 font-medium hover:underline flex items-center gap-1">
+                    <Link href="/admin/bookings" className="text-sm text-primary font-medium hover:underline flex items-center gap-1">
                         View All <ArrowUpRight className="w-4 h-4" />
                     </Link>
                 </div>
@@ -224,7 +228,7 @@ export default function DashboardPage() {
                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${booking.status === 'paid' ? 'bg-emerald-100' :
                                             booking.status === 'cancelled' ? 'bg-red-100' : 'bg-amber-100'
                                         }`}>
-                                        {booking.status === 'paid' ? <CheckCircle className="w-5 h-5 text-emerald-600" /> :
+                                        {booking.status === 'paid' ? <CheckCircle className="w-5 h-5 text-primary" /> :
                                             booking.status === 'cancelled' ? <XCircle className="w-5 h-5 text-red-600" /> :
                                                 <Clock className="w-5 h-5 text-amber-600" />}
                                     </div>
@@ -256,7 +260,7 @@ export default function DashboardPage() {
 function StatCard({ label, value, icon: Icon, color, subtitle }: { label: string; value: string | number; icon: any; color: string; subtitle?: string }) {
     const colors: Record<string, string> = {
         blue: 'bg-blue-50 text-blue-600',
-        emerald: 'bg-emerald-50 text-emerald-600',
+        emerald: 'bg-background text-primary',
         purple: 'bg-purple-50 text-purple-600',
         amber: 'bg-amber-50 text-amber-600',
     };
@@ -278,7 +282,7 @@ function StatCard({ label, value, icon: Icon, color, subtitle }: { label: string
 function QuickAction({ href, icon: Icon, label, color }: { href: string; icon: any; label: string; color: string }) {
     const colors: Record<string, string> = {
         blue: 'bg-blue-50 text-blue-600 group-hover:bg-blue-100',
-        emerald: 'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100',
+        emerald: 'bg-background text-primary group-hover:bg-emerald-100',
         purple: 'bg-purple-50 text-purple-600 group-hover:bg-purple-100',
         amber: 'bg-amber-50 text-amber-600 group-hover:bg-amber-100',
         gray: 'bg-gray-50 text-gray-600 group-hover:bg-gray-100',
@@ -297,7 +301,7 @@ function QuickAction({ href, icon: Icon, label, color }: { href: string; icon: a
 
 function StatusCard({ label, count, icon: Icon, color }: { label: string; count: number; icon: any; color: string }) {
     const colors: Record<string, { bg: string; text: string; icon: string }> = {
-        emerald: { bg: 'bg-emerald-50', text: 'text-emerald-700', icon: 'text-emerald-600' },
+        emerald: { bg: 'bg-background', text: 'text-foreground', icon: 'text-primary' },
         amber: { bg: 'bg-amber-50', text: 'text-amber-700', icon: 'text-amber-600' },
         red: { bg: 'bg-red-50', text: 'text-red-700', icon: 'text-red-600' },
     };
