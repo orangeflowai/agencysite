@@ -16,6 +16,7 @@
 **/.env.test.local
 **/.env.production.local
 **/.env.production
+**/.env.migration
 
 # Sanity
 **/.sanity/
@@ -43,9 +44,40 @@ Thumbs.db
 
 # PM2
 **/ecosystem.config.js
-wondersofrome_app/
 
 # Large data exports
 **/*.ndjson
 **/sanity-export.ndjson
-standalone_hold.py
+
+# Root-level docs (server-specific, not needed in repo)
+BOOKING-FLOW-DIAGRAM.md
+CLOUDFLARE_R2_SETUP.md
+COMPLETE-SOLUTION-SUMMARY.md
+DEPLOY-STEP-BY-STEP.md
+DEPLOYMENT-STATUS-REPORT.md
+DEPLOYMENT-SUCCESS-SUMMARY.md
+DEPLOYMENT-SUCCESS.md
+FIXES-IMPLEMENTATION-GUIDE.md
+HOW-TO-SET-MAX-PARTICIPANTS.md
+IMPLEMENTATION-CHECKLIST.md
+MOBILE-APP-AUTH-IMPLEMENTATION.md
+MOBILE-APP-INTEGRATION-SUMMARY.md
+QUICK-REFERENCE.md
+RESEND-API-KEY-UPDATE-SUMMARY.md
+RESEND-DOMAIN-SETUP-GUIDE.md
+
+# Images at root
+IMG_*.jpeg
+IMG_*.jpg
+IMG_*.png
+
+# Hetzner/server-specific files
+payload-admin/HETZNER-DEPLOY.md
+payload-admin/DEPLOY.md
+payload-admin/.env.migration
+
+# Package locks (large, not needed for Vercel)
+**/package-lock.json
+
+# Kiro internal
+.kiro/specs/
