@@ -7,7 +7,7 @@ import SaaSTourGrid from "@/components/SaaSTourGrid";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
 import FloatingReviews from "@/components/FloatingReviews";
-import { getTours, getSettings } from "@/lib/sanityService";
+import { getTours, getSettings } from "@/lib/dataAdapter";
 import { tours as fallbackTours } from "@/lib/toursData";
 import dynamic from 'next/dynamic';
 

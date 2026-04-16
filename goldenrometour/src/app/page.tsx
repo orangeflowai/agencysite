@@ -6,14 +6,14 @@ import Footer from "@/components/Footer";
 import ProductRow from "@/components/ProductRow";
 import AnimatedSection from "@/components/AnimatedSection";
 import HighlightSection from "@/components/HighlightSection";
-import { getTours, getSettings } from "@/lib/sanityService";
+import { getTours, getSettings } from "@/lib/dataAdapter";
 import { tours as fallbackTours } from "@/lib/toursData";
 import dynamic from 'next/dynamic';
 
 export const revalidate = 3600;
 
 const RomeGallery = dynamic(() => import('@/components/RomeGallery'), {
-  loading: () => <div className="h-96 w-full animate-pulse" style={{ backgroundColor: '#F5F0E8' }} />,
+  loading: () => <div className="h-96 w-full animate-pulse" className="bg-background" />,
 });
 const FloatingReviews = dynamic(() => import('@/components/FloatingReviews'), { ssr: true });
 const StickyRomeSection = dynamic(() => import('@/components/StickyRomeSection'));
@@ -38,7 +38,7 @@ export default async function Home() {
   const hiddenGemsTours = tours.filter((t: any) => t.category === 'hidden-gems');
 
   return (
-    <main className="min-h-screen selection:bg-theme-secondary selection:text-white" style={{ backgroundColor: '#F5F0E8' }}>
+    <main className="min-h-screen selection:bg-theme-secondary selection:text-white" className="bg-background">
       <Navbar />
       <Hero settings={settings} />
 
@@ -46,7 +46,7 @@ export default async function Home() {
       <div className="h-20" aria-hidden="true" />
 
       {/* Stats ticker */}
-      <div className="py-3 overflow-hidden" style={{ backgroundColor: '#1A1210' }}>
+      <div className="py-3 overflow-hidden" className="bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
             {[
@@ -69,7 +69,7 @@ export default async function Home() {
       </div>
 
       {/* Premium Reviews Marquee */}
-      <div className="py-24" style={{ backgroundColor: '#F5F0E8' }}>
+      <div className="py-24" className="bg-background">
         <div className="container mx-auto px-6 md:px-16 text-center mb-12">
            <p className="font-nav text-[10px] tracking-[0.4em] uppercase font-bold mb-3 text-[#C9A84C]">✦ GUEST EXPERIENCES ✦</p>
            <h2 className="font-serif font-bold text-4xl text-[#1A1210]">What our pilgrims say</h2>
@@ -140,7 +140,7 @@ export default async function Home() {
 
       {/* Trust Badges */}
       <AnimatedSection delay={0.6}>
-        <section className="py-24" style={{ backgroundColor: '#ffffff' }}>
+        <section className="py-24" className="bg-background">
           <div className="container mx-auto px-6 md:px-16 text-center mb-12">
             <p className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-3" style={{ color: '#C9A84C' }}>
               ✦ BOOK WITH CONFIDENCE ✦
@@ -154,7 +154,7 @@ export default async function Home() {
       </AnimatedSection>
 
       {/* FAQ */}
-      <div id="faq" style={{ backgroundColor: '#F5F0E8' }}>
+      <div id="faq" className="bg-background">
         <FAQ />
       </div>
 
