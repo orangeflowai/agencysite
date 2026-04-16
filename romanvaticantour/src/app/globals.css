@@ -754,3 +754,114 @@ nav[class*="fixed"] {
 .highlight {
   color: var(--color-theme-primary, #0EA5E9);
 }
+
+/* ============================================
+   WIDGET SCOPE — reset heading sizes inside booking widget
+   ============================================ */
+.widget-scope h1,
+.widget-scope h2,
+.widget-scope h3,
+.widget-scope h4,
+.widget-scope h5,
+.widget-scope h6 {
+  font-size: revert;
+  line-height: revert;
+  margin-bottom: revert;
+  letter-spacing: revert;
+  font-weight: revert;
+}
+
+/* ============================================
+   REVEAL ANIMATIONS — CSS only, no GSAP
+   ============================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-fade-in    { animation: fadeIn 0.5s ease-out both; }
+.animate-scale-in   { animation: scaleIn 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+
+/* Stagger delays */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ============================================
+   MOBILE OVERFLOW FIX
+   ============================================ */
+html, body { overflow-x: hidden; max-width: 100vw; }
+section { overflow-x: hidden; }
+
+/* ============================================
+   CHECKOUT SCOPE
+   ============================================ */
+.checkout-scope h1,
+.checkout-scope h2,
+.checkout-scope h3,
+.checkout-scope h4,
+.checkout-scope h5,
+.checkout-scope h6 {
+  font-size: revert;
+  line-height: revert;
+  margin-bottom: revert;
+  letter-spacing: revert;
+  font-weight: revert;
+}
+
+/* ── Marquee ── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 32s linear infinite; will-change: transform; }
+.animate-marquee:hover { animation-play-state: paused; }
+
+/* ── Gallery scroll ── */
+@keyframes gallery-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-gallery-scroll { animation: gallery-scroll 40s linear infinite; will-change: transform; }
+
+/* Mobile menu */
+.fixed.inset-0.bg-white,
+.fixed.inset-0.bg-cream {
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  display: flex !important;
+}
+button[class*="z-[250]"] {
+  z-index: 10000 !important;
+  position: relative !important;
+}
+
+/* Footer */
+footer.bg-stone-950 h1, footer.bg-stone-950 h2, footer.bg-stone-950 h3,
+footer.bg-stone-950 h4, footer.bg-stone-950 h5, footer.bg-stone-950 h6,
+footer.bg-stone-950 p, footer.bg-stone-950 span, footer.bg-stone-950 a {
+  color: inherit !important;
+}
+
+/* No scrollbar utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

@@ -224,7 +224,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
 
     return (
         <>
-        <div className="space-y-4">
+        <div className="space-y-4 widget-scope">
             <div className="bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden">
 
 
@@ -240,9 +240,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                             ))}
                         </div>
                     </div>
-                    <h3 className="text-2xl font-black text-gray-950 flex items-center gap-2">
-                        Book Your Experience
-                    </h3>
+                    <p className="text-xl font-black text-gray-950 leading-tight">Book Your Experience</p>
                 </div>
 
                 {/* Date Selection */}
@@ -410,7 +408,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     <CheckCircle size={20} />
                 </div>
                 <div>
-                    <h4 className="text-xs font-black text-gray-900 uppercase tracking-widest">Free Cancellation</h4>
+                    <p className="text-xs font-bold text-foreground uppercase tracking-widest leading-none">Free Cancellation</p>
                     <p className="text-[10px] font-bold text-gray-400 mt-0.5 tracking-tight uppercase">Full refund up to 24h before</p>
                 </div>
             </div>
