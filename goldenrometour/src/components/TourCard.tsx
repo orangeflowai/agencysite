@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Clock, Star, Users, ArrowRight, MapPin, Zap } from 'lucide-react';
+import { Clock, Star, Users, ArrowRight, MapPin, Zap, Heart } from 'lucide-react';
 import { urlFor } from '@/lib/dataAdapter';
 import type { Tour } from '@/lib/dataAdapter';
 
