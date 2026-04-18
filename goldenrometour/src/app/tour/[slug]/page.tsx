@@ -6,8 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BookingWidget from '@/components/BookingWidget';
 import TourHeroSlider from '@/components/TourHeroSlider';
-import { getTour, getTours } from '@/lib/sanityService';
-import { urlFor } from '@/sanity/lib/image';
+import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
 import { PortableText } from '@portabletext/react';
 
 // Revalidate every hour
@@ -170,7 +169,7 @@ export default async function TourPage({ params }: PageProps) {
                         {tour.includes && (
                             <div>
                                 <h3 className="text-xl font-serif font-bold text-black mb-4 flex items-center">
-                                    <CheckCircle className="w-5 h-5 text-olive mr-2" /> What's Included
+                                    <CheckCircle className="w-5 h-5 text-olive mr-2" /> What&apos;s Included
                                 </h3>
                                 <ul className="space-y-3">
                                     {tour.includes.map((item, i) => (
@@ -185,7 +184,7 @@ export default async function TourPage({ params }: PageProps) {
                         {tour.excludes && tour.excludes.length > 0 && (
                             <div>
                                 <h3 className="text-xl font-serif font-bold text-black mb-4 flex items-center">
-                                    <XCircle className="w-5 h-5 text-red-500 mr-2" /> What's Not Included
+                                    <XCircle className="w-5 h-5 text-red-500 mr-2" /> What&apos;s Not Included
                                 </h3>
                                 <ul className="space-y-3">
                                     {tour.excludes.map((item, i) => (

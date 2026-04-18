@@ -9,6 +9,7 @@ import SmartCalendar from './ui/SmartCalendar';
 import { format } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
+import { urlFor } from '@/lib/dataAdapter';
 import CheckoutDrawer from './CheckoutDrawer';
 
 // Stripe publishable key — resolved from env by site ID suffix

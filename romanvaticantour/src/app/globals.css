@@ -88,12 +88,12 @@
   --color-black: #121212;
 
   /* Theme-aware colors */
-  --color-theme-primary: var(--color-primary, #0EA5E9);
-  --color-theme-primary-dark: var(--color-primary-dark, #1e40af);
-  --color-theme-accent: var(--color-accent, #0c4a6e);
+  --color-theme-primary: var(--color-primary, #8d9d4f);
+  --color-theme-primary-dark: var(--color-primary-dark, #71856a);
+  --color-theme-accent: var(--color-accent, #dbc894);
 
-  /* Font variables — Next.js injects --font-serif/sans via layout.tsx, fallbacks used otherwise */
-  --font-serif: var(--font-serif, "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif);
+  /* Font variables */
+  --font-serif: var(--font-serif, "Source Serif 4", "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif);
   --font-sans: var(--font-sans, "Inter", ui-sans-serif, system-ui, sans-serif);
 
   /* Spacing Scale */
@@ -108,100 +108,95 @@
   --space-5xl: 8rem;
 
   --animate-flight: flight 20s linear infinite;
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-gallery-scroll: gallery-scroll 40s linear infinite;
 }
 
 /* ============================================
-   ROMANVATICANTOUR — Crimson & Parchment Theme
+   ROMANVATICANTOUR — Premium Beige & Olive Theme
    ============================================ */
 :root {
-  --card: #faf7f5;
-  --ring: #9b2c2c;
-  --input: #f5e8d2;
-  --muted: #f0ebe8;
-  --accent: #fef3c7;
-  --border: #f5e8d2;
-  --radius: 0.375rem;
-  --chart-1: #b91c1c;
-  --chart-2: #9b2c2c;
-  --chart-3: #7f1d1d;
-  --chart-4: #b45309;
-  --chart-5: #92400e;
-  --popover: #faf7f5;
-  --primary: #9b2c2c;
-  --sidebar: #f0ebe8;
-  --font-mono: IBM Plex Mono, monospace;
-  --font-sans: Poppins, sans-serif;
-  --secondary: #fdf2d6;
-  --background: #faf7f5;
-  --font-serif: Libre Baskerville, serif;
-  --foreground: #1a1a1a;
-  --destructive: #991b1b;
-  --shadow-blur: 16px;
-  --shadow-color: hsl(0 63% 18%);
-  --sidebar-ring: #9b2c2c;
-  --shadow-spread: -2px;
-  --shadow-opacity: 0.12;
-  --sidebar-accent: #fef3c7;
-  --sidebar-border: #f5e8d2;
-  --card-foreground: #1a1a1a;
-  --shadow-offset-x: 1px;
-  --shadow-offset-y: 1px;
-  --sidebar-primary: #9b2c2c;
-  --muted-foreground: #57534e;
-  --accent-foreground: #7f1d1d;
-  --popover-foreground: #1a1a1a;
-  --primary-foreground: #ffffff;
-  --sidebar-foreground: #1a1a1a;
-  --secondary-foreground: #805500;
-  --destructive-foreground: #ffffff;
-  --sidebar-accent-foreground: #7f1d1d;
-  --sidebar-primary-foreground: #ffffff;
-  /* gradient for body */
-  --bg-gradient-start: #faf7f5;
-  --bg-gradient-end: #fdf2d6;
+  --card: #e7dbbf;
+  --ring: #9db18c;
+  --input: #dbc894;
+  --muted: #decea0;
+  --accent: #dbc894;
+  --border: #b19681;
+  --radius: 0.425rem;
+  --chart-1: #9db18c;
+  --chart-2: #8a9f7b;
+  --chart-3: #bac9b4;
+  --chart-4: #71856a;
+  --chart-5: #5e6e58;
+  --popover: #f3ead2;
+  --primary: #8d9d4f;
+  --sidebar: #e2d1a2;
+  --font-mono: JetBrains Mono, monospace;
+  --font-sans: Inter, sans-serif;
+  --secondary: #decea0;
+  --background: #e4d7b0;
+  --font-serif: Source Serif 4, serif;
+  --foreground: #5c4b3e;
+  --destructive: #d98b7e;
+  --shadow-blur: 2px;
+  --shadow-color: hsl(88 22% 35% / 0.15);
+  --sidebar-ring: #9db18c;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.15;
+  --sidebar-accent: #eae5d9;
+  --sidebar-border: #e5e0d4;
+  --card-foreground: #5c4b3e;
+  --shadow-offset-x: 3px;
+  --shadow-offset-y: 3px;
+  --sidebar-primary: #9db18c;
+  --muted-foreground: #85766a;
+  --accent-foreground: #5c4b3e;
+  --popover-foreground: #5c4b3e;
+  --primary-foreground: #fdfbf6;
+  --sidebar-foreground: #5c4b3e;
+  --secondary-foreground: #5c4b3e;
+  --destructive-foreground: #faf8f2;
+  --sidebar-accent-foreground: #5c4b3e;
+  --sidebar-primary-foreground: #fdfbf6;
+  
   /* text helpers */
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #57534e;
+  --color-text-primary: #5c4b3e;
+  --color-text-secondary: #85766a;
 }
 
 .dark {
-  --card: #292524;
-  --ring: #b91c1c;
-  --input: #44403c;
-  --muted: #292524;
-  --accent: #b45309;
-  --border: #44403c;
-  --radius: 0.375rem;
-  --chart-1: #f87171;
-  --chart-2: #ef4444;
-  --chart-3: #dc2626;
-  --chart-4: #fbbf24;
-  --chart-5: #f59e0b;
-  --popover: #292524;
-  --primary: #b91c1c;
-  --sidebar: #1c1917;
-  --secondary: #92400e;
-  --background: #1c1917;
-  --foreground: #f5f5f4;
-  --destructive: #ef4444;
-  --sidebar-ring: #b91c1c;
-  --sidebar-accent: #b45309;
-  --sidebar-border: #44403c;
-  --card-foreground: #f5f5f4;
-  --sidebar-primary: #b91c1c;
-  --muted-foreground: #d6d3d1;
-  --accent-foreground: #fef3c7;
-  --popover-foreground: #f5f5f4;
-  --primary-foreground: #faf7f5;
-  --sidebar-foreground: #f5f5f4;
-  --secondary-foreground: #fef3c7;
-  --destructive-foreground: #ffffff;
-  --sidebar-accent-foreground: #fef3c7;
-  --sidebar-primary-foreground: #faf7f5;
-  --bg-gradient-start: #1c1917;
-  --bg-gradient-end: #292524;
-  --color-text-primary: #f5f5f4;
-  --color-text-secondary: #d6d3d1;
+  --card: #413c33;
+  --ring: #8a9f7b;
+  --input: #5a5345;
+  --muted: #4a4439;
+  --accent: #a18f5c;
+  --border: #5a5345;
+  --chart-1: #8a9f7b;
+  --chart-2: #9db18c;
+  --chart-3: #71856a;
+  --chart-4: #a18f5c;
+  --chart-5: #5e6e58;
+  --popover: #413c33;
+  --primary: #8a9f7b;
+  --sidebar: #3a3529;
+  --secondary: #5a5345;
+  --background: #3a3529;
+  --foreground: #ede4d4;
+  --destructive: #b5766a;
+  --sidebar-ring: #8a9f7b;
+  --sidebar-accent: #a18f5c;
+  --sidebar-border: #5a5345;
+  --card-foreground: #ede4d4;
+  --sidebar-primary: #8a9f7b;
+  --muted-foreground: #a8a096;
+  --accent-foreground: #2a2521;
+  --popover-foreground: #ede4d4;
+  --primary-foreground: #2a2521;
+  --sidebar-foreground: #ede4d4;
+  --secondary-foreground: #ede4d4;
+  --destructive-foreground: #f0e9db;
+  --sidebar-accent-foreground: #2a2521;
+  --sidebar-primary-foreground: #2a2521;
 }
 
 @theme inline {
@@ -247,19 +242,7 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --animate-flight: flight 20s linear infinite;
-  --shadow-saas: 0 4px 6px -1px rgba(155,44,44,0.06), 0 2px 4px -1px rgba(155,44,44,0.04);
-  --shadow-saas-md: 0 10px 15px -3px rgba(155,44,44,0.1), 0 4px 6px -2px rgba(155,44,44,0.05);
-  --shadow-saas-xl: 0 20px 25px -5px rgba(155,44,44,0.12), 0 10px 10px -5px rgba(155,44,44,0.05);
 }
-
-
-.shadow-saas { box-shadow: var(--shadow-saas); }
-.shadow-saas-md { box-shadow: var(--shadow-saas-md); }
-.shadow-saas-xl { box-shadow: var(--shadow-saas-xl); }
-.shadow-saas-glow { box-shadow: var(--shadow-saas-glow); }
-
-.bg-soft-blue { background-color: #F0F9FF; }
 
 @keyframes floating {
   0% { transform: translateY(0px); }
@@ -272,7 +255,7 @@
 }
 
 body {
-  background: linear-gradient(to bottom right, var(--bg-gradient-start), var(--bg-gradient-end));
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -286,361 +269,19 @@ body {
    PREMIUM TYPOGRAPHY SYSTEM
    ============================================ */
 
-/* Headings use sans-serif font for SaaS aesthetic */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   font-weight: 700;
-  /* Tight tracking similar to Capchase */
-  letter-spacing: -0.03em;
-}
-
-/* Default heading colors for sections without explicit color classes */
-/* Exclude nav to prevent navbar interference */
-section h1:not([class*="text-"]),
-section h2:not([class*="text-"]),
-section h3:not([class*="text-"]),
-section h4:not([class*="text-"]),
-section h5:not([class*="text-"]),
-section h6:not([class*="text-"]),
-main > div h1:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h2:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h3:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h4:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h5:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h6:not([class*="text-"]):not(.drop-shadow-lg),
-article h1:not([class*="text-"]),
-article h2:not([class*="text-"]),
-article h3:not([class*="text-"]),
-article h4:not([class*="text-"]),
-article h5:not([class*="text-"]),
-article h6:not([class*="text-"]) {
-  color: var(--color-text-primary, #0a0a0a);
-}
-
-h1 {
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  margin-bottom: 1.5rem;
-  font-weight: 800;
-}
-
-h2 {
-  font-size: clamp(2.25rem, 4.5vw, 3.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  font-weight: 700;
-  margin-bottom: 1.25rem;
-}
-
-h3 {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  line-height: 1.2;
   letter-spacing: -0.02em;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  color: var(--foreground);
 }
 
-h4 {
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-}
-
-h5 {
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
-  line-height: 1.4;
-  letter-spacing: -0.01em;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-h6 {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  line-height: 1.5;
-  letter-spacing: 0;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-/* Body text uses sans-serif font (Inter) */
 p {
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
-  line-height: 1.7;
-  letter-spacing: 0.005em;
-  margin-bottom: 1rem;
-  color: var(--color-text-secondary, #52525b);
+  font-family: var(--font-sans);
+  color: var(--muted-foreground);
 }
 
-/* Utility text classes */
-.lead {
-  font-size: clamp(1.125rem, 2vw, 1.375rem);
-  line-height: 1.6;
-  letter-spacing: 0.005em;
-  font-weight: 400;
-  color: var(--color-text-primary, #1a1a1a);
-}
-
-.small {
-  font-size: clamp(0.875rem, 1.25vw, 1rem);
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-}
-
-/* ============================================
-   PREMIUM FEATURE: Grain Texture Overlay
-   ============================================ */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-/* ============================================
-   THEME UTILITY CLASSES
-   Use these for site-aware coloring
-   ============================================ */
-
-/* Primary Button */
-.btn-primary {
-  background-color: var(--color-primary);
-  color: white;
-  transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-primary-dark);
-}
-
-/* Accent Button */
-.btn-accent {
-  background-color: var(--color-accent);
-  color: white;
-  transition: background-color 0.2s;
-}
-
-.btn-accent:hover {
-  background-color: var(--color-accent-light);
-}
-
-/* Text Colors */
-.text-theme-primary {
-  color: var(--color-primary);
-}
-
-.text-theme-accent {
-  color: var(--color-accent);
-}
-
-/* Background Colors */
-.bg-theme-primary {
-  background-color: var(--color-primary);
-}
-
-.bg-theme-primary-dark {
-  background-color: var(--color-primary-dark);
-}
-
-.bg-theme-accent {
-  background-color: var(--color-accent);
-}
-
-/* Border Colors */
-.border-theme-primary {
-  border-color: var(--color-primary);
-}
-
-.border-theme-accent {
-  border-color: var(--color-accent);
-}
-
-/* ============================================
-   PREMIUM FEATURE: Gradient Text Utilities
-   ============================================ */
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-rome {
-  background: linear-gradient(135deg, #d97706 0%, #dc2626 50%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-vatican {
-  background: linear-gradient(135deg, #d4af37 0%, #fbbf24 50%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@keyframes flight {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  50% {
-    transform: translate(100px, -20px);
-  }
-
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-/* Smooth scrolling handled by Lenis */
-
-/* ============================================
-   PREMIUM FEATURE: Custom Scrollbar
-   ============================================ */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-secondary, #f5f5dc);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary, #059669);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-dark, #064e3b);
-}
-
-
-/* ============================================
-   TEXT CONTRAST FIX - SIMPLIFIED
-   Ensure proper text colors on dark backgrounds
-   ============================================ */
-
-/* Remove any global heading color overrides that might interfere */
-section h1,
-section h2,
-section h3,
-section h4,
-section h5,
-section h6,
-section p {
-  /* Let Tailwind classes control the color */
-}
-
-/* Ensure dark background sections have proper text contrast */
-.bg-neutral-900 h1,
-.bg-neutral-900 h2,
-.bg-neutral-900 h3,
-.bg-neutral-900 h4,
-.bg-neutral-900 h5,
-.bg-neutral-900 h6 {
-  color: white !important;
-}
-
-.bg-neutral-900 p {
-  color: rgb(163, 163, 163) !important; /* gray-400 equivalent */
-}
-
-/* SocialProof section - force white text */
-.bg-sky-900 h1,
-.bg-sky-900 h2,
-.bg-sky-900 h3,
-.bg-sky-900 h4,
-.bg-sky-900 h5,
-.bg-sky-900 h6,
-.bg-sky-900 p,
-.bg-sky-900 span {
-  color: inherit !important;
-}
-
-/* Hero section with dark overlay - force white text */
-.relative.h-screen h1,
-.relative.h-screen h2,
-.relative.h-screen h3,
-.relative.h-screen p,
-.relative.h-screen span:not(.text-transparent) {
-  color: white !important;
-}
-
-/* Parallax/Sticky sections - force white text */
-.relative.h-\[250vh\] h1,
-.relative.h-\[250vh\] h2,
-.relative.h-\[250vh\] h3,
-.relative.h-\[250vh\] p,
-.relative.h-\[250vh\] span:not(.text-transparent) {
-  color: white !important;
-}
-
-/* Footer text - ensure white on dark background */
-footer.bg-stone-950 h1,
-footer.bg-stone-950 h2,
-footer.bg-stone-950 h3,
-footer.bg-stone-950 h4,
-footer.bg-stone-950 h5,
-footer.bg-stone-950 h6,
-footer.bg-stone-950 p,
-footer.bg-stone-950 span,
-footer.bg-stone-950 a {
-  color: inherit !important;
-}
-
-/* ============================================
-   MOBILE MENU FIX - Ensure visibility
-   ============================================ */
-/* Force mobile menu to be visible and on top */
-nav {
-  position: relative;
-  z-index: 100;
-}
-
-/* Ensure navbar links respect Tailwind color classes */
-nav a {
-  color: inherit;
-}
-
-/* Mobile menu must be above everything */
-.fixed.inset-0.bg-white,
-.fixed.inset-0.bg-cream {
-  z-index: 9999 !important;
-  pointer-events: auto !important;
-  display: flex !important;
-}
-
-/* Mobile toggle button must be above menu */
-button[class*="z-[250]"] {
-  z-index: 10000 !important;
-  position: relative !important;
-}
-
-/* ============================================
-   TOUR CARD TEXT - Ensure white text on images
-   ============================================ */
-/* Force white text on all badges and overlays on images */
-.absolute.top-4.left-4,
-.absolute.bottom-4.left-4 span,
-.absolute.top-4.right-4 {
-  color: white !important;
-}
-
-/* Ensure all text on image overlays is white */
-.aspect-4\/3 .absolute {
-  color: white !important;
-}
-
-/* ── Marquee animation (SocialProof) ── */
+/* ── Marquee animation ── */
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -649,11 +290,8 @@ button[class*="z-[250]"] {
   animation: marquee 32s linear infinite;
   will-change: transform;
 }
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
 
-/* ── Gallery scroll animation (RomeGallery) ── */
+/* ── Gallery scroll animation ── */
 @keyframes gallery-scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -664,204 +302,23 @@ button[class*="z-[250]"] {
 }
 
 /* ============================================
-   PERFORMANCE: Reduce layout thrash on scroll
+   MOBILE MENU FIX 
    ============================================ */
-img {
-  content-visibility: auto;
+nav {
+  z-index: 100;
 }
 
-.overflow-x-auto,
-.overflow-y-auto,
-.overflow-auto {
-  will-change: scroll-position;
-  -webkit-overflow-scrolling: touch;
-}
-
-.animate-marquee,
-.animate-gallery-scroll {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-nav[class*="fixed"] {
-  will-change: background-color, box-shadow;
-  transform: translateZ(0);
-}
-
-.aspect-4\/3,
-.aspect-video,
-[class*="aspect-"] {
-  contain: layout style;
-}
-
-/* ============================================
-   CHECKOUT: Reset heading sizes to match design
-   globals.css h2/h3 sizes are too large for checkout
-   ============================================ */
-.checkout-heading {
-  font-size: 1.25rem !important;
-  line-height: 1.4 !important;
-  margin-bottom: 0 !important;
-  font-weight: 700 !important;
-  letter-spacing: 0 !important;
-}
-
-/* ============================================
-   CHECKOUT: Scope heading resets so globals don't bleed in
-   ============================================ */
-.checkout-scope h1,
-.checkout-scope h2,
-.checkout-scope h3,
-.checkout-scope h4,
-.checkout-scope h5,
-.checkout-scope h6 {
-  font-size: revert;
-  line-height: revert;
-  margin-bottom: revert;
-  letter-spacing: revert;
-  font-weight: revert;
+.fixed.inset-0.bg-white,
+.fixed.inset-0.bg-cream {
+  z-index: 9999 !important;
 }
 
 /* ============================================
    GLASSMORPHISM UTILITIES
    ============================================ */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-.glass-dark {
-  background: rgba(10, 10, 10, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.glass-sky {
-  background: rgba(14, 165, 233, 0.08);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(14, 165, 233, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
-
-/* Performance: GPU-accelerate animated elements */
-.will-animate {
-  will-change: transform, opacity;
-}
-
-/* Highlighted text */
-.highlight {
-  color: var(--color-theme-primary, #0EA5E9);
-}
-
-/* ============================================
-   WIDGET SCOPE — reset heading sizes inside booking widget
-   ============================================ */
-.widget-scope h1,
-.widget-scope h2,
-.widget-scope h3,
-.widget-scope h4,
-.widget-scope h5,
-.widget-scope h6 {
-  font-size: revert;
-  line-height: revert;
-  margin-bottom: revert;
-  letter-spacing: revert;
-  font-weight: revert;
-}
-
-/* ============================================
-   REVEAL ANIMATIONS — CSS only, no GSAP
-   ============================================ */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.96); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-.animate-fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16,1,0.3,1) both; }
-.animate-fade-in    { animation: fadeIn 0.5s ease-out both; }
-.animate-scale-in   { animation: scaleIn 0.4s cubic-bezier(0.16,1,0.3,1) both; }
-
-/* Stagger delays */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-
-/* Scroll reveal */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
-
-/* ============================================
-   MOBILE OVERFLOW FIX
-   ============================================ */
-html, body { overflow-x: hidden; max-width: 100vw; }
-section { overflow-x: hidden; }
-
-/* ============================================
-   CHECKOUT SCOPE
-   ============================================ */
-.checkout-scope h1,
-.checkout-scope h2,
-.checkout-scope h3,
-.checkout-scope h4,
-.checkout-scope h5,
-.checkout-scope h6 {
-  font-size: revert;
-  line-height: revert;
-  margin-bottom: revert;
-  letter-spacing: revert;
-  font-weight: revert;
-}
-
-/* ── Marquee ── */
-@keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.animate-marquee { animation: marquee 32s linear infinite; will-change: transform; }
-.animate-marquee:hover { animation-play-state: paused; }
-
-/* ── Gallery scroll ── */
-@keyframes gallery-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.animate-gallery-scroll { animation: gallery-scroll 40s linear infinite; will-change: transform; }
-
-/* Mobile menu */
-.fixed.inset-0.bg-white,
-.fixed.inset-0.bg-cream {
-  z-index: 9999 !important;
-  pointer-events: auto !important;
-  display: flex !important;
-}
-button[class*="z-[250]"] {
-  z-index: 10000 !important;
-  position: relative !important;
-}
-
-/* Footer */
-footer.bg-stone-950 h1, footer.bg-stone-950 h2, footer.bg-stone-950 h3,
-footer.bg-stone-950 h4, footer.bg-stone-950 h5, footer.bg-stone-950 h6,
-footer.bg-stone-950 p, footer.bg-stone-950 span, footer.bg-stone-950 a {
-  color: inherit !important;
-}
-
-/* No scrollbar utility */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

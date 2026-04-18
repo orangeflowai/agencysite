@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TourCard from '@/components/TourCard';
-import { getTours } from '@/lib/sanityService';
+import { getTours } from '@/lib/dataAdapter';
 import CategoryHero from '@/components/CategoryHero';
 
 // Append Supabase image transform params — serve at 1280px WebP instead of raw full-res

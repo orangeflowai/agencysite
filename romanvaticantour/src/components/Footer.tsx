@@ -71,11 +71,11 @@ export default function Footer() {
     const hasSocialLinks = socialLinks && (socialLinks.facebook || socialLinks.instagram || socialLinks.twitter);
 
     return (
-        <footer className="bg-[#0B1120] text-slate-300 selection:bg-sky-500 selection:text-white">
+        <footer className="bg-[#413c33] text-stone-300 selection:bg-primary selection:text-white">
             <Newsletter />
 
             {/* Main Footer */}
-            <div className="border-t border-slate-800/50 pt-20 pb-12">
+            <div className="border-t border-stone-800/50 pt-20 pb-12">
                 <div className="container mx-auto px-6 md:px-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
 
@@ -83,14 +83,14 @@ export default function Footer() {
                         <div className="space-y-8">
                             <Link href="/" className="inline-block group">
                                 {site?.logo ? (
-                                    <img src={site.logo.asset.url} alt={site.title || 'Roman Vatican Tour'} className="h-10 w-auto object-contain" />
+                                    <img src={urlFor(site.logo).url()} alt={site.title || 'Roman Vatican Tour'} className="h-10 w-auto object-contain" />
                                 ) : (
-                                    <span className="text-2xl font-black tracking-tight text-white">
-                                        ROMAN<span className="text-sky-400">VATICAN</span>
+                                    <span className="text-2xl font-serif font-bold tracking-tight text-white">
+                                        ROMAN<span className="text-accent italic">VATICAN</span>
                                     </span>
                                 )}
                             </Link>
-                            <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+                            <p className="text-stone-400 text-sm leading-relaxed max-w-xs font-sans">
                                 {site?.seo?.metaDescription || 'Skip-the-line Vatican & Rome tours. Expert guides, instant confirmation, unforgettable experiences.'}
                             </p>
 
@@ -99,13 +99,13 @@ export default function Footer() {
                                 {/* Fallback/Static Links (if no dynamic ones exist) */}
                                 {!hasSocialLinks && (
                                     <>
-                                        <Link href="/" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-sky-500/50">
+                                        <Link href="/" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Facebook size={18} />
                                         </Link>
-                                        <Link href="/" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-sky-500/50">
+                                        <Link href="/" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Instagram size={18} />
                                         </Link>
-                                        <Link href="/" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-sky-500/50">
+                                        <Link href="/" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Twitter size={18} />
                                         </Link>
                                     </>
@@ -113,17 +113,17 @@ export default function Footer() {
 
                                 {/* Dynamic CMS Links */}
                                 {socialLinks?.facebook && (
-                                    <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                    <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-stone-800/50 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-sm">
                                         <Facebook size={18} />
                                     </a>
                                 )}
                                 {socialLinks?.instagram && (
-                                    <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                    <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-stone-800/50 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-sm">
                                         <Instagram size={18} />
                                     </a>
                                 )}
                                 {socialLinks?.twitter && (
-                                    <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-slate-800/50 flex items-center justify-center text-slate-400 hover:bg-sky-500 hover:text-white transition-all duration-300 backdrop-blur-sm">
+                                    <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-stone-800/50 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-sm">
                                         <Twitter size={18} />
                                     </a>
                                 )}
@@ -132,15 +132,15 @@ export default function Footer() {
 
                         {/* Explore Categories */}
                         <div>
-                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px]">
+                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px] font-sans">
                                 Platform
                             </h4>
-                            <ul className="space-y-4 text-sm text-slate-400">
+                            <ul className="space-y-4 text-sm text-stone-400 font-sans">
                                 {categoryLinks.map((category) => (
                                     <li key={category.id}>
                                         <Link
                                             href={category.href}
-                                            className="hover:text-sky-400 transition-colors flex items-center group"
+                                            className="hover:text-primary transition-colors flex items-center group"
                                         >
                                             {t(category.translationKey)}
                                         </Link>
@@ -149,7 +149,7 @@ export default function Footer() {
                                 <li>
                                     <Link
                                         href="/blog"
-                                        className="hover:text-sky-400 transition-colors flex items-center group font-medium text-sky-500/80"
+                                        className="hover:text-primary transition-colors flex items-center group font-medium text-primary/80"
                                     >
                                         <ArrowRight
                                             size={12}
@@ -161,7 +161,7 @@ export default function Footer() {
                                 <li>
                                     <Link
                                         href="/search"
-                                        className="hover:text-sky-400 transition-colors flex items-center group"
+                                        className="hover:text-primary transition-colors flex items-center group"
                                     >
                                         <ArrowRight
                                             size={12}
@@ -175,15 +175,15 @@ export default function Footer() {
 
                         {/* Support Links */}
                         <div>
-                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px]">
+                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px] font-sans">
                                 Resources
                             </h4>
-                            <ul className="space-y-4 text-sm text-slate-400">
+                            <ul className="space-y-4 text-sm text-stone-400 font-sans">
                                 {supportLinks.map((link) => (
                                     <li key={link.href}>
                                         <Link
                                             href={link.href}
-                                            className="hover:text-sky-400 transition-colors"
+                                            className="hover:text-primary transition-colors"
                                         >
                                             {t(link.translationKey)}
                                         </Link>
@@ -192,7 +192,7 @@ export default function Footer() {
                                 <li>
                                     <Link
                                         href="/become-a-partner"
-                                        className="text-sky-500 hover:text-sky-400 transition-colors font-medium"
+                                        className="text-primary hover:text-primary/80 transition-colors font-medium"
                                     >
                                         {t('footer.partner')}
                                     </Link>
@@ -202,37 +202,37 @@ export default function Footer() {
 
                         {/* Contact Info */}
                         <div>
-                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px]">
+                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px] font-sans">
                                 Support
                             </h4>
-                            <ul className="space-y-5 text-sm text-slate-400 mb-10">
+                            <ul className="space-y-5 text-sm text-stone-400 mb-10 font-sans">
                                 <li className="flex items-start space-x-4">
-                                    <MapPin size={18} className="text-sky-400 mt-0.5 shrink-0" />
+                                    <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
                                     <span>{officeAddress}</span>
                                 </li>
                                 <li className="flex items-center space-x-4">
-                                    <Phone size={18} className="text-sky-400 shrink-0" />
+                                    <Phone size={18} className="text-primary shrink-0" />
                                     <span>{contactPhone || '+39 06 1122 3344'}</span>
                                 </li>
                                 <li className="flex items-center space-x-4">
-                                    <Mail size={18} className="text-sky-400 shrink-0" />
-                                    <a href={`mailto:${contactEmail}`} className="hover:text-sky-400 transition-colors">
+                                    <Mail size={18} className="text-primary shrink-0" />
+                                    <a href={`mailto:${contactEmail}`} className="hover:text-primary transition-colors">
                                         {contactEmail}
                                     </a>
                                 </li>
                             </ul>
 
                             {/* Trust Badges */}
-                            <div className="flex items-center gap-6 pt-6 border-t border-slate-800/50">
+                            <div className="flex items-center gap-6 pt-6 border-t border-stone-800/50">
                                 <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-50 grayscale invert brightness-200 hover:opacity-100 hover:grayscale-0 hover:filter-none transition-all duration-300" />
-                                <div className="h-8 w-px bg-slate-800" />
-                                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-black">Powered by RomanVatican Engine</p>
+                                <div className="h-8 w-px bg-stone-800" />
+                                <p className="text-[10px] text-stone-500 uppercase tracking-widest font-black font-sans">Powered by RomanVatican Engine</p>
                             </div>
                         </div>
                     </div>
 
                     {/* Bottom Bar */}
-                    <div className="border-t border-slate-800/50 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] text-slate-500">
+                    <div className="border-t border-stone-800/50 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] text-stone-500 font-sans">
                         <p>&copy; {currentYear} {site?.title || 'Roman Vatican Tour'}. All rights reserved.</p>
 
                         {/* Company Details */}

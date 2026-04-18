@@ -55,17 +55,17 @@ export default function FloatingReviews() {
               repeatType: 'reverse',
               repeatDelay: 8,
             }}
-            className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg max-w-xs border border-gray-100"
+            className="bg-card backdrop-blur-sm rounded-2xl p-4 shadow-lg max-w-xs border border-border"
           >
             <div className="flex items-center gap-3 mb-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-semibold">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white font-semibold">
                 {review.name.charAt(0)}
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="font-semibold text-gray-900">{review.name}</p>
+                  <p className="font-serif font-bold text-[#5c4b3e]">{review.name}</p>
                   {review.verified && (
-                    <span className="text-xs bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-sans uppercase font-black tracking-widest">
                       Verified
                     </span>
                   )}
@@ -74,13 +74,13 @@ export default function FloatingReviews() {
                   {[...Array(review.rating)].map((_, i) => (
                     <Star
                       key={i}
-                      className="w-3 h-3 fill-yellow-400 text-yellow-400"
+                      className="w-3 h-3 fill-accent text-accent"
                     />
                   ))}
                 </div>
               </div>
             </div>
-            <p className="text-sm text-gray-700">{review.text}</p>
+            <p className="text-sm text-[#85766a] font-sans">{review.text}</p>
           </motion.div>
         ))}
       </div>

@@ -24,9 +24,9 @@ export default function Hero({ settings }: HeroProps) {
     const [date, setDate] = useState('');
     const [guests, setGuests] = useState('2');
     
-    // Robust image resolution
+    // Robust image resolution — use R2 as primary source
     const rawImageUrl = settings?.heroImage?.asset?.url || 
-                       `https://images.unsplash.com/photo-1529154036614-a60975f5c760?q=80&w=2000&auto=format&fit=crop`;
+                       `https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-giorgi-gobadze-2160475859-36770780.jpg`;
 
     const handleSearch = () => {
         const params = new URLSearchParams();

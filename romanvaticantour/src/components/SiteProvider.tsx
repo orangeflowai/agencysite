@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, ReactNode } from 'react'
-import { Site } from '@/lib/sanityService'
+import { Site } from '@/lib/dataAdapter'
 
 interface SiteContextType {
     site: Site | null

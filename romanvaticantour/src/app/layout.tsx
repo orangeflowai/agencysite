@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville, Poppins } from "next/font/google";
+import { Libre_Baskerville, Inter } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -19,8 +19,8 @@ const libreBaskerville = Libre_Baskerville({
   display: 'swap',
 });
 
-const poppins = Poppins({
-  weight: ['300', '400', '500', '600', '700', '800'],
+const inter = Inter({
+  weight: ['400'],
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
@@ -78,7 +78,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         />
       </head>
       <body
-        className={`${poppins.variable} ${libreBaskerville.variable} font-sans antialiased`}
+        className={`${inter.variable} ${libreBaskerville.variable} font-sans antialiased`}
         data-site-id={siteSlug}
         data-site={siteSlug}
         suppressHydrationWarning

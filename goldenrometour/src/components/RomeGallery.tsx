@@ -3,13 +3,15 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
+const R2 = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
+
 const images = [
-  { src: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=75&w=800', alt: 'Colosseum, Rome', size: 'large' },
-  { src: 'https://images.unsplash.com/photo-1531572753322-ad063cecc140?auto=format&fit=crop&q=75&w=800', alt: "St Peter's Basilica, Vatican", size: 'tall' },
-  { src: 'https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&q=75&w=800', alt: 'Trevi Fountain, Rome', size: 'small' },
-  { src: 'https://images.unsplash.com/photo-1525874684015-58379d421a52?auto=format&fit=crop&q=75&w=800', alt: 'Roman Forum, Rome', size: 'small' },
-  { src: 'https://images.unsplash.com/photo-1548585744-4e87b61edba7?auto=format&fit=crop&q=75&w=800', alt: 'Pantheon, Rome', size: 'medium' },
-  { src: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&q=75&w=800', alt: 'Spanish Steps, Rome', size: 'medium' },
+  { src: `${R2}/pexels-axp-photography-500641970-18991563.jpg`,          alt: 'Colosseum, Rome',           size: 'large' },
+  { src: `${R2}/pexels-akarsh-chandran-2156074716-34026966.jpg`,         alt: "St Peter's Basilica",       size: 'tall' },
+  { src: `${R2}/pexels-alex-250137-757239.jpg`,                          alt: 'Trevi Fountain, Rome',      size: 'small' },
+  { src: `${R2}/pexels-efrem-efre-2786187-17282659.jpg`,                 alt: 'Roman Forum, Rome',         size: 'small' },
+  { src: `${R2}/pexels-filiamariss-30785778.jpg`,                        alt: 'Pantheon, Rome',            size: 'medium' },
+  { src: `${R2}/pexels-giorgi-gobadze-2160475859-36770779.jpg`,          alt: 'Spanish Steps, Rome',       size: 'medium' },
 ];
 
 export default function RomeGallery() {

@@ -11,7 +11,7 @@ import {
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { useSite } from '@/components/SiteProvider'
-import { urlFor } from '@/sanity/lib/image'
+import { urlFor } from '@/lib/dataAdapter'
 
 interface GuestType { name: string; price: number; description?: string }
 interface BookingData {

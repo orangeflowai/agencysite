@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
 import { client } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor } from '@/lib/dataAdapter';
 import PaymentLogos from '@/components/PaymentLogos';
 import LoadingWithFacts from '@/components/LoadingWithFacts';
 import TrustBadges from '@/components/TrustBadges';

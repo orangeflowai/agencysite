@@ -13,7 +13,7 @@ import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
-import { urlFor } from '@/lib/sanityService';
+import { urlFor } from '@/lib/dataAdapter';
 import CartDropdown from './CartDropdown';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -109,7 +109,7 @@ export default function Navbar() {
                 className={clsx(
                     'fixed top-0 left-0 right-0 z-[10001] transition-all duration-500 border-b',
                     scrolled
-                        ? 'bg-white/60 backdrop-blur-2xl shadow-[0_8px_32px_rgba(2,132,199,0.06)] border-white/50 py-2'
+                        ? 'bg-[#e4d7b0]/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(141,157,79,0.08)] border-[#b19681]/30 py-2'
                         : 'bg-transparent border-transparent py-3 md:py-4'
                 )}
             >
@@ -128,14 +128,20 @@ export default function Navbar() {
                                     priority
                                 />
                             ) : (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img
-                                    src="/logo.png"
-                                    alt={process.env.NEXT_PUBLIC_SITE_NAME || 'Roman Vatican Tour'}
-                                    width={150}
-                                    height={48}
-                                    className="h-8 md:h-10 lg:h-12 w-auto object-contain drop-shadow-md transition-transform group-hover:scale-105 duration-300"
-                                />
+                                <div className="flex flex-col items-start justify-center transition-transform group-hover:scale-105 duration-300">
+                                    <span className={clsx(
+                                        'font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none transition-colors duration-300',
+                                        scrolled ? 'text-[#5c4b3e]' : 'text-white drop-shadow-md'
+                                    )}>
+                                        ROMAN <span className="italic">VATICAN</span>
+                                    </span>
+                                    <span className={clsx(
+                                        'font-sans text-[8px] uppercase font-black tracking-[0.4em] -mt-0.5 pl-1 transition-colors duration-300',
+                                        scrolled ? 'text-[#5c4b3e]/50' : 'text-white/60'
+                                    )}>
+                                        Official Series
+                                    </span>
+                                </div>
                             )}
                         </Link>
 
@@ -148,14 +154,14 @@ export default function Navbar() {
                                         key={link.href}
                                         href={link.href}
                                         className={clsx(
-                                            'text-[10px] xl:text-xs font-bold uppercase tracking-wide transition-all duration-300 whitespace-nowrap relative pb-0.5',
-                                            'after:absolute after:bottom-0 after:left-0 after:h-[2px] after:rounded-full after:transition-all after:duration-300',
+                                            'text-[10px] xl:text-xs font-serif font-bold italic tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
+                                            'after:absolute after:bottom-0 after:left-0 after:h-[1px] after:transition-all after:duration-500',
                                             isActive
-                                                ? 'text-sky-500 after:w-full after:bg-sky-500'
-                                                : 'after:w-0 hover:after:w-full after:bg-sky-500 hover:text-sky-400',
+                                                ? 'after:w-full after:bg-primary'
+                                                : 'after:w-0 hover:after:w-full after:bg-primary',
                                             scrolled
-                                                ? isActive ? 'text-sky-600' : 'text-slate-800'
-                                                : isActive ? 'text-sky-300' : 'text-white drop-shadow-sm'
+                                                ? isActive ? 'text-primary' : 'text-[#5c4b3e] hover:text-primary'
+                                                : isActive ? 'text-white' : 'text-white/80 hover:text-white'
                                         )}
                                     >
                                         {link.name}
@@ -169,13 +175,13 @@ export default function Navbar() {
                             className={clsx(
                                 'hidden lg:flex items-center rounded-full pl-4 pr-1.5 py-1.5 border shrink-0 gap-3 transition-all duration-300',
                                 scrolled
-                                    ? 'bg-white/70 backdrop-blur-xl border-white/60 shadow-lg shadow-sky-500/5'
+                                    ? 'bg-white/70 backdrop-blur-xl border-white/60 shadow-lg shadow-primary/5'
                                     : 'bg-white/20 backdrop-blur-md border-white/30 shadow-lg'
                             )}
                         >
                             {/* Destination */}
-                            <div className={clsx('flex items-center border-r pr-4', scrolled ? 'border-sky-900/10' : 'border-white/20')}>
-                                <Search size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-sky-600' : 'text-white')} />
+                            <div className={clsx('flex items-center border-r pr-4', scrolled ? 'border-primary/10' : 'border-white/20')}>
+                                <Search size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
                                 <select
                                     value={destination}
                                     onChange={(e) => setDestination(e.target.value)}
@@ -193,13 +199,13 @@ export default function Navbar() {
 
                             {/* Date */}
                             <div
-                                className={clsx('flex items-center border-r pr-4 relative cursor-pointer', scrolled ? 'border-sky-900/10' : 'border-white/20')}
+                                className={clsx('flex items-center border-r pr-4 relative cursor-pointer', scrolled ? 'border-primary/10' : 'border-white/20')}
                                 ref={calendarRef}
                             >
                                 <div className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
-                                    <Calendar size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-sky-600' : 'text-white')} />
+                                    <Calendar size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
                                     <span className={clsx(
-                                        'text-xs xl:text-sm font-bold uppercase w-20 xl:w-24 truncate',
+                                        'text-xs xl:text-sm font-sans font-black uppercase tracking-widest w-20 xl:w-24 truncate',
                                         date
                                             ? (scrolled ? 'text-gray-800' : 'text-white')
                                             : (scrolled ? 'text-gray-400' : 'text-white/60')
@@ -214,7 +220,7 @@ export default function Navbar() {
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 15, scale: 0.95 }}
                                             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                                            className="absolute top-full left-1/2 -translate-x-1/2 mt-6 bg-white/90 backdrop-blur-2xl rounded-3xl shadow-[0_20px_40px_rgba(2,132,199,0.12)] border border-white/50 p-2 z-50 w-auto ring-1 ring-sky-900/5"
+                                            className="absolute top-full left-1/2 -translate-x-1/2 mt-6 bg-white/90 backdrop-blur-2xl rounded-2xl shadow-[0_20px_40px_rgba(141,157,79,0.1)] border border-white/50 p-2 z-50 w-auto ring-1 ring-primary/5"
                                         >
                                             <div className="p-2">
                                                 <SmartCalendar
@@ -237,13 +243,16 @@ export default function Navbar() {
                                 <div
                                     className={clsx(
                                         'flex items-center rounded-full px-2 py-1 transition-all duration-300',
-                                        scrolled ? 'hover:bg-sky-50' : 'hover:bg-white/10'
+                                        scrolled ? 'hover:bg-primary/5' : 'hover:bg-white/10'
                                     )}
                                     onClick={() => setIsGuestOpen(!isGuestOpen)}
                                 >
-                                    <Users size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-sky-600' : 'text-white')} />
-                                    <span className={clsx('text-xs xl:text-sm font-bold w-14 text-center select-none', scrolled ? 'text-gray-800' : 'text-white')}>
-                                        {guests}
+                                    <Users size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
+                                    <span className={clsx(
+                                        'text-xs xl:text-sm font-sans font-black uppercase tracking-widest w-14 text-center select-none',
+                                        scrolled ? 'text-gray-800' : 'text-white'
+                                    )}>
+                                        {guests} pax
                                     </span>
                                 </div>
                                 <AnimatePresence>
@@ -253,21 +262,21 @@ export default function Navbar() {
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 15, scale: 0.95 }}
                                             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                                            className="absolute top-full right-0 mt-6 w-48 bg-white/90 backdrop-blur-2xl rounded-3xl shadow-[0_20px_40px_rgba(2,132,199,0.12)] border border-white/50 p-5 z-50 ring-1 ring-sky-900/5"
+                                            className="absolute top-full right-0 mt-6 w-48 bg-white/90 backdrop-blur-2xl rounded-2xl shadow-[0_20px_40px_rgba(141,157,79,0.1)] border border-white/50 p-4 z-50 ring-1 ring-primary/5"
                                         >
                                             <div className="flex items-center justify-between">
                                                 <span className="text-sm font-bold text-gray-700">Guests</span>
                                                 <div className="flex items-center gap-3">
                                                     <button
                                                         onClick={() => setGuests(Math.max(1, guests - 1))}
-                                                        className="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200 hover:scale-110 active:scale-95 transition-all shadow-sm"
+                                                        className="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary hover:scale-110 active:scale-95 transition-all shadow-sm"
                                                     >
                                                         <Minus size={14} />
                                                     </button>
                                                     <span className="font-bold text-gray-900 w-4 text-center">{guests}</span>
                                                     <button
                                                         onClick={() => setGuests(Math.min(20, guests + 1))}
-                                                        className="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200 hover:scale-110 active:scale-95 transition-all shadow-sm"
+                                                        className="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary hover:scale-110 active:scale-95 transition-all shadow-sm"
                                                     >
                                                         <Plus size={14} />
                                                     </button>
@@ -280,7 +289,7 @@ export default function Navbar() {
 
                             <button
                                 onClick={handleSearch}
-                                className="bg-sky-600 hover:bg-sky-500 text-white rounded-full p-2.5 transition-all hover:scale-105 active:scale-95 shrink-0 shadow-md border border-sky-400/50"
+                                className="bg-primary hover:bg-primary/90 text-white rounded-full p-2.5 transition-all hover:scale-105 active:scale-95 shrink-0 shadow-md border border-primary/50"
                             >
                                 <Search size={16} />
                             </button>
@@ -299,13 +308,13 @@ export default function Navbar() {
                                 className={clsx(
                                     'relative p-2 rounded-full transition-all duration-300 backdrop-blur-md active:scale-95',
                                     scrolled
-                                        ? 'text-sky-900 bg-sky-50/80 border border-sky-100 shadow-sm'
+                                        ? 'text-primary bg-primary/5 border border-primary/10 shadow-sm'
                                         : 'text-white bg-white/20 border border-white/30 shadow-sm'
                                 )}
                             >
                                 <ShoppingBag className="w-5 h-5" />
                                 {totalItems > 0 && (
-                                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-sky-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-md">
+                                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-md">
                                         {totalItems}
                                     </span>
                                 )}
@@ -315,7 +324,7 @@ export default function Navbar() {
                                 className={clsx(
                                     'relative z-[10005] p-2 rounded-full transition-all duration-300 backdrop-blur-md active:scale-95',
                                     scrolled
-                                        ? 'text-sky-900 bg-sky-50/80 border border-sky-100 shadow-sm'
+                                        ? 'text-primary bg-primary/5 border border-primary/10 shadow-sm'
                                         : 'text-white bg-white/20 border border-white/30 shadow-sm'
                                 )}
                                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -335,17 +344,17 @@ export default function Navbar() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-                        className="fixed inset-0 bg-white/70 backdrop-blur-3xl flex flex-col items-center justify-start pt-24 space-y-7 lg:hidden p-4 z-[10000] overflow-y-auto"
+                        className="fixed inset-0 bg-[#e4d7b0]/80 backdrop-blur-3xl flex flex-col items-center justify-start pt-24 space-y-7 lg:hidden p-4 z-[10000] overflow-y-auto"
                     >
                         {/* Mobile Search Widget */}
-                        <div className="w-full max-w-sm bg-white/60 backdrop-blur-xl rounded-3xl p-5 shadow-[0_8px_32px_rgba(2,132,199,0.06)] border border-white/60 space-y-4">
-                            <p className="text-xs font-bold text-sky-600/60 uppercase tracking-widest pl-1">Search Tours</p>
+                        <div className="w-full max-w-sm bg-white/60 backdrop-blur-xl rounded-3xl p-5 shadow-[0_8px_32px_rgba(141,157,79,0.06)] border border-white/60 space-y-4">
+                            <p className="text-xs font-bold text-primary/60 uppercase tracking-widest pl-1">Search Tours</p>
 
                             <div className="relative">
                                 <select
                                     value={destination}
                                     onChange={(e) => setDestination(e.target.value)}
-                                    className="w-full p-4 bg-white/80 backdrop-blur-md rounded-2xl text-base font-bold outline-none border border-white/80 focus:border-sky-300 transition-all appearance-none"
+                                    className="w-full p-4 bg-white/80 backdrop-blur-md rounded-2xl text-base font-bold outline-none border border-white/80 focus:border-primary/30 transition-all appearance-none"
                                 >
                                     <option value="" disabled>Where to?</option>
                                     {searchOptions.map((opt) => (
@@ -353,7 +362,7 @@ export default function Navbar() {
                                     ))}
                                 </select>
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                                    <Search size={18} className="text-sky-400" />
+                                    <Search size={18} className="text-primary/40" />
                                 </div>
                             </div>
 
@@ -362,14 +371,14 @@ export default function Navbar() {
                                     type="date"
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
-                                    className="flex-1 p-4 bg-white/80 backdrop-blur-md rounded-2xl font-bold outline-none border border-white/80 focus:border-sky-300 transition-all"
+                                    className="flex-1 p-4 bg-white/80 backdrop-blur-md rounded-2xl font-bold outline-none border border-white/80 focus:border-primary/30 transition-all"
                                 />
                                 <div className="flex items-center bg-white/80 backdrop-blur-md rounded-2xl border border-white/80 px-2 w-[110px] justify-between shadow-sm">
-                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="p-2 hover:bg-white rounded-xl transition-colors text-sky-600/60 hover:text-sky-600">
+                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="p-2 hover:bg-white rounded-xl transition-colors text-primary/60 hover:text-primary">
                                         <Minus size={15} />
                                     </button>
                                     <span className="font-bold text-lg text-slate-800">{guests}</span>
-                                    <button onClick={() => setGuests(guests + 1)} className="p-2 hover:bg-white rounded-xl transition-colors text-sky-600/60 hover:text-sky-600">
+                                    <button onClick={() => setGuests(guests + 1)} className="p-2 hover:bg-white rounded-xl transition-colors text-primary/60 hover:text-primary">
                                         <Plus size={15} />
                                     </button>
                                 </div>
@@ -377,7 +386,7 @@ export default function Navbar() {
 
                             <button
                                 onClick={handleSearch}
-                                className="w-full bg-sky-600 text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all border border-sky-400/50 text-base uppercase tracking-wide"
+                                className="w-full bg-primary text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all border border-primary/50 text-base uppercase tracking-wide"
                             >
                                 Search
                             </button>

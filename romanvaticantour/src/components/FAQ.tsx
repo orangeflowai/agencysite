@@ -45,19 +45,19 @@ export default function FAQ() {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 bg-background relative overflow-hidden">
             {/* Contextual Pattern Background */}
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-sky-50 rounded-full opacity-50 blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/5 rounded-full opacity-50 blur-3xl pointer-events-none" />
 
             <div className="container mx-auto px-4 max-w-4xl relative z-10">
                 <div className="text-center mb-16">
-                    <span className="text-sky-600 font-bold uppercase tracking-wider text-sm mb-2 block">
+                    <span className="text-primary font-sans font-black uppercase tracking-[0.4em] text-[10px] mb-2 block">
                         Support & Help
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">
+                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e] mb-6 tracking-tight">
                         Common Questions
                     </h2>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-lg text-[#85766a] max-w-2xl mx-auto font-sans">
                         Everything you need to know about your Roman adventure, tickets, and entry guidelines.
                     </p>
                 </div>
@@ -76,8 +76,8 @@ export default function FAQ() {
                                 className={clsx(
                                     "rounded-2xl border transition-all duration-300 overflow-hidden",
                                     isOpen
-                                        ? "bg-white border-sky-200 shadow-xl shadow-sky-900/5"
-                                        : "bg-white border-gray-100 hover:border-sky-200 hover:shadow-lg"
+                                        ? "bg-card border-primary/20 shadow-xl shadow-primary/5"
+                                        : "bg-card/50 border-[#b19681]/20 hover:border-primary/30 hover:shadow-lg"
                                 )}
                             >
                                 <button
@@ -87,13 +87,13 @@ export default function FAQ() {
                                     <div className="flex items-start gap-5">
                                         <div className={clsx(
                                             "mt-1 p-2 rounded-lg flex-shrink-0 transition-colors hidden md:block",
-                                            isOpen ? "bg-sky-100 text-sky-700" : "bg-gray-50 text-gray-400"
+                                            isOpen ? "bg-primary text-white" : "bg-primary/10 text-primary"
                                         )}>
                                             <HelpCircle size={20} />
                                         </div>
                                         <span className={clsx(
-                                            "text-lg md:text-xl font-bold transition-colors pr-8",
-                                            isOpen ? "text-sky-900" : "text-gray-900"
+                                            "text-lg md:text-xl font-serif font-bold transition-colors pr-8 italic",
+                                            isOpen ? "text-primary" : "text-[#5c4b3e]"
                                         )}>
                                             {faq.question}
                                         </span>
@@ -101,7 +101,7 @@ export default function FAQ() {
 
                                     <div className={clsx(
                                         "flex-shrink-0 p-2 rounded-full transition-all duration-300",
-                                        isOpen ? "bg-sky-600 text-white rotate-180" : "bg-gray-50 text-gray-400 group-hover:bg-sky-50 group-hover:text-sky-600"
+                                        isOpen ? "bg-primary text-white rotate-180" : "bg-primary/5 text-primary"
                                     )}>
                                         {isOpen ? <Minus size={20} /> : <Plus size={20} />}
                                     </div>
@@ -116,7 +116,7 @@ export default function FAQ() {
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                         >
                                             <div className="px-6 md:px-8 pb-8 pt-0 pl-6 md:pl-[5.5rem]">
-                                                <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                                                <p className="text-[#85766a] leading-relaxed text-base md:text-lg font-sans">
                                                     {faq.answer}
                                                 </p>
                                             </div>

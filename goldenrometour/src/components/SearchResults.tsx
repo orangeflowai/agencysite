@@ -2,7 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { getTours, Tour } from '@/lib/sanityService';
+import { getTours, Tour } from '@/lib/dataAdapter';
 import TourCard from '@/components/TourCard';
 
 export default function SearchResults() {

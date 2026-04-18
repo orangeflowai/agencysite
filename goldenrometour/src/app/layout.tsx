@@ -8,7 +8,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { SiteProvider } from "@/components/SiteProvider";
 import GlobalThemeProvider from "@/components/GlobalThemeProvider";
 import GoogleTranslate from "@/components/GoogleTranslate";
-import { getSite, DEFAULT_SITE_ID } from "@/lib/sanityService";
+import { getSite, DEFAULT_SITE_ID } from "@/lib/dataAdapter";
 import { CartProvider } from "@/context/CartContext";
 
 const playfair = Playfair_Display({

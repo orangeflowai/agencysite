@@ -5,7 +5,7 @@ import { client } from '@/sanity/lib/client';
 import { Loader2, Plus, ExternalLink, Edit, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor } from '@/lib/dataAdapter';
 import AIBlogAssistant from '@/components/admin/AIBlogAssistant';
 
 interface BlogPost {

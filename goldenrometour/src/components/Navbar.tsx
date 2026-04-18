@@ -13,7 +13,7 @@ import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
-import { urlFor } from '@/lib/sanityService';
+import { urlFor } from '@/lib/dataAdapter';
 import CartDropdown from './CartDropdown';
 import LanguageSwitcher from './LanguageSwitcher';
 

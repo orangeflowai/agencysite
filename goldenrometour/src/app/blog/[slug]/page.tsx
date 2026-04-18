@@ -2,8 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getPost } from '@/lib/sanityService';
-import { urlFor } from '@/sanity/lib/image';
+import { getPost, urlFor } from '@/lib/dataAdapter';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { PortableText } from '@portabletext/react';
