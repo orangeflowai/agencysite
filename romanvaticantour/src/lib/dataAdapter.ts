@@ -41,16 +41,18 @@ export const getSite      = (siteId?: string)              => withFallback(() =>
 export const getAllSites   = ()                             => withFallback(() => payload.getAllSites(),              () => sanity.getAllSites())
 
 // urlFor — Payload uses direct URLs; Sanity uses image builder
-// This shim works for both
+// This shim works for both and supports chaining
 export function urlFor(source: any) {
   const url = typeof source === 'string'
     ? source
     : source?.asset?.url || source?.url || ''
-  return {
+
+  const builder: any = {
     url:    ()           => url,
-    width:  (_w: number) => ({ url: () => url, height: (_h: number) => ({ url: () => url }), fit: (_f: string) => ({ url: () => url, auto: (_a: string) => ({ url: () => url }) }) }),
-    height: (_h: number) => ({ url: () => url }),
-    fit:    (_f: string) => ({ url: () => url, auto: (_a: string) => ({ url: () => url }) }),
-    auto:   (_a: string) => ({ url: () => url }),
+    width:  (_w: number) => builder,
+    height: (_h: number) => builder,
+    fit:    (_f: string) => builder,
+    auto:   (_a: string) => builder,
   }
+  return builder
 }
