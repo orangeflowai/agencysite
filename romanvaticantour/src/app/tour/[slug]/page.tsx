@@ -193,12 +193,12 @@ export default async function TourPage({ params }: PageProps) {
                             <section>
                                 <h2 className="text-2xl font-serif font-bold text-[#5c4b3e] mb-6 italic">Highlights</h2>
                                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    {tour.highlights.map((feature, i) => (
+                                    {tour.highlights.map((feature: any, i: number) => (
                                         <li key={i} className="flex items-start gap-3 p-4 bg-card rounded-xl border border-[#b19681]/20 shadow-sm group hover:border-primary/30 transition-colors">
                                             <span className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-primary transition-colors">
                                                 <Check className="w-3 h-3 text-primary group-hover:text-white" />
                                             </span>
-                                            <span className="text-sm text-[#5c4b3e] font-medium leading-snug font-sans">{feature}</span>
+                                            <span className="text-sm text-[#5c4b3e] font-medium leading-snug font-sans">{typeof feature === 'object' ? feature.item : feature}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -233,9 +233,9 @@ export default async function TourPage({ params }: PageProps) {
                                             What&apos;s Included
                                         </h3>
                                         <ul className="space-y-3">
-                                            {tour.includes.map((item, i) => (
+                                            {tour.includes.map((item: any, i: number) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-[#85766a] font-sans">
-                                                    <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />{item}
+                                                    <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />{typeof item === 'object' ? item.item : item}
                                                 </li>
                                             ))}
                                         </ul>
@@ -248,9 +248,9 @@ export default async function TourPage({ params }: PageProps) {
                                             Not Included
                                         </h3>
                                         <ul className="space-y-3">
-                                            {tour.excludes.map((item, i) => (
+                                            {tour.excludes.map((item: any, i: number) => (
                                                 <li key={i} className="flex items-start gap-2 text-sm text-[#85766a] font-sans opacity-70">
-                                                    <XCircle className="w-4 h-4 text-destructive/40 shrink-0 mt-0.5" />{item}
+                                                    <XCircle className="w-4 h-4 text-destructive/40 shrink-0 mt-0.5" />{typeof item === 'object' ? item.item : item}
                                                 </li>
                                             ))}
                                         </ul>
@@ -287,10 +287,10 @@ export default async function TourPage({ params }: PageProps) {
                                             Important Information
                                         </h3>
                                         <ul className="space-y-2.5">
-                                            {tour.importantInfo.map((info, i) => (
+                                            {tour.importantInfo.map((info: any, i: number) => (
                                                 <li key={i} className="flex items-start gap-3 text-sm text-[#85766a] font-sans">
                                                     <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 mt-2" />
-                                                    {info}
+                                                    {typeof info === 'object' ? info.item : info}
                                                 </li>
                                             ))}
                                         </ul>

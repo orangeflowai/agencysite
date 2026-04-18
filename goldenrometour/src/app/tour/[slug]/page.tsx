@@ -174,10 +174,10 @@ export default async function TourPage({ params }: PageProps) {
                         <section>
                             <h2 className="text-2xl font-serif font-bold text-black mb-6">Highlights</h2>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {tour.highlights.map((feature, i) => (
+                                {tour.highlights.map((feature: any, i: number) => (
                                     <li key={i} className="flex items-start space-x-3 p-4 bg-white rounded-xl shadow-sm border border-olive/5">
                                         <Check className="w-5 h-5 text-olive shrink-0 mt-0.5" />
-                                        <span className="text-gray-700 font-medium">{feature}</span>
+                                        <span className="text-gray-700 font-medium">{typeof feature === 'object' ? feature.item : feature}</span>
                                     </li>
                                 ))}
                             </ul>
