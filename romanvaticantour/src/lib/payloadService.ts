@@ -1,12 +1,10 @@
 /**
  * payloadService.ts — Payload CMS data layer
- * Uses email/password auth with cached token (refreshes on 401).
- * Maps Payload docs → same shapes as sanityService for drop-in compatibility.
+ * Uses a bypass key for server-to-server static builds to avoid dynamic render errors.
  */
 
 const PAYLOAD_URL = process.env.PAYLOAD_API_URL || process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://admin.wondersofrome.com'
 const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome'
-const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -49,67 +47,32 @@ export interface Settings {
 
 // ── Auth token cache ──────────────────────────────────────────────────────────
 
-let _token: string | null = null
-let _tokenExpiry = 0
-
-async function getToken(): Promise<string> {
-  // Return cached token if still valid (with 5min buffer)
-  if (_token && Date.now() < _tokenExpiry - 300_000) return _token
-
-  // Skip auth during static generation (build time)
-  if (typeof window === 'undefined' && process.env.NEXT_PHASE === 'phase-production-build') {
-    return ''
-  }
-
-  const email    = process.env.PAYLOAD_API_EMAIL    || 'superadmin@romeagency.com'
-  const password = process.env.PAYLOAD_API_PASSWORD || 'SuperAdmin2025!'
-
-  try {
-    const res = await fetch(`${PAYLOAD_URL}/api/users/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-      cache: 'no-store',
-    })
-    if (!res.ok) throw new Error(`Auth failed: ${res.status}`)
-    const data = await res.json()
-    _token = data.token
-    _tokenExpiry = (data.exp || 0) * 1000 || Date.now() + 7_200_000 // 2h default
-    return _token!
-  } catch (e) {
-    console.warn('[payloadService] Auth failed:', e)
-    return ''
-  }
-}
+// Using a bypass key for static builds and server calls to prevent 'no-store' fetch errors
+const ADMIN_BYPASS_KEY = 'Me=millionare1111'; 
 
 // ── Fetch helper ──────────────────────────────────────────────────────────────
 
-async function payloadFetch(path: string, params: Record<string, string> = {}, retry = true): Promise<any> {
+async function payloadFetch(path: string, params: Record<string, string> = {}): Promise<any> {
   const url = new URL(`${PAYLOAD_URL}/api${path}`)
   url.searchParams.set('depth', '2')
   url.searchParams.set('limit', '200')
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v)
 
-  const token = await getToken()
-
   try {
     const res = await fetch(url.toString(), {
-      next: { revalidate: 60 },
+      // Allow static generation by avoiding no-store
+      next: { revalidate: 3600 },
       headers: {
         'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }),
+        // Use our bypass key for server-to-server auth
+        'Authorization': `users API-Key ${ADMIN_BYPASS_KEY}`,
       },
     })
 
-    // On 401, clear token and retry once
-    if (res.status === 401 && retry) {
-      _token = null
-      return payloadFetch(path, params, false)
-    }
-
     if (!res.ok) return null
     return res.json()
-  } catch {
+  } catch (e) {
+    console.warn('[payloadService] Fetch failed:', e)
     return null
   }
 }
@@ -117,9 +80,7 @@ async function payloadFetch(path: string, params: Record<string, string> = {}, r
 // ── Image helpers ─────────────────────────────────────────────────────────────
 
 function resolveImageUrl(doc: any): string | undefined {
-  // 1. Direct imageUrl field (our migration stores R2 URLs here)
   if (doc.imageUrl) return doc.imageUrl
-  // 2. mainImage upload relation
   if (doc.mainImage?.url) return doc.mainImage.url
   if (doc.mainImage?.filename) return `${PAYLOAD_URL}/media/${doc.mainImage.filename}`
   return undefined
@@ -202,14 +163,12 @@ function mapSite(doc: any): Site {
 // ── Public API ────────────────────────────────────────────────────────────────
 
 export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
-  // Master site: Show ALL tours regardless of tenant
   const data = await payloadFetch('/tours', {
     'where[active][equals]': 'true',
     'sort': 'createdAt',
     'limit': '500',
   })
   
-  // Filter for unique slugs to avoid duplicates if same tour assigned to multiple tenants
   const seen = new Set();
   const docs = (data?.docs || []).filter((doc: any) => {
     const slugBase = doc.slug.split('-')[0];
@@ -222,17 +181,12 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
 }
 
 export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Tour | null> {
-  // Master site strategy: Try the slug with the specific tenant,
-  // but if not found, search ALL tenants for this slug base.
-  
-  // 1. Try exact match first
   const data = await payloadFetch('/tours', {
     'where[slug][equals]': slug,
     'limit': '1',
   })
   if (data?.docs?.[0]) return mapTour(data.docs[0])
 
-  // 2. Try common site suffixes if base slug was provided
   for (const s of [`${slug}-wor`, `${slug}-tir`, `${slug}-grt`, `${slug}-rvt`, `${slug}-rwd`]) {
     const d = await payloadFetch('/tours', {
       'where[slug][equals]': s,
@@ -296,7 +250,6 @@ export async function getAllSites(): Promise<Site[]> {
   return (data?.docs || []).map(mapSite)
 }
 
-// urlFor shim — Payload uses direct URLs, no builder needed
 export function urlFor(source: any) {
   const url = typeof source === 'string' ? source : (source?.asset?.url || source?.url || '')
   const builder: any = {
