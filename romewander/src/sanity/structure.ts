@@ -98,15 +98,15 @@ export const structure: StructureResolver = (S) => {
                                 .icon(Eye)
                                 .child(
                                     S.list()
-                                        .title(`$${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Content`)
+                                        .title(`${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Content`)
                                         .items([
                                             S.listItem()
                                                 .title(`🎯 Tours`)
                                                 .icon(Map)
                                                 .child(
                                                     S.documentList()
-                                                        .title(`Tours for $${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
-                                                        .filter(`_type == "tour" && $siteId in sites[]._ref')
+                                                        .title(`Tours for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
+                                                        .filter('_type == "tour" && $siteId in sites[]._ref')
                                                         .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romewander' })
                                                         .defaultOrdering([{ field: 'title', direction: 'asc' }])
                                                 ),
