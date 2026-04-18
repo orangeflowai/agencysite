@@ -46,52 +46,52 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
         const data = availability[dateStr];
         const isPast = props.date < new Date(new Date().setHours(0, 0, 0, 0));
 
-        if (isPast) return <span className="text-gray-300">{format(props.date, 'd')}</span>;
+        if (isPast) return <span className="text-muted-foreground/40">{format(props.date, 'd')}</span>;
 
         let bgClass = '';
-        let textClass = 'text-gray-600';
+        let textClass = 'text-foreground';
 
         if (data) {
             if (data.spots === 0) {
-                bgClass = 'bg-rose-100';
-                textClass = 'text-rose-400';
+                bgClass = 'bg-destructive/10';
+                textClass = 'text-destructive';
             } else if (data.spots < 10) {
-                bgClass = 'bg-amber-50';
-                textClass = 'text-amber-800';
+                bgClass = 'bg-accent/50';
+                textClass = 'text-foreground';
             } else {
-                bgClass = 'bg-emerald-50';
-                textClass = 'text-emerald-800';
+                bgClass = 'bg-primary/5';
+                textClass = 'text-primary';
             }
         }
 
         return (
-            <div className={`flex flex-col items-center justify-center p-1 w-full h-full rounded-md transition-colors ${bgClass} ${!data ? 'hover:bg-gray-50' : ''}`}>
+            <div className={`flex flex-col items-center justify-center p-1 w-full h-full rounded-md transition-colors ${bgClass} ${!data ? 'hover:bg-accent/50' : ''}`}>
                 <span className={`text-sm font-bold ${textClass}`}>{format(props.date, 'd')}</span>
                 {data ? (
                     <div className="flex flex-col items-center -mt-0.5">
                         {data.spots > 0 ? (
                             <>
-                                <span className={`text-[10px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
+                                <span className={`text-[9px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
                                 {data.spots < 10 && (
-                                    <span className="text-[9px] font-extrabold text-white bg-amber-500 px-1 rounded-sm mt-0.5">
+                                    <span className="text-[8px] font-black text-white bg-primary px-1 rounded-sm mt-0.5 shadow-sm uppercase tracking-tighter">
                                         {data.spots} left
                                     </span>
                                 )}
                             </>
                         ) : (
-                            <span className="text-[9px] font-bold text-rose-400 uppercase tracking-tighter">Sold out</span>
+                            <span className="text-[8px] font-black text-destructive uppercase tracking-tighter">Sold out</span>
                         )}
                     </div>
                 ) : (
-                    <span className="text-[10px] text-gray-300 font-medium">-</span>
+                    <span className="text-[9px] text-muted-foreground/30 font-medium">-</span>
                 )}
             </div>
         );
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 relative notranslate" translate="no">
-            {loading && <div className="absolute top-4 right-4"><Loader2 className="w-4 h-4 animate-spin text-sky-600" /></div>}
+        <div className="bg-card rounded-xl shadow-sm border border-border p-4 relative notranslate" translate="no">
+            {loading && <div className="absolute top-4 right-4"><Loader2 className="w-4 h-4 animate-spin text-primary" /></div>}
             <DayPicker
                 mode="single"
                 selected={selectedDate}
@@ -107,7 +107,7 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                     },
                 }}
                 modifiersClassNames={{
-                    selected: 'bg-sky-600 text-white shadow-lg shadow-sky-100 scale-105 z-10',
+                    selected: 'bg-primary text-white shadow-lg shadow-primary/20 scale-105 z-10',
                     soldOut: 'cursor-not-allowed opacity-60',
                 }}
                 disabled={[
@@ -120,16 +120,18 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                 className="custom-calendar"
             />
             {/* Legend */}
-            <div className="flex items-center gap-3 mt-3 pt-3 border-t border-gray-100 justify-center">
-                <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700"><span className="w-2.5 h-2.5 rounded-sm bg-emerald-100 inline-block" />Available</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold text-amber-700"><span className="w-2.5 h-2.5 rounded-sm bg-amber-100 inline-block" />Limited</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold text-rose-400"><span className="w-2.5 h-2.5 rounded-sm bg-rose-100 inline-block" />Sold out</span>
+            <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border justify-center">
+                <span className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-primary/20 inline-block" />Available</span>
+                <span className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-accent inline-block" />Limited</span>
+                <span className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-destructive"><span className="w-2.5 h-2.5 rounded-sm bg-destructive/20 inline-block" />Sold out</span>
             </div>
             <style jsx global>{`
-                .rdp { --rdp-cell-size: 58px; --rdp-accent-color: #0284c7; margin: 0; }
-                .rdp-day_selected { background-color: #0284c7 !important; color: white !important; }
+                .rdp { --rdp-cell-size: 52px; --rdp-accent-color: var(--primary); margin: 0; }
+                .rdp-day_selected { background-color: var(--primary) !important; color: white !important; }
                 .rdp-day_selected span { color: white !important; }
-                .rdp-button:hover:not([disabled]):not(.rdp-day_selected) { background-color: transparent; border: 2px solid #0284c7; }
+                .rdp-button:hover:not([disabled]):not(.rdp-day_selected) { background-color: transparent; border: 2px solid var(--primary); }
+                .rdp-head_cell { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: var(--muted-foreground); tracking: 0.1em; }
+                .rdp-nav_button { color: var(--primary); }
             `}</style>
         </div>
     );
