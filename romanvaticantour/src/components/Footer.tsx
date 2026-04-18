@@ -5,6 +5,7 @@ import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight } from 'l
 import Newsletter from './Newsletter';
 import { useLanguage } from '@/context/LanguageContext';
 import { useSite } from '@/components/SiteProvider';
+import { urlFor } from '@/lib/dataAdapter';
 import Image from 'next/image';
 import { SUPABASE_BUCKET_URL } from '@/lib/constants';
 import PaymentLogos from './PaymentLogos';
