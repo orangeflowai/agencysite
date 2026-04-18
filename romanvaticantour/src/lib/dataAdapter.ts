@@ -1,8 +1,5 @@
 /**
  * dataAdapter.ts — Unified data layer
- * DATA_SOURCE=payload  → Payload CMS only (default for all sites now)
- * DATA_SOURCE=sanity   → Sanity only
- * DATA_SOURCE=dual     → Payload first, Sanity fallback
  */
 
 import * as sanity  from './sanityService'
@@ -11,8 +8,27 @@ import * as payload from './payloadService'
 export type { Tour, Post, Site, Settings } from './sanityService'
 
 const source = process.env.DATA_SOURCE || 'payload'
-
 export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome'
+
+const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
+const FALLBACKS = {
+    wondersofrome: [
+        `${R2_BASE}/pexels-nastiz-12604242.jpg`,
+        `${R2_BASE}/pexels-matteobasilephoto-11200578.jpg`
+    ],
+    ticketsinrome: [
+        `${R2_BASE}/pexels-c1superstar-27096007.jpg`,
+        `${R2_BASE}/pexels-alex-250137-757239.jpg`
+    ],
+    goldenrometour: [
+        `${R2_BASE}/pexels-filiamariss-30785778.jpg`,
+        `${R2_BASE}/pexels-nastiz-12604242.jpg`
+    ],
+    romanvaticantour: [
+        `${R2_BASE}/pexels-alex-250137-757239.jpg`,
+        `${R2_BASE}/pexels-filiamariss-30785778.jpg`
+    ]
+};
 
 async function withFallback<T>(
   payloadFn: () => Promise<T>,
@@ -20,10 +36,8 @@ async function withFallback<T>(
 ): Promise<T> {
   if (source === 'payload') return payloadFn()
   if (source === 'sanity')  return sanityFn()
-  // dual — try Payload, fall back to Sanity
   try {
     const result = await payloadFn()
-    // For arrays, check length; for objects check truthiness
     if (Array.isArray(result) ? (result as any[]).length > 0 : result) return result
   } catch (e) {
     console.warn('[dataAdapter] Payload failed, falling back to Sanity:', e)
@@ -40,12 +54,18 @@ export const getSettings  = (siteId?: string)              => withFallback(() =>
 export const getSite      = (siteId?: string)              => withFallback(() => payload.getSite(siteId),           () => sanity.getSite(siteId))
 export const getAllSites   = ()                             => withFallback(() => payload.getAllSites(),              () => sanity.getAllSites())
 
-// urlFor — Payload uses direct URLs; Sanity uses image builder
-// This shim works for both and supports chaining
 export function urlFor(source: any) {
-  const url = typeof source === 'string'
+  let url = typeof source === 'string'
     ? source
     : source?.asset?.url || source?.url || ''
+
+  // If no URL, pick a site-specific fallback
+  if (!url) {
+      const siteId = (process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome') as keyof typeof FALLBACKS;
+      const images = FALLBACKS[siteId] || FALLBACKS.wondersofrome;
+      // Stable shuffle based on string length of tour if possible, or random
+      url = images[0]; 
+  }
 
   const builder: any = {
     url:    ()           => url,
