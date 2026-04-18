@@ -202,25 +202,45 @@ function mapSite(doc: any): Site {
 // ── Public API ────────────────────────────────────────────────────────────────
 
 export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
+  // Master site: Show ALL tours regardless of tenant
   const data = await payloadFetch('/tours', {
-    'where[tenant][equals]': siteId,
     'where[active][equals]': 'true',
     'sort': 'createdAt',
+    'limit': '500',
   })
-  return (data?.docs || []).map(mapTour)
+  
+  // Filter for unique slugs to avoid duplicates if same tour assigned to multiple tenants
+  const seen = new Set();
+  const docs = (data?.docs || []).filter((doc: any) => {
+    const slugBase = doc.slug.split('-')[0];
+    if (seen.has(slugBase)) return false;
+    seen.add(slugBase);
+    return true;
+  });
+
+  return docs.map(mapTour);
 }
 
 export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Tour | null> {
-  // Try tenant-specific slug first, then without suffix
-  for (const s of [slug, `${slug}-wor`, `${slug}-tir`, `${slug}-grt`, `${slug}-rvt`, `${slug}-rwd`]) {
-    const data = await payloadFetch('/tours', {
+  // Master site strategy: Try the slug with the specific tenant,
+  // but if not found, search ALL tenants for this slug base.
+  
+  // 1. Try exact match first
+  const data = await payloadFetch('/tours', {
+    'where[slug][equals]': slug,
+    'limit': '1',
+  })
+  if (data?.docs?.[0]) return mapTour(data.docs[0])
+
+  // 2. Try common site suffixes if base slug was provided
+  for (const s of [`${slug}-wor`, `${slug}-tir`, `${slug}-grt`, `${slug}-rvt`, `${slug}-rwd`]) {
+    const d = await payloadFetch('/tours', {
       'where[slug][equals]': s,
-      'where[tenant][equals]': siteId,
       'limit': '1',
     })
-    const doc = data?.docs?.[0]
-    if (doc) return mapTour(doc)
+    if (d?.docs?.[0]) return mapTour(d.docs[0])
   }
+  
   return null
 }
 

@@ -201,6 +201,7 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
   const data = await payloadFetch('/tours', {
     'where[tenant][equals]': siteId,
     'where[active][equals]': 'true',
+    'where[category][equals]': 'vatican',
     'sort': 'createdAt',
   })
   return (data?.docs || []).map(mapTour)
