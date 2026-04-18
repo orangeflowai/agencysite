@@ -2,7 +2,7 @@
 import { Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { getTours } from '@/lib/sanityService';
+import { getTours } from '@/lib/dataAdapter';
 
 // We need to use client-side search or server search. 
 // For simplicity with Sanity, we'll fetch all and filter, or fetch with GROQ.

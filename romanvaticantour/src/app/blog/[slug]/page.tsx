@@ -2,8 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { getPost } from '@/lib/sanityService';
-import { urlFor } from '@/sanity/lib/image';
+import { getPost, urlFor } from '@/lib/dataAdapter';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { PortableText } from '@portabletext/react';
@@ -27,11 +26,11 @@ export async function generateMetadata({ params }: PageProps) {
     }
 
     return {
-        title: `${post.title} | {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Blog`,
+        title: `${post.title} | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Blog`,
         description: post.excerpt,
         keywords: post.keywords,
         openGraph: {
-            images: [post.mainImage?.asset?.url || ''],
+            images: [post.mainImage ? urlFor(post.mainImage).url() : ''],
         },
     };
 }

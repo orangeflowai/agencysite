@@ -33,7 +33,7 @@ export default function AdminProductsPage() {
                 // Dynamically import to ensure client-side execution if needed, 
                 // though usually we can just import at top if it's safe.
                 // Using the updated getTours with siteId
-                const { getTours } = await import('@/lib/sanityService');
+                const { getTours } = await import('@/lib/dataAdapter');
                 const data = await getTours(selectedSiteId);
                 setTours(data);
             } catch (error) {
@@ -128,7 +128,7 @@ export default function AdminProductsPage() {
                 router.refresh();
 
                 // Also trigger our local loadTours check
-                const { getTours } = await import('@/lib/sanityService');
+                const { getTours } = await import('@/lib/dataAdapter');
                 const newData = await getTours(selectedSiteId);
                 setTours(newData);
             } else {

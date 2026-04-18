@@ -2,10 +2,16 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getPosts } from '@/lib/sanityService';
+import { getPosts, urlFor } from '@/lib/dataAdapter';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Calendar, ArrowRight } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: `Blog | ${process.env.NEXT_PUBLIC_SITE_NAME || "Roman Vatican Tour"}`,
+    description: 'Expert travel tips, guides, and stories from the heart of Rome. Plan your perfect Roman holiday.',
+};
 
 export const revalidate = 60; // Revalidate every minute
 

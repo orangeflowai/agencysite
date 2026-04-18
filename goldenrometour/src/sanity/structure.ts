@@ -86,7 +86,7 @@ export const structure: StructureResolver = (S) => {
                                                     S.documentList()
                                                         .title('Settings for Rome Tour Tickets')
                                                         .filter('_type == "settings" && site._ref == $siteId')
-                                                        .params({ siteId: 'rome-tour-tickets` })
+                                                        .params({ siteId: 'rome-tour-tickets' })
                                                 ),
                                         ])
                                 ),

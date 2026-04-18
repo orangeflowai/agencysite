@@ -26,11 +26,11 @@ export async function generateMetadata({ params }: PageProps) {
     }
 
     return {
-        title: `${post.title} | {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Blog`,
+        title: `${post.title} | ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Blog`,
         description: post.excerpt,
         keywords: post.keywords,
         openGraph: {
-            images: [post.mainImage?.asset?.url || ''],
+            images: [post.mainImage ? urlFor(post.mainImage).url() : ''],
         },
     };
 }

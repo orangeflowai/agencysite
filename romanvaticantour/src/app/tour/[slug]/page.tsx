@@ -8,11 +8,44 @@ import BookingWidget from '@/components/BookingWidget';
 import TourHeroSlider from '@/components/TourHeroSlider';
 import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
 import { PortableText } from '@portabletext/react';
+import { Metadata } from 'next';
 
 export const revalidate = 3600;
 
 interface PageProps {
     params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug } = await params;
+    const tour = await getTour(slug);
+
+    if (!tour) return { title: 'Tour Not Found' };
+
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Roman Vatican Tour';
+    const title = `${tour.title} | ${siteName}`;
+    const description = tour.description 
+        ? (typeof tour.description === 'string' ? tour.description.slice(0, 160) : 'Book your exclusive skip-the-line tour in Rome.')
+        : `Experience ${tour.title} with expert guides.`;
+
+    const imageUrl = tour.mainImage ? urlFor(tour.mainImage).width(1200).height(630).url() : '';
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630, alt: tour.title }] : [],
+            type: 'website',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: imageUrl ? [imageUrl] : [],
+        },
+    };
 }
 
 export async function generateStaticParams() {

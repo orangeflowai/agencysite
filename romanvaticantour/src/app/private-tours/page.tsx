@@ -2,7 +2,7 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TourCard from '@/components/TourCard';
-import { getTours } from '@/lib/sanityService';
+import { getTours } from '@/lib/dataAdapter';
 import CategoryHero from '@/components/CategoryHero';
 
 export default async function PrivateToursPage() {
