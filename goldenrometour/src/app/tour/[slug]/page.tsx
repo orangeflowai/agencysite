@@ -88,14 +88,6 @@ export default async function TourPage({ params }: PageProps) {
                     reviewCount={tour.reviewCount}
                 />
 
-                {/* Overlay Content (Title etc) - Re-added on top of slider logic in the slider component? 
-                    Actually, TourHeroSlider has the image but maybe not the text overlay styling I want?
-                    Wait, TourHeroSlider component handles the image rendering.
-                    I need to check if I want the text INSIDE the slider component (which changes per slide? No, title is static)
-                    OR overlaying the slider.
-                    Currently TourHeroSlider just renders images.
-                    Let's Put the Title Overlay HERE, absolutely positioned over the slider container.
-                */}
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
                     <div className="max-w-4xl space-y-4 pointer-events-auto">
                         <span className="bg-olive text-white px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wide">
@@ -189,7 +181,7 @@ export default async function TourPage({ params }: PageProps) {
                         <section>
                             <h2 className="text-2xl font-serif font-bold text-black mb-6">Itinerary</h2>
                             <div className="pl-4 border-l-2 border-olive/20 space-y-8">
-                                {tour.itinerary.map((stop, index) => (
+                                {tour.itinerary.map((stop: any, index: number) => (
                                     <div key={index} className="relative">
                                         <div className="absolute -left-[21px] top-0 w-4 h-4 bg-olive rounded-full border-2 border-cream" />
                                         <h3 className="text-lg font-bold text-black">{stop.title}</h3>
@@ -203,16 +195,16 @@ export default async function TourPage({ params }: PageProps) {
 
                     {/* Inclusions & Exclusions */}
                     <section className="grid md:grid-cols-2 gap-8">
-                        {tour.includes && (
+                        {tour.includes && tour.includes.length > 0 && (
                             <div>
                                 <h3 className="text-xl font-serif font-bold text-black mb-4 flex items-center">
                                     <CheckCircle className="w-5 h-5 text-olive mr-2" /> What&apos;s Included
                                 </h3>
                                 <ul className="space-y-3">
-                                    {tour.includes.map((item, i) => (
+                                    {tour.includes.map((item: any, i: number) => (
                                         <li key={i} className="flex items-start text-gray-700 text-sm">
                                             <Check className="w-4 h-4 text-olive mr-2 mt-0.5 shrink-0" />
-                                            {item}
+                                            {typeof item === 'object' ? item.item : item}
                                         </li>
                                     ))}
                                 </ul>
@@ -224,10 +216,10 @@ export default async function TourPage({ params }: PageProps) {
                                     <XCircle className="w-5 h-5 text-red-500 mr-2" /> What&apos;s Not Included
                                 </h3>
                                 <ul className="space-y-3">
-                                    {tour.excludes.map((item, i) => (
+                                    {tour.excludes.map((item: any, i: number) => (
                                         <li key={i} className="flex items-start text-gray-600 text-sm">
                                             <XCircle className="w-4 h-4 text-red-400 mr-2 mt-0.5 shrink-0" />
-                                            {item}
+                                            {typeof item === 'object' ? item.item : item}
                                         </li>
                                     ))}
                                 </ul>
@@ -236,10 +228,10 @@ export default async function TourPage({ params }: PageProps) {
                     </section>
 
                     {/* Meeting Point & Important Info */}
-                    <section className="bg-gray-50 rounded-2xl p-8 space-y-6">
+                    <section className="bg-gray-50 rounded-2xl p-8 border border-[#e8e6e1] space-y-6">
                         {tour.meetingPoint && (
                             <div>
-                                <h3 className="text-lg font-bold text-black mb-2 flex items-center">
+                                <h3 className="font-heading text-lg font-bold text-black mb-2 flex items-center">
                                     <MapPin className="w-5 h-5 text-olive mr-2" /> Meeting Point
                                 </h3>
                                 <p className="text-gray-700">{tour.meetingPoint}</p>
@@ -259,9 +251,9 @@ export default async function TourPage({ params }: PageProps) {
                                 <h3 className="text-lg font-bold text-black mb-2 flex items-center">
                                     <Info className="w-5 h-5 text-olive mr-2" /> Important Information
                                 </h3>
-                                <ul className="list-disc list-inside space-y-1 text-gray-700">
-                                    {tour.importantInfo.map((info, i) => (
-                                        <li key={i}>{info}</li>
+                                <ul className="list-disc list-inside space-y-1 text-gray-700 font-sans">
+                                    {tour.importantInfo.map((info: any, i: number) => (
+                                        <li key={i}>{typeof info === 'object' ? info.item : info}</li>
                                     ))}
                                 </ul>
                             </div>
@@ -271,7 +263,9 @@ export default async function TourPage({ params }: PageProps) {
 
                 {/* Sidebar Booking Widget */}
                 <div className="lg:col-span-1">
-                    <BookingWidget tour={tour} />
+                    <div className="sticky top-24">
+                        <BookingWidget tour={tour} />
+                    </div>
                 </div>
             </div>
 
