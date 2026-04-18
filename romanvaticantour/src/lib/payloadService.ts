@@ -168,6 +168,10 @@ function mapTour(doc: any): Tour {
 }
 
 function mapPost(doc: any): Post {
+  let body = doc.content || doc.body || []
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body) } catch { body = [] }
+  }
   return {
     _id:         String(doc.id),
     title:       doc.title,
@@ -176,7 +180,7 @@ function mapPost(doc: any): Post {
     publishedAt: doc.publishedAt || doc.createdAt,
     excerpt:     doc.excerpt || '',
     keywords:    (doc.keywords || []).map((k: any) => k.keyword || k).filter(Boolean),
-    body:        doc.body,
+    body:        body,
   }
 }
 
@@ -226,12 +230,21 @@ export async function getAllTours(): Promise<Tour[]> {
 }
 
 export async function getPosts(siteId: string = DEFAULT_SITE_ID): Promise<Post[]> {
-  // Posts not yet in Payload — return empty
-  return []
+  const data = await payloadFetch('/posts', {
+    'where[tenant][equals]': siteId,
+    'sort': '-publishedAt',
+  })
+  return (data?.docs || []).map(mapPost)
 }
 
 export async function getPost(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Post | null> {
-  return null
+  const data = await payloadFetch('/posts', {
+    'where[slug][equals]': slug,
+    'where[tenant][equals]': siteId,
+    'limit': '1',
+  })
+  const doc = data?.docs?.[0]
+  return doc ? mapPost(doc) : null
 }
 
 export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Settings | null> {
@@ -266,11 +279,12 @@ export async function getAllSites(): Promise<Site[]> {
 // urlFor shim — Payload uses direct URLs, no builder needed
 export function urlFor(source: any) {
   const url = typeof source === 'string' ? source : (source?.asset?.url || source?.url || '')
-  return {
-    url:    () => url,
-    width:  (_w: number) => ({ url: () => url, height: (_h: number) => ({ url: () => url }) }),
-    height: (_h: number) => ({ url: () => url }),
-    fit:    (_f: string) => ({ url: () => url, auto: (_a: string) => ({ url: () => url }) }),
-    auto:   (_a: string) => ({ url: () => url }),
+  const builder: any = {
+    url:    ()           => url,
+    width:  (_w: number) => builder,
+    height: (_h: number) => builder,
+    fit:    (_f: string) => builder,
+    auto:   (_a: string) => builder,
   }
+  return builder
 }

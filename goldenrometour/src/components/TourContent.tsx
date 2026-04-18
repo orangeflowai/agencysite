@@ -100,7 +100,11 @@ export default function TourContent({ tour }: TourContentProps) {
                             <section>
                                 <h2 className="font-serif text-2xl font-bold text-forest mb-6 italic underline decoration-forest/10">{t('tour.overview')}</h2>
                                 <div className="font-sans prose prose-lg max-w-none text-forest/80">
-                                    <PortableText value={translatedTour.description as any} />
+                                    {typeof translatedTour.description === 'string' ? (
+                                        <p>{translatedTour.description}</p>
+                                    ) : (
+                                        <PortableText value={translatedTour.description as any} />
+                                    )}
                                 </div>
                             </section>
                         )}

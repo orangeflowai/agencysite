@@ -150,37 +150,41 @@ export default async function TourPage({ params }: PageProps) {
                                 prose-strong:text-[#5c4b3e] prose-strong:font-bold
                                 prose-a:text-primary prose-a:no-underline hover:prose-a:underline
                                 prose-li:text-[#85766a]">
-                                <PortableText
-                                    value={tour.description}
-                                    components={{
-                                        types: {
-                                            image: ({ value }) => {
-                                                if (!value?.asset?._ref && !value?.url) return null;
-                                                return (
-                                                    <div className="my-6 relative w-full aspect-video rounded-xl overflow-hidden shadow-md border border-[#b19681]/20">
-                                                        <Image src={urlFor(value).width(800).url()} alt={value.alt || 'Tour image'} fill className="object-cover" />
-                                                    </div>
-                                                );
+                                {typeof tour.description === 'string' ? (
+                                    <p className="mb-4 text-base leading-relaxed">{tour.description}</p>
+                                ) : (
+                                    <PortableText
+                                        value={tour.description}
+                                        components={{
+                                            types: {
+                                                image: ({ value }) => {
+                                                    if (!value?.asset?._ref && !value?.url) return null;
+                                                    return (
+                                                        <div className="my-6 relative w-full aspect-video rounded-xl overflow-hidden shadow-md border border-[#b19681]/20">
+                                                            <Image src={urlFor(value).width(800).url()} alt={value.alt || 'Tour image'} fill className="object-cover" />
+                                                        </div>
+                                                    );
+                                                }
+                                            },
+                                            block: {
+                                                normal: ({ children }) => <p className="mb-4 text-base leading-relaxed">{children}</p>,
+                                                h2: ({ children }) => <h2 className="text-xl font-serif font-bold mt-6 mb-3 text-[#5c4b3e] italic">{children}</h2>,
+                                                h3: ({ children }) => <h3 className="text-lg font-serif font-semibold mt-5 mb-2 text-[#5c4b3e] italic">{children}</h3>,
+                                            },
+                                            marks: {
+                                                strong: ({ children }) => <strong className="font-bold text-[#5c4b3e]">{children}</strong>,
+                                                link: ({ value, children }) => {
+                                                    const target = (value?.href || '').startsWith('http') ? '_blank' : undefined;
+                                                    return <a href={value?.href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className="text-primary hover:underline font-bold italic">{children}</a>;
+                                                }
+                                            },
+                                            list: {
+                                                bullet: ({ children }) => <ul className="list-disc pl-5 mb-4 space-y-1.5">{children}</ul>,
+                                                number: ({ children }) => <ol className="list-decimal pl-5 mb-4 space-y-1.5">{children}</ol>,
                                             }
-                                        },
-                                        block: {
-                                            normal: ({ children }) => <p className="mb-4 text-base leading-relaxed">{children}</p>,
-                                            h2: ({ children }) => <h2 className="text-xl font-serif font-bold mt-6 mb-3 text-[#5c4b3e] italic">{children}</h2>,
-                                            h3: ({ children }) => <h3 className="text-lg font-serif font-semibold mt-5 mb-2 text-[#5c4b3e] italic">{children}</h3>,
-                                        },
-                                        marks: {
-                                            strong: ({ children }) => <strong className="font-bold text-[#5c4b3e]">{children}</strong>,
-                                            link: ({ value, children }) => {
-                                                const target = (value?.href || '').startsWith('http') ? '_blank' : undefined;
-                                                return <a href={value?.href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className="text-primary hover:underline font-bold italic">{children}</a>;
-                                            }
-                                        },
-                                        list: {
-                                            bullet: ({ children }) => <ul className="list-disc pl-5 mb-4 space-y-1.5">{children}</ul>,
-                                            number: ({ children }) => <ol className="list-decimal pl-5 mb-4 space-y-1.5">{children}</ol>,
-                                        }
-                                    }}
-                                />
+                                        }}
+                                    />
+                                )}
                             </div>
                         </section>
 

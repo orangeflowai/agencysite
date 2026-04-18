@@ -123,46 +123,50 @@ export default async function TourPage({ params }: PageProps) {
                     {/* Overview / Description */}
                     <section className="prose prose-lg prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-gray-700 prose-p:leading-loose prose-li:text-gray-700 max-w-none">
                         <h2 className="text-3xl font-serif font-bold text-emerald-900 mb-6">Tour Overview</h2>
-                        <PortableText
-                            value={tour.description}
-                            components={{
-                                types: {
-                                    image: ({ value }) => {
-                                        if (!value?.asset?._ref) return null;
-                                        return (
-                                            <div className="my-8 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
-                                                <Image
-                                                    src={urlFor(value).width(800).fit('max').url()}
-                                                    alt={value.alt || 'Tour image'}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            </div>
-                                        );
+                        {typeof tour.description === 'string' ? (
+                            <p className="mb-6">{tour.description}</p>
+                        ) : (
+                            <PortableText
+                                value={tour.description}
+                                components={{
+                                    types: {
+                                        image: ({ value }) => {
+                                            if (!value?.asset?._ref) return null;
+                                            return (
+                                                <div className="my-8 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
+                                                    <Image
+                                                        src={urlFor(value).width(800).fit('max').url()}
+                                                        alt={value.alt || 'Tour image'}
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                </div>
+                                            );
+                                        }
+                                    },
+                                    block: {
+                                        normal: ({ children }) => <p className="mb-6">{children}</p>,
+                                        h2: ({ children }) => <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>,
+                                        h3: ({ children }) => <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>,
+                                    },
+                                    marks: {
+                                        strong: ({ children }) => <strong className="font-bold text-black">{children}</strong>,
+                                        link: ({ value, children }) => {
+                                            const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
+                                            return (
+                                                <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-emerald-600 underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-medium">
+                                                    {children}
+                                                </a>
+                                            )
+                                        }
+                                    },
+                                    list: {
+                                        bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-2">{children}</ul>,
+                                        number: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-2">{children}</ol>,
                                     }
-                                },
-                                block: {
-                                    normal: ({ children }) => <p className="mb-6">{children}</p>,
-                                    h2: ({ children }) => <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>,
-                                    h3: ({ children }) => <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>,
-                                },
-                                marks: {
-                                    strong: ({ children }) => <strong className="font-bold text-black">{children}</strong>,
-                                    link: ({ value, children }) => {
-                                        const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
-                                        return (
-                                            <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-emerald-600 underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-medium">
-                                                {children}
-                                            </a>
-                                        )
-                                    }
-                                },
-                                list: {
-                                    bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-2">{children}</ul>,
-                                    number: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-2">{children}</ol>,
-                                }
-                            }}
-                        />
+                                }}
+                            />
+                        )}
                     </section>
 
                     {/* Highlights */}

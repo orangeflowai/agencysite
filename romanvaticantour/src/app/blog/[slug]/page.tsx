@@ -106,58 +106,62 @@ export default async function BlogPostPage({ params }: PageProps) {
                             {post.excerpt}
                         </div>
 
-                        {/* Body - Portable Text */}
+                        {/* Body - Portable Text or String */}
                         <div className="prose prose-lg md:prose-xl prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-gray-700 prose-p:leading-loose prose-li:text-gray-700 max-w-none">
-                            <PortableText
-                                value={post.body}
-                                components={{
-                                    types: {
-                                        image: ({ value }) => {
-                                            if (!value?.asset?._ref) return null;
-                                            return (
-                                                <div className="my-10 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-gray-100">
-                                                    <Image
-                                                        src={urlFor(value).width(1200).fit('max').url()}
-                                                        alt={value.alt || 'Blog image'}
-                                                        fill
-                                                        className="object-cover"
-                                                    />
-                                                    {value.caption && (
-                                                        <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm">
-                                                            {value.caption}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            );
-                                        }
-                                    },
-                                    block: {
-                                        normal: ({ children }) => <p className="mb-6">{children}</p>,
-                                        h2: ({ children }) => <h2 className="text-3xl font-bold mt-12 mb-6 border-b border-emerald-100 pb-2">{children}</h2>,
-                                        h3: ({ children }) => <h3 className="text-2xl font-bold mt-8 mb-4 text-emerald-800">{children}</h3>,
-                                        blockquote: ({ children }) => (
-                                            <blockquote className="border-l-4 border-emerald-500 pl-4 py-2 my-8 bg-emerald-50 rounded-r-lg italic text-emerald-900 shadow-inner">
-                                                {children}
-                                            </blockquote>
-                                        ),
-                                    },
-                                    marks: {
-                                        strong: ({ children }) => <strong className="font-bold text-black">{children}</strong>,
-                                        link: ({ value, children }) => {
-                                            const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
-                                            return (
-                                                <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-emerald-600 underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-bold">
+                            {typeof post.body === 'string' ? (
+                                <p>{post.body}</p>
+                            ) : (
+                                <PortableText
+                                    value={post.body}
+                                    components={{
+                                        types: {
+                                            image: ({ value }) => {
+                                                if (!value?.asset?._ref) return null;
+                                                return (
+                                                    <div className="my-10 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                                                        <Image
+                                                            src={urlFor(value).width(1200).fit('max').url()}
+                                                            alt={value.alt || 'Blog image'}
+                                                            fill
+                                                            className="object-cover"
+                                                        />
+                                                        {value.caption && (
+                                                            <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs p-2 text-center backdrop-blur-sm">
+                                                                {value.caption}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                );
+                                            }
+                                        },
+                                        block: {
+                                            normal: ({ children }) => <p className="mb-6">{children}</p>,
+                                            h2: ({ children }) => <h2 className="text-3xl font-bold mt-12 mb-6 border-b border-emerald-100 pb-2">{children}</h2>,
+                                            h3: ({ children }) => <h3 className="text-2xl font-bold mt-8 mb-4 text-emerald-800">{children}</h3>,
+                                            blockquote: ({ children }) => (
+                                                <blockquote className="border-l-4 border-emerald-500 pl-4 py-2 my-8 bg-emerald-50 rounded-r-lg italic text-emerald-900 shadow-inner">
                                                     {children}
-                                                </a>
-                                            )
+                                                </blockquote>
+                                            ),
+                                        },
+                                        marks: {
+                                            strong: ({ children }) => <strong className="font-bold text-black">{children}</strong>,
+                                            link: ({ value, children }) => {
+                                                const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
+                                                return (
+                                                    <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-emerald-600 underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-bold">
+                                                        {children}
+                                                    </a>
+                                                )
+                                            }
+                                        },
+                                        list: {
+                                            bullet: ({ children }) => <ul className="list-disc pl-6 mb-8 space-y-3 marker:text-emerald-500">{children}</ul>,
+                                            number: ({ children }) => <ol className="list-decimal pl-6 mb-8 space-y-3 marker:text-emerald-500 font-bold">{children}</ol>,
                                         }
-                                    },
-                                    list: {
-                                        bullet: ({ children }) => <ul className="list-disc pl-6 mb-8 space-y-3 marker:text-emerald-500">{children}</ul>,
-                                        number: ({ children }) => <ol className="list-decimal pl-6 mb-8 space-y-3 marker:text-emerald-500 font-bold">{children}</ol>,
-                                    }
-                                }}
-                            />
+                                    }}
+                                />
+                            )}
                         </div>
 
                         {/* Keywords / Tags */}
