@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -50,6 +50,18 @@ const SVG = ({ height, width }: { width: number, height: number }) => {
         L0 0
     `;
 
+    const translate: Variants = {
+        initial: { top: "-300px" },
+        enter: { top: "-100vh", transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] as any }, transitionEnd: { top: "100vh" } },
+        exit: { top: "-300px", transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] as any } }
+    };
+
+    const curveAnim = (i: string, t: string): Variants => ({
+        initial: { d: i },
+        enter: { d: t, transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] as any } },
+        exit: { d: i, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] as any } }
+    });
+
     return (
         <motion.svg 
             initial="initial"
@@ -66,18 +78,4 @@ const SVG = ({ height, width }: { width: number, height: number }) => {
             />
         </motion.svg>
     );
-};
-
-const translate = {
-    initial: { top: "-300px" },
-    enter: { top: "-100vh", transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] }, transitionEnd: { top: "100vh" } },
-    exit: { top: "-300px", transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }
-};
-
-const curveAnim = (initialPath: string, targetPath: string) => {
-    return {
-        initial: { d: initialPath },
-        enter: { d: targetPath, transition: { duration: 0.75, delay: 0.35, ease: [0.76, 0, 0.24, 1] } },
-        exit: { d: initialPath, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] } }
-    };
 };
