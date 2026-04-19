@@ -1,90 +1,79 @@
-
 'use client';
 
 import React, { useState } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, Mail, Phone, Calendar, Shield, MapPin, CreditCard } from 'lucide-react';
+import { ChevronDown, ChevronUp, Mail, Phone, Shield, CreditCard, Clock, Camera, UserCheck } from 'lucide-react';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-// Grouping the FAQs by category
 const faqCategories = [
     {
-        title: "Bookings & Payments",
-        icon: <CreditCard className="w-6 h-6 text-emerald-600" />,
+        title: "Vatican Tickets & Entry",
+        icon: <CreditCard className="w-6 h-6 text-[#C9A227]" />,
         items: [
             {
-                question: `How do I book a tour with ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}?`,
-                answer: `You can book directly through our website at ${process.env.NEXT_PUBLIC_SITE_URL?.replace("https://","") || "yourdomain.com"}. Simply select your tour, choose a date and time, and follow the checkout process.`
+                question: "Do I need to buy Vatican tickets in advance?",
+                answer: "Yes, absolutely. Vatican Museums tickets sell out days or even weeks in advance, especially during peak season (April–October). We secure skip-the-line tickets for all our guests, but bookings must be made at least 48 hours ahead."
             },
             {
-                question: "Is my payment secure?",
-                answer: "Absolutely. We use industry-standard encryption to ensure your personal and payment information is 100% protected."
+                question: "What is the difference between the Vatican Museums and St. Peter's Basilica?",
+                answer: "The Vatican Museums house the Sistine Chapel and vast art collections, while St. Peter's Basilica is a separate church (and free to enter). Our guided tours include both, but note that St. Peter's may close unexpectedly for religious ceremonies."
             },
             {
-                question: "Will I receive a booking confirmation?",
-                answer: "Yes! As soon as your booking is complete, a confirmation voucher will be sent to your email. Please check your spam folder if you don't see it within 15 minutes."
+                question: "Are there any dress code requirements?",
+                answer: "Yes. Both the Vatican Museums and St. Peter's Basilica enforce a strict dress code: shoulders and knees must be covered for both men and women. We recommend bringing a scarf or shawl, even in summer."
             }
         ]
     },
     {
-        title: "Cancellations & Changes",
-        icon: <Calendar className="w-6 h-6 text-emerald-600" />,
+        title: "Tour Timing & Scheduling",
+        icon: <Clock className="w-6 h-6 text-[#C9A227]" />,
         items: [
             {
-                question: "What is your cancellation policy?",
-                answer: (
-                    <div className="space-y-2">
-                        <p>We offer a tiered refund system:</p>
-                        <ul className="list-disc pl-5 space-y-1">
-                            <li><strong>7+ days notice:</strong> 100% refund (minus non-refundable entry tickets).</li>
-                            <li><strong>3–7 days notice:</strong> 50% refund.</li>
-                            <li><strong>Less than 72 hours:</strong> Non-refundable.</li>
-                        </ul>
-                    </div>
-                )
+                question: "What time should I arrive for my Vatican tour?",
+                answer: "Please arrive at our meeting point 20 minutes before your scheduled entry time. Vatican entry slots are strictly enforced—if you miss your window by even 5 minutes, the museums may deny entry with no refund."
             },
             {
-                question: "Can I change the date of my tour?",
-                answer: `We’ll do our best to help! Please contact us at ${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"} at least 72 hours before your tour. Changes are subject to ticket availability and site capacity.`
+                question: "How long does a typical Vatican tour last?",
+                answer: "Our standard Vatican Museums & Sistine Chapel tour lasts approximately 3 hours. If you add St. Peter's Basilica, plan for 3.5 to 4 hours total. The Early Morning VIP tour is 2.5 hours."
             },
             {
-                question: "What happens if it rains?",
-                answer: "Our tours run rain or shine! Rome is beautiful in any weather. If there is an extreme weather event that forces a site closure, we will contact you to reschedule or provide a full refund."
+                question: "Can I visit the Vatican on a Sunday?",
+                answer: "The Vatican Museums are closed every Sunday except the last Sunday of the month (free entry, but extremely crowded). St. Peter's Basilica remains open daily. We strongly recommend booking Tuesday–Thursday for the best experience."
             }
         ]
     },
     {
-        title: "On the Day of the Tour",
-        icon: <MapPin className="w-6 h-6 text-emerald-600" />,
+        title: "Photography & Restrictions",
+        icon: <Camera className="w-6 h-6 text-[#C9A227]" />,
         items: [
             {
-                question: "Where do I meet my guide?",
-                answer: "Your confirmation voucher contains a Google Maps link and a description of the meeting point. We recommend arriving 15 minutes early to ensure a smooth start."
+                question: "Can I take photos inside the Sistine Chapel?",
+                answer: "No. Photography and video are strictly prohibited inside the Sistine Chapel. Guards actively enforce this rule. However, you may take photos (without flash) in the Vatican Museums galleries and St. Peter's Basilica."
             },
             {
-                question: "What happens if I’m running late?",
-                answer: "Because many sites have strict entry time slots (like the Colosseum), our guides must start on time. If you are late, we may not be able to wait, and late arrivals are non-refundable."
+                question: "Are backpacks or large bags allowed?",
+                answer: "Large bags, backpacks, and umbrellas must be checked in the cloakroom. Bags exceeding 40cm x 35cm x 15cm are not permitted inside. We recommend traveling light for your Vatican visit."
             },
             {
-                question: "Do I need to print my tickets?",
-                answer: "In most cases, no! You can show your voucher on your smartphone. However, ensure your phone is charged!"
+                question: "Can I bring food or water into the Vatican?",
+                answer: "Small water bottles are permitted, but food and snacks are not allowed inside the museums. There is a café inside if you need refreshments, though we recommend eating before your tour."
             }
         ]
     },
     {
-        title: "Safety & Privacy",
-        icon: <Shield className="w-6 h-6 text-emerald-600" />,
+        title: "Accessibility & Special Needs",
+        icon: <UserCheck className="w-6 h-6 text-[#C9A227]" />,
         items: [
             {
-                question: "How is my data used?",
-                answer: "We only use your data to process your booking and improve our services. We never sell your information to third parties. You can read our full Privacy Policy for details."
+                question: "Is the Vatican wheelchair accessible?",
+                answer: "The Vatican Museums offer wheelchair rental and elevator access to most areas, but the route is lengthy. Please notify us when booking so we can arrange the accessible path and ensure your guide is prepared."
             },
             {
-                question: "Are your tours accessible?",
-                answer: "We strive to make our tours as inclusive as possible. Since some historic sites in Rome have uneven terrain, please contact us in advance if you have specific mobility needs so we can advise you on the best routes."
+                question: "Do children need tickets for the Vatican?",
+                answer: "Children under 6 enter free but still require a reservation. Ages 6–18 receive reduced pricing with valid ID. Strollers are permitted but may need to be carried in certain areas."
             }
         ]
     }
@@ -98,15 +87,16 @@ export default function FAQPage() {
     };
 
     return (
-        <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
+        <main className="min-h-screen bg-[#FAF9F6] font-sans selection:bg-[#C9A227] selection:text-white">
             <Navbar />
 
-            <div className="bg-emerald-900 text-white py-20 text-center relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-                <div className="container mx-auto px-4 relative z-10">
-                    <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">Frequently Asked Questions</h1>
-                    <p className="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-                        Everything you need to know about your trip to Rome.
+            <div className="bg-[#0A1628] text-white py-24 text-center relative overflow-hidden border-b border-[#C9A227]/20">
+                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+                <div className="container mx-auto px-4 relative z-10 pt-12">
+                    <p className="text-[#C9A227] font-black uppercase tracking-[0.4em] text-[10px] mb-4">Operations Team</p>
+                    <h1 className="text-4xl md:text-6xl font-serif font-black mb-4 tracking-tighter italic uppercase">Common Inquiries</h1>
+                    <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto font-medium">
+                        Essential info for your Vatican Museums & Sistine Chapel visit.
                     </p>
                 </div>
             </div>
@@ -115,9 +105,9 @@ export default function FAQPage() {
                 <div className="space-y-12">
                     {faqCategories.map((category, catIndex) => (
                         <div key={catIndex}>
-                            <div className="flex items-center gap-3 mb-6 border-b border-gray-200 pb-2">
+                            <div className="flex items-center gap-3 mb-6 border-b border-[#E5E5E5] pb-4 sticky top-24 bg-[#FAF9F6]/90 backdrop-blur-md z-10">
                                 {category.icon}
-                                <h2 className="text-2xl font-bold text-gray-900">{category.title}</h2>
+                                <h2 className="text-2xl font-serif font-bold text-[#1A1A1A] italic uppercase tracking-tight">{category.title}</h2>
                             </div>
 
                             <div className="space-y-4">
@@ -128,7 +118,10 @@ export default function FAQPage() {
                                     return (
                                         <div
                                             key={index}
-                                            className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+                                            className={clsx(
+                                                "bg-white rounded-lg border overflow-hidden shadow-sm transition-all duration-300",
+                                                isOpen ? "border-[#C9A227] border-l-4 shadow-md" : "border-[#E5E5E5] hover:border-[#C9A227]/50"
+                                            )}
                                         >
                                             <button
                                                 onClick={() => toggle(id)}
@@ -136,14 +129,14 @@ export default function FAQPage() {
                                             >
                                                 <span className={clsx(
                                                     "font-bold text-lg pr-8 transition-colors",
-                                                    isOpen ? "text-emerald-700" : "text-gray-800"
+                                                    isOpen ? "text-[#C9A227]" : "text-[#0A1628]"
                                                 )}>
                                                     {item.question}
                                                 </span>
                                                 {isOpen ? (
-                                                    <ChevronUp className="text-emerald-600 flex-shrink-0" />
+                                                    <ChevronUp className="text-[#C9A227] flex-shrink-0" />
                                                 ) : (
-                                                    <ChevronDown className="text-gray-400 flex-shrink-0" />
+                                                    <ChevronDown className="text-[#8A8A8A] flex-shrink-0" />
                                                 )}
                                             </button>
 
@@ -155,7 +148,7 @@ export default function FAQPage() {
                                                         exit={{ height: 0, opacity: 0 }}
                                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                                     >
-                                                        <div className="px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-50">
+                                                        <div className="px-6 pb-6 text-[#5A5A5A] leading-relaxed border-t border-[#E5E5E5]/50 pt-4">
                                                             {item.answer}
                                                         </div>
                                                     </motion.div>
@@ -169,18 +162,17 @@ export default function FAQPage() {
                     ))}
                 </div>
 
-                {/* Contact Section */}
-                <div className="mt-20 bg-emerald-50 rounded-2xl p-8 md:p-12 text-center border border-emerald-100">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Still have questions?</h3>
-                    <p className="text-gray-600 mb-8 max-w-lg mx-auto">
-                        We’re here to help! Our team is available 9:00 AM – 6:00 PM (Rome Time).
+                <div className="mt-20 bg-white rounded-2xl p-8 md:p-12 text-center border border-[#E5E5E5] shadow-lg shadow-[#0A1628]/5">
+                    <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-4 uppercase italic tracking-tight">Still have questions?</h3>
+                    <p className="text-[#5A5A5A] mb-8 max-w-lg mx-auto">
+                        Our Vatican specialists are here to help! Available 8:00 AM – 7:00 PM (CET).
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
-                            <Mail size={18} />
-                            {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}
+                        <a href="mailto:vatican@goldenrometours.com" className="flex items-center gap-2 px-6 py-3 bg-[#FAF9F6] text-[#0A1628] font-bold rounded-full border border-[#E5E5E5] hover:border-[#C9A227] shadow-sm transition-all hover:-translate-y-1">
+                            <Mail size={18} className="text-[#C9A227]" />
+                            vatican@goldenrometours.com
                         </a>
-                        <a href="tel:+393898922088" className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1">
+                        <a href="tel:+393898922088" className="flex items-center gap-2 px-6 py-3 bg-[#C9A227] text-[#0A1628] font-bold rounded-full hover:bg-[#E8D5A3] shadow-lg shadow-[#C9A227]/20 transition-all hover:-translate-y-1">
                             <Phone size={18} />
                             +39 389 892 2088
                         </a>

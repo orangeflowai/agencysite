@@ -1,90 +1,100 @@
-
 'use client';
 
 import React, { useState } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp, Mail, Phone, Calendar, Shield, MapPin, CreditCard } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronDown, ChevronUp, Mail, Phone, Shield, Footprints, CreditCard, Church, Landmark } from 'lucide-react';
 import clsx from 'clsx';
 
-// Grouping the FAQs by category
 const faqCategories = [
     {
-        title: "Bookings & Payments",
+        title: "Reservations & Payments",
         icon: <CreditCard className="w-6 h-6 text-emerald-600" />,
         items: [
             {
-                question: `How do I book a tour with ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}?`,
-                answer: `You can book directly through our website at ${process.env.NEXT_PUBLIC_SITE_URL?.replace("https://","") || "yourdomain.com"}. Simply select your tour, choose a date and time, and follow the checkout process.`
+                question: "How far ahead should I reserve my spot?",
+                answer: "For standard walking tours, 2–3 days is usually sufficient. However, Vatican Museums and Colosseum Underground slots often disappear weeks in advance during high season. We suggest securing your preferred date as early as possible to avoid disappointment."
             },
             {
-                question: "Is my payment secure?",
-                answer: "Absolutely. We use industry-standard encryption to ensure your personal and payment information is 100% protected."
+                question: "What payment methods do you accept?",
+                answer: "We process all major credit and debit cards through our encrypted checkout. Apple Pay and Google Pay are also available. Cash payments are only accepted for private bookings arranged directly via phone."
             },
             {
-                question: "Will I receive a booking confirmation?",
-                answer: "Yes! As soon as your booking is complete, a confirmation voucher will be sent to your email. Please check your spam folder if you don't see it within 15 minutes."
+                question: "If my plans shift, can I get my money back?",
+                answer: "Cancellations made eight or more days prior to the activity receive a complete refund. Between three and seven days, we retain a small processing fee and refund the remainder. Unfortunately, bookings cancelled within 72 hours of departure cannot be refunded, as tickets are already committed to our suppliers."
             }
         ]
     },
     {
-        title: "Cancellations & Changes",
-        icon: <Calendar className="w-6 h-6 text-emerald-600" />,
+        title: "Vatican Museums & Holy Sites",
+        icon: <Church className="w-6 h-6 text-emerald-600" />,
         items: [
             {
-                question: "What is your cancellation policy?",
-                answer: (
-                    <div className="space-y-2">
-                        <p>We offer a tiered refund system:</p>
-                        <ul className="list-disc pl-5 space-y-1">
-                            <li><strong>7+ days notice:</strong> 100% refund (minus non-refundable entry tickets).</li>
-                            <li><strong>3–7 days notice:</strong> 50% refund.</li>
-                            <li><strong>Less than 72 hours:</strong> Non-refundable.</li>
-                        </ul>
-                    </div>
-                )
+                question: "Will I be turned away if I'm wearing shorts?",
+                answer: "Quite possibly. The Vatican enforces one of the strictest dress codes in Rome—arms and legs must be covered all the way to the knees and shoulders. This applies to everyone regardless of the heat outside. A light scarf or cardigan tucked in your bag is a lifesaver."
             },
             {
-                question: "Can I change the date of my tour?",
-                answer: `We’ll do our best to help! Please contact us at ${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"} at least 72 hours before your tour. Changes are subject to ticket availability and site capacity.`
+                question: "Why can't I snap pictures in the Sistine Chapel?",
+                answer: "The chapel's frescoes are extremely sensitive to light and flash photography accelerates pigment deterioration. Additionally, the Vatican maintains the space as a place of worship. Guards patrol silently and will ask you to put your device away if they see a lens pointed upward."
             },
             {
-                question: "What happens if it rains?",
-                answer: "Our tours run rain or shine! Rome is beautiful in any weather. If there is an extreme weather event that forces a site closure, we will contact you to reschedule or provide a full refund."
+                question: "Are the Museums closed on religious holidays?",
+                answer: "Most Vatican closures follow the papal calendar. Aside from the usual Sunday closure (except final Sundays), expect shutdowns around Christmas, Easter, and other significant feast days. We always notify confirmed guests immediately if a closure affects their reservation."
             }
         ]
     },
     {
-        title: "On the Day of the Tour",
-        icon: <MapPin className="w-6 h-6 text-emerald-600" />,
+        title: "Colosseum & Ancient City",
+        icon: <Landmark className="w-6 h-6 text-emerald-600" />,
         items: [
             {
-                question: "Where do I meet my guide?",
-                answer: "Your confirmation voucher contains a Google Maps link and a description of the meeting point. We recommend arriving 15 minutes early to ensure a smooth start."
+                question: "Why do you need my passport details just to visit a ruin?",
+                answer: "Italian cultural authorities require exact personal data for every visitor entering the Colosseum. Your name on the booking must mirror the name in your passport or government-issued ID exactly. Security staff check this routinely at the turnstiles."
             },
             {
-                question: "What happens if I’m running late?",
-                answer: "Because many sites have strict entry time slots (like the Colosseum), our guides must start on time. If you are late, we may not be able to wait, and late arrivals are non-refundable."
+                question: "What's the real difference between 'Arena Floor' and 'Underground' visits?",
+                answer: "The Arena Floor lets you stand on a reconstructed wooden platform where gladiators once fought, looking up at the same sky they saw. The Underground descends into the hypogeum—the labyrinth of tunnels and cages beneath the stage where animals and performers awaited their fate. Underground visits require specially licensed guides and have extremely limited capacity."
             },
             {
-                question: "Do I need to print my tickets?",
-                answer: "In most cases, no! You can show your voucher on your smartphone. However, ensure your phone is charged!"
+                question: "Is there anywhere to grab water or use the restroom inside the amphitheater?",
+                answer: "Facilities exist only at the entry level. Once you ascend to the upper tiers or step onto the Arena Floor, there are no toilets or vendors for the duration of the guided portion. We recommend visiting the restroom and filling your bottle before passing through security."
             }
         ]
     },
     {
-        title: "Safety & Privacy",
+        title: "Getting There & Getting Around",
+        icon: <Footprints className="w-6 h-6 text-emerald-600" />,
+        items: [
+            {
+                question: "How do I find my guide in a sea of tourists?",
+                answer: "Your voucher contains a precise street address plus a pinned Google Maps link. Look for our representative holding a branded sign or flag at the exact coordinates. We strongly advise arriving fifteen minutes early—Roman traffic and metro delays are unpredictable."
+            },
+            {
+                question: "What if my train is delayed and I miss the group?",
+                answer: "Historic sites operate on rigid time slots. If you arrive after the group has entered the Colosseum or Vatican, the venue will not allow a solo catch-up, and we cannot interrupt a tour in progress. Travel insurance that covers missed departures is highly recommended."
+            },
+            {
+                question: "Will my grandmother be comfortable on this tour?",
+                answer: "Ancient Rome involves cobblestones, stairs, and inclines with very little seating. The Vatican route covers several kilometers of marble corridors. If mobility is a concern, please email us beforehand so we can select a private vehicle-assisted itinerary or a route with elevator access."
+            }
+        ]
+    },
+    {
+        title: "Weather & Practical Concerns",
         icon: <Shield className="w-6 h-6 text-emerald-600" />,
         items: [
             {
-                question: "How is my data used?",
-                answer: "We only use your data to process your booking and improve our services. We never sell your information to third parties. You can read our full Privacy Policy for details."
+                question: "Do tours get called off when it pours?",
+                answer: "Rain rarely stops us—Roman monuments look dramatic under grey skies. We provide disposable ponchos when needed. Only official site closures due to flooding or severe weather alerts trigger rescheduling or refunds."
             },
             {
-                question: "Are your tours accessible?",
-                answer: "We strive to make our tours as inclusive as possible. Since some historic sites in Rome have uneven terrain, please contact us in advance if you have specific mobility needs so we can advise you on the best routes."
+                question: "Should I carry cash for tips or souvenirs?",
+                answer: "Guides appreciate gratuities in cash when you feel they've exceeded expectations. Most souvenir stalls near the sites also prefer cash for small items, though cards are accepted inside museum shops."
+            },
+            {
+                question: "How is my personal information handled?",
+                answer: "Your details are used exclusively for booking confirmation, ticket procurement, and emergency contact. We never share or sell data to marketing firms. Full transparency is available in our privacy documentation."
             }
         ]
     }
@@ -104,9 +114,9 @@ export default function FAQPage() {
             <div className="bg-emerald-900 text-white py-20 text-center relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                 <div className="container mx-auto px-4 relative z-10">
-                    <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight">Frequently Asked Questions</h1>
+                    <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight mt-10">Rome Tour FAQs</h1>
                     <p className="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-                        Everything you need to know about your trip to Rome.
+                        From the Vatican to the Colosseum — answers for every Roman adventure.
                     </p>
                 </div>
             </div>
@@ -169,16 +179,15 @@ export default function FAQPage() {
                     ))}
                 </div>
 
-                {/* Contact Section */}
                 <div className="mt-20 bg-emerald-50 rounded-2xl p-8 md:p-12 text-center border border-emerald-100">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Still have questions?</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Can't find what you're looking for?</h3>
                     <p className="text-gray-600 mb-8 max-w-lg mx-auto">
-                        We’re here to help! Our team is available 9:00 AM – 6:00 PM (Rome Time).
+                        Our Rome team is on standby from 8:00 AM to 7:00 PM, seven days a week.
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
+                        <a href="mailto:help@wondersofrome.com" className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
                             <Mail size={18} />
-                            {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}
+                            help@wondersofrome.com
                         </a>
                         <a href="tel:+393898922088" className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1">
                             <Phone size={18} />

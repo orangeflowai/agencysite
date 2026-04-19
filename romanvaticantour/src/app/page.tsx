@@ -5,24 +5,16 @@ import AnimatedSection from "@/components/AnimatedSection";
 import FloatingReviews from "@/components/FloatingReviews";
 import FAQ from "@/components/FAQ";
 import TourCard from "@/components/TourCard";
+import TrustBadges from "@/components/TrustBadges";
 import Link from "next/link";
-import { getTours, getSettings } from "@/lib/dataAdapter";
+import { getTours, getSettings, getPosts } from "@/lib/dataAdapter";
 import { tours as fallbackTours } from "@/lib/toursData";
-import { ArrowRight, Shield, Clock, Star, Users, Zap, CheckCircle } from "lucide-react";
+import { ArrowRight, Shield, Clock, Star, Users, Zap, CheckCircle, ExternalLink } from "lucide-react";
 import Image from "next/image";
 
 export const revalidate = 3600;
 
 const R2 = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
-
-const GALLERY_IMAGES = [
-  { src: `${R2}/pexels-akarsh-chandran-2156074716-34026966.jpg`,        alt: "Vatican Museums",  label: "Vatican Museums" },
-  { src: `${R2}/pexels-axp-photography-500641970-18991563.jpg`,         alt: "Colosseum",        label: "Colosseum" },
-  { src: `${R2}/pexels-giorgi-gobadze-2160475859-36770779.jpg`,         alt: "Sistine Chapel",   label: "Sistine Chapel" },
-  { src: `${R2}/pexels-efrem-efre-2786187-17282659.jpg`,                alt: "Roman Forum",      label: "Roman Forum" },
-  { src: `${R2}/pexels-alex-250137-757239.jpg`,                         alt: "Trevi Fountain",   label: "Trevi Fountain" },
-  { src: `${R2}/pexels-filiamariss-30785778.jpg`,                       alt: "St Peters",        label: "St. Peter's" },
-];
 
 const HOW_TO_STEPS = [
   { num: "01", title: "Choose Your Experience",  desc: "Browse our curated Vatican & Rome tours. Filter by duration, group size, or attraction." },
@@ -31,17 +23,15 @@ const HOW_TO_STEPS = [
   { num: "04", title: "Meet Your Guide",          desc: "Arrive at the meeting point. Your expert guide will be waiting with skip-the-line access." },
 ];
 
-const FEATURES = [
-  { icon: Zap,          title: "Skip the Line",        desc: "Bypass queues of up to 3 hours with our official fast-track access." },
-  { icon: Shield,       title: "Free Cancellation",    desc: "Full refund up to 24 hours before your tour. No questions asked." },
-  { icon: Star,         title: "Expert Guides",        desc: "Licensed art historians and archaeologists bring history to life." },
-  { icon: Users,        title: "Small Groups",         desc: "Maximum 15 people per group for an intimate, personal experience." },
-  { icon: Clock,        title: "Instant Confirmation", desc: "Receive your e-ticket within seconds of booking." },
-  { icon: CheckCircle,  title: "Official Access",      desc: "Authorised by Vatican Museums and Italian Ministry of Culture." },
+const GOOGLE_REVIEWS = [
+  { author: "Michael T.", date: "2 weeks ago", rating: 5, text: "Incredible experience bypassing the massive lines outside the Vatican. Our guide was extremely knowledgeable about the Sistine Chapel frescoes. Worth every penny." },
+  { author: "Sarah Jenkins", date: "1 month ago", rating: 5, text: "Booking was seamless and the instant confirmation gave us peace of mind. The tour was perfectly paced, and we actually had room to breathe in the galleries." },
+  { author: "David R.", date: "3 months ago", rating: 5, text: "Highly recommend Roman Vatican Tour. They organized our entire family's visit flawlessly. The communication via WhatsApp before the tour was a lifesaver." }
 ];
 
 export default async function Home() {
   let tours = await getTours();
+  let posts = await getPosts() || [];
   const settings = await getSettings();
 
   if (!tours || tours.length === 0) {
@@ -50,80 +40,26 @@ export default async function Home() {
     })) as any;
   }
 
-  const vaticanTours   = tours.filter((t: any) => t.category === "vatican").slice(0, 4);
-  const colosseumTours = tours.filter((t: any) => t.category === "colosseum").slice(0, 4);
+  const vaticanTours = tours.filter((t: any) => t.category === "vatican").slice(0, 4);
 
   return (
     <main className="min-h-screen bg-background overflow-x-hidden selection:bg-primary selection:text-white">
       <Navbar />
       <Hero settings={settings} />
 
-      {/* Gallery mosaic */}
-      <AnimatedSection delay={0.1}>
-        <section className="py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Gallery</p>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e] leading-tight">
-                Unforgettable Moments in the<br />
-                <span className="text-primary italic">Heart of Rome</span>
-              </h2>
-              <p className="mt-4 text-base text-[#85766a] max-w-xl mx-auto font-sans">
-                Every corner of the Eternal City holds a story. Let us show you the ones that last a lifetime.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-              {GALLERY_IMAGES.map((img, i) => (
-                <div key={i} className={`relative overflow-hidden rounded-2xl group cursor-pointer ${i === 0 ? "md:col-span-2 aspect-[16/9]" : "aspect-square"}`}>
-                  <Image src={img.src} alt={img.alt} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 768px) 50vw, 33vw" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1210]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <span className="absolute bottom-3 left-3 text-white text-[10px] font-sans font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300">{img.label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* Features */}
-      <AnimatedSection delay={0.1}>
-        <section className="py-24 bg-[#e7dbbf]/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Why Choose Us</p>
-              <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e]">
-                The Best Rome Adventures<br />
-                <span className="text-primary italic">for Every Traveler</span>
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {FEATURES.map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="bg-card rounded-2xl p-6 border border-[#b19681]/20 hover:shadow-lg transition-shadow duration-300 group">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
-                    <Icon className="w-6 h-6 text-primary group-hover:text-white" />
-                  </div>
-                  <h3 className="text-lg font-serif font-bold text-[#5c4b3e] mb-2">{title}</h3>
-                  <p className="text-sm text-[#85766a] leading-relaxed font-sans">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* Vatican Tours */}
+      {/* Vatican Collection */}
       {vaticanTours.length > 0 && (
         <AnimatedSection delay={0.1}>
           <section id="vatican" className="py-24 bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-end justify-between mb-12">
+              <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
                 <div>
-                  <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-2">Vatican</p>
-                  <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#5c4b3e]">The Vatican Collection</h2>
-                  <p className="mt-2 text-base text-[#85766a] max-w-lg font-sans">Secure your skip-the-line access to the Sistine Chapel, Museums, and St. Peter's Basilica.</p>
+                  <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-2">Exclusive Access</p>
+                  <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e] leading-tight">The Vatican Collection</h2>
+                  <p className="mt-4 text-base text-[#85766a] max-w-xl font-sans">Secure your skip-the-line access to the Sistine Chapel, Museums, and St. Peter's Basilica before they sell out.</p>
                 </div>
-                <Link href="/category/vatican" className="hidden md:inline-flex items-center gap-2 text-xs font-sans font-black uppercase tracking-widest text-primary hover:underline shrink-0">
-                  View All <ArrowRight className="w-4 h-4" />
+                <Link href="/category/vatican" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-[10px] font-sans font-black uppercase tracking-widest rounded-full hover:bg-primary/90 transition-all shadow-md shrink-0">
+                  View All Vatican Tours <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -134,96 +70,152 @@ export default async function Home() {
         </AnimatedSection>
       )}
 
-      {/* Colosseum Tours */}
-      {colosseumTours.length > 0 && (
-        <AnimatedSection delay={0.1}>
-          <section id="colosseum" className="py-24 bg-[#413c33]">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex items-end justify-between mb-12">
-                <div>
-                  <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-accent mb-2">Ancient Rome</p>
-                  <h2 className="text-3xl md:text-4xl font-serif font-bold text-white">Ancient Rome Experiences</h2>
-                  <p className="mt-2 text-base text-stone-400 max-w-lg font-sans">Explore the Colosseum, Roman Forum, and Palatine Hill with expert archaeologists.</p>
-                </div>
-                <Link href="/category/colosseum" className="hidden md:inline-flex items-center gap-2 text-xs font-sans font-black uppercase tracking-widest text-accent hover:underline shrink-0">
-                  View All <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                {colosseumTours.map((tour: any) => <TourCard key={tour._id} tour={tour} dark />)}
-              </div>
-            </div>
-          </section>
-        </AnimatedSection>
-      )}
-
       {/* How to Book */}
       <AnimatedSection delay={0.1}>
-        <section className="py-24 bg-background">
+        <section className="py-24 bg-[#e7dbbf]/30 border-y border-[#b19681]/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
-                <Image src={`${R2}/pexels-giorgi-gobadze-2160475859-36770780.jpg`} alt="How to book" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1210]/40 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="bg-[#e4d7b0]/90 backdrop-blur-sm rounded-2xl p-4 flex items-center gap-4 border border-white/20">
-                    <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shrink-0 shadow-lg shadow-primary/20">
-                      <Star className="w-6 h-6 text-white fill-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-serif font-bold text-[#5c4b3e]">4.9 / 5.0 Rating</p>
-                      <p className="text-[10px] text-[#85766a] font-sans font-black uppercase tracking-widest">Based on 3,200+ verified reviews</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Process</p>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e] mb-4">How to Book Your Tour</h2>
-                <p className="text-base text-[#85766a] mb-10 font-sans">From browsing to boarding — our booking process takes less than 3 minutes.</p>
-                <div className="space-y-6">
+                <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Simple Process</p>
+                <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e] mb-6 leading-tight">How to Secure Your<br/><span className="text-primary italic">Priority Access</span></h2>
+                <p className="text-base text-[#85766a] mb-12 font-sans max-w-md">From browsing to receiving your verified tickets — our encrypted booking flow takes less than 3 minutes.</p>
+                <div className="space-y-8">
                   {HOW_TO_STEPS.map((step, i) => (
-                    <div key={i} className="flex gap-5 group">
-                      <div className="shrink-0 w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center font-serif font-black text-primary text-sm group-hover:bg-primary group-hover:text-white transition-colors duration-300 italic">{step.num}</div>
+                    <div key={i} className="flex gap-6 group">
+                      <div className="shrink-0 w-14 h-14 rounded-2xl bg-white border border-[#b19681]/20 flex items-center justify-center font-serif font-black text-primary text-xl shadow-sm group-hover:bg-primary group-hover:text-white transition-colors duration-300 italic">{step.num}</div>
                       <div className="pt-1">
-                        <h3 className="text-lg font-serif font-bold text-[#5c4b3e] mb-1">{step.title}</h3>
+                        <h3 className="text-xl font-serif font-bold text-[#5c4b3e] mb-2">{step.title}</h3>
                         <p className="text-sm text-[#85766a] leading-relaxed font-sans">{step.desc}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
+              <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white">
+                <Image src={`${R2}/pexels-giorgi-gobadze-2160475859-36770780.jpg`} alt="How to book" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1210]/60 to-transparent" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <div className="bg-white/95 backdrop-blur-md rounded-2xl p-6 flex items-center gap-5 shadow-xl">
+                    <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-inner">
+                      <Zap className="w-6 h-6 text-white fill-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-sans font-black uppercase tracking-widest text-[#5c4b3e] mb-1">Instant Delivery</p>
+                      <p className="text-xs text-[#85766a] font-sans font-medium">Your e-tickets are generated immediately upon checkout.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </AnimatedSection>
 
-      {/* Reviews */}
+      {/* Trusted (Trust Badges) */}
       <AnimatedSection delay={0.1}>
-        <section className="py-24 bg-[#e7dbbf]/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-            <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Testimonials</p>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e]">Trusted by Travelers Worldwide</h2>
+        <section className="py-24 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Authorized Provider</p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#5c4b3e] mb-16">Trusted by the World's Leading Travel Platforms</h2>
+            <TrustBadges />
           </div>
-          <FloatingReviews />
         </section>
       </AnimatedSection>
 
-      {/* CTA */}
+      {/* Reviews (Floating + Google) */}
       <AnimatedSection delay={0.1}>
-        <section className="py-24 bg-[#413c33] relative overflow-hidden">
-          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "32px 32px" }} />
-          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Experience the Magic of<br />Roman Vatican Today</h2>
-            <p className="text-base text-stone-300 mb-10 max-w-xl mx-auto font-sans">Join 50,000+ travelers who have unlocked Rome through exclusive access, expert storytelling, and zero waiting.</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/search" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white font-sans font-black uppercase tracking-widest rounded-xl hover:bg-primary/90 transition-all text-[10px]">
-                Browse All Tours <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/20 text-white font-sans font-black uppercase tracking-widest rounded-xl hover:bg-white/10 transition-all text-[10px]">
-                Contact Us
-              </Link>
+        <section className="py-24 bg-[#413c33] text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-[#e4d7b0] mb-3">Verified Feedback</p>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6">What Our Guests Say</h2>
+              <div className="flex items-center justify-center gap-2 mb-8">
+                 <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                 <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                 <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                 <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                 <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                 <span className="ml-2 font-bold text-lg">4.9 / 5.0</span>
+              </div>
             </div>
+            
+            {/* Real Google Reviews Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+               {GOOGLE_REVIEWS.map((review, i) => (
+                  <div key={i} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 relative">
+                     <div className="absolute top-6 right-6">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-6 h-6 grayscale opacity-50" />
+                     </div>
+                     <div className="flex items-center gap-1 mb-4">
+                        {[...Array(review.rating)].map((_, idx) => <Star key={idx} className="w-4 h-4 text-yellow-400 fill-yellow-400" />)}
+                     </div>
+                     <p className="text-white/90 italic font-serif leading-relaxed mb-6">"{review.text}"</p>
+                     <div className="flex items-center justify-between mt-auto">
+                        <span className="font-bold text-sm">{review.author}</span>
+                        <span className="text-[10px] uppercase tracking-widest opacity-50">{review.date}</span>
+                     </div>
+                  </div>
+               ))}
+            </div>
+
+            <div className="text-center">
+               <a 
+                  href="https://www.google.com/maps/place/Roman+Vatican+Tour+S.R.L.S/@41.9072162,12.4566341,17z/data=!3m1!4b1!4m6!3m5!1s0x132f618ae0168875:0xfd29b1c14213fe3!8m2!3d41.9072162!4d12.4566341!16s%2Fg%2F11w81zhl56" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#413c33] font-bold rounded-full hover:bg-[#e4d7b0] transition-colors shadow-lg uppercase tracking-widest text-[10px]"
+               >
+                  Read all Google Reviews <ExternalLink className="w-4 h-4" />
+               </a>
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* Blog Section */}
+      <AnimatedSection delay={0.1}>
+        <section className="py-24 bg-background border-b border-[#b19681]/10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-end justify-between mb-12">
+               <div>
+                  <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-2">Travel Insights</p>
+                  <h2 className="text-4xl font-serif font-bold text-[#5c4b3e]">The Roman Journal</h2>
+               </div>
+               <Link href="/blog" className="hidden md:inline-flex items-center gap-2 text-xs font-sans font-black uppercase tracking-widest text-primary hover:underline shrink-0">
+                  Read All Articles <ArrowRight className="w-4 h-4" />
+               </Link>
+            </div>
+
+            {posts.length > 0 ? (
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {posts.slice(0, 3).map((post: any) => (
+                     <Link key={post._id} href={`/blog/${post.slug.current}`} className="group flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-[#b19681]/20 hover:shadow-xl transition-all duration-300">
+                        <div className="relative aspect-[16/10] overflow-hidden">
+                           <Image 
+                              src={post.mainImage ? (typeof post.mainImage === 'string' ? post.mainImage : post.mainImage.asset?.url) : `${R2}/pexels-efrem-efre-2786187-17282659.jpg`} 
+                              alt={post.title} 
+                              fill 
+                              className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                           />
+                        </div>
+                        <div className="p-6 flex flex-col flex-1">
+                           <span className="text-[10px] font-black uppercase tracking-widest text-primary mb-3 block">
+                              {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                           </span>
+                           <h3 className="text-xl font-serif font-bold text-[#5c4b3e] mb-3 group-hover:text-primary transition-colors">{post.title}</h3>
+                           <p className="text-sm text-[#85766a] line-clamp-3 mb-6 font-sans">{post.excerpt}</p>
+                           <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary group-hover:underline">
+                              Read More <ArrowRight className="w-3 h-3" />
+                           </span>
+                        </div>
+                     </Link>
+                  ))}
+               </div>
+            ) : (
+               <div className="text-center py-12 bg-[#e7dbbf]/30 rounded-3xl border border-[#b19681]/20">
+                  <p className="text-[#85766a] font-serif italic text-lg">Journal entries are currently being archived. Check back soon.</p>
+               </div>
+            )}
           </div>
         </section>
       </AnimatedSection>

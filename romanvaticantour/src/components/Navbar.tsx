@@ -94,12 +94,20 @@ export default function Navbar() {
     };
 
     const navLinks = [
-        { name: t('nav.colosseum') || 'Colosseum', href: '/category/colosseum' },
-        { name: t('nav.vatican') || 'Vatican', href: '/category/vatican' },
-        { name: t('nav.city') || 'City Tours', href: '/category/city' },
-        { name: t('nav.hidden') || 'Hidden Gems', href: '/category/hidden-gems' },
-        { name: t('nav.about') || 'About Us', href: '/about' },
+        {
+            name: 'Tours',
+            isDropdown: true,
+            items: [
+                { name: 'Vatican Tours', href: '/category/vatican' },
+                { name: 'Colosseum Tours', href: '/category/colosseum' },
+                { name: 'Other Tours', href: '/search' },
+            ]
+        },
+        { name: 'About Us', href: '/about' },
+        { name: 'Contact', href: '/contact' },
     ];
+
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
     const scrolled = isScrolled || isMobileMenuOpen;
 
@@ -146,15 +154,56 @@ export default function Navbar() {
                         </Link>
 
                         {/* Desktop Nav Links */}
-                        <div className="hidden lg:flex items-center gap-3 xl:gap-4 flex-1 justify-center">
+                        <div className="hidden lg:flex items-center gap-6 xl:gap-8 flex-1 justify-center">
                             {navLinks.map((link) => {
+                                if (link.isDropdown) {
+                                    return (
+                                        <div
+                                            key={link.name}
+                                            className="relative"
+                                            onMouseEnter={() => setActiveDropdown(link.name)}
+                                            onMouseLeave={() => setActiveDropdown(null)}
+                                        >
+                                            <button
+                                                className={clsx(
+                                                    'flex items-center gap-1 text-[11px] xl:text-xs font-serif font-bold italic tracking-wide transition-colors pb-1',
+                                                    scrolled ? 'text-[#5c4b3e] hover:text-primary' : 'text-white hover:text-white/80'
+                                                )}
+                                            >
+                                                {link.name}
+                                                <ChevronDown size={14} className={clsx("transition-transform", activeDropdown === link.name && "rotate-180")} />
+                                            </button>
+                                            <AnimatePresence>
+                                                {activeDropdown === link.name && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, y: 10 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: 10 }}
+                                                        className="absolute top-full left-0 mt-2 w-48 bg-white/95 backdrop-blur-xl border border-gray-100 rounded-xl shadow-lg overflow-hidden py-2"
+                                                    >
+                                                        {link.items.map(item => (
+                                                            <Link
+                                                                key={item.href}
+                                                                href={item.href}
+                                                                className="block px-4 py-2 text-sm font-bold text-gray-800 hover:bg-primary/5 hover:text-primary transition-colors"
+                                                            >
+                                                                {item.name}
+                                                            </Link>
+                                                        ))}
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+                                    );
+                                }
+
                                 const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
                                 return (
                                     <Link
                                         key={link.href}
                                         href={link.href}
                                         className={clsx(
-                                            'text-[10px] xl:text-xs font-serif font-bold italic tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
+                                            'text-[11px] xl:text-xs font-serif font-bold italic tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
                                             'after:absolute after:bottom-0 after:left-0 after:h-[1px] after:transition-all after:duration-500',
                                             isActive
                                                 ? 'after:w-full after:bg-primary'
@@ -170,135 +219,15 @@ export default function Navbar() {
                             })}
                         </div>
 
-                        {/* Desktop Glassmorphism Search Bar */}
-                        <div
-                            className={clsx(
-                                'hidden lg:flex items-center rounded-full pl-4 pr-1.5 py-1.5 border shrink-0 gap-3 transition-all duration-300',
-                                scrolled
-                                    ? 'bg-white/70 backdrop-blur-xl border-white/60 shadow-lg shadow-primary/5'
-                                    : 'bg-white/20 backdrop-blur-md border-white/30 shadow-lg'
-                            )}
-                        >
-                            {/* Destination */}
-                            <div className={clsx('flex items-center border-r pr-4', scrolled ? 'border-primary/10' : 'border-white/20')}>
-                                <Search size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
-                                <select
-                                    value={destination}
-                                    onChange={(e) => setDestination(e.target.value)}
-                                    className={clsx(
-                                        'bg-transparent text-xs xl:text-sm font-bold outline-none w-28 xl:w-32 cursor-pointer appearance-none truncate',
-                                        scrolled ? 'text-gray-800' : 'text-white/90'
-                                    )}
-                                >
-                                    <option value="" disabled className="text-gray-500">{t('nav.search_placeholder') || 'Search Tours'}</option>
-                                    {searchOptions.map((opt) => (
-                                        <option key={opt.slug} value={opt.title} className="text-gray-800">{opt.title}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            {/* Date */}
-                            <div
-                                className={clsx('flex items-center border-r pr-4 relative cursor-pointer', scrolled ? 'border-primary/10' : 'border-white/20')}
-                                ref={calendarRef}
-                            >
-                                <div className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
-                                    <Calendar size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
-                                    <span className={clsx(
-                                        'text-xs xl:text-sm font-sans font-black uppercase tracking-widest w-20 xl:w-24 truncate',
-                                        date
-                                            ? (scrolled ? 'text-gray-800' : 'text-white')
-                                            : (scrolled ? 'text-gray-400' : 'text-white/60')
-                                    )}>
-                                        {date ? format(new Date(date), 'MMM dd') : 'Add Date'}
-                                    </span>
-                                </div>
-                                <AnimatePresence>
-                                    {isCalendarOpen && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                                            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                                            className="absolute top-full left-1/2 -translate-x-1/2 mt-6 bg-white/90 backdrop-blur-2xl rounded-2xl shadow-[0_20px_40px_rgba(141,157,79,0.1)] border border-white/50 p-2 z-50 w-auto ring-1 ring-primary/5"
-                                        >
-                                            <div className="p-2">
-                                                <SmartCalendar
-                                                    slug={activeSlug}
-                                                    selectedDate={date ? new Date(date) : undefined}
-                                                    onSelect={(d) => {
-                                                        setDate(d ? format(d, 'yyyy-MM-dd') : '');
-                                                        setIsCalendarOpen(false);
-                                                    }}
-                                                    basePrice={0}
-                                                />
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-
-                            {/* Guests */}
-                            <div className="relative flex items-center pr-1 cursor-pointer" ref={guestRef}>
-                                <div
-                                    className={clsx(
-                                        'flex items-center rounded-full px-2 py-1 transition-all duration-300',
-                                        scrolled ? 'hover:bg-primary/5' : 'hover:bg-white/10'
-                                    )}
-                                    onClick={() => setIsGuestOpen(!isGuestOpen)}
-                                >
-                                    <Users size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
-                                    <span className={clsx(
-                                        'text-xs xl:text-sm font-sans font-black uppercase tracking-widest w-14 text-center select-none',
-                                        scrolled ? 'text-gray-800' : 'text-white'
-                                    )}>
-                                        {guests} pax
-                                    </span>
-                                </div>
-                                <AnimatePresence>
-                                    {isGuestOpen && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            exit={{ opacity: 0, y: 15, scale: 0.95 }}
-                                            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                                            className="absolute top-full right-0 mt-6 w-48 bg-white/90 backdrop-blur-2xl rounded-2xl shadow-[0_20px_40px_rgba(141,157,79,0.1)] border border-white/50 p-4 z-50 ring-1 ring-primary/5"
-                                        >
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-sm font-bold text-gray-700">Guests</span>
-                                                <div className="flex items-center gap-3">
-                                                    <button
-                                                        onClick={() => setGuests(Math.max(1, guests - 1))}
-                                                        className="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary hover:scale-110 active:scale-95 transition-all shadow-sm"
-                                                    >
-                                                        <Minus size={14} />
-                                                    </button>
-                                                    <span className="font-bold text-gray-900 w-4 text-center">{guests}</span>
-                                                    <button
-                                                        onClick={() => setGuests(Math.min(20, guests + 1))}
-                                                        className="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary hover:scale-110 active:scale-95 transition-all shadow-sm"
-                                                    >
-                                                        <Plus size={14} />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-
-                            <button
-                                onClick={handleSearch}
-                                className="bg-primary hover:bg-primary/90 text-white rounded-full p-2.5 transition-all hover:scale-105 active:scale-95 shrink-0 shadow-md border border-primary/50"
-                            >
-                                <Search size={16} />
-                            </button>
-                        </div>
-
                         {/* Right Actions */}
-                        <div className="hidden lg:flex items-center gap-3 shrink-0">
-                            <CartDropdown />
+                        <div className="hidden lg:flex items-center gap-4 shrink-0">
                             <LanguageSwitcher />
+                            <Link 
+                                href="/search"
+                                className="bg-primary hover:bg-primary/90 text-white font-bold px-6 py-2.5 rounded-full uppercase tracking-widest text-[10px] transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5"
+                            >
+                                Book Now
+                            </Link>
                         </div>
 
                         {/* Mobile Toggle */}
