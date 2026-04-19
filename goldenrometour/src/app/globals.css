@@ -1,554 +1,62 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  /* ============================================
-     BASE THEME VARIABLES - GOLDEN ROME TOUR
-     ============================================ */
-  --color-cream: #F5F0E8;
-  --color-cream-100: #F5F5DC;
-  --color-cream-50: #FDFAF5;
-
-  /* Forest palette — core brand colors */
-  --color-forest: #1A1210;
-  --color-forest-50: #F5F0E8;
-  --color-forest-100: #E8DDD0;
-  --color-forest-200: #C9B8A0;
-  --color-forest-400: #6B5C45;
-  --color-forest-600: #3D2B1F;
-  --color-forest-800: #1A1210;
-  --color-forest-black: #0B0806;
-
-  /* Gold accent */
-  --color-gold: #C9A84C;
-  --color-gold-light: #E8C97A;
-  --color-gold-dark: #A07830;
-
-  /* Neutral scale for components */
-  --color-neutral-50:  #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
-  --color-neutral-300: #d4d4d4;
-  --color-neutral-400: #a3a3a3;
-  --color-neutral-500: #737373;
-  --color-neutral-600: #525252;
-  --color-neutral-700: #404040;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #171717;
-  --color-neutral-950: #0a0a0a;
-
-  /* Amber for ratings */
-  --color-amber-400: #fbbf24;
-  --color-amber-500: #f59e0b;
-
-  /* Theme-aware colors — NO self-references, use plain fallback values */
-  --color-theme-primary: #C9A84C;
-  --color-theme-secondary: #F5F0E8;
-  --color-theme-dark: #1A1210;
-  --color-theme-light: #F5F0E8;
-  --color-theme-accent: #7B2D2D;
-
-  /* Font variables — Next.js injects --font-serif/sans via layout.tsx, fallbacks used otherwise */
-  --font-serif: var(--font-serif, "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", serif);
-  --font-sans: var(--font-sans, "Cormorant Garamond", ui-sans-serif, system-ui, sans-serif);
-  --font-nav: var(--font-nav, "Josefin Sans", ui-sans-serif, system-ui, sans-serif);
-
-  --animate-flight: flight 20s linear infinite;
-}
-
-/* ============================================
-   GOLDEN ROME TOUR THEME (Vatican Gold / Papal Brown)
-   ============================================ */
 :root {
-  --color-primary: #C9A84C;
-  --color-secondary: #F5F0E8;
-  --color-dark: #1A1210;
-  --color-light: #F5F0E8;
-  --color-accent: #7B2D2D;
-  
-  --bg-gradient-start: #F5F0E8;
-  --bg-gradient-end: #F5F0E8;
-
-  --color-text-primary: #1A1210;
-  --color-text-secondary: #3D2B1F;
-  --color-bg-primary: #F5F0E8;
-  --color-bg-secondary: #ffffff;
-
-  --background: #F5F0E8;
-  --foreground: #1A1210;
+  --background: #faf9f5;
+  --foreground: #3d3929;
+  --card: #faf9f5;
+  --card-foreground: #141413;
+  --popover: #ffffff;
+  --popover-foreground: #28261b;
+  --primary: #c96442;
+  --primary-foreground: #ffffff;
+  --secondary: #e9e6dc;
+  --secondary-foreground: #535146;
+  --muted: #ede9de;
+  --muted-foreground: #83827d;
+  --accent: #e9e6dc;
+  --accent-foreground: #28261b;
+  --destructive: #141413;
+  --destructive-foreground: #ffffff;
+  --border: #dad9d4;
+  --input: #b4b2a7;
+  --ring: #c96442;
+  --radius: 0.5rem;
+  --chart-1: #b05730;
+  --chart-2: #9c87f5;
+  --chart-3: #ded8c4;
+  --chart-4: #dbd3f0;
+  --chart-5: #b4552d;
 }
 
-::selection {
-  background-color: var(--color-primary);
-  color: white;
+.dark {
+  --background: #262624;
+  --foreground: #c3c0b6;
+  --card: #262624;
+  --card-foreground: #faf9f5;
+  --popover: #30302e;
+  --popover-foreground: #e5e5e2;
+  --primary: #d97757;
+  --primary-foreground: #ffffff;
+  --secondary: #faf9f5;
+  --secondary-foreground: #30302e;
+  --muted: #1b1b19;
+  --muted-foreground: #b7b5a9;
+  --accent: #1a1915;
+  --accent-foreground: #f5f4ee;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #3e3e38;
+  --input: #52514a;
+  --ring: #d97757;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
-  letter-spacing: 0.01em;
-  line-height: 1.7;
-  font-size: 18px;
-}
-
-/* ============================================
-   PREMIUM TYPOGRAPHY SYSTEM
-   ============================================ */
-
-/* Headings use serif font (Playfair Display) */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: 700;
-}
-
-/* Default heading colors for sections without explicit color classes */
-/* Exclude nav to prevent navbar interference */
-section h1:not([class*="text-"]),
-section h2:not([class*="text-"]),
-section h3:not([class*="text-"]),
-section h4:not([class*="text-"]),
-section h5:not([class*="text-"]),
-section h6:not([class*="text-"]),
-main > div h1:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h2:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h3:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h4:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h5:not([class*="text-"]):not(.drop-shadow-lg),
-main > div h6:not([class*="text-"]):not(.drop-shadow-lg),
-article h1:not([class*="text-"]),
-article h2:not([class*="text-"]),
-article h3:not([class*="text-"]),
-article h4:not([class*="text-"]),
-article h5:not([class*="text-"]),
-article h6:not([class*="text-"]) {
-  color: var(--color-text-primary, #1a1a1a);
-}
-
-h1 {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-}
-
-h2 {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  font-weight: 600;
-  margin-bottom: 1.25rem;
-}
-
-h3 {
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  line-height: 1.3;
-  letter-spacing: 0;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-h4 {
-  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-  line-height: 1.4;
-  letter-spacing: 0;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-}
-
-h5 {
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
-  line-height: 1.4;
-  letter-spacing: 0;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-h6 {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  line-height: 1.5;
-  letter-spacing: 0;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-/* Body text uses sans-serif font (Inter) */
-p {
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  margin-bottom: 1rem;
-  color: var(--color-text-secondary, #4b5563);
-}
-
-/* Utility text classes */
-.lead {
-  font-size: clamp(1.125rem, 2vw, 1.375rem);
-  line-height: 1.6;
-  letter-spacing: 0.005em;
-  font-weight: 400;
-  color: var(--color-text-primary, #1a1a1a);
-}
-
-.small {
-  font-size: clamp(0.875rem, 1.25vw, 1rem);
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-}
-
-/* ============================================
-   PREMIUM FEATURE: Grain Texture Overlay
-   ============================================ */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-}
-
-/* ============================================
-   THEME UTILITY CLASSES
-   Use these for site-aware coloring
-   ============================================ */
-
-/* Primary Button */
-.btn-primary {
-  background-color: var(--color-primary);
-  color: white;
-  transition: background-color 0.2s;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-primary-dark);
-}
-
-/* Accent Button */
-.btn-accent {
-  background-color: var(--color-accent);
-  color: white;
-  transition: background-color 0.2s;
-}
-
-.btn-accent:hover {
-  background-color: var(--color-accent-light);
-}
-
-/* Text Colors */
-.text-theme-primary {
-  color: var(--color-primary);
-}
-
-.text-theme-accent {
-  color: var(--color-accent);
-}
-
-/* Background Colors */
-.bg-theme-primary {
-  background-color: var(--color-primary);
-}
-
-.bg-theme-primary-dark {
-  background-color: var(--color-primary-dark);
-}
-
-.bg-theme-accent {
-  background-color: var(--color-accent);
-}
-
-/* Border Colors */
-.border-theme-primary {
-  border-color: var(--color-primary);
-}
-
-.border-theme-accent {
-  border-color: var(--color-accent);
-}
-
-/* ============================================
-   PREMIUM FEATURE: Gradient Text Utilities
-   ============================================ */
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-rome {
-  background: linear-gradient(135deg, #d97706 0%, #dc2626 50%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-text-vatican {
-  background: linear-gradient(135deg, #d4af37 0%, #fbbf24 50%, #f59e0b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@keyframes flight {
-  0% {
-    transform: translate(0, 0);
+@layer base {
+  * {
+    @apply border-border;
   }
-
-  50% {
-    transform: translate(100px, -20px);
+  body {
+    @apply bg-background text-foreground;
   }
-
-  100% {
-    transform: translate(0, 0);
-  }
-}
-
-/* Smooth scrolling handled by Lenis */
-
-/* ============================================
-   PREMIUM FEATURE: Custom Scrollbar
-   ============================================ */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-secondary, #f5f5dc);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary, #059669);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-dark, #064e3b);
-}
-
-
-/* ============================================
-   TEXT CONTRAST FIX - SIMPLIFIED
-   Ensure proper text colors on dark backgrounds
-   ============================================ */
-
-/* Ensure dark background sections have proper text contrast */
-.bg-neutral-900 h1,
-.bg-neutral-900 h2,
-.bg-neutral-900 h3,
-.bg-neutral-900 h4,
-.bg-neutral-900 h5,
-.bg-neutral-900 h6 {
-  color: white !important;
-}
-
-.bg-neutral-900 p {
-  color: rgb(163, 163, 163) !important; /* gray-400 equivalent */
-}
-
-/* SocialProof section - force forest text on cream */
-.bg-cream h1,
-.bg-cream h2,
-.bg-cream h3,
-.bg-cream h4,
-.bg-cream h5,
-.bg-cream h6,
-.bg-cream p,
-.bg-cream span {
-  color: inherit !important;
-}
-
-/* Hero section with dark overlay - force white text */
-.relative.h-screen h1,
-.relative.h-screen h2,
-.relative.h-screen h3,
-.relative.h-screen p,
-.relative.h-screen span:not(.text-transparent) {
-  color: white !important;
-}
-
-/* Parallax/Sticky sections - force white text */
-.relative.h-\[250vh\] h1,
-.relative.h-\[250vh\] h2,
-.relative.h-\[250vh\] h3,
-.relative.h-\[250vh\] p,
-.relative.h-\[250vh\] span:not(.text-transparent) {
-  color: white !important;
-}
-
-/* Footer text - ensure cream on forest-black */
-footer.bg-forest-black h1,
-footer.bg-forest-black h2,
-footer.bg-forest-black h3,
-footer.bg-forest-black h4,
-footer.bg-forest-black h5,
-footer.bg-forest-black h6,
-footer.bg-forest-black p,
-footer.bg-forest-black span,
-footer.bg-forest-black a {
-  color: inherit !important;
-}
-
-/* ============================================
-   MOBILE MENU FIX - Ensure visibility
-   ============================================ */
-/* Force mobile menu to be visible and on top */
-nav {
-  position: relative;
-  z-index: 100;
-}
-
-/* Ensure navbar links respect Tailwind color classes */
-nav a {
-  color: inherit;
-}
-
-/* Mobile menu must be above everything */
-.fixed.inset-0.bg-white,
-.fixed.inset-0.bg-cream {
-  z-index: 9999 !important;
-  pointer-events: auto !important;
-  display: flex !important;
-}
-
-/* Mobile toggle button must be above menu */
-button[class*="z-[250]"] {
-  z-index: 10000 !important;
-  position: relative !important;
-}
-
-/* ============================================
-   TOUR CARD TEXT - Ensure white text on images
-   ============================================ */
-/* Force white text on all badges and overlays on images */
-.absolute.top-4.left-4,
-.absolute.bottom-4.left-4 span,
-.absolute.top-4.right-4 {
-  color: white !important;
-}
-
-/* Ensure all text on image overlays is white */
-.aspect-4\/3 .absolute {
-  color: white !important;
-}
-
-/* ── Marquee animation (SocialProof) ── */
-@keyframes marquee {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 32s linear infinite;
-  will-change: transform;
-}
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
-
-/* ── Gallery scroll animation (RomeGallery) ── */
-@keyframes gallery-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.animate-gallery-scroll {
-  animation: gallery-scroll 40s linear infinite;
-  will-change: transform;
-}
-
-/* ============================================
-   PERFORMANCE: Reduce layout thrash on scroll
-   ============================================ */
-img {
-  content-visibility: auto;
-}
-
-.overflow-x-auto,
-.overflow-y-auto,
-.overflow-auto {
-  will-change: scroll-position;
-  -webkit-overflow-scrolling: touch;
-}
-
-.animate-marquee,
-.animate-gallery-scroll {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-nav[class*="fixed"] {
-  will-change: background-color, box-shadow;
-  transform: translateZ(0);
-}
-
-.aspect-4\/3,
-.aspect-video,
-[class*="aspect-"] {
-  contain: layout style;
-}
-
-/* ============================================
-   CHECKOUT: Reset heading sizes to match design
-   globals.css h2/h3 sizes are too large for checkout
-   ============================================ */
-.checkout-heading {
-  font-size: 1.25rem !important;
-  line-height: 1.4 !important;
-  margin-bottom: 0 !important;
-  font-weight: 700 !important;
-  letter-spacing: 0 !important;
-}
-
-/* ============================================
-   CHECKOUT: Scope heading resets so globals don't bleed in
-   ============================================ */
-.checkout-scope h1,
-.checkout-scope h2,
-.checkout-scope h3,
-.checkout-scope h4,
-.checkout-scope h5,
-.checkout-scope h6 {
-  font-size: revert;
-  line-height: revert;
-  margin-bottom: revert;
-  letter-spacing: revert;
-  font-weight: revert;
-}
-
-/* ============================================
-   GLASSMORPHISM UTILITIES
-   ============================================ */
-.glass {
-  background: rgba(245, 240, 232, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(201, 168, 76, 0.15);
-}
-.glass-dark {
-  background: rgba(26, 18, 16, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(201, 168, 76, 0.1);
-}
-.glass-white {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-/* Performance: GPU-accelerate animated elements */
-.will-animate {
-  will-change: transform, opacity;
-}
-
-/* Highlighted text */
-.highlight {
-  color: var(--color-primary);
-  font-style: italic;
 }

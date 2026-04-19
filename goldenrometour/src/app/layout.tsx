@@ -10,6 +10,7 @@ import GlobalThemeProvider from "@/components/GlobalThemeProvider";
 import GoogleTranslate from "@/components/GoogleTranslate";
 import { getSite, DEFAULT_SITE_ID } from "@/lib/dataAdapter";
 import { CartProvider } from "@/context/CartContext";
+import CurveTransition from "@/components/CurveTransition";
 
 const playfair = Playfair_Display({
   weight: ['400', '500', '600', '700', '800', '900'],
@@ -18,7 +19,6 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
-// Cormorant Garamond — editorial body font for Golden Rome Tour
 const cormorant = Cormorant_Garamond({
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
@@ -53,30 +53,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const site = await getSite(DEFAULT_SITE_ID);
-  const siteName = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour';
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com';
   const siteSlug = site?.slug?.current || DEFAULT_SITE_ID;
 
   return (
     <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": siteName,
-              "url": siteUrl,
-              "potentialAction": {
-                "@type": "SearchAction",
-                "target": { "@type": "EntryPoint", "urlTemplate": `${siteUrl}/search?q={search_term_string}` },
-                "query-input": "required name=search_term_string",
-              },
-            })
-          }}
-        />
-      </head>
       <body
         className={`${cormorant.variable} ${playfair.variable} font-sans antialiased`}
         data-site-id={siteSlug}
@@ -88,11 +68,13 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <LanguageProvider>
               <CartProvider>
                 <GoogleTranslate />
-                <SmoothScroll>
-                  <WhatsAppButton />
-                  <CookieBanner />
-                  {children}
-                </SmoothScroll>
+                <CurveTransition>
+                    <SmoothScroll>
+                      <WhatsAppButton />
+                      <CookieBanner />
+                      {children}
+                    </SmoothScroll>
+                </CurveTransition>
               </CartProvider>
             </LanguageProvider>
           </GlobalThemeProvider>
