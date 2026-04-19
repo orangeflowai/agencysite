@@ -185,13 +185,13 @@ export default function FAQPage() {
                         Our Rome team is on standby from 8:00 AM to 7:00 PM, seven days a week.
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href="mailto:help@wondersofrome.com" className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
+                        <a href="mailto:Hmabdul845@gmail.com" className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
                             <Mail size={18} />
-                            help@wondersofrome.com
+                            Hmabdul845@gmail.com
                         </a>
-                        <a href="tel:+393898922088" className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1">
+                        <a href="tel:+393895217315" className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1">
                             <Phone size={18} />
-                            +39 389 892 2088
+                            +39 389 521 7315
                         </a>
                     </div>
                 </div>

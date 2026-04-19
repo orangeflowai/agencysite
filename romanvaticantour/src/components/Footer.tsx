@@ -63,9 +63,9 @@ export default function Footer() {
     const shareCapital = businessInfo?.shareCapital;
 
     // Contact info
-    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@yourdomain.com';
-    const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '';
-    const officeAddress = site?.officeAddress || t('footer.address');
+    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'Hmabdul845@gmail.com';
+    const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 389 521 7315';
+    const officeAddress = site?.officeAddress || 'Via Germanico, 28, Rome, Italy';
 
     // Social links
     const socialLinks = site?.socialLinks;
