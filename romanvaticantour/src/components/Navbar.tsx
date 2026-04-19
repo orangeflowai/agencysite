@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Menu, X, Search, Calendar, Users, Minus, Plus, ShoppingBag } from 'lucide-react';
+import { Menu, X, Search, Calendar, Users, Minus, Plus, ShoppingBag, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { useRouter, usePathname } from 'next/navigation';
@@ -197,11 +197,12 @@ export default function Navbar() {
                                     );
                                 }
 
-                                const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
+                                const href = link.href || '#';
+                                const isActive = pathname === href || pathname.startsWith(href + '/');
                                 return (
                                     <Link
-                                        key={link.href}
-                                        href={link.href}
+                                        key={href}
+                                        href={href}
                                         className={clsx(
                                             'text-[11px] xl:text-xs font-serif font-bold italic tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
                                             'after:absolute after:bottom-0 after:left-0 after:h-[1px] after:transition-all after:duration-500',
@@ -332,7 +333,7 @@ export default function Navbar() {
                                     transition={{ delay: 0.08 + i * 0.05 }}
                                 >
                                     <Link
-                                        href={link.href}
+                                        href={link.href || '#'}
                                         className="text-2xl font-bold text-slate-800 hover:text-sky-600 hover:scale-105 transition-all inline-block"
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >
