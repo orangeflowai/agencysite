@@ -63,7 +63,6 @@ export function urlFor(source: any) {
   if (!url) {
       const siteId = (process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome') as keyof typeof FALLBACKS;
       const images = FALLBACKS[siteId] || FALLBACKS.wondersofrome;
-      // Stable shuffle based on string length of tour if possible, or random
       url = images[0]; 
   }
 
