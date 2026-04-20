@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Search, MapPin, Calendar, Users, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 
 interface HeroProps {

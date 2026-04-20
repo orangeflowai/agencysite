@@ -210,7 +210,12 @@ export default function Footer() {
 
                     {/* Bottom Bar */}
                     <div className="border-t border-stone-800/50 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] text-stone-500 font-sans">
-                        <p>&copy; {currentYear} {site?.title || 'Roman Vatican Tour'}. All rights reserved.</p>
+                        <div className="flex flex-col gap-4">
+                            <p>&copy; {currentYear} {site?.title || 'Roman Vatican Tour'}. All rights reserved.</p>
+                            <div className="grayscale opacity-70 hover:opacity-100 transition-opacity">
+                                <PaymentLogos size="sm" />
+                            </div>
+                        </div>
 
                         {/* Company Details */}
                         <div className="text-center md:text-right flex flex-col md:items-end gap-1">

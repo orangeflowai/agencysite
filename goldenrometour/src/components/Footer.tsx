@@ -178,7 +178,12 @@ export default function Footer() {
 
                     {/* Bottom Bar */}
                     <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] text-cream/30 uppercase font-black tracking-widest">
-                        <p>&copy; {currentYear} {site?.title || 'Golden Rome Tour'}. All rights reserved.</p>
+                        <div className="flex flex-col gap-4">
+                            <p>&copy; {currentYear} {site?.title || 'Golden Rome Tour'}. All rights reserved.</p>
+                            <div className="grayscale opacity-70 hover:opacity-100 transition-opacity">
+                                <PaymentLogos size="sm" />
+                            </div>
+                        </div>
 
                         {/* Company Details */}
                         <div className="text-center md:text-right flex flex-col md:items-end gap-1">
