@@ -116,6 +116,7 @@ export default function TourCard({ tour }: TourCardProps) {
                             <Star size={13} fill="currentColor" />
                             <span className="font-nav text-[11px] font-bold">4.9</span>
                         </div>
+                        <span className="text-[#6B5C45]/20 text-[8px]">•</span>
                         <div className="flex items-center gap-1.5 text-[#6B5C45]/60">
                             <Clock size={13} />
                             <span className="font-nav text-[10px] uppercase tracking-wider font-bold">{tour.duration || '3h'}</span>

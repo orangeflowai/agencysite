@@ -288,55 +288,13 @@ export default async function Home() {
         </section>
       </AnimatedSection>
 
-      {/* Blog Section */}
+      {/* Blog Section - Hidden until content is ready
       <AnimatedSection delay={0.1}>
         <section className="py-24 bg-background border-b border-border">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
-               <div className="max-w-xl">
-                  <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-2">Editorial</p>
-                  <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground italic uppercase tracking-tighter leading-tight">The Roman Journal</SplitText>
-               </div>
-               <Link href="/blog" className="inline-flex items-center gap-2 px-6 py-3 border-2 border-primary/20 text-primary text-[10px] font-sans font-black uppercase tracking-widest rounded-full hover:bg-primary/5 transition-all shrink-0">
-                  Read All Articles <ArrowRight className="w-4 h-4" />
-               </Link>
-            </div>
-
-            {posts.length > 0 ? (
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {posts.slice(0, 3).map((post: any) => (
-                     <Link key={post._id} href={`/blog/${post.slug.current}`} className="group flex flex-col h-full bg-background rounded-[2rem] overflow-hidden border border-border hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                        <div className="relative aspect-[16/10] overflow-hidden">
-                           <Image 
-                              src={post.mainImage ? (typeof post.mainImage === 'string' ? post.mainImage : post.mainImage.asset?.url) : `${R2}/pexels-efrem-efre-2786187-17282659.jpg`} 
-                              alt={post.title} 
-                              fill 
-                              className="object-cover group-hover:scale-105 transition-transform duration-1000 grayscale group-hover:grayscale-0" 
-                           />
-                        </div>
-                        <div className="p-8 flex flex-col flex-1">
-                           <span className="text-[10px] font-black uppercase tracking-widest text-primary mb-4 block">
-                              {new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                           </span>
-                           <h3 className="text-xl font-serif font-bold text-foreground mb-4 group-hover:text-primary transition-colors leading-tight italic">{post.title}</h3>
-                           <p className="text-sm text-muted-foreground line-clamp-3 mb-8 font-sans font-medium">{post.excerpt}</p>
-                           <div className="mt-auto flex items-center justify-between">
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Read Entry</span>
-                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all"><ArrowRight size={14} /></div>
-                           </div>
-                        </div>
-                     </Link>
-                  ))}
-               </div>
-            ) : (
-               <div className="text-center py-20 bg-muted/10 rounded-[3rem] border-2 border-dashed border-border">
-                  <p className="text-muted-foreground font-serif italic text-xl">Journal entries are currently being archived. Check back soon.</p>
-               </div>
-            )}
-          </div>
+          ...
         </section>
       </AnimatedSection>
-
+      */}
       <div id="faq" className="bg-background"><FAQ /></div>
       <Footer />
     </main>

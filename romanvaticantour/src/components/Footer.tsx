@@ -147,30 +147,6 @@ export default function Footer() {
                                         </Link>
                                     </li>
                                 ))}
-                                <li>
-                                    <Link
-                                        href="/blog"
-                                        className="hover:text-primary transition-colors flex items-center group font-medium text-primary/80"
-                                    >
-                                        <ArrowRight
-                                            size={12}
-                                            className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all duration-300 mr-2"
-                                        />
-                                        {t('footer.blog')}
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href="/search"
-                                        className="hover:text-primary transition-colors flex items-center group"
-                                    >
-                                        <ArrowRight
-                                            size={12}
-                                            className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all duration-300 mr-2"
-                                        />
-                                        {t('footer.all_tours') || 'All Tours'}
-                                    </Link>
-                                </li>
                             </ul>
                         </div>
 

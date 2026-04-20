@@ -55,9 +55,15 @@ export default function Footer() {
     const shareCapital = site?.businessInfo?.shareCapital;
 
     // Contact info
-    const contactEmail = site?.contactEmail || 'desk@rome-editorial.com';
-    const contactPhone = site?.contactPhone || '';
-    const officeAddress = site?.officeAddress || 'Piazza del Popolo, Rome';
+    const contactEmail = site?.contactEmail || 'info@goldenrometours.com';
+    const contactPhone = site?.contactPhone || '+39 389 521 7315';
+    const officeAddress = site?.officeAddress || 'Via Germanico, 28, Rome, Italy';
+
+    const socialLinks = {
+        facebook: site?.socialLinks?.facebook || 'https://facebook.com/goldenrometours',
+        instagram: site?.socialLinks?.instagram || 'https://instagram.com/goldenrometours',
+        twitter: site?.socialLinks?.twitter || 'https://twitter.com/goldenrometours',
+    };
 
     return (
         <footer className="bg-forest-black text-cream selection:bg-forest selection:text-cream">
@@ -90,13 +96,13 @@ export default function Footer() {
 
                             {/* Social Links - Editorial Style */}
                             <div className="flex items-center space-x-4">
-                                <Link href="/" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
+                                <Link href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
                                     <Facebook size={16} />
                                 </Link>
-                                <Link href="/" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
+                                <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
                                     <Instagram size={16} />
                                 </Link>
-                                <Link href="/" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
+                                <Link href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
                                     <Twitter size={16} />
                                 </Link>
                             </div>
