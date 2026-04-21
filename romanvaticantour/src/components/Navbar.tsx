@@ -88,9 +88,27 @@ export default function Navbar() {
 
     return (
         <>
+            {/* 5K ROLLING MARQUEE */}
+            <div className="fixed top-0 left-0 right-0 z-[10002] bg-[#E36533] py-2 overflow-hidden border-b border-white/10 pointer-events-none">
+                <motion.div
+                    animate={{ x: [0, -1000] }}
+                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                    className="flex whitespace-nowrap gap-12 items-center"
+                >
+                    {[...Array(10)].map((_, i) => (
+                        <div key={i} className="flex items-center gap-12 text-[#1e40af] font-black uppercase tracking-[0.3em] text-[10px]">
+                            <span>✦ EXCLUSIVE VATICAN ACCESS ✦</span>
+                            <span>✦ SECURE YOUR ENTRY TICKETS NOW ✦</span>
+                            <span>✦ EXPERT LICENSED HISTORIANS ✦</span>
+                        </div>
+                    ))}
+                </motion.div>
+            </div>
+
             <nav
+                style={{ top: '34px' }}
                 className={clsx(
-                    'fixed top-0 left-0 right-0 z-[10001] transition-all duration-500 border-b',
+                    'fixed left-0 right-0 z-[10001] transition-all duration-500 border-b',
                     scrolled
                         ? 'bg-[#e4d7b0]/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(141,157,79,0.08)] border-[#b19681]/30 py-2'
                         : 'bg-transparent border-transparent py-3 md:py-4'
