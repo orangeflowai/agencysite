@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Search, Star, CheckCircle2, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -49,22 +50,32 @@ export default function Hero({ settings }: HeroProps) {
     const ctx = gsap.context(() => {
       // 1. Initial State
       gsap.set('.hero-reveal', { opacity: 0, y: 40 });
+      gsap.set(videoRef.current, { scale: 0.3, opacity: 0 });
 
-      // 2. Entrance Animation
+      // 2. Cinematic Entrance Animation
       const tl = gsap.timeline();
+      
+      // Step 1: Scale Background from 30% to 100%
+      tl.to(videoRef.current, {
+        scale: 1,
+        opacity: 1,
+        duration: 2,
+        ease: 'power4.inOut'
+      });
+
+      // Step 2: Animate text reveal
       tl.to('.hero-reveal', {
         opacity: 1,
         y: 0,
-        duration: 1.5,
-        stagger: 0.15,
-        ease: 'expo.out',
-        delay: 0.8
-      });
+        duration: 1.2,
+        stagger: 0.1,
+        ease: 'expo.out'
+      }, '-=0.5'); // Start slightly before video finish
 
-      // 3. Scroll Cinematic Reveal
+      // 3. Scroll Cinematic Zoom-Out / Parallax
       gsap.to(videoRef.current, {
-        scale: 1,
-        filter: 'brightness(0.4)',
+        scale: 1.2,
+        filter: 'brightness(0.3)',
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
