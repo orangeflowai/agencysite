@@ -4,7 +4,7 @@
  */
 
 const PAYLOAD_URL = process.env.PAYLOAD_API_URL || process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://admin.wondersofrome.com'
-const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'romewander'
+const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'ticketsinrome'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -175,7 +175,7 @@ export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): P
   })
   if (data?.docs?.[0]) return mapTour(data.docs[0])
 
-  for (const s of [`${slug}-rwd`, `${slug}-wor`, `${slug}-tir`, `${slug}-grt`, `${slug}-rvt`]) {
+  for (const s of [`${slug}-tir`, `${slug}-wor`, `${slug}-grt`, `${slug}-rvt`, `${slug}-rwd`]) {
     const d = await payloadFetch('/tours', {
       'where[slug][equals]': s,
       'where[tenant][equals]': siteId,
