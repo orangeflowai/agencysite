@@ -1,53 +1,122 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from 'next/server';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
+
+const PAYLOAD_URL = process.env.PAYLOAD_API_URL || process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://admin.wondersofrome.com';
+const SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const slug = searchParams.get('slug') || searchParams.get('tour')
-  const date = searchParams.get('date')
-  const mode = searchParams.get('mode') || 'day'
+  const { searchParams } = new URL(request.url);
+  const slug = searchParams.get('slug') || '';
+  const date = searchParams.get('date') || '';
+  const mode = searchParams.get('mode') || 'day';
 
-  if (!slug) return NextResponse.json({ error: 'Missing slug' }, { status: 400 })
+  if (!slug) return NextResponse.json(mode === 'month' ? {} : { slots: [] });
 
-  const payloadUrl = process.env.PAYLOAD_API_URL
-  const tenant = process.env.PAYLOAD_TENANT || process.env.NEXT_PUBLIC_SITE_ID || 'romewander'
-  const apiKey = process.env.PAYLOAD_API_KEY
-
-  if (payloadUrl && apiKey) {
-    const params = new URLSearchParams({ tour: slug, tenant, mode })
-    if (date) params.set('date', date)
-    const res = await fetch(`${payloadUrl}/api/availability?${params}`, {
-      headers: { 'x-tenant-id': tenant, Authorization: `Bearer ${apiKey}` },
-      cache: 'no-store',
-    })
-    return NextResponse.json(await res.json(), { status: res.status })
-  }
-
-  // Supabase fallback
-  const { supabase } = await import('@/lib/supabase')
   try {
-    const { data: tourData } = await supabase.from('tours').select('base_price').eq('slug', slug).single()
-    const basePrice = (tourData as any)?.base_price || 0
-    if (mode === 'month' && date) {
-      const { data, error } = await supabase.from('inventory').select('date, available_slots, price_override')
-        .eq('tour_slug', slug).gte('date', `${date}-01`).lte('date', `${date}-31`).gt('available_slots', 0)
-      if (error) throw error
-      const map: Record<string, { spots: number; price?: number }> = {}
-      data?.forEach((row: any) => {
-        const cur = map[row.date] || { spots: 0 }
-        cur.spots += row.available_slots
-        cur.price = row.price_override || basePrice
-        map[row.date] = cur
-      })
-      return NextResponse.json(map)
+    // Step 1: find the tour by slug + tenant in Payload
+    const tourRes = await fetch(
+      `${PAYLOAD_URL}/api/tours?where[slug][equals]=${encodeURIComponent(slug)}&where[tenant][equals]=${encodeURIComponent(SITE_ID)}&limit=1&depth=0`,
+      { cache: 'no-store' }
+    );
+
+    let tourId: string | null = null;
+    let basePrice = 0;
+
+    if (tourRes.ok) {
+      const tourData = await tourRes.json();
+      const tour = tourData?.docs?.[0];
+      if (tour) {
+        tourId = tour.id;
+        basePrice = tour.price || 0;
+      }
     }
-    if (!date) return NextResponse.json({ error: 'Missing date' }, { status: 400 })
-    const { data, error } = await supabase.from('inventory').select('time, available_slots, price_override')
-      .eq('tour_slug', slug).eq('date', date).gt('available_slots', 0).order('time')
-    if (error) throw error
-    return NextResponse.json({ slots: data?.map((s: any) => ({ ...s, price: s.price_override || basePrice })) || [] })
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 })
+
+    // Fallback: try slug suffixes used during migration
+    if (!tourId) {
+      for (const suffix of ['-rwd', '-wor', '-tir', '-grt', '-rvt']) {
+        const fallbackRes = await fetch(
+          `${PAYLOAD_URL}/api/tours?where[slug][equals]=${encodeURIComponent(slug + suffix)}&where[tenant][equals]=${encodeURIComponent(SITE_ID)}&limit=1&depth=0`,
+          { cache: 'no-store' }
+        );
+        if (fallbackRes.ok) {
+          const fallbackData = await fallbackRes.json();
+          const tour = fallbackData?.docs?.[0];
+          if (tour) { tourId = tour.id; basePrice = tour.price || 0; break; }
+        }
+      }
+    }
+
+    if (!tourId) {
+      return NextResponse.json(mode === 'month' ? {} : { slots: [] });
+    }
+
+    if (mode === 'month') {
+      return await getMonthAvailability(tourId, basePrice, date);
+    }
+
+    return await getDayAvailability(tourId, basePrice, date);
+
+  } catch (err) {
+    console.error('[availability] Error:', err);
+    return NextResponse.json(mode === 'month' ? {} : { slots: [] });
   }
+}
+
+async function getDayAvailability(tourId: string, basePrice: number, date: string) {
+  const dateStart = `${date}T00:00:00.000Z`;
+  const dateEnd = `${date}T23:59:59.999Z`;
+
+  const res = await fetch(
+    `${PAYLOAD_URL}/api/inventory?where[tour][equals]=${tourId}&where[date][greater_than_equal]=${encodeURIComponent(dateStart)}&where[date][less_than_equal]=${encodeURIComponent(dateEnd)}&limit=50&sort=time&depth=0`,
+    { cache: 'no-store' }
+  );
+
+  if (!res.ok) return NextResponse.json({ slots: [] });
+
+  const data = await res.json();
+  const docs = data?.docs || [];
+
+  const slots = docs
+    .filter((s: any) => (s.availableSlots ?? 0) > 0)
+    .map((s: any) => ({
+      time: s.time,
+      available_slots: s.availableSlots,
+      total_slots: s.totalSlots,
+      price: s.priceOverride || basePrice,
+    }));
+
+  return NextResponse.json({ slots });
+}
+
+async function getMonthAvailability(tourId: string, basePrice: number, monthStr: string) {
+  const [year, month] = monthStr.split('-').map(Number);
+  const lastDay = new Date(year, month, 0).getDate();
+  const monthStart = `${monthStr}-01T00:00:00.000Z`;
+  const monthEnd = `${monthStr}-${String(lastDay).padStart(2, '0')}T23:59:59.999Z`;
+
+  const res = await fetch(
+    `${PAYLOAD_URL}/api/inventory?where[tour][equals]=${tourId}&where[date][greater_than_equal]=${encodeURIComponent(monthStart)}&where[date][less_than_equal]=${encodeURIComponent(monthEnd)}&limit=500&depth=0`,
+    { cache: 'no-store' }
+  );
+
+  if (!res.ok) return NextResponse.json({});
+
+  const data = await res.json();
+  const docs = data?.docs || [];
+
+  const byDate: Record<string, { spots: number; price: number }> = {};
+  for (const slot of docs) {
+    const dateKey = typeof slot.date === 'string' ? slot.date.slice(0, 10) : '';
+    if (!dateKey) continue;
+    if (!byDate[dateKey]) {
+      byDate[dateKey] = { spots: 0, price: slot.priceOverride || basePrice };
+    }
+    byDate[dateKey].spots += slot.availableSlots || 0;
+    if (slot.priceOverride && slot.priceOverride < byDate[dateKey].price) {
+      byDate[dateKey].price = slot.priceOverride;
+    }
+  }
+
+  return NextResponse.json(byDate);
 }
