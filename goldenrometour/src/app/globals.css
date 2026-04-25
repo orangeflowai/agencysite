@@ -23,6 +23,20 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+@utility font-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+@utility font-body {
+  font-family: var(--font-sans);
 }
 
 :root {
@@ -41,11 +55,8 @@
   --popover: #fffcf5;
   --primary: #a67c52;
   --sidebar: #ece5d8;
-  --font-mono: IBM Plex Mono, monospace;
-  --font-sans: Libre Baskerville, serif;
   --secondary: #e2d8c3;
   --background: #f5f1e6;
-  --font-serif: Lora, serif;
   --foreground: #4a3f35;
   --destructive: #b54a35;
   --shadow-blur: 5px;

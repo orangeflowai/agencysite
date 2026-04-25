@@ -1,12 +1,10 @@
 /**
  * payloadService.ts — Payload CMS data layer
- * Uses email/password auth with cached token (refreshes on 401).
- * Maps Payload docs → same shapes as sanityService for drop-in compatibility.
+ * Uses a bypass key for server-to-server static builds to avoid dynamic render errors.
  */
 
 const PAYLOAD_URL = process.env.PAYLOAD_API_URL || process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://admin.wondersofrome.com'
-const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome'
-const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos'
+const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -47,69 +45,31 @@ export interface Settings {
   heroImage?: { asset: { _id: string; url: string } }
 }
 
-// ── Auth token cache ──────────────────────────────────────────────────────────
+// ── Auth ──────────────────────────────────────────────────────────────────────
 
-let _token: string | null = null
-let _tokenExpiry = 0
-
-async function getToken(): Promise<string> {
-  // Return cached token if still valid (with 5min buffer)
-  if (_token && Date.now() < _tokenExpiry - 300_000) return _token
-
-  // Skip auth during static generation (build time)
-  if (typeof window === 'undefined' && process.env.NEXT_PHASE === 'phase-production-build') {
-    return ''
-  }
-
-  const email    = process.env.PAYLOAD_API_EMAIL    || 'superadmin@romeagency.com'
-  const password = process.env.PAYLOAD_API_PASSWORD || 'SuperAdmin2025!'
-
-  try {
-    const res = await fetch(`${PAYLOAD_URL}/api/users/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-      cache: 'no-store',
-    })
-    if (!res.ok) throw new Error(`Auth failed: ${res.status}`)
-    const data = await res.json()
-    _token = data.token
-    _tokenExpiry = (data.exp || 0) * 1000 || Date.now() + 7_200_000 // 2h default
-    return _token!
-  } catch (e) {
-    console.warn('[payloadService] Auth failed:', e)
-    return ''
-  }
-}
+const ADMIN_BYPASS_KEY = process.env.PAYLOAD_API_KEY || 'g3UDzJOPpj-_EOLcFzyy2mhVp75H62zHwNrJL5Kb-hU'
 
 // ── Fetch helper ──────────────────────────────────────────────────────────────
 
-async function payloadFetch(path: string, params: Record<string, string> = {}, retry = true): Promise<any> {
+async function payloadFetch(path: string, params: Record<string, string> = {}): Promise<any> {
   const url = new URL(`${PAYLOAD_URL}/api${path}`)
   url.searchParams.set('depth', '2')
   url.searchParams.set('limit', '200')
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v)
 
-  const token = await getToken()
-
   try {
     const res = await fetch(url.toString(), {
-      next: { revalidate: 60 },
+      next: { revalidate: 3600 },
       headers: {
         'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }),
+        'Authorization': `users API-Key ${ADMIN_BYPASS_KEY}`,
       },
     })
 
-    // On 401, clear token and retry once
-    if (res.status === 401 && retry) {
-      _token = null
-      return payloadFetch(path, params, false)
-    }
-
     if (!res.ok) return null
     return res.json()
-  } catch {
+  } catch (e) {
+    console.warn('[payloadService] Fetch failed:', e)
     return null
   }
 }
@@ -117,9 +77,7 @@ async function payloadFetch(path: string, params: Record<string, string> = {}, r
 // ── Image helpers ─────────────────────────────────────────────────────────────
 
 function resolveImageUrl(doc: any): string | undefined {
-  // 1. Direct imageUrl field (our migration stores R2 URLs here)
   if (doc.imageUrl) return doc.imageUrl
-  // 2. mainImage upload relation
   if (doc.mainImage?.url) return doc.mainImage.url
   if (doc.mainImage?.filename) return `${PAYLOAD_URL}/media/${doc.mainImage.filename}`
   return undefined
@@ -168,6 +126,10 @@ function mapTour(doc: any): Tour {
 }
 
 function mapPost(doc: any): Post {
+  let body = doc.content || doc.body || []
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body) } catch { body = [] }
+  }
   return {
     _id:         String(doc.id),
     title:       doc.title,
@@ -176,7 +138,7 @@ function mapPost(doc: any): Post {
     publishedAt: doc.publishedAt || doc.createdAt,
     excerpt:     doc.excerpt || '',
     keywords:    (doc.keywords || []).map((k: any) => k.keyword || k).filter(Boolean),
-    body:        doc.body,
+    body:        body,
   }
 }
 
@@ -201,23 +163,30 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
   const data = await payloadFetch('/tours', {
     'where[tenant][equals]': siteId,
     'where[active][equals]': 'true',
-    'where[category][equals]': 'vatican',
     'sort': 'createdAt',
+    'limit': '500',
   })
   return (data?.docs || []).map(mapTour)
 }
 
 export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Tour | null> {
-  // Try tenant-specific slug first, then without suffix
-  for (const s of [slug, `${slug}-wor`, `${slug}-tir`, `${slug}-grt`, `${slug}-rvt`, `${slug}-rwd`]) {
-    const data = await payloadFetch('/tours', {
+  const data = await payloadFetch('/tours', {
+    'where[slug][equals]': slug,
+    'where[tenant][equals]': siteId,
+    'limit': '1',
+  })
+  if (data?.docs?.[0]) return mapTour(data.docs[0])
+
+  // Try with tenant suffixes as fallback
+  for (const s of [`${slug}-wor`, `${slug}-tir`, `${slug}-grt`, `${slug}-rvt`, `${slug}-rwd`]) {
+    const d = await payloadFetch('/tours', {
       'where[slug][equals]': s,
       'where[tenant][equals]': siteId,
       'limit': '1',
     })
-    const doc = data?.docs?.[0]
-    if (doc) return mapTour(doc)
+    if (d?.docs?.[0]) return mapTour(d.docs[0])
   }
+
   return null
 }
 
@@ -227,12 +196,21 @@ export async function getAllTours(): Promise<Tour[]> {
 }
 
 export async function getPosts(siteId: string = DEFAULT_SITE_ID): Promise<Post[]> {
-  // Posts not yet in Payload — return empty
-  return []
+  const data = await payloadFetch('/posts', {
+    'where[tenant][equals]': siteId,
+    'sort': '-publishedAt',
+  })
+  return (data?.docs || []).map(mapPost)
 }
 
 export async function getPost(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Post | null> {
-  return null
+  const data = await payloadFetch('/posts', {
+    'where[slug][equals]': slug,
+    'where[tenant][equals]': siteId,
+    'limit': '1',
+  })
+  const doc = data?.docs?.[0]
+  return doc ? mapPost(doc) : null
 }
 
 export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Settings | null> {
@@ -264,14 +242,14 @@ export async function getAllSites(): Promise<Site[]> {
   return (data?.docs || []).map(mapSite)
 }
 
-// urlFor shim — Payload uses direct URLs, no builder needed
 export function urlFor(source: any) {
   const url = typeof source === 'string' ? source : (source?.asset?.url || source?.url || '')
-  return {
-    url:    () => url,
-    width:  (_w: number) => ({ url: () => url, height: (_h: number) => ({ url: () => url }) }),
-    height: (_h: number) => ({ url: () => url }),
-    fit:    (_f: string) => ({ url: () => url, auto: (_a: string) => ({ url: () => url }) }),
-    auto:   (_a: string) => ({ url: () => url }),
+  const builder: any = {
+    url:    ()           => url,
+    width:  (_w: number) => builder,
+    height: (_h: number) => builder,
+    fit:    (_f: string) => builder,
+    auto:   (_a: string) => builder,
   }
+  return builder
 }

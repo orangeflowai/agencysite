@@ -7,38 +7,37 @@ import clsx from 'clsx';
 
 const faqs = [
     {
-        question: "What is the dress code for the Vatican?",
-        answer: "The Vatican has a strict dress code. Both men and women must cover their knees and shoulders. Sleeveless tops and shorts strictly are not permitted, and you may be denied entry."
+        question: "What is the Vatican dress code?",
+        answer: "Strict modesty is enforced. Both men and women must cover knees and shoulders. Sleeveless tops, shorts, short skirts, and hats are prohibited. Security staff may deny entry with no refund."
     },
     {
         question: "Do I need to print my tickets?",
-        answer: "No, digital tickets on your smartphone are perfectly acceptable. Just show the QR code at the entrance."
+        answer: "Printing is unnecessary. Present your digital ticket (QR code) on a smartphone at the turnstile. Ensure your screen brightness is up and your phone is charged."
     },
     {
-        question: "Is there a security check?",
-        answer: "Yes, all visitors must go through airport-style security. Prohibited items include large backpacks, glass bottles, and sharp objects."
+        question: "What happens at security?",
+        answer: "All visitors pass through metal detectors and bag checks. Prohibited items include large backpacks, umbrellas, glass bottles, aerosols, knives, and scissors. Lockers are not available."
     },
     {
-        question: "Are the tours wheelchair accessible?",
-        answer: "Most Vatican Museums tours are wheelchair accessible, but some specific areas (like the St. Peter's Dome climb) are not. Please check the specific tour details or contact us for assistance."
+        question: "Is the Vatican wheelchair accessible?",
+        answer: "The Museums offer step-free routes and elevators for most areas. St. Peter's Basilica is accessible via a ramp. However, the Dome climb and some narrow corridors are not. Contact us to arrange an accessible route."
     },
     {
-        question: "What happens if I'm late?",
-        answer: "Vatican entry times are strict. If you miss your time slot, you may not be able to enter. We recommend arriving 15 minutes before your scheduled time."
+        question: "What is the late arrival policy?",
+        answer: "Time slots are enforced strictly by Vatican authorities. Arrive 15 minutes prior to your entry time. Latecomers are treated as no-shows and are not guaranteed re-entry or refunds."
     },
     {
-        question: "Can I cancel or modify my booking?",
-        answer: "Yes, most tours can be cancelled or modified up to 24-48 hours before the scheduled time for a full refund. Check the specific tour's cancellation policy for details."
+        question: "What is the cancellation policy?",
+        answer: "Free cancellation is available up to 24 hours before most tours, and up to 48 hours for some premium experiences. Cancellations within the window are non-refundable. Rescheduling is subject to availability."
     },
     {
-        question: "What payment methods do you accept?",
-        answer: "We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and Apple Pay for online bookings."
+        question: "Which payment methods are accepted?",
+        answer: "We accept Visa, Mastercard, American Express, Discover, PayPal, Apple Pay, and Google Pay. All transactions are encrypted and processed in your local currency where supported."
     },
     {
-        question: "Do you offer private tours?",
-        answer: "Yes! We offer private personalized tours for individuals, couples, and groups. Private tours include a dedicated guide, flexible timing, and customized itineraries."
-    },
-    // Reduced list slightly for balanced layout or keep all if needed
+        question: "How do private tours work?",
+        answer: "Private tours include an expert guide exclusively for your party, skip-the-line entry, customizable pacing, and optional add-ons (e.g., early morning access). Available for groups of 1–20. Pricing scales per person."
+    }
 ];
 
 export default function FAQ() {

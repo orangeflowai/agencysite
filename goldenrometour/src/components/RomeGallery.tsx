@@ -59,7 +59,7 @@ export default function RomeGallery() {
               src={images[0].src}
               alt={images[0].alt}
               fill
-              className="object-cover sepia-[0.1] contrast-[1.1] grayscale-[0.1] group-hover:scale-105 transition-transform duration-1000 ease-out"
+              className="object-cover sepia-[0.1] contrast-[1.1] group-hover:scale-105 transition-transform duration-1000 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
             <div className="absolute bottom-10 left-10 z-20">

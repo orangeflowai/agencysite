@@ -171,7 +171,15 @@ export default function Footer() {
 
                             {/* Trust Badges */}
                             <div className="flex items-center gap-4 pt-4 border-t border-forest/10">
-                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-6 w-auto opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all" />
+                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-6 w-auto opacity-30 hover:opacity-100 transition-all" />
+                            </div>
+
+                            {/* Payment logos */}
+                            <div className="mt-8 pt-8 border-t border-forest/10">
+                                <p className="font-sans text-[10px] uppercase tracking-widest text-forest/40 mb-4 font-black">Secure Transfer</p>
+                                <div className="opacity-80 hover:grayscale hover:opacity-100 transition-all">
+                                    <PaymentLogos size="sm" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -180,9 +188,6 @@ export default function Footer() {
                     <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] text-cream/30 uppercase font-black tracking-widest">
                         <div className="flex flex-col gap-4">
                             <p>&copy; {currentYear} {site?.title || 'Golden Rome Tour'}. All rights reserved.</p>
-                            <div className="grayscale opacity-70 hover:opacity-100 transition-opacity">
-                                <PaymentLogos size="sm" />
-                            </div>
                         </div>
 
                         {/* Company Details */}

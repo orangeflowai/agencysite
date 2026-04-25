@@ -77,8 +77,8 @@ export default function SocialProof() {
                 </div>
             </div>
 
-            {/* Corporate/Partner Grayscale Strip */}
-            <div className="container mx-auto px-8 mt-20 flex flex-wrap justify-center gap-12 grayscale opacity-40">
+            {/* Corporate/Partner Strip */}
+            <div className="container mx-auto px-8 mt-20 flex flex-wrap justify-center gap-12 opacity-40">
                 <span className="font-serif text-2xl font-bold italic tracking-tighter">TripAdvisor Private</span>
                 <span className="font-serif text-2xl font-bold italic tracking-tighter">Google Elite</span>
                 <span className="font-serif text-2xl font-bold italic tracking-tighter">The Roman Guild</span>

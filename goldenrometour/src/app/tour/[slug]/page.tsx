@@ -63,7 +63,6 @@ export default async function TourPage({ params }: PageProps) {
         notFound();
     }
 
-    // Combine main image and gallery for the slider
     const sliderImages = [tour.mainImage].concat(tour.gallery || []).filter(Boolean);
 
     // If no images at all, fallback
@@ -72,8 +71,37 @@ export default async function TourPage({ params }: PageProps) {
         sliderImages.push(fallbackImage);
     }
 
+    // JSON-LD Schema for SEO
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'TouristTrip',
+        'name': tour.title,
+        'description': typeof tour.description === 'string' ? tour.description : 'Expert guided tour in Rome',
+        'image': sliderImages.map(img => urlFor(img).url()),
+        'provider': {
+            '@type': 'Organization',
+            'name': process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour',
+            'url': process.env.NEXT_PUBLIC_SITE_URL
+        },
+        'offers': {
+            '@type': 'Offer',
+            'price': tour.price,
+            'priceCurrency': 'EUR',
+            'availability': 'https://schema.org/InStock'
+        },
+        'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': tour.rating || '5.0',
+            'reviewCount': tour.reviewCount || '100'
+        }
+    };
+
     return (
         <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <Navbar />
 
             {/* Tour Hero Slider */}

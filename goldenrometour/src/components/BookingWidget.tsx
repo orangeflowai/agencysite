@@ -290,7 +290,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                                     ? 'bg-sky-600 text-white border-sky-600 shadow-xl shadow-sky-100 scale-[1.05] z-10'
                                                     : 'bg-white text-gray-900 border-gray-100 hover:border-sky-300 hover:bg-sky-50/30'
                                                 }
-                                                ${slot.available_slots === 0 ? 'opacity-30 cursor-not-allowed bg-gray-50 grayscale' : ''}
+                                                ${slot.available_slots === 0 ? 'opacity-30 cursor-not-allowed bg-gray-50' : ''}
                                             `}
                                         >
                                             <span className="text-base">{slot.time}</span>
@@ -400,7 +400,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                             </div>
                             <span className="text-[10px] font-black text-gray-900 border-l border-gray-200 pl-3">4.9 / 5.0 Rating</span>
                         </div>
-                        <div className="flex items-center gap-1.5 grayscale opacity-50">
+                        <div className="flex items-center gap-1.5 opacity-50">
                             <div className="w-5 h-3 bg-gray-200 rounded-sm"></div>
                             <div className="w-5 h-3 bg-gray-200 rounded-sm"></div>
                             <div className="w-5 h-3 bg-gray-200 rounded-sm"></div>
