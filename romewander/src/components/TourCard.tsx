@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Clock, Star, Heart, ArrowRight } from 'lucide-react';
-import { urlFor } from '@/sanity/lib/image';
-import type { Tour } from '@/lib/sanityService';
+import { urlFor } from '@/lib/dataAdapter';
+import type { Tour } from '@/lib/dataAdapter';
 
 interface TourCardProps {
     tour: Tour;

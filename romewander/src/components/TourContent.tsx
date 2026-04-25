@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Clock, Users, MapPin, Check, Star, XCircle, CheckCircle } from 'lucide-react';
 import BookingWidget from '@/components/BookingWidget';
 import TourHeroSlider from '@/components/TourHeroSlider';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor } from '@/lib/dataAdapter';
 import { PortableText } from '@portabletext/react';
 import { useLanguage, TranslatedTour } from '@/context/LanguageContext';
 import EmbeddedMap from './EmbeddedMap';

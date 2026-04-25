@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor } from '@/lib/dataAdapter';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface TourHeroSliderProps {

@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getTours, getPosts } from '@/lib/sanityService';
+import { getTours, getPosts } from '@/lib/dataAdapter';
 
 export const dynamic = 'force-dynamic';
 

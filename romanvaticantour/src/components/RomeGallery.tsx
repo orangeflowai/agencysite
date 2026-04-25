@@ -65,7 +65,7 @@ export default function RomeGallery() {
                   src={img.src}
                   alt={img.alt}
                   fill
-                  className="object-cover transition-transform duration-[2s] group-hover:scale-110 grayscale group-hover:grayscale-0"
+                  className="object-cover transition-transform duration-[2s] group-hover:scale-110"
                   sizes="600px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 p-12 flex flex-col justify-end">

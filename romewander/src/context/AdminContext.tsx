@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { getAllSites, Site } from '@/lib/sanityService';
+import { getAllSites, Site } from '@/lib/dataAdapter';
 
 interface AdminContextType {
     selectedSiteId: string;

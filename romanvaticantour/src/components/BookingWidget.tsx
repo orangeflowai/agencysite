@@ -274,8 +274,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                                     ? 'bg-primary text-white border-primary shadow-xl shadow-primary/10 scale-[1.05] z-10'
                                                     : 'bg-white/50 text-[#5c4b3e] border-[#b19681]/20 hover:border-primary/30 hover:bg-white/80'
                                                 }
-                                                ${slot.available_slots === 0 ? 'opacity-30 cursor-not-allowed bg-gray-50 grayscale' : ''}
-                                            `}
+                                                ${slot.available_slots === 0 ? 'opacity-30 cursor-not-allowed bg-gray-50' : ''}                                            `}
                                         >
                                             <span className="text-base font-serif italic">{slot.time}</span>
                                             {slot.available_slots < 5 && slot.available_slots > 0 &&
@@ -383,10 +382,9 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                 {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-accent text-accent" />)}
                             </div>
                             <span className="text-[9px] font-black text-[#5c4b3e] uppercase tracking-widest border-l border-[#b19681]/30 pl-3">4.9 / 5.0 Rating</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 grayscale opacity-30">
-                            <div className="w-5 h-3 bg-primary rounded-sm"></div>
-                            <div className="w-5 h-3 bg-primary rounded-sm"></div>
+                            </div>
+                            <div className="flex items-center gap-1.5 opacity-30">
+                            <div className="w-5 h-3 bg-primary rounded-sm"></div>                            <div className="w-5 h-3 bg-primary rounded-sm"></div>
                             <div className="w-5 h-3 bg-primary rounded-sm"></div>
                         </div>
                     </div>

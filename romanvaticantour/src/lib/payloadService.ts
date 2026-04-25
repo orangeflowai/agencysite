@@ -48,7 +48,7 @@ export interface Settings {
 // ── Auth token cache ──────────────────────────────────────────────────────────
 
 // Using a bypass key for static builds and server calls to prevent 'no-store' fetch errors
-const ADMIN_BYPASS_KEY = 'Me=millionare1111'; 
+const ADMIN_BYPASS_KEY = 'xnxxisnotfreefor69'; 
 
 // ── Fetch helper ──────────────────────────────────────────────────────────────
 

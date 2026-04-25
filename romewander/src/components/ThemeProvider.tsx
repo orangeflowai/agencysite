@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import { DEFAULT_SITE_ID } from '@/lib/sanityService';
+import { DEFAULT_SITE_ID } from '@/lib/dataAdapter';
 
 interface ThemeProviderProps {
   children: ReactNode;

@@ -201,9 +201,17 @@ export default function Footer() {
 
                             {/* Trust Badges */}
                             <div className="flex items-center gap-6 pt-6 border-t border-stone-800/50">
-                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-50 grayscale invert brightness-200 hover:opacity-100 hover:grayscale-0 hover:filter-none transition-all duration-300" />
+                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-50 hover:opacity-100 transition-all duration-300" />
                                 <div className="h-8 w-px bg-stone-800" />
                                 <p className="text-[10px] text-stone-500 uppercase tracking-widest font-black font-sans">Powered by RomanVatican Engine</p>
+                            </div>
+
+                            {/* Payment logos */}
+                            <div className="mt-8 pt-8 border-t border-stone-800/50">
+                                <p className="font-sans text-[10px] uppercase tracking-widest text-stone-500 mb-4 font-black">Secure Transfer</p>
+                                <div className="opacity-80 hover:grayscale hover:opacity-100 transition-all">
+                                    <PaymentLogos size="sm" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -212,9 +220,6 @@ export default function Footer() {
                     <div className="border-t border-stone-800/50 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] text-stone-500 font-sans">
                         <div className="flex flex-col gap-4">
                             <p>&copy; {currentYear} {site?.title || 'Roman Vatican Tour'}. All rights reserved.</p>
-                            <div className="grayscale opacity-70 hover:opacity-100 transition-opacity">
-                                <PaymentLogos size="sm" />
-                            </div>
                         </div>
 
                         {/* Company Details */}

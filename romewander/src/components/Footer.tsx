@@ -241,9 +241,17 @@ export default function Footer() {
 
                             {/* Trust Badges */}
                             <div className="flex items-center gap-6 pt-6 border-t border-white/5">
-                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-30 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500" />
+                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-30 hover:opacity-100 transition-all duration-500" />
                                 <div className="h-8 w-px" style={{ backgroundColor: 'rgba(201,168,76,0.2)' }} />
                                 <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: 'rgba(245,240,232,0.4)' }}>Verified Luxury</p>
+                            </div>
+
+                            {/* Payment logos */}
+                            <div className="mt-8 pt-8 border-t border-white/5">
+                                <p className="font-sans text-[10px] uppercase tracking-widest mb-4 font-black" style={{ color: 'rgba(245,240,232,0.4)' }}>Secure Transfer</p>
+                                <div className="opacity-80 hover:grayscale hover:opacity-100 transition-all">
+                                    <PaymentLogos size="sm" />
+                                </div>
                             </div>
                         </div>
                     </div>

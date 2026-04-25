@@ -14,7 +14,7 @@ import {
     endOfWeek
 } from 'date-fns';
 import { supabase } from '@/lib/supabase';
-import { Tour } from '@/lib/sanityService';
+import { Tour } from '@/lib/dataAdapter';
 import { ChevronLeft, ChevronRight, Filter, Loader2 } from 'lucide-react';
 import ManageSlotsModal, { InventorySlot } from './ManageSlotsModal';
 

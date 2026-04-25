@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getPosts } from '@/lib/sanityService';
+import { getPosts } from '@/lib/dataAdapter';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Calendar, ArrowRight } from 'lucide-react';

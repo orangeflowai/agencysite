@@ -15,8 +15,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
-import { client } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor } from '@/lib/dataAdapter';
 import PaymentLogos from '@/components/PaymentLogos';
 import LoadingWithFacts from '@/components/LoadingWithFacts';
 import TrustBadges from '@/components/TrustBadges';
@@ -220,10 +219,26 @@ function CheckoutContent() {
 
     const fetchRelatedTours = useCallback(async (category: string, excludeId: string) => {
         try {
-            const query = `*[_type == "tour" && category == $category && _id != $excludeId && isActive == true][0...3] {
-                _id, title, slug, price, duration, mainImage, category
-            }`;
-            const tours = await client.fetch(query, { category, excludeId });
+            const PAYLOAD_URL = process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://admin.wondersofrome.com';
+            const SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
+            const res = await fetch(
+                `${PAYLOAD_URL}/api/tours?where[category][equals]=${encodeURIComponent(category)}&where[tenant][equals]=${encodeURIComponent(SITE_ID)}&where[active][equals]=true&limit=3&depth=1`,
+                { cache: 'no-store' }
+            );
+            if (!res.ok) return;
+            const data = await res.json();
+            const tours = (data?.docs || [])
+                .filter((t: any) => String(t.id) !== String(excludeId))
+                .slice(0, 3)
+                .map((t: any) => ({
+                    _id: String(t.id),
+                    title: t.title,
+                    slug: { current: t.slug },
+                    price: t.price,
+                    duration: t.duration,
+                    category: t.category,
+                    mainImage: t.mainImage?.url ? { asset: { url: t.mainImage.url } } : undefined,
+                }));
             setRelatedTours(tours);
         } catch (e) {
             console.error('Failed to fetch related tours:', e);

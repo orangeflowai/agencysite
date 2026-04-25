@@ -127,7 +127,7 @@ export default async function Home() {
                         "We believe Rome shouldn't just be seen—it should be decoded. Our guides are accredited art historians who reveal the hidden political and artistic messages within the Vatican's walls."
                      </p>
                      <div className="flex items-center gap-4">
-                        <img src="https://i.pravatar.cc/150?img=11" className="w-16 h-16 rounded-full border-2 border-primary grayscale shadow-xl" alt="Lead Historian" />
+                        <img src="https://i.pravatar.cc/150?img=11" className="w-16 h-16 rounded-full border-2 border-primary shadow-xl" alt="Lead Historian" />
                         <div>
                            <p className="font-serif font-bold text-xl italic leading-none">Marco Valerio</p>
                            <p className="text-[10px] uppercase tracking-[0.2em] font-black text-primary mt-1">Chief Archivist & Art Historian</p>
@@ -260,7 +260,7 @@ export default async function Home() {
                {GOOGLE_REVIEWS.map((review, i) => (
                   <div key={i} className="bg-background/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 relative hover:bg-background/10 transition-colors">
                      <div className="absolute top-6 right-6">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-6 h-6 grayscale opacity-30" />
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-6 h-6 opacity-30" />
                      </div>
                      <div className="flex items-center gap-1 mb-4 text-primary">
                         {[...Array(review.rating)].map((_, idx) => <Star key={idx} className="w-4 h-4 fill-current" />)}
@@ -288,13 +288,40 @@ export default async function Home() {
         </section>
       </AnimatedSection>
 
-      {/* Blog Section - Hidden until content is ready
-      <AnimatedSection delay={0.1}>
-        <section className="py-24 bg-background border-b border-border">
-          ...
-        </section>
-      </AnimatedSection>
-      */}
+      {/* Blog Section */}
+      {posts && posts.length > 0 && (
+        <AnimatedSection delay={0.1}>
+          <section className="py-24 bg-background border-b border-border">
+            <div className="container mx-auto px-6">
+              <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
+                <div>
+                  <p className="text-primary font-bold uppercase tracking-widest text-xs mb-3">Travel Guides</p>
+                  <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">From Our Blog</h2>
+                </div>
+                <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest hover:underline shrink-0">
+                  All Articles <ArrowRight size={16} />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {posts.slice(0, 3).map((post: any) => (
+                  <Link key={post._id} href={`/blog/${post.slug.current}`} className="group flex flex-col bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                      {post.mainImage?.asset?.url && (
+                        <Image src={post.mainImage.asset.url} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                      )}
+                    </div>
+                    <div className="p-6 flex flex-col flex-1">
+                      <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">{post.title}</h3>
+                      <p className="text-sm text-muted-foreground line-clamp-3 mb-4 flex-1">{post.excerpt}</p>
+                      <span className="text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-1">Read More <ArrowRight size={12} /></span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        </AnimatedSection>
+      )}
       <div id="faq" className="bg-background"><FAQ /></div>
       <Footer />
     </main>

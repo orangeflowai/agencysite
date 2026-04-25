@@ -7,38 +7,37 @@ import clsx from 'clsx';
 
 const faqs = [
     {
-        question: "What is the dress code for the Vatican?",
-        answer: "The Vatican has a strict dress code. Both men and women must cover their knees and shoulders. Sleeveless tops and shorts strictly are not permitted, and you may be denied entry."
+        question: "What should I wear?",
+        answer: "The Vatican asks visitors to dress modestly — please cover your knees and shoulders. Sleeveless tops and shorts aren't allowed, and you may be turned away at the door."
     },
     {
-        question: "Do I need to print my tickets?",
-        answer: "No, digital tickets on your smartphone are perfectly acceptable. Just show the QR code at the entrance."
+        question: "Can I just show my ticket on my phone?",
+        answer: "Absolutely! Digital tickets work perfectly. Just pull up your QR code at the entrance — no printing needed."
     },
     {
-        question: "Is there a security check?",
-        answer: "Yes, all visitors must go through airport-style security. Prohibited items include large backpacks, glass bottles, and sharp objects."
+        question: "What should I know about security?",
+        answer: "Everyone goes through airport-style security. To speed things up, avoid bringing large backpacks, glass bottles, or anything sharp."
     },
     {
-        question: "Are the tours wheelchair accessible?",
-        answer: "Most Vatican Museums tours are wheelchair accessible, but some specific areas (like the St. Peter's Dome climb) are not. Please check the specific tour details or contact us for assistance."
+        question: "Will a wheelchair limit what I can see?",
+        answer: "Most of the Museums are fully accessible, but some experiences — like climbing St. Peter's Dome — aren't wheelchair-friendly. Reach out if you'd like help picking the right tour."
     },
     {
-        question: "What happens if I'm late?",
-        answer: "Vatican entry times are strict. If you miss your time slot, you may not be able to enter. We recommend arriving 15 minutes before your scheduled time."
+        question: "Help — I'm running late!",
+        answer: "Don't risk it! Vatican entry times are strict. We recommend arriving 15 minutes early. If you miss your slot, entry isn't guaranteed."
     },
     {
-        question: "Can I cancel or modify my booking?",
-        answer: "Yes, most tours can be cancelled or modified up to 24-48 hours before the scheduled time for a full refund. Check the specific tour's cancellation policy for details."
+        question: "Can I change my mind?",
+        answer: "Life happens. Most bookings can be cancelled or rescheduled 24–48 hours ahead for a full refund. Check your specific tour's policy for the exact window."
     },
     {
-        question: "What payment methods do you accept?",
-        answer: "We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and Apple Pay for online bookings."
+        question: "How can I pay?",
+        answer: "All major cards (Visa, Mastercard, American Express), PayPal, and Apple Pay are welcome."
     },
     {
-        question: "Do you offer private tours?",
-        answer: "Yes! We offer private personalized tours for individuals, couples, and groups. Private tours include a dedicated guide, flexible timing, and customized itineraries."
-    },
-    // Reduced list slightly for balanced layout or keep all if needed
+        question: "Can I book a tour just for my group?",
+        answer: "You sure can. Our private tours come with your own guide, a schedule that works for you, and an itinerary built around your interests."
+    }
 ];
 
 export default function FAQ() {

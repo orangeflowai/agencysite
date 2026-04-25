@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
 import CheckoutDrawer from './CheckoutDrawer';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor } from '@/lib/dataAdapter';
 import dynamic from 'next/dynamic';
 
 // Lazy-load the checkout modal
@@ -255,7 +255,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                                 className={`relative py-3 px-2 text-sm font-black rounded-lg border-2 transition-all duration-200 text-center flex flex-col items-center justify-center gap-0.5 ${selectedTime === slot.time
                                                     ? 'bg-[#C9A84C] text-white border-[#C9A84C] shadow-lg shadow-[#C9A84C]/20 scale-[1.03]'
                                                     : 'bg-white text-gray-900 border-gray-100 hover:border-[#C9A84C] hover:bg-[#C9A84C]/5'
-                                                    } ${slot.available_slots === 0 ? 'opacity-30 cursor-not-allowed grayscale' : ''}`}
+                                                    } ${slot.available_slots === 0 ? 'opacity-30 cursor-not-allowed' : ''}`}
                                             >
                                                 <span className="text-sm">{slot.time}</span>
                                                 {slot.available_slots < 5 && slot.available_slots > 0 && (

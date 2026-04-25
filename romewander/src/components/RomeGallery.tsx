@@ -132,7 +132,7 @@ export default function RomeGallery() {
                 src={img.src}
                 alt={img.alt}
                 fill
-                className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                className="object-cover transition-all duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 25vw"
               />
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'rgba(26,18,16,0.55)' }} />
@@ -155,7 +155,7 @@ export default function RomeGallery() {
               src={images[5].src}
               alt={images[5].alt}
               fill
-              className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+              className="object-cover transition-all duration-700 group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'rgba(26,18,16,0.55)' }} />

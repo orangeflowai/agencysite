@@ -1,30 +1,42 @@
 #!/bin/bash
-# Run this once SSH is accessible again
-# Usage: bash deploy-hetzner.sh
+# High-End Travel Agency Deployment Script
+# Targets: root@91.98.205.197
 
 SERVER="root@91.98.205.197"
 SSH_KEY="~/.ssh/id_ed25519"
 SSH="ssh -i $SSH_KEY -o StrictHostKeyChecking=no"
-RSYNC="rsync -az -e 'ssh -i $SSH_KEY -o StrictHostKeyChecking=no'"
+# Fixed RSYNC command
+RSYNC="rsync -az -e \"ssh -i $SSH_KEY -o StrictHostKeyChecking=no\""
 
-echo "=== Deploying wondersofrome ==="
-rsync -az -e "ssh -i $SSH_KEY -o StrictHostKeyChecking=no" \
-  --exclude='.next' --exclude='node_modules' --exclude='.env' \
-  wondersofrome/wondersofrome/src/ \
-  $SERVER:/var/www/wondersofrome/src/
+function deploy_site() {
+    local name=$1
+    local path=$2
+    local remote_path=$3
+    
+    echo "--- Deploying $name ---"
+    eval "$RSYNC --exclude='.next' --exclude='node_modules' --exclude='.env' \"$path/src/\" \"$SERVER:$remote_path/src/\""
+    
+    echo "--- Building $name ---"
+    $SSH $SERVER "cd $remote_path && rm -rf .next && export PATH=\$PATH:/usr/local/bin:/usr/bin:/bin && npm run build && npx pm2 restart $name || npx pm2 start npm --name '$name' -- run start && echo '$name DONE'"
+}
 
-echo "=== Deploying ticketsinrome ==="
-rsync -az -e "ssh -i $SSH_KEY -o StrictHostKeyChecking=no" \
-  --exclude='.next' --exclude='node_modules' --exclude='.env' \
-  ticketsinrome-live/rome-tour-tickets/src/ \
-  $SERVER:/var/www/rome-tour-tickets/src/
+# 1. Heritage Sites
+deploy_site "wondersofrome" "wondersofrome/wondersofrome" "/var/www/wondersofrome"
+deploy_site "rome-tour-tickets" "ticketsinrome-copy/ticketsinrome" "/var/www/rome-tour-tickets"
 
-echo "=== Building wondersofrome ==="
-$SSH $SERVER "cd /var/www/wondersofrome && rm -rf .next && NODE_OPTIONS='--max-old-space-size=1536' npm run build && npx pm2 restart wondersofrome && echo 'wondersofrome DONE'"
+# 2. New Agency Sites (Verified 5k)
+deploy_site "goldenrometour" "goldenrometour" "/var/www/goldenrometour"
+deploy_site "romanvaticantour" "romanvaticantour" "/var/www/romanvaticantour"
+deploy_site "romewander" "romewander" "/var/www/romewander"
 
-echo "=== Building ticketsinrome ==="
-$SSH $SERVER "cd /var/www/rome-tour-tickets && rm -rf .next && NODE_OPTIONS='--max-old-space-size=1536' npm run build && npx pm2 restart rome-tour-tickets && echo 'ticketsinrome DONE'"
+# 3. Payload Admin (Static Update)
+echo "--- Syncing Payload Admin Build ---"
+eval "$RSYNC --exclude='node_modules' --exclude='.env' \"payload-admin/\" \"$SERVER:/var/www/payload-admin/\""
+$SSH $SERVER "cd /var/www/payload-admin && npx pm2 restart payload-admin || npx pm2 start npm --name 'payload-admin' -- run start"
 
-echo "=== Verifying ==="
+echo "=== Verifying 5k Platform ==="
 curl -s -o /dev/null -w "wondersofrome: %{http_code}\n" https://wondersofrome.com
 curl -s -o /dev/null -w "ticketsinrome: %{http_code}\n" https://ticketsinrome.com
+curl -s -o /dev/null -w "goldenrometour: %{http_code}\n" https://goldenrometour.com
+curl -s -o /dev/null -w "romanvatican: %{http_code}\n" https://romanvaticantour.com
+curl -s -o /dev/null -w "romewander: %{http_code}\n" https://romewander.com

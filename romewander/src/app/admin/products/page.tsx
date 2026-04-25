@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Plus, Search, Edit, Eye, Trash2, Globe, Clock, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useAdmin } from '@/context/AdminContext';
-import { urlFor } from '@/sanity/lib/image';
+import { urlFor } from '@/lib/dataAdapter';
 import { updateTour } from '@/app/actions/tourActions';
 import { useRouter } from 'next/navigation';
 

@@ -86,7 +86,7 @@ function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSucces
 
 export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerProps) {
   const site = useSite()
-  const siteId = site?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour'
+  const siteId = site?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour'
 
   const [step, setStep] = useState<1 | 2>(1)
   const [clientSecret, setClientSecret] = useState('')

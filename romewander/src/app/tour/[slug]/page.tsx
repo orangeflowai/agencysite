@@ -6,8 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BookingWidget from '@/components/BookingWidget';
 import TourHeroSlider from '@/components/TourHeroSlider';
-import { getTour, getTours } from '@/lib/sanityService';
-import { urlFor } from '@/sanity/lib/image';
+import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
 import { PortableText } from '@portabletext/react';
 
 // Revalidate every hour
@@ -91,6 +90,9 @@ export default async function TourPage({ params }: PageProps) {
                     {/* Overview / Description */}
                     <section className="prose prose-lg prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-gray-700 prose-p:leading-loose prose-li:text-gray-700 max-w-none">
                         <h2 className="text-3xl font-serif font-bold text-emerald-900 mb-6">Tour Overview</h2>
+                        {typeof tour.description === 'string' ? (
+                            <p className="mb-6">{tour.description}</p>
+                        ) : (
                         <PortableText
                             value={tour.description}
                             components={{
@@ -131,6 +133,7 @@ export default async function TourPage({ params }: PageProps) {
                                 }
                             }}
                         />
+                        )}
                     </section>
 
                     {/* Highlights */}
@@ -235,11 +238,30 @@ export default async function TourPage({ params }: PageProps) {
 
                 {/* Sidebar Booking Widget */}
                 <div className="lg:col-span-1">
-                    <BookingWidget tour={tour} />
+                    <div className="sticky top-24" id="booking-widget">
+                        <BookingWidget tour={tour} />
+                    </div>
                 </div>
             </div>
 
             <Footer />
+
+            {/* Mobile Sticky Booking Bar */}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/80 backdrop-blur-xl border-t border-gray-100 flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+                <div>
+                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">From</p>
+                    <p className="text-xl font-black text-gray-950">€{tour.price}</p>
+                </div>
+                <button 
+                    onClick={() => {
+                        const widget = document.getElementById('booking-widget');
+                        if (widget) widget.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-olive text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-all"
+                >
+                    Check Availability
+                </button>
+            </div>
         </main>
     );
 }

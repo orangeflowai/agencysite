@@ -4,10 +4,13 @@ import TrustBadges from "@/components/TrustBadges";
 import Footer from "@/components/Footer";
 import ProductRow from "@/components/ProductRow";
 import AnimatedSection from "@/components/AnimatedSection";
-import { getTours, getSettings } from "@/lib/dataAdapter";
+import { getTours, getSettings, getPosts } from "@/lib/dataAdapter";
 import { tours as fallbackTours } from "@/lib/toursData";
 import HighlightSection from '@/components/HighlightSection';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 
 export const revalidate = 3600;
 
@@ -18,8 +21,8 @@ const FloatingReviews = dynamic(() => import('@/components/FloatingReviews'), { 
 const FAQ             = dynamic(() => import('@/components/FAQ'));
 
 export default async function Home() {
-  let tours = await getTours();
-  const settings = await getSettings();
+  const [toursData, settings, posts] = await Promise.all([getTours(), getSettings(), getPosts()]);
+  let tours = toursData;
 
   if (!tours || tours.length === 0) {
     tours = fallbackTours.map((t: any) => ({
@@ -109,6 +112,42 @@ export default async function Home() {
       </AnimatedSection>
 
       <div id="faq" className="bg-white"><FAQ /></div>
+
+      {/* Blog Section */}
+      {posts && posts.length > 0 && (
+        <AnimatedSection delay={0.1}>
+          <section className="py-24 bg-[#faf9f7] border-t border-[#e8e0d5]">
+            <div className="container mx-auto px-6 md:px-16">
+              <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
+                <div>
+                  <p className="text-[#C9A84C] font-bold uppercase tracking-widest text-xs mb-3">Travel Guides</p>
+                  <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1A1210]">From Our Blog</h2>
+                </div>
+                <Link href="/blog" className="inline-flex items-center gap-2 text-[#C9A84C] font-bold text-sm uppercase tracking-widest hover:underline shrink-0">
+                  All Articles <ArrowRight size={16} />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {posts.slice(0, 3).map((post: any) => (
+                  <Link key={post._id} href={`/blog/${post.slug.current}`} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-[#e8e0d5] hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div className="relative aspect-[16/9] overflow-hidden bg-[#f0ebe3]">
+                      {post.mainImage?.asset?.url && (
+                        <Image src={post.mainImage.asset.url} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                      )}
+                    </div>
+                    <div className="p-6 flex flex-col flex-1">
+                      <h3 className="text-lg font-bold text-[#1A1210] mb-2 group-hover:text-[#C9A84C] transition-colors line-clamp-2">{post.title}</h3>
+                      <p className="text-sm text-[#6b5c4e] line-clamp-3 mb-4 flex-1">{post.excerpt}</p>
+                      <span className="text-xs font-bold text-[#C9A84C] uppercase tracking-widest flex items-center gap-1">Read More <ArrowRight size={12} /></span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        </AnimatedSection>
+      )}
+
       <Footer />
     </main>
   );

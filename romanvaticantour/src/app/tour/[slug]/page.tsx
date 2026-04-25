@@ -302,7 +302,7 @@ export default async function TourPage({ params }: PageProps) {
 
                     {/* Sticky booking widget */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-24">
+                        <div className="sticky top-24" id="booking-widget">
                             <BookingWidget tour={tour} />
                         </div>
                     </div>
@@ -310,6 +310,23 @@ export default async function TourPage({ params }: PageProps) {
             </div>
 
             <Footer />
+
+            {/* Mobile Sticky Booking Bar */}
+            <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/80 backdrop-blur-xl border-t border-[#b19681]/20 flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+                <div>
+                    <p className="text-[10px] font-black text-[#85766a] uppercase tracking-widest">From</p>
+                    <p className="text-xl font-black text-[#5c4b3e]">€{tour.price}</p>
+                </div>
+                <button 
+                    onClick={() => {
+                        const widget = document.getElementById('booking-widget');
+                        if (widget) widget.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-primary text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-all"
+                >
+                    Check Availability
+                </button>
+            </div>
         </main>
     );
 }
