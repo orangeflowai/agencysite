@@ -82,12 +82,13 @@ payload-admin/.env.migration
 # Kiro internal
 .kiro/specs/
 
-# Only track 3 Vercel sites — exclude everything else
-wondersofrome/
+# Exclude non-production sites
 wondersofrome_app/
 ticketsinrome-live/
 payload-admin/
 agency-template/
+ticketsinrome-copy/
+booking-admin-hub/
 animations.txt
 contextrules.txt
 
@@ -97,10 +98,6 @@ contextrules.txt
 **/public/fonts/*.ttf
 **/public/fonts/*.woff
 **/public/fonts/*.woff2
-agency-template/
-ticketsinrome-copy/
+
+# Kiro internal
 .kiro/
-booking-admin-hub/
-animations.txt
-contextrules.txt
-wondersofrome/

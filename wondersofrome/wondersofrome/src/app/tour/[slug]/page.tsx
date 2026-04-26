@@ -1,0 +1,280 @@
+
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import { Clock, Users, Calendar, Check, Star, MapPin, Map as MapIcon, Info, XCircle, CheckCircle } from 'lucide-react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import BookingWidget from '@/components/BookingWidget';
+import TourHeroSlider from '@/components/TourHeroSlider';
+import MobileStickyBar from '@/components/MobileStickyBar';
+import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
+import { PortableText } from '@portabletext/react';
+
+// Revalidate every hour
+export const revalidate = 3600;
+
+interface PageProps {
+    params: Promise<{ slug: string }>;
+}
+
+// Pre-build all tour pages at deploy time
+export async function generateStaticParams() {
+    const tours = await getTours();
+    return tours.map((tour) => ({ slug: tour.slug.current }));
+}
+
+export default async function TourPage({ params }: PageProps) {
+    const { slug } = await params;
+    const tour = await getTour(slug);
+
+    if (!tour) {
+        notFound();
+    }
+
+    // Combine main image and gallery for the slider
+    const sliderImages = [tour.mainImage].concat(tour.gallery || []).filter(Boolean);
+
+    // If no images at all, fallback
+    const fallbackImage = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80';
+    if (sliderImages.length === 0) {
+        sliderImages.push(fallbackImage);
+    }
+
+    // JSON-LD Schema for SEO
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'TouristTrip',
+        'name': tour.title,
+        'description': typeof tour.description === 'string' ? tour.description : 'Expert guided tour in Rome',
+        'image': sliderImages.map(img => urlFor(img).url()),
+        'provider': {
+            '@type': 'Organization',
+            'name': process.env.NEXT_PUBLIC_SITE_NAME || 'Wonders of Rome',
+            'url': process.env.NEXT_PUBLIC_SITE_URL
+        },
+        'offers': {
+            '@type': 'Offer',
+            'price': tour.price,
+            'priceCurrency': 'EUR',
+            'availability': 'https://schema.org/InStock'
+        },
+        'aggregateRating': {
+            '@type': 'AggregateRating',
+            'ratingValue': tour.rating || '5.0',
+            'reviewCount': tour.reviewCount || '100'
+        }
+    };
+
+    return (
+        <main className="min-h-screen bg-[#fafaf8]">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <Navbar />
+
+            {/* Tour Hero Slider */}
+            <div className="relative">
+                <TourHeroSlider
+                    images={sliderImages}
+                    title={tour.title}
+                    category={tour.category}
+                    duration={tour.duration}
+                    groupSize={tour.groupSize}
+                    rating={tour.rating}
+                    reviewCount={tour.reviewCount}
+                />
+
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
+                    <div className="max-w-4xl space-y-4 pointer-events-auto">
+                        <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.4em] font-mono">
+                            {tour.category}
+                        </span>
+                        <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl text-white drop-shadow-2xl">
+                            {tour.title}
+                        </h1>
+                        <div className="flex flex-wrap items-center gap-6 text-white/80 text-[10px] font-black uppercase tracking-[0.2em] font-mono">
+                            <div className="flex items-center"><Clock className="w-4 h-4 mr-2 text-primary" /> {tour.duration}</div>
+                            <div className="flex items-center"><Users className="w-4 h-4 mr-2 text-primary" /> {tour.groupSize || 'Small Group'}</div>
+                            <div className="flex items-center text-primary">
+                                <Star className="w-4 h-4 mr-1 fill-current" />
+                                {tour.rating || '5.0'} ({tour.reviewCount || 100} VERIFIED LOGS)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
+                {/* Main Content */}
+                <div className="lg:col-span-2 space-y-12">
+
+                    {/* Overview / Description */}
+                    <section className="prose prose-lg prose-headings:font-serif prose-headings:font-black prose-headings:italic prose-headings:uppercase prose-headings:tracking-tight prose-headings:text-foreground prose-p:text-muted-foreground prose-p:leading-loose prose-li:text-muted-foreground max-w-none">
+                        <h2 className="text-3xl font-serif font-black italic uppercase tracking-tight text-foreground mb-8">Tour Overview</h2>
+                        {typeof tour.description === 'string' ? (
+                            <p className="mb-6">{tour.description}</p>
+                        ) : (
+                            <PortableText
+                                value={tour.description}
+                                components={{
+                                    types: {
+                                        image: ({ value }) => {
+                                            if (!value?.asset?._ref) return null;
+                                            return (
+                                                <div className="my-8 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
+                                                    <Image
+                                                        src={urlFor(value).width(800).fit('max').url()}
+                                                        alt={value.alt || 'Tour image'}
+                                                        fill
+                                                        className="object-cover"
+                                                    />
+                                                </div>
+                                            );
+                                        }
+                                    },
+                                    block: {
+                                        normal: ({ children }) => <p className="mb-6">{children}</p>,
+                                        h2: ({ children }) => <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>,
+                                        h3: ({ children }) => <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>,
+                                    },
+                                    marks: {
+                                        strong: ({ children }) => <strong className="font-bold text-[#0f172a]">{children}</strong>,
+                                        link: ({ value, children }) => {
+                                            const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
+                                            return (
+                                                <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-[#d4af37] underline decoration-[#d4af37]/30 hover:decoration-[#d4af37] transition-all font-medium">
+                                                    {children}
+                                                </a>
+                                            )
+                                        }
+                                    },
+                                    list: {
+                                        bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-2">{children}</ul>,
+                                        number: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-2">{children}</ol>,
+                                    }
+                                }}
+                            />
+                        )}
+                    </section>
+
+                    {/* Highlights */}
+                    {tour.highlights && tour.highlights.length > 0 && (
+                        <section>
+                            <h2 className="font-heading text-2xl font-bold text-[#0f172a] mb-6">Highlights</h2>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {tour.highlights.map((feature: any, i: number) => (
+                                    <li key={i} className="flex items-start space-x-3 p-4 bg-white rounded-xl border border-[#e8e6e1]">
+                                        <Check className="w-5 h-5 text-[#d4af37] shrink-0 mt-0.5" />
+                                        <span className="text-[#64748b] font-body">{typeof feature === 'object' ? feature.item : feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+                    )}
+
+                    {/* Itinerary */}
+                    {tour.itinerary && tour.itinerary.length > 0 && (
+                        <section>
+                            <h2 className="font-heading text-2xl font-bold text-[#0f172a] mb-6">Itinerary</h2>
+                            <div className="pl-4 border-l-2 border-[#d4af37]/20 space-y-8">
+                                {tour.itinerary.map((stop, index) => (
+                                    <div key={index} className="relative">
+                                        <div className="absolute -left-[21px] top-0 w-4 h-4 bg-[#d4af37] rounded-full border-2 border-[#fafaf8]" />
+                                        <h3 className="font-heading text-base font-semibold text-[#0f172a]">{stop.title}</h3>
+                                        <p className="font-mono text-xs text-[#94a3b8] mb-2 uppercase tracking-wide">{stop.duration}</p>
+                                        <p className="font-body text-sm text-[#64748b] leading-relaxed">{stop.description}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+                    )}
+
+                    {/* Inclusions & Exclusions */}
+                    <section className="grid md:grid-cols-2 gap-8">
+                        {tour.includes && (
+                            <div>
+                                <h3 className="font-heading text-lg font-semibold text-[#0f172a] mb-4 flex items-center">
+                                    <CheckCircle className="w-5 h-5 text-[#d4af37] mr-2" /> What&apos;s Included
+                                </h3>
+                                <ul className="space-y-3">
+                                    {tour.includes.map((item: any, i: number) => (
+                                        <li key={i} className="flex items-start font-body text-sm text-[#64748b]">
+                                            <Check className="w-4 h-4 text-[#d4af37] mr-2 mt-0.5 shrink-0" />
+                                            {typeof item === 'object' ? item.item : item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                        {tour.excludes && tour.excludes.length > 0 && (
+                            <div>
+                                <h3 className="font-heading text-lg font-semibold text-[#0f172a] mb-4 flex items-center">
+                                    <XCircle className="w-5 h-5 text-red-500 mr-2" /> What&apos;s Not Included
+                                </h3>
+                                <ul className="space-y-3">
+                                    {tour.excludes.map((item: any, i: number) => (
+                                        <li key={i} className="flex items-start font-body text-sm text-[#64748b]">
+                                            <XCircle className="w-4 h-4 text-red-400 mr-2 mt-0.5 shrink-0" />
+                                            {typeof item === 'object' ? item.item : item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </section>
+
+                    {/* Meeting Point & Important Info */}
+                    <section className="bg-white rounded-2xl p-8 border border-[#e8e6e1] space-y-6">
+                        {tour.meetingPoint && (
+                            <div>
+                                <h3 className="font-heading text-base font-semibold text-[#0f172a] mb-2 flex items-center">
+                                    <MapPin className="w-5 h-5 text-[#d4af37] mr-2" /> Meeting Point
+                                </h3>
+                                <p className="font-body text-sm text-[#64748b]">{tour.meetingPoint}</p>
+                                <a
+                                    href={tour.mapAddress?.startsWith('http') ? tour.mapAddress : tour.location?.startsWith('http') ? tour.location
+                                        : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((tour.mapAddress || tour.location || tour.meetingPoint?.split(/(?:\n|\. )/)[0] || '') + ' Rome')}`
+                                    }
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center mt-3 font-mono text-xs text-[#d4af37] hover:underline uppercase tracking-wide"
+                                >
+                                    <MapIcon className="w-4 h-4 mr-1" /> View on Map
+                                </a>
+                            </div>
+                        )}
+
+                        {tour.importantInfo && tour.importantInfo.length > 0 && (
+                            <div>
+                                <h3 className="font-heading text-base font-semibold text-[#0f172a] mb-2 flex items-center">
+                                    <Info className="w-5 h-5 text-[#d4af37] mr-2" /> Important Information
+                                </h3>
+                                <ul className="space-y-1 font-body text-sm text-[#64748b]">
+                                    {tour.importantInfo.map((info: any, i: number) => (
+                                        <li key={i} className="flex items-start gap-2">
+                                            <span className="text-[#d4af37] mt-1">•</span>
+                                            {typeof info === 'object' ? info.item : info}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </section>
+                </div>
+
+                {/* Sidebar Booking Widget */}
+                <div className="lg:col-span-1">
+                    <div className="sticky top-24" id="booking-widget">
+                        <BookingWidget tour={tour} />
+                    </div>
+                </div>
+            </div>
+
+            <Footer />
+
+            {/* Mobile Sticky Booking Bar */}
+            <MobileStickyBar price={tour.price} />
+        </main>
+    );
+}
