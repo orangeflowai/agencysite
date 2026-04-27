@@ -165,8 +165,8 @@ export default function Navbar() {
                             className={clsx(
                                 'hidden lg:flex items-center rounded-full pl-4 pr-1.5 py-1.5 border shrink-0 gap-3 transition-all duration-300',
                                 scrolled
-                                    ? 'bg-white/5 backdrop-blur-xl border-white/10 shadow-lg'
-                                    : 'bg-white/10 backdrop-blur-md border-white/20 shadow-lg'
+                                    ? 'bg-card/5 backdrop-blur-xl border-white/10 shadow-lg'
+                                    : 'bg-card/10 backdrop-blur-md border-white/20 shadow-lg'
                             )}
                         >
                             <div className={clsx('flex items-center border-r pr-4', scrolled ? 'border-white/10' : 'border-white/20')}>
@@ -176,9 +176,9 @@ export default function Navbar() {
                                     onChange={(e) => setDestination(e.target.value)}
                                     className="bg-transparent text-[10px] font-bold  tracking-widest outline-none w-28 xl:w-32 cursor-pointer appearance-none truncate text-white"
                                 >
-                                    <option value="" disabled className="text-gray-900">Archive Sector</option>
+                                    <option value="" disabled className="text-foreground">Archive Sector</option>
                                     {searchOptions.map((opt) => (
-                                        <option key={opt.slug} value={opt.title} className="text-gray-900">{opt.title}</option>
+                                        <option key={opt.slug} value={opt.title} className="text-foreground">{opt.title}</option>
                                     ))}
                                 </select>
                             </div>
@@ -200,7 +200,7 @@ export default function Navbar() {
                             </div>
 
                             <div className="relative flex items-center pr-1 cursor-pointer" ref={guestRef}>
-                                <div className="flex items-center rounded-full px-2 py-1 transition-all hover:bg-white/5" onClick={() => setIsGuestOpen(!isGuestOpen)}>
+                                <div className="flex items-center rounded-full px-2 py-1 transition-all hover:bg-card/5" onClick={() => setIsGuestOpen(!isGuestOpen)}>
                                     <Users size={14} className="text-[#C9A227]" />
                                     <span className="text-[10px] font-bold  tracking-widest w-10 text-center text-white">
                                         {guests}
@@ -212,9 +212,9 @@ export default function Navbar() {
                                             <div className="flex items-center justify-between font-bold  tracking-widest text-[10px] text-white">
                                                 <span>Guests</span>
                                                 <div className="flex items-center gap-3">
-                                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#C9A227] transition-all"><Minus size={14} /></button>
+                                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-card/5 flex items-center justify-center hover:bg-[#C9A227] transition-all"><Minus size={14} /></button>
                                                     <span className="text-sm">{guests}</span>
-                                                    <button onClick={() => setGuests(guests + 1)} className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#C9A227] transition-all"><Plus size={14} /></button>
+                                                    <button onClick={() => setGuests(guests + 1)} className="w-8 h-8 rounded-full bg-card/5 flex items-center justify-center hover:bg-[#C9A227] transition-all"><Plus size={14} /></button>
                                                 </div>
                                             </div>
                                         </motion.div>
@@ -235,7 +235,7 @@ export default function Navbar() {
 
                         {/* Mobile Toggle */}
                         <div className="flex items-center gap-2 lg:hidden">
-                            <button className="p-2 rounded-full backdrop-blur-md active:scale-95 border border-white/20 bg-white/10 text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                            <button className="p-2 rounded-full backdrop-blur-md active:scale-95 border border-white/20 bg-card/10 text-white" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                             </button>
                         </div>

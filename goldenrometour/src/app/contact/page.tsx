@@ -79,38 +79,38 @@ export default function ContactPage() {
                         variants={fadeInUp}
                         className="space-y-8"
                     >
-                        <h2 className="text-3xl font-serif font-bold text-black border-b-2 border-olive/20 pb-4 inline-block">Get in Touch</h2>
+                        <h2 className="text-3xl font-serif font-bold text-foreground border-b-2 border-olive/20 pb-4 inline-block">Get in Touch</h2>
                         <div className="space-y-8">
                             <div className="flex items-start space-x-6 group">
-                                <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
+                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
                                     <Mail className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-lg text-black mb-1">Email Us</h3>
-                                    <p className="text-gray-600 font-medium hover:text-olive transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</p>
-                                    <p className="text-gray-400 text-xs mt-1  tracking-wider font-bold">24/7 Support</p>
+                                    <h3 className="font-bold text-lg text-foreground mb-1">Email Us</h3>
+                                    <p className="text-muted-foreground font-medium hover:text-olive transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</p>
+                                    <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">24/7 Support</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-6 group">
-                                <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
+                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
                                     <Phone className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-lg text-black mb-1">Call Us</h3>
-                                    <p className="text-gray-600 font-medium">351 419 9425</p>
-                                    <p className="text-gray-400 text-xs mt-1  tracking-wider font-bold">Mon-Sun, 9am - 6pm</p>
+                                    <h3 className="font-bold text-lg text-foreground mb-1">Call Us</h3>
+                                    <p className="text-muted-foreground font-medium">351 419 9425</p>
+                                    <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">Mon-Sun, 9am - 6pm</p>
                                 </div>
                             </div>
 
                             <div className="flex items-start space-x-6 group">
-                                <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
+                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
                                     <MapPin className="w-6 h-6" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-lg text-black mb-1">Visit Our Office</h3>
-                                    <p className="text-gray-600 leading-relaxed">Via Tunisi 43,<br />Rome, Italy</p>
-                                    <p className="text-gray-400 text-xs mt-1  tracking-wider font-bold">Near St. Peter&apos;s Square</p>
+                                    <h3 className="font-bold text-lg text-foreground mb-1">Visit Our Office</h3>
+                                    <p className="text-muted-foreground leading-relaxed">Via Tunisi 43,<br />Rome, Italy</p>
+                                    <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">Near St. Peter&apos;s Square</p>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,7 @@ export default function ContactPage() {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="bg-white p-8 md:p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 relative overflow-hidden"
+                        className="bg-card p-8 md:p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-border relative overflow-hidden"
                     >
                         {/* Decorative background element */}
                         <div className="absolute top-0 right-0 w-32 h-32 bg-olive/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
@@ -129,23 +129,23 @@ export default function ContactPage() {
                         <form className="space-y-5 relative z-10" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-2 gap-5">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500  tracking-wider mb-2">{t('contact.form.name')}</label>
+                                    <label className="block text-xs font-bold text-muted-foreground  tracking-wider mb-2">{t('contact.form.name')}</label>
                                     <input
                                         name="firstName"
                                         required
                                         type="text"
-                                        className="w-full px-4 py-3 bg-gray-50 border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-white focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-gray-900"
+                                        className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-foreground"
                                         placeholder="John"
                                         value={formData.firstName}
                                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500  tracking-wider mb-2">Last Name</label>
+                                    <label className="block text-xs font-bold text-muted-foreground  tracking-wider mb-2">Last Name</label>
                                     <input
                                         name="lastName"
                                         type="text"
-                                        className="w-full px-4 py-3 bg-gray-50 border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-white focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-gray-900"
+                                        className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-foreground"
                                         placeholder="Doe"
                                         value={formData.lastName}
                                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
@@ -153,12 +153,12 @@ export default function ContactPage() {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500  tracking-wider mb-2">{t('contact.form.email')}</label>
+                                <label className="block text-xs font-bold text-muted-foreground  tracking-wider mb-2">{t('contact.form.email')}</label>
                                 <input
                                     name="email"
                                     required
                                     type="email"
-                                    className="w-full px-4 py-3 bg-gray-50 border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-white focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-gray-900"
+                                    className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-foreground"
                                     placeholder="john@example.com"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -174,12 +174,12 @@ export default function ContactPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500  tracking-wider mb-2">{t('contact.form.message')}</label>
+                                <label className="block text-xs font-bold text-muted-foreground  tracking-wider mb-2">{t('contact.form.message')}</label>
                                 <textarea
                                     name="message"
                                     required
                                     rows={4}
-                                    className="w-full px-4 py-3 bg-gray-50 border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-white focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-gray-900 resize-none"
+                                    className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-foreground resize-none"
                                     placeholder="How can we help you?"
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}

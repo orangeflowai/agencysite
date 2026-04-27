@@ -77,7 +77,7 @@ export default async function Home() {
               <Link href="/category/vatican" className="group relative w-full sm:w-auto px-10 py-5 bg-[#C9A227] text-[#0A1628] rounded-full font-bold  tracking-widest text-xs transition-all hover:scale-105 shadow-[0_0_40px_rgba(201,162,39,0.3)]">
                  Explore the Archive
               </Link>
-              <Link href="/category/colosseum" className="w-full sm:w-auto px-10 py-5 bg-transparent border-2 border-white/20 text-white rounded-full font-bold  tracking-widest text-xs hover:bg-white/10 hover:border-white/40 transition-all">
+              <Link href="/category/colosseum" className="w-full sm:w-auto px-10 py-5 bg-transparent border-2 border-white/20 text-white rounded-full font-bold  tracking-widest text-xs hover:bg-card/10 hover:border-white/40 transition-all">
                  Colosseum Access
               </Link>
            </div>
@@ -85,7 +85,7 @@ export default async function Home() {
       </section>
 
       {/* Trust Badges */}
-      <section className="bg-white py-12 border-b border-[#E5E5E5]">
+      <section className="bg-card py-12 border-b border-[#E5E5E5]">
          <div className="container mx-auto px-6 text-center">
             <h3 className="text-[#5A5A5A] font-bold  tracking-widest text-[10px] mb-8">Authenticated by 50,000+ Verified Logs</h3>
             <TrustBadges />
@@ -93,7 +93,7 @@ export default async function Home() {
       </section>
 
       {/* 2. SEO Section */}
-      <section className="bg-white py-24 border-b border-[#E5E5E5]">
+      <section className="bg-card py-24 border-b border-[#E5E5E5]">
          <div className="container mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                <div className="space-y-8">
@@ -188,7 +188,7 @@ export default async function Home() {
       <RomeGallery />
 
       {/* VISUAL PROTOCOL GUIDE */}
-      <section className="py-24 bg-white/50 border-y border-[#E5E5E5]">
+      <section className="py-24 bg-card/50 border-y border-[#E5E5E5]">
          <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16 max-w-2xl mx-auto">
                <p className="text-[10px] font-sans font-bold  tracking-[0.4em] text-[#C9A227] mb-3">Preparation Protocol</p>
@@ -200,7 +200,7 @@ export default async function Home() {
                   { icon: Camera, title: "Photography", desc: "No flash inside the Museums. Strictly no photos or video in the Sistine Chapel." },
                   { icon: Shield, title: "Security", desc: "Airport-style security at all entrances. No large backpacks, knives, or glass bottles." },
                ].map((item, i) => (
-                  <div key={i} className="bg-white p-10 rounded-[2rem] border border-[#E5E5E5] text-center space-y-4 shadow-sm hover:shadow-xl transition-all duration-500">
+                  <div key={i} className="bg-card p-10 rounded-[2rem] border border-[#E5E5E5] text-center space-y-4 shadow-sm hover:shadow-xl transition-all duration-500">
                      <div className="w-16 h-16 bg-[#C9A227]/10 rounded-full flex items-center justify-center mx-auto text-[#C9A227]">
                         <item.icon size={28} />
                      </div>
@@ -221,7 +221,7 @@ export default async function Home() {
          <FloatingReviews />
       </section>
 
-      <div id="faq" className="bg-white"><FAQ /></div>
+      <div id="faq" className="bg-card"><FAQ /></div>
 
       {/* Blog Section */}
       {posts && posts.length > 0 && (

@@ -51,7 +51,7 @@ function NavLink({ href, icon: Icon, children, external, onClick }: NavLinkProps
                 "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 group relative",
                 isActive 
                     ? "bg-primary/10 text-primary shadow-[0_0_20px_rgba(166,124,82,0.1)]" 
-                    : "text-zinc-400 hover:text-white hover:bg-white/5"
+                    : "text-zinc-400 hover:text-white hover:bg-card/5"
             )}
             target={external ? "_blank" : undefined}
         >
@@ -84,7 +84,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                     <span className="font-semibold text-lg tracking-tight">Golden Rome</span>
                 </div>
                 {onClose && (
-                    <button onClick={onClose} className="p-2 hover:bg-white/5 rounded-full transition-colors text-zinc-400 hover:text-white">
+                    <button onClick={onClose} className="p-2 hover:bg-card/5 rounded-full transition-colors text-zinc-400 hover:text-white">
                         <X size={20} />
                     </button>
                 )}
@@ -135,7 +135,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
             </nav>
 
-            <div className="p-4 border-t border-white/5 bg-white/[0.02]">
+            <div className="p-4 border-t border-white/5 bg-card/[0.02]">
                 <button className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-zinc-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all duration-200 group">
                     <LogOut size={18} className="group-hover:translate-x-0.5 transition-transform" />
                     Sign Out
@@ -157,7 +157,7 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
     return (
         <header className={cn(
             "h-16 sticky top-0 z-40 px-4 lg:px-8 flex items-center justify-between transition-all duration-300",
-            scrolled ? "bg-white/80 backdrop-blur-xl border-b border-zinc-200/50 shadow-sm" : "bg-transparent"
+            scrolled ? "bg-card/80 backdrop-blur-xl border-b border-zinc-200/50 shadow-sm" : "bg-transparent"
         )}>
             <div className="flex items-center gap-4">
                 <button
@@ -169,7 +169,7 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
                 <div className="hidden lg:flex items-center gap-2 text-zinc-400 bg-zinc-100/50 px-3 py-1.5 rounded-full border border-zinc-200/50 cursor-pointer hover:bg-zinc-100 transition-colors">
                     <Search size={16} />
                     <span className="text-xs font-medium">Search anything...</span>
-                    <span className="text-[10px] bg-white border border-zinc-200 px-1.5 rounded ml-2">⌘K</span>
+                    <span className="text-[10px] bg-card border border-zinc-200 px-1.5 rounded ml-2">⌘K</span>
                 </div>
             </div>
 
@@ -223,7 +223,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                            className="absolute inset-0 bg-background/60 backdrop-blur-sm"
                             onClick={() => setMobileMenuOpen(false)}
                         />
                         <motion.aside

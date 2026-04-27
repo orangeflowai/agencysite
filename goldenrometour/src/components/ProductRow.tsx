@@ -142,7 +142,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                         <div className="embla__slide flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0">
                             <Link 
                                 href={link}
-                                className="h-full flex flex-col items-center justify-center border-2 border-dashed rounded-2xl p-12 group transition-all bg-white/5 opacity-80 hover:opacity-100"
+                                className="h-full flex flex-col items-center justify-center border-2 border-dashed rounded-2xl p-12 group transition-all bg-card/5 opacity-80 hover:opacity-100"
                                 style={{ borderColor: accentColorMuted }}
                             >
                                 <div className="w-16 h-16 rounded-full border flex items-center justify-center mb-4 transition-all" style={{ borderColor: accentColor, color: accentColor }}>

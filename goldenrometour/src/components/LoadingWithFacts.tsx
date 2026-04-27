@@ -60,7 +60,7 @@ export default function LoadingWithFacts() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-md"
         >
-          <p className="text-sm text-gray-600 mb-2">Did you know?</p>
+          <p className="text-sm text-muted-foreground mb-2">Did you know?</p>
           <p className="text-base text-gray-800 font-medium">{fact}</p>
         </motion.div>
       </AnimatePresence>

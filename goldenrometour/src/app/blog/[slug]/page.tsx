@@ -79,7 +79,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                         <div className="flex flex-wrap items-center justify-center gap-6 text-lg text-emerald-50 font-medium">
                             <div className="flex items-center gap-2">
-                                <Calendar className="w-5 h-5 text-emerald-400" />
+                                <Calendar className="w-5 h-5 text-accent" />
                                 {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
                                     month: 'long',
                                     day: 'numeric',
@@ -87,11 +87,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                                 }) : 'Recently Updated'}
                             </div>
                             <div className="flex items-center gap-2">
-                                <User className="w-5 h-5 text-emerald-400" />
+                                <User className="w-5 h-5 text-accent" />
                                 Rome Expert
                             </div>
                             <div className="flex items-center gap-2">
-                                <Clock className="w-5 h-5 text-emerald-400" />
+                                <Clock className="w-5 h-5 text-accent" />
                                 5 min read
                             </div>
                         </div>
@@ -100,14 +100,14 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                 {/* Content */}
                 <div className="container mx-auto px-4 -mt-20 relative z-20">
-                    <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 lg:p-16 max-w-4xl mx-auto border border-emerald-50">
+                    <div className="bg-card rounded-2xl shadow-xl p-8 md:p-12 lg:p-16 max-w-4xl mx-auto border border-emerald-50">
                         {/* Excerpt */}
                         <div className="text-xl md:text-2xl font-serif text-emerald-900 leading-relaxed mb-12 border-l-4 border-olive pl-6 ">
                             {post.excerpt}
                         </div>
 
                         {/* Body - Portable Text or String */}
-                        <div className="prose prose-lg md:prose-xl prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-gray-700 prose-p:leading-loose prose-li:text-gray-700 max-w-none">
+                        <div className="prose prose-lg md:prose-xl prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-foreground prose-p:leading-loose prose-li:text-foreground max-w-none">
                             {typeof post.body === 'string' ? (
                                 <p>{post.body}</p>
                             ) : (
@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                                             image: ({ value }) => {
                                                 if (!value?.asset?._ref) return null;
                                                 return (
-                                                    <div className="my-10 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                                                    <div className="my-10 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg border border-border">
                                                         <Image
                                                             src={urlFor(value).width(1200).fit('max').url()}
                                                             alt={value.alt || 'Blog image'}
@@ -139,25 +139,25 @@ export default async function BlogPostPage({ params }: PageProps) {
                                             h2: ({ children }) => <h2 className="text-3xl font-bold mt-12 mb-6 border-b border-emerald-100 pb-2">{children}</h2>,
                                             h3: ({ children }) => <h3 className="text-2xl font-bold mt-8 mb-4 text-emerald-800">{children}</h3>,
                                             blockquote: ({ children }) => (
-                                                <blockquote className="border-l-4 border-emerald-500 pl-4 py-2 my-8 bg-emerald-50 rounded-r-lg  text-emerald-900 shadow-inner">
+                                                <blockquote className="border-l-4 border-emerald-500 pl-4 py-2 my-8 bg-secondary rounded-r-lg  text-emerald-900 shadow-inner">
                                                     {children}
                                                 </blockquote>
                                             ),
                                         },
                                         marks: {
-                                            strong: ({ children }) => <strong className="font-bold text-black">{children}</strong>,
+                                            strong: ({ children }) => <strong className="font-bold text-foreground">{children}</strong>,
                                             link: ({ value, children }) => {
                                                 const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
                                                 return (
-                                                    <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-emerald-600 underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-bold">
+                                                    <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-primary underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-bold">
                                                         {children}
                                                     </a>
                                                 )
                                             }
                                         },
                                         list: {
-                                            bullet: ({ children }) => <ul className="list-disc pl-6 mb-8 space-y-3 marker:text-emerald-500">{children}</ul>,
-                                            number: ({ children }) => <ol className="list-decimal pl-6 mb-8 space-y-3 marker:text-emerald-500 font-bold">{children}</ol>,
+                                            bullet: ({ children }) => <ul className="list-disc pl-6 mb-8 space-y-3 marker:text-primary">{children}</ul>,
+                                            number: ({ children }) => <ol className="list-decimal pl-6 mb-8 space-y-3 marker:text-primary font-bold">{children}</ol>,
                                         }
                                     }}
                                 />
@@ -166,11 +166,11 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                         {/* Keywords / Tags */}
                         {post.keywords && post.keywords.length > 0 && (
-                            <div className="mt-16 pt-8 border-t border-gray-100">
-                                <h4 className="text-sm font-bold text-gray-400  tracking-widest mb-4">Related Topics</h4>
+                            <div className="mt-16 pt-8 border-t border-border">
+                                <h4 className="text-sm font-bold text-muted-foreground  tracking-widest mb-4">Related Topics</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {post.keywords.map((keyword, i) => (
-                                        <span key={i} className="px-4 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm font-medium hover:bg-emerald-100 hover:text-emerald-800 transition-colors cursor-pointer capitalize">
+                                        <span key={i} className="px-4 py-1.5 bg-gray-100 text-muted-foreground rounded-full text-sm font-medium hover:bg-emerald-100 hover:text-emerald-800 transition-colors cursor-pointer capitalize">
                                             #{keyword}
                                         </span>
                                     ))}

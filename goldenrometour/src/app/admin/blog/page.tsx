@@ -77,8 +77,8 @@ export default function AdminBlogPage() {
 
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Blog Posts</h1>
-                    <p className="text-sm text-gray-500">Manage your travel guides and articles.</p>
+                    <h1 className="text-2xl font-bold text-foreground">Blog Posts</h1>
+                    <p className="text-sm text-muted-foreground">Manage your travel guides and articles.</p>
                 </div>
                 <div className="flex gap-3">
                     <button
@@ -119,7 +119,7 @@ export default function AdminBlogPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {posts.length > 0 ? (
                     posts.map(post => (
-                        <div key={post._id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-md transition-shadow">
+                        <div key={post._id} className="bg-card rounded-xl shadow-sm border border-border overflow-hidden group hover:shadow-md transition-shadow">
                             <div className="aspect-video relative bg-gray-100">
                                 {post.mainImage ? (
                                     <Image
@@ -129,7 +129,7 @@ export default function AdminBlogPage() {
                                         className="object-cover"
                                     />
                                 ) : (
-                                    <div className="flex items-center justify-center h-full text-gray-300">
+                                    <div className="flex items-center justify-center h-full text-muted-foreground">
                                         <span className="text-4xl font-bold opacity-20">No Image</span>
                                     </div>
                                 )}
@@ -137,16 +137,16 @@ export default function AdminBlogPage() {
                             </div>
 
                             <div className="p-5">
-                                <div className="flex items-center gap-2 mb-3 text-xs font-medium text-gray-400">
+                                <div className="flex items-center gap-2 mb-3 text-xs font-medium text-muted-foreground">
                                     <span>{post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : 'Draft'}</span>
                                     <span>•</span>
                                     <span>{post.author?.name || 'Unknown Author'}</span>
                                 </div>
-                                <h3 className="font-bold text-gray-900 mb-4 line-clamp-2 min-h-[3rem]">
+                                <h3 className="font-bold text-foreground mb-4 line-clamp-2 min-h-[3rem]">
                                     {post.title}
                                 </h3>
 
-                                <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100">
+                                <div className="flex items-center gap-3 mt-auto pt-4 border-t border-border">
                                     <Link
                                         href={`/studio/structure/post;${post._id}`}
                                         target="_blank"
@@ -158,7 +158,7 @@ export default function AdminBlogPage() {
                                     <Link
                                         href={`/blog/${post.slug?.current}`}
                                         target="_blank"
-                                        className="p-2 text-gray-400 hover:text-primary hover:bg-gray-50 rounded-lg transition-colors"
+                                        className="p-2 text-muted-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors"
                                         title="View Live"
                                     >
                                         <ExternalLink size={18} />
@@ -168,7 +168,7 @@ export default function AdminBlogPage() {
                         </div>
                     ))
                 ) : (
-                    <div className="col-span-full py-12 text-center text-gray-400 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                    <div className="col-span-full py-12 text-center text-muted-foreground bg-muted rounded-xl border border-dashed border-border">
                         <p>No blog posts found.</p>
                         <button
                             onClick={() => setShowAIAssistant(true)}

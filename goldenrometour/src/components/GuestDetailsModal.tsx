@@ -72,7 +72,7 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+                        className="bg-card w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
                     >
                         {/* Header */}
                         <div className="bg-sky-900 p-6 flex justify-between items-center text-white shrink-0">
@@ -92,22 +92,22 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
                                 {guestLabels.map((guest, i) => {
                                     const index = i + 1;
                                     return (
-                                        <div key={index} className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                            <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                        <div key={index} className="bg-muted p-4 rounded-xl border border-border">
+                                            <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
                                                 <User size={16} className="text-sky-600" />
                                                 Guest {index} - {guest.label} {index === 1 ? '(Lead Traveler)' : ''}
                                             </h3>
 
                                             <div className="grid grid-cols-1 gap-4">
                                                 <div>
-                                                    <label className="block text-xs font-bold text-gray-500  mb-1">Full Name</label>
+                                                    <label className="block text-xs font-bold text-muted-foreground  mb-1">Full Name</label>
                                                     <input
                                                         type="text"
                                                         required
                                                         placeholder="As on Passport"
                                                         value={values[`guest_${index}_name`] || ''}
                                                         onChange={(e) => handleChange(`guest_${index}_name`, e.target.value)}
-                                                        className="w-full p-3 bg-white border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                                        className="w-full p-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
                                                     />
                                                 </div>
                                             </div>
@@ -123,11 +123,11 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
                         </div>
 
                         {/* Footer */}
-                        <div className="p-6 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 shrink-0">
+                        <div className="p-6 border-t border-border bg-muted flex justify-end gap-3 shrink-0">
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="px-6 py-3 font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-200 rounded-xl transition-colors"
+                                className="px-6 py-3 font-semibold text-muted-foreground hover:text-foreground hover:bg-gray-200 rounded-xl transition-colors"
                             >
                                 Cancel
                             </button>

@@ -42,7 +42,7 @@ export default function TrustBadges() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: index * 0.15 }}
-                            className="group relative flex flex-col items-center text-center p-8 rounded-[2.5rem] transition-all duration-500 hover:bg-white/40 border border-transparent hover:border-white/60 hover:shadow-2xl hover:shadow-[#555B02]/5"
+                            className="group relative flex flex-col items-center text-center p-8 rounded-[2.5rem] transition-all duration-500 hover:bg-card/40 border border-transparent hover:border-white/60 hover:shadow-2xl hover:shadow-[#555B02]/5"
                         >
                             {/* Glass Icon Card with Layered Effect */}
                             <div className="relative mb-8">

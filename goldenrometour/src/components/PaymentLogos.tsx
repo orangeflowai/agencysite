@@ -77,7 +77,7 @@ export default function PaymentLogos({ size = 'md', className = '' }: PaymentLog
         <div
           key={m.name}
           title={m.name}
-          className={`${h} px-2 py-1 bg-white rounded border border-gray-200 flex items-center justify-center min-w-[44px]`}
+          className={`${h} px-2 py-1 bg-card rounded border border-border flex items-center justify-center min-w-[44px]`}
         >
           <div className="w-full h-full flex items-center justify-center">
             {m.svg}

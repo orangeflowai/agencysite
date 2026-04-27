@@ -51,7 +51,7 @@ export default async function BlogPage() {
                         <Link
                             key={post._id}
                             href={`/blog/${post.slug.current}`}
-                            className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-emerald-50 hover:-translate-y-1 flex flex-col"
+                            className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-emerald-50 hover:-translate-y-1 flex flex-col"
                         >
                             <div className="relative h-56 overflow-hidden">
                                 <Image
@@ -73,11 +73,11 @@ export default async function BlogPage() {
                                     }) : 'Recently Updated'}
                                 </div>
 
-                                <h2 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-olive transition-colors line-clamp-2">
+                                <h2 className="text-xl font-serif font-bold text-foreground mb-3 group-hover:text-olive transition-colors line-clamp-2">
                                     {post.title}
                                 </h2>
 
-                                <p className="text-gray-600 mb-6 text-sm leading-relaxed line-clamp-3 flex-1">
+                                <p className="text-muted-foreground mb-6 text-sm leading-relaxed line-clamp-3 flex-1">
                                     {post.excerpt}
                                 </p>
 
@@ -90,7 +90,7 @@ export default async function BlogPage() {
                 </div>
 
                 {posts.length === 0 && (
-                    <div className="text-center py-20 bg-emerald-50 rounded-2xl border border-emerald-100">
+                    <div className="text-center py-20 bg-secondary rounded-2xl border border-emerald-100">
                         <h3 className="text-2xl font-serif font-bold text-emerald-900 mb-2">No Stories Yet</h3>
                         <p className="text-emerald-700">Check back soon for our first travel guide!</p>
                     </div>

@@ -10,7 +10,7 @@ export default function SiteSwitcher() {
 
     if (isLoading) {
         return (
-            <div className="p-6 border-b border-gray-100 flex items-center gap-3 opacity-50">
+            <div className="p-6 border-b border-border flex items-center gap-3 opacity-50">
                 <div className="w-8 h-8 bg-gray-200 rounded-lg animate-pulse" />
                 <div className="space-y-1">
                     <div className="w-24 h-3 bg-gray-200 rounded animate-pulse" />
@@ -23,8 +23,8 @@ export default function SiteSwitcher() {
     return (
         <Popover.Root>
             <Popover.Trigger asChild>
-                <button className="w-full p-6 border-b border-gray-100 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left outline-none group">
-                    <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center shadow-emerald-200 shadow-sm group-hover:shadow-md transition-all">
+                <button className="w-full p-6 border-b border-border flex items-center gap-3 hover:bg-muted transition-colors text-left outline-none group">
+                    <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-emerald-200 shadow-sm group-hover:shadow-md transition-all">
                         {currentSite?.logo ? (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img src={currentSite.logo.asset?.url} alt="Logo" className="w-full h-full object-cover rounded-lg" />
@@ -33,10 +33,10 @@ export default function SiteSwitcher() {
                         )}
                     </div>
                     <div className="flex-1 min-w-0">
-                        <span className="block font-bold text-gray-900 tracking-tight truncate">
+                        <span className="block font-bold text-foreground tracking-tight truncate">
                             {currentSite?.title || 'Unknown Site'}
                         </span>
-                        <div className="flex items-center gap-1 text-[10px] text-gray-500  tracking-widest font-bold">
+                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground  tracking-widest font-bold">
                             <span>Switch Site</span>
                             <ChevronDown size={10} />
                         </div>
@@ -45,15 +45,15 @@ export default function SiteSwitcher() {
             </Popover.Trigger>
 
             <Popover.Portal>
-                <Popover.Content className="w-60 bg-white rounded-xl shadow-xl border border-gray-100 p-2 z-50 animate-in fade-in zoom-in-95 duration-200" side="bottom" align="start" sideOffset={5}>
-                    <div className="text-[10px] font-bold text-gray-400  tracking-wider px-3 mb-2 mt-2">Available Sites</div>
+                <Popover.Content className="w-60 bg-card rounded-xl shadow-xl border border-border p-2 z-50 animate-in fade-in zoom-in-95 duration-200" side="bottom" align="start" sideOffset={5}>
+                    <div className="text-[10px] font-bold text-muted-foreground  tracking-wider px-3 mb-2 mt-2">Available Sites</div>
                     {sites.map((site) => (
                         <button
                             key={site._id}
                             onClick={() => setSelectedSiteId(site.slug.current)}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-all ${selectedSiteId === site.slug.current
                                     ? 'bg-background text-foreground'
-                                    : 'text-gray-600 hover:bg-gray-50'
+                                    : 'text-muted-foreground hover:bg-muted'
                                 }`}
                         >
                             <div className={`w-2 h-2 rounded-full ${site.isActive ? 'bg-green-500' : 'bg-red-300'}`} />

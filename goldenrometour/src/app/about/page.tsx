@@ -110,7 +110,7 @@ export default function AboutPage() {
                         <p className="text-background/60 mb-10 text-lg relative z-10 font-mono  tracking-tighter">Browse our tours or ping us on WhatsApp—we're always up for a chat about Rome's next great adventure.</p>
 
                         <div className="grid sm:grid-cols-2 gap-6 mb-12 relative z-10">
-                            <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "3514199425"}`} className="flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white py-4 px-8 rounded-2xl font-bold transition-all transform hover:scale-[1.02]  tracking-widest text-xs">
+                            <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "3514199425"}`} className="flex items-center justify-center gap-3 bg-primary hover:opacity-90 text-white py-4 px-8 rounded-2xl font-bold transition-all transform hover:scale-[1.02]  tracking-widest text-xs">
                                 <MessageCircle size={20} />
                                 WhatsApp Chat
                             </a>

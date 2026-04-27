@@ -73,7 +73,7 @@ export default function FAQ() {
                                 className={clsx(
                                     "border transition-all duration-300 overflow-hidden",
                                     isOpen
-                                        ? "bg-white border-forest shadow-2xl"
+                                        ? "bg-card border-forest shadow-2xl"
                                         : "bg-cream border-forest/10 hover:border-forest/30"
                                 )}
                             >

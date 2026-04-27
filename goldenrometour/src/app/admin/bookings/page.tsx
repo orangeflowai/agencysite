@@ -146,14 +146,14 @@ export default function BookingsPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Bookings</h1>
-                    <p className="text-gray-500 mt-1">{stats.total} total bookings · €{stats.revenue.toLocaleString('en', { minimumFractionDigits: 2 })} revenue</p>
+                    <h1 className="text-2xl font-bold text-foreground">Bookings</h1>
+                    <p className="text-muted-foreground mt-1">{stats.total} total bookings · €{stats.revenue.toLocaleString('en', { minimumFractionDigits: 2 })} revenue</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <button onClick={fetchBookings} className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" title="Refresh">
+                    <button onClick={fetchBookings} className="p-2 text-muted-foreground hover:text-muted-foreground hover:bg-gray-100 rounded-lg transition-colors" title="Refresh">
                         <RefreshCw className="w-5 h-5" />
                     </button>
-                    <button onClick={exportCSV} className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                    <button onClick={exportCSV} className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-foreground font-medium rounded-lg hover:bg-gray-200 transition-colors">
                         <Download className="w-4 h-4" />
                         Export CSV
                     </button>
@@ -173,11 +173,11 @@ export default function BookingsPage() {
                         onClick={() => { setStatusFilter(tab.key); setCurrentPage(1); }}
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${statusFilter === tab.key
                                 ? 'bg-primary text-primary-foreground shadow-sm'
-                                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                                : 'bg-card text-muted-foreground border border-border hover:bg-muted'
                             }`}
                     >
                         {tab.label}
-                        <span className={`ml-2 px-1.5 py-0.5 rounded-full text-xs ${statusFilter === tab.key ? 'bg-white/20' : 'bg-gray-100'
+                        <span className={`ml-2 px-1.5 py-0.5 rounded-full text-xs ${statusFilter === tab.key ? 'bg-card/20' : 'bg-gray-100'
                             }`}>{tab.count}</span>
                     </button>
                 ))}
@@ -185,31 +185,31 @@ export default function BookingsPage() {
 
             {/* Search */}
             <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
                 <input
                     type="text"
                     placeholder="Search by customer name, email, or tour title..."
                     value={searchTerm}
                     onChange={e => { setSearchTerm(e.target.value); setCurrentPage(1); }}
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none"
+                    className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-xl focus:ring-2 focus:ring-primary outline-none"
                 />
             </div>
 
             {/* Results */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
                 {/* Table Header */}
-                <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-100 text-xs font-bold text-gray-500  tracking-wider">
-                    <div className="col-span-4 flex items-center gap-1 cursor-pointer hover:text-gray-700" onClick={() => toggleSort('tour_title')}>
+                <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-muted border-b border-border text-xs font-bold text-muted-foreground  tracking-wider">
+                    <div className="col-span-4 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('tour_title')}>
                         Tour <ArrowUpDown className="w-3 h-3" />
                     </div>
-                    <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-gray-700" onClick={() => toggleSort('customer_name')}>
+                    <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('customer_name')}>
                         Customer <ArrowUpDown className="w-3 h-3" />
                     </div>
-                    <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-gray-700" onClick={() => toggleSort('date')}>
+                    <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('date')}>
                         Date <ArrowUpDown className="w-3 h-3" />
                     </div>
                     <div className="col-span-1">Guests</div>
-                    <div className="col-span-1 flex items-center gap-1 cursor-pointer hover:text-gray-700" onClick={() => toggleSort('total_price')}>
+                    <div className="col-span-1 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('total_price')}>
                         Price <ArrowUpDown className="w-3 h-3" />
                     </div>
                     <div className="col-span-1">Status</div>
@@ -217,8 +217,8 @@ export default function BookingsPage() {
                 </div>
 
                 {paginated.length === 0 ? (
-                    <div className="p-12 text-center text-gray-500">
-                        <AlertCircle className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+                    <div className="p-12 text-center text-muted-foreground">
+                        <AlertCircle className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
                         <p className="font-medium">No bookings found</p>
                         <p className="text-sm mt-1">Try adjusting your search or filters</p>
                     </div>
@@ -228,7 +228,7 @@ export default function BookingsPage() {
                             const isExpanded = expandedMap[booking.id];
                             const StatusIcon = statusIcons[booking.status] || AlertCircle;
                             return (
-                                <div key={booking.id} className="flex flex-col hover:bg-gray-50/50 transition-colors">
+                                <div key={booking.id} className="flex flex-col hover:bg-muted/50 transition-colors">
                                     {/* Main Row */}
                                     <div
                                         onClick={() => toggleExpand(booking.id)}
@@ -237,16 +237,16 @@ export default function BookingsPage() {
                                         {/* Mobile Layout */}
                                         <div className="md:hidden space-y-2">
                                             <div className="flex items-center justify-between">
-                                                <h3 className="font-bold text-gray-900 text-sm">{booking.tour_title}</h3>
-                                                <span className={`text-xs font-bold  px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-gray-600'}`}>
+                                                <h3 className="font-bold text-foreground text-sm">{booking.tour_title}</h3>
+                                                <span className={`text-xs font-bold  px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-muted-foreground'}`}>
                                                     {booking.status}
                                                 </span>
                                             </div>
-                                            <div className="flex items-center justify-between text-sm text-gray-500">
+                                            <div className="flex items-center justify-between text-sm text-muted-foreground">
                                                 <span>{booking.customer_name}</span>
-                                                <span className="font-bold text-gray-900">€{booking.total_price}</span>
+                                                <span className="font-bold text-foreground">€{booking.total_price}</span>
                                             </div>
-                                            <div className="flex items-center gap-3 text-xs text-gray-400">
+                                            <div className="flex items-center gap-3 text-xs text-muted-foreground">
                                                 <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {booking.date}</span>
                                                 <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {booking.guests}</span>
                                             </div>
@@ -255,57 +255,57 @@ export default function BookingsPage() {
                                         {/* Desktop Layout */}
                                         <div className="hidden md:grid grid-cols-12 gap-4 items-center">
                                             <div className="col-span-4">
-                                                <h3 className="font-semibold text-gray-900 text-sm">{booking.tour_title}</h3>
-                                                <p className="text-xs text-gray-400 mt-0.5">{booking.time || ''}</p>
+                                                <h3 className="font-semibold text-foreground text-sm">{booking.tour_title}</h3>
+                                                <p className="text-xs text-muted-foreground mt-0.5">{booking.time || ''}</p>
                                             </div>
                                             <div className="col-span-2">
-                                                <p className="text-sm text-gray-900">{booking.customer_name}</p>
-                                                <p className="text-xs text-gray-400">{booking.customer_email}</p>
+                                                <p className="text-sm text-foreground">{booking.customer_name}</p>
+                                                <p className="text-xs text-muted-foreground">{booking.customer_email}</p>
                                             </div>
                                             <div className="col-span-2">
-                                                <p className="text-sm text-gray-700">{booking.date}</p>
-                                                <p className="text-xs text-gray-400">
+                                                <p className="text-sm text-foreground">{booking.date}</p>
+                                                <p className="text-xs text-muted-foreground">
                                                     {booking.created_at ? new Date(booking.created_at).toLocaleDateString('en', { month: 'short', day: 'numeric' }) : ''}
                                                 </p>
                                             </div>
                                             <div className="col-span-1">
-                                                <span className="text-sm text-gray-700">{booking.guests}</span>
+                                                <span className="text-sm text-foreground">{booking.guests}</span>
                                             </div>
                                             <div className="col-span-1">
-                                                <span className="font-bold text-gray-900">€{booking.total_price}</span>
+                                                <span className="font-bold text-foreground">€{booking.total_price}</span>
                                             </div>
                                             <div className="col-span-1">
-                                                <span className={`text-xs font-bold  px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-gray-600'}`}>
+                                                <span className={`text-xs font-bold  px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-muted-foreground'}`}>
                                                     {booking.status}
                                                 </span>
                                             </div>
                                             <div className="col-span-1 flex justify-end">
-                                                {isExpanded ? <ChevronUp size={16} className="text-gray-400" /> : <ChevronDown size={16} className="text-gray-400" />}
+                                                {isExpanded ? <ChevronUp size={16} className="text-muted-foreground" /> : <ChevronDown size={16} className="text-muted-foreground" />}
                                             </div>
                                         </div>
                                     </div>
 
                                     {/* Expanded Details */}
                                     {isExpanded && (
-                                        <div className="px-6 pb-6 bg-gray-50/50 border-t border-gray-100">
+                                        <div className="px-6 pb-6 bg-muted/50 border-t border-border">
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                                                 {/* Contact Info */}
                                                 <div className="space-y-3">
-                                                    <h4 className="font-bold text-gray-700  text-xs flex items-center gap-1">
+                                                    <h4 className="font-bold text-foreground  text-xs flex items-center gap-1">
                                                         <User size={12} /> Contact Info
                                                     </h4>
-                                                    <div className="space-y-2 text-sm text-gray-600">
+                                                    <div className="space-y-2 text-sm text-muted-foreground">
                                                         <div className="flex items-center gap-2">
-                                                            <User size={14} className="text-gray-400" />
+                                                            <User size={14} className="text-muted-foreground" />
                                                             <span>{booking.customer_name || 'N/A'}</span>
                                                         </div>
                                                         <div className="flex items-center gap-2">
-                                                            <Mail size={14} className="text-gray-400" />
+                                                            <Mail size={14} className="text-muted-foreground" />
                                                             <span>{booking.customer_email || 'N/A'}</span>
                                                         </div>
                                                         {booking.customer_phone && (
                                                             <div className="flex items-center gap-2">
-                                                                <Phone size={14} className="text-gray-400" />
+                                                                <Phone size={14} className="text-muted-foreground" />
                                                                 <span>{booking.customer_phone}</span>
                                                             </div>
                                                         )}
@@ -314,10 +314,10 @@ export default function BookingsPage() {
 
                                                 {/* Ticket Breakdown */}
                                                 <div className="space-y-3">
-                                                    <h4 className="font-bold text-gray-700  text-xs flex items-center gap-1">
+                                                    <h4 className="font-bold text-foreground  text-xs flex items-center gap-1">
                                                         <Users size={12} /> Ticket Breakdown
                                                     </h4>
-                                                    <div className="space-y-1.5 text-sm text-gray-600">
+                                                    <div className="space-y-1.5 text-sm text-muted-foreground">
                                                         <div className="flex justify-between">
                                                             <span>Adults</span>
                                                             <span className="font-medium">{booking.adults || 0}</span>
@@ -330,7 +330,7 @@ export default function BookingsPage() {
                                                             <span>Youths</span>
                                                             <span className="font-medium">{booking.youths || 0}</span>
                                                         </div>
-                                                        <div className="flex justify-between border-t pt-1.5 font-bold text-gray-900">
+                                                        <div className="flex justify-between border-t pt-1.5 font-bold text-foreground">
                                                             <span>Total</span>
                                                             <span>€{booking.total_price}</span>
                                                         </div>
@@ -339,16 +339,16 @@ export default function BookingsPage() {
 
                                                 {/* Guest Details */}
                                                 <div className="space-y-3">
-                                                    <h4 className="font-bold text-gray-700  text-xs flex items-center gap-1">
+                                                    <h4 className="font-bold text-foreground  text-xs flex items-center gap-1">
                                                         <FileText size={12} /> Guest List
                                                     </h4>
                                                     {booking.guest_details && Array.isArray(booking.guest_details) && booking.guest_details.length > 0 ? (
                                                         <div className="space-y-1.5">
                                                             {booking.guest_details.map((guest: any, idx: number) => (
-                                                                <div key={idx} className="bg-white p-2 rounded border border-gray-200 flex justify-between items-center text-sm">
-                                                                    <span className="font-medium text-gray-900">{guest.name}</span>
+                                                                <div key={idx} className="bg-card p-2 rounded border border-border flex justify-between items-center text-sm">
+                                                                    <span className="font-medium text-foreground">{guest.name}</span>
                                                                     {guest.passport && (
-                                                                        <span className="text-gray-500 font-mono text-xs flex items-center gap-1">
+                                                                        <span className="text-muted-foreground font-mono text-xs flex items-center gap-1">
                                                                             <FileText size={12} /> {guest.passport}
                                                                         </span>
                                                                     )}
@@ -356,20 +356,20 @@ export default function BookingsPage() {
                                                             ))}
                                                         </div>
                                                     ) : (
-                                                        <p className="text-gray-400  text-sm">No guest details provided</p>
+                                                        <p className="text-muted-foreground  text-sm">No guest details provided</p>
                                                     )}
                                                 </div>
                                             </div>
 
                                             {/* Logistics & Add-ons */}
                                             {(booking.logistics || booking.addons) && (
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-4 border-t border-gray-200">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-4 border-t border-border">
                                                     {booking.logistics && (
                                                         <div className="space-y-2">
-                                                            <h4 className="font-bold text-gray-700  text-xs flex items-center gap-1">
+                                                            <h4 className="font-bold text-foreground  text-xs flex items-center gap-1">
                                                                 <MapPin size={12} /> Logistics
                                                             </h4>
-                                                            <div className="text-sm text-gray-600 space-y-1">
+                                                            <div className="text-sm text-muted-foreground space-y-1">
                                                                 {booking.logistics.hotelName && <p>Hotel: {booking.logistics.hotelName}</p>}
                                                                 {booking.logistics.hotelAddress && <p>Address: {booking.logistics.hotelAddress}</p>}
                                                                 {booking.logistics.dietaryRestrictions && <p>Dietary: {booking.logistics.dietaryRestrictions}</p>}
@@ -379,11 +379,11 @@ export default function BookingsPage() {
                                                     )}
                                                     {booking.addons && Array.isArray(booking.addons) && booking.addons.length > 0 && (
                                                         <div className="space-y-2">
-                                                            <h4 className="font-bold text-gray-700  text-xs">Add-ons</h4>
+                                                            <h4 className="font-bold text-foreground  text-xs">Add-ons</h4>
                                                             <div className="space-y-1">
                                                                 {booking.addons.map((addon: any, idx: number) => (
                                                                     <div key={idx} className="flex justify-between text-sm">
-                                                                        <span className="text-gray-600">{addon.name}</span>
+                                                                        <span className="text-muted-foreground">{addon.name}</span>
                                                                         <span className="font-medium">€{addon.price}</span>
                                                                     </div>
                                                                 ))}
@@ -394,7 +394,7 @@ export default function BookingsPage() {
                                             )}
 
                                             {/* Footer info */}
-                                            <div className="mt-4 pt-3 border-t border-gray-200 flex flex-wrap gap-4 text-xs text-gray-400 font-mono">
+                                            <div className="mt-4 pt-3 border-t border-border flex flex-wrap gap-4 text-xs text-muted-foreground font-mono">
                                                 <span>ID: {booking.id}</span>
                                                 {booking.stripe_session_id && <span>Stripe: {booking.stripe_session_id}</span>}
                                                 {booking.created_at && <span>Created: {new Date(booking.created_at).toLocaleString()}</span>}
@@ -409,15 +409,15 @@ export default function BookingsPage() {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                    <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
-                        <p className="text-sm text-gray-500">
+                    <div className="px-6 py-4 border-t border-border flex items-center justify-between">
+                        <p className="text-sm text-muted-foreground">
                             Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1}-{Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length}
                         </p>
                         <div className="flex items-center gap-1">
                             <button
                                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                                 disabled={currentPage === 1}
-                                className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-3 py-1.5 text-sm rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Previous
                             </button>
@@ -429,7 +429,7 @@ export default function BookingsPage() {
                                         onClick={() => setCurrentPage(page)}
                                         className={`w-8 h-8 text-sm rounded-lg ${currentPage === page
                                                 ? 'bg-primary text-primary-foreground'
-                                                : 'border border-gray-200 hover:bg-gray-50'
+                                                : 'border border-border hover:bg-muted'
                                             }`}
                                     >
                                         {page}
@@ -439,7 +439,7 @@ export default function BookingsPage() {
                             <button
                                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                                 disabled={currentPage === totalPages}
-                                className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-3 py-1.5 text-sm rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 Next
                             </button>

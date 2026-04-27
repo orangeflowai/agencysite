@@ -119,13 +119,13 @@ export default function FAQPage() {
                                         <div
                                             key={index}
                                             className={clsx(
-                                                "bg-white rounded-lg border overflow-hidden shadow-sm transition-all duration-300",
+                                                "bg-card rounded-lg border overflow-hidden shadow-sm transition-all duration-300",
                                                 isOpen ? "border-[#C9A227] border-l-4 shadow-md" : "border-[#E5E5E5] hover:border-[#C9A227]/50"
                                             )}
                                         >
                                             <button
                                                 onClick={() => toggle(id)}
-                                                className="w-full flex items-center justify-between p-6 text-left focus:outline-none bg-white"
+                                                className="w-full flex items-center justify-between p-6 text-left focus:outline-none bg-card"
                                             >
                                                 <span className={clsx(
                                                     "font-bold text-lg pr-8 transition-colors",
@@ -162,7 +162,7 @@ export default function FAQPage() {
                     ))}
                 </div>
 
-                <div className="mt-20 bg-white rounded-2xl p-8 md:p-12 text-center border border-[#E5E5E5] shadow-lg shadow-[#0A1628]/5">
+                <div className="mt-20 bg-card rounded-2xl p-8 md:p-12 text-center border border-[#E5E5E5] shadow-lg shadow-[#0A1628]/5">
                     <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-4   tracking-tight">Still have questions?</h3>
                     <p className="text-[#5A5A5A] mb-8 max-w-lg mx-auto">
                         Our Vatican specialists are here to help! Available 8:00 AM – 7:00 PM (CET).

@@ -141,7 +141,7 @@ export default async function TourPage({ params }: PageProps) {
                 <div className="lg:col-span-2 space-y-12">
 
                     {/* Overview / Description */}
-                    <section className="prose prose-lg prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-gray-700 prose-p:leading-loose prose-li:text-gray-700 max-w-none">
+                    <section className="prose prose-lg prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-foreground prose-p:leading-loose prose-li:text-foreground max-w-none">
                         <h2 className="text-3xl font-serif font-bold text-emerald-900 mb-6">Tour Overview</h2>
                         {typeof tour.description === 'string' ? (
                             <p className="mb-6">{tour.description}</p>
@@ -170,11 +170,11 @@ export default async function TourPage({ params }: PageProps) {
                                         h3: ({ children }) => <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>,
                                     },
                                     marks: {
-                                        strong: ({ children }) => <strong className="font-bold text-black">{children}</strong>,
+                                        strong: ({ children }) => <strong className="font-bold text-foreground">{children}</strong>,
                                         link: ({ value, children }) => {
                                             const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
                                             return (
-                                                <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-emerald-600 underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-medium">
+                                                <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-primary underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-medium">
                                                     {children}
                                                 </a>
                                             )
@@ -192,12 +192,12 @@ export default async function TourPage({ params }: PageProps) {
                     {/* Highlights */}
                     {tour.highlights && tour.highlights.length > 0 && (
                         <section>
-                            <h2 className="text-2xl font-serif font-bold text-black mb-6">Highlights</h2>
+                            <h2 className="text-2xl font-serif font-bold text-foreground mb-6">Highlights</h2>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {tour.highlights.map((feature: any, i: number) => (
-                                    <li key={i} className="flex items-start space-x-3 p-4 bg-white rounded-xl shadow-sm border border-olive/5">
+                                    <li key={i} className="flex items-start space-x-3 p-4 bg-card rounded-xl shadow-sm border border-olive/5">
                                         <Check className="w-5 h-5 text-olive shrink-0 mt-0.5" />
-                                        <span className="text-gray-700 font-medium">{typeof feature === 'object' ? feature.item : feature}</span>
+                                        <span className="text-foreground font-medium">{typeof feature === 'object' ? feature.item : feature}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -207,14 +207,14 @@ export default async function TourPage({ params }: PageProps) {
                     {/* Itinerary */}
                     {tour.itinerary && tour.itinerary.length > 0 && (
                         <section>
-                            <h2 className="text-2xl font-serif font-bold text-black mb-6">Itinerary</h2>
+                            <h2 className="text-2xl font-serif font-bold text-foreground mb-6">Itinerary</h2>
                             <div className="pl-4 border-l-2 border-olive/20 space-y-8">
                                 {tour.itinerary.map((stop: any, index: number) => (
                                     <div key={index} className="relative">
                                         <div className="absolute -left-[21px] top-0 w-4 h-4 bg-olive rounded-full border-2 border-cream" />
-                                        <h3 className="text-lg font-bold text-black">{stop.title}</h3>
-                                        <p className="text-sm text-gray-500 mb-2">{stop.duration}</p>
-                                        <p className="text-gray-600 leading-relaxed">{stop.description}</p>
+                                        <h3 className="text-lg font-bold text-foreground">{stop.title}</h3>
+                                        <p className="text-sm text-muted-foreground mb-2">{stop.duration}</p>
+                                        <p className="text-muted-foreground leading-relaxed">{stop.description}</p>
                                     </div>
                                 ))}
                             </div>
@@ -225,12 +225,12 @@ export default async function TourPage({ params }: PageProps) {
                     <section className="grid md:grid-cols-2 gap-8">
                         {tour.includes && tour.includes.length > 0 && (
                             <div>
-                                <h3 className="text-xl font-serif font-bold text-black mb-4 flex items-center">
+                                <h3 className="text-xl font-serif font-bold text-foreground mb-4 flex items-center">
                                     <CheckCircle className="w-5 h-5 text-olive mr-2" /> What&apos;s Included
                                 </h3>
                                 <ul className="space-y-3">
                                     {tour.includes.map((item: any, i: number) => (
-                                        <li key={i} className="flex items-start text-gray-700 text-sm">
+                                        <li key={i} className="flex items-start text-foreground text-sm">
                                             <Check className="w-4 h-4 text-olive mr-2 mt-0.5 shrink-0" />
                                             {typeof item === 'object' ? item.item : item}
                                         </li>
@@ -240,12 +240,12 @@ export default async function TourPage({ params }: PageProps) {
                         )}
                         {tour.excludes && tour.excludes.length > 0 && (
                             <div>
-                                <h3 className="text-xl font-serif font-bold text-black mb-4 flex items-center">
+                                <h3 className="text-xl font-serif font-bold text-foreground mb-4 flex items-center">
                                     <XCircle className="w-5 h-5 text-red-500 mr-2" /> What&apos;s Not Included
                                 </h3>
                                 <ul className="space-y-3">
                                     {tour.excludes.map((item: any, i: number) => (
-                                        <li key={i} className="flex items-start text-gray-600 text-sm">
+                                        <li key={i} className="flex items-start text-muted-foreground text-sm">
                                             <XCircle className="w-4 h-4 text-red-400 mr-2 mt-0.5 shrink-0" />
                                             {typeof item === 'object' ? item.item : item}
                                         </li>
@@ -256,13 +256,13 @@ export default async function TourPage({ params }: PageProps) {
                     </section>
 
                     {/* Meeting Point & Important Info */}
-                    <section className="bg-gray-50 rounded-2xl p-8 border border-[#e8e6e1] space-y-6">
+                    <section className="bg-muted rounded-2xl p-8 border border-border space-y-6">
                         {tour.meetingPoint && (
                             <div>
-                                <h3 className="font-heading text-lg font-bold text-black mb-2 flex items-center">
+                                <h3 className="font-heading text-lg font-bold text-foreground mb-2 flex items-center">
                                     <MapPin className="w-5 h-5 text-olive mr-2" /> Meeting Point
                                 </h3>
-                                <p className="text-gray-700">{tour.meetingPoint}</p>
+                                <p className="text-foreground">{tour.meetingPoint}</p>
                                 <a
                                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tour.meetingPoint + ' Rome')}`}
                                     target="_blank"
@@ -276,10 +276,10 @@ export default async function TourPage({ params }: PageProps) {
 
                         {tour.importantInfo && tour.importantInfo.length > 0 && (
                             <div>
-                                <h3 className="text-lg font-bold text-black mb-2 flex items-center">
+                                <h3 className="text-lg font-bold text-foreground mb-2 flex items-center">
                                     <Info className="w-5 h-5 text-olive mr-2" /> Important Information
                                 </h3>
-                                <ul className="list-disc list-inside space-y-1 text-gray-700 font-sans">
+                                <ul className="list-disc list-inside space-y-1 text-foreground font-sans">
                                     {tour.importantInfo.map((info: any, i: number) => (
                                         <li key={i}>{typeof info === 'object' ? info.item : info}</li>
                                     ))}

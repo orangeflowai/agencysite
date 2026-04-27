@@ -411,10 +411,10 @@ function CheckoutContent() {
 
     if (loading && !bookingData) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-muted flex items-center justify-center">
                 <div className="text-center">
                     <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-gray-600">Loading checkout...</p>
+                    <p className="text-muted-foreground">Loading checkout...</p>
                 </div>
             </div>
         );
@@ -422,11 +422,11 @@ function CheckoutContent() {
 
     if (error || !bookingData) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-                <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
+            <div className="min-h-screen bg-muted flex items-center justify-center p-4">
+                <div className="bg-card rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
                     <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
-                    <h2 className="text-xl font-bold text-gray-900 mb-2">Something went wrong</h2>
-                    <p className="text-gray-600 mb-6">{error || 'Booking data not found'}</p>
+                    <h2 className="text-xl font-bold text-foreground mb-2">Something went wrong</h2>
+                    <p className="text-muted-foreground mb-6">{error || 'Booking data not found'}</p>
                     <Link href="/" className="inline-flex items-center gap-2 text-primary font-medium hover:underline">
                         <ArrowLeft className="w-4 h-4" /> Back to Home
                     </Link>
@@ -440,18 +440,18 @@ function CheckoutContent() {
     const stripePromise = loadStripe(stripeKey);
 
     return (
-        <div className="min-h-screen bg-gray-50 checkout-scope">
+        <div className="min-h-screen bg-muted checkout-scope">
             {/* Header */}
-            <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+            <header className="bg-card border-b border-border sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2">
                         {site?.logo ? (
                             <Image src={urlFor(site.logo).url()} alt={site.title} width={120} height={40} className="h-8 w-auto" />
                         ) : (
-                            <span className="text-xl font-bold text-gray-900">{site?.title || 'Rome Tours'}</span>
+                            <span className="text-xl font-bold text-foreground">{site?.title || 'Rome Tours'}</span>
                         )}
                     </Link>
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Lock className="w-4 h-4" />
                         <span>Secure Checkout</span>
                     </div>
@@ -463,7 +463,7 @@ function CheckoutContent() {
                     {/* Left Column - Forms */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Progress Steps */}
-                        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                        <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
                             <div className="flex items-center justify-between">
                                 {[
                                     { num: 1, label: 'Contact & Guests' },
@@ -471,11 +471,11 @@ function CheckoutContent() {
                                     { num: 3, label: 'Payment' },
                                 ].map((s, i) => (
                                     <div key={s.num} className="flex items-center">
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${step >= s.num ? 'bg-primary text-primary-foreground' : 'bg-gray-100 text-gray-400'
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${step >= s.num ? 'bg-primary text-primary-foreground' : 'bg-gray-100 text-muted-foreground'
                                             }`}>
                                             {step > s.num ? <Check className="w-5 h-5" /> : s.num}
                                         </div>
-                                        <span className={`ml-2 text-sm font-medium hidden sm:block ${step >= s.num ? 'text-gray-900' : 'text-gray-400'
+                                        <span className={`ml-2 text-sm font-medium hidden sm:block ${step >= s.num ? 'text-foreground' : 'text-muted-foreground'
                                             }`}>
                                             {s.label}
                                         </span>
@@ -487,49 +487,49 @@ function CheckoutContent() {
 
                         {/* Step 1: Lead Traveler */}
                         {step === 1 && (
-                            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                                <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                            <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+                                <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
                                     <User className="w-5 h-5 text-primary" />
                                     Lead Traveler Details
                                 </h2>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <label className="block text-sm font-medium text-foreground mb-1">
                                             First Name <span className="text-red-500">*</span>
                                         </label>
                                         <input
                                             type="text"
                                             required
-                                            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                            className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                             value={leadTraveler.firstName}
                                             onChange={e => setLeadTraveler({ ...leadTraveler, firstName: e.target.value })}
                                             placeholder="As shown on ID"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <label className="block text-sm font-medium text-foreground mb-1">
                                             Last Name <span className="text-red-500">*</span>
                                         </label>
                                         <input
                                             type="text"
                                             required
-                                            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                            className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                             value={leadTraveler.lastName}
                                             onChange={e => setLeadTraveler({ ...leadTraveler, lastName: e.target.value })}
                                             placeholder="As shown on ID"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <label className="block text-sm font-medium text-foreground mb-1">
                                             Email Address <span className="text-red-500">*</span>
                                         </label>
                                         <div className="relative">
-                                            <Mail className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
+                                            <Mail className="absolute left-3 top-3.5 text-muted-foreground w-5 h-5" />
                                             <input
                                                 type="email"
                                                 required
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                                className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                                 value={leadTraveler.email}
                                                 onChange={e => setLeadTraveler({ ...leadTraveler, email: e.target.value })}
                                                 placeholder="your@email.com"
@@ -537,15 +537,15 @@ function CheckoutContent() {
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <label className="block text-sm font-medium text-foreground mb-1">
                                             Confirm Email <span className="text-red-500">*</span>
                                         </label>
                                         <div className="relative">
-                                            <Mail className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
+                                            <Mail className="absolute left-3 top-3.5 text-muted-foreground w-5 h-5" />
                                             <input
                                                 type="email"
                                                 required
-                                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                                className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                                 value={leadTraveler.confirmEmail || ''}
                                                 onChange={e => setLeadTraveler({ ...leadTraveler, confirmEmail: e.target.value })}
                                                 placeholder="Repeat email"
@@ -561,7 +561,7 @@ function CheckoutContent() {
                                             required
                                             className="w-full"
                                         />
-                                        <p className="text-xs text-gray-500 mt-1">For urgent tour updates or emergencies</p>
+                                        <p className="text-xs text-muted-foreground mt-1">For urgent tour updates or emergencies</p>
                                     </div>
                                 </div>
 
@@ -579,15 +579,15 @@ function CheckoutContent() {
 
                         {/* Guest Names (merged into Step 1) */}
                         {step === 1 && guests.length > 0 && (
-                            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                                <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                            <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+                                <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
                                     <Users className="w-5 h-5 text-primary" />
                                     Guest Names ({totalGuests})
                                 </h2>
 
                                 <div className="space-y-3">
                                     {guests.map((guest, idx) => (
-                                        <div key={idx} className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
+                                        <div key={idx} className="flex items-center gap-4 p-4 bg-muted rounded-lg">
                                             <div className="w-8 h-8 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold text-sm">
                                                 {idx + 1}
                                             </div>
@@ -595,7 +595,7 @@ function CheckoutContent() {
                                                 <input
                                                     type="text"
                                                     required
-                                                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                                    className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                                     value={guest.name}
                                                     onChange={e => {
                                                         const newGuests = [...guests];
@@ -622,19 +622,19 @@ function CheckoutContent() {
                             <div className="space-y-6">
                                 {/* Add-ons - DISABLED: You can add your own add-ons through Sanity Studio */}
                                 {/*
-                                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                                    <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+                                    <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
                                         <Sparkles className="w-5 h-5 text-primary" />
                                         Enhance Your Experience
                                     </h2>
-                                    <p className="text-gray-500 text-sm mb-6">Add these optional extras to make your tour even better</p>
+                                    <p className="text-muted-foreground text-sm mb-6">Add these optional extras to make your tour even better</p>
 
                                     {addonsLoading ? (
                                         <div className="flex items-center justify-center py-8">
                                             <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
                                         </div>
                                     ) : addons.length === 0 ? (
-                                        <div className="text-center py-8 text-gray-500">
+                                        <div className="text-center py-8 text-muted-foreground">
                                             <p>No add-ons available for this tour.</p>
                                         </div>
                                     ) : (
@@ -649,15 +649,15 @@ function CheckoutContent() {
                                                     <div
                                                         key={addon.id}
                                                         className={`p-4 rounded-xl border-2 transition-all ${isSelected
-                                                            ? 'border-primary bg-emerald-50'
-                                                            : 'border-gray-200 hover:border-emerald-200'
+                                                            ? 'border-primary bg-secondary'
+                                                            : 'border-border hover:border-emerald-200'
                                                             }`}
                                                     >
                                                         <div
                                                             onClick={() => toggleAddOn(addon.id)}
                                                             className="flex items-start gap-4 cursor-pointer"
                                                         >
-                                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${isSelected ? 'bg-emerald-500 text-white' : 'bg-gray-100 text-gray-600'
+                                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${isSelected ? 'bg-primary text-white' : 'bg-gray-100 text-muted-foreground'
                                                                 }`}>
                                                                 {addon.image ? (
                                                                     <Image
@@ -673,7 +673,7 @@ function CheckoutContent() {
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="flex items-center justify-between gap-2">
-                                                                    <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                                                                    <h3 className="font-semibold text-foreground flex items-center gap-2">
                                                                         {addon.name}
                                                                         {addon.popular && (
                                                                             <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">
@@ -685,14 +685,14 @@ function CheckoutContent() {
                                                                         +€{displayPrice.toFixed(2)}
                                                                     </span>
                                                                 </div>
-                                                                <p className="text-sm text-gray-500 mt-1">{addon.description}</p>
-                                                                <p className="text-xs text-gray-400 mt-1">
+                                                                <p className="text-sm text-muted-foreground mt-1">{addon.description}</p>
+                                                                <p className="text-xs text-muted-foreground mt-1">
                                                                     {addon.pricingType === 'perPerson' && `€${addon.price} per person × ${totalGuests} guests`}
                                                                     {addon.pricingType === 'perHour' && `€${addon.price} per hour`}
                                                                     {addon.pricingType === 'perBooking' && `Flat rate`}
                                                                 </p>
                                                             </div>
-                                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-primary bg-emerald-500' : 'border-gray-300'
+                                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-primary bg-primary' : 'border-gray-300'
                                                                 }`}>
                                                                 {isSelected && <Check className="w-4 h-4 text-white" />}
                                                             </div>
@@ -702,7 +702,7 @@ function CheckoutContent() {
                                                         {isSelected && addon.pricingType === 'perHour' && (
                                                             <div className="mt-4 pt-4 border-t border-emerald-200" onClick={e => e.stopPropagation()}>
                                                                 <div className="flex items-center justify-between mb-2">
-                                                                    <span className="text-sm font-medium text-gray-700">Number of hours:</span>
+                                                                    <span className="text-sm font-medium text-foreground">Number of hours:</span>
                                                                     <span className="text-lg font-bold text-primary">{selectedHours} hrs</span>
                                                                 </div>
                                                                 <input
@@ -717,12 +717,12 @@ function CheckoutContent() {
                                                                     }}
                                                                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
                                                                 />
-                                                                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                                                                <div className="flex justify-between text-xs text-muted-foreground mt-1">
                                                                     <span>{addon.minHours || 1}h</span>
                                                                     <span>{addon.maxHours || 12}h</span>
                                                                 </div>
-                                                                <div className="mt-3 flex items-center justify-between bg-white rounded-lg p-3 border border-emerald-200">
-                                                                    <span className="text-sm text-gray-600">Price for {selectedHours} hours:</span>
+                                                                <div className="mt-3 flex items-center justify-between bg-card rounded-lg p-3 border border-emerald-200">
+                                                                    <span className="text-sm text-muted-foreground">Price for {selectedHours} hours:</span>
                                                                     <span className="text-lg font-bold text-primary">€{(addon.price * selectedHours).toFixed(2)}</span>
                                                                 </div>
                                                             </div>
@@ -737,19 +737,19 @@ function CheckoutContent() {
 
                                 {/* Related Tours / Upsell */}
                                 {relatedTours.length > 0 && (
-                                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                                        <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+                                    <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+                                        <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
                                             <Star className="w-5 h-5 text-amber-500" />
                                             You Might Also Like
                                         </h2>
-                                        <p className="text-gray-500 text-sm mb-6">Customers who booked this tour also enjoyed these</p>
+                                        <p className="text-muted-foreground text-sm mb-6">Customers who booked this tour also enjoyed these</p>
 
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                             {relatedTours.map((tour: Tour) => (
                                                 <Link
                                                     key={tour._id}
                                                     href={`/tour/${tour.slug.current}`}
-                                                    className="group block border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
+                                                    className="group block border border-border rounded-xl overflow-hidden hover:shadow-md transition-shadow"
                                                 >
                                                     <div className="relative h-32 bg-gray-100">
                                                         {tour.mainImage && (
@@ -760,13 +760,13 @@ function CheckoutContent() {
                                                                 className="object-cover group-hover:scale-105 transition-transform"
                                                             />
                                                         )}
-                                                        <div className="absolute top-2 right-2 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-xs font-bold">
+                                                        <div className="absolute top-2 right-2 bg-card/90 backdrop-blur px-2 py-1 rounded-lg text-xs font-bold">
                                                             €{tour.price}
                                                         </div>
                                                     </div>
                                                     <div className="p-4">
-                                                        <h3 className="font-semibold text-gray-900 line-clamp-1">{tour.title}</h3>
-                                                        <p className="text-xs text-gray-500 mt-1">{tour.duration}</p>
+                                                        <h3 className="font-semibold text-foreground line-clamp-1">{tour.title}</h3>
+                                                        <p className="text-xs text-muted-foreground mt-1">{tour.duration}</p>
                                                     </div>
                                                 </Link>
                                             ))}
@@ -775,8 +775,8 @@ function CheckoutContent() {
                                 )}
 
                                 {/* Marketing Preferences */}
-                                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                                    <h2 className="text-lg font-bold text-gray-900 mb-4">Stay Connected</h2>
+                                <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+                                    <h2 className="text-lg font-bold text-foreground mb-4">Stay Connected</h2>
 
                                     <div className="space-y-3">
                                         <div className="flex items-start gap-3">
@@ -788,10 +788,10 @@ function CheckoutContent() {
                                                 onChange={e => setMarketing({ ...marketing, emailOptIn: e.target.checked })}
                                             />
                                             <div>
-                                                <label htmlFor="emailOptIn" className="block text-sm font-medium text-gray-900">
+                                                <label htmlFor="emailOptIn" className="block text-sm font-medium text-foreground">
                                                     Send me exclusive discounts and Rome travel tips
                                                 </label>
-                                                <p className="text-xs text-gray-500">Get 10% off your next booking!</p>
+                                                <p className="text-xs text-muted-foreground">Get 10% off your next booking!</p>
                                             </div>
                                         </div>
 
@@ -804,21 +804,21 @@ function CheckoutContent() {
                                                 onChange={e => setMarketing({ ...marketing, smsOptIn: e.target.checked })}
                                             />
                                             <div>
-                                                <label htmlFor="smsOptIn" className="block text-sm font-medium text-gray-900">
+                                                <label htmlFor="smsOptIn" className="block text-sm font-medium text-foreground">
                                                     Send me SMS reminders about my tour
                                                 </label>
-                                                <p className="text-xs text-gray-500">24-hour reminder + meeting point details</p>
+                                                <p className="text-xs text-muted-foreground">24-hour reminder + meeting point details</p>
                                             </div>
                                         </div>
 
 
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                                            <label className="block text-sm font-medium text-foreground mb-1">
                                                 Special Requests / Notes
                                             </label>
                                             <textarea
                                                 rows={3}
-                                                className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                                 value={marketing.specialRequests}
                                                 onChange={e => setMarketing({ ...marketing, specialRequests: e.target.value })}
                                                 placeholder="Any special requirements or questions for your guide..."
@@ -831,8 +831,8 @@ function CheckoutContent() {
 
                         {/* Step 3: Payment */}
                         {step === 3 && (
-                            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                                <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                            <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+                                <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
                                     <CreditCard className="w-5 h-5 text-primary" />
                                     Secure Payment
                                 </h2>
@@ -860,14 +860,14 @@ function CheckoutContent() {
                             {step > 1 ? (
                                 <button
                                     onClick={prevStep}
-                                    className="px-6 py-3 text-gray-600 font-medium hover:text-gray-900 transition-colors"
+                                    className="px-6 py-3 text-muted-foreground font-medium hover:text-foreground transition-colors"
                                 >
                                     ← Back
                                 </button>
                             ) : (
                                 <Link
                                     href={`/tour/${bookingData.tour.slug.current}`}
-                                    className="px-6 py-3 text-gray-600 font-medium hover:text-gray-900 transition-colors"
+                                    className="px-6 py-3 text-muted-foreground font-medium hover:text-foreground transition-colors"
                                 >
                                     ← Cancel
                                 </Link>
@@ -876,7 +876,7 @@ function CheckoutContent() {
                             {step < 3 && (
                                 <button
                                     onClick={nextStep}
-                                    className="ml-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+                                    className="ml-auto px-8 py-4 bg-primary hover:opacity-90 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
                                 >
                                     Continue
                                     <ChevronRight className="w-5 h-5" />
@@ -889,10 +889,10 @@ function CheckoutContent() {
                     <div className="lg:col-span-1">
                         <div className="sticky top-24 space-y-4">
                             {/* Main Order Summary Card */}
-                            <div className="bg-gray-50 rounded-xl p-6 shadow-sm border border-gray-200">
+                            <div className="bg-muted rounded-xl p-6 shadow-sm border border-border">
                                 {/* Tour Header */}
-                                <div className="flex gap-4 mb-6 pb-6 border-b border-gray-200">
-                                    <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-white shrink-0 border border-gray-200">
+                                <div className="flex gap-4 mb-6 pb-6 border-b border-border">
+                                    <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-card shrink-0 border border-border">
                                         {bookingData.tour.mainImage ? (
                                             <Image
                                                 src={urlFor(bookingData.tour.mainImage).width(200).height(200).url()}
@@ -902,7 +902,7 @@ function CheckoutContent() {
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                                                <Calendar className="w-8 h-8 text-gray-400" />
+                                                <Calendar className="w-8 h-8 text-muted-foreground" />
                                             </div>
                                         )}
                                         <div className="absolute top-1 left-1 bg-gray-900 text-white text-xs font-bold px-2 py-0.5 rounded">
@@ -910,27 +910,27 @@ function CheckoutContent() {
                                         </div>
                                     </div>
                                     <div className="flex-1">
-                                        <h4 className="font-bold text-gray-900 text-lg leading-tight">{bookingData.tour.title}</h4>
+                                        <h4 className="font-bold text-foreground text-lg leading-tight">{bookingData.tour.title}</h4>
                                         <div className="mt-2 space-y-1">
-                                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                                <Calendar className="w-4 h-4 text-gray-400" />
+                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                                <Calendar className="w-4 h-4 text-muted-foreground" />
                                                 {format(parseISO(bookingData.date), 'EEEE, MMMM d, yyyy')}
                                             </div>
-                                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                                <Clock className="w-4 h-4 text-gray-400" />
+                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                                <Clock className="w-4 h-4 text-muted-foreground" />
                                                 {bookingData.time}
                                             </div>
-                                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                                                <Users className="w-4 h-4 text-gray-400" />
+                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                                <Users className="w-4 h-4 text-muted-foreground" />
                                                 {totalGuests} guests ({Object.entries(bookingData.guestCounts)
                                                     .filter(([, count]) => count > 0)
                                                     .map(([type, count]) => `${count} ${type}`)
                                                     .join(', ')})
                                             </div>
                                             {bookingData.tour.meetingPoint && (
-                                                <div className="flex flex-col gap-1 pt-1 mt-1 border-t border-gray-100">
-                                                    <div className="flex items-start gap-2 text-sm text-gray-600">
-                                                        <MapPin className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" />
+                                                <div className="flex flex-col gap-1 pt-1 mt-1 border-t border-border">
+                                                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                                                        <MapPin className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
                                                         <span className="leading-tight">{bookingData.tour.meetingPoint}</span>
                                                     </div>
                                                     <a
@@ -949,7 +949,7 @@ function CheckoutContent() {
 
                                 {/* Pricing Breakdown */}
                                 <div className="space-y-3">
-                                    <h5 className="text-xs font-bold text-gray-500  tracking-wide">Tour Price</h5>
+                                    <h5 className="text-xs font-bold text-muted-foreground  tracking-wide">Tour Price</h5>
 
                                     {Object.entries(bookingData.guestCounts).map(([type, count]) => {
                                         if (count <= 0) return null;
@@ -958,47 +958,47 @@ function CheckoutContent() {
 
                                         return (
                                             <div key={type} className="flex justify-between items-center">
-                                                <span className="text-sm text-gray-600">
+                                                <span className="text-sm text-muted-foreground">
                                                     {type} × {count}
-                                                    <span className="text-gray-400 ml-1">@ €{typePrice} each</span>
+                                                    <span className="text-muted-foreground ml-1">@ €{typePrice} each</span>
                                                 </span>
-                                                <span className="text-sm font-medium text-gray-900">€{(count * typePrice).toFixed(2)}</span>
+                                                <span className="text-sm font-medium text-foreground">€{(count * typePrice).toFixed(2)}</span>
                                             </div>
                                         );
                                     })}
 
-                                    <div className="flex justify-between items-center pt-2 border-t border-gray-200">
-                                        <span className="text-sm font-semibold text-gray-700">Subtotal</span>
-                                        <span className="text-sm font-semibold text-gray-900">€{bookingData.totalPrice.toFixed(2)}</span>
+                                    <div className="flex justify-between items-center pt-2 border-t border-border">
+                                        <span className="text-sm font-semibold text-foreground">Subtotal</span>
+                                        <span className="text-sm font-semibold text-foreground">€{bookingData.totalPrice.toFixed(2)}</span>
                                     </div>
                                 </div>
 
                                 {/* Add-ons Breakdown */}
                                 {selectedAddOns.length > 0 && (
-                                    <div className="mt-6 pt-6 border-t border-gray-200">
-                                        <h5 className="text-xs font-bold text-gray-500  tracking-wide mb-3">Add-ons & Extras</h5>
+                                    <div className="mt-6 pt-6 border-t border-border">
+                                        <h5 className="text-xs font-bold text-muted-foreground  tracking-wide mb-3">Add-ons & Extras</h5>
                                         <div className="space-y-3">
                                             {addons.filter(a => selectedAddOns.includes(a.id)).map(addon => {
                                                 const price = getAddonPrice(addon);
                                                 return (
                                                     <div key={addon.id} className="flex justify-between items-start">
                                                         <div className="flex-1">
-                                                            <span className="text-sm text-gray-900 font-medium">{addon.name}</span>
-                                                            <p className="text-xs text-gray-500 mt-0.5">
+                                                            <span className="text-sm text-foreground font-medium">{addon.name}</span>
+                                                            <p className="text-xs text-muted-foreground mt-0.5">
                                                                 {addon.pricingType === 'perPerson' && `${totalGuests} person × €${addon.price}`}
                                                                 {addon.pricingType === 'perHour' && `${hourlyAddons[addon.id] || addon.minHours || 3} hours × €${addon.price}/hr`}
                                                                 {addon.pricingType === 'perBooking' && 'Flat rate'}
                                                             </p>
                                                         </div>
-                                                        <span className="text-sm font-medium text-gray-900 ml-4">€{price.toFixed(2)}</span>
+                                                        <span className="text-sm font-medium text-foreground ml-4">€{price.toFixed(2)}</span>
                                                     </div>
                                                 );
                                             })}
                                         </div>
 
-                                        <div className="flex justify-between items-center pt-3 mt-3 border-t border-gray-200">
-                                            <span className="text-sm font-semibold text-gray-700">Add-ons Subtotal</span>
-                                            <span className="text-sm font-semibold text-gray-900">
+                                        <div className="flex justify-between items-center pt-3 mt-3 border-t border-border">
+                                            <span className="text-sm font-semibold text-foreground">Add-ons Subtotal</span>
+                                            <span className="text-sm font-semibold text-foreground">
                                                 €{(calculateTotal() - bookingData.totalPrice).toFixed(2)}
                                             </span>
                                         </div>
@@ -1009,52 +1009,52 @@ function CheckoutContent() {
                                 <div className="mt-6 pt-6 border-t-2 border-gray-300">
                                     <div className="flex justify-between items-center">
                                         <div>
-                                            <span className="text-base font-bold text-gray-900">Total</span>
-                                            <p className="text-xs text-gray-500">Including VAT & fees</p>
+                                            <span className="text-base font-bold text-foreground">Total</span>
+                                            <p className="text-xs text-muted-foreground">Including VAT & fees</p>
                                         </div>
                                         <span className="text-3xl font-bold text-primary">€{calculateTotal().toFixed(2)}</span>
                                     </div>
                                 </div>
 
                                 {/* Cancellation info */}
-                                <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                                <div className="mt-4 p-3 bg-muted rounded-lg border border-border">
                                     <div className="flex items-start gap-2">
-                                        <Check className="w-4 h-4 text-gray-500 mt-0.5 shrink-0" />
+                                        <Check className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
                                         <div>
                                             <p className="text-sm text-gray-800 font-medium">Free cancellation</p>
-                                            <p className="text-xs text-gray-500">Cancel up to 24 hours before for full refund</p>
+                                            <p className="text-xs text-muted-foreground">Cancel up to 24 hours before for full refund</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Trust Badges */}
-                            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
-                                <p className="text-xs font-bold text-gray-500  tracking-wide mb-4">Secure Checkout</p>
+                            <div className="bg-card rounded-xl p-5 shadow-sm border border-border">
+                                <p className="text-xs font-bold text-muted-foreground  tracking-wide mb-4">Secure Checkout</p>
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-3">
-                                        <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">
-                                            <Shield className="w-4 h-4 text-gray-600" />
-                                            <span className="text-xs font-bold text-gray-700">SSL 256-bit</span>
+                                        <div className="flex items-center gap-2 bg-muted px-3 py-2 rounded-lg border border-border">
+                                            <Shield className="w-4 h-4 text-muted-foreground" />
+                                            <span className="text-xs font-bold text-foreground">SSL 256-bit</span>
                                         </div>
-                                        <span className="text-xs text-gray-500">Encrypted</span>
+                                        <span className="text-xs text-muted-foreground">Encrypted</span>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">
-                                            <Lock className="w-4 h-4 text-gray-600" />
-                                            <span className="text-xs font-bold text-gray-700">PCI DSS</span>
+                                        <div className="flex items-center gap-2 bg-muted px-3 py-2 rounded-lg border border-border">
+                                            <Lock className="w-4 h-4 text-muted-foreground" />
+                                            <span className="text-xs font-bold text-foreground">PCI DSS</span>
                                         </div>
-                                        <span className="text-xs text-gray-500">Compliant</span>
+                                        <span className="text-xs text-muted-foreground">Compliant</span>
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <div className="bg-gray-900 px-3 py-2 rounded-lg">
                                             <span className="text-white text-xs font-bold tracking-wide">stripe</span>
                                         </div>
-                                        <span className="text-xs text-gray-500">Powered by Stripe</span>
+                                        <span className="text-xs text-muted-foreground">Powered by Stripe</span>
                                     </div>
                                 </div>
-                                <div className="mt-4 pt-4 border-t border-gray-100">
-                                    <p className="text-xs text-gray-400 mb-2">Accepted payments</p>
+                                <div className="mt-4 pt-4 border-t border-border">
+                                    <p className="text-xs text-muted-foreground mb-2">Accepted payments</p>
                                     <PaymentLogos size="sm" />
                                 </div>
                             </div>
@@ -1119,7 +1119,7 @@ function PaymentForm({ totalAmount, onSuccess }: {
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             {/* Policy Checkbox */}
-            <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
+            <div className="p-4 bg-muted border border-border rounded-xl">
                 <div className="flex items-start gap-3">
                     <input
                         type="checkbox"
@@ -1128,11 +1128,11 @@ function PaymentForm({ totalAmount, onSuccess }: {
                         checked={policyAccepted}
                         onChange={(e) => setPolicyAccepted(e.target.checked)}
                     />
-                    <label htmlFor="policyAcceptance" className="text-sm text-gray-600 leading-relaxed cursor-pointer select-none">
+                    <label htmlFor="policyAcceptance" className="text-sm text-muted-foreground leading-relaxed cursor-pointer select-none">
                         I agree to the{' '}
-                        <Link href="/terms-and-conditions" target="_blank" className="text-gray-900 font-semibold hover:underline">Terms & Conditions</Link>,{' '}
-                        <Link href="/privacy-policy" target="_blank" className="text-gray-900 font-semibold hover:underline">Privacy Policy</Link>, and{' '}
-                        <Link href="/cancellation-policy" target="_blank" className="text-gray-900 font-semibold hover:underline">Cancellation Policy</Link>.
+                        <Link href="/terms-and-conditions" target="_blank" className="text-foreground font-semibold hover:underline">Terms & Conditions</Link>,{' '}
+                        <Link href="/privacy-policy" target="_blank" className="text-foreground font-semibold hover:underline">Privacy Policy</Link>, and{' '}
+                        <Link href="/cancellation-policy" target="_blank" className="text-foreground font-semibold hover:underline">Cancellation Policy</Link>.
                     </label>
                 </div>
             </div>
@@ -1156,8 +1156,8 @@ function PaymentForm({ totalAmount, onSuccess }: {
                 disabled={!stripe || isProcessing || !policyAccepted}
                 className={`w-full py-4 rounded-xl transition-all flex items-center justify-center gap-2 font-bold text-base ${
                     !stripe || isProcessing || !policyAccepted
-                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                        : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-200 active:scale-95'
+                        ? 'bg-gray-200 text-muted-foreground cursor-not-allowed'
+                        : 'bg-primary hover:opacity-90 text-white shadow-md shadow-emerald-200 active:scale-95'
                 }`}
             >
                 {isProcessing ? (
@@ -1173,7 +1173,7 @@ function PaymentForm({ totalAmount, onSuccess }: {
                 )}
             </button>
 
-            <div className="flex items-center justify-center gap-2 text-gray-400 text-xs pt-2">
+            <div className="flex items-center justify-center gap-2 text-muted-foreground text-xs pt-2">
                 <Lock className="w-3 h-3" />
                 <span>Secured by Stripe · SSL encrypted · PCI DSS compliant</span>
             </div>
@@ -1185,7 +1185,7 @@ function PaymentForm({ totalAmount, onSuccess }: {
 export default function CheckoutPage() {
     return (
         <Suspense fallback={
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-muted flex items-center justify-center">
                 <LoadingWithFacts />
             </div>
         }>

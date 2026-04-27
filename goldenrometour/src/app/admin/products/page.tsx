@@ -143,14 +143,14 @@ export default function AdminProductsPage() {
         }
     };
 
-    if (isSiteLoading) return <div className="p-8 text-center text-gray-500">Loading site context...</div>;
+    if (isSiteLoading) return <div className="p-8 text-center text-muted-foreground">Loading site context...</div>;
 
     return (
         <div>
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Tours & Products</h1>
-                    <p className="text-sm text-gray-500">Manage your tour inventory for {selectedSiteId}</p>
+                    <h1 className="text-2xl font-bold text-foreground">Tours & Products</h1>
+                    <p className="text-sm text-muted-foreground">Manage your tour inventory for {selectedSiteId}</p>
                 </div>
                 <Link
                     href="/studio/structure/tour"
@@ -163,22 +163,22 @@ export default function AdminProductsPage() {
             </div>
 
             {/* Filters */}
-            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex items-center gap-4 mb-6">
-                <Search className="text-gray-400" size={20} />
+            <div className="bg-card p-4 rounded-xl border border-border shadow-sm flex items-center gap-4 mb-6">
+                <Search className="text-muted-foreground" size={20} />
                 <input
                     type="text"
                     placeholder="Search tours..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="flex-1 outline-none text-sm font-medium text-gray-700 placeholder:text-gray-400"
+                    className="flex-1 outline-none text-sm font-medium text-foreground placeholder:text-muted-foreground"
                 />
             </div>
 
             {/* Table */}
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+            <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
-                        <thead className="bg-gray-50 border-b border-gray-100 text-xs  text-gray-500 font-semibold">
+                        <thead className="bg-muted border-b border-border text-xs  text-muted-foreground font-semibold">
                             <tr>
                                 <th className="px-6 py-4 w-16">Image</th>
                                 <th className="px-6 py-4">Tour Name</th>
@@ -191,15 +191,15 @@ export default function AdminProductsPage() {
                         <tbody className="divide-y divide-gray-100">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-8 text-center text-gray-500">Loading tours...</td>
+                                    <td colSpan={6} className="px-6 py-8 text-center text-muted-foreground">Loading tours...</td>
                                 </tr>
                             ) : filteredTours.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-8 text-center text-gray-500">No tours found matching "{search}"</td>
+                                    <td colSpan={6} className="px-6 py-8 text-center text-muted-foreground">No tours found matching "{search}"</td>
                                 </tr>
                             ) : (
                                 filteredTours.map((tour) => (
-                                    <tr key={tour._id} className="group hover:bg-gray-50/50 transition-colors">
+                                    <tr key={tour._id} className="group hover:bg-muted/50 transition-colors">
                                         <td className="px-6 py-4">
                                             <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden relative">
                                                 {tour.mainImage && (
@@ -213,8 +213,8 @@ export default function AdminProductsPage() {
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="font-bold text-gray-900">{tour.title}</div>
-                                            <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                                            <div className="font-bold text-foreground">{tour.title}</div>
+                                            <div className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
                                                 <Globe size={10} />
                                                 /{tour.slug.current}
                                             </div>
@@ -222,7 +222,7 @@ export default function AdminProductsPage() {
                                         <td className="px-6 py-4">
                                             <div className="font-medium text-primary">€{tour.price}</div>
                                         </td>
-                                        <td className="px-6 py-4 text-gray-600">
+                                        <td className="px-6 py-4 text-muted-foreground">
                                             <span className="flex items-center gap-1"><Clock size={12} /> {tour.duration || '--'}</span>
                                         </td>
                                         <td className="px-6 py-4">
@@ -235,14 +235,14 @@ export default function AdminProductsPage() {
                                                 <Link
                                                     href={`/tour/${tour.slug.current}`}
                                                     target="_blank"
-                                                    className="p-2 text-gray-400 hover:text-primary hover:bg-background rounded-lg transition-colors"
+                                                    className="p-2 text-muted-foreground hover:text-primary hover:bg-background rounded-lg transition-colors"
                                                     title="View Live"
                                                 >
                                                     <Eye size={16} />
                                                 </Link>
                                                 <button
                                                     onClick={() => handleEditClick(tour)}
-                                                    className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                    className="p-2 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                                     title="Quick Edit"
                                                 >
                                                     <Edit size={16} />
@@ -260,42 +260,42 @@ export default function AdminProductsPage() {
             {/* Edit Modal */}
             {editingTour && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh]">
-                        <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-white sticky top-0 z-10">
+                    <div className="bg-card rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh]">
+                        <div className="p-6 border-b border-border flex justify-between items-center bg-card sticky top-0 z-10">
                             <h3 className="font-bold text-lg">Edit Tour: {editingTour.title}</h3>
-                            <button onClick={() => setEditingTour(null)} className="text-gray-400 hover:text-gray-600">
+                            <button onClick={() => setEditingTour(null)} className="text-muted-foreground hover:text-muted-foreground">
                                 <span className="sr-only">Close</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
                         </div>
 
                         {/* Tabs */}
-                        <div className="flex border-b border-gray-100 px-6 overflow-x-auto">
+                        <div className="flex border-b border-border px-6 overflow-x-auto">
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('general')}
-                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'general' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'general' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
                             >
                                 General
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('pricing')}
-                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'pricing' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'pricing' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
                             >
                                 Pricing & Guests
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('content')}
-                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'content' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'content' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
                             >
                                 Content & Lists
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('logistics')}
-                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'logistics' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+                                className={`py-3 px-4 text-sm font-bold border-b-2 transition-colors shrink-0 ${activeTab === 'logistics' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
                             >
                                 Logistics
                             </button>
@@ -307,50 +307,50 @@ export default function AdminProductsPage() {
                                 <div className="space-y-4">
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="col-span-2">
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Tour Title</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Tour Title</label>
                                             <input
                                                 type="text"
                                                 value={formData.title}
                                                 onChange={e => setFormData({ ...formData, title: e.target.value })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Base Price (€)</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Base Price (€)</label>
                                             <input
                                                 type="number"
                                                 value={formData.price}
                                                 onChange={e => setFormData({ ...formData, price: Number(e.target.value) })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Duration</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Duration</label>
                                             <input
                                                 type="text"
                                                 value={formData.duration}
                                                 onChange={e => setFormData({ ...formData, duration: e.target.value })}
                                                 placeholder="e.g. 3 hours"
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Group Size</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Group Size</label>
                                             <input
                                                 type="text"
                                                 value={formData.groupSize}
                                                 onChange={e => setFormData({ ...formData, groupSize: e.target.value })}
                                                 placeholder="e.g. up to 12 people"
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         {/* New Fields */}
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Category</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Category</label>
                                             <select
                                                 value={formData.category}
                                                 onChange={e => setFormData({ ...formData, category: e.target.value })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             >
                                                 <option value="">Select Category</option>
                                                 <option value="Colosseum Tours">Colosseum Tours</option>
@@ -360,40 +360,40 @@ export default function AdminProductsPage() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Badge</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Badge</label>
                                             <input
                                                 type="text"
                                                 value={formData.badge}
                                                 onChange={e => setFormData({ ...formData, badge: e.target.value })}
                                                 placeholder="e.g. Bestseller"
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Rating</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Rating</label>
                                             <input
                                                 type="number"
                                                 step="0.1"
                                                 max="5"
                                                 value={formData.rating}
                                                 onChange={e => setFormData({ ...formData, rating: e.target.value })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Review Count</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Review Count</label>
                                             <input
                                                 type="number"
                                                 value={formData.reviewCount}
                                                 onChange={e => setFormData({ ...formData, reviewCount: e.target.value })}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                     </div>
 
                                     {/* Image Upload UI */}
-                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <label className="block text-xs font-bold text-gray-500  mb-2">Main Image</label>
+                                    <div className="bg-muted p-4 rounded-xl border border-border">
+                                        <label className="block text-xs font-bold text-muted-foreground  mb-2">Main Image</label>
                                         <div className="flex items-center gap-4">
                                             {/* Preview current image if available */}
                                             {editingTour.mainImage && (
@@ -412,16 +412,16 @@ export default function AdminProductsPage() {
                                                     type="file"
                                                     accept="image/*"
                                                     onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                                                    className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-background file:text-foreground hover:file:bg-emerald-100 text-sm text-gray-500"
+                                                    className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-background file:text-foreground hover:file:bg-emerald-100 text-sm text-muted-foreground"
                                                 />
                                             </div>
                                         </div>
-                                        <p className="text-xs text-gray-400 mt-2">Upload a new image to replace the current one.</p>
+                                        <p className="text-xs text-muted-foreground mt-2">Upload a new image to replace the current one.</p>
                                     </div>
 
                                     {/* Gallery UI */}
-                                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <label className="block text-xs font-bold text-gray-500  mb-2">Image Gallery</label>
+                                    <div className="bg-muted p-4 rounded-xl border border-border">
+                                        <label className="block text-xs font-bold text-muted-foreground  mb-2">Image Gallery</label>
 
                                         {/* Existing Gallery Grid */}
                                         {editingTour.gallery && editingTour.gallery.length > 0 && (
@@ -448,21 +448,21 @@ export default function AdminProductsPage() {
                                                 // but for direct upload to Server Action we can just capture the files in the form submit via name="gallery"
                                                 // However checking e.target.files is better for React Control
                                                 name="gallery"
-                                                className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 text-sm text-gray-500 w-full"
+                                                className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 text-sm text-muted-foreground w-full"
                                             />
                                         </div>
-                                        <p className="text-xs text-gray-400 mt-2">Select multiple images to append to the gallery.</p>
+                                        <p className="text-xs text-muted-foreground mt-2">Select multiple images to append to the gallery.</p>
                                     </div>
 
                                     {/* Marketing Tags */}
                                     <div>
-                                        <label className="block text-xs font-bold text-gray-500  mb-1">Marketing Tags (Comma Separated)</label>
+                                        <label className="block text-xs font-bold text-muted-foreground  mb-1">Marketing Tags (Comma Separated)</label>
                                         <input
                                             type="text"
                                             value={formData.tags}
                                             onChange={e => setFormData({ ...formData, tags: e.target.value })}
                                             placeholder="e.g. Selling Fast, 10% OFF, Featured"
-                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                            className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                         />
                                     </div>
                                 </div>
@@ -476,17 +476,17 @@ export default function AdminProductsPage() {
 
                                     <div className="space-y-4">
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">Max Participants (per booking)</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">Max Participants (per booking)</label>
                                             <input
                                                 type="number"
                                                 value={formData.maxParticipants as number}
                                                 onChange={e => setFormData({ ...formData, maxParticipants: Number(e.target.value) })}
                                                 placeholder="e.g. 10"
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                             />
                                         </div>
                                         {(formData.guestTypes || []).map((gt: any, idx: number) => (
-                                            <div key={idx} className="bg-gray-50 p-4 rounded-xl border border-gray-200 relative group">
+                                            <div key={idx} className="bg-muted p-4 rounded-xl border border-border relative group">
                                                 <button
                                                     type="button"
                                                     onClick={() => {
@@ -500,7 +500,7 @@ export default function AdminProductsPage() {
                                                 </button>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div>
-                                                        <label className="block text-xs font-bold text-gray-500  mb-1">Category Name</label>
+                                                        <label className="block text-xs font-bold text-muted-foreground  mb-1">Category Name</label>
                                                         <input
                                                             type="text"
                                                             value={gt.name}
@@ -510,11 +510,11 @@ export default function AdminProductsPage() {
                                                                 newTypes[idx].name = e.target.value;
                                                                 setFormData({ ...formData, guestTypes: newTypes });
                                                             }}
-                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-primary text-sm font-medium"
+                                                            className="w-full p-2 bg-card border border-border rounded-lg outline-none focus:border-primary text-sm font-medium"
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-xs font-bold text-gray-500  mb-1">Price (€)</label>
+                                                        <label className="block text-xs font-bold text-muted-foreground  mb-1">Price (€)</label>
                                                         <input
                                                             type="number"
                                                             value={gt.price}
@@ -523,11 +523,11 @@ export default function AdminProductsPage() {
                                                                 newTypes[idx].price = Number(e.target.value);
                                                                 setFormData({ ...formData, guestTypes: newTypes });
                                                             }}
-                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-primary text-sm font-medium"
+                                                            className="w-full p-2 bg-card border border-border rounded-lg outline-none focus:border-primary text-sm font-medium"
                                                         />
                                                     </div>
                                                     <div className="col-span-2">
-                                                        <label className="block text-xs font-bold text-gray-500  mb-1">Description</label>
+                                                        <label className="block text-xs font-bold text-muted-foreground  mb-1">Description</label>
                                                         <input
                                                             type="text"
                                                             value={gt.description}
@@ -537,7 +537,7 @@ export default function AdminProductsPage() {
                                                                 newTypes[idx].description = e.target.value;
                                                                 setFormData({ ...formData, guestTypes: newTypes });
                                                             }}
-                                                            className="w-full p-2 bg-white border border-gray-200 rounded-lg outline-none focus:border-primary text-sm font-medium"
+                                                            className="w-full p-2 bg-card border border-border rounded-lg outline-none focus:border-primary text-sm font-medium"
                                                         />
                                                     </div>
                                                 </div>
@@ -550,7 +550,7 @@ export default function AdminProductsPage() {
                                                 const newTypes = [...(formData.guestTypes || []), { name: '', price: formData.price || 0, description: '' }];
                                                 setFormData({ ...formData, guestTypes: newTypes });
                                             }}
-                                            className="w-full py-3 border-2 border-dashed border-gray-200 rounded-xl text-gray-400 font-bold text-sm hover:border-emerald-200 hover:text-primary hover:bg-background transition-all flex items-center justify-center gap-2"
+                                            className="w-full py-3 border-2 border-dashed border-border rounded-xl text-muted-foreground font-bold text-sm hover:border-emerald-200 hover:text-primary hover:bg-background transition-all flex items-center justify-center gap-2"
                                         >
                                             <Plus size={16} />
                                             Add Participant Category
@@ -562,31 +562,31 @@ export default function AdminProductsPage() {
                             {activeTab === 'content' && (
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-gray-500  mb-1">Highlights (One per line)</label>
+                                        <label className="block text-xs font-bold text-muted-foreground  mb-1">Highlights (One per line)</label>
                                         <textarea
                                             value={formData.highlights}
                                             onChange={e => setFormData({ ...formData, highlights: e.target.value })}
                                             rows={5}
-                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium text-sm"
+                                            className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium text-sm"
                                         />
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">What's Included (One per line)</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">What's Included (One per line)</label>
                                             <textarea
                                                 value={formData.includes}
                                                 onChange={e => setFormData({ ...formData, includes: e.target.value })}
                                                 rows={5}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium text-sm"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium text-sm"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500  mb-1">What's Not Included</label>
+                                            <label className="block text-xs font-bold text-muted-foreground  mb-1">What's Not Included</label>
                                             <textarea
                                                 value={formData.excludes}
                                                 onChange={e => setFormData({ ...formData, excludes: e.target.value })}
                                                 rows={5}
-                                                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium text-sm"
+                                                className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium text-sm"
                                             />
                                         </div>
                                     </div>
@@ -596,35 +596,35 @@ export default function AdminProductsPage() {
                             {activeTab === 'logistics' && (
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-gray-500  mb-1">Meeting Point</label>
+                                        <label className="block text-xs font-bold text-muted-foreground  mb-1">Meeting Point</label>
                                         <input
                                             type="text"
                                             value={formData.meetingPoint as string}
                                             onChange={e => setFormData({ ...formData, meetingPoint: e.target.value })}
                                             placeholder="e.g. Via di San Gregorio, 00184 Roma RM"
-                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium"
+                                            className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-gray-500  mb-1">Important Info / Know Before You Go</label>
+                                        <label className="block text-xs font-bold text-muted-foreground  mb-1">Important Info / Know Before You Go</label>
                                         <textarea
                                             value={formData.importantInfo}
                                             onChange={e => setFormData({ ...formData, importantInfo: e.target.value })}
                                             rows={5}
                                             placeholder="Dress code, ID requirements, etc."
-                                            className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-primary font-medium text-sm"
+                                            className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-primary font-medium text-sm"
                                         />
                                     </div>
                                 </div>
                             )}
                         </form>
 
-                        <div className="p-6 border-t border-gray-100 bg-gray-50">
+                        <div className="p-6 border-t border-border bg-muted">
                             <div className="flex gap-3">
                                 <button
                                     type="button"
                                     onClick={() => setEditingTour(null)}
-                                    className="flex-1 py-3 font-bold text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 rounded-xl transition-colors"
+                                    className="flex-1 py-3 font-bold text-muted-foreground bg-card border border-border hover:bg-muted rounded-xl transition-colors"
                                 >
                                     Cancel
                                 </button>
@@ -632,7 +632,7 @@ export default function AdminProductsPage() {
                                     type="submit"
                                     form="edit-tour-form" // Link button to the form
                                     disabled={saving}
-                                    className="flex-1 py-3 font-bold text-white bg-emerald-600 hover:opacity-90 rounded-xl shadow-lg shadow-emerald-200 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                                    className="flex-1 py-3 font-bold text-white bg-primary hover:opacity-90 rounded-xl shadow-lg shadow-emerald-200 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
                                     {saving ? 'Saving...' : 'Save Changes'}
                                 </button>

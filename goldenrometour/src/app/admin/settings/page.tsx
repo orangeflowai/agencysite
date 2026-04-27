@@ -104,8 +104,8 @@ export default function SettingsPage() {
         <div>
             <div className="flex justify-between items-start mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-                    <p className="text-gray-500 mt-1">Configure your website and booking system</p>
+                    <h1 className="text-2xl font-bold text-foreground">Settings</h1>
+                    <p className="text-muted-foreground mt-1">Configure your website and booking system</p>
                 </div>
                 <button
                     onClick={handleSave}
@@ -135,8 +135,8 @@ export default function SettingsPage() {
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
                         className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id
-                            ? 'bg-white text-gray-900 shadow-sm'
-                            : 'text-gray-600 hover:text-gray-900'
+                            ? 'bg-card text-foreground shadow-sm'
+                            : 'text-muted-foreground hover:text-foreground'
                             }`}
                     >
                         <tab.icon className="w-4 h-4" />
@@ -149,28 +149,28 @@ export default function SettingsPage() {
             {activeTab === 'general' && (
                 <div className="grid gap-6">
                     {/* Site Info */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-background rounded-lg">
                                 <Globe className="w-5 h-5 text-primary" />
                             </div>
-                            <h2 className="font-semibold text-gray-900">Website Profile</h2>
+                            <h2 className="font-semibold text-foreground">Website Profile</h2>
                         </div>
                         <div className="grid grid-cols-2 gap-4 text-sm">
                             <div>
-                                <span className="text-gray-500">Site Name</span>
-                                <p className="font-medium text-gray-900">{currentSite?.title || 'Loading...'}</p>
+                                <span className="text-muted-foreground">Site Name</span>
+                                <p className="font-medium text-foreground">{currentSite?.title || 'Loading...'}</p>
                             </div>
                             <div>
-                                <span className="text-gray-500">Slug</span>
-                                <p className="font-medium text-gray-900">{currentSite?.slug?.current || 'Loading...'}</p>
+                                <span className="text-muted-foreground">Slug</span>
+                                <p className="font-medium text-foreground">{currentSite?.slug?.current || 'Loading...'}</p>
                             </div>
                             <div>
-                                <span className="text-gray-500">Domain</span>
-                                <p className="font-medium text-gray-900">{currentSite?.domain || 'Not set'}</p>
+                                <span className="text-muted-foreground">Domain</span>
+                                <p className="font-medium text-foreground">{currentSite?.domain || 'Not set'}</p>
                             </div>
                             <div>
-                                <span className="text-gray-500">Status</span>
+                                <span className="text-muted-foreground">Status</span>
                                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                     <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
                                     {currentSite?.isActive ? 'Active' : 'Inactive'}
@@ -180,18 +180,18 @@ export default function SettingsPage() {
                     </div>
 
                     {/* Payment Settings */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-blue-50 rounded-lg">
                                 <CreditCard className="w-5 h-5 text-blue-600" />
                             </div>
-                            <h2 className="font-semibold text-gray-900">Payment Settings</h2>
+                            <h2 className="font-semibold text-foreground">Payment Settings</h2>
                         </div>
                         <div className="space-y-4">
-                            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div className="flex items-center justify-between p-4 bg-muted rounded-xl">
                                 <div>
-                                    <p className="font-medium text-gray-900">Stripe Integration</p>
-                                    <p className="text-sm text-gray-500">Accept credit card payments</p>
+                                    <p className="font-medium text-foreground">Stripe Integration</p>
+                                    <p className="text-sm text-muted-foreground">Accept credit card payments</p>
                                 </div>
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                     Connected
@@ -201,12 +201,12 @@ export default function SettingsPage() {
                     </div>
 
                     {/* Notifications */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-amber-50 rounded-lg">
                                 <Bell className="w-5 h-5 text-amber-600" />
                             </div>
-                            <h2 className="font-semibold text-gray-900">Notifications</h2>
+                            <h2 className="font-semibold text-foreground">Notifications</h2>
                         </div>
                         <div className="space-y-3">
                             {[
@@ -214,8 +214,8 @@ export default function SettingsPage() {
                                 { label: 'New order notifications', checked: true },
                                 { label: 'Low inventory alerts', checked: false },
                             ].map((item, i) => (
-                                <label key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors">
-                                    <span className="text-sm font-medium text-gray-700">{item.label}</span>
+                                <label key={i} className="flex items-center justify-between p-3 bg-muted rounded-xl cursor-pointer hover:bg-gray-100 transition-colors">
+                                    <span className="text-sm font-medium text-foreground">{item.label}</span>
                                     <input type="checkbox" defaultChecked={item.checked} className="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary" />
                                 </label>
                             ))}
@@ -227,95 +227,95 @@ export default function SettingsPage() {
             {/* Business Tab */}
             {activeTab === 'business' && (
                 <div className="grid gap-6">
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="p-2 bg-indigo-50 rounded-lg">
                                 <Building2 className="w-5 h-5 text-indigo-600" />
                             </div>
                             <div>
-                                <h2 className="font-semibold text-gray-900">Business Information</h2>
-                                <p className="text-sm text-gray-500">Legal details shown in footer and invoices</p>
+                                <h2 className="font-semibold text-foreground">Business Information</h2>
+                                <p className="text-sm text-muted-foreground">Legal details shown in footer and invoices</p>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">Company Name</label>
+                                <label className="block text-sm font-medium text-foreground">Company Name</label>
                                 <input
                                     type="text"
                                     value={businessForm.companyName}
                                     onChange={(e) => setBusinessForm({ ...businessForm, companyName: e.target.value })}
                                     placeholder={`e.g., ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} S.r.l.`}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">VAT Number (P.IVA)</label>
+                                <label className="block text-sm font-medium text-foreground">VAT Number (P.IVA)</label>
                                 <input
                                     type="text"
                                     value={businessForm.vatNumber}
                                     onChange={(e) => setBusinessForm({ ...businessForm, vatNumber: e.target.value })}
                                     placeholder="e.g., 03188940591"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">REA Number</label>
+                                <label className="block text-sm font-medium text-foreground">REA Number</label>
                                 <input
                                     type="text"
                                     value={businessForm.reaNumber}
                                     onChange={(e) => setBusinessForm({ ...businessForm, reaNumber: e.target.value })}
                                     placeholder="e.g., 319122"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">Share Capital</label>
+                                <label className="block text-sm font-medium text-foreground">Share Capital</label>
                                 <input
                                     type="text"
                                     value={businessForm.shareCapital}
                                     onChange={(e) => setBusinessForm({ ...businessForm, shareCapital: e.target.value })}
                                     placeholder="e.g., Capitale Sociale: €10.000 i.v."
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2 md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700">Registered Address (Sede Legale)</label>
+                                <label className="block text-sm font-medium text-foreground">Registered Address (Sede Legale)</label>
                                 <input
                                     type="text"
                                     value={businessForm.registeredAddress}
                                     onChange={(e) => setBusinessForm({ ...businessForm, registeredAddress: e.target.value })}
                                     placeholder="e.g., Via Nettunense 188, Aprilia (LT) 04011"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">PEC Email</label>
+                                <label className="block text-sm font-medium text-foreground">PEC Email</label>
                                 <input
                                     type="email"
                                     value={businessForm.pecEmail}
                                     onChange={(e) => setBusinessForm({ ...businessForm, pecEmail: e.target.value })}
                                     placeholder="Legal certified email"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">SDI Code</label>
+                                <label className="block text-sm font-medium text-foreground">SDI Code</label>
                                 <input
                                     type="text"
                                     value={businessForm.sdiCode}
                                     onChange={(e) => setBusinessForm({ ...businessForm, sdiCode: e.target.value })}
                                     placeholder="Codice Destinatario"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
                         </div>
 
                         {/* Preview */}
-                        <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                            <h3 className="text-sm font-medium text-gray-500 mb-3">Footer Preview</h3>
-                            <div className="text-sm text-gray-600 space-y-1">
-                                <p className="font-medium text-gray-900">{businessForm.companyName || 'Company Name'}</p>
+                        <div className="mt-8 p-4 bg-muted rounded-xl border border-border">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-3">Footer Preview</h3>
+                            <div className="text-sm text-muted-foreground space-y-1">
+                                <p className="font-medium text-foreground">{businessForm.companyName || 'Company Name'}</p>
                                 <p>
                                     {businessForm.vatNumber && `P.IVA: ${businessForm.vatNumber}`}
                                     {businessForm.vatNumber && businessForm.reaNumber && ' • '}
@@ -332,68 +332,68 @@ export default function SettingsPage() {
             {/* Contact Tab */}
             {activeTab === 'contact' && (
                 <div className="grid gap-6">
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="p-2 bg-blue-50 rounded-lg">
                                 <Mail className="w-5 h-5 text-blue-600" />
                             </div>
                             <div>
-                                <h2 className="font-semibold text-gray-900">Contact Information</h2>
-                                <p className="text-sm text-gray-500">Public contact details shown on website</p>
+                                <h2 className="font-semibold text-foreground">Contact Information</h2>
+                                <p className="text-sm text-muted-foreground">Public contact details shown on website</p>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">Contact Email</label>
+                                <label className="block text-sm font-medium text-foreground">Contact Email</label>
                                 <div className="relative">
-                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                                     <input
                                         type="email"
                                         value={contactForm.contactEmail}
                                         onChange={(e) => setContactForm({ ...contactForm, contactEmail: e.target.value })}
                                         placeholder="info@example.com"
-                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">Contact Phone</label>
+                                <label className="block text-sm font-medium text-foreground">Contact Phone</label>
                                 <div className="relative">
-                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                                     <input
                                         type="tel"
                                         value={contactForm.contactPhone}
                                         onChange={(e) => setContactForm({ ...contactForm, contactPhone: e.target.value })}
                                         placeholder="+39 123 456 7890"
-                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">WhatsApp Number</label>
+                                <label className="block text-sm font-medium text-foreground">WhatsApp Number</label>
                                 <div className="relative">
-                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                                     <input
                                         type="tel"
                                         value={contactForm.whatsappNumber}
                                         onChange={(e) => setContactForm({ ...contactForm, whatsappNumber: e.target.value })}
                                         placeholder={`${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""} (digits only)`}
-                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
-                                <p className="text-xs text-gray-400">Used for the floating WhatsApp button. Digits only, no + or spaces.</p>
+                                <p className="text-xs text-muted-foreground">Used for the floating WhatsApp button. Digits only, no + or spaces.</p>
                             </div>
                             <div className="space-y-2 md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700">Office Address</label>
+                                <label className="block text-sm font-medium text-foreground">Office Address</label>
                                 <div className="relative">
-                                    <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                                    <MapPin className="absolute left-3 top-3 w-5 h-5 text-muted-foreground" />
                                     <textarea
                                         value={contactForm.officeAddress}
                                         onChange={(e) => setContactForm({ ...contactForm, officeAddress: e.target.value })}
                                         placeholder="Full office address"
                                         rows={3}
-                                        className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none"
+                                        className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none"
                                     />
                                 </div>
                             </div>
@@ -401,25 +401,25 @@ export default function SettingsPage() {
                     </div>
 
                     {/* Social Links */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="p-2 bg-pink-50 rounded-lg">
                                 <ExternalLink className="w-5 h-5 text-pink-600" />
                             </div>
                             <div>
-                                <h2 className="font-semibold text-gray-900">Social Media</h2>
-                                <p className="text-sm text-gray-500">Links to your social profiles</p>
+                                <h2 className="font-semibold text-foreground">Social Media</h2>
+                                <p className="text-sm text-muted-foreground">Links to your social profiles</p>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {['Facebook', 'Instagram', 'Twitter', 'TripAdvisor', 'YouTube', 'LinkedIn'].map((platform) => (
                                 <div key={platform} className="space-y-2">
-                                    <label className="block text-sm font-medium text-gray-700">{platform}</label>
+                                    <label className="block text-sm font-medium text-foreground">{platform}</label>
                                     <input
                                         type="url"
                                         placeholder={`https://${platform.toLowerCase()}.com/...`}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             ))}
@@ -432,14 +432,14 @@ export default function SettingsPage() {
             {activeTab === 'appearance' && (
                 <div className="grid gap-6">
                     {/* Theme Presets */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="p-2 bg-purple-50 rounded-lg">
                                 <Sparkles className="w-5 h-5 text-purple-600" />
                             </div>
                             <div>
-                                <h2 className="font-semibold text-gray-900">Theme Presets</h2>
-                                <p className="text-sm text-gray-500">Choose a color theme for your website</p>
+                                <h2 className="font-semibold text-foreground">Theme Presets</h2>
+                                <p className="text-sm text-muted-foreground">Choose a color theme for your website</p>
                             </div>
                         </div>
 
@@ -450,7 +450,7 @@ export default function SettingsPage() {
                                     onClick={() => setTheme(key)}
                                     className={`relative p-4 rounded-xl border-2 transition-all ${!isCustom && theme.name === preset.name
                                         ? 'border-primary bg-background/50'
-                                        : 'border-gray-200 hover:border-gray-300 bg-white'
+                                        : 'border-border hover:border-gray-300 bg-card'
                                         }`}
                                 >
                                     {!isCustom && theme.name === preset.name && (
@@ -464,7 +464,7 @@ export default function SettingsPage() {
                                             <div className="w-6 h-6 rounded-full" style={{ background: preset.secondary }}></div>
                                             <div className="w-6 h-6 rounded-full" style={{ background: preset.accent }}></div>
                                         </div>
-                                        <p className="text-sm font-medium text-gray-900">{preset.name}</p>
+                                        <p className="text-sm font-medium text-foreground">{preset.name}</p>
                                     </div>
                                 </button>
                             ))}
@@ -472,15 +472,15 @@ export default function SettingsPage() {
                     </div>
 
                     {/* Custom Colors */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="p-2 bg-pink-50 rounded-lg">
                                     <Palette className="w-5 h-5 text-pink-600" />
                                 </div>
                                 <div>
-                                    <h2 className="font-semibold text-gray-900">Custom Colors</h2>
-                                    <p className="text-sm text-gray-500">Fine-tune your brand colors</p>
+                                    <h2 className="font-semibold text-foreground">Custom Colors</h2>
+                                    <p className="text-sm text-muted-foreground">Fine-tune your brand colors</p>
                                 </div>
                             </div>
                             <div className="flex gap-2">
@@ -492,7 +492,7 @@ export default function SettingsPage() {
                                 </button>
                                 <button
                                     onClick={resetToDefault}
-                                    className="px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
+                                    className="px-4 py-2 bg-gray-100 text-foreground text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
                                 >
                                     <RefreshCw className="w-4 h-4" />
                                     Reset
@@ -509,22 +509,22 @@ export default function SettingsPage() {
                                 { key: 'accent', label: 'Accent', desc: 'Highlights & CTAs' },
                             ].map((color) => (
                                 <div key={color.key} className="space-y-2">
-                                    <label className="block text-sm font-medium text-gray-700">
+                                    <label className="block text-sm font-medium text-foreground">
                                         {color.label}
                                     </label>
-                                    <p className="text-xs text-gray-500">{color.desc}</p>
+                                    <p className="text-xs text-muted-foreground">{color.desc}</p>
                                     <div className="flex items-center gap-3">
                                         <input
                                             type="color"
                                             value={customColors[color.key as keyof typeof customColors] || theme[color.key as keyof typeof theme]}
                                             onChange={(e) => handleColorChange(color.key, e.target.value)}
-                                            className="w-12 h-12 rounded-lg border border-gray-200 cursor-pointer"
+                                            className="w-12 h-12 rounded-lg border border-border cursor-pointer"
                                         />
                                         <input
                                             type="text"
                                             value={customColors[color.key as keyof typeof customColors] || theme[color.key as keyof typeof theme]}
                                             onChange={(e) => handleColorChange(color.key, e.target.value)}
-                                            className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm font-mono "
+                                            className="flex-1 px-3 py-2 border border-border rounded-lg text-sm font-mono "
                                             placeholder="#000000"
                                         />
                                     </div>
@@ -533,8 +533,8 @@ export default function SettingsPage() {
                         </div>
 
                         {/* Preview */}
-                        <div className="mt-8 p-6 rounded-xl border border-gray-200" style={{ background: theme.secondary }}>
-                            <h3 className="text-sm font-medium text-gray-500 mb-4">Live Preview</h3>
+                        <div className="mt-8 p-6 rounded-xl border border-border" style={{ background: theme.secondary }}>
+                            <h3 className="text-sm font-medium text-muted-foreground mb-4">Live Preview</h3>
                             <div className="flex flex-wrap gap-3">
                                 <button
                                     className="px-6 py-3 rounded-xl text-white font-bold transition-all"
@@ -563,23 +563,23 @@ export default function SettingsPage() {
             {/* GDPR Tab */}
             {activeTab === 'gdpr' && (
                 <div className="grid gap-6">
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="p-2 bg-green-50 rounded-lg">
                                 <Shield className="w-5 h-5 text-green-600" />
                             </div>
                             <div>
-                                <h2 className="font-semibold text-gray-900">Cookie Banner Settings</h2>
-                                <p className="text-sm text-gray-500">GDPR compliance and cookie consent</p>
+                                <h2 className="font-semibold text-foreground">Cookie Banner Settings</h2>
+                                <p className="text-sm text-muted-foreground">GDPR compliance and cookie consent</p>
                             </div>
                         </div>
 
                         <div className="space-y-6">
                             {/* Enable/Disable */}
-                            <label className="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer">
+                            <label className="flex items-center justify-between p-4 bg-muted rounded-xl cursor-pointer">
                                 <div>
-                                    <p className="font-medium text-gray-900">Show Cookie Banner</p>
-                                    <p className="text-sm text-gray-500">Display cookie consent banner to visitors</p>
+                                    <p className="font-medium text-foreground">Show Cookie Banner</p>
+                                    <p className="text-sm text-muted-foreground">Display cookie consent banner to visitors</p>
                                 </div>
                                 <input
                                     type="checkbox"
@@ -591,11 +591,11 @@ export default function SettingsPage() {
 
                             {/* Compliance Region */}
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">Compliance Region</label>
+                                <label className="block text-sm font-medium text-foreground">Compliance Region</label>
                                 <select
                                     value={gdprForm.gdprComplianceRegion}
                                     onChange={(e) => setGdprForm({ ...gdprForm, gdprComplianceRegion: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-white"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all bg-card"
                                 >
                                     <option value="eu">EU (Full GDPR)</option>
                                     <option value="italy">Italy Only</option>
@@ -606,78 +606,78 @@ export default function SettingsPage() {
 
                             {/* Banner Content */}
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">Banner Title</label>
+                                <label className="block text-sm font-medium text-foreground">Banner Title</label>
                                 <input
                                     type="text"
                                     value={gdprForm.cookieBannerTitle}
                                     onChange={(e) => setGdprForm({ ...gdprForm, cookieBannerTitle: e.target.value })}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 />
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">Banner Text</label>
+                                <label className="block text-sm font-medium text-foreground">Banner Text</label>
                                 <textarea
                                     value={gdprForm.cookieBannerText}
                                     onChange={(e) => setGdprForm({ ...gdprForm, cookieBannerText: e.target.value })}
                                     rows={3}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all resize-none"
                                 />
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <label className="block text-sm font-medium text-gray-700">Accept Button Text</label>
+                                    <label className="block text-sm font-medium text-foreground">Accept Button Text</label>
                                     <input
                                         type="text"
                                         value={gdprForm.acceptButtonText}
                                         onChange={(e) => setGdprForm({ ...gdprForm, acceptButtonText: e.target.value })}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="block text-sm font-medium text-gray-700">Decline Button Text</label>
+                                    <label className="block text-sm font-medium text-foreground">Decline Button Text</label>
                                     <input
                                         type="text"
                                         value={gdprForm.declineButtonText}
                                         onChange={(e) => setGdprForm({ ...gdprForm, declineButtonText: e.target.value })}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                    <label className="block text-sm font-medium text-gray-700">Privacy Policy Link</label>
+                                    <label className="block text-sm font-medium text-foreground">Privacy Policy Link</label>
                                     <input
                                         type="text"
                                         value={gdprForm.privacyPolicyLink}
                                         onChange={(e) => setGdprForm({ ...gdprForm, privacyPolicyLink: e.target.value })}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="block text-sm font-medium text-gray-700">Privacy Policy Link Text</label>
+                                    <label className="block text-sm font-medium text-foreground">Privacy Policy Link Text</label>
                                     <input
                                         type="text"
                                         value={gdprForm.privacyPolicyText}
                                         onChange={(e) => setGdprForm({ ...gdprForm, privacyPolicyText: e.target.value })}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                        className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                     />
                                 </div>
                             </div>
                         </div>
 
                         {/* Preview */}
-                        <div className="mt-8 p-4 bg-gray-50 rounded-xl border border-gray-200">
-                            <h3 className="text-sm font-medium text-gray-500 mb-3">Banner Preview</h3>
-                            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-4">
-                                <h4 className="font-bold text-gray-900 mb-2">{gdprForm.cookieBannerTitle}</h4>
-                                <p className="text-sm text-gray-600 mb-3">
+                        <div className="mt-8 p-4 bg-muted rounded-xl border border-border">
+                            <h3 className="text-sm font-medium text-muted-foreground mb-3">Banner Preview</h3>
+                            <div className="bg-card rounded-xl shadow-lg border border-border p-4">
+                                <h4 className="font-bold text-foreground mb-2">{gdprForm.cookieBannerTitle}</h4>
+                                <p className="text-sm text-muted-foreground mb-3">
                                     {gdprForm.cookieBannerText || 'Cookie banner text will appear here...'}
                                 </p>
                                 <div className="flex gap-2">
-                                    <button className="px-4 py-2 rounded-lg border border-gray-200 text-gray-600 text-sm font-medium">
+                                    <button className="px-4 py-2 rounded-lg border border-border text-muted-foreground text-sm font-medium">
                                         {gdprForm.declineButtonText}
                                     </button>
                                     <button className="px-4 py-2 rounded-lg bg-emerald-800 text-white text-sm font-medium">
@@ -695,8 +695,8 @@ export default function SettingsPage() {
                 <div className="grid gap-6">
                     <CalendarDiagnostic />
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <h3 className="font-bold text-gray-900 mb-4">Calendar Color Legend</h3>
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
+                        <h3 className="font-bold text-foreground mb-4">Calendar Color Legend</h3>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div className="flex items-center gap-3 p-4 bg-background rounded-xl border border-emerald-100">
                                 <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
@@ -747,49 +747,49 @@ export default function SettingsPage() {
             {activeTab === 'system' && (
                 <div className="grid gap-6">
                     {/* Database Status */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="p-2 bg-purple-50 rounded-lg">
                                 <Database className="w-5 h-5 text-purple-600" />
                             </div>
-                            <h2 className="font-semibold text-gray-900">Database Connection</h2>
+                            <h2 className="font-semibold text-foreground">Database Connection</h2>
                         </div>
                         <div className="space-y-4">
                             <div className="flex items-center gap-2 text-sm">
                                 <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                                <span className="text-gray-700 font-medium">Supabase connected</span>
+                                <span className="text-foreground font-medium">Supabase connected</span>
                             </div>
                             <div className="grid grid-cols-2 gap-4 mt-4">
-                                <div className="p-4 bg-gray-50 rounded-xl">
-                                    <p className="text-xs text-gray-500  tracking-wider mb-1">Bookings Table</p>
-                                    <p className="text-lg font-bold text-gray-900">Active</p>
+                                <div className="p-4 bg-muted rounded-xl">
+                                    <p className="text-xs text-muted-foreground  tracking-wider mb-1">Bookings Table</p>
+                                    <p className="text-lg font-bold text-foreground">Active</p>
                                 </div>
-                                <div className="p-4 bg-gray-50 rounded-xl">
-                                    <p className="text-xs text-gray-500  tracking-wider mb-1">Inventory Table</p>
-                                    <p className="text-lg font-bold text-gray-900">Active</p>
+                                <div className="p-4 bg-muted rounded-xl">
+                                    <p className="text-xs text-muted-foreground  tracking-wider mb-1">Inventory Table</p>
+                                    <p className="text-lg font-bold text-foreground">Active</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* System Info */}
-                    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <h2 className="font-semibold text-gray-900 mb-4">System Information</h2>
+                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
+                        <h2 className="font-semibold text-foreground mb-4">System Information</h2>
                         <div className="space-y-3 text-sm">
-                            <div className="flex justify-between py-2 border-b border-gray-100">
-                                <span className="text-gray-500">Next.js Version</span>
+                            <div className="flex justify-between py-2 border-b border-border">
+                                <span className="text-muted-foreground">Next.js Version</span>
                                 <span className="font-medium">16.1.3</span>
                             </div>
-                            <div className="flex justify-between py-2 border-b border-gray-100">
-                                <span className="text-gray-500">React Version</span>
+                            <div className="flex justify-between py-2 border-b border-border">
+                                <span className="text-muted-foreground">React Version</span>
                                 <span className="font-medium">19.0.0</span>
                             </div>
-                            <div className="flex justify-between py-2 border-b border-gray-100">
-                                <span className="text-gray-500">Node Environment</span>
+                            <div className="flex justify-between py-2 border-b border-border">
+                                <span className="text-muted-foreground">Node Environment</span>
                                 <span className="font-medium">Production</span>
                             </div>
                             <div className="flex justify-between py-2">
-                                <span className="text-gray-500">Build Time</span>
+                                <span className="text-muted-foreground">Build Time</span>
                                 <span className="font-medium">{new Date().toLocaleDateString()}</span>
                             </div>
                         </div>

@@ -72,15 +72,15 @@ export default function CalendarDiagnostic() {
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <div className="bg-card rounded-xl shadow-sm border border-border p-6">
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-amber-50 rounded-lg">
                         <AlertTriangle className="w-5 h-5 text-amber-600" />
                     </div>
                     <div>
-                        <h3 className="font-bold text-gray-900">Calendar Diagnostics</h3>
-                        <p className="text-sm text-gray-500">Check why calendar colors aren't showing</p>
+                        <h3 className="font-bold text-foreground">Calendar Diagnostics</h3>
+                        <p className="text-sm text-muted-foreground">Check why calendar colors aren't showing</p>
                     </div>
                 </div>
                 <button
@@ -94,7 +94,7 @@ export default function CalendarDiagnostic() {
             </div>
 
             {results.length === 0 && (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-muted-foreground">
                     <Database className="w-12 h-12 mx-auto mb-3 opacity-30" />
                     <p>Click "Run Diagnostics" to check your calendar setup</p>
                 </div>
@@ -103,18 +103,18 @@ export default function CalendarDiagnostic() {
             <div className="space-y-3">
                 {results.map((result) => (
                     <div key={result.name} className={`p-4 rounded-lg border ${
-                        result.status === 'loading' ? 'bg-gray-50 border-gray-200' :
+                        result.status === 'loading' ? 'bg-muted border-border' :
                         result.status === 'success' ? 'bg-green-50 border-green-200' :
                         'bg-red-50 border-red-200'
                     }`}>
                         <div className="flex items-center gap-3">
-                            {result.status === 'loading' && <Loader2 className="w-5 h-5 animate-spin text-gray-400" />}
+                            {result.status === 'loading' && <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />}
                             {result.status === 'success' && <CheckCircle className="w-5 h-5 text-green-600" />}
                             {result.status === 'error' && <AlertTriangle className="w-5 h-5 text-red-600" />}
                             <div className="flex-1">
-                                <p className="font-medium text-gray-900">{result.name}</p>
+                                <p className="font-medium text-foreground">{result.name}</p>
                                 <p className={`text-sm ${
-                                    result.status === 'error' ? 'text-red-600' : 'text-gray-600'
+                                    result.status === 'error' ? 'text-red-600' : 'text-muted-foreground'
                                 }`}>{result.message}</p>
                             </div>
                         </div>

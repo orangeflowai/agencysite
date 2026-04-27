@@ -39,7 +39,7 @@ export default function AdminLogin() {
 
     return (
         <div className="min-h-screen bg-cream flex items-center justify-center p-4">
-            <div className="bg-white max-w-md w-full rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="bg-card max-w-md w-full rounded-2xl shadow-xl overflow-hidden border border-border">
                 <div className="bg-emerald-900 p-8 text-center">
                     <div className="mx-auto bg-emerald-800 w-16 h-16 rounded-full flex items-center justify-center mb-4">
                         <Lock className="text-emerald-100 w-8 h-8" />
@@ -56,39 +56,39 @@ export default function AdminLogin() {
                     )}
 
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-gray-700  tracking-wider">Email Address</label>
+                        <label className="text-sm font-bold text-foreground  tracking-wider">Email Address</label>
                         <div className="relative">
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                className="w-full pl-10 pr-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 placeholder="admin@example.com"
                                 required
                             />
-                            <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-3.5" />
+                            <Mail className="w-5 h-5 text-muted-foreground absolute left-3 top-3.5" />
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-gray-700  tracking-wider">Password</label>
+                        <label className="text-sm font-bold text-foreground  tracking-wider">Password</label>
                         <div className="relative">
                             <input
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                                className="w-full pl-10 pr-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
                                 placeholder="••••••••"
                                 required
                             />
-                            <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-3.5" />
+                            <Lock className="w-5 h-5 text-muted-foreground absolute left-3 top-3.5" />
                         </div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-emerald-600 hover:opacity-90 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-70 flex items-center justify-center"
+                        className="w-full bg-primary hover:opacity-90 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-70 flex items-center justify-center"
                     >
                         {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Sign In Dashboard'}
                     </button>

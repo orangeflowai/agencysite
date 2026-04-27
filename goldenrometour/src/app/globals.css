@@ -27,6 +27,13 @@
   --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-roboto), ui-serif, Georgia, serif;
   --font-mono: var(--font-roboto), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --shadow-color: var(--shadow-color);
+  --shadow-opacity: var(--shadow-opacity);
+  --shadow-blur: var(--shadow-blur);
+  --shadow-spread: var(--shadow-spread);
+  --shadow-offset-x: var(--shadow-offset-x);
+  --shadow-offset-y: var(--shadow-offset-y);
 }
 
 @utility font-heading {
@@ -45,7 +52,7 @@
   font-variation-settings: "GRAD" -20, "opsz" 14;
 }
 
-@utility font-bold {
+@utility font-black {
   font-weight: 600;
 }
 
@@ -58,81 +65,90 @@
 }
 
 :root {
-  --card: #fffcf5;
-  --ring: #a67c52;
-  --input: #dbd0ba;
-  --muted: #ece5d8;
-  --accent: #d4c8aa;
-  --border: #dbd0ba;
-  --radius: 0.25rem;
-  --chart-1: #a67c52;
-  --chart-2: #8d6e4c;
-  --chart-3: #735a3a;
-  --chart-4: #b3906f;
-  --chart-5: #c0a080;
-  --popover: #fffcf5;
-  --primary: #a67c52;
-  --sidebar: #ece5d8;
-  --secondary: #e2d8c3;
-  --background: #f5f1e6;
-  --foreground: #4a3f35;
-  --destructive: #b54a35;
-  --shadow-blur: 5px;
-  --shadow-color: hsl(28 13% 20%);
-  --sidebar-ring: #a67c52;
-  --shadow-spread: 0px;
+  /* Core Canvas */
+  --background: #F4F7FB;
+  --foreground: #04257C;
+
+  /* Cards & Surfaces */
+  --card: #FFFFFF;
+  --card-foreground: #04257C;
+  --popover: #FFFFFF;
+  --popover-foreground: #04257C;
+
+  /* Primary Action: Royal Blue */
+  --primary: #054A85;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary: Steel Blue */
+  --secondary: #4A7FB5;
+  --secondary-foreground: #FFFFFF;
+
+  /* Muted: Light Blue-Gray */
+  --muted: #E2EAF3;
+  --muted-foreground: #5A6B7D;
+
+  /* Accent: Bright Sky Blue */
+  --accent: #3B8DD4;
+  --accent-foreground: #FFFFFF;
+
+  /* Destructive: Alert Red */
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+
+  /* Borders & Inputs: Steel family */
+  --border: #4A7FB5;
+  --input: #C8D8E8;
+  --ring: #054A85;
+  --radius: 0.425rem;
+
+  /* Shadows: Deep navy at low opacity */
+  --shadow-color: hsl(225 90% 25% / 0.12);
   --shadow-opacity: 0.12;
-  --sidebar-accent: #d4c8aa;
-  --sidebar-border: #dbd0ba;
-  --card-foreground: #4a3f35;
-  --shadow-offset-x: 2px;
+  --shadow-blur: 2px;
+  --shadow-spread: 0px;
+  --shadow-offset-x: 3px;
   --shadow-offset-y: 3px;
-  --sidebar-primary: #a67c52;
-  --muted-foreground: #7d6b56;
-  --accent-foreground: #4a3f35;
-  --popover-foreground: #4a3f35;
-  --primary-foreground: #ffffff;
-  --sidebar-foreground: #4a3f35;
-  --secondary-foreground: #5c4d3f;
-  --destructive-foreground: #ffffff;
-  --sidebar-accent-foreground: #4a3f35;
-  --sidebar-primary-foreground: #ffffff;
 }
 
 .dark {
-  --card: #3a322c;
-  --ring: #c0a080;
-  --input: #4a4039;
-  --muted: #3a322c;
-  --accent: #59493e;
-  --border: #4a4039;
-  --radius: 0.25rem;
-  --chart-1: #c0a080;
-  --chart-2: #b3906f;
-  --chart-3: #a67c52;
-  --chart-4: #8d6e4c;
-  --chart-5: #735a3a;
-  --popover: #3a322c;
-  --primary: #c0a080;
-  --sidebar: #2d2621;
-  --secondary: #4a4039;
-  --background: #2d2621;
-  --foreground: #ece5d8;
-  --destructive: #b54a35;
-  --sidebar-ring: #c0a080;
-  --sidebar-accent: #59493e;
-  --sidebar-border: #4a4039;
-  --card-foreground: #ece5d8;
-  --sidebar-primary: #c0a080;
-  --muted-foreground: #c5bcac;
-  --accent-foreground: #ece5d8;
-  --popover-foreground: #ece5d8;
-  --primary-foreground: #2d2621;
-  --sidebar-foreground: #ece5d8;
-  --secondary-foreground: #ece5d8;
-  --destructive-foreground: #ffffff;
-  --sidebar-accent-foreground: #ece5d8;
-  --sidebar-primary-foreground: #2d2621;
+  /* Core Canvas */
+  --background: #04257C;
+  --foreground: #FFFFFF;
+
+  /* Cards & Surfaces */
+  --card: #061E5E;
+  --card-foreground: #FFFFFF;
+  --popover: #061E5E;
+  --popover-foreground: #FFFFFF;
+
+  /* Primary Action: Luminous Blue */
+  --primary: #5AA8F0;
+  --primary-foreground: #04257C;
+
+  /* Secondary: Dark Steel */
+  --secondary: #1A3A6B;
+  --secondary-foreground: #FFFFFF;
+
+  /* Muted: Deep Navy */
+  --muted: #0D2D70;
+  --muted-foreground: #A8B8D0;
+
+  /* Accent: Muted Royal */
+  --accent: #1A4A85;
+  --accent-foreground: #FFFFFF;
+
+  /* Destructive: Bright Alert */
+  --destructive: #FF6B6B;
+  --destructive-foreground: #04257C;
+
+  /* Borders & Inputs: Dimmed Steel */
+  --border: #1A3A6B;
+  --input: #0D2D70;
+  --ring: #5AA8F0;
+
+  /* Shadows: Blue glow at low opacity */
+  --shadow-color: hsl(210 100% 65% / 0.15);
+  --shadow-opacity: 0.15;
 }
 
 @layer base {

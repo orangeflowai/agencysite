@@ -75,7 +75,7 @@ export default function StickyRomeSection() {
                             <Link href="/search" className="bg-forest text-cream px-12 py-5 font-bold text-[10px]  tracking-[0.4em] hover:bg-forest-light transition-all shadow-xl active:scale-95">
                                 Secure Access
                             </Link>
-                            <Link href="/private-tours" className="bg-cream text-forest px-12 py-5 font-bold text-[10px]  tracking-[0.4em] hover:bg-white transition-all shadow-xl active:scale-95 border border-forest/10">
+                            <Link href="/private-tours" className="bg-cream text-forest px-12 py-5 font-bold text-[10px]  tracking-[0.4em] hover:bg-card transition-all shadow-xl active:scale-95 border border-forest/10">
                                 Private Folio
                             </Link>
                         </div>
