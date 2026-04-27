@@ -93,8 +93,8 @@ export default function FAQPage() {
             <div className="bg-[#0A1628] text-white py-24 text-center relative overflow-hidden border-b border-[#C9A227]/20">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                 <div className="container mx-auto px-4 relative z-10 pt-12">
-                    <p className="text-[#C9A227] font-black uppercase tracking-[0.4em] text-[10px] mb-4">Operations Team</p>
-                    <h1 className="text-4xl md:text-6xl font-serif font-black mb-4 tracking-tighter italic uppercase">Common Inquiries</h1>
+                    <p className="text-[#C9A227] font-bold  tracking-[0.4em] text-[10px] mb-4">Operations Team</p>
+                    <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 tracking-tighter  ">Common Inquiries</h1>
                     <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto font-medium">
                         Essential info for your Vatican Museums & Sistine Chapel visit.
                     </p>
@@ -107,7 +107,7 @@ export default function FAQPage() {
                         <div key={catIndex}>
                             <div className="flex items-center gap-3 mb-6 border-b border-[#E5E5E5] pb-4 sticky top-24 bg-[#FAF9F6]/90 backdrop-blur-md z-10">
                                 {category.icon}
-                                <h2 className="text-2xl font-serif font-bold text-[#1A1A1A] italic uppercase tracking-tight">{category.title}</h2>
+                                <h2 className="text-2xl font-serif font-bold text-[#1A1A1A]   tracking-tight">{category.title}</h2>
                             </div>
 
                             <div className="space-y-4">
@@ -163,7 +163,7 @@ export default function FAQPage() {
                 </div>
 
                 <div className="mt-20 bg-white rounded-2xl p-8 md:p-12 text-center border border-[#E5E5E5] shadow-lg shadow-[#0A1628]/5">
-                    <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-4 uppercase italic tracking-tight">Still have questions?</h3>
+                    <h3 className="text-2xl font-serif font-bold text-[#1A1A1A] mb-4   tracking-tight">Still have questions?</h3>
                     <p className="text-[#5A5A5A] mb-8 max-w-lg mx-auto">
                         Our Vatican specialists are here to help! Available 8:00 AM – 7:00 PM (CET).
                     </p>

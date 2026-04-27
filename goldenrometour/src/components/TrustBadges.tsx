@@ -63,7 +63,7 @@ export default function TrustBadges() {
                             </div>
 
                             <h3
-                                className="font-serif font-bold text-sm tracking-widest mb-4 uppercase leading-relaxed whitespace-pre-line text-[#555B02]"
+                                className="font-serif font-bold text-sm tracking-widest mb-4  leading-relaxed whitespace-pre-line text-[#555B02]"
                             >
                                 {title}
                             </h3>
@@ -83,12 +83,12 @@ export default function TrustBadges() {
                     transition={{ delay: 0.8 }}
                     className="flex flex-col items-center mt-20 pt-12 border-t border-[#555B02]/10"
                 >
-                    <p className="font-sans font-black text-[9px] uppercase tracking-[0.4em] text-[#555B02]/30 mb-8">Trusted by Global Travelers</p>
+                    <p className="font-sans font-bold text-[9px]  tracking-[0.4em] text-[#555B02]/30 mb-8">Trusted by Global Travelers</p>
                     <div className="flex items-center justify-center gap-12 lg:gap-20 flex-wrap opacity-40 hover:opacity-100 transition-opacity duration-700">
                         {[['TripAdvisor', '★★★★★'], ['Google', '★★★★★'], ['Viator', 'Elite'], ['GetYourGuide', 'Certified']].map(([name, stars]) => (
                             <div key={name} className="flex flex-col items-center gap-1 group cursor-default">
-                                <span className="font-serif text-xl font-bold italic text-[#555B02]">{name}</span>
-                                {stars && <span className="text-[10px] font-black tracking-widest text-[#555B02]/60 uppercase">{stars}</span>}
+                                <span className="font-serif text-xl font-bold  text-[#555B02]">{name}</span>
+                                {stars && <span className="text-[10px] font-bold tracking-widest text-[#555B02]/60 ">{stars}</span>}
                             </div>
                         ))}
                     </div>

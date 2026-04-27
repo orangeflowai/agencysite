@@ -59,7 +59,7 @@ export default async function Home() {
         <div className="relative z-10 w-full max-w-[1000px] mx-auto px-6 text-center pt-20">
            <div className="flex items-center justify-center gap-4 mb-8 opacity-0 animate-[fadeUp_0.8s_0.2s_ease-out_forwards]">
               <div className="h-[1px] w-12 bg-[#C9A227]" />
-              <span className="text-[#E8D5A3] uppercase tracking-[0.4em] text-[0.75rem] font-black">Official Vatican Partner</span>
+              <span className="text-[#E8D5A3]  tracking-[0.4em] text-[0.75rem] font-bold">Official Vatican Partner</span>
               <div className="h-[1px] w-12 bg-[#C9A227]" />
            </div>
            
@@ -74,10 +74,10 @@ export default async function Home() {
            </p>
            
            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 opacity-0 animate-[fadeUp_0.8s_0.8s_ease-out_forwards]">
-              <Link href="/category/vatican" className="group relative w-full sm:w-auto px-10 py-5 bg-[#C9A227] text-[#0A1628] rounded-full font-black uppercase tracking-widest text-xs transition-all hover:scale-105 shadow-[0_0_40px_rgba(201,162,39,0.3)]">
+              <Link href="/category/vatican" className="group relative w-full sm:w-auto px-10 py-5 bg-[#C9A227] text-[#0A1628] rounded-full font-bold  tracking-widest text-xs transition-all hover:scale-105 shadow-[0_0_40px_rgba(201,162,39,0.3)]">
                  Explore the Archive
               </Link>
-              <Link href="/category/colosseum" className="w-full sm:w-auto px-10 py-5 bg-transparent border-2 border-white/20 text-white rounded-full font-black uppercase tracking-widest text-xs hover:bg-white/10 hover:border-white/40 transition-all">
+              <Link href="/category/colosseum" className="w-full sm:w-auto px-10 py-5 bg-transparent border-2 border-white/20 text-white rounded-full font-bold  tracking-widest text-xs hover:bg-white/10 hover:border-white/40 transition-all">
                  Colosseum Access
               </Link>
            </div>
@@ -87,7 +87,7 @@ export default async function Home() {
       {/* Trust Badges */}
       <section className="bg-white py-12 border-b border-[#E5E5E5]">
          <div className="container mx-auto px-6 text-center">
-            <h3 className="text-[#5A5A5A] font-bold uppercase tracking-widest text-[10px] mb-8">Authenticated by 50,000+ Verified Logs</h3>
+            <h3 className="text-[#5A5A5A] font-bold  tracking-widest text-[10px] mb-8">Authenticated by 50,000+ Verified Logs</h3>
             <TrustBadges />
          </div>
       </section>
@@ -98,17 +98,17 @@ export default async function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                <div className="space-y-8">
                   <div>
-                    <SplitText className="text-[#0A1628] font-serif font-bold text-5xl mb-6 italic tracking-tight">The Eternal City Guide</SplitText>
+                    <SplitText className="text-[#0A1628] font-serif font-bold text-5xl mb-6  tracking-tight">The Eternal City Guide</SplitText>
                     <p className="text-xl leading-relaxed">Planning a trip to Rome can be overwhelming. From the <span className="text-[#C9A227] font-bold">Vatican Museums</span> to the <span className="text-[#C9A227] font-bold">Ancient Colosseum</span>, knowing where to start is key to an unforgettable experience.</p>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                      <div className="space-y-3">
-                        <div className="flex items-center gap-3 text-[#0A1628]"><Ticket className="w-5 h-5 text-[#C9A227]" /><h4 className="font-bold uppercase tracking-widest text-xs">Vatican Museums</h4></div>
+                        <div className="flex items-center gap-3 text-[#0A1628]"><Ticket className="w-5 h-5 text-[#C9A227]" /><h4 className="font-bold  tracking-widest text-xs">Vatican Museums</h4></div>
                         <p className="text-sm leading-relaxed">Home to the Sistine Chapel and 54 galleries of masterpieces. Always book skip-the-line tickets 2-3 weeks in advance.</p>
                      </div>
                      <div className="space-y-3">
-                        <div className="flex items-center gap-3 text-[#0A1628]"><BookOpen className="w-5 h-5 text-[#C9A227]" /><h4 className="font-bold uppercase tracking-widest text-xs">Ancient History</h4></div>
+                        <div className="flex items-center gap-3 text-[#0A1628]"><BookOpen className="w-5 h-5 text-[#C9A227]" /><h4 className="font-bold  tracking-widest text-xs">Ancient History</h4></div>
                         <p className="text-sm leading-relaxed">The Roman Forum and Palatine Hill are as important as the Colosseum itself. Our guides connect the entire architectural story.</p>
                      </div>
                   </div>
@@ -148,10 +148,10 @@ export default async function Home() {
          <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
                <div className="max-w-2xl">
-                  <p className="text-[#C9A227] font-black uppercase tracking-[0.4em] text-[10px] mb-4">Curated Selection</p>
-                  <SplitText className="text-[#0A1628] font-serif font-bold text-6xl leading-none tracking-tighter uppercase italic">Best Selling Archives</SplitText>
+                  <p className="text-[#C9A227] font-bold  tracking-[0.4em] text-[10px] mb-4">Curated Selection</p>
+                  <SplitText className="text-[#0A1628] font-serif font-bold text-6xl leading-none tracking-tighter  ">Best Selling Archives</SplitText>
                </div>
-               <Link href="/search" className="hidden md:flex items-center gap-3 font-black uppercase tracking-widest text-[10px] text-[#0A1628] hover:text-[#C9A227] transition-colors">
+               <Link href="/search" className="hidden md:flex items-center gap-3 font-bold  tracking-widest text-[10px] text-[#0A1628] hover:text-[#C9A227] transition-colors">
                   View Full Directory <ArrowRight size={16} />
                </Link>
             </div>
@@ -176,7 +176,7 @@ export default async function Home() {
                   ].map((item, i) => (
                      <div key={i} className="space-y-4">
                         <item.icon className="w-8 h-8 text-[#C9A227]" />
-                        <h4 className="text-xl font-bold uppercase tracking-widest">{item.title}</h4>
+                        <h4 className="text-xl font-bold  tracking-widest">{item.title}</h4>
                         <p className="text-white/60 leading-relaxed">{item.desc}</p>
                      </div>
                   ))}
@@ -191,8 +191,8 @@ export default async function Home() {
       <section className="py-24 bg-white/50 border-y border-[#E5E5E5]">
          <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16 max-w-2xl mx-auto">
-               <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-[#C9A227] mb-3">Preparation Protocol</p>
-               <SplitText className="text-4xl md:text-5xl font-serif font-bold text-[#0A1628] leading-tight italic uppercase justify-center">Vatican Entry Requirements</SplitText>
+               <p className="text-[10px] font-sans font-bold  tracking-[0.4em] text-[#C9A227] mb-3">Preparation Protocol</p>
+               <SplitText className="text-4xl md:text-5xl font-serif font-bold text-[#0A1628] leading-tight   justify-center">Vatican Entry Requirements</SplitText>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                {[
@@ -204,7 +204,7 @@ export default async function Home() {
                      <div className="w-16 h-16 bg-[#C9A227]/10 rounded-full flex items-center justify-center mx-auto text-[#C9A227]">
                         <item.icon size={28} />
                      </div>
-                     <h4 className="text-xl font-serif font-bold text-[#0A1628] uppercase italic">{item.title}</h4>
+                     <h4 className="text-xl font-serif font-bold text-[#0A1628]  ">{item.title}</h4>
                      <p className="text-sm text-[#5A5A5A] font-sans font-medium">{item.desc}</p>
                   </div>
                ))}
@@ -215,8 +215,8 @@ export default async function Home() {
       {/* Floating Reviews */}
       <section className="py-24 bg-[#FAF9F6] border-b border-[#E5E5E5]">
          <div className="text-center mb-12">
-            <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-[#C9A227] mb-3">Verified Feedback</p>
-            <SplitText className="text-4xl md:text-5xl font-serif font-bold text-[#0A1628] italic uppercase tracking-tighter justify-center">Guest Log Archives</SplitText>
+            <p className="text-[10px] font-sans font-bold  tracking-[0.4em] text-[#C9A227] mb-3">Verified Feedback</p>
+            <SplitText className="text-4xl md:text-5xl font-serif font-bold text-[#0A1628]   tracking-tighter justify-center">Guest Log Archives</SplitText>
          </div>
          <FloatingReviews />
       </section>
@@ -229,10 +229,10 @@ export default async function Home() {
           <div className="container mx-auto px-6">
             <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
               <div>
-                <p className="text-[#C9A227] font-bold uppercase tracking-widest text-xs mb-3">Travel Guides</p>
+                <p className="text-[#C9A227] font-bold  tracking-widest text-xs mb-3">Travel Guides</p>
                 <h2 className="text-4xl md:text-5xl font-bold text-white">From Our Blog</h2>
               </div>
-              <Link href="/blog" className="inline-flex items-center gap-2 text-[#C9A227] font-bold text-sm uppercase tracking-widest hover:underline shrink-0">
+              <Link href="/blog" className="inline-flex items-center gap-2 text-[#C9A227] font-bold text-sm  tracking-widest hover:underline shrink-0">
                 All Articles <ArrowRight size={16} />
               </Link>
             </div>
@@ -247,7 +247,7 @@ export default async function Home() {
                   <div className="p-6 flex flex-col flex-1">
                     <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#C9A227] transition-colors line-clamp-2">{post.title}</h3>
                     <p className="text-sm text-white/50 line-clamp-3 mb-4 flex-1">{post.excerpt}</p>
-                    <span className="text-xs font-bold text-[#C9A227] uppercase tracking-widest flex items-center gap-1">Read More <ArrowRight size={12} /></span>
+                    <span className="text-xs font-bold text-[#C9A227]  tracking-widest flex items-center gap-1">Read More <ArrowRight size={12} /></span>
                   </div>
                 </Link>
               ))}

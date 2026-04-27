@@ -178,7 +178,7 @@ export default function AdminProductsPage() {
             <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
-                        <thead className="bg-gray-50 border-b border-gray-100 text-xs uppercase text-gray-500 font-semibold">
+                        <thead className="bg-gray-50 border-b border-gray-100 text-xs  text-gray-500 font-semibold">
                             <tr>
                                 <th className="px-6 py-4 w-16">Image</th>
                                 <th className="px-6 py-4">Tour Name</th>
@@ -307,7 +307,7 @@ export default function AdminProductsPage() {
                                 <div className="space-y-4">
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="col-span-2">
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Tour Title</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Tour Title</label>
                                             <input
                                                 type="text"
                                                 value={formData.title}
@@ -316,7 +316,7 @@ export default function AdminProductsPage() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Base Price (€)</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Base Price (€)</label>
                                             <input
                                                 type="number"
                                                 value={formData.price}
@@ -325,7 +325,7 @@ export default function AdminProductsPage() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Duration</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Duration</label>
                                             <input
                                                 type="text"
                                                 value={formData.duration}
@@ -335,7 +335,7 @@ export default function AdminProductsPage() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Group Size</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Group Size</label>
                                             <input
                                                 type="text"
                                                 value={formData.groupSize}
@@ -346,7 +346,7 @@ export default function AdminProductsPage() {
                                         </div>
                                         {/* New Fields */}
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Category</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Category</label>
                                             <select
                                                 value={formData.category}
                                                 onChange={e => setFormData({ ...formData, category: e.target.value })}
@@ -360,7 +360,7 @@ export default function AdminProductsPage() {
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Badge</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Badge</label>
                                             <input
                                                 type="text"
                                                 value={formData.badge}
@@ -370,7 +370,7 @@ export default function AdminProductsPage() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Rating</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Rating</label>
                                             <input
                                                 type="number"
                                                 step="0.1"
@@ -381,7 +381,7 @@ export default function AdminProductsPage() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Review Count</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Review Count</label>
                                             <input
                                                 type="number"
                                                 value={formData.reviewCount}
@@ -393,7 +393,7 @@ export default function AdminProductsPage() {
 
                                     {/* Image Upload UI */}
                                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Main Image</label>
+                                        <label className="block text-xs font-bold text-gray-500  mb-2">Main Image</label>
                                         <div className="flex items-center gap-4">
                                             {/* Preview current image if available */}
                                             {editingTour.mainImage && (
@@ -421,7 +421,7 @@ export default function AdminProductsPage() {
 
                                     {/* Gallery UI */}
                                     <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
-                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Image Gallery</label>
+                                        <label className="block text-xs font-bold text-gray-500  mb-2">Image Gallery</label>
 
                                         {/* Existing Gallery Grid */}
                                         {editingTour.gallery && editingTour.gallery.length > 0 && (
@@ -456,7 +456,7 @@ export default function AdminProductsPage() {
 
                                     {/* Marketing Tags */}
                                     <div>
-                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Marketing Tags (Comma Separated)</label>
+                                        <label className="block text-xs font-bold text-gray-500  mb-1">Marketing Tags (Comma Separated)</label>
                                         <input
                                             type="text"
                                             value={formData.tags}
@@ -476,7 +476,7 @@ export default function AdminProductsPage() {
 
                                     <div className="space-y-4">
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Max Participants (per booking)</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">Max Participants (per booking)</label>
                                             <input
                                                 type="number"
                                                 value={formData.maxParticipants as number}
@@ -500,7 +500,7 @@ export default function AdminProductsPage() {
                                                 </button>
                                                 <div className="grid grid-cols-2 gap-4">
                                                     <div>
-                                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Category Name</label>
+                                                        <label className="block text-xs font-bold text-gray-500  mb-1">Category Name</label>
                                                         <input
                                                             type="text"
                                                             value={gt.name}
@@ -514,7 +514,7 @@ export default function AdminProductsPage() {
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Price (€)</label>
+                                                        <label className="block text-xs font-bold text-gray-500  mb-1">Price (€)</label>
                                                         <input
                                                             type="number"
                                                             value={gt.price}
@@ -527,7 +527,7 @@ export default function AdminProductsPage() {
                                                         />
                                                     </div>
                                                     <div className="col-span-2">
-                                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Description</label>
+                                                        <label className="block text-xs font-bold text-gray-500  mb-1">Description</label>
                                                         <input
                                                             type="text"
                                                             value={gt.description}
@@ -562,7 +562,7 @@ export default function AdminProductsPage() {
                             {activeTab === 'content' && (
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Highlights (One per line)</label>
+                                        <label className="block text-xs font-bold text-gray-500  mb-1">Highlights (One per line)</label>
                                         <textarea
                                             value={formData.highlights}
                                             onChange={e => setFormData({ ...formData, highlights: e.target.value })}
@@ -572,7 +572,7 @@ export default function AdminProductsPage() {
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">What's Included (One per line)</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">What's Included (One per line)</label>
                                             <textarea
                                                 value={formData.includes}
                                                 onChange={e => setFormData({ ...formData, includes: e.target.value })}
@@ -581,7 +581,7 @@ export default function AdminProductsPage() {
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">What's Not Included</label>
+                                            <label className="block text-xs font-bold text-gray-500  mb-1">What's Not Included</label>
                                             <textarea
                                                 value={formData.excludes}
                                                 onChange={e => setFormData({ ...formData, excludes: e.target.value })}
@@ -596,7 +596,7 @@ export default function AdminProductsPage() {
                             {activeTab === 'logistics' && (
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Meeting Point</label>
+                                        <label className="block text-xs font-bold text-gray-500  mb-1">Meeting Point</label>
                                         <input
                                             type="text"
                                             value={formData.meetingPoint as string}
@@ -606,7 +606,7 @@ export default function AdminProductsPage() {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Important Info / Know Before You Go</label>
+                                        <label className="block text-xs font-bold text-gray-500  mb-1">Important Info / Know Before You Go</label>
                                         <textarea
                                             value={formData.importantInfo}
                                             onChange={e => setFormData({ ...formData, importantInfo: e.target.value })}

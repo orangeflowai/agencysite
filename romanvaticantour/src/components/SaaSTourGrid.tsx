@@ -38,7 +38,7 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
     if (!tours || tours.length === 0) return null;
 
     return (
-        <section className={`py-24 ${dark ? 'bg-neutral-950 text-white' : 'bg-white text-neutral-900'}`}>
+        <section className={`py-24 ${dark ? 'bg-neutral-950 text-white' : 'bg-card text-neutral-900'}`}>
             <div className="container mx-auto px-6 md:px-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                     <div className="max-w-2xl">
@@ -67,7 +67,7 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
                                 className={`group flex flex-col rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
                                     dark
                                         ? 'bg-neutral-900/80 backdrop-blur-sm border-neutral-800 hover:border-neutral-700 hover:shadow-[0_20px_60px_rgba(14,165,233,0.1)]'
-                                        : 'bg-white/80 backdrop-blur-sm border-neutral-100 hover:border-sky-100 hover:shadow-[0_20px_60px_rgba(14,165,233,0.08)]'
+                                        : 'bg-card/80 backdrop-blur-sm border-neutral-100 hover:border-sky-100 hover:shadow-[0_20px_60px_rgba(14,165,233,0.08)]'
                                 }`}
                             >
                                 <div className="relative h-56 w-full bg-neutral-100 overflow-hidden">
@@ -87,14 +87,14 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
 
                                     {tour.isPopular && (
                                         <div
-                                            className="absolute top-4 left-4 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full z-10"
+                                            className="absolute top-4 left-4 text-white text-[10px] font-bold  tracking-widest px-3 py-1.5 rounded-full z-10"
                                             style={{ background: 'linear-gradient(135deg, #0ea5e9, #0284c7)', boxShadow: '0 4px 12px rgba(14,165,233,0.4)' }}
                                         >
                                             Most Popular
                                         </div>
                                     )}
                                     <div
-                                        className="absolute top-4 right-4 font-black px-3 py-1.5 rounded-xl z-10 text-sm"
+                                        className="absolute top-4 right-4 font-bold px-3 py-1.5 rounded-xl z-10 text-sm"
                                         style={{
                                             background: 'rgba(255,255,255,0.92)',
                                             backdropFilter: 'blur(10px)',
@@ -107,7 +107,7 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
                                 </div>
 
                                 <div className="flex-1 p-6 lg:p-8 flex flex-col">
-                                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-sky-500 mb-4">
+                                    <div className="flex items-center gap-4 text-xs font-bold  tracking-widest text-sky-500 mb-4">
                                         {tour.duration && (
                                             <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {tour.duration}</span>
                                         )}

@@ -195,7 +195,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                         <span className="font-bold text-gray-900 text-lg w-16">{slot.time}</span>
                                         <div className="flex-1 flex items-center gap-2">
                                             <div>
-                                                <label className="text-[10px] font-bold text-gray-400 uppercase">Spots</label>
+                                                <label className="text-[10px] font-bold text-gray-400 ">Spots</label>
                                                 <input
                                                     type="number"
                                                     value={editSpots}
@@ -204,7 +204,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                                 />
                                             </div>
                                             <div>
-                                                <label className="text-[10px] font-bold text-gray-400 uppercase">Price €</label>
+                                                <label className="text-[10px] font-bold text-gray-400 ">Price €</label>
                                                 <input
                                                     type="number"
                                                     placeholder="Default"
@@ -236,7 +236,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                                 <div className="flex items-center gap-2">
                                                     <span className="font-bold text-gray-900 text-lg">{slot.time}</span>
                                                     {slot.available_slots === 0 && (
-                                                        <span className="text-[10px] font-black text-red-600 uppercase bg-red-100 px-1.5 py-0.5 rounded">Sold Out</span>
+                                                        <span className="text-[10px] font-bold text-red-600  bg-red-100 px-1.5 py-0.5 rounded">Sold Out</span>
                                                     )}
                                                 </div>
                                                 <div className="text-sm text-gray-500 flex items-center gap-2">
@@ -275,7 +275,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
 
                     {/* Add New Slot */}
                     <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Add New Time Slot</h4>
+                        <h4 className="text-xs font-bold text-gray-400  tracking-wider mb-4">Add New Time Slot</h4>
                         <div className="flex items-end gap-3">
                             <div className="flex-1">
                                 <label className="block text-xs font-bold text-gray-700 mb-1.5 ml-1">Time</label>

@@ -19,7 +19,7 @@ export default function SaaSBentoFeatures() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-xs font-black tracking-[0.3em] text-theme-primary uppercase mb-3 px-4 py-1.5 bg-sky-50 inline-block rounded-full border border-sky-100">
+                        <h2 className="text-xs font-bold tracking-[0.3em] text-theme-primary  mb-3 px-4 py-1.5 bg-sky-50 inline-block rounded-full border border-sky-100">
                             The Premium Experience
                         </h2>
                     </motion.div>
@@ -67,7 +67,7 @@ export default function SaaSBentoFeatures() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="col-span-1 border border-neutral-200/60 rounded-[2.5rem] bg-white p-10 flex flex-col shadow-xl hover:shadow-2xl hover:border-sky-200 transition-all duration-500 relative overflow-hidden group"
+                        className="col-span-1 border border-neutral-200/60 rounded-[2.5rem] bg-card p-10 flex flex-col shadow-xl hover:shadow-2xl hover:border-sky-200 transition-all duration-500 relative overflow-hidden group"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-sky-100 transition-colors"></div>
                         
@@ -78,7 +78,7 @@ export default function SaaSBentoFeatures() {
                         <p className="text-neutral-500 text-lg leading-relaxed flex-1">Pre-reserved priority entry to the Vatican Museums, Colosseum, and more. Save hours of standing in the sun.</p>
                         
                         <div className="pt-8 mt-auto border-t border-neutral-100 flex items-center justify-between">
-                            <span className="text-sm font-bold uppercase tracking-widest text-neutral-900">Learn More</span>
+                            <span className="text-sm font-bold  tracking-widest text-neutral-900">Learn More</span>
                             <div className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center group-hover:bg-theme-primary group-hover:text-white transition-all duration-300">
                                 <ArrowRight className="w-5 h-5" />
                             </div>
@@ -91,15 +91,15 @@ export default function SaaSBentoFeatures() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="col-span-1 border border-neutral-200/60 rounded-[2.5rem] bg-white p-10 flex flex-col shadow-xl hover:shadow-2xl hover:border-emerald-200 transition-all duration-500 relative overflow-hidden group"
+                        className="col-span-1 border border-neutral-200/60 rounded-[2.5rem] bg-card p-10 flex flex-col shadow-xl hover:shadow-2xl hover:border-emerald-200 transition-all duration-500 relative overflow-hidden group"
                     >
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-emerald-100 transition-colors"></div>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-secondary rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-emerald-100 transition-colors"></div>
                         
                         <div className="flex justify-between items-start mb-8">
-                            <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center border border-emerald-100 group-hover:scale-110 transition-transform duration-500">
-                                <ShieldCheck className="w-7 h-7 text-emerald-500" />
+                            <div className="w-14 h-14 bg-secondary rounded-2xl flex items-center justify-center border border-emerald-100 group-hover:scale-110 transition-transform duration-500">
+                                <ShieldCheck className="w-7 h-7 text-primary" />
                             </div>
-                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest border border-emerald-200">
+                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-4 py-1.5 rounded-full  tracking-widest border border-emerald-200">
                                 Guarantee
                             </span>
                         </div>
@@ -127,24 +127,24 @@ export default function SaaSBentoFeatures() {
                                 </div>
                                 <h4 className="text-3xl font-bold mb-4 tracking-tight">Instant Ticket Delivery</h4>
                                 <p className="text-sky-50/90 text-lg leading-relaxed mb-8">Book online and get mobile tickets sent directly to your phone. No printing required, just scan and go.</p>
-                                <Link href="/search" className="inline-flex items-center gap-3 bg-white text-theme-primary font-black uppercase tracking-widest text-xs px-8 py-4 rounded-2xl hover:bg-neutral-50 transition-all hover:scale-105 shadow-xl">
+                                <Link href="/search" className="inline-flex items-center gap-3 bg-card text-theme-primary font-bold  tracking-widest text-xs px-8 py-4 rounded-2xl hover:bg-neutral-50 transition-all hover:scale-105 shadow-xl">
                                     Find Tours <ArrowRight className="w-4 h-4" />
                                 </Link>
                             </div>
                             
                             {/* Fake Ticket Mockup with enhanced styling */}
-                            <div className="hidden md:flex w-72 h-full bg-white rounded-3xl shadow-2xl p-6 flex-col text-neutral-900 transform rotate-3 translate-y-12 group-hover:translate-y-4 group-hover:rotate-0 transition-all duration-700">
+                            <div className="hidden md:flex w-72 h-full bg-card rounded-3xl shadow-2xl p-6 flex-col text-neutral-900 transform rotate-3 translate-y-12 group-hover:translate-y-4 group-hover:rotate-0 transition-all duration-700">
                                 <div className="border-b-2 border-dashed border-neutral-100 pb-6 mb-6">
                                     <div className="flex justify-between items-center mb-4">
                                         <div className="flex items-center gap-2">
                                             <div className="w-6 h-6 bg-theme-primary rounded-md flex items-center justify-center">
-                                                <span className="text-white text-[8px] font-black">RV</span>
+                                                <span className="text-white text-[8px] font-bold">RV</span>
                                             </div>
-                                            <span className="font-black text-xs uppercase tracking-tighter">RomanVatican</span>
+                                            <span className="font-bold text-xs  tracking-tighter">RomanVatican</span>
                                         </div>
-                                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                                     </div>
-                                    <p className="text-[10px] text-neutral-400 uppercase font-black tracking-widest leading-none">Official Entry Ticket</p>
+                                    <p className="text-[10px] text-neutral-400  font-bold tracking-widest leading-none">Official Entry Ticket</p>
                                     <p className="text-lg font-serif font-bold mt-2">Sistine Chapel Privé</p>
                                 </div>
                                 <div className="flex-1 flex flex-col items-center justify-center gap-4">

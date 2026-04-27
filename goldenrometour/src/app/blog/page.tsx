@@ -32,7 +32,7 @@ export default async function BlogPage() {
                     priority
                 />
                 <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-                    <span className="block text-emerald-300 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">
+                    <span className="block text-emerald-300 font-bold tracking-widest  mb-4 text-sm md:text-base">
                         Travel Tips & Guides
                     </span>
                     <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 drop-shadow-lg">
@@ -64,7 +64,7 @@ export default async function BlogPage() {
                             </div>
 
                             <div className="p-6 flex flex-col flex-1">
-                                <div className="flex items-center text-xs text-olive mb-3 font-semibold tracking-wide uppercase">
+                                <div className="flex items-center text-xs text-olive mb-3 font-semibold tracking-wide ">
                                     <Calendar className="w-3 h-3 mr-1.5" />
                                     {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
                                         month: 'long',

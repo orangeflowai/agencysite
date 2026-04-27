@@ -360,21 +360,21 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                             {result && !loading && (
                                 <div className="space-y-4 max-h-[500px] overflow-y-auto">
                                     <div>
-                                        <label className="text-xs font-semibold text-gray-500 uppercase">Title</label>
+                                        <label className="text-xs font-semibold text-gray-500 ">Title</label>
                                         <p className="font-bold text-lg text-gray-900">{result.title}</p>
                                         {result.title.length > 60 && (
                                             <p className="text-amber-600 text-xs mt-1">⚠️ Title is {result.title.length} chars (recommended: &lt;60)</p>
                                         )}
                                     </div>
                                     <div>
-                                        <label className="text-xs font-semibold text-gray-500 uppercase">Meta Description</label>
+                                        <label className="text-xs font-semibold text-gray-500 ">Meta Description</label>
                                         <p className="text-gray-700 text-sm leading-relaxed">{result.metaDescription}</p>
                                         {result.metaDescription.length > 160 && (
                                             <p className="text-amber-600 text-xs mt-1">⚠️ Description is {result.metaDescription.length} chars (recommended: &lt;160)</p>
                                         )}
                                     </div>
                                     <div>
-                                        <label className="text-xs font-semibold text-gray-500 uppercase">Keywords</label>
+                                        <label className="text-xs font-semibold text-gray-500 ">Keywords</label>
                                         <div className="flex flex-wrap gap-1 mt-1">
                                             {result.keywords.map((kw: string, i: number) => (
                                                 <span key={i} className="px-2 py-1 bg-violet-100 text-violet-700 text-xs rounded-full">
@@ -386,7 +386,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                     
                                     {/* SEO Features Summary */}
                                     <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                                        <label className="text-xs font-semibold text-green-700 uppercase mb-2 block">SEO Features Included</label>
+                                        <label className="text-xs font-semibold text-green-700  mb-2 block">SEO Features Included</label>
                                         <div className="grid grid-cols-2 gap-2 text-xs">
                                             <div className="flex items-center gap-1.5 text-green-700">
                                                 <Check className="w-3.5 h-3.5" />
@@ -410,7 +410,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                     {/* Suggested Related Tours for Linking */}
                                     {extractedData?.relatedTours?.length > 0 && (
                                         <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                                            <label className="text-xs font-semibold text-blue-700 uppercase mb-2 block">
+                                            <label className="text-xs font-semibold text-blue-700  mb-2 block">
                                                 Related Tours for Internal Links
                                             </label>
                                             <div className="space-y-1">
@@ -439,7 +439,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                         if (links.length > 0) {
                                             return (
                                                 <div>
-                                                    <label className="text-xs font-semibold text-gray-500 uppercase">
+                                                    <label className="text-xs font-semibold text-gray-500 ">
                                                         Links Detected ({links.length})
                                                     </label>
                                                     <div className="mt-1 space-y-1">
@@ -463,14 +463,14 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                     })()}
 
                                     <div>
-                                        <label className="text-xs font-semibold text-gray-500 uppercase">Content Preview</label>
+                                        <label className="text-xs font-semibold text-gray-500 ">Content Preview</label>
                                         <div className="mt-2 p-3 bg-white rounded-lg border border-gray-200 text-sm text-gray-700 max-h-48 overflow-y-auto">
                                             {result.body.slice(0, 3).map((block: any, i: number) => (
                                                 <p key={i} className="mb-2">
                                                     {block.children?.map((c: any) => c.text).join(' ')}
                                                 </p>
                                             ))}
-                                            <p className="text-gray-400 italic">... {result.body.length - 3} more blocks</p>
+                                            <p className="text-gray-400 ">... {result.body.length - 3} more blocks</p>
                                         </div>
                                     </div>
                                 </div>

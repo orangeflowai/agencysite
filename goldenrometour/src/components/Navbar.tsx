@@ -98,9 +98,9 @@ export default function Navbar() {
                 >
                     {[...Array(10)].map((_, i) => (
                         <div key={i} className="flex items-center gap-12">
-                            <span className="font-sans font-black text-[10px] uppercase tracking-[0.4em] text-[#555B02]">✦ Official Vatican Partner</span>
-                            <span className="font-sans font-black text-[10px] uppercase tracking-[0.4em] text-[#555B02]">✦ Skip the Line Priority Access</span>
-                            <span className="font-sans font-black text-[10px] uppercase tracking-[0.4em] text-[#555B02]">✦ Curator-Led Historian Routes</span>
+                            <span className="font-sans font-bold text-[10px]  tracking-[0.4em] text-[#555B02]">✦ Official Vatican Partner</span>
+                            <span className="font-sans font-bold text-[10px]  tracking-[0.4em] text-[#555B02]">✦ Skip the Line Priority Access</span>
+                            <span className="font-sans font-bold text-[10px]  tracking-[0.4em] text-[#555B02]">✦ Curator-Led Historian Routes</span>
                         </div>
                     ))}
                 </motion.div>
@@ -135,7 +135,7 @@ export default function Navbar() {
                                         'font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none transition-colors duration-300',
                                         scrolled ? 'text-white' : 'text-white'
                                     )}>
-                                        GOLDEN <span className="italic text-[#C9A227]">ROME</span>
+                                        GOLDEN <span className=" text-[#C9A227]">ROME</span>
                                     </span>
                                 </div>
                             )}
@@ -150,7 +150,7 @@ export default function Navbar() {
                                         key={link.href}
                                         href={link.href}
                                         className={clsx(
-                                            'text-[10px] xl:text-xs font-sans font-black uppercase tracking-[0.3em] transition-all duration-300 whitespace-nowrap relative pb-1',
+                                            'text-[10px] xl:text-xs font-sans font-bold  tracking-[0.3em] transition-all duration-300 whitespace-nowrap relative pb-1',
                                             isActive ? 'text-[#C9A227]' : (scrolled ? 'text-white/80 hover:text-[#C9A227]' : 'text-white/90 hover:text-[#C9A227]')
                                         )}
                                     >
@@ -174,7 +174,7 @@ export default function Navbar() {
                                 <select
                                     value={destination}
                                     onChange={(e) => setDestination(e.target.value)}
-                                    className="bg-transparent text-[10px] font-black uppercase tracking-widest outline-none w-28 xl:w-32 cursor-pointer appearance-none truncate text-white"
+                                    className="bg-transparent text-[10px] font-bold  tracking-widest outline-none w-28 xl:w-32 cursor-pointer appearance-none truncate text-white"
                                 >
                                     <option value="" disabled className="text-gray-900">Archive Sector</option>
                                     {searchOptions.map((opt) => (
@@ -186,7 +186,7 @@ export default function Navbar() {
                             <div className={clsx('flex items-center border-r pr-4 relative cursor-pointer', scrolled ? 'border-white/10' : 'border-white/20')} ref={calendarRef}>
                                 <div className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
                                     <Calendar size={14} className="text-[#C9A227]" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest w-20 xl:w-24 truncate text-white/80">
+                                    <span className="text-[10px] font-bold  tracking-widest w-20 xl:w-24 truncate text-white/80">
                                         {date ? format(new Date(date), 'MMM dd') : 'Add Date'}
                                     </span>
                                 </div>
@@ -202,14 +202,14 @@ export default function Navbar() {
                             <div className="relative flex items-center pr-1 cursor-pointer" ref={guestRef}>
                                 <div className="flex items-center rounded-full px-2 py-1 transition-all hover:bg-white/5" onClick={() => setIsGuestOpen(!isGuestOpen)}>
                                     <Users size={14} className="text-[#C9A227]" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest w-10 text-center text-white">
+                                    <span className="text-[10px] font-bold  tracking-widest w-10 text-center text-white">
                                         {guests}
                                     </span>
                                 </div>
                                 <AnimatePresence>
                                     {isGuestOpen && (
                                         <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full right-0 mt-6 w-48 bg-[#0A1628]/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/10 p-4 z-50">
-                                            <div className="flex items-center justify-between font-black uppercase tracking-widest text-[10px] text-white">
+                                            <div className="flex items-center justify-between font-bold  tracking-widest text-[10px] text-white">
                                                 <span>Guests</span>
                                                 <div className="flex items-center gap-3">
                                                     <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#C9A227] transition-all"><Minus size={14} /></button>

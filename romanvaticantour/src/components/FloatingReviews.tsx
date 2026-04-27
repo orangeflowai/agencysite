@@ -65,7 +65,7 @@ export default function FloatingReviews() {
                 <div className="flex items-center gap-2">
                   <p className="font-serif font-bold text-[#5c4b3e]">{review.name}</p>
                   {review.verified && (
-                    <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-sans uppercase font-black tracking-widest">
+                    <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-sans  font-bold tracking-widest">
                       Verified
                     </span>
                   )}

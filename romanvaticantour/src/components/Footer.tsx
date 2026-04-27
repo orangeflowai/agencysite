@@ -87,7 +87,7 @@ export default function Footer() {
                                     <img src={urlFor(site.logo).url()} alt={site.title || 'Roman Vatican Tour'} className="h-10 w-auto object-contain" />
                                 ) : (
                                     <span className="text-2xl font-serif font-bold tracking-tight text-white">
-                                        ROMAN<span className="text-accent italic">VATICAN</span>
+                                        ROMAN<span className="text-accent ">VATICAN</span>
                                     </span>
                                 )}
                             </Link>
@@ -100,13 +100,13 @@ export default function Footer() {
                                 {/* Fallback/Static Links (if no dynamic ones exist) */}
                                 {!hasSocialLinks && (
                                     <>
-                                        <Link href="/" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
+                                        <Link href="/" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Facebook size={18} />
                                         </Link>
-                                        <Link href="/" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
+                                        <Link href="/" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Instagram size={18} />
                                         </Link>
-                                        <Link href="/" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
+                                        <Link href="/" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Twitter size={18} />
                                         </Link>
                                     </>
@@ -133,7 +133,7 @@ export default function Footer() {
 
                         {/* Explore Categories */}
                         <div>
-                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px] font-sans">
+                            <h4 className="font-bold text-white mb-8  tracking-widest text-[10px] font-sans">
                                 Platform
                             </h4>
                             <ul className="space-y-4 text-sm text-stone-400 font-sans">
@@ -152,7 +152,7 @@ export default function Footer() {
 
                         {/* Support Links */}
                         <div>
-                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px] font-sans">
+                            <h4 className="font-bold text-white mb-8  tracking-widest text-[10px] font-sans">
                                 Resources
                             </h4>
                             <ul className="space-y-4 text-sm text-stone-400 font-sans">
@@ -179,7 +179,7 @@ export default function Footer() {
 
                         {/* Contact Info */}
                         <div>
-                            <h4 className="font-bold text-white mb-8 uppercase tracking-widest text-[10px] font-sans">
+                            <h4 className="font-bold text-white mb-8  tracking-widest text-[10px] font-sans">
                                 Support
                             </h4>
                             <ul className="space-y-5 text-sm text-stone-400 mb-10 font-sans">
@@ -203,12 +203,12 @@ export default function Footer() {
                             <div className="flex items-center gap-6 pt-6 border-t border-stone-800/50">
                                 <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-50 hover:opacity-100 transition-all duration-300" />
                                 <div className="h-8 w-px bg-stone-800" />
-                                <p className="text-[10px] text-stone-500 uppercase tracking-widest font-black font-sans">Powered by RomanVatican Engine</p>
+                                <p className="text-[10px] text-stone-500  tracking-widest font-bold font-sans">Powered by RomanVatican Engine</p>
                             </div>
 
                             {/* Payment logos */}
                             <div className="mt-8 pt-8 border-t border-stone-800/50">
-                                <p className="font-sans text-[10px] uppercase tracking-widest text-stone-500 mb-4 font-black">Secure Transfer</p>
+                                <p className="font-sans text-[10px]  tracking-widest text-stone-500 mb-4 font-bold">Secure Transfer</p>
                                 <div className="opacity-80 hover:grayscale hover:opacity-100 transition-all">
                                     <PaymentLogos size="sm" />
                                 </div>

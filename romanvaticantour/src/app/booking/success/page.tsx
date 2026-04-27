@@ -41,29 +41,29 @@ function SuccessContent() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-muted flex items-center justify-center">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-[#faf9f5] flex items-center justify-center p-6">
-            <div className="max-w-md w-full bg-white rounded-[3rem] shadow-2xl p-12 text-center border border-border">
+        <div className="min-h-screen bg-background flex items-center justify-center p-6">
+            <div className="max-w-md w-full bg-card rounded-[3rem] shadow-2xl p-12 text-center border border-border">
                 <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8">
-                    <CheckCircle className="w-12 h-12 text-emerald-600" />
+                    <CheckCircle className="w-12 h-12 text-primary" />
                 </div>
-                <h1 className="text-4xl font-serif font-black text-slate-900 mb-4 italic uppercase">Confirmed!</h1>
+                <h1 className="text-4xl font-serif font-bold text-slate-900 mb-4  ">Confirmed!</h1>
                 <p className="text-slate-500 mb-10 leading-relaxed font-medium">Your adventure is secured. Check your email for details.</p>
                 
                 {booking && (
-                   <div className="bg-[#ede9de] p-6 rounded-2xl mb-8 border border-[#dad9d4] inline-block text-left w-full max-w-md mx-auto">
-                      <p className="text-xs font-bold uppercase tracking-widest text-[#c96442] mb-1">Booking Ref</p>
-                      <p className="text-xl font-mono font-black text-[#3d3929]">#{booking.id?.slice(-8).toUpperCase()}</p>
+                   <div className="bg-[var(--muted)] p-6 rounded-2xl mb-8 border border-[var(--border)] inline-block text-left w-full max-w-md mx-auto">
+                      <p className="text-xs font-bold  tracking-widest text-[var(--primary)] mb-1">Booking Ref</p>
+                      <p className="text-xl font-mono font-bold text-[var(--foreground)]">#{booking.id?.slice(-8).toUpperCase()}</p>
                    </div>
                 )}
 
-                <Link href="/" className="inline-flex items-center gap-2 px-10 py-5 bg-[#c96442] text-white font-bold rounded-full uppercase tracking-widest text-xs transition-all shadow-xl hover:-translate-y-1 active:scale-95">
+                <Link href="/" className="inline-flex items-center gap-2 px-10 py-5 bg-[var(--primary)] text-white font-bold rounded-full  tracking-widest text-xs transition-all shadow-xl hover:-translate-y-1 active:scale-95">
                     <Home size={18} /> Back to Home
                 </Link>
             </div>
@@ -73,7 +73,7 @@ function SuccessContent() {
 
 export default function SuccessPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#c96442]"></div></div>}>
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--primary)]"></div></div>}>
             <SuccessContent />
         </Suspense>
     );

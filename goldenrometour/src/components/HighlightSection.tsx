@@ -39,7 +39,7 @@ export default function HighlightSection({
                 >
                     {eyebrow && (
                         <p
-                            className="text-[10px] font-bold uppercase tracking-[0.3em] mb-5 opacity-60"
+                            className="text-[10px] font-bold  tracking-[0.3em] mb-5 opacity-60"
                             style={{ color: '#F5F0E8' }}
                         >
                             {eyebrow}
@@ -59,7 +59,7 @@ export default function HighlightSection({
                     </p>
                     <Link
                         href={ctaHref}
-                        className="self-start inline-flex items-center gap-2 font-bold uppercase tracking-[0.2em] text-sm py-3 px-8 rounded-full transition-all hover:scale-105 shadow-xl"
+                        className="self-start inline-flex items-center gap-2 font-bold  tracking-[0.2em] text-sm py-3 px-8 rounded-full transition-all hover:scale-105 shadow-xl"
                         style={{ backgroundColor: '#555B02', color: '#F5F0E8' }}
                     >
                         {ctaText}
@@ -106,7 +106,7 @@ export default function HighlightSection({
                         style={{ backgroundColor: '#1A1210', color: '#F5F0E8' }}
                     >
                         <span className="font-serif font-bold text-xl leading-none">50K</span>
-                        <span className="text-[9px] font-bold uppercase tracking-wider leading-tight mt-0.5 opacity-80">Guests</span>
+                        <span className="text-[9px] font-bold  tracking-wider leading-tight mt-0.5 opacity-80">Guests</span>
                     </div>
                 </motion.div>
             </div>

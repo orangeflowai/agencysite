@@ -101,7 +101,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Management</div>
+                    <div className="text-[10px] font-bold text-zinc-500  tracking-[0.2em] px-3 mb-4">Management</div>
                     <div className="space-y-1">
                         <NavLink href="/admin" icon={LayoutDashboard} onClick={onClose}>Overview</NavLink>
                         <NavLink href="/admin/bookings" icon={Calendar} onClick={onClose}>Reservations</NavLink>
@@ -109,7 +109,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Inventory</div>
+                    <div className="text-[10px] font-bold text-zinc-500  tracking-[0.2em] px-3 mb-4">Inventory</div>
                     <div className="space-y-1">
                         <NavLink href="/admin/products" icon={Package} onClick={onClose}>Tours & Products</NavLink>
                         <NavLink href="/admin/addons" icon={Store} onClick={onClose}>Add-ons & Extras</NavLink>
@@ -119,7 +119,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Finance & CMS</div>
+                    <div className="text-[10px] font-bold text-zinc-500  tracking-[0.2em] px-3 mb-4">Finance & CMS</div>
                     <div className="space-y-1">
                         <NavLink href="/admin/payments" icon={Wallet} onClick={onClose}>Revenue Hub</NavLink>
                         <NavLink href="/studio" icon={ExternalLink} external onClick={onClose}>Content Studio</NavLink>
@@ -127,7 +127,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Configuration</div>
+                    <div className="text-[10px] font-bold text-zinc-500  tracking-[0.2em] px-3 mb-4">Configuration</div>
                     <div className="space-y-1">
                         <NavLink href="/admin/users" icon={Users} onClick={onClose}>Team Directory</NavLink>
                         <NavLink href="/admin/settings" icon={Settings} onClick={onClose}>Global Settings</NavLink>

@@ -51,7 +51,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6 }}
-                            className={`text-[10px] font-black px-4 py-1.5 rounded-full inline-block uppercase tracking-[0.25em] mb-6 shadow-sm ${dark ? 'bg-white/10 text-white' : 'bg-[#1A3626] text-white'}`}
+                            className={`text-[10px] font-bold px-4 py-1.5 rounded-full inline-block  tracking-[0.25em] mb-6 shadow-sm ${dark ? 'bg-card/10 text-white' : 'bg-[#1A3626] text-white'}`}
                         >
                             Exclusive Routes
                         </motion.div>
@@ -60,7 +60,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.1 }}
-                            className={`text-4xl md:text-6xl font-serif font-bold mb-6 tracking-tight leading-[0.95] italic uppercase ${dark ? 'text-white' : 'text-[#1A3626]'}`}
+                            className={`text-4xl md:text-6xl font-serif font-bold mb-6 tracking-tight leading-[0.95]   ${dark ? 'text-white' : 'text-[#1A3626]'}`}
                         >
                             {title}
                         </motion.h2>
@@ -70,7 +70,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                className={`text-lg md:text-xl font-sans font-bold uppercase tracking-widest opacity-60 leading-relaxed max-w-xl`}
+                                className={`text-lg md:text-xl font-sans font-bold  tracking-widest opacity-60 leading-relaxed max-w-xl`}
                             >
                                 {subtitle}
                             </motion.p>
@@ -84,9 +84,9 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
-                            <Link href={link} className={`inline-flex items-center gap-2 font-black uppercase tracking-[0.2em] text-[10px] transition-colors group ${dark ? 'text-white hover:text-white/60' : 'text-[#1A3626] hover:text-[#1A3626]/60'}`}>
+                            <Link href={link} className={`inline-flex items-center gap-2 font-bold  tracking-[0.2em] text-[10px] transition-colors group ${dark ? 'text-white hover:text-white/60' : 'text-[#1A3626] hover:text-[#1A3626]/60'}`}>
                                 <span>Browse category</span>
-                                <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${dark ? 'border-white/20 group-hover:bg-white group-hover:text-[#1A3626]' : 'border-[#1A3626]/10 group-hover:bg-[#1A3626] group-hover:text-white'}`}>
+                                <div className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all ${dark ? 'border-white/20 group-hover:bg-card group-hover:text-[#1A3626]' : 'border-[#1A3626]/10 group-hover:bg-[#1A3626] group-hover:text-white'}`}>
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M5 12h14M12 5l7 7-7 7" />
                                     </svg>

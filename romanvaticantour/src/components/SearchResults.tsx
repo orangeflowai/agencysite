@@ -44,14 +44,14 @@ export default function SearchResults() {
     }, [query]);
 
     if (loading) {
-        return <div className="text-center py-20 text-gray-500">Searching tours...</div>;
+        return <div className="text-center py-20 text-muted-foreground">Searching tours...</div>;
     }
 
     if (tours.length === 0) {
         return (
             <div className="text-center py-20 space-y-4">
-                <h2 className="text-2xl font-bold text-gray-400">No tours found for "{query}"</h2>
-                <p className="text-gray-500">Try adjusting your search terms or browse our categories.</p>
+                <h2 className="text-2xl font-bold text-muted-foreground">No tours found for "{query}"</h2>
+                <p className="text-muted-foreground">Try adjusting your search terms or browse our categories.</p>
             </div>
         );
     }

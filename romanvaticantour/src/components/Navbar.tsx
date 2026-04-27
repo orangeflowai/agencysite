@@ -96,7 +96,7 @@ export default function Navbar() {
                     className="flex whitespace-nowrap gap-12 items-center"
                 >
                     {[...Array(10)].map((_, i) => (
-                        <div key={i} className="flex items-center gap-12 text-[#1e40af] font-black uppercase tracking-[0.3em] text-[10px]">
+                        <div key={i} className="flex items-center gap-12 text-[#1e40af] font-bold  tracking-[0.3em] text-[10px]">
                             <span>✦ EXCLUSIVE VATICAN ACCESS ✦</span>
                             <span>✦ SECURE YOUR ENTRY TICKETS NOW ✦</span>
                             <span>✦ EXPERT LICENSED HISTORIANS ✦</span>
@@ -134,7 +134,7 @@ export default function Navbar() {
                                         'font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none transition-colors duration-300',
                                         scrolled ? 'text-[#5c4b3e]' : 'text-white drop-shadow-md'
                                     )}>
-                                        ROMAN <span className="italic text-primary">VATICAN</span>
+                                        ROMAN <span className=" text-primary">VATICAN</span>
                                     </span>
                                 </div>
                             )}
@@ -149,7 +149,7 @@ export default function Navbar() {
                                         key={link.href}
                                         href={link.href}
                                         className={clsx(
-                                            'text-[10px] xl:text-xs font-serif font-bold italic tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
+                                            'text-[10px] xl:text-xs font-serif font-bold  tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
                                             'after:absolute after:bottom-0 after:left-0 after:h-[1px] after:transition-all after:duration-500',
                                             isActive ? 'after:w-full after:bg-primary text-primary' : 'after:w-0 hover:after:w-full after:bg-primary',
                                             scrolled ? (!isActive && 'text-[#5c4b3e] hover:text-primary') : (!isActive && 'text-white/80 hover:text-white')
@@ -166,8 +166,8 @@ export default function Navbar() {
                             className={clsx(
                                 'hidden lg:flex items-center rounded-full pl-4 pr-1.5 py-1.5 border shrink-0 gap-3 transition-all duration-300',
                                 scrolled
-                                    ? 'bg-white/70 backdrop-blur-xl border-white/60 shadow-lg shadow-primary/5'
-                                    : 'bg-white/20 backdrop-blur-md border-white/30 shadow-lg'
+                                    ? 'bg-card/70 backdrop-blur-xl border-white/60 shadow-lg shadow-primary/5'
+                                    : 'bg-card/20 backdrop-blur-md border-white/30 shadow-lg'
                             )}
                         >
                             <div className={clsx('flex items-center border-r pr-4', scrolled ? 'border-primary/10' : 'border-white/20')}>
@@ -180,7 +180,7 @@ export default function Navbar() {
                                         scrolled ? 'text-gray-800' : 'text-white/90'
                                     )}
                                 >
-                                    <option value="" disabled className="text-gray-500">Search Tours</option>
+                                    <option value="" disabled className="text-muted-foreground">Search Tours</option>
                                     {searchOptions.map((opt) => (
                                         <option key={opt.slug} value={opt.title} className="text-gray-800">{opt.title}</option>
                                     ))}
@@ -191,15 +191,15 @@ export default function Navbar() {
                                 <div className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
                                     <Calendar size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
                                     <span className={clsx(
-                                        'text-xs xl:text-sm font-sans font-black uppercase tracking-widest w-20 xl:w-24 truncate',
-                                        date ? (scrolled ? 'text-gray-800' : 'text-white') : (scrolled ? 'text-gray-400' : 'text-white/60')
+                                        'text-xs xl:text-sm font-sans font-bold  tracking-widest w-20 xl:w-24 truncate',
+                                        date ? (scrolled ? 'text-gray-800' : 'text-white') : (scrolled ? 'text-muted-foreground' : 'text-white/60')
                                     )}>
                                         {date ? format(new Date(date), 'MMM dd') : 'Add Date'}
                                     </span>
                                 </div>
                                 <AnimatePresence>
                                     {isCalendarOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full left-1/2 -translate-x-1/2 mt-6 bg-white/90 backdrop-blur-2xl rounded-2xl shadow-xl border border-white/50 p-2 z-50">
+                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full left-1/2 -translate-x-1/2 mt-6 bg-card/90 backdrop-blur-2xl rounded-2xl shadow-xl border border-white/50 p-2 z-50">
                                             <SmartCalendar slug={activeSlug} selectedDate={date ? new Date(date) : undefined} onSelect={(d) => { setDate(d ? format(d, 'yyyy-MM-dd') : ''); setIsCalendarOpen(false); }} />
                                         </motion.div>
                                     )}
@@ -207,21 +207,21 @@ export default function Navbar() {
                             </div>
 
                             <div className="relative flex items-center pr-1 cursor-pointer" ref={guestRef}>
-                                <div className={clsx('flex items-center rounded-full px-2 py-1 transition-all', scrolled ? 'hover:bg-primary/5' : 'hover:bg-white/10')} onClick={() => setIsGuestOpen(!isGuestOpen)}>
+                                <div className={clsx('flex items-center rounded-full px-2 py-1 transition-all', scrolled ? 'hover:bg-primary/5' : 'hover:bg-card/10')} onClick={() => setIsGuestOpen(!isGuestOpen)}>
                                     <Users size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
-                                    <span className={clsx('text-xs xl:text-sm font-sans font-black uppercase tracking-widest w-14 text-center', scrolled ? 'text-gray-800' : 'text-white')}>
+                                    <span className={clsx('text-xs xl:text-sm font-sans font-bold  tracking-widest w-14 text-center', scrolled ? 'text-gray-800' : 'text-white')}>
                                         {guests} pax
                                     </span>
                                 </div>
                                 <AnimatePresence>
                                     {isGuestOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full right-0 mt-6 w-48 bg-white/90 backdrop-blur-2xl rounded-2xl shadow-xl border border-white/50 p-4 z-50">
+                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full right-0 mt-6 w-48 bg-card/90 backdrop-blur-2xl rounded-2xl shadow-xl border border-white/50 p-4 z-50">
                                             <div className="flex items-center justify-between font-bold">
                                                 <span>Guests</span>
                                                 <div className="flex gap-3">
-                                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Minus size={14} /></button>
+                                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Minus size={14} /></button>
                                                     <span>{guests}</span>
-                                                    <button onClick={() => setGuests(guests + 1)} className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Plus size={14} /></button>
+                                                    <button onClick={() => setGuests(guests + 1)} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Plus size={14} /></button>
                                                 </div>
                                             </div>
                                         </motion.div>
@@ -242,7 +242,7 @@ export default function Navbar() {
 
                         {/* Mobile Toggle */}
                         <div className="flex items-center gap-2 lg:hidden">
-                            <button className={clsx('p-2 rounded-full backdrop-blur-md active:scale-95', scrolled ? 'text-primary bg-primary/5' : 'text-white bg-white/20')} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                            <button className={clsx('p-2 rounded-full backdrop-blur-md active:scale-95', scrolled ? 'text-primary bg-primary/5' : 'text-white bg-card/20')} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                             </button>
                         </div>

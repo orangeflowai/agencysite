@@ -22,7 +22,7 @@ export default function CurveTransition({ children }: { children: React.ReactNod
 
     return (
         <div className="page curve">
-            <div style={{ opacity: dimensions.width > 0 ? 0 : 1 }} className="fixed inset-0 z-[99999] bg-[#FAF9F6] pointer-events-none transition-opacity duration-300" />
+            <div style={{ opacity: dimensions.width > 0 ? 0 : 1 }} className="fixed inset-0 z-[99999] bg-background pointer-events-none transition-opacity duration-300" />
             <SVG {...dimensions} />
             <AnimatePresence mode="wait">
                 <motion.div key={pathname}>
@@ -68,7 +68,7 @@ const SVG = ({ height, width }: { width: number, height: number }) => {
             animate="enter"
             exit="exit"
             variants={translate}
-            className="fixed h-[calc(100vh+600px)] w-full pointer-events-none left-0 top-[-300px] z-[100000] fill-[#c96442]"
+            className="fixed h-[calc(100vh+600px)] w-full pointer-events-none left-0 top-[-300px] z-[100000] fill-primary"
         >
             <motion.path 
                 variants={curveAnim(initialPath, targetPath)}

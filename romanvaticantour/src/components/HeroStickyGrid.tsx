@@ -176,7 +176,7 @@ export default function HeroStickyGrid({ settings, tours }: HeroStickyGridProps)
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative z-10 w-full bg-white" aria-label="Immersive Hero">
+    <section ref={containerRef} className="relative z-10 w-full bg-card" aria-label="Immersive Hero">
       <div
         ref={wrapperRef}
         className="w-full h-[100vh] overflow-hidden bg-black text-white relative"
@@ -186,7 +186,7 @@ export default function HeroStickyGrid({ settings, tours }: HeroStickyGridProps)
 
           <div ref={titleBoxRef} className="flex flex-col items-center text-center w-full max-w-4xl pointer-events-auto">
             <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 mb-8 text-xs font-semibold tracking-widest uppercase text-white"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 mb-8 text-xs font-semibold tracking-widest  text-white"
               style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}
             >
               <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -210,11 +210,11 @@ export default function HeroStickyGrid({ settings, tours }: HeroStickyGridProps)
               style={{ background: 'rgba(255,255,255,0.12)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}
             >
               <div className="flex items-center gap-2 mb-4">
-                <CheckCircle2 size={15} className="text-emerald-400" />
+                <CheckCircle2 size={15} className="text-accent" />
                 <span className="text-white font-semibold text-sm">Find Your Tour</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
-                <div className="flex-[2] bg-white rounded-xl flex items-center px-4 py-3 gap-2">
+                <div className="flex-[2] bg-card rounded-xl flex items-center px-4 py-3 gap-2">
                   <Search size={14} className="text-neutral-400 shrink-0" />
                   <input
                     type="text"
@@ -225,7 +225,7 @@ export default function HeroStickyGrid({ settings, tours }: HeroStickyGridProps)
                     onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   />
                 </div>
-                <div className="flex-[1.5] bg-white rounded-xl flex items-center px-4 py-3">
+                <div className="flex-[1.5] bg-card rounded-xl flex items-center px-4 py-3">
                   <input
                     type="date"
                     className="w-full bg-transparent outline-none text-sm font-medium text-neutral-700"

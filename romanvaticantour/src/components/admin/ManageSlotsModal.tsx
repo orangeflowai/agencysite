@@ -138,7 +138,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
 
     return (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="bg-card rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
 
                 {/* Header */}
                 <div className="bg-emerald-900 p-6 text-white flex justify-between items-start shrink-0">
@@ -157,7 +157,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                         >
                             {deletingAll ? <Loader2 size={20} className="animate-spin" /> : <Trash2 size={20} />}
                         </button>
-                        <button onClick={onClose} className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors">
+                        <button onClick={onClose} className="bg-card/10 hover:bg-card/20 p-2 rounded-full transition-colors">
                             <X size={20} />
                         </button>
                     </div>
@@ -177,14 +177,14 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                     {/* Slots List */}
                     <div className="space-y-3 mb-8">
                         {slots.length === 0 && (
-                            <div className="text-center py-8 bg-gray-50 rounded-xl border border-dashed border-gray-200">
-                                <p className="text-gray-400 font-medium">No slots for this date.</p>
-                                <p className="text-gray-400 text-sm">Add one below.</p>
+                            <div className="text-center py-8 bg-muted rounded-xl border border-dashed border-border">
+                                <p className="text-muted-foreground font-medium">No slots for this date.</p>
+                                <p className="text-muted-foreground text-sm">Add one below.</p>
                             </div>
                         )}
 
                         {slots.map(slot => (
-                            <div key={slot.id} className={`rounded-xl border transition-all ${slot.available_slots === 0 ? 'bg-red-50 border-red-100' : 'bg-white border-gray-100 shadow-sm'}`}>
+                            <div key={slot.id} className={`rounded-xl border transition-all ${slot.available_slots === 0 ? 'bg-red-50 border-red-100' : 'bg-card border-border shadow-sm'}`}>
 
                                 {editingId === slot.id ? (
                                     /* ── Edit Mode ── */
@@ -192,36 +192,36 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                         <div className="p-2 rounded-full bg-amber-50 text-amber-500">
                                             <Clock size={18} />
                                         </div>
-                                        <span className="font-bold text-gray-900 text-lg w-16">{slot.time}</span>
+                                        <span className="font-bold text-foreground text-lg w-16">{slot.time}</span>
                                         <div className="flex-1 flex items-center gap-2">
                                             <div>
-                                                <label className="text-[10px] font-bold text-gray-400 uppercase">Spots</label>
+                                                <label className="text-[10px] font-bold text-muted-foreground ">Spots</label>
                                                 <input
                                                     type="number"
                                                     value={editSpots}
                                                     onChange={e => setEditSpots(parseInt(e.target.value) || 0)}
-                                                    className="w-20 p-1.5 rounded-lg border border-gray-200 text-sm font-bold focus:ring-2 focus:ring-primary outline-none block"
+                                                    className="w-20 p-1.5 rounded-lg border border-border text-sm font-bold focus:ring-2 focus:ring-primary outline-none block"
                                                 />
                                             </div>
                                             <div>
-                                                <label className="text-[10px] font-bold text-gray-400 uppercase">Price €</label>
+                                                <label className="text-[10px] font-bold text-muted-foreground ">Price €</label>
                                                 <input
                                                     type="number"
                                                     placeholder="Default"
                                                     value={editPrice}
                                                     onChange={e => setEditPrice(e.target.value === '' ? '' : parseFloat(e.target.value))}
-                                                    className="w-24 p-1.5 rounded-lg border border-gray-200 text-sm font-bold focus:ring-2 focus:ring-primary outline-none block"
+                                                    className="w-24 p-1.5 rounded-lg border border-border text-sm font-bold focus:ring-2 focus:ring-primary outline-none block"
                                                 />
                                             </div>
                                         </div>
                                         <button
                                             onClick={() => handleSaveEdit(slot.id)}
                                             disabled={saving}
-                                            className="bg-emerald-600 hover:opacity-90 text-white p-2 rounded-lg transition-colors"
+                                            className="bg-primary hover:opacity-90 text-white p-2 rounded-lg transition-colors"
                                         >
                                             {saving ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
                                         </button>
-                                        <button onClick={() => setEditingId(null)} className="text-gray-400 hover:text-gray-600 p-2 rounded-lg">
+                                        <button onClick={() => setEditingId(null)} className="text-muted-foreground hover:text-muted-foreground p-2 rounded-lg">
                                             <X size={16} />
                                         </button>
                                     </div>
@@ -234,12 +234,12 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                             </div>
                                             <div>
                                                 <div className="flex items-center gap-2">
-                                                    <span className="font-bold text-gray-900 text-lg">{slot.time}</span>
+                                                    <span className="font-bold text-foreground text-lg">{slot.time}</span>
                                                     {slot.available_slots === 0 && (
-                                                        <span className="text-[10px] font-black text-red-600 uppercase bg-red-100 px-1.5 py-0.5 rounded">Sold Out</span>
+                                                        <span className="text-[10px] font-bold text-red-600  bg-red-100 px-1.5 py-0.5 rounded">Sold Out</span>
                                                     )}
                                                 </div>
-                                                <div className="text-sm text-gray-500 flex items-center gap-2">
+                                                <div className="text-sm text-muted-foreground flex items-center gap-2">
                                                     <span>{slot.available_slots} spots</span>
                                                     {slot.price_override && (
                                                         <span className="text-amber-600 font-bold bg-amber-50 px-1.5 rounded text-xs">€{slot.price_override}</span>
@@ -252,7 +252,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                             {/* Edit button */}
                                             <button
                                                 onClick={() => startEdit(slot)}
-                                                className="text-gray-400 hover:text-primary p-2 hover:bg-background rounded-lg transition-colors"
+                                                className="text-muted-foreground hover:text-primary p-2 hover:bg-background rounded-lg transition-colors"
                                                 title="Edit spots / price"
                                             >
                                                 <Pencil size={16} />
@@ -261,7 +261,7 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                                             <button
                                                 onClick={() => handleDelete(slot.id)}
                                                 disabled={deletingId === slot.id}
-                                                className="text-gray-400 hover:text-red-600 p-2 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
+                                                className="text-muted-foreground hover:text-red-600 p-2 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-40"
                                                 title="Delete this slot"
                                             >
                                                 {deletingId === slot.id ? <Loader2 size={16} className="animate-spin" /> : <Trash2 size={16} />}
@@ -274,54 +274,54 @@ export default function ManageSlotsModal({ tourTitle, tourSlug, date, initialSlo
                     </div>
 
                     {/* Add New Slot */}
-                    <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
-                        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Add New Time Slot</h4>
+                    <div className="bg-muted p-5 rounded-2xl border border-border">
+                        <h4 className="text-xs font-bold text-muted-foreground  tracking-wider mb-4">Add New Time Slot</h4>
                         <div className="flex items-end gap-3">
                             <div className="flex-1">
-                                <label className="block text-xs font-bold text-gray-700 mb-1.5 ml-1">Time</label>
+                                <label className="block text-xs font-bold text-foreground mb-1.5 ml-1">Time</label>
                                 <input
                                     type="time"
                                     value={newTime}
                                     onChange={e => setNewTime(e.target.value)}
-                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full p-2.5 rounded-xl border border-border bg-card text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
                                 />
                             </div>
                             <div className="w-24">
-                                <label className="block text-xs font-bold text-gray-700 mb-1.5 ml-1">Spots</label>
+                                <label className="block text-xs font-bold text-foreground mb-1.5 ml-1">Spots</label>
                                 <input
                                     type="number"
                                     value={newCount}
                                     min={0}
                                     onChange={e => setNewCount(parseInt(e.target.value) || 0)}
-                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full p-2.5 rounded-xl border border-border bg-card text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
                                 />
                             </div>
                             <div className="w-24">
-                                <label className="block text-xs font-bold text-gray-700 mb-1.5 ml-1">Price €</label>
+                                <label className="block text-xs font-bold text-foreground mb-1.5 ml-1">Price €</label>
                                 <input
                                     type="number"
                                     placeholder="Default"
                                     value={newPrice}
                                     onChange={e => setNewPrice(e.target.value === '' ? '' : parseFloat(e.target.value))}
-                                    className="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full p-2.5 rounded-xl border border-border bg-card text-sm font-bold focus:ring-2 focus:ring-primary outline-none"
                                 />
                             </div>
                             <button
                                 onClick={handleAdd}
                                 disabled={adding}
-                                className="bg-emerald-600 hover:opacity-90 text-white p-2.5 rounded-xl transition-transform active:scale-95 shadow-md shadow-emerald-200 h-[42px] w-[42px] flex items-center justify-center"
+                                className="bg-primary hover:opacity-90 text-white p-2.5 rounded-xl transition-transform active:scale-95 shadow-md shadow-emerald-200 h-[42px] w-[42px] flex items-center justify-center"
                             >
                                 {adding ? <Loader2 className="animate-spin w-5 h-5" /> : <Plus size={22} />}
                             </button>
                         </div>
-                        <p className="text-[10px] text-gray-400 mt-2 ml-1">Leave Price empty to use the tour's default price.</p>
+                        <p className="text-[10px] text-muted-foreground mt-2 ml-1">Leave Price empty to use the tour's default price.</p>
                     </div>
                 </div>
 
                 {/* Footer */}
-                <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center shrink-0">
-                    <span className="text-xs text-gray-400">{slots.length} slot{slots.length !== 1 ? 's' : ''} configured</span>
-                    <button onClick={onClose} className="px-6 py-2.5 bg-white border border-gray-200 hover:bg-gray-50 text-gray-900 font-bold rounded-xl transition-colors shadow-sm">
+                <div className="p-4 bg-muted border-t border-border flex justify-between items-center shrink-0">
+                    <span className="text-xs text-muted-foreground">{slots.length} slot{slots.length !== 1 ? 's' : ''} configured</span>
+                    <button onClick={onClose} className="px-6 py-2.5 bg-card border border-border hover:bg-muted text-foreground font-bold rounded-xl transition-colors shadow-sm">
                         Done
                     </button>
                 </div>

@@ -10,8 +10,8 @@ const badges = [
         sub: 'Up to 24h before your tour',
         gradient: 'from-emerald-500/10 to-emerald-500/5',
         ring: 'ring-emerald-500/20',
-        iconBg: 'bg-emerald-50',
-        iconColor: 'text-emerald-500',
+        iconBg: 'bg-secondary',
+        iconColor: 'text-primary',
     },
     {
         Icon: Award,
@@ -57,7 +57,7 @@ export default function TrustBadges() {
                             className={`group relative flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br ${gradient} ring-1 ${ring} backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-sky-500/5 cursor-default`}
                         >
                             {/* Subtle animated glow on hover */}
-                            <div className="absolute inset-0 rounded-2xl bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                            <div className="absolute inset-0 rounded-2xl bg-card/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
                             <div className={`relative shrink-0 w-11 h-11 rounded-xl ${iconBg} ring-1 ${ring} flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-sm`}>
                                 <Icon className={`w-5 h-5 ${iconColor}`} strokeWidth={1.5} />

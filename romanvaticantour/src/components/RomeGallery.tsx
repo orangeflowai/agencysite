@@ -49,9 +49,9 @@ export default function RomeGallery() {
       <div className="h-[2000px] relative">
         <div ref={triggerRef} className="h-screen flex flex-row items-center w-[300vw] px-[10vw]">
           <div className="w-[80vw] shrink-0 mr-[10vw] flex flex-col justify-center">
-             <p className="text-primary font-black uppercase tracking-[0.4em] text-xs mb-6">Archive_Visuals</p>
-             <h2 className="text-7xl md:text-9xl font-serif font-bold text-foreground leading-[0.85] tracking-tighter italic uppercase">
-                Capture<br/><span className="text-primary italic">The magic.</span>
+             <p className="text-primary font-bold  tracking-[0.4em] text-xs mb-6">Archive_Visuals</p>
+             <h2 className="text-7xl md:text-9xl font-serif font-bold text-foreground leading-[0.85] tracking-tighter  ">
+                Capture<br/><span className="text-primary ">The magic.</span>
              </h2>
              <p className="text-xl text-muted-foreground mt-12 max-w-lg font-medium leading-relaxed">
                 Scroll horizontally to explore our high-fidelity photo archives of the Eternal City.
@@ -69,8 +69,8 @@ export default function RomeGallery() {
                   sizes="600px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 p-12 flex flex-col justify-end">
-                   <span className="text-primary text-xs font-black uppercase tracking-[0.3em] mb-2 block">V_ENTRY: {i+1}</span>
-                   <h3 className="text-white text-5xl font-serif font-bold italic tracking-tighter">{img.alt}</h3>
+                   <span className="text-primary text-xs font-bold  tracking-[0.3em] mb-2 block">V_ENTRY: {i+1}</span>
+                   <h3 className="text-white text-5xl font-serif font-bold  tracking-tighter">{img.alt}</h3>
                 </div>
               </div>
             ))}

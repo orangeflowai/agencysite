@@ -36,7 +36,7 @@ export default function SiteSwitcher() {
                         <span className="block font-bold text-gray-900 tracking-tight truncate">
                             {currentSite?.title || 'Unknown Site'}
                         </span>
-                        <div className="flex items-center gap-1 text-[10px] text-gray-500 uppercase tracking-widest font-bold">
+                        <div className="flex items-center gap-1 text-[10px] text-gray-500  tracking-widest font-bold">
                             <span>Switch Site</span>
                             <ChevronDown size={10} />
                         </div>
@@ -46,7 +46,7 @@ export default function SiteSwitcher() {
 
             <Popover.Portal>
                 <Popover.Content className="w-60 bg-white rounded-xl shadow-xl border border-gray-100 p-2 z-50 animate-in fade-in zoom-in-95 duration-200" side="bottom" align="start" sideOffset={5}>
-                    <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider px-3 mb-2 mt-2">Available Sites</div>
+                    <div className="text-[10px] font-bold text-gray-400  tracking-wider px-3 mb-2 mt-2">Available Sites</div>
                     {sites.map((site) => (
                         <button
                             key={site._id}

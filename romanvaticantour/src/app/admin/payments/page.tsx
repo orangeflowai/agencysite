@@ -177,29 +177,29 @@ export default function PaymentMethodsPage() {
         <div className="max-w-4xl mx-auto">
             {/* Header */}
             <div className="mb-8">
-                <h1 className="text-2xl font-bold text-gray-900">Payment Methods</h1>
-                <p className="text-gray-500 mt-1">
+                <h1 className="text-2xl font-bold text-foreground">Payment Methods</h1>
+                <p className="text-muted-foreground mt-1">
                     Configure which payment options are available to customers at checkout.
                 </p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="bg-white p-4 rounded-xl border border-gray-200">
+                <div className="bg-card p-4 rounded-xl border border-border">
                     <p className="text-2xl font-bold text-primary">{enabledCount}</p>
-                    <p className="text-sm text-gray-500">Enabled Methods</p>
+                    <p className="text-sm text-muted-foreground">Enabled Methods</p>
                 </div>
-                <div className="bg-white p-4 rounded-xl border border-gray-200">
+                <div className="bg-card p-4 rounded-xl border border-border">
                     <p className="text-2xl font-bold text-blue-600">
                         {methods.filter(m => m.enabled && m.popular).length}
                     </p>
-                    <p className="text-sm text-gray-500">Popular Methods</p>
+                    <p className="text-sm text-muted-foreground">Popular Methods</p>
                 </div>
-                <div className="bg-white p-4 rounded-xl border border-gray-200">
+                <div className="bg-card p-4 rounded-xl border border-border">
                     <p className="text-2xl font-bold text-purple-600">
                         {methods.filter(m => m.enabled && m.region).length}
                     </p>
-                    <p className="text-sm text-gray-500">Regional Methods</p>
+                    <p className="text-sm text-muted-foreground">Regional Methods</p>
                 </div>
             </div>
 
@@ -219,9 +219,9 @@ export default function PaymentMethodsPage() {
             </div>
 
             {/* Payment Methods List */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                <div className="p-4 border-b border-gray-200 bg-gray-50 flex items-center justify-between">
-                    <h2 className="font-semibold text-gray-900">Available Payment Methods</h2>
+            <div className="bg-card rounded-xl border border-border overflow-hidden">
+                <div className="p-4 border-b border-border bg-muted flex items-center justify-between">
+                    <h2 className="font-semibold text-foreground">Available Payment Methods</h2>
                     <button
                         onClick={handleSave}
                         disabled={saving}
@@ -244,19 +244,19 @@ export default function PaymentMethodsPage() {
                         return (
                             <div 
                                 key={method.id}
-                                className={`p-4 flex items-center justify-between hover:bg-gray-50 transition-colors ${
+                                className={`p-4 flex items-center justify-between hover:bg-muted transition-colors ${
                                     method.enabled ? '' : 'opacity-60'
                                 }`}
                             >
                                 <div className="flex items-center gap-4">
                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                                        method.enabled ? 'bg-emerald-100 text-primary' : 'bg-gray-100 text-gray-400'
+                                        method.enabled ? 'bg-emerald-100 text-primary' : 'bg-gray-100 text-muted-foreground'
                                     }`}>
                                         <Icon className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <div className="flex items-center gap-2">
-                                            <h3 className="font-semibold text-gray-900">{method.name}</h3>
+                                            <h3 className="font-semibold text-foreground">{method.name}</h3>
                                             {method.popular && (
                                                 <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">
                                                     Popular
@@ -268,7 +268,7 @@ export default function PaymentMethodsPage() {
                                                 </span>
                                             )}
                                         </div>
-                                        <p className="text-sm text-gray-500 mt-0.5">{method.description}</p>
+                                        <p className="text-sm text-muted-foreground mt-0.5">{method.description}</p>
                                     </div>
                                 </div>
 
@@ -277,7 +277,7 @@ export default function PaymentMethodsPage() {
                                     className={`p-2 rounded-lg transition-colors ${
                                         method.enabled 
                                             ? 'text-primary hover:bg-background' 
-                                            : 'text-gray-400 hover:bg-gray-100'
+                                            : 'text-muted-foreground hover:bg-gray-100'
                                     }`}
                                 >
                                     {method.enabled ? (
@@ -293,17 +293,17 @@ export default function PaymentMethodsPage() {
             </div>
 
             {/* Recommended Setup */}
-            <div className="mt-8 bg-white rounded-xl border border-gray-200 p-6">
-                <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <div className="mt-8 bg-card rounded-xl border border-border p-6">
+                <h2 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                     <Shield className="w-5 h-5 text-primary" />
                     Recommended Payment Setup
                 </h2>
                 
-                <div className="space-y-4 text-sm text-gray-600">
+                <div className="space-y-4 text-sm text-muted-foreground">
                     <div className="flex items-start gap-3">
                         <div className="w-6 h-6 rounded-full bg-emerald-100 text-primary flex items-center justify-center text-xs font-bold">1</div>
                         <div>
-                            <p className="font-medium text-gray-900">Enable Cards + Link</p>
+                            <p className="font-medium text-foreground">Enable Cards + Link</p>
                             <p>These are essential for all customers. Link provides 1-click checkout for returning users.</p>
                         </div>
                     </div>
@@ -311,7 +311,7 @@ export default function PaymentMethodsPage() {
                     <div className="flex items-start gap-3">
                         <div className="w-6 h-6 rounded-full bg-emerald-100 text-primary flex items-center justify-center text-xs font-bold">2</div>
                         <div>
-                            <p className="font-medium text-gray-900">Add PayPal</p>
+                            <p className="font-medium text-foreground">Add PayPal</p>
                             <p>Many tourists prefer PayPal for security. It can increase conversion by 5-10%.</p>
                         </div>
                     </div>
@@ -319,7 +319,7 @@ export default function PaymentMethodsPage() {
                     <div className="flex items-start gap-3">
                         <div className="w-6 h-6 rounded-full bg-emerald-100 text-primary flex items-center justify-center text-xs font-bold">3</div>
                         <div>
-                            <p className="font-medium text-gray-900">Enable Local Bank Methods</p>
+                            <p className="font-medium text-foreground">Enable Local Bank Methods</p>
                             <p>Add iDEAL (Netherlands), Bancontact (Belgium), and giropay (Germany) for European tourists.</p>
                         </div>
                     </div>
@@ -327,7 +327,7 @@ export default function PaymentMethodsPage() {
                     <div className="flex items-start gap-3">
                         <div className="w-6 h-6 rounded-full bg-emerald-100 text-primary flex items-center justify-center text-xs font-bold">4</div>
                         <div>
-                            <p className="font-medium text-gray-900">Consider Buy Now, Pay Later</p>
+                            <p className="font-medium text-foreground">Consider Buy Now, Pay Later</p>
                             <p>Klarna or Afterpay can increase average order value for expensive private tours.</p>
                         </div>
                     </div>
@@ -340,10 +340,10 @@ export default function PaymentMethodsPage() {
                     href="https://dashboard.stripe.com/settings/payment_methods" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-2 px-6 py-3 bg-card border border-border text-foreground font-medium rounded-xl hover:bg-muted transition-colors"
                 >
                     Open Stripe Dashboard
-                    <span className="text-gray-400">→</span>
+                    <span className="text-muted-foreground">→</span>
                 </a>
             </div>
         </div>

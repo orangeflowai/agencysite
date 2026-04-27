@@ -61,7 +61,7 @@ export default function CategoryHero({ images, title, subtitle }: CategoryHeroPr
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5 }}
-                    className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight drop-shadow-2xl"
+                    className="text-4xl md:text-6xl font-bold text-white mb-6  tracking-tight drop-shadow-2xl"
                 >
                     {title}
                 </motion.h1>

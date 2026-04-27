@@ -132,7 +132,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
             {/* Calendar Grid */}
             <div className="grid grid-cols-7 flex-1 overflow-auto bg-gray-100 gap-px border-l border-gray-200">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <div key={day} className="bg-gray-50 p-2 text-center text-xs font-bold text-gray-400 uppercase tracking-wider sticky top-0 z-10 border-b border-gray-200">
+                    <div key={day} className="bg-gray-50 p-2 text-center text-xs font-bold text-gray-400  tracking-wider sticky top-0 z-10 border-b border-gray-200">
                         {day}
                     </div>
                 ))}

@@ -13,7 +13,7 @@ const reviews = [
 
 function ReviewCard({ review }: { review: typeof reviews[0] }) {
     return (
-        <div className="w-[340px] bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex-shrink-0 relative">
+        <div className="w-[340px] bg-card/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex-shrink-0 relative">
             <Quote className="absolute top-4 right-4 text-sky-500/20" size={36} />
             <div className="flex items-center space-x-1 mb-3">
                 {[...Array(5)].map((_, i) => <Star key={i} size={13} className="fill-yellow-400 text-yellow-400" />)}
@@ -41,7 +41,7 @@ export default function SocialProof() {
 
             <div className="container mx-auto px-4 relative z-10 mb-16">
                 <div className="flex-1 space-y-6 text-center md:text-left max-w-2xl">
-                    <h2 className="text-4xl md:text-5xl font-black leading-none tracking-tight">
+                    <h2 className="text-4xl md:text-5xl font-bold leading-none tracking-tight">
                         Trusted by over <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-blue-200">50,000+</span> Travelers
                     </h2>
@@ -53,24 +53,24 @@ export default function SocialProof() {
                     </div>
                     {/* Review platform badges */}
                     <div className="flex items-center gap-3 flex-wrap">
-                        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10">
-                            <span className="text-green-400 font-black text-lg leading-none">●</span>
+                        <div className="flex items-center gap-2 bg-card/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10">
+                            <span className="text-green-400 font-bold text-lg leading-none">●</span>
                             <div>
-                                <p className="text-white text-xs font-black">TripAdvisor</p>
+                                <p className="text-white text-xs font-bold">TripAdvisor</p>
                                 <p className="text-yellow-400 text-[10px]">★★★★★ Excellent</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10">
-                            <span className="text-white font-black text-lg leading-none">G</span>
+                        <div className="flex items-center gap-2 bg-card/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10">
+                            <span className="text-white font-bold text-lg leading-none">G</span>
                             <div>
-                                <p className="text-white text-xs font-black">Google</p>
+                                <p className="text-white text-xs font-bold">Google</p>
                                 <p className="text-yellow-400 text-[10px]">★★★★★ 4.9/5</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10">
-                            <span className="text-orange-400 font-black text-lg leading-none">V</span>
+                        <div className="flex items-center gap-2 bg-card/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10">
+                            <span className="text-orange-400 font-bold text-lg leading-none">V</span>
                             <div>
-                                <p className="text-white text-xs font-black">Viator</p>
+                                <p className="text-white text-xs font-bold">Viator</p>
                                 <p className="text-yellow-400 text-[10px]">★★★★★ Top Rated</p>
                             </div>
                         </div>

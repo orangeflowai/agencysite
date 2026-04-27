@@ -64,7 +64,7 @@ export default function TourCard({ tour }: TourCardProps) {
                     {/* Category Badge */}
                     <div className="absolute top-4 left-4 z-10">
                         <span
-                            className="px-3 py-1.5 text-[9px] uppercase tracking-[0.2em] font-black text-white rounded-full"
+                            className="px-3 py-1.5 text-[9px]  tracking-[0.2em] font-bold text-white rounded-full"
                             style={{
                                 background: 'rgba(26,54,38,0.75)',
                                 backdropFilter: 'blur(10px)',
@@ -102,8 +102,8 @@ export default function TourCard({ tour }: TourCardProps) {
                                 boxShadow: '0 4px 12px rgba(85,91,2,0.3)',
                             }}
                         >
-                            <span className="font-nav text-[9px] uppercase tracking-wider block leading-none text-[#F5F0E8]/70">From</span>
-                            <span className="font-serif font-bold text-lg leading-tight italic text-[#F5F0E8]">€{tour.price}</span>
+                            <span className="font-nav text-[9px]  tracking-wider block leading-none text-[#F5F0E8]/70">From</span>
+                            <span className="font-serif font-bold text-lg leading-tight  text-[#F5F0E8]">€{tour.price}</span>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ export default function TourCard({ tour }: TourCardProps) {
                         <span className="text-[#6B5C45]/20 text-[8px]">•</span>
                         <div className="flex items-center gap-1.5 text-[#6B5C45]/60">
                             <Clock size={13} />
-                            <span className="font-nav text-[10px] uppercase tracking-wider font-bold">{tour.duration || '3h'}</span>
+                            <span className="font-nav text-[10px]  tracking-wider font-bold">{tour.duration || '3h'}</span>
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@ export default function TourCard({ tour }: TourCardProps) {
                         {['Skip the Line Entrance', 'Expert Local Guide'].map((feat) => (
                             <div key={feat} className="flex items-center gap-2 text-[#6B5C45]/70">
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]/60 shrink-0" />
-                                <span className="font-nav text-[10px] uppercase tracking-widest">{feat}</span>
+                                <span className="font-nav text-[10px]  tracking-widest">{feat}</span>
                             </div>
                         ))}
                     </div>
@@ -142,7 +142,7 @@ export default function TourCard({ tour }: TourCardProps) {
                         className="mt-auto pt-4 flex items-center justify-between"
                         style={{ borderTop: '1px solid rgba(26,18,16,0.06)' }}
                     >
-                        <span className="font-nav text-[10px] uppercase tracking-[0.2em] font-black text-[#555B02] transition-colors group-hover:text-[#1A3626]">
+                        <span className="font-nav text-[10px]  tracking-[0.2em] font-bold text-[#555B02] transition-colors group-hover:text-[#1A3626]">
                             Book Now
                         </span>
                         <div

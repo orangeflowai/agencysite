@@ -37,7 +37,7 @@ export default function Newsletter() {
                                 viewport={{ once: true }}
                                 className="inline-block px-5 py-2 rounded-full border border-gold/20 bg-gold/5"
                             >
-                                <span className="font-sans text-[10px] font-black uppercase tracking-[0.4em] text-gold-light">Editorial Series</span>
+                                <span className="font-sans text-[10px] font-bold  tracking-[0.4em] text-gold-light">Editorial Series</span>
                             </motion.div>
                             
                             <motion.h2
@@ -45,7 +45,7 @@ export default function Newsletter() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 }}
-                                className="font-serif text-5xl md:text-7xl text-cream font-bold italic leading-[0.9]"
+                                className="font-serif text-5xl md:text-7xl text-cream font-bold  leading-[0.9]"
                             >
                                 Dispatch from the <span className="text-gold">Eternal City.</span>
                             </motion.h2>
@@ -71,11 +71,11 @@ export default function Newsletter() {
                                         className="bg-gold/10 border border-gold/20 rounded-[3rem] p-12 text-center backdrop-blur-xl"
                                     >
                                         <CheckCircle2 size={48} className="text-gold mx-auto mb-6" strokeWidth={1.5} />
-                                        <h3 className="font-serif text-2xl text-cream mb-2 italic">Correspondence Authenticated</h3>
-                                        <p className="font-sans text-[10px] uppercase font-black tracking-widest text-gold/60">Welcome to the Private Archive</p>
+                                        <h3 className="font-serif text-2xl text-cream mb-2 ">Correspondence Authenticated</h3>
+                                        <p className="font-sans text-[10px]  font-bold tracking-widest text-gold/60">Welcome to the Private Archive</p>
                                         <button
                                             onClick={() => setStatus('idle')}
-                                            className="mt-8 font-sans text-[9px] font-black uppercase tracking-widest text-gold-light hover:text-white transition-colors border-b border-gold-light/20 pb-1"
+                                            className="mt-8 font-sans text-[9px] font-bold  tracking-widest text-gold-light hover:text-white transition-colors border-b border-gold-light/20 pb-1"
                                         >
                                             Register Another Dispatch
                                         </button>
@@ -94,7 +94,7 @@ export default function Newsletter() {
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
                                                 placeholder="CORRESPONDENCE@CLIENT.COM"
-                                                className="w-full bg-cream/5 border border-gold/20 rounded-[2rem] px-8 py-6 text-cream text-[11px] font-black uppercase tracking-[0.2em] outline-none focus:border-gold transition-all backdrop-blur-sm"
+                                                className="w-full bg-cream/5 border border-gold/20 rounded-[2rem] px-8 py-6 text-cream text-[11px] font-bold  tracking-[0.2em] outline-none focus:border-gold transition-all backdrop-blur-sm"
                                                 disabled={status === 'loading'}
                                             />
                                             <Mail className="absolute right-8 top-1/2 -translate-y-1/2 text-gold/30 group-focus-within/input:text-gold transition-colors" size={18} />
@@ -102,7 +102,7 @@ export default function Newsletter() {
                                         <button
                                             type="submit"
                                             disabled={status === 'loading'}
-                                            className="w-full bg-gold hover:bg-gold-light text-forest py-6 rounded-[2rem] font-black uppercase tracking-[0.4em] text-[10px] transition-all flex items-center justify-center gap-3 overflow-hidden group/btn disabled:opacity-50"
+                                            className="w-full bg-gold hover:bg-gold-light text-forest py-6 rounded-[2rem] font-bold  tracking-[0.4em] text-[10px] transition-all flex items-center justify-center gap-3 overflow-hidden group/btn disabled:opacity-50"
                                         >
                                             {status === 'loading' ? (
                                                 <div className="w-5 h-5 border-2 border-forest/30 border-t-forest rounded-full animate-spin"></div>
@@ -113,7 +113,7 @@ export default function Newsletter() {
                                                 </>
                                             )}
                                         </button>
-                                        <p className="text-[9px] text-center text-gold/30 uppercase font-black tracking-widest mt-6">
+                                        <p className="text-[9px] text-center text-gold/30  font-bold tracking-widest mt-6">
                                             Private Correspondence. Zero Redundancy.
                                         </p>
                                     </motion.form>

@@ -949,7 +949,7 @@ function CheckoutContent() {
 
                                 {/* Pricing Breakdown */}
                                 <div className="space-y-3">
-                                    <h5 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Tour Price</h5>
+                                    <h5 className="text-xs font-bold text-gray-500  tracking-wide">Tour Price</h5>
 
                                     {Object.entries(bookingData.guestCounts).map(([type, count]) => {
                                         if (count <= 0) return null;
@@ -976,7 +976,7 @@ function CheckoutContent() {
                                 {/* Add-ons Breakdown */}
                                 {selectedAddOns.length > 0 && (
                                     <div className="mt-6 pt-6 border-t border-gray-200">
-                                        <h5 className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-3">Add-ons & Extras</h5>
+                                        <h5 className="text-xs font-bold text-gray-500  tracking-wide mb-3">Add-ons & Extras</h5>
                                         <div className="space-y-3">
                                             {addons.filter(a => selectedAddOns.includes(a.id)).map(addon => {
                                                 const price = getAddonPrice(addon);
@@ -1030,7 +1030,7 @@ function CheckoutContent() {
 
                             {/* Trust Badges */}
                             <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-200">
-                                <p className="text-xs font-bold text-gray-500 uppercase tracking-wide mb-4">Secure Checkout</p>
+                                <p className="text-xs font-bold text-gray-500  tracking-wide mb-4">Secure Checkout</p>
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-3">
                                         <div className="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-lg border border-gray-100">

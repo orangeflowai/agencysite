@@ -16,8 +16,8 @@ export default function CancellationPolicy() {
             <Navbar />
 
             <div className="container mx-auto px-4 py-24 max-w-4xl">
-                <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 tracking-tight text-center">CANCELLATION & REFUND POLICY</h1>
-                <p className="text-center text-gray-500 mb-12 italic text-sm">Last Updated: February 20, 2026</p>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 tracking-tight text-center">CANCELLATION & REFUND POLICY</h1>
+                <p className="text-center text-gray-500 mb-12  text-sm">Last Updated: February 20, 2026</p>
 
                 <div className="prose prose-lg prose-emerald text-gray-600 max-w-none space-y-8">
                     <p className="lead text-xl text-gray-800 font-medium">
@@ -43,8 +43,8 @@ export default function CancellationPolicy() {
                         <table className="min-w-full bg-white text-left text-sm md:text-base">
                             <thead className="bg-emerald-900 text-white">
                                 <tr>
-                                    <th className="py-4 px-6 font-bold uppercase tracking-wider w-1/2">Time of Cancellation</th>
-                                    <th className="py-4 px-6 font-bold uppercase tracking-wider w-1/2">Refund Amount</th>
+                                    <th className="py-4 px-6 font-bold  tracking-wider w-1/2">Time of Cancellation</th>
+                                    <th className="py-4 px-6 font-bold  tracking-wider w-1/2">Refund Amount</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
@@ -69,7 +69,7 @@ export default function CancellationPolicy() {
                     </div>
 
                     <div className="bg-amber-50 border-l-4 border-amber-400 p-6 my-6 rounded-r-lg">
-                        <p className="font-bold text-amber-900 mb-2 italic">Important:</p>
+                        <p className="font-bold text-amber-900 mb-2 ">Important:</p>
                         <p className="text-amber-800 text-sm leading-relaxed">
                             Many tours (especially Colosseum, Vatican Museums, Underground tours, and all timed-entry tickets) are <strong>non-refundable and non-transferable immediately upon purchase</strong>. The full ticket cost will be deducted from any refund, even if you cancel within the allowed period.
                         </p>

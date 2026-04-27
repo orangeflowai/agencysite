@@ -19,7 +19,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
             <div className="flex items-center space-x-1 mb-6">
                 {[...Array(5)].map((_, i) => <Star key={i} size={14} className="fill-forest text-forest" />)}
             </div>
-            <p className="font-serif text-lg text-forest italic leading-[1.6] mb-8 min-h-[60px]">
+            <p className="font-serif text-lg text-forest  leading-[1.6] mb-8 min-h-[60px]">
                 &ldquo;{review.text}&rdquo;
             </p>
             <div className="flex items-center gap-4 pt-6 border-t border-forest/10">
@@ -27,8 +27,8 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                     {review.name.charAt(0)}
                 </div>
                 <div>
-                    <p className="font-sans text-xs font-black text-forest uppercase tracking-widest">{review.name}</p>
-                    <p className="font-sans text-[10px] text-forest/50 uppercase tracking-[0.2em]">{review.location}</p>
+                    <p className="font-sans text-xs font-bold text-forest  tracking-widest">{review.name}</p>
+                    <p className="font-sans text-[10px] text-forest/50  tracking-[0.2em]">{review.location}</p>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@ export default function SocialProof() {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="font-sans text-[10px] uppercase font-black tracking-[0.5em] text-forest/40"
+                        className="font-sans text-[10px]  font-bold tracking-[0.5em] text-forest/40"
                     >
                         Client Testimonials
                     </motion.span>
@@ -57,13 +57,13 @@ export default function SocialProof() {
                         className="font-serif text-5xl md:text-7xl font-bold mt-6 leading-none"
                     >
                         Verified Path <br />
-                        <span className="italic">Documentation.</span>
+                        <span className="">Documentation.</span>
                     </motion.h2>
                     <div className="flex items-center gap-6 mt-10 justify-center md:justify-start">
                         <div className="flex items-center space-x-1">
                             {[...Array(5)].map((_, i) => <Star key={i} size={20} className="fill-forest text-forest" />)}
                         </div>
-                        <span className="font-sans text-sm uppercase font-black tracking-widest opacity-60">Avg Rating 4.9/5</span>
+                        <span className="font-sans text-sm  font-bold tracking-widest opacity-60">Avg Rating 4.9/5</span>
                     </div>
                 </div>
             </div>
@@ -79,9 +79,9 @@ export default function SocialProof() {
 
             {/* Corporate/Partner Strip */}
             <div className="container mx-auto px-8 mt-20 flex flex-wrap justify-center gap-12 opacity-40">
-                <span className="font-serif text-2xl font-bold italic tracking-tighter">TripAdvisor Private</span>
-                <span className="font-serif text-2xl font-bold italic tracking-tighter">Google Elite</span>
-                <span className="font-serif text-2xl font-bold italic tracking-tighter">The Roman Guild</span>
+                <span className="font-serif text-2xl font-bold  tracking-tighter">TripAdvisor Private</span>
+                <span className="font-serif text-2xl font-bold  tracking-tighter">Google Elite</span>
+                <span className="font-serif text-2xl font-bold  tracking-tighter">The Roman Guild</span>
             </div>
         </section>
     );

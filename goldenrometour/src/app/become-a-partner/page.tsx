@@ -20,7 +20,7 @@ export default function BecomeAPartner() {
                 <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                 <div className="container mx-auto px-4 py-32 relative z-10 text-center">
                     <span className="inline-block py-1 px-3 rounded-full bg-emerald-800 border border-emerald-700 text-emerald-100 text-sm font-bold tracking-wider mb-6">B2B PARTNERSHIP</span>
-                    <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-none">
+                    <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-none">
                         Grow with <span className="text-emerald-400">{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</span>
                     </h1>
                     <p className="text-emerald-100 text-xl md:text-2xl max-w-2xl mx-auto font-medium mb-10 leading-relaxed">
@@ -43,20 +43,20 @@ export default function BecomeAPartner() {
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         <div>
-                            <div className="text-4xl font-black text-white mb-1">50k+</div>
-                            <div className="text-emerald-200 text-sm uppercase tracking-wider font-bold">Happy Travelers</div>
+                            <div className="text-4xl font-bold text-white mb-1">50k+</div>
+                            <div className="text-emerald-200 text-sm  tracking-wider font-bold">Happy Travelers</div>
                         </div>
                         <div>
-                            <div className="text-4xl font-black text-white mb-1">4.9/5</div>
-                            <div className="text-emerald-200 text-sm uppercase tracking-wider font-bold">Average Rating</div>
+                            <div className="text-4xl font-bold text-white mb-1">4.9/5</div>
+                            <div className="text-emerald-200 text-sm  tracking-wider font-bold">Average Rating</div>
                         </div>
                         <div>
-                            <div className="text-4xl font-black text-white mb-1">24/7</div>
-                            <div className="text-emerald-200 text-sm uppercase tracking-wider font-bold">Partner Support</div>
+                            <div className="text-4xl font-bold text-white mb-1">24/7</div>
+                            <div className="text-emerald-200 text-sm  tracking-wider font-bold">Partner Support</div>
                         </div>
                         <div>
-                            <div className="text-4xl font-black text-white mb-1">100%</div>
-                            <div className="text-emerald-200 text-sm uppercase tracking-wider font-bold">Booking Guarantee</div>
+                            <div className="text-4xl font-bold text-white mb-1">100%</div>
+                            <div className="text-emerald-200 text-sm  tracking-wider font-bold">Booking Guarantee</div>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ export default function BecomeAPartner() {
             <div id="benefits" className="py-24 bg-white">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16 max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6">Why Partner With Us?</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">Why Partner With Us?</h2>
                         <p className="text-lg text-gray-600 leading-relaxed">
                             We don't just sell tickets; we create memories. Partnering with us means giving your clients the best possible experience in Rome while growing your business.
                         </p>
@@ -114,7 +114,7 @@ export default function BecomeAPartner() {
                 <div className="container mx-auto px-4">
                     <div className="flex flex-col md:flex-row items-center gap-16">
                         <div className="flex-1 space-y-6">
-                            <h2 className="text-3xl md:text-4xl font-black text-gray-900">Who is this for?</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Who is this for?</h2>
                             <p className="text-lg text-gray-600">We tailor our partnership programs to suit different needs within the travel industry.</p>
 
                             <ul className="space-y-4">

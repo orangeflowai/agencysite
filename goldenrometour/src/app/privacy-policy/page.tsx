@@ -15,8 +15,8 @@ export default function PrivacyPolicy() {
             <Navbar />
 
             <div className="container mx-auto px-4 py-24 max-w-4xl">
-                <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 tracking-tight">Privacy Policy</h1>
-                <p className="text-sm text-gray-500 mb-8 italic">Last Updated: February 20, 2026</p>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 tracking-tight">Privacy Policy</h1>
+                <p className="text-sm text-gray-500 mb-8 ">Last Updated: February 20, 2026</p>
 
                 <div className="prose prose-lg prose-emerald text-gray-600 max-w-none space-y-8">
                     <p className="lead text-xl text-gray-800 font-medium">

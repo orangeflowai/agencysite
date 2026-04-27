@@ -155,10 +155,10 @@ export default function StickyGridScroll() {
           <h2 ref={titleRef} className="text-[clamp(1.5rem,5.5vw,4.5rem)] font-serif font-light text-center m-0 leading-[1.1] pointer-events-auto">
             Experience Rome
           </h2>
-          <p ref={descriptionRef} className="text-[clamp(1rem,1.5vw,1.5rem)] mt-4 max-w-lg text-center text-gray-300 font-sans pointer-events-auto">
+          <p ref={descriptionRef} className="text-[clamp(1rem,1.5vw,1.5rem)] mt-4 max-w-lg text-center text-muted-foreground font-sans pointer-events-auto">
             A structured scroll-driven image grid where movement unfolds progressively within a sticky layout.
           </p>
-          <a ref={buttonRef} href="#tours" className="mt-[2vh] uppercase tracking-[2px] border border-[rgba(255,255,255,0.4)] px-6 py-3 rounded-[3rem] hover:bg-white hover:text-black transition-colors pointer-events-auto text-[10px] sm:text-xs">
+          <a ref={buttonRef} href="#tours" className="mt-[2vh]  tracking-[2px] border border-[rgba(255,255,255,0.4)] px-6 py-3 rounded-[3rem] hover:bg-card hover:text-foreground transition-colors pointer-events-auto text-[10px] sm:text-xs">
             Discover Tours
           </a>
         </div>

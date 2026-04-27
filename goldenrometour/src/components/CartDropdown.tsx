@@ -52,7 +52,7 @@ export default function CartDropdown() {
             >
                 <ShoppingBag className="w-5 h-5" />
                 {totalItems > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-sky-500 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-lg transform scale-110">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-sky-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-lg transform scale-110">
                         {totalItems}
                     </span>
                 )}
@@ -67,7 +67,7 @@ export default function CartDropdown() {
                     />
                     <div className="absolute right-0 top-full mt-4 w-96 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-gray-100 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                         <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
-                            <h3 className="font-black text-gray-950 uppercase tracking-widest text-xs">Your Booking Cart ({totalItems})</h3>
+                            <h3 className="font-bold text-gray-950  tracking-widest text-xs">Your Booking Cart ({totalItems})</h3>
                             <button
                                 onClick={() => setIsCartOpen(false)}
                                 className="p-2 hover:bg-gray-100 rounded-xl transition-colors text-gray-400 hover:text-gray-900"
@@ -81,11 +81,11 @@ export default function CartDropdown() {
                                 <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-gray-300">
                                     <ShoppingBag size={32} />
                                 </div>
-                                <p className="text-gray-900 font-bold uppercase tracking-tight text-sm">Your cart is empty</p>
+                                <p className="text-gray-900 font-bold  tracking-tight text-sm">Your cart is empty</p>
                                 <Link
                                     href="/search"
                                     onClick={() => setIsCartOpen(false)}
-                                    className="text-sky-600 text-xs font-black mt-3 inline-block uppercase tracking-widest hover:text-sky-700 transition-colors"
+                                    className="text-sky-600 text-xs font-bold mt-3 inline-block  tracking-widest hover:text-sky-700 transition-colors"
                                 >
                                     Explore Experiences
                                 </Link>
@@ -97,14 +97,14 @@ export default function CartDropdown() {
                                         <div key={item.id} className="p-4 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100 group">
                                             <div className="flex gap-4">
                                                 <div className="flex-1 min-w-0">
-                                                    <h4 className="font-black text-gray-950 text-sm truncate uppercase tracking-tight group-hover:text-sky-600 transition-colors">
+                                                    <h4 className="font-bold text-gray-950 text-sm truncate  tracking-tight group-hover:text-sky-600 transition-colors">
                                                         {item.tourTitle}
                                                     </h4>
                                                     <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-                                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1">
+                                                        <span className="text-[10px] font-bold text-gray-400  tracking-widest flex items-center gap-1">
                                                             {item.date}
                                                         </span>
-                                                        <span className="text-[10px] font-bold text-sky-600 uppercase tracking-widest bg-sky-50 px-1.5 py-0.5 rounded">
+                                                        <span className="text-[10px] font-bold text-sky-600  tracking-widest bg-sky-50 px-1.5 py-0.5 rounded">
                                                             {item.time}
                                                         </span>
                                                     </div>
@@ -115,7 +115,7 @@ export default function CartDropdown() {
                                                             if (count === 0 && Object.keys(item.guestCounts).length > 1) return null;
                                                             return (
                                                                 <div key={type} className="flex items-center justify-between text-xs">
-                                                                    <span className="text-gray-500 font-bold uppercase tracking-widest text-[9px]">{type}</span>
+                                                                    <span className="text-gray-500 font-bold  tracking-widest text-[9px]">{type}</span>
                                                                     <div className="flex items-center gap-3">
                                                                         <button
                                                                             onClick={() => adjustGuests(item.id, type, -1)}
@@ -124,7 +124,7 @@ export default function CartDropdown() {
                                                                         >
                                                                             <Minus size={12} />
                                                                         </button>
-                                                                        <span className="w-4 text-center font-black text-gray-900">{count}</span>
+                                                                        <span className="w-4 text-center font-bold text-gray-900">{count}</span>
                                                                         <button
                                                                             onClick={() => adjustGuests(item.id, type, 1)}
                                                                             className="w-7 h-7 rounded-lg border border-gray-100 flex items-center justify-center hover:bg-sky-50 text-gray-400 hover:text-sky-600 transition-all"
@@ -138,8 +138,8 @@ export default function CartDropdown() {
                                                     </div>
 
                                                     <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-                                                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Item Total</span>
-                                                        <span className="text-sm font-black text-gray-900">
+                                                        <span className="text-[10px] font-bold text-gray-400  tracking-widest">Item Total</span>
+                                                        <span className="text-sm font-bold text-gray-900">
                                                             €{item.price.toFixed(2)}
                                                         </span>
                                                     </div>
@@ -159,8 +159,8 @@ export default function CartDropdown() {
                                 <div className="p-6 bg-gray-950">
                                     <div className="flex items-center justify-between mb-4">
                                         <div className="flex flex-col">
-                                            <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Total Amount</span>
-                                            <span className="text-2xl font-black text-white">€{totalPrice.toFixed(2)}</span>
+                                            <span className="text-[10px] font-bold text-gray-400  tracking-widest mb-0.5">Total Amount</span>
+                                            <span className="text-2xl font-bold text-white">€{totalPrice.toFixed(2)}</span>
                                         </div>
                                         <div className="flex -space-x-2">
                                             <div className="w-8 h-5 bg-gray-800 rounded flex items-center justify-center text-[7px] text-white font-bold border border-gray-700">VISA</div>
@@ -196,7 +196,7 @@ export default function CartDropdown() {
                                                 router.push('/checkout');
                                             }
                                         }}
-                                        className="w-full bg-sky-600 hover:bg-sky-500 text-white font-black py-4 rounded-xl transition-all active:scale-[0.98] uppercase tracking-[0.2em] text-xs shadow-xl shadow-sky-900/20"
+                                        className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-4 rounded-xl transition-all active:scale-[0.98]  tracking-[0.2em] text-xs shadow-xl shadow-sky-900/20"
                                     >
                                         Checkout Securely
                                     </button>

@@ -100,7 +100,7 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
 
                                             <div className="grid grid-cols-1 gap-4">
                                                 <div>
-                                                    <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Full Name</label>
+                                                    <label className="block text-xs font-bold text-gray-500  mb-1">Full Name</label>
                                                     <input
                                                         type="text"
                                                         required

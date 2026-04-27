@@ -56,10 +56,10 @@ export default function StickyRomeSection() {
                 {/* Section 1 Text: Rome is Chaotic */}
                 <div className="h-screen flex items-center justify-center sticky top-0">
                     <motion.div style={{ opacity: text1Opacity }} className="text-center z-20 px-4">
-                        <h2 className="font-serif text-5xl md:text-[10rem] font-bold text-white mb-8 tracking-[-0.05em] drop-shadow-2xl leading-[0.8] italic">
+                        <h2 className="font-serif text-5xl md:text-[10rem] font-bold text-white mb-8 tracking-[-0.05em] drop-shadow-2xl leading-[0.8] ">
                             ROME IS CHAOTIC.
                         </h2>
-                        <p className="font-sans text-[11px] md:text-sm text-white font-black tracking-[0.6em] uppercase opacity-70">
+                        <p className="font-sans text-[11px] md:text-sm text-white font-bold tracking-[0.6em]  opacity-70">
                             Your journey should be curated.
                         </p>
                     </motion.div>
@@ -68,14 +68,14 @@ export default function StickyRomeSection() {
                 {/* Section 2 Text: Serenity */}
                 <div className="h-screen flex items-center justify-center sticky top-0"> {/* Overlaying sticky for fade effect */}
                     <motion.div style={{ opacity: text2Opacity, y: text2Y }} className="max-w-4xl text-center z-20 px-4">
-                        <h2 className="text-5xl md:text-7xl font-serif italic text-white mb-8 drop-shadow-lg">
+                        <h2 className="text-5xl md:text-7xl font-serif  text-white mb-8 drop-shadow-lg">
                             "Experience the Eternal City,<br />Unlocked."
                         </h2>
                         <div className="flex flex-col md:flex-row justify-center gap-6 pointer-events-auto">
-                            <Link href="/search" className="bg-forest text-cream px-12 py-5 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-forest-light transition-all shadow-xl active:scale-95">
+                            <Link href="/search" className="bg-forest text-cream px-12 py-5 font-bold text-[10px]  tracking-[0.4em] hover:bg-forest-light transition-all shadow-xl active:scale-95">
                                 Secure Access
                             </Link>
-                            <Link href="/private-tours" className="bg-cream text-forest px-12 py-5 font-black text-[10px] uppercase tracking-[0.4em] hover:bg-white transition-all shadow-xl active:scale-95 border border-forest/10">
+                            <Link href="/private-tours" className="bg-cream text-forest px-12 py-5 font-bold text-[10px]  tracking-[0.4em] hover:bg-white transition-all shadow-xl active:scale-95 border border-forest/10">
                                 Private Folio
                             </Link>
                         </div>

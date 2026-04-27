@@ -50,7 +50,7 @@ export default function EmbeddedMap({ location, locationUrl, className = '' }: E
         : `https://www.google.com/maps/embed/v1/place?key={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}&q=${encodeURIComponent(location + ', Rome, Italy')}`;
 
     return (
-        <div className={`w-full rounded-2xl overflow-hidden border-2 border-gray-100 shadow-lg ${className}`}>
+        <div className={`w-full rounded-2xl overflow-hidden border-2 border-border shadow-lg ${className}`}>
             <iframe
                 width="100%"
                 height="400"

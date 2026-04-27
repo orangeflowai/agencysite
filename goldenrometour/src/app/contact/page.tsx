@@ -88,7 +88,7 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-bold text-lg text-black mb-1">Email Us</h3>
                                     <p className="text-gray-600 font-medium hover:text-olive transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</p>
-                                    <p className="text-gray-400 text-xs mt-1 uppercase tracking-wider font-bold">24/7 Support</p>
+                                    <p className="text-gray-400 text-xs mt-1  tracking-wider font-bold">24/7 Support</p>
                                 </div>
                             </div>
 
@@ -99,7 +99,7 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-bold text-lg text-black mb-1">Call Us</h3>
                                     <p className="text-gray-600 font-medium">351 419 9425</p>
-                                    <p className="text-gray-400 text-xs mt-1 uppercase tracking-wider font-bold">Mon-Sun, 9am - 6pm</p>
+                                    <p className="text-gray-400 text-xs mt-1  tracking-wider font-bold">Mon-Sun, 9am - 6pm</p>
                                 </div>
                             </div>
 
@@ -110,7 +110,7 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-bold text-lg text-black mb-1">Visit Our Office</h3>
                                     <p className="text-gray-600 leading-relaxed">Via Tunisi 43,<br />Rome, Italy</p>
-                                    <p className="text-gray-400 text-xs mt-1 uppercase tracking-wider font-bold">Near St. Peter&apos;s Square</p>
+                                    <p className="text-gray-400 text-xs mt-1  tracking-wider font-bold">Near St. Peter&apos;s Square</p>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@ export default function ContactPage() {
                         <form className="space-y-5 relative z-10" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-2 gap-5">
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('contact.form.name')}</label>
+                                    <label className="block text-xs font-bold text-gray-500  tracking-wider mb-2">{t('contact.form.name')}</label>
                                     <input
                                         name="firstName"
                                         required
@@ -141,7 +141,7 @@ export default function ContactPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Last Name</label>
+                                    <label className="block text-xs font-bold text-gray-500  tracking-wider mb-2">Last Name</label>
                                     <input
                                         name="lastName"
                                         type="text"
@@ -153,7 +153,7 @@ export default function ContactPage() {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('contact.form.email')}</label>
+                                <label className="block text-xs font-bold text-gray-500  tracking-wider mb-2">{t('contact.form.email')}</label>
                                 <input
                                     name="email"
                                     required
@@ -174,7 +174,7 @@ export default function ContactPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{t('contact.form.message')}</label>
+                                <label className="block text-xs font-bold text-gray-500  tracking-wider mb-2">{t('contact.form.message')}</label>
                                 <textarea
                                     name="message"
                                     required
@@ -188,7 +188,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full bg-emerald-800 hover:bg-emerald-900 text-white py-4 rounded-xl font-black text-lg shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-1 transition-all uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full bg-emerald-800 hover:bg-emerald-900 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-1 transition-all  tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? 'Sending...' : t('contact.btn.submit')}
                             </button>

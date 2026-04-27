@@ -50,7 +50,7 @@ export default function FAQ() {
 
             <div className="container mx-auto px-4 max-w-4xl relative z-10">
                 <div className="text-center mb-16">
-                    <span className="text-primary font-sans font-black uppercase tracking-[0.4em] text-[10px] mb-2 block">
+                    <span className="text-primary font-sans font-bold  tracking-[0.4em] text-[10px] mb-2 block">
                         Support & Help
                     </span>
                     <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e] mb-6 tracking-tight">
@@ -91,7 +91,7 @@ export default function FAQ() {
                                             <HelpCircle size={20} />
                                         </div>
                                         <span className={clsx(
-                                            "text-lg md:text-xl font-serif font-bold transition-colors pr-8 italic",
+                                            "text-lg md:text-xl font-serif font-bold transition-colors pr-8 ",
                                             isOpen ? "text-primary" : "text-[#5c4b3e]"
                                         )}>
                                             {faq.question}

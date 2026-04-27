@@ -198,7 +198,7 @@ export default function BookingsPage() {
             {/* Results */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 {/* Table Header */}
-                <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-gray-50 border-b border-gray-100 text-xs font-bold text-gray-500  tracking-wider">
                     <div className="col-span-4 flex items-center gap-1 cursor-pointer hover:text-gray-700" onClick={() => toggleSort('tour_title')}>
                         Tour <ArrowUpDown className="w-3 h-3" />
                     </div>
@@ -238,7 +238,7 @@ export default function BookingsPage() {
                                         <div className="md:hidden space-y-2">
                                             <div className="flex items-center justify-between">
                                                 <h3 className="font-bold text-gray-900 text-sm">{booking.tour_title}</h3>
-                                                <span className={`text-xs font-bold uppercase px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-gray-600'}`}>
+                                                <span className={`text-xs font-bold  px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-gray-600'}`}>
                                                     {booking.status}
                                                 </span>
                                             </div>
@@ -275,7 +275,7 @@ export default function BookingsPage() {
                                                 <span className="font-bold text-gray-900">€{booking.total_price}</span>
                                             </div>
                                             <div className="col-span-1">
-                                                <span className={`text-xs font-bold uppercase px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-gray-600'}`}>
+                                                <span className={`text-xs font-bold  px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-gray-600'}`}>
                                                     {booking.status}
                                                 </span>
                                             </div>
@@ -291,7 +291,7 @@ export default function BookingsPage() {
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
                                                 {/* Contact Info */}
                                                 <div className="space-y-3">
-                                                    <h4 className="font-bold text-gray-700 uppercase text-xs flex items-center gap-1">
+                                                    <h4 className="font-bold text-gray-700  text-xs flex items-center gap-1">
                                                         <User size={12} /> Contact Info
                                                     </h4>
                                                     <div className="space-y-2 text-sm text-gray-600">
@@ -314,7 +314,7 @@ export default function BookingsPage() {
 
                                                 {/* Ticket Breakdown */}
                                                 <div className="space-y-3">
-                                                    <h4 className="font-bold text-gray-700 uppercase text-xs flex items-center gap-1">
+                                                    <h4 className="font-bold text-gray-700  text-xs flex items-center gap-1">
                                                         <Users size={12} /> Ticket Breakdown
                                                     </h4>
                                                     <div className="space-y-1.5 text-sm text-gray-600">
@@ -339,7 +339,7 @@ export default function BookingsPage() {
 
                                                 {/* Guest Details */}
                                                 <div className="space-y-3">
-                                                    <h4 className="font-bold text-gray-700 uppercase text-xs flex items-center gap-1">
+                                                    <h4 className="font-bold text-gray-700  text-xs flex items-center gap-1">
                                                         <FileText size={12} /> Guest List
                                                     </h4>
                                                     {booking.guest_details && Array.isArray(booking.guest_details) && booking.guest_details.length > 0 ? (
@@ -356,7 +356,7 @@ export default function BookingsPage() {
                                                             ))}
                                                         </div>
                                                     ) : (
-                                                        <p className="text-gray-400 italic text-sm">No guest details provided</p>
+                                                        <p className="text-gray-400  text-sm">No guest details provided</p>
                                                     )}
                                                 </div>
                                             </div>
@@ -366,7 +366,7 @@ export default function BookingsPage() {
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-4 border-t border-gray-200">
                                                     {booking.logistics && (
                                                         <div className="space-y-2">
-                                                            <h4 className="font-bold text-gray-700 uppercase text-xs flex items-center gap-1">
+                                                            <h4 className="font-bold text-gray-700  text-xs flex items-center gap-1">
                                                                 <MapPin size={12} /> Logistics
                                                             </h4>
                                                             <div className="text-sm text-gray-600 space-y-1">
@@ -379,7 +379,7 @@ export default function BookingsPage() {
                                                     )}
                                                     {booking.addons && Array.isArray(booking.addons) && booking.addons.length > 0 && (
                                                         <div className="space-y-2">
-                                                            <h4 className="font-bold text-gray-700 uppercase text-xs">Add-ons</h4>
+                                                            <h4 className="font-bold text-gray-700  text-xs">Add-ons</h4>
                                                             <div className="space-y-1">
                                                                 {booking.addons.map((addon: any, idx: number) => (
                                                                     <div key={idx} className="flex justify-between text-sm">

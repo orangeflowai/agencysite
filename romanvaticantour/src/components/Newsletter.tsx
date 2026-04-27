@@ -28,7 +28,7 @@ export default function Newsletter() {
 
             <div className="container mx-auto px-6 relative z-10">
                 <div className="glass rounded-[3rem] p-8 md:p-16 border border-white/10 overflow-hidden relative group">
-                    <div className="absolute inset-0 bg-white/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <div className="absolute inset-0 bg-card/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
                     
                     <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
                         {/* Content */}
@@ -40,7 +40,7 @@ export default function Newsletter() {
                                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20"
                             >
                                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                                <span className="text-[10px] font-black uppercase tracking-widest text-primary">Exclusive Access</span>
+                                <span className="text-[10px] font-bold  tracking-widest text-primary">Exclusive Access</span>
                             </motion.div>
                             
                             <motion.h2
@@ -50,7 +50,7 @@ export default function Newsletter() {
                                 transition={{ delay: 0.1 }}
                                 className="text-4xl md:text-5xl font-serif font-bold text-white tracking-tight leading-[0.95]"
                             >
-                                Join the <span className="text-accent italic font-serif">RomanVatican</span> Inner Circle.
+                                Join the <span className="text-accent  font-serif">RomanVatican</span> Inner Circle.
                             </motion.h2>
                             
                             <motion.p
@@ -100,7 +100,7 @@ export default function Newsletter() {
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         onSubmit={handleSubmit}
-                                        className="relative p-2 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2rem] flex flex-col sm:flex-row gap-2"
+                                        className="relative p-2 bg-card/5 backdrop-blur-3xl border border-white/10 rounded-[2rem] flex flex-col sm:flex-row gap-2"
                                     >
                                         <div className="flex-1 relative">
                                             <Mail className="absolute left-6 top-1/2 -translate-y-1/2 text-stone-500 w-5 h-5" />
@@ -117,7 +117,7 @@ export default function Newsletter() {
                                         <button
                                             type="submit"
                                             disabled={status === 'loading'}
-                                            className="bg-primary hover:bg-primary/90 text-white px-10 py-6 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all flex items-center justify-center gap-3 overflow-hidden group/btn disabled:opacity-50"
+                                            className="bg-primary hover:bg-primary/90 text-white px-10 py-6 rounded-2xl font-bold  tracking-widest text-[10px] transition-all flex items-center justify-center gap-3 overflow-hidden group/btn disabled:opacity-50"
                                         >
                                             {status === 'loading' ? (
                                                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -131,7 +131,7 @@ export default function Newsletter() {
                                     </motion.form>
                                 )}
                             </AnimatePresence>
-                            <p className="mt-6 text-[10px] text-center lg:text-left text-stone-500 uppercase tracking-widest font-bold font-sans">
+                            <p className="mt-6 text-[10px] text-center lg:text-left text-stone-500  tracking-widest font-bold font-sans">
                                 Zero Spam. High Bitrate Travel Intelligence.
                             </p>
                         </div>

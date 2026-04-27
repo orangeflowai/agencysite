@@ -56,7 +56,7 @@ export default function AdminLogin() {
                     )}
 
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">Email Address</label>
+                        <label className="text-sm font-bold text-gray-700  tracking-wider">Email Address</label>
                         <div className="relative">
                             <input
                                 type="email"
@@ -71,7 +71,7 @@ export default function AdminLogin() {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-bold text-gray-700 uppercase tracking-wider">Password</label>
+                        <label className="text-sm font-bold text-gray-700  tracking-wider">Password</label>
                         <div className="relative">
                             <input
                                 type="password"

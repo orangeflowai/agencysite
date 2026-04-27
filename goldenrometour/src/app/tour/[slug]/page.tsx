@@ -118,7 +118,7 @@ export default async function TourPage({ params }: PageProps) {
 
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
                     <div className="max-w-4xl space-y-4 pointer-events-auto">
-                        <span className="bg-olive text-white px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wide">
+                        <span className="bg-olive text-white px-4 py-1.5 rounded-full text-sm font-semibold  tracking-wide">
                             {tour.category}
                         </span>
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white shadow-sm drop-shadow-md">

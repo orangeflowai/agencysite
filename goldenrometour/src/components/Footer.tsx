@@ -82,15 +82,15 @@ export default function Footer() {
                                 ) : (
                                     <div className="flex flex-col items-start justify-center">
                                         <span className="font-serif text-3xl font-bold tracking-tighter leading-none text-cream">
-                                            GOLDEN <span className="italic text-[#C9A84C]">ROME TOUR</span>
+                                            GOLDEN <span className=" text-[#C9A84C]">ROME TOUR</span>
                                         </span>
-                                        <span className="font-sans text-[#C9A84C]/60 text-[8px] uppercase font-black tracking-[0.4em] mt-2">
+                                        <span className="font-sans text-[#C9A84C]/60 text-[8px]  font-bold tracking-[0.4em] mt-2">
                                             Editorial Series
                                         </span>
                                     </div>
                                 )}
                             </Link>
-                            <p className="text-forest/40 text-xs leading-relaxed max-w-xs font-sans uppercase tracking-widest">
+                            <p className="text-forest/40 text-xs leading-relaxed max-w-xs font-sans  tracking-widest">
                                 A documentary approach to the eternal city. High-impact experiences Curated for the discerning traveler.
                             </p>
 
@@ -110,7 +110,7 @@ export default function Footer() {
 
                         {/* Explore Categories */}
                         <div>
-                            <h4 className="font-serif text-xl font-bold italic text-forest mb-8 border-b border-forest/10 pb-4">
+                            <h4 className="font-serif text-xl font-bold  text-forest mb-8 border-b border-forest/10 pb-4">
                                 Exploration
                             </h4>
                             <ul className="space-y-4 text-sm font-sans tracking-tight text-cream/60">
@@ -123,7 +123,7 @@ export default function Footer() {
                                     </li>
                                 ))}
                                 <li>
-                                    <Link href="/blog" className="hover:text-cream transition-colors flex items-center group italic font-serif">
+                                    <Link href="/blog" className="hover:text-cream transition-colors flex items-center group  font-serif">
                                         <span className="w-0 group-hover:w-4 h-px bg-forest mr-0 group-hover:mr-2 transition-all" />
                                         The Dispatch
                                     </Link>
@@ -133,7 +133,7 @@ export default function Footer() {
 
                         {/* Support Links */}
                         <div>
-                            <h4 className="font-serif text-xl font-bold italic text-forest mb-8 border-b border-forest/10 pb-4">
+                            <h4 className="font-serif text-xl font-bold  text-forest mb-8 border-b border-forest/10 pb-4">
                                 Documentation
                             </h4>
                             <ul className="space-y-4 text-sm font-sans tracking-tight text-cream/60">
@@ -149,7 +149,7 @@ export default function Footer() {
 
                         {/* Contact Info */}
                         <div>
-                            <h4 className="font-serif text-xl font-bold italic text-forest mb-8 border-b border-forest/10 pb-4">
+                            <h4 className="font-serif text-xl font-bold  text-forest mb-8 border-b border-forest/10 pb-4">
                                 Correspondence
                             </h4>
                             <ul className="space-y-6 text-sm text-cream/40 mb-12">
@@ -176,7 +176,7 @@ export default function Footer() {
 
                             {/* Payment logos */}
                             <div className="mt-8 pt-8 border-t border-forest/10">
-                                <p className="font-sans text-[10px] uppercase tracking-widest text-forest/40 mb-4 font-black">Secure Transfer</p>
+                                <p className="font-sans text-[10px]  tracking-widest text-forest/40 mb-4 font-bold">Secure Transfer</p>
                                 <div className="opacity-80 hover:grayscale hover:opacity-100 transition-all">
                                     <PaymentLogos size="sm" />
                                 </div>
@@ -185,7 +185,7 @@ export default function Footer() {
                     </div>
 
                     {/* Bottom Bar */}
-                    <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] text-cream/30 uppercase font-black tracking-widest">
+                    <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] text-cream/30  font-bold tracking-widest">
                         <div className="flex flex-col gap-4">
                             <p>&copy; {currentYear} {site?.title || 'Golden Rome Tour'}. All rights reserved.</p>
                         </div>

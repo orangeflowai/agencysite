@@ -239,8 +239,8 @@ export default function AddOnsAdminPage() {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Add-ons & Extras</h1>
-                    <p className="text-gray-500 mt-1">Manage upsell options for checkout</p>
+                    <h1 className="text-2xl font-bold text-foreground">Add-ons & Extras</h1>
+                    <p className="text-muted-foreground mt-1">Manage upsell options for checkout</p>
                 </div>
                 <button
                     onClick={handleNew}
@@ -253,12 +253,12 @@ export default function AddOnsAdminPage() {
 
             {/* Form */}
             {showForm && (
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+                <div className="bg-card rounded-xl shadow-sm border border-border p-6 mb-8">
                     <div className="flex items-center justify-between mb-6">
-                        <h2 className="text-lg font-bold text-gray-900">
+                        <h2 className="text-lg font-bold text-foreground">
                             {editingAddOn ? 'Edit Add-on' : 'Create New Add-on'}
                         </h2>
-                        <button onClick={cancelForm} className="text-gray-400 hover:text-gray-600">
+                        <button onClick={cancelForm} className="text-muted-foreground hover:text-muted-foreground">
                             <X className="w-6 h-6" />
                         </button>
                     </div>
@@ -267,7 +267,7 @@ export default function AddOnsAdminPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Name */}
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Name *
                                 </label>
                                 <input
@@ -282,14 +282,14 @@ export default function AddOnsAdminPage() {
                                             id: editingAddOn ? prev.id : { current: generateSlug(name) }
                                         }));
                                     }}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                     placeholder="e.g., Hotel Pickup Service"
                                 />
                             </div>
 
                             {/* ID/Slug */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Unique ID (Slug) *
                                 </label>
                                 <input
@@ -300,15 +300,15 @@ export default function AddOnsAdminPage() {
                                         ...prev, 
                                         id: { current: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') }
                                     }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none font-mono text-sm"
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none font-mono text-sm"
                                     placeholder="hotel-pickup"
                                 />
-                                <p className="text-xs text-gray-500 mt-1">Used in code. Lowercase, no spaces.</p>
+                                <p className="text-xs text-muted-foreground mt-1">Used in code. Lowercase, no spaces.</p>
                             </div>
 
                             {/* Price */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Price (€) *
                                 </label>
                                 <input
@@ -318,19 +318,19 @@ export default function AddOnsAdminPage() {
                                     step="0.01"
                                     value={formData.price}
                                     onChange={e => setFormData(prev => ({ ...prev, price: parseFloat(e.target.value) || 0 }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                 />
                             </div>
 
                             {/* Pricing Type */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Pricing Type
                                 </label>
                                 <select
                                     value={formData.pricingType}
                                     onChange={e => setFormData(prev => ({ ...prev, pricingType: e.target.value as 'perPerson' | 'perBooking' | 'perHour' }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                 >
                                     <option value="perBooking">Per Booking (flat rate)</option>
                                     <option value="perPerson">Per Person (× adults)</option>
@@ -342,7 +342,7 @@ export default function AddOnsAdminPage() {
                             {formData.pricingType === 'perHour' && (
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <label className="block text-sm font-medium text-foreground mb-1">
                                             Min Hours
                                         </label>
                                         <input
@@ -351,11 +351,11 @@ export default function AddOnsAdminPage() {
                                             max="24"
                                             value={formData.minHours || 1}
                                             onChange={e => setFormData(prev => ({ ...prev, minHours: parseInt(e.target.value) || 1 }))}
-                                            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                            className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <label className="block text-sm font-medium text-foreground mb-1">
                                             Max Hours
                                         </label>
                                         <input
@@ -364,7 +364,7 @@ export default function AddOnsAdminPage() {
                                             max="24"
                                             value={formData.maxHours || 8}
                                             onChange={e => setFormData(prev => ({ ...prev, maxHours: parseInt(e.target.value) || 8 }))}
-                                            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                            className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                         />
                                     </div>
                                 </div>
@@ -372,13 +372,13 @@ export default function AddOnsAdminPage() {
 
                             {/* Category */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Category
                                 </label>
                                 <select
                                     value={formData.category}
                                     onChange={e => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                 >
                                     {CATEGORIES.map(cat => (
                                         <option key={cat.value} value={cat.value}>{cat.label}</option>
@@ -388,7 +388,7 @@ export default function AddOnsAdminPage() {
 
                             {/* Icon */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Icon
                                 </label>
                                 <div className="grid grid-cols-6 gap-2">
@@ -400,12 +400,12 @@ export default function AddOnsAdminPage() {
                                             className={`p-2 rounded-lg border-2 transition-all ${
                                                 formData.icon === icon.value 
                                                     ? 'border-primary bg-background' 
-                                                    : 'border-gray-200 hover:border-gray-300'
+                                                    : 'border-border hover:border-gray-300'
                                             }`}
                                             title={icon.label}
                                         >
                                             <icon.icon className={`w-5 h-5 mx-auto ${
-                                                formData.icon === icon.value ? 'text-primary' : 'text-gray-600'
+                                                formData.icon === icon.value ? 'text-primary' : 'text-muted-foreground'
                                             }`} />
                                         </button>
                                     ))}
@@ -414,7 +414,7 @@ export default function AddOnsAdminPage() {
 
                             {/* Short Description */}
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Short Description *
                                 </label>
                                 <input
@@ -423,39 +423,39 @@ export default function AddOnsAdminPage() {
                                     maxLength={150}
                                     value={formData.description}
                                     onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                     placeholder="Brief description shown on checkout"
                                 />
-                                <p className="text-xs text-gray-500 mt-1">{formData.description?.length || 0}/150 characters</p>
+                                <p className="text-xs text-muted-foreground mt-1">{formData.description?.length || 0}/150 characters</p>
                             </div>
 
                             {/* Long Description */}
                             <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Long Description
                                 </label>
                                 <textarea
                                     rows={3}
                                     value={formData.longDescription}
                                     onChange={e => setFormData(prev => ({ ...prev, longDescription: e.target.value }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                     placeholder="More detailed description (optional)"
                                 />
                             </div>
 
                             {/* Sort Order */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-foreground mb-1">
                                     Sort Order
                                 </label>
                                 <input
                                     type="number"
                                     value={formData.sortOrder}
                                     onChange={e => setFormData(prev => ({ ...prev, sortOrder: parseInt(e.target.value) || 0 }))}
-                                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                    className="w-full px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
                                     placeholder="0 = first"
                                 />
-                                <p className="text-xs text-gray-500 mt-1">Lower numbers appear first</p>
+                                <p className="text-xs text-muted-foreground mt-1">Lower numbers appear first</p>
                             </div>
 
                             {/* Toggles */}
@@ -467,7 +467,7 @@ export default function AddOnsAdminPage() {
                                         onChange={e => setFormData(prev => ({ ...prev, popular: e.target.checked }))}
                                         className="w-5 h-5 text-primary rounded focus:ring-primary"
                                     />
-                                    <span className="text-sm text-gray-700">Mark as Popular</span>
+                                    <span className="text-sm text-foreground">Mark as Popular</span>
                                 </label>
 
                                 <label className="flex items-center gap-2 cursor-pointer">
@@ -477,7 +477,7 @@ export default function AddOnsAdminPage() {
                                         onChange={e => setFormData(prev => ({ ...prev, available: e.target.checked }))}
                                         className="w-5 h-5 text-primary rounded focus:ring-primary"
                                     />
-                                    <span className="text-sm text-gray-700">Available</span>
+                                    <span className="text-sm text-foreground">Available</span>
                                 </label>
                             </div>
                         </div>
@@ -487,7 +487,7 @@ export default function AddOnsAdminPage() {
                             <button
                                 type="button"
                                 onClick={cancelForm}
-                                className="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors"
+                                className="px-4 py-2 text-muted-foreground font-medium hover:bg-gray-100 rounded-lg transition-colors"
                             >
                                 Cancel
                             </button>
@@ -510,29 +510,29 @@ export default function AddOnsAdminPage() {
 
             {/* Search */}
             <div className="relative mb-6">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
                 <input
                     type="text"
                     placeholder="Search add-ons..."
                     value={searchTerm}
                     onChange={e => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary outline-none"
+                    className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-xl focus:ring-2 focus:ring-primary outline-none"
                 />
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-6">
-                <div className="bg-white p-4 rounded-xl border border-gray-200">
-                    <p className="text-2xl font-bold text-gray-900">{addOns.length}</p>
-                    <p className="text-sm text-gray-500">Total Add-ons</p>
+                <div className="bg-card p-4 rounded-xl border border-border">
+                    <p className="text-2xl font-bold text-foreground">{addOns.length}</p>
+                    <p className="text-sm text-muted-foreground">Total Add-ons</p>
                 </div>
-                <div className="bg-white p-4 rounded-xl border border-gray-200">
+                <div className="bg-card p-4 rounded-xl border border-border">
                     <p className="text-2xl font-bold text-primary">{addOns.filter(a => a.available).length}</p>
-                    <p className="text-sm text-gray-500">Available</p>
+                    <p className="text-sm text-muted-foreground">Available</p>
                 </div>
-                <div className="bg-white p-4 rounded-xl border border-gray-200">
+                <div className="bg-card p-4 rounded-xl border border-border">
                     <p className="text-2xl font-bold text-amber-600">{addOns.filter(a => a.popular).length}</p>
-                    <p className="text-sm text-gray-500">Popular</p>
+                    <p className="text-sm text-muted-foreground">Popular</p>
                 </div>
             </div>
 
@@ -542,9 +542,9 @@ export default function AddOnsAdminPage() {
                     <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
             ) : filteredAddOns.length === 0 ? (
-                <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
-                    <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500">No add-ons found</p>
+                <div className="text-center py-12 bg-card rounded-xl border border-border">
+                    <Package className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                    <p className="text-muted-foreground">No add-ons found</p>
                     <button
                         onClick={handleNew}
                         className="mt-4 text-primary font-medium hover:underline"
@@ -557,15 +557,15 @@ export default function AddOnsAdminPage() {
                     {filteredAddOns.map(addon => (
                         <div
                             key={addon._id}
-                            className={`bg-white rounded-xl border transition-all ${
-                                addon.available ? 'border-gray-200' : 'border-gray-200 opacity-60'
+                            className={`bg-card rounded-xl border transition-all ${
+                                addon.available ? 'border-border' : 'border-border opacity-60'
                             }`}
                         >
                             {/* Main Row */}
                             <div className="p-4 flex items-center gap-4">
                                 {/* Icon */}
                                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                                    addon.available ? 'bg-emerald-100 text-primary' : 'bg-gray-100 text-gray-400'
+                                    addon.available ? 'bg-emerald-100 text-primary' : 'bg-gray-100 text-muted-foreground'
                                 }`}>
                                     <IconComponent iconName={addon.icon} />
                                 </div>
@@ -573,25 +573,25 @@ export default function AddOnsAdminPage() {
                                 {/* Info */}
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-2">
-                                        <h3 className="font-semibold text-gray-900">{addon.name}</h3>
+                                        <h3 className="font-semibold text-foreground">{addon.name}</h3>
                                         {addon.popular && (
                                             <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">
                                                 Popular
                                             </span>
                                         )}
                                         {!addon.available && (
-                                            <span className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-bold rounded-full">
+                                            <span className="px-2 py-0.5 bg-gray-100 text-muted-foreground text-xs font-bold rounded-full">
                                                 Hidden
                                             </span>
                                         )}
                                     </div>
-                                    <p className="text-sm text-gray-500 truncate">{addon.description}</p>
+                                    <p className="text-sm text-muted-foreground truncate">{addon.description}</p>
                                 </div>
 
                                 {/* Price */}
                                 <div className="text-right shrink-0">
-                                    <p className="font-bold text-gray-900">€{addon.price}</p>
-                                    <p className="text-xs text-gray-500">
+                                    <p className="font-bold text-foreground">€{addon.price}</p>
+                                    <p className="text-xs text-muted-foreground">
                                         {addon.pricingType === 'perPerson' ? 'per person' : 
                                          addon.pricingType === 'perHour' ? `per hour (${addon.minHours || 1}-${addon.maxHours || 8}h)` : 
                                          'per booking'}
@@ -600,7 +600,7 @@ export default function AddOnsAdminPage() {
 
                                 {/* Category */}
                                 <div className="hidden md:block shrink-0">
-                                    <span className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-lg">
+                                    <span className="px-3 py-1 bg-gray-100 text-muted-foreground text-sm rounded-lg">
                                         {CATEGORIES.find(c => c.value === addon.category)?.label || addon.category}
                                     </span>
                                 </div>
@@ -612,7 +612,7 @@ export default function AddOnsAdminPage() {
                                         className={`p-2 rounded-lg transition-colors ${
                                             addon.available 
                                                 ? 'text-primary hover:bg-background' 
-                                                : 'text-gray-400 hover:bg-gray-100'
+                                                : 'text-muted-foreground hover:bg-gray-100'
                                         }`}
                                         title={addon.available ? 'Hide' : 'Show'}
                                     >
@@ -620,21 +620,21 @@ export default function AddOnsAdminPage() {
                                     </button>
                                     <button
                                         onClick={() => startEdit(addon)}
-                                        className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                        className="p-2 text-muted-foreground hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                                         title="Edit"
                                     >
                                         <Edit2 className="w-5 h-5" />
                                     </button>
                                     <button
                                         onClick={() => setDeleteConfirm(addon._id!)}
-                                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                        className="p-2 text-muted-foreground hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                                         title="Delete"
                                     >
                                         <Trash2 className="w-5 h-5" />
                                     </button>
                                     <button
                                         onClick={() => setExpandedId(expandedId === addon._id ? null : addon._id!)}
-                                        className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition-colors"
+                                        className="p-2 text-muted-foreground hover:text-muted-foreground rounded-lg transition-colors"
                                     >
                                         {expandedId === addon._id ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                                     </button>
@@ -643,29 +643,29 @@ export default function AddOnsAdminPage() {
 
                             {/* Expanded Details */}
                             {expandedId === addon._id && (
-                                <div className="px-4 pb-4 border-t border-gray-100 pt-4">
+                                <div className="px-4 pb-4 border-t border-border pt-4">
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                                         <div>
-                                            <span className="text-gray-500">ID:</span>
-                                            <code className="ml-2 text-gray-900 font-mono">{typeof addon.id === 'object' ? addon.id?.current : addon.id}</code>
+                                            <span className="text-muted-foreground">ID:</span>
+                                            <code className="ml-2 text-foreground font-mono">{typeof addon.id === 'object' ? addon.id?.current : addon.id}</code>
                                         </div>
                                         <div>
-                                            <span className="text-gray-500">Sort Order:</span>
-                                            <span className="ml-2 text-gray-900">{addon.sortOrder}</span>
+                                            <span className="text-muted-foreground">Sort Order:</span>
+                                            <span className="ml-2 text-foreground">{addon.sortOrder}</span>
                                         </div>
                                         <div>
-                                            <span className="text-gray-500">Icon:</span>
-                                            <span className="ml-2 text-gray-900">{addon.icon}</span>
+                                            <span className="text-muted-foreground">Icon:</span>
+                                            <span className="ml-2 text-foreground">{addon.icon}</span>
                                         </div>
                                         <div>
-                                            <span className="text-gray-500">Category:</span>
-                                            <span className="ml-2 text-gray-900">{addon.category}</span>
+                                            <span className="text-muted-foreground">Category:</span>
+                                            <span className="ml-2 text-foreground">{addon.category}</span>
                                         </div>
                                     </div>
                                     {addon.longDescription && (
-                                        <div className="mt-3 pt-3 border-t border-gray-100">
-                                            <span className="text-gray-500 text-sm">Long Description:</span>
-                                            <p className="text-gray-700 text-sm mt-1">{addon.longDescription}</p>
+                                        <div className="mt-3 pt-3 border-t border-border">
+                                            <span className="text-muted-foreground text-sm">Long Description:</span>
+                                            <p className="text-foreground text-sm mt-1">{addon.longDescription}</p>
                                         </div>
                                     )}
                                 </div>
@@ -689,7 +689,7 @@ export default function AddOnsAdminPage() {
                                                     </button>
                                                     <button
                                                         onClick={() => setDeleteConfirm(null)}
-                                                        className="px-4 py-2 text-gray-600 text-sm font-medium hover:bg-gray-100 rounded-lg transition-colors"
+                                                        className="px-4 py-2 text-muted-foreground text-sm font-medium hover:bg-gray-100 rounded-lg transition-colors"
                                                     >
                                                         Cancel
                                                     </button>

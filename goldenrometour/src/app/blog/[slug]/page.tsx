@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
 
                     <div className="relative z-10 container mx-auto px-4 text-center max-w-4xl pt-20">
-                        <div className="flex items-center justify-center gap-4 text-emerald-300 font-bold tracking-widest uppercase mb-6 text-sm">
+                        <div className="flex items-center justify-center gap-4 text-emerald-300 font-bold tracking-widest  mb-6 text-sm">
                             <Link href="/blog" className="hover:text-white transition-colors flex items-center gap-2">
                                 <ArrowLeft className="w-4 h-4" /> Back to Blog
                             </Link>
@@ -102,7 +102,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <div className="container mx-auto px-4 -mt-20 relative z-20">
                     <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 lg:p-16 max-w-4xl mx-auto border border-emerald-50">
                         {/* Excerpt */}
-                        <div className="text-xl md:text-2xl font-serif text-emerald-900 leading-relaxed mb-12 border-l-4 border-olive pl-6 italic">
+                        <div className="text-xl md:text-2xl font-serif text-emerald-900 leading-relaxed mb-12 border-l-4 border-olive pl-6 ">
                             {post.excerpt}
                         </div>
 
@@ -139,7 +139,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                                             h2: ({ children }) => <h2 className="text-3xl font-bold mt-12 mb-6 border-b border-emerald-100 pb-2">{children}</h2>,
                                             h3: ({ children }) => <h3 className="text-2xl font-bold mt-8 mb-4 text-emerald-800">{children}</h3>,
                                             blockquote: ({ children }) => (
-                                                <blockquote className="border-l-4 border-emerald-500 pl-4 py-2 my-8 bg-emerald-50 rounded-r-lg italic text-emerald-900 shadow-inner">
+                                                <blockquote className="border-l-4 border-emerald-500 pl-4 py-2 my-8 bg-emerald-50 rounded-r-lg  text-emerald-900 shadow-inner">
                                                     {children}
                                                 </blockquote>
                                             ),
@@ -167,7 +167,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                         {/* Keywords / Tags */}
                         {post.keywords && post.keywords.length > 0 && (
                             <div className="mt-16 pt-8 border-t border-gray-100">
-                                <h4 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Related Topics</h4>
+                                <h4 className="text-sm font-bold text-gray-400  tracking-widest mb-4">Related Topics</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {post.keywords.map((keyword, i) => (
                                         <span key={i} className="px-4 py-1.5 bg-gray-100 text-gray-600 rounded-full text-sm font-medium hover:bg-emerald-100 hover:text-emerald-800 transition-colors cursor-pointer capitalize">

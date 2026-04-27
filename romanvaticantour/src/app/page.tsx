@@ -65,21 +65,21 @@ export default async function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
                 <div className="absolute top-8 left-8">
-                    <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">Featured Experience</span>
+                    <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold  tracking-widest shadow-lg">Featured Experience</span>
                 </div>
               </div>
               <div className="flex flex-col justify-center gap-6 py-8">
-                <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground leading-[1.1] italic uppercase tracking-tighter">
+                <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground leading-[1.1]   tracking-tighter">
                     {featuredTour.title}
                 </SplitText>
                 <p className="font-sans text-lg text-muted-foreground leading-[1.6] max-w-lg font-medium">
                   {featuredTour.description ? (typeof featuredTour.description === 'string' ? featuredTour.description.slice(0, 200) : 'Experience Rome like never before with our expert-led historian tours.') : 'Experience Rome like never before with our expert-led historian tours.'}...
                 </p>
                 <div className="not-prose flex items-center gap-4 mt-4">
-                  <Link href={`/tour/${featuredTour.slug.current}`} className="bg-primary hover:bg-primary/90 text-white font-bold px-10 py-4 rounded-full uppercase tracking-widest text-xs transition-all shadow-xl hover:-translate-y-1 active:scale-95">
+                  <Link href={`/tour/${featuredTour.slug.current}`} className="bg-primary hover:bg-primary/90 text-white font-bold px-10 py-4 rounded-full  tracking-widest text-xs transition-all shadow-xl hover:-translate-y-1 active:scale-95">
                     Get Started
                   </Link>
-                  <Link href="/search" className="text-foreground hover:text-primary font-bold uppercase tracking-widest text-xs flex items-center gap-2 group transition-colors">
+                  <Link href="/search" className="text-foreground hover:text-primary font-bold  tracking-widest text-xs flex items-center gap-2 group transition-colors">
                     Learn More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
@@ -96,11 +96,11 @@ export default async function Home() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
                 <div className="max-w-xl">
-                  <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-2">Exclusive Access</p>
-                  <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground leading-tight uppercase italic">The Vatican Collection</SplitText>
+                  <p className="text-[10px] font-sans font-bold  tracking-[0.4em] text-primary mb-2">Exclusive Access</p>
+                  <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground leading-tight  ">The Vatican Collection</SplitText>
                   <p className="mt-4 text-base text-muted-foreground font-sans font-medium">Secure your skip-the-line access to the Sistine Chapel, Museums, and St. Peter's Basilica before they sell out.</p>
                 </div>
-                <Link href="/category/vatican" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-[10px] font-sans font-black uppercase tracking-widest rounded-full hover:bg-primary/90 transition-all shadow-md shrink-0">
+                <Link href="/category/vatican" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-[10px] font-sans font-bold  tracking-widest rounded-full hover:bg-primary/90 transition-all shadow-md shrink-0">
                   View All Vatican Tours <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -120,17 +120,17 @@ export default async function Home() {
                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                   <div className="space-y-8">
                      <div>
-                        <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4">Our Methodology</p>
-                        <SplitText className="text-5xl md:text-7xl font-serif font-black tracking-tighter leading-[0.9] uppercase italic text-background">Historian-Led Archives.</SplitText>
+                        <p className="text-primary font-bold  tracking-[0.4em] text-[10px] mb-4">Our Methodology</p>
+                        <SplitText className="text-5xl md:text-7xl font-serif font-bold tracking-tighter leading-[0.9]   text-background">Historian-Led Archives.</SplitText>
                      </div>
-                     <p className="text-lg md:text-xl text-background/80 font-serif italic leading-relaxed">
+                     <p className="text-lg md:text-xl text-background/80 font-serif  leading-relaxed">
                         "We believe Rome shouldn't just be seen—it should be decoded. Our guides are accredited art historians who reveal the hidden political and artistic messages within the Vatican's walls."
                      </p>
                      <div className="flex items-center gap-4">
                         <img src="https://i.pravatar.cc/150?img=11" className="w-16 h-16 rounded-full border-2 border-primary shadow-xl" alt="Lead Historian" />
                         <div>
-                           <p className="font-serif font-bold text-xl italic leading-none">Marco Valerio</p>
-                           <p className="text-[10px] uppercase tracking-[0.2em] font-black text-primary mt-1">Chief Archivist & Art Historian</p>
+                           <p className="font-serif font-bold text-xl  leading-none">Marco Valerio</p>
+                           <p className="text-[10px]  tracking-[0.2em] font-bold text-primary mt-1">Chief Archivist & Art Historian</p>
                         </div>
                      </div>
                   </div>
@@ -139,15 +139,15 @@ export default async function Home() {
                         <img src={`${R2}/pexels-nastiz-12604242.jpg`} className="rounded-2xl aspect-[3/4] object-cover shadow-2xl" alt="Museum detail" />
                         <div className="bg-primary/20 backdrop-blur-md p-6 rounded-2xl border border-white/10">
                            <BookOpen className="text-primary w-8 h-8 mb-4" />
-                           <p className="text-xs font-black uppercase tracking-widest text-primary mb-1">Deep Research</p>
-                           <p className="text-[10px] text-background/40 font-sans uppercase">Every route is pressure-tested for flow and light.</p>
+                           <p className="text-xs font-bold  tracking-widest text-primary mb-1">Deep Research</p>
+                           <p className="text-[10px] text-background/40 font-sans ">Every route is pressure-tested for flow and light.</p>
                         </div>
                      </div>
                      <div className="space-y-4">
-                        <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10">
+                        <div className="bg-card/5 backdrop-blur-md p-6 rounded-2xl border border-white/10">
                            <UserCheck className="text-primary w-8 h-8 mb-4" />
-                           <p className="text-xs font-black uppercase tracking-widest text-primary mb-1">Accredited</p>
-                           <p className="text-[10px] text-background/40 font-sans uppercase">Vetted by the Italian Ministry of Culture.</p>
+                           <p className="text-xs font-bold  tracking-widest text-primary mb-1">Accredited</p>
+                           <p className="text-[10px] text-background/40 font-sans ">Vetted by the Italian Ministry of Culture.</p>
                         </div>
                         <img src={`${R2}/pexels-alex-250137-757239.jpg`} className="rounded-2xl aspect-[3/4] object-cover shadow-2xl" alt="Ancient Rome" />
                      </div>
@@ -164,8 +164,8 @@ export default async function Home() {
          <section className="py-24 bg-muted/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                <div className="text-center mb-16 max-w-2xl mx-auto">
-                  <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Preparation Protocol</p>
-                  <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground leading-tight italic uppercase justify-center">Vatican Entry Requirements</SplitText>
+                  <p className="text-[10px] font-sans font-bold  tracking-[0.4em] text-primary mb-3">Preparation Protocol</p>
+                  <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground leading-tight   justify-center">Vatican Entry Requirements</SplitText>
                </div>
                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {[
@@ -177,7 +177,7 @@ export default async function Home() {
                         <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto text-primary">
                            <item.icon size={28} />
                         </div>
-                        <h4 className="text-xl font-serif font-bold text-foreground uppercase italic">{item.title}</h4>
+                        <h4 className="text-xl font-serif font-bold text-foreground  ">{item.title}</h4>
                         <p className="text-sm text-muted-foreground font-sans font-medium">{item.desc}</p>
                      </div>
                   ))}
@@ -192,13 +192,13 @@ export default async function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
-                <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Simple Process</p>
-                <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6 leading-tight uppercase italic">How to Secure Your Priority Access</SplitText>
+                <p className="text-[10px] font-sans font-bold  tracking-[0.4em] text-primary mb-3">Simple Process</p>
+                <SplitText className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6 leading-tight  ">How to Secure Your Priority Access</SplitText>
                 <p className="text-base text-muted-foreground mb-12 font-sans max-w-md font-medium">From browsing to receiving your verified tickets — our encrypted booking flow takes less than 3 minutes.</p>
                 <div className="space-y-8">
                   {HOW_TO_STEPS.map((step, i) => (
                     <div key={i} className="flex gap-6 group">
-                      <div className="shrink-0 w-14 h-14 rounded-2xl bg-muted/40 border border-border flex items-center justify-center font-serif font-black text-primary text-xl shadow-sm group-hover:bg-primary group-hover:text-white transition-colors duration-300 italic">{step.num}</div>
+                      <div className="shrink-0 w-14 h-14 rounded-2xl bg-muted/40 border border-border flex items-center justify-center font-serif font-bold text-primary text-xl shadow-sm group-hover:bg-primary group-hover:text-white transition-colors duration-300 ">{step.num}</div>
                       <div className="pt-1">
                         <h3 className="text-xl font-serif font-bold text-foreground mb-2">{step.title}</h3>
                         <p className="text-sm text-muted-foreground leading-relaxed font-sans font-medium">{step.desc}</p>
@@ -216,8 +216,8 @@ export default async function Home() {
                       <Zap className="w-6 h-6 text-white fill-white" />
                     </div>
                     <div>
-                      <p className="text-sm font-sans font-black uppercase tracking-widest text-foreground mb-1">Instant Delivery</p>
-                      <p className="text-xs text-muted-foreground font-sans font-black uppercase tracking-tighter opacity-60">Transmission Nominal // 0.2s</p>
+                      <p className="text-sm font-sans font-bold  tracking-widest text-foreground mb-1">Instant Delivery</p>
+                      <p className="text-xs text-muted-foreground font-sans font-bold  tracking-tighter opacity-60">Transmission Nominal // 0.2s</p>
                     </div>
                   </div>
                 </div>
@@ -231,8 +231,8 @@ export default async function Home() {
       <AnimatedSection delay={0.1}>
         <section className="py-24 bg-muted/20 border-y border-border">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Authorized Provider</p>
-            <SplitText className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-16 uppercase italic justify-center">Licensed Travel Platform</SplitText>
+            <p className="text-[10px] font-sans font-bold  tracking-[0.4em] text-primary mb-3">Authorized Provider</p>
+            <SplitText className="text-3xl md:text-4xl font-serif font-bold text-foreground mb-16   justify-center">Licensed Travel Platform</SplitText>
             <TrustBadges />
           </div>
         </section>
@@ -244,8 +244,8 @@ export default async function Home() {
           <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="text-center mb-16">
-              <p className="text-[10px] font-sans font-black uppercase tracking-[0.4em] text-primary mb-3">Verified Feedback</p>
-              <SplitText className="text-4xl md:text-5xl font-serif font-bold mb-6 italic uppercase tracking-tighter text-background justify-center">Guest Log Archives</SplitText>
+              <p className="text-[10px] font-sans font-bold  tracking-[0.4em] text-primary mb-3">Verified Feedback</p>
+              <SplitText className="text-4xl md:text-5xl font-serif font-bold mb-6   tracking-tighter text-background justify-center">Guest Log Archives</SplitText>
               <div className="flex items-center justify-center gap-2 mb-8 text-primary">
                  <Star className="w-5 h-5 fill-current" />
                  <Star className="w-5 h-5 fill-current" />
@@ -265,10 +265,10 @@ export default async function Home() {
                      <div className="flex items-center gap-1 mb-4 text-primary">
                         {[...Array(review.rating)].map((_, idx) => <Star key={idx} className="w-4 h-4 fill-current" />)}
                      </div>
-                     <p className="text-background/80 italic font-serif leading-relaxed mb-8 text-lg">"{review.text}"</p>
+                     <p className="text-background/80  font-serif leading-relaxed mb-8 text-lg">"{review.text}"</p>
                      <div className="flex justify-between items-center mt-auto border-t border-white/5 pt-6">
-                        <span className="font-bold text-sm uppercase tracking-widest text-primary">{review.author}</span>
-                        <span className="text-[10px] uppercase tracking-widest opacity-40">{review.date}</span>
+                        <span className="font-bold text-sm  tracking-widest text-primary">{review.author}</span>
+                        <span className="text-[10px]  tracking-widest opacity-40">{review.date}</span>
                      </div>
                   </div>
                ))}
@@ -279,7 +279,7 @@ export default async function Home() {
                   href="https://www.google.com/maps/place/Roman+Vatican+Tour+S.R.L.S/@41.9072162,12.4566341,17z/data=!3m1!4b1!4m6!3m5!1s0x132f618ae0168875:0xfd29b1c14213fe3!8m2!3d41.9072162!4d12.4566341!16s%2Fg%2F11w81zhl56" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-10 py-5 bg-background text-foreground font-black uppercase tracking-widest text-[10px] rounded-full hover:bg-primary hover:text-white transition-all shadow-xl hover:-translate-y-1"
+                  className="inline-flex items-center gap-3 px-10 py-5 bg-background text-foreground font-bold  tracking-widest text-[10px] rounded-full hover:bg-primary hover:text-white transition-all shadow-xl hover:-translate-y-1"
                >
                   Read all Google Reviews <ExternalLink className="w-4 h-4" />
                </a>
@@ -295,10 +295,10 @@ export default async function Home() {
             <div className="container mx-auto px-6">
               <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
                 <div>
-                  <p className="text-primary font-bold uppercase tracking-widest text-xs mb-3">Travel Guides</p>
+                  <p className="text-primary font-bold  tracking-widest text-xs mb-3">Travel Guides</p>
                   <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">From Our Blog</h2>
                 </div>
-                <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest hover:underline shrink-0">
+                <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-bold text-sm  tracking-widest hover:underline shrink-0">
                   All Articles <ArrowRight size={16} />
                 </Link>
               </div>
@@ -313,7 +313,7 @@ export default async function Home() {
                     <div className="p-6 flex flex-col flex-1">
                       <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">{post.title}</h3>
                       <p className="text-sm text-muted-foreground line-clamp-3 mb-4 flex-1">{post.excerpt}</p>
-                      <span className="text-xs font-bold text-primary uppercase tracking-widest flex items-center gap-1">Read More <ArrowRight size={12} /></span>
+                      <span className="text-xs font-bold text-primary  tracking-widest flex items-center gap-1">Read More <ArrowRight size={12} /></span>
                     </div>
                   </Link>
                 ))}

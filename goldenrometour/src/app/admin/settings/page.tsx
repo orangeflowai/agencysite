@@ -524,7 +524,7 @@ export default function SettingsPage() {
                                             type="text"
                                             value={customColors[color.key as keyof typeof customColors] || theme[color.key as keyof typeof theme]}
                                             onChange={(e) => handleColorChange(color.key, e.target.value)}
-                                            className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm font-mono uppercase"
+                                            className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm font-mono "
                                             placeholder="#000000"
                                         />
                                     </div>
@@ -761,11 +761,11 @@ export default function SettingsPage() {
                             </div>
                             <div className="grid grid-cols-2 gap-4 mt-4">
                                 <div className="p-4 bg-gray-50 rounded-xl">
-                                    <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Bookings Table</p>
+                                    <p className="text-xs text-gray-500  tracking-wider mb-1">Bookings Table</p>
                                     <p className="text-lg font-bold text-gray-900">Active</p>
                                 </div>
                                 <div className="p-4 bg-gray-50 rounded-xl">
-                                    <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Inventory Table</p>
+                                    <p className="text-xs text-gray-500  tracking-wider mb-1">Inventory Table</p>
                                     <p className="text-lg font-bold text-gray-900">Active</p>
                                 </div>
                             </div>

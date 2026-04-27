@@ -144,11 +144,11 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+            <div className="bg-card rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
                 {/* Header */}
                 <div className="bg-gradient-to-r from-violet-600 to-indigo-600 p-6 text-white flex justify-between items-start">
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-white/20 rounded-xl">
+                        <div className="p-2 bg-card/20 rounded-xl">
                             <Sparkles className="w-6 h-6" />
                         </div>
                         <div>
@@ -156,7 +156,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                             <p className="text-indigo-100 text-sm">Generate SEO-optimized blog posts with AI</p>
                         </div>
                     </div>
-                    <button onClick={onClose} className="p-2 hover:bg-white/20 rounded-lg transition-colors">
+                    <button onClick={onClose} className="p-2 hover:bg-card/20 rounded-lg transition-colors">
                         <X className="w-5 h-5" />
                     </button>
                 </div>
@@ -166,43 +166,43 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                         {/* Input Panel */}
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                <label className="block text-sm font-semibold text-foreground mb-2">
                                     AI Provider
                                 </label>
                                 <select
                                     value={provider}
                                     onChange={(e) => setProvider(e.target.value)}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
                                 >
                                     {AI_PROVIDERS.map(p => (
                                         <option key={p.id} value={p.id}>{p.name}</option>
                                     ))}
                                 </select>
-                                <p className="text-xs text-gray-500 mt-1">
+                                <p className="text-xs text-muted-foreground mt-1">
                                     {AI_PROVIDERS.find(p => p.id === provider)?.desc}
                                 </p>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                <label className="block text-sm font-semibold text-foreground mb-2">
                                     Model Quality
                                 </label>
                                 <select
                                     value={model}
                                     onChange={(e) => setModel(e.target.value)}
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
                                 >
                                     <option value="fast">🚀 Fast (Good for testing)</option>
                                     <option value="balanced">⚖️ Balanced (Recommended)</option>
                                     <option value="powerful">🧠 Powerful (Best quality)</option>
                                 </select>
-                                <p className="text-xs text-gray-500 mt-1">
+                                <p className="text-xs text-muted-foreground mt-1">
                                     Higher quality uses more tokens but writes better content
                                 </p>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                <label className="block text-sm font-semibold text-foreground mb-2">
                                     Blog Topic *
                                 </label>
                                 <input
@@ -210,12 +210,12 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                     value={topic}
                                     onChange={(e) => setTopic(e.target.value)}
                                     placeholder="e.g., Best time to visit Vatican Museums"
-                                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
+                                    className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                <label className="block text-sm font-semibold text-foreground mb-2">
                                     Keywords (comma-separated)
                                 </label>
                                 <div className="flex gap-2">
@@ -224,7 +224,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                         value={keywords}
                                         onChange={(e) => setKeywords(e.target.value)}
                                         placeholder="vatican, rome, museums, tickets"
-                                        className="flex-1 px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
+                                        className="flex-1 px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
                                     />
                                     <button
                                         onClick={extractKeywords}
@@ -250,7 +250,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                                 <button
                                                     key={i}
                                                     onClick={() => addKeyword(kw)}
-                                                    className="px-2 py-1 bg-white text-violet-700 text-xs rounded-full border border-violet-200 hover:border-violet-400 transition-colors"
+                                                    className="px-2 py-1 bg-card text-violet-700 text-xs rounded-full border border-violet-200 hover:border-violet-400 transition-colors"
                                                 >
                                                     + {kw}
                                                 </button>
@@ -262,11 +262,11 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Tone</label>
+                                    <label className="block text-sm font-semibold text-foreground mb-2">Tone</label>
                                     <select
                                         value={tone}
                                         onChange={(e) => setTone(e.target.value)}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
+                                        className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
                                     >
                                         <option value="informative">Informative</option>
                                         <option value="conversational">Conversational</option>
@@ -275,11 +275,11 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Length</label>
+                                    <label className="block text-sm font-semibold text-foreground mb-2">Length</label>
                                     <select
                                         value={length}
                                         onChange={(e) => setLength(e.target.value)}
-                                        className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
+                                        className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-violet-500 outline-none"
                                     >
                                         <option value="short">Short (~500 words)</option>
                                         <option value="medium">Medium (~1000 words)</option>
@@ -308,9 +308,9 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                         </div>
 
                         {/* Preview Panel */}
-                        <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                        <div className="bg-muted rounded-xl p-4 border border-border">
                             <div className="flex items-center justify-between mb-4">
-                                <h3 className="font-semibold text-gray-900">Preview</h3>
+                                <h3 className="font-semibold text-foreground">Preview</h3>
                                 {result && (
                                     <div className="flex items-center gap-3">
                                         {/* SEO Score Badge */}
@@ -321,14 +321,14 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={copyToClipboard}
-                                                className="p-2 hover:bg-gray-200 rounded-lg transition-colors text-gray-600"
+                                                className="p-2 hover:bg-gray-200 rounded-lg transition-colors text-muted-foreground"
                                                 title="Copy JSON"
                                             >
                                                 {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                                             </button>
                                             <button
                                                 onClick={generateContent}
-                                                className="p-2 hover:bg-gray-200 rounded-lg transition-colors text-gray-600"
+                                                className="p-2 hover:bg-gray-200 rounded-lg transition-colors text-muted-foreground"
                                                 title="Regenerate"
                                             >
                                                 <RefreshCw className="w-4 h-4" />
@@ -339,7 +339,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                             </div>
 
                             {!result && !loading && (
-                                <div className="h-64 flex items-center justify-center text-gray-400">
+                                <div className="h-64 flex items-center justify-center text-muted-foreground">
                                     <div className="text-center">
                                         <Sparkles className="w-12 h-12 mx-auto mb-3 opacity-30" />
                                         <p>Your generated content will appear here</p>
@@ -351,8 +351,8 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                 <div className="h-64 flex items-center justify-center">
                                     <div className="text-center">
                                         <Loader2 className="w-12 h-12 mx-auto mb-3 animate-spin text-violet-600" />
-                                        <p className="text-gray-600">AI is writing your blog post...</p>
-                                        <p className="text-sm text-gray-400 mt-1">This may take 10-30 seconds</p>
+                                        <p className="text-muted-foreground">AI is writing your blog post...</p>
+                                        <p className="text-sm text-muted-foreground mt-1">This may take 10-30 seconds</p>
                                     </div>
                                 </div>
                             )}
@@ -360,21 +360,21 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                             {result && !loading && (
                                 <div className="space-y-4 max-h-[500px] overflow-y-auto">
                                     <div>
-                                        <label className="text-xs font-semibold text-gray-500 uppercase">Title</label>
-                                        <p className="font-bold text-lg text-gray-900">{result.title}</p>
+                                        <label className="text-xs font-semibold text-muted-foreground ">Title</label>
+                                        <p className="font-bold text-lg text-foreground">{result.title}</p>
                                         {result.title.length > 60 && (
                                             <p className="text-amber-600 text-xs mt-1">⚠️ Title is {result.title.length} chars (recommended: &lt;60)</p>
                                         )}
                                     </div>
                                     <div>
-                                        <label className="text-xs font-semibold text-gray-500 uppercase">Meta Description</label>
-                                        <p className="text-gray-700 text-sm leading-relaxed">{result.metaDescription}</p>
+                                        <label className="text-xs font-semibold text-muted-foreground ">Meta Description</label>
+                                        <p className="text-foreground text-sm leading-relaxed">{result.metaDescription}</p>
                                         {result.metaDescription.length > 160 && (
                                             <p className="text-amber-600 text-xs mt-1">⚠️ Description is {result.metaDescription.length} chars (recommended: &lt;160)</p>
                                         )}
                                     </div>
                                     <div>
-                                        <label className="text-xs font-semibold text-gray-500 uppercase">Keywords</label>
+                                        <label className="text-xs font-semibold text-muted-foreground ">Keywords</label>
                                         <div className="flex flex-wrap gap-1 mt-1">
                                             {result.keywords.map((kw: string, i: number) => (
                                                 <span key={i} className="px-2 py-1 bg-violet-100 text-violet-700 text-xs rounded-full">
@@ -386,7 +386,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                     
                                     {/* SEO Features Summary */}
                                     <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                                        <label className="text-xs font-semibold text-green-700 uppercase mb-2 block">SEO Features Included</label>
+                                        <label className="text-xs font-semibold text-green-700  mb-2 block">SEO Features Included</label>
                                         <div className="grid grid-cols-2 gap-2 text-xs">
                                             <div className="flex items-center gap-1.5 text-green-700">
                                                 <Check className="w-3.5 h-3.5" />
@@ -410,7 +410,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                     {/* Suggested Related Tours for Linking */}
                                     {extractedData?.relatedTours?.length > 0 && (
                                         <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
-                                            <label className="text-xs font-semibold text-blue-700 uppercase mb-2 block">
+                                            <label className="text-xs font-semibold text-blue-700  mb-2 block">
                                                 Related Tours for Internal Links
                                             </label>
                                             <div className="space-y-1">
@@ -439,7 +439,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                         if (links.length > 0) {
                                             return (
                                                 <div>
-                                                    <label className="text-xs font-semibold text-gray-500 uppercase">
+                                                    <label className="text-xs font-semibold text-muted-foreground ">
                                                         Links Detected ({links.length})
                                                     </label>
                                                     <div className="mt-1 space-y-1">
@@ -463,14 +463,14 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                     })()}
 
                                     <div>
-                                        <label className="text-xs font-semibold text-gray-500 uppercase">Content Preview</label>
-                                        <div className="mt-2 p-3 bg-white rounded-lg border border-gray-200 text-sm text-gray-700 max-h-48 overflow-y-auto">
+                                        <label className="text-xs font-semibold text-muted-foreground ">Content Preview</label>
+                                        <div className="mt-2 p-3 bg-card rounded-lg border border-border text-sm text-foreground max-h-48 overflow-y-auto">
                                             {result.body.slice(0, 3).map((block: any, i: number) => (
                                                 <p key={i} className="mb-2">
                                                     {block.children?.map((c: any) => c.text).join(' ')}
                                                 </p>
                                             ))}
-                                            <p className="text-gray-400 italic">... {result.body.length - 3} more blocks</p>
+                                            <p className="text-muted-foreground ">... {result.body.length - 3} more blocks</p>
                                         </div>
                                     </div>
                                 </div>
@@ -481,10 +481,10 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
 
                 {/* Footer */}
                 {result && (
-                    <div className="p-4 border-t border-gray-200 bg-gray-50 flex justify-end gap-3">
+                    <div className="p-4 border-t border-border bg-muted flex justify-end gap-3">
                         <button
                             onClick={onClose}
-                            className="px-6 py-2.5 text-gray-700 font-medium hover:bg-gray-200 rounded-xl transition-colors"
+                            className="px-6 py-2.5 text-foreground font-medium hover:bg-gray-200 rounded-xl transition-colors"
                         >
                             Cancel
                         </button>

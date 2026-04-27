@@ -93,31 +93,31 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[calc(100vh-140px)]">
+        <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden flex flex-col h-[calc(100vh-140px)]">
             {/* Header / Toolbar */}
-            <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white z-10">
+            <div className="p-4 border-b border-border flex items-center justify-between bg-card z-10">
                 <div className="flex items-center gap-4">
                     <h2 className="text-xl font-bold text-gray-800 w-48">
                         {format(currentMonth, 'MMMM yyyy')}
                     </h2>
                     <div className="flex bg-gray-100 rounded-lg p-1">
-                        <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-1 hover:bg-white rounded-md transition-shadow shadow-sm hover:shadow">
-                            <ChevronLeft size={20} className="text-gray-600" />
+                        <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-1 hover:bg-card rounded-md transition-shadow shadow-sm hover:shadow">
+                            <ChevronLeft size={20} className="text-muted-foreground" />
                         </button>
-                        <button onClick={() => setCurrentMonth(new Date())} className="px-3 text-xs font-bold text-gray-600 hover:bg-white rounded-md transition-shadow">
+                        <button onClick={() => setCurrentMonth(new Date())} className="px-3 text-xs font-bold text-muted-foreground hover:bg-card rounded-md transition-shadow">
                             Today
                         </button>
-                        <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-1 hover:bg-white rounded-md transition-shadow shadow-sm hover:shadow">
-                            <ChevronRight size={20} className="text-gray-600" />
+                        <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-1 hover:bg-card rounded-md transition-shadow shadow-sm hover:shadow">
+                            <ChevronRight size={20} className="text-muted-foreground" />
                         </button>
                     </div>
                 </div>
 
                 {/* Filters */}
                 <div className="flex items-center gap-2">
-                    <Filter size={16} className="text-gray-400" />
+                    <Filter size={16} className="text-muted-foreground" />
                     <select
-                        className="bg-gray-50 border border-gray-200 text-sm rounded-lg p-2 font-medium text-gray-700 outline-none focus:ring-2 focus:ring-primary"
+                        className="bg-muted border border-border text-sm rounded-lg p-2 font-medium text-foreground outline-none focus:ring-2 focus:ring-primary"
                         value={selectedTourSlug}
                         onChange={(e) => setSelectedTourSlug(e.target.value)}
                     >
@@ -130,9 +130,9 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
             </div>
 
             {/* Calendar Grid */}
-            <div className="grid grid-cols-7 flex-1 overflow-auto bg-gray-100 gap-px border-l border-gray-200">
+            <div className="grid grid-cols-7 flex-1 overflow-auto bg-gray-100 gap-px border-l border-border">
                 {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <div key={day} className="bg-gray-50 p-2 text-center text-xs font-bold text-gray-400 uppercase tracking-wider sticky top-0 z-10 border-b border-gray-200">
+                    <div key={day} className="bg-muted p-2 text-center text-xs font-bold text-muted-foreground  tracking-wider sticky top-0 z-10 border-b border-border">
                         {day}
                     </div>
                 ))}
@@ -149,12 +149,12 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                     return (
                         <div
                             key={day.toString()}
-                            className={`min-h-[140px] bg-white p-2 relative group flex flex-col gap-1 transition-colors
-                                ${!isCurrentMonth ? 'bg-gray-50/50 text-gray-400' : ''}
+                            className={`min-h-[140px] bg-card p-2 relative group flex flex-col gap-1 transition-colors
+                                ${!isCurrentMonth ? 'bg-muted/50 text-muted-foreground' : ''}
                                 ${isToday ? 'bg-background/30' : ''}
                             `}
                         >
-                            <span className={`text-sm font-bold mb-2 ml-1 ${isToday ? 'text-primary' : 'text-gray-700'}`}>
+                            <span className={`text-sm font-bold mb-2 ml-1 ${isToday ? 'text-primary' : 'text-foreground'}`}>
                                 {format(day, 'd')}
                             </span>
 
@@ -181,7 +181,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                                             onClick={() => handleProductClick(tour, dateStr)}
                                             className={`w-full text-left px-2 py-1.5 rounded text-[10px] font-medium border flex items-center justify-between gap-2 transition-all hover:scale-[1.02]
                                                 ${!hasSlots
-                                                    ? 'bg-gray-50 border-transparent text-gray-400 hover:bg-gray-100 hover:border-gray-200'
+                                                    ? 'bg-muted border-transparent text-muted-foreground hover:bg-gray-100 hover:border-border'
                                                     : isSoldOut
                                                         ? 'bg-red-50 border-red-100 text-red-600 hover:border-red-300'
                                                         : 'bg-background border-emerald-100 text-foreground hover:border-emerald-300'
@@ -189,7 +189,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                                             `}
                                         >
                                             <span className="truncate">{tour.title}</span>
-                                            <span className="shrink-0 font-bold bg-white/50 px-1 rounded">
+                                            <span className="shrink-0 font-bold bg-card/50 px-1 rounded">
                                                 {hasSlots ? totalSpots : '-'}
                                             </span>
                                         </button>
@@ -202,7 +202,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
             </div>
 
             {loading && (
-                <div className="absolute inset-0 bg-white/50 flex items-center justify-center z-50">
+                <div className="absolute inset-0 bg-card/50 flex items-center justify-center z-50">
                     <Loader2 className="animate-spin text-primary" />
                 </div>
             )}

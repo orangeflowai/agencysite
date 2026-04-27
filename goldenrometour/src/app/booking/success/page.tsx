@@ -269,7 +269,7 @@ function SuccessContent() {
                                         {/* Guest Names if available */}
                                         {booking.guest_details?.guests && (
                                             <div className="mt-4 pt-4 border-t border-gray-200">
-                                                <p className="text-xs font-medium text-gray-500 uppercase mb-2">Registered Guests</p>
+                                                <p className="text-xs font-medium text-gray-500  mb-2">Registered Guests</p>
                                                 <div className="space-y-1">
                                                     {booking.guest_details.guests.slice(0, 5).map((guest: any, i: number) => (
                                                         <p key={i} className="text-sm text-gray-700">
@@ -390,7 +390,7 @@ function SuccessContent() {
                                         </div>
                                     </div>
                                     <div className="bg-white/20 rounded-lg p-3 text-center">
-                                        <span className="text-xs text-violet-100 uppercase tracking-wide">Your Discount Code</span>
+                                        <span className="text-xs text-violet-100  tracking-wide">Your Discount Code</span>
                                         <p className="text-2xl font-mono font-bold tracking-wider">{calculateDiscountCode()}</p>
                                     </div>
                                     <p className="text-xs text-violet-200 mt-2 text-center">Valid for 6 months • Use at checkout</p>

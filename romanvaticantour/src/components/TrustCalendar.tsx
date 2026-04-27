@@ -49,13 +49,13 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
   }, [selectedDate, selectedTour]);
 
   return (
-    <section className="relative bg-white pb-24 -mt-20 z-30 rounded-t-[3rem] shadow-2xl">
+    <section className="relative bg-card pb-24 -mt-20 z-30 rounded-t-[3rem] shadow-2xl">
       <div className="container mx-auto px-6">
         
         {/* 1. Trust Badges Header */}
         <div className="pt-12 mb-16">
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-black text-neutral-900 mb-4 font-serif">
+            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4 font-serif">
               Why 50,000+ Travelers Trust Us
             </h2>
             <div className="h-1.5 w-24 bg-sky-500 mx-auto rounded-full" />
@@ -74,7 +74,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                   <MapPin size={80} />
                 </div>
                 
-                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-neutral-400 mb-6 flex items-center gap-2">
+                <h3 className="text-sm font-bold  tracking-[0.2em] text-neutral-400 mb-6 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-sky-500" />
                   Your Journey Starts Here
                 </h3>
@@ -82,7 +82,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                 <div className="space-y-8">
                   {/* Location Selector */}
                   <div className="space-y-3">
-                    <label className="text-xs font-black uppercase tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold  tracking-widest text-neutral-500 flex items-center gap-2">
                       <MapPin size={14} className="text-sky-500" />
                       Pick Your Location
                     </label>
@@ -93,7 +93,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                         setSelectedDate(undefined);
                         setSelectedTime('');
                       }}
-                      className="w-full bg-white border border-neutral-200 rounded-2xl px-5 py-4 text-sm font-bold text-neutral-900 focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none cursor-pointer"
+                      className="w-full bg-card border border-neutral-200 rounded-2xl px-5 py-4 text-sm font-bold text-neutral-900 focus:outline-none focus:ring-2 focus:ring-sky-500/20 transition-all appearance-none cursor-pointer"
                     >
                       {tours.map(tour => (
                         <option key={tour._id} value={tour._id}>
@@ -105,13 +105,13 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
 
                   {/* Date Display */}
                   <div className="space-y-3">
-                    <label className="text-xs font-black uppercase tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold  tracking-widest text-neutral-500 flex items-center gap-2">
                       <CalendarIcon size={14} className="text-sky-500" />
                       Selected Date
                     </label>
                     <div className={cn(
                       "w-full rounded-2xl px-5 py-4 text-sm font-bold border transition-all h-[54px] flex items-center",
-                      selectedDate ? "bg-sky-50 border-sky-200 text-sky-700" : "bg-white border-neutral-200 text-neutral-400"
+                      selectedDate ? "bg-sky-50 border-sky-200 text-sky-700" : "bg-card border-neutral-200 text-neutral-400"
                     )}>
                       {selectedDate ? format(selectedDate, 'EEEE, d MMMM yyyy') : 'Pick a date on the calendar'}
                     </div>
@@ -119,7 +119,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
 
                   {/* Time Selection */}
                   <div className="space-y-3">
-                    <label className="text-xs font-black uppercase tracking-widest text-neutral-500 flex items-center gap-2">
+                    <label className="text-xs font-bold  tracking-widest text-neutral-500 flex items-center gap-2">
                       <Clock size={14} className="text-sky-500" />
                       Pick A Time
                     </label>
@@ -134,10 +134,10 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                             key={slot.time}
                             onClick={() => setSelectedTime(slot.time)}
                             className={cn(
-                              "py-3 px-2 rounded-xl text-xs font-black border transition-all",
+                              "py-3 px-2 rounded-xl text-xs font-bold border transition-all",
                               selectedTime === slot.time 
                                 ? "bg-sky-600 border-sky-600 text-white shadow-lg shadow-sky-100" 
-                                : "bg-white border-neutral-200 text-neutral-900 hover:border-sky-300"
+                                : "bg-card border-neutral-200 text-neutral-900 hover:border-sky-300"
                             )}
                           >
                             {slot.time}
@@ -165,7 +165,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                     window.location.href = `/checkout?data=${encodeURIComponent(JSON.stringify(bookingData))}`;
                   }}
                   className={cn(
-                    "w-full mt-10 py-5 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3",
+                    "w-full mt-10 py-5 rounded-2xl font-bold text-sm  tracking-[0.2em] transition-all flex items-center justify-center gap-3",
                     (!selectedDate || !selectedTime)
                       ? "bg-neutral-100 text-neutral-400 cursor-not-allowed"
                       : "bg-neutral-950 text-white hover:bg-sky-600 shadow-xl"
@@ -178,8 +178,8 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
 
               {/* Trust Subtext */}
               <div className="flex items-center gap-4 px-6 opacity-60">
-                <ShieldCheck size={24} className="text-emerald-500" />
-                <p className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
+                <ShieldCheck size={24} className="text-primary" />
+                <p className="text-[10px] font-bold text-neutral-500  tracking-widest">
                   Secure 256-bit encrypted checkout. <br /> Tickets sent instantly.
                 </p>
               </div>
@@ -192,18 +192,18 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                
                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                   <div>
-                    <h3 className="text-2xl font-black text-neutral-900 font-serif">Availability Explorer</h3>
-                    <p className="text-xs font-bold text-neutral-400 uppercase tracking-wider mt-1">
+                    <h3 className="text-2xl font-bold text-neutral-900 font-serif">Availability Explorer</h3>
+                    <p className="text-xs font-bold text-neutral-400  tracking-wider mt-1">
                       Showing live ticket availability for {selectedTour?.title}
                     </p>
                   </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full border border-neutral-200 shadow-sm">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 bg-card rounded-full border border-neutral-200 shadow-sm">
                     <Star size={12} className="fill-amber-400 text-amber-400" />
-                    <span className="text-[10px] font-black text-neutral-900 uppercase">Top Seller this month</span>
+                    <span className="text-[10px] font-bold text-neutral-900 ">Top Seller this month</span>
                   </div>
                </div>
 
-               <div className="bg-white rounded-3xl shadow-xl shadow-neutral-200/50 overflow-hidden transform transition-all group-hover:scale-[1.01]">
+               <div className="bg-card rounded-3xl shadow-xl shadow-neutral-200/50 overflow-hidden transform transition-all group-hover:scale-[1.01]">
                  <SmartCalendar 
                    slug={selectedTour?.slug.current}
                    selectedDate={selectedDate}
@@ -213,19 +213,19 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                </div>
 
                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-4 border border-white flex items-center gap-4">
+                  <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-4 border border-white flex items-center gap-4">
                     <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500">
                       <Info size={20} />
                     </div>
-                    <p className="text-[10px] font-bold text-neutral-500 uppercase tracking-tight leading-relaxed">
+                    <p className="text-[10px] font-bold text-neutral-500  tracking-tight leading-relaxed">
                       Pricing shown includes all booking fees and skip-the-line entrance.
                     </p>
                   </div>
-                  <div className="bg-white/50 backdrop-blur-sm rounded-2xl p-4 border border-white flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-500">
+                  <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-4 border border-white flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-primary">
                       <ShieldCheck size={20} />
                     </div>
-                    <p className="text-[10px] font-bold text-neutral-500 uppercase tracking-tight leading-relaxed">
+                    <p className="text-[10px] font-bold text-neutral-500  tracking-tight leading-relaxed">
                       Instant confirmation. No need to print — mobile tickets accepted.
                     </p>
                   </div>

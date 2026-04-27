@@ -19,7 +19,7 @@ export default function Error({
         <div className="min-h-screen bg-background flex items-center justify-center px-4">
             <div className="max-w-lg w-full text-center space-y-8">
                 <div className="space-y-4">
-                    <p className="text-8xl font-black text-destructive opacity-20 leading-none">500</p>
+                    <p className="text-8xl font-bold text-destructive opacity-20 leading-none">500</p>
                     <h1 className="text-3xl font-bold text-foreground">Something went wrong</h1>
                     <p className="text-base text-muted-foreground leading-relaxed">
                         An unexpected error occurred. Please try again or return to the homepage.

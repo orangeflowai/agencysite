@@ -15,7 +15,7 @@ export default function Disclaimer() {
             <Navbar />
 
             <div className="container mx-auto px-4 py-24 max-w-4xl">
-                <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-8 tracking-tight">Disclaimer</h1>
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8 tracking-tight">Disclaimer</h1>
 
                 <div className="prose prose-lg prose-emerald text-gray-600 max-w-none space-y-8">
                     <p className="lead text-xl text-gray-800 font-medium">

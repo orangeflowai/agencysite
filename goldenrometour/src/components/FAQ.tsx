@@ -48,13 +48,13 @@ export default function FAQ() {
 
             <div className="container mx-auto px-4 max-w-4xl relative z-10">
                 <div className="text-center mb-16">
-                    <span className="font-sans text-[10px] font-black uppercase tracking-[0.4em] text-forest/40 mb-4 block">
+                    <span className="font-sans text-[10px] font-bold  tracking-[0.4em] text-forest/40 mb-4 block">
                         Editorial Support
                     </span>
-                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-forest mb-8 italic">
+                    <h2 className="font-serif text-4xl md:text-5xl font-bold text-forest mb-8 ">
                         The Rome Compendium
                     </h2>
-                    <p className="font-sans text-[11px] md:text-xs font-black uppercase tracking-[0.2em] text-forest/60 max-w-xl mx-auto leading-loose opacity-60">
+                    <p className="font-sans text-[11px] md:text-xs font-bold  tracking-[0.2em] text-forest/60 max-w-xl mx-auto leading-loose opacity-60">
                         Essential insights for your curated exploration of the Eternal City.
                     </p>
                 </div>
@@ -89,7 +89,7 @@ export default function FAQ() {
                                             <HelpCircle size={14} />
                                         </div>
                                         <span className={clsx(
-                                            "font-serif text-lg md:text-2xl font-bold italic transition-colors pr-8 leading-tight",
+                                            "font-serif text-lg md:text-2xl font-bold  transition-colors pr-8 leading-tight",
                                             isOpen ? "text-forest" : "text-forest/80"
                                         )}>
                                             {faq.question}
@@ -113,7 +113,7 @@ export default function FAQ() {
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                         >
                                             <div className="px-6 md:px-10 pb-10 pt-0 pl-6 md:pl-[6.5rem]">
-                                                <p className="font-sans text-xs md:text-sm font-black uppercase tracking-widest text-forest/60 mb-4 opacity-30">Our Guidance:</p>
+                                                <p className="font-sans text-xs md:text-sm font-bold  tracking-widest text-forest/60 mb-4 opacity-30">Our Guidance:</p>
                                                 <p className="font-sans text-[11px] md:text-sm leading-[2] text-forest/70 font-medium">
                                                     {faq.answer}
                                                 </p>

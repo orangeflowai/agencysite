@@ -149,10 +149,10 @@ export default function Hero({ settings }: HeroProps) {
         <div className="max-w-3xl space-y-8">
 
           <div
-            className="hero-reveal inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-white/90 text-xs font-semibold uppercase tracking-widest"
+            className="hero-reveal inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-white/90 text-xs font-semibold  tracking-widest"
             style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}
           >
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             New VIP Access Routes Available
           </div>
 
@@ -161,7 +161,7 @@ export default function Hero({ settings }: HeroProps) {
             {settings?.heroTitle || (
               <>
                 The Vatican.<br />
-                <span className="text-emerald-400 italic font-serif">Skip the line,</span><br />
+                <span className="text-accent  font-serif">Skip the line,</span><br />
                 own the moment.
               </>
             )}
@@ -176,14 +176,14 @@ export default function Hero({ settings }: HeroProps) {
           <div className="hero-reveal flex flex-col sm:flex-row gap-4">
             <Link
               href="/search"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white rounded-xl transition-all hover:scale-105 hover:shadow-2xl bg-emerald-600"
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold  tracking-widest text-white rounded-xl transition-all hover:scale-105 hover:shadow-2xl bg-primary"
             >
               Browse All Tours
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
               href="#vatican"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white rounded-xl transition-all border border-white/25 hover:bg-white/10"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm font-bold  tracking-widest text-white rounded-xl transition-all border border-white/25 hover:bg-card/10"
               style={{ backdropFilter: 'blur(12px)', background: 'rgba(255,255,255,0.08)' }}
             >
               View Bestsellers
@@ -215,11 +215,11 @@ export default function Hero({ settings }: HeroProps) {
             style={{ background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}
           >
             <div className="flex items-center gap-2 mb-4">
-              <CheckCircle2 size={16} className="text-emerald-400" />
+              <CheckCircle2 size={16} className="text-accent" />
               <span className="text-white font-semibold text-sm">Find Your Tour</span>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <div className="flex-[2] bg-white rounded-xl border border-white/30 flex items-center px-4 py-3 gap-2 shadow-sm">
+              <div className="flex-[2] bg-card rounded-xl border border-white/30 flex items-center px-4 py-3 gap-2 shadow-sm">
                 <Search size={15} className="text-neutral-400 shrink-0" />
                 <input
                   type="text"
@@ -230,7 +230,7 @@ export default function Hero({ settings }: HeroProps) {
                   onKeyDown={e => e.key === 'Enter' && handleSearch()}
                 />
               </div>
-              <div className="flex-1 bg-white rounded-xl border border-white/30 flex items-center px-4 py-3 shadow-sm">
+              <div className="flex-1 bg-card rounded-xl border border-white/30 flex items-center px-4 py-3 shadow-sm">
                 <input
                   type="date"
                   className="w-full bg-transparent outline-none text-sm font-medium text-neutral-600 font-sans"
@@ -240,7 +240,7 @@ export default function Hero({ settings }: HeroProps) {
               </div>
               <button
                 onClick={handleSearch}
-                className="shrink-0 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:scale-105 active:scale-95 shadow-lg bg-emerald-600 border border-emerald-500/50"
+                className="shrink-0 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:scale-105 active:scale-95 shadow-lg bg-primary border border-emerald-500/50"
               >
                 Search
               </button>
@@ -257,7 +257,7 @@ export default function Hero({ settings }: HeroProps) {
               style={{ background: 'rgba(255,255,255,0.08)', backdropFilter: 'blur(10px)' }}
             >
               <span className="font-bold text-lg text-white">{s.value}</span>
-              <span className="text-xs uppercase tracking-widest text-white/50">{s.label}</span>
+              <span className="text-xs  tracking-widest text-white/50">{s.label}</span>
             </div>
           ))}
         </div>
@@ -265,9 +265,9 @@ export default function Hero({ settings }: HeroProps) {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-50">
-        <span className="text-white text-[10px] uppercase tracking-[0.15em] font-medium">Scroll</span>
+        <span className="text-white text-[10px]  tracking-[0.15em] font-medium">Scroll</span>
         <div className="w-4 h-7 border border-white/40 rounded-full flex items-start justify-center p-1">
-          <div className="w-0.5 h-2 bg-white rounded-full animate-bounce" />
+          <div className="w-0.5 h-2 bg-card rounded-full animate-bounce" />
         </div>
       </div>
     </section>

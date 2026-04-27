@@ -27,7 +27,7 @@ export default function RomeGallery() {
             className="flex items-center gap-4 mb-6"
           >
             <div className="h-px w-12 bg-gold/30"></div>
-            <span className="font-sans text-[10px] uppercase font-black tracking-[0.5em] text-gold/60">
+            <span className="font-sans text-[10px]  font-bold tracking-[0.5em] text-gold/60">
                Visual Documentation
             </span>
           </motion.div>
@@ -39,7 +39,7 @@ export default function RomeGallery() {
             className="font-serif text-6xl md:text-8xl text-cream font-bold leading-tight"
           >
             A Study of the <br />
-            <span className="italic text-gold">Eternal Archive.</span>
+            <span className=" text-gold">Eternal Archive.</span>
           </motion.h2>
         </div>
       </div>
@@ -63,8 +63,8 @@ export default function RomeGallery() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-forest to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
             <div className="absolute bottom-10 left-10 z-20">
-                <span className="font-sans text-[10px] font-black uppercase tracking-widest text-gold mb-2 block">Plate 01</span>
-                <p className="font-serif text-3xl text-cream font-bold italic">{images[0].alt}</p>
+                <span className="font-sans text-[10px] font-bold  tracking-widest text-gold mb-2 block">Plate 01</span>
+                <p className="font-serif text-3xl text-cream font-bold ">{images[0].alt}</p>
             </div>
           </motion.div>
 
@@ -123,7 +123,7 @@ export default function RomeGallery() {
           >
             <Image src={images[4].src} alt={images[4].alt} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
             <div className="absolute bottom-6 right-6">
-                <p className="font-sans text-[8px] font-black uppercase tracking-[0.4em] text-gold/80">Archival Series III</p>
+                <p className="font-sans text-[8px] font-bold  tracking-[0.4em] text-gold/80">Archival Series III</p>
             </div>
           </motion.div>
 

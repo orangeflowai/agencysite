@@ -101,7 +101,7 @@ export default function Hero({ settings }: HeroProps) {
                 <div ref={textRef} className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-16 xl:p-24 space-y-12 relative z-10 border-r border-[#555B02]/10 bg-[#F5F0E8]/80 backdrop-blur-sm">
                     <div className="hero-text-line flex items-center gap-4">
                         <div className="w-12 h-px bg-[#555B02]"></div>
-                        <span className="font-sans font-black text-[10px] uppercase tracking-[0.5em] text-[#555B02]/60">
+                        <span className="font-sans font-bold text-[10px]  tracking-[0.5em] text-[#555B02]/60">
                             Boutique Travel Concierge
                         </span>
                     </div>
@@ -111,17 +111,17 @@ export default function Hero({ settings }: HeroProps) {
                             {settings?.heroTitle || "A Rare Path Through Rome."}
                         </h1>
 
-                        <p className="hero-text-line font-sans text-xl md:text-2xl text-[#1A1210] max-w-xl leading-relaxed opacity-70 italic font-serif">
+                        <p className="hero-text-line font-sans text-xl md:text-2xl text-[#1A1210] max-w-xl leading-relaxed opacity-70  font-serif">
                             {settings?.heroSubtitle || "We avoid the standard. Our collection of private experiences is selected for those who seek the architectural, the historical, and the genuinely rare."}
                         </p>
                     </div>
 
                     <div className="hero-text-line flex flex-col sm:flex-row gap-6 pt-4">
-                        <Link href="/search" className="group bg-[#555B02] text-[#F5F0E8] px-14 py-6 font-sans font-black uppercase tracking-[0.2em] text-xs hover:scale-105 transition-all flex items-center justify-center gap-4 shadow-2xl shadow-[#555B02]/20">
+                        <Link href="/search" className="group bg-[#555B02] text-[#F5F0E8] px-14 py-6 font-sans font-bold  tracking-[0.2em] text-xs hover:scale-105 transition-all flex items-center justify-center gap-4 shadow-2xl shadow-[#555B02]/20">
                             <span>Explore Collection</span>
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <Link href="/private-tours" className="border border-[#555B02]/20 text-[#555B02] px-14 py-6 font-sans font-black uppercase tracking-[0.2em] text-xs hover:bg-[#555B02]/5 transition-all text-center backdrop-blur-md">
+                        <Link href="/private-tours" className="border border-[#555B02]/20 text-[#555B02] px-14 py-6 font-sans font-bold  tracking-[0.2em] text-xs hover:bg-[#555B02]/5 transition-all text-center backdrop-blur-md">
                             Private Access
                         </Link>
                     </div>
@@ -130,11 +130,11 @@ export default function Hero({ settings }: HeroProps) {
                     <div className="hero-text-line flex items-center gap-16 pt-12 border-t border-[#555B02]/10">
                         <div className="group cursor-default">
                             <p className="font-serif text-3xl font-bold text-[#555B02] group-hover:scale-110 transition-transform origin-left">1987</p>
-                            <p className="font-sans text-[9px] uppercase font-black tracking-[0.3em] text-[#555B02]/40 mt-1">Heritage Agency</p>
+                            <p className="font-sans text-[9px]  font-bold tracking-[0.3em] text-[#555B02]/40 mt-1">Heritage Agency</p>
                         </div>
                         <div className="group cursor-default">
                             <p className="font-serif text-3xl font-bold text-[#555B02] group-hover:scale-110 transition-transform origin-left">32</p>
-                            <p className="font-sans text-[9px] uppercase font-black tracking-[0.3em] text-[#555B02]/40 mt-1">Curated Routes</p>
+                            <p className="font-sans text-[9px]  font-bold tracking-[0.3em] text-[#555B02]/40 mt-1">Curated Routes</p>
                         </div>
                     </div>
                 </div>
@@ -161,9 +161,9 @@ export default function Hero({ settings }: HeroProps) {
                     {/* Floating Content Card (Glassmorphism) */}
                     <div className="hero-text-line absolute bottom-16 right-16 glass-white p-10 max-w-[320px] z-30 shadow-2xl border border-white/40 rounded-2xl backdrop-blur-2xl">
                         <div className="w-8 h-px bg-[#555B02]/30 mb-6"></div>
-                        <p className="font-sans font-black text-[9px] uppercase tracking-[0.4em] text-[#555B02]/50 mb-4">Featured Highlight</p>
-                        <h3 className="font-serif text-3xl font-bold text-[#555B02] mb-6 leading-tight italic">The Secret Rooms of the Vatican.</h3>
-                        <Link href="/tour/vatican-secrets" className="group inline-flex items-center gap-2 font-sans font-black text-[10px] uppercase tracking-[0.2em] text-[#555B02] transition-all">
+                        <p className="font-sans font-bold text-[9px]  tracking-[0.4em] text-[#555B02]/50 mb-4">Featured Highlight</p>
+                        <h3 className="font-serif text-3xl font-bold text-[#555B02] mb-6 leading-tight ">The Secret Rooms of the Vatican.</h3>
+                        <Link href="/tour/vatican-secrets" className="group inline-flex items-center gap-2 font-sans font-bold text-[10px]  tracking-[0.2em] text-[#555B02] transition-all">
                             <span className="border-b border-[#555B02]/30 pb-1 group-hover:border-[#555B02] transition-colors">View Details</span>
                             <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                         </Link>
@@ -178,7 +178,7 @@ export default function Hero({ settings }: HeroProps) {
                         <div className="flex-1 flex items-center px-10 py-6 border-r border-[#555B02]/10 group focus-within:bg-[#F5F0E8]/80 transition-all duration-500">
                             <Map className="w-5 h-5 text-[#555B02]/40 mr-5 group-hover:scale-110 transition-transform" />
                             <div className="flex-1">
-                                <label className="block text-[9px] font-black text-[#555B02]/50 uppercase tracking-[0.3em] mb-2">Location / Interest</label>
+                                <label className="block text-[9px] font-bold text-[#555B02]/50  tracking-[0.3em] mb-2">Location / Interest</label>
                                 <input
                                     type="text"
                                     placeholder="Search architectural gems..."
@@ -192,7 +192,7 @@ export default function Hero({ settings }: HeroProps) {
                         <div className="flex-1 flex items-center px-10 py-6 border-r border-[#555B02]/10 group focus-within:bg-[#F5F0E8]/80 transition-all duration-500">
                             <Calendar className="w-5 h-5 text-[#555B02]/40 mr-5 group-hover:scale-110 transition-transform" />
                             <div className="flex-1">
-                                <label className="block text-[9px] font-black text-[#555B02]/50 uppercase tracking-[0.3em] mb-2">Desired Date</label>
+                                <label className="block text-[9px] font-bold text-[#555B02]/50  tracking-[0.3em] mb-2">Desired Date</label>
                                 <input
                                     type="date"
                                     className="w-full bg-transparent outline-none font-sans text-sm font-bold text-[#555B02]"
@@ -205,7 +205,7 @@ export default function Hero({ settings }: HeroProps) {
                         <div className="flex-1 flex items-center px-10 py-6 border-r border-[#555B02]/10 group focus-within:bg-[#F5F0E8]/80 transition-all duration-500">
                             <Users className="w-5 h-5 text-[#555B02]/40 mr-5 group-hover:scale-110 transition-transform" />
                             <div className="flex-1">
-                                <label className="block text-[9px] font-black text-[#555B02]/50 uppercase tracking-[0.3em] mb-2">Guests</label>
+                                <label className="block text-[9px] font-bold text-[#555B02]/50  tracking-[0.3em] mb-2">Guests</label>
                                 <select
                                     className="w-full bg-transparent outline-none font-sans text-sm font-bold text-[#555B02] appearance-none cursor-pointer"
                                     value={guests}
@@ -221,7 +221,7 @@ export default function Hero({ settings }: HeroProps) {
 
                         <button
                             onClick={handleSearch}
-                            className="bg-[#555B02] text-[#F5F0E8] px-16 font-sans font-black uppercase tracking-[0.3em] text-[10px] hover:bg-[#6b7303] transition-all flex items-center gap-3 group/btn rounded-r-[1.8rem]"
+                            className="bg-[#555B02] text-[#F5F0E8] px-16 font-sans font-bold  tracking-[0.3em] text-[10px] hover:bg-[#6b7303] transition-all flex items-center gap-3 group/btn rounded-r-[1.8rem]"
                         >
                             <span>Find Experiences</span>
                             <Search className="w-4 h-4 group-hover/btn:scale-125 transition-transform" />

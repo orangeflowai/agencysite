@@ -40,14 +40,14 @@ export default function GooeyHero() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="space-y-6"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-500/30 bg-sky-500/10 text-[10px] uppercase tracking-[0.3em] font-bold text-sky-400 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-sky-500/30 bg-sky-500/10 text-[10px]  tracking-[0.3em] font-bold text-sky-400 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
             Limited VIP Access Available
           </div>
           
-          <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-bold tracking-tight text-white leading-[0.9] font-serif italic">
+          <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-bold tracking-tight text-white leading-[0.9] font-serif ">
             Rome is <br />
-            <span className="text-sky-400 not-italic">Infinite.</span>
+            <span className="text-sky-400 not-">Infinite.</span>
           </h1>
           
           <p className="text-lg md:text-xl text-neutral-300 max-w-xl mx-auto font-sans font-light leading-relaxed">

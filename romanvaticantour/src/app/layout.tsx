@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Google_Sans_Flex } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { SiteProvider } from "@/components/SiteProvider";
@@ -10,8 +10,12 @@ import { CartProvider } from "@/context/CartContext";
 import CurveTransition from "@/components/CurveTransition";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-const sourceSerif = Source_Serif_4({ subsets: ["latin"], variable: "--font-serif" });
+const googleSans = Google_Sans_Flex({ 
+  subsets: ["latin"], 
+  variable: "--font-google-sans",
+  weight: "100 550", // Variable weight up to 550
+  display: 'swap',
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite(DEFAULT_SITE_ID);
@@ -26,7 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${sourceSerif.variable} font-sans antialiased`}>
+      <body className={`${googleSans.variable} font-sans antialiased`}>
         <SiteProvider site={site}>
           <GlobalThemeProvider>
             <LanguageProvider>

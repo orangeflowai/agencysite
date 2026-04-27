@@ -56,10 +56,10 @@ export default function StickyRomeSection() {
                 {/* Section 1 Text: Rome is Chaotic */}
                 <div className="h-screen flex items-center justify-center sticky top-0">
                     <motion.div style={{ opacity: text1Opacity }} className="text-center z-20 px-4">
-                        <h2 className="text-5xl md:text-8xl font-black text-white mb-4 tracking-tighter drop-shadow-2xl">
+                        <h2 className="text-5xl md:text-8xl font-bold text-white mb-4 tracking-tighter drop-shadow-2xl">
                             ROME IS CHAOTIC.
                         </h2>
-                        <p className="text-xl md:text-3xl text-white font-light tracking-widest uppercase">
+                        <p className="text-xl md:text-3xl text-white font-light tracking-widest ">
                             Your trip shouldn't be.
                         </p>
                     </motion.div>
@@ -68,14 +68,14 @@ export default function StickyRomeSection() {
                 {/* Section 2 Text: Serenity */}
                 <div className="h-screen flex items-center justify-center sticky top-0"> {/* Overlaying sticky for fade effect */}
                     <motion.div style={{ opacity: text2Opacity, y: text2Y }} className="max-w-4xl text-center z-20 px-4">
-                        <h2 className="text-5xl md:text-7xl font-serif italic text-white mb-8 drop-shadow-lg">
+                        <h2 className="text-5xl md:text-7xl font-serif  text-white mb-8 drop-shadow-lg">
                             "Experience the Eternal City,<br />Unlocked."
                         </h2>
                         <div className="flex justify-center gap-4 pointer-events-auto"> {/* Pointer events back on for buttons */}
-                            <Link href="/search" className="bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest transition-all">
+                            <Link href="/search" className="bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-full font-bold  tracking-widest transition-all">
                                 Find Your Experience
                             </Link>
-                            <Link href="/private-tours" className="bg-white hover:bg-gray-100 text-black px-8 py-4 rounded-full font-bold uppercase tracking-widest transition-all">
+                            <Link href="/private-tours" className="bg-card hover:bg-gray-100 text-foreground px-8 py-4 rounded-full font-bold  tracking-widest transition-all">
                                 View Private Tours
                             </Link>
                         </div>

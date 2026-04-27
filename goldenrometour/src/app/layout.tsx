@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Cormorant_Garamond } from "next/font/google";
+import { Roboto_Flex } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -12,17 +12,9 @@ import { getSite, DEFAULT_SITE_ID } from "@/lib/dataAdapter";
 import { CartProvider } from "@/context/CartContext";
 import CurveTransition from "@/components/CurveTransition";
 
-const playfair = Playfair_Display({
-  weight: ['400', '500', '600', '700', '800', '900'],
+const robotoFlex = Roboto_Flex({
   subsets: ['latin'],
-  variable: '--font-serif',
-  display: 'swap',
-});
-
-const cormorant = Cormorant_Garamond({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-roboto',
   display: 'swap',
 });
 
@@ -58,7 +50,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     <html lang="en">
       <body
-        className={`${cormorant.variable} ${playfair.variable} font-sans antialiased`}
+        className={`${robotoFlex.variable} font-sans antialiased`}
         data-site-id={siteSlug}
         data-site={siteSlug}
         suppressHydrationWarning

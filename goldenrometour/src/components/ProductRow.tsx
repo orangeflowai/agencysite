@@ -66,7 +66,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             className="flex items-center gap-3 mb-4"
                         >
                             <div className="w-10 h-px" style={{ backgroundColor: accentColor }} />
-                            <p className="font-nav text-[10px] tracking-[0.4em] uppercase font-bold text-forest opacity-60" style={{ color: accentColor }}>
+                            <p className="font-nav text-[10px] tracking-[0.4em]  font-bold text-forest opacity-60" style={{ color: accentColor }}>
                                 Essential Rome
                             </p>
                         </motion.div>
@@ -148,7 +148,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                                 <div className="w-16 h-16 rounded-full border flex items-center justify-center mb-4 transition-all" style={{ borderColor: accentColor, color: accentColor }}>
                                     <ArrowUpRight size={32} />
                                 </div>
-                                <span className="font-nav text-xs uppercase tracking-[0.3em] font-bold" style={{ color: titleColor }}>
+                                <span className="font-nav text-xs  tracking-[0.3em] font-bold" style={{ color: titleColor }}>
                                     Explore More
                                 </span>
                             </Link>
@@ -162,7 +162,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                 <div className="md:hidden text-center mt-12 px-6">
                     <Link
                         href={link}
-                        className="inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.3em] py-4 px-10 rounded-full transition-all active:scale-95"
+                        className="inline-flex items-center gap-3 text-[11px] font-bold  tracking-[0.3em] py-4 px-10 rounded-full transition-all active:scale-95"
                         style={{ backgroundColor: '#1A1210', color: '#F5F0E8' }}
                     >
                         View All Tours <ArrowUpRight size={14} />

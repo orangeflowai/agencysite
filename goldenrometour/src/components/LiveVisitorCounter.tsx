@@ -42,12 +42,12 @@ export default function LiveVisitorCounter() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -5, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="font-serif text-lg font-bold italic text-forest"
+            className="font-serif text-lg font-bold  text-forest"
           >
             {count}
           </motion.span>
         </AnimatePresence>
-        <span className="font-sans text-[9px] font-black uppercase tracking-[0.2em] text-forest/40">Observing now</span>
+        <span className="font-sans text-[9px] font-bold  tracking-[0.2em] text-forest/40">Observing now</span>
       </div>
     </motion.div>
   );

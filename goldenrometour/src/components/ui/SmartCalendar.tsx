@@ -73,13 +73,13 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                             <>
                                 <span className={`text-[9px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
                                 {data.spots < 10 && (
-                                    <span className="text-[8px] font-black text-white bg-primary px-1 rounded-sm mt-0.5 shadow-sm uppercase tracking-tighter">
+                                    <span className="text-[8px] font-bold text-white bg-primary px-1 rounded-sm mt-0.5 shadow-sm  tracking-tighter">
                                         {data.spots} left
                                     </span>
                                 )}
                             </>
                         ) : (
-                            <span className="text-[8px] font-black text-destructive uppercase tracking-tighter">Sold out</span>
+                            <span className="text-[8px] font-bold text-destructive  tracking-tighter">Sold out</span>
                         )}
                     </div>
                 ) : (
@@ -121,16 +121,16 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
             />
             {/* Legend */}
             <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border justify-center">
-                <span className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-primary/20 inline-block" />Available</span>
-                <span className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-accent inline-block" />Limited</span>
-                <span className="flex items-center gap-1 text-[9px] font-black uppercase tracking-widest text-destructive"><span className="w-2.5 h-2.5 rounded-sm bg-destructive/20 inline-block" />Sold out</span>
+                <span className="flex items-center gap-1 text-[9px] font-bold  tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-primary/20 inline-block" />Available</span>
+                <span className="flex items-center gap-1 text-[9px] font-bold  tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-accent inline-block" />Limited</span>
+                <span className="flex items-center gap-1 text-[9px] font-bold  tracking-widest text-destructive"><span className="w-2.5 h-2.5 rounded-sm bg-destructive/20 inline-block" />Sold out</span>
             </div>
             <style jsx global>{`
                 .rdp { --rdp-cell-size: 52px; --rdp-accent-color: var(--primary); margin: 0; }
                 .rdp-day_selected { background-color: var(--primary) !important; color: white !important; }
                 .rdp-day_selected span { color: white !important; }
                 .rdp-button:hover:not([disabled]):not(.rdp-day_selected) { background-color: transparent; border: 2px solid var(--primary); }
-                .rdp-head_cell { font-size: 0.7rem; font-weight: 900; text-transform: uppercase; color: var(--muted-foreground); tracking: 0.1em; }
+                .rdp-head_cell { font-size: 0.7rem; font-weight: 900; text-transform: ; color: var(--muted-foreground); tracking: 0.1em; }
                 .rdp-nav_button { color: var(--primary); }
             `}</style>
         </div>

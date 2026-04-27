@@ -24,67 +24,131 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-google-sans), ui-serif, Georgia, serif;
+  --font-mono: var(--font-google-sans), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --shadow-color: var(--shadow-color);
+  --shadow-opacity: var(--shadow-opacity);
+  --shadow-blur: var(--shadow-blur);
+  --shadow-spread: var(--shadow-spread);
+  --shadow-offset-x: var(--shadow-offset-x);
+  --shadow-offset-y: var(--shadow-offset-y);
 }
 
 @utility font-heading {
-  font-family: var(--font-serif);
-  font-weight: 900;
-  font-style: italic;
-  text-transform: uppercase;
-  letter-spacing: -0.05em;
-  line-height: 0.9;
+  font-family: var(--font-google-sans);
+  font-weight: 550;
+  font-style: normal;
+  text-transform: none;
+  font-variation-settings: "GRAD" 50;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
 }
 
 @utility font-body {
-  font-family: var(--font-sans);
+  font-family: var(--font-google-sans);
+  font-weight: 400;
+  font-variation-settings: "GRAD" -25;
+}
+
+@utility font-black {
+  font-weight: 550;
+}
+
+@utility font-bold {
+  font-weight: 550;
+}
+
+@utility font-extrabold {
+  font-weight: 550;
 }
 
 :root {
-  --background: #faf9f5;
-  --foreground: #3d3929;
-  --card: #faf9f5;
-  --card-foreground: #141413;
-  --popover: #ffffff;
-  --popover-foreground: #28261b;
-  --primary: #c96442;
-  --primary-foreground: #ffffff;
-  --secondary: #e9e6dc;
-  --secondary-foreground: #535146;
-  --muted: #ede9de;
-  --muted-foreground: #83827d;
-  --accent: #e9e6dc;
-  --accent-foreground: #28261b;
-  --destructive: #141413;
-  --destructive-foreground: #ffffff;
-  --border: #dad9d4;
-  --input: #b4b2a7;
-  --ring: #c96442;
-  --radius: 0.5rem;
+  /* Core Canvas */
+  --background: #FDF8F3;
+  --foreground: #3C0E0B;
+
+  /* Cards & Surfaces */
+  --card: #FFFFFF;
+  --card-foreground: #3C0E0B;
+  --popover: #FFFFFF;
+  --popover-foreground: #3C0E0B;
+
+  /* Primary Action: Crimson */
+  --primary: #A8362F;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary: Warm Taupe */
+  --secondary: #82603E;
+  --secondary-foreground: #FFFFFF;
+
+  /* Muted: Soft Parchment */
+  --muted: #F0E6D8;
+  --muted-foreground: #7A6B5A;
+
+  /* Accent: Lighter Coral-Red */
+  --accent: #C24A3D;
+  --accent-foreground: #FFFFFF;
+
+  /* Destructive: Deep Oxblood */
+  --destructive: #8B1A1A;
+  --destructive-foreground: #FFFFFF;
+
+  /* Borders & Inputs: Taupe family */
+  --border: #82603E;
+  --input: #D9C8B0;
+  --ring: #A8362F;
+  --radius: 0.425rem;
+
+  /* Shadows: Dark umber at low opacity */
+  --shadow-color: hsl(4 60% 14% / 0.15);
+  --shadow-opacity: 0.15;
+  --shadow-blur: 2px;
+  --shadow-spread: 0px;
+  --shadow-offset-x: 3px;
+  --shadow-offset-y: 3px;
 }
 
 .dark {
-  --background: #262624;
-  --foreground: #c3c0b6;
-  --card: #262624;
-  --card-foreground: #faf9f5;
-  --popover: #30302e;
-  --popover-foreground: #e5e5e2;
-  --primary: #d97757;
-  --primary-foreground: #ffffff;
-  --secondary: #faf9f5;
-  --secondary-foreground: #30302e;
-  --muted: #1b1b19;
-  --muted-foreground: #b7b5a9;
-  --accent: #1a1915;
-  --accent-foreground: #f5f4ee;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #3e3e38;
-  --input: #52514a;
-  --ring: #d97757;
+  /* Core Canvas */
+  --background: #3C0E0B;
+  --foreground: #FFFFFF;
+
+  /* Cards & Surfaces */
+  --card: #2C0D0A;
+  --card-foreground: #FFFFFF;
+  --popover: #2C0D0A;
+  --popover-foreground: #FFFFFF;
+
+  /* Primary Action: Luminous Coral */
+  --primary: #FF7A6E;
+  --primary-foreground: #3C0E0B;
+
+  /* Secondary: Dark Taupe */
+  --secondary: #5C4030;
+  --secondary-foreground: #FFFFFF;
+
+  /* Muted: Deep Umber */
+  --muted: #4A1A16;
+  --muted-foreground: #B8A89A;
+
+  /* Accent: Muted Crimson */
+  --accent: #5C2A24;
+  --accent-foreground: #FFFFFF;
+
+  /* Destructive: Bright Alert Red */
+  --destructive: #FF6B6B;
+  --destructive-foreground: #3C0E0B;
+
+  /* Borders & Inputs: Dimmed Taupe */
+  --border: #5C4030;
+  --input: #4A1A16;
+  --ring: #FF7A6E;
+
+  /* Shadows: Crimson glow at low opacity */
+  --shadow-color: hsl(5 100% 72% / 0.12);
+  --shadow-opacity: 0.12;
 }
 
 @layer base {

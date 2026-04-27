@@ -26,7 +26,7 @@ export default function LiveVisitorCounter() {
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-gray-100"
+      className="inline-flex items-center gap-2 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-border"
     >
       <motion.div
         animate={{ scale: [1, 1.2, 1] }}
@@ -42,12 +42,12 @@ export default function LiveVisitorCounter() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="font-semibold text-gray-900"
+            className="font-semibold text-foreground"
           >
             {count}
           </motion.span>
         </AnimatePresence>
-        <span className="text-sm text-gray-600">people viewing now</span>
+        <span className="text-sm text-muted-foreground">people viewing now</span>
       </div>
     </motion.div>
   );

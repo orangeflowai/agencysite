@@ -24,19 +24,37 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-roboto), ui-serif, Georgia, serif;
+  --font-mono: var(--font-roboto), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @utility font-heading {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-roboto);
+  font-weight: 600;
+  font-variation-settings: "GRAD" 100, "XTRA" 468, "opsz" 48;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-transform: none;
+  font-style: normal;
 }
 
 @utility font-body {
-  font-family: var(--font-sans);
+  font-family: var(--font-roboto);
+  font-weight: 400;
+  font-variation-settings: "GRAD" -20, "opsz" 14;
+}
+
+@utility font-bold {
+  font-weight: 600;
+}
+
+@utility font-bold {
+  font-weight: 600;
+}
+
+@utility font-extrabold {
+  font-weight: 600;
 }
 
 :root {

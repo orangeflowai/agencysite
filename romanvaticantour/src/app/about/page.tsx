@@ -17,7 +17,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-primary/5 opacity-40" />
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto text-center">
-                        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-6">
+                        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold  tracking-[0.3em] mb-6">
                             Our Story
                         </span>
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading text-foreground mb-8">
@@ -36,7 +36,7 @@ export default function AboutPage() {
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto">
                         <div className="prose prose-lg mx-auto text-foreground/80 font-medium leading-relaxed space-y-8">
-                            <p className="text-2xl font-serif font-black italic text-foreground border-l-4 border-primary pl-6">
+                            <p className="text-2xl font-serif font-bold  text-foreground border-l-4 border-primary pl-6">
                                 "Gladiators once fought right here... and one of them probably complained about the traffic on the Via Sacra." 😄
                             </p>
 
@@ -49,7 +49,7 @@ export default function AboutPage() {
                             </p>
 
                             <div className="bg-card p-8 rounded-3xl border border-border my-12 shadow-sm">
-                                <h3 className="text-xl font-serif font-black italic uppercase tracking-tight text-primary mb-4">How it Started</h3>
+                                <h3 className="text-xl font-serif font-bold   tracking-tight text-primary mb-4">How it Started</h3>
                                 <p className="mb-0 text-muted-foreground">
                                     Back in the day (okay, not that far back), a few of us got tired of seeing visitors rush through the Vatican lines, snap a quick selfie at the Trevi Fountain, and miss the real soul of the Eternal City. So we said: "Enough chaos. Let's make Rome feel like an adventure again."
                                 </p>
@@ -77,7 +77,7 @@ export default function AboutPage() {
                                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                     <History className="text-primary w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-serif font-black italic uppercase tracking-tight text-foreground mb-4">No Boring Lectures</h3>
+                                <h3 className="text-xl font-serif font-bold   tracking-tight text-foreground mb-4">No Boring Lectures</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">Just fun, fascinating stories that bring 2,800 years of history to life in a way you'll actually remember.</p>
                             </div>
 
@@ -85,7 +85,7 @@ export default function AboutPage() {
                                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                     <Ticket className="text-primary w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-serif font-black italic uppercase tracking-tight text-foreground mb-4">Zero Stress</h3>
+                                <h3 className="text-xl font-serif font-bold   tracking-tight text-foreground mb-4">Zero Stress</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">We handle the lines, the crowds, and the "where do we meet?" panic. Your only job is to enjoy the view.</p>
                             </div>
 
@@ -93,7 +93,7 @@ export default function AboutPage() {
                                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                     <Users className="text-primary w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-serif font-black italic uppercase tracking-tight text-foreground mb-4">Memories that Stick</h3>
+                                <h3 className="text-xl font-serif font-bold   tracking-tight text-foreground mb-4">Memories that Stick</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">You'll leave feeling like you didn't just visit Rome—you lived a little piece of its vibrant soul.</p>
                             </div>
                         </div>
@@ -107,26 +107,26 @@ export default function AboutPage() {
                     <div className="max-w-3xl mx-auto bg-foreground text-background p-12 lg:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
                         <h2 className="text-4xl md:text-6xl font-heading mb-6 relative z-10 text-white">Ready to unlock the Eternal City?</h2>
-                        <p className="text-background/60 mb-10 text-lg relative z-10 font-mono uppercase tracking-tighter">Browse our tours or ping us on WhatsApp—we're always up for a chat about Rome's next great adventure.</p>
+                        <p className="text-background/60 mb-10 text-lg relative z-10 font-mono  tracking-tighter">Browse our tours or ping us on WhatsApp—we're always up for a chat about Rome's next great adventure.</p>
 
                         <div className="grid sm:grid-cols-2 gap-6 mb-12 relative z-10">
-                            <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "3514199425"}`} className="flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-700 text-white py-4 px-8 rounded-2xl font-bold transition-all transform hover:scale-[1.02] uppercase tracking-widest text-xs">
+                            <a href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "3514199425"}`} className="flex items-center justify-center gap-3 bg-primary hover:opacity-90 text-white py-4 px-8 rounded-2xl font-bold transition-all transform hover:scale-[1.02]  tracking-widest text-xs">
                                 <MessageCircle size={20} />
                                 WhatsApp Chat
                             </a>
-                            <Link href="/search" className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white py-4 px-8 rounded-2xl font-bold transition-all transform hover:scale-[1.02] uppercase tracking-widest text-xs shadow-lg shadow-primary/30">
+                            <Link href="/search" className="flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white py-4 px-8 rounded-2xl font-bold transition-all transform hover:scale-[1.02]  tracking-widest text-xs shadow-lg shadow-primary/30">
                                 <Star size={20} className="fill-current" />
                                 View All Tours
                             </Link>
                         </div>
 
-                        <div className="flex flex-wrap justify-center gap-8 text-background/40 font-mono text-[10px] uppercase tracking-[0.2em] pt-8 border-t border-white/5 relative z-10">
+                        <div className="flex flex-wrap justify-center gap-8 text-background/40 font-mono text-[10px]  tracking-[0.2em] pt-8 border-t border-white/5 relative z-10">
                             <div className="flex items-center gap-2"><Phone size={12} /> {process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 351 419 9425"}</div>
                             <div className="flex items-center gap-2"><Mail size={12} /> {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romanvaticantour.com"}</div>
                         </div>
                     </div>
 
-                    <p className="mt-12 text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em]">{siteName.toUpperCase()} // OFFICIAL ARCHIVES.</p>
+                    <p className="mt-12 text-[10px] font-bold text-muted-foreground  tracking-[0.5em]">{siteName.toUpperCase()} // OFFICIAL ARCHIVES.</p>
                 </div>
             </section>
 

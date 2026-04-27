@@ -50,7 +50,7 @@ export default function TourCard({ tour, dark = false }: TourCardProps) {
 
         {/* Category */}
         <div className="absolute top-3 left-3 z-10">
-          <span className="inline-flex items-center gap-1 bg-white/90 backdrop-blur-sm text-[#5c4b3e] text-[10px] font-sans font-black uppercase tracking-widest px-2.5 py-1 rounded-full border border-white/60 shadow-sm">
+          <span className="inline-flex items-center gap-1 bg-card/90 backdrop-blur-sm text-[#5c4b3e] text-[10px] font-sans font-bold  tracking-widest px-2.5 py-1 rounded-full border border-white/60 shadow-sm">
             {tour.category || 'Rome'}
           </span>
         </div>
@@ -58,7 +58,7 @@ export default function TourCard({ tour, dark = false }: TourCardProps) {
         {/* Badge */}
         {badge && (
           <div className="absolute top-3 right-3 z-10">
-            <span className="inline-flex items-center gap-1 bg-primary text-white text-[10px] font-sans font-black uppercase tracking-widest px-2.5 py-1 rounded-full shadow-md">
+            <span className="inline-flex items-center gap-1 bg-primary text-white text-[10px] font-sans font-bold  tracking-widest px-2.5 py-1 rounded-full shadow-md">
               <Zap className="w-2.5 h-2.5" />{badge}
             </span>
           </div>
@@ -73,8 +73,8 @@ export default function TourCard({ tour, dark = false }: TourCardProps) {
 
         {/* Price */}
         <div className="absolute bottom-3 right-3 z-10 text-right">
-          <span className="text-white/70 text-[9px] font-sans font-black uppercase tracking-widest block leading-none mb-0.5">From</span>
-          <span className="text-white font-serif font-black text-xl leading-none italic">€{tour.price}</span>
+          <span className="text-white/70 text-[9px] font-sans font-bold  tracking-widest block leading-none mb-0.5">From</span>
+          <span className="text-white font-serif font-bold text-xl leading-none ">€{tour.price}</span>
         </div>
       </div>
 
@@ -93,20 +93,20 @@ export default function TourCard({ tour, dark = false }: TourCardProps) {
           )}
         </div>
 
-        <h3 className={["font-serif font-bold text-lg leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200 italic", dark ? "text-white" : "text-[#5c4b3e]"].join(" ")}>
+        <h3 className={["font-serif font-bold text-lg leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200 ", dark ? "text-white" : "text-[#5c4b3e]"].join(" ")}>
           {tour.title}
         </h3>
 
         <div className="flex flex-wrap gap-1.5">
           {['Skip the Line', 'Expert Guide', 'Small Group'].map(tag => (
-            <span key={tag} className={["text-[10px] px-2 py-0.5 rounded-full font-sans font-black uppercase tracking-widest", dark ? "bg-white/10 text-white/60" : "bg-muted text-[#85766a]"].join(" ")}>
+            <span key={tag} className={["text-[10px] px-2 py-0.5 rounded-full font-sans font-bold  tracking-widest", dark ? "bg-card/10 text-white/60" : "bg-muted text-[#85766a]"].join(" ")}>
               {tag}
             </span>
           ))}
         </div>
 
         <div className={["mt-auto pt-3 border-t flex items-center justify-between", dark ? "border-white/10" : "border-border"].join(" ")}>
-          <span className="text-[10px] font-sans font-black text-primary uppercase tracking-[0.2em]">Book Now</span>
+          <span className="text-[10px] font-sans font-bold text-primary  tracking-[0.2em]">Book Now</span>
           <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-200 shrink-0">
             <ArrowRight className="w-4 h-4 text-primary group-hover:text-white transition-colors duration-200" />
           </div>

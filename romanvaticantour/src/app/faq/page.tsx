@@ -10,7 +10,7 @@ import clsx from 'clsx';
 const faqCategories = [
     {
         title: "Reservations & Payments",
-        icon: <CreditCard className="w-6 h-6 text-emerald-600" />,
+        icon: <CreditCard className="w-6 h-6 text-primary" />,
         items: [
             {
                 question: "How far ahead should I reserve my spot?",
@@ -28,7 +28,7 @@ const faqCategories = [
     },
     {
         title: "Vatican Museums & Holy Sites",
-        icon: <Church className="w-6 h-6 text-emerald-600" />,
+        icon: <Church className="w-6 h-6 text-primary" />,
         items: [
             {
                 question: "Will I be turned away if I'm wearing shorts?",
@@ -46,7 +46,7 @@ const faqCategories = [
     },
     {
         title: "Colosseum & Ancient City",
-        icon: <Landmark className="w-6 h-6 text-emerald-600" />,
+        icon: <Landmark className="w-6 h-6 text-primary" />,
         items: [
             {
                 question: "Why do you need my passport details just to visit a ruin?",
@@ -64,7 +64,7 @@ const faqCategories = [
     },
     {
         title: "Getting There & Getting Around",
-        icon: <Footprints className="w-6 h-6 text-emerald-600" />,
+        icon: <Footprints className="w-6 h-6 text-primary" />,
         items: [
             {
                 question: "How do I find my guide in a sea of tourists?",
@@ -82,7 +82,7 @@ const faqCategories = [
     },
     {
         title: "Weather & Practical Concerns",
-        icon: <Shield className="w-6 h-6 text-emerald-600" />,
+        icon: <Shield className="w-6 h-6 text-primary" />,
         items: [
             {
                 question: "Do tours get called off when it pours?",
@@ -114,7 +114,7 @@ export default function FAQPage() {
             <div className="bg-emerald-900 text-white py-20 text-center relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                 <div className="container mx-auto px-4 relative z-10">
-                    <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tight mt-10">Rome Tour FAQs</h1>
+                    <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight mt-10">Rome Tour FAQs</h1>
                     <p className="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto font-medium">
                         From the Vatican to the Colosseum — answers for every Roman adventure.
                     </p>
@@ -125,9 +125,9 @@ export default function FAQPage() {
                 <div className="space-y-12">
                     {faqCategories.map((category, catIndex) => (
                         <div key={catIndex}>
-                            <div className="flex items-center gap-3 mb-6 border-b border-gray-200 pb-2">
+                            <div className="flex items-center gap-3 mb-6 border-b border-border pb-2">
                                 {category.icon}
-                                <h2 className="text-2xl font-bold text-gray-900">{category.title}</h2>
+                                <h2 className="text-2xl font-bold text-foreground">{category.title}</h2>
                             </div>
 
                             <div className="space-y-4">
@@ -138,11 +138,11 @@ export default function FAQPage() {
                                     return (
                                         <div
                                             key={index}
-                                            className="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
+                                            className="bg-card rounded-xl border border-border overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300"
                                         >
                                             <button
                                                 onClick={() => toggle(id)}
-                                                className="w-full flex items-center justify-between p-6 text-left focus:outline-none bg-white"
+                                                className="w-full flex items-center justify-between p-6 text-left focus:outline-none bg-card"
                                             >
                                                 <span className={clsx(
                                                     "font-bold text-lg pr-8 transition-colors",
@@ -151,9 +151,9 @@ export default function FAQPage() {
                                                     {item.question}
                                                 </span>
                                                 {isOpen ? (
-                                                    <ChevronUp className="text-emerald-600 flex-shrink-0" />
+                                                    <ChevronUp className="text-primary flex-shrink-0" />
                                                 ) : (
-                                                    <ChevronDown className="text-gray-400 flex-shrink-0" />
+                                                    <ChevronDown className="text-muted-foreground flex-shrink-0" />
                                                 )}
                                             </button>
 
@@ -165,7 +165,7 @@ export default function FAQPage() {
                                                         exit={{ height: 0, opacity: 0 }}
                                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                                     >
-                                                        <div className="px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-50">
+                                                        <div className="px-6 pb-6 text-muted-foreground leading-relaxed border-t border-gray-50">
                                                             {item.answer}
                                                         </div>
                                                     </motion.div>
@@ -179,17 +179,17 @@ export default function FAQPage() {
                     ))}
                 </div>
 
-                <div className="mt-20 bg-emerald-50 rounded-2xl p-8 md:p-12 text-center border border-emerald-100">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Can't find what you're looking for?</h3>
-                    <p className="text-gray-600 mb-8 max-w-lg mx-auto">
+                <div className="mt-20 bg-secondary rounded-2xl p-8 md:p-12 text-center border border-emerald-100">
+                    <h3 className="text-2xl font-bold text-foreground mb-4">Can't find what you're looking for?</h3>
+                    <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
                         Our Rome team is on standby from 8:00 AM to 7:00 PM, seven days a week.
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href="mailto:info@romanvaticantour.com" className="flex items-center gap-2 px-6 py-3 bg-white text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
+                        <a href="mailto:info@romanvaticantour.com" className="flex items-center gap-2 px-6 py-3 bg-card text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
                             <Mail size={18} />
                             info@romanvaticantour.com
                         </a>
-                        <a href="tel:+393895217315" className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1">
+                        <a href="tel:+393895217315" className="flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1">
                             <Phone size={18} />
                             +39 389 521 7315
                         </a>

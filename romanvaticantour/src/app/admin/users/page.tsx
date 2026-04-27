@@ -12,38 +12,38 @@ export default function UsersPage() {
         <div>
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Team Members</h1>
-                    <p className="text-gray-500 mt-1">Manage admin access and permissions</p>
+                    <h1 className="text-2xl font-bold text-foreground">Team Members</h1>
+                    <p className="text-muted-foreground mt-1">Manage admin access and permissions</p>
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:opacity-90 text-white font-medium rounded-xl transition-colors">
+                <button className="flex items-center gap-2 px-4 py-2 bg-primary hover:opacity-90 text-white font-medium rounded-xl transition-colors">
                     <Plus size={18} />
                     Invite Member
                 </button>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div className="p-6 border-b border-gray-100">
+            <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
+                <div className="p-6 border-b border-border">
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-background rounded-lg">
                             <Shield className="w-5 h-5 text-primary" />
                         </div>
                         <div>
-                            <h2 className="font-semibold text-gray-900">Admin Access</h2>
-                            <p className="text-sm text-gray-500">Supabase Authentication manages user access</p>
+                            <h2 className="font-semibold text-foreground">Admin Access</h2>
+                            <p className="text-sm text-muted-foreground">Supabase Authentication manages user access</p>
                         </div>
                     </div>
                 </div>
 
                 <div className="divide-y divide-gray-100">
                     {users.map((user) => (
-                        <div key={user.id} className="flex items-center justify-between p-4 hover:bg-gray-50">
+                        <div key={user.id} className="flex items-center justify-between p-4 hover:bg-muted">
                             <div className="flex items-center gap-4">
                                 <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
                                     <Users size={18} className="text-primary" />
                                 </div>
                                 <div>
-                                    <h3 className="font-medium text-gray-900">{user.name}</h3>
-                                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                                    <h3 className="font-medium text-foreground">{user.name}</h3>
+                                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                         <Mail size={14} />
                                         {user.email}
                                     </div>
@@ -57,7 +57,7 @@ export default function UsersPage() {
                                     {user.status}
                                 </span>
                                 <button className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
-                                    <MoreVertical size={18} className="text-gray-400" />
+                                    <MoreVertical size={18} className="text-muted-foreground" />
                                 </button>
                             </div>
                         </div>

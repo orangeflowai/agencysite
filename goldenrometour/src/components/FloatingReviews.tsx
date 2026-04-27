@@ -37,7 +37,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
 
             {/* Review text */}
             <p
-                className="font-serif italic text-base leading-relaxed mb-5 min-h-[80px] line-clamp-4"
+                className="font-serif  text-base leading-relaxed mb-5 min-h-[80px] line-clamp-4"
                 style={{ color: '#1A1210' }}
             >
                 &ldquo;{review.text}&rdquo;
@@ -56,15 +56,15 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                     {review.avatar}
                 </div>
                 <div>
-                    <p className="font-nav font-bold text-xs uppercase tracking-widest" style={{ color: '#1A1210' }}>
+                    <p className="font-nav font-bold text-xs  tracking-widest" style={{ color: '#1A1210' }}>
                         {review.name}
                     </p>
-                    <p className="font-nav text-[10px] uppercase tracking-wider" style={{ color: '#1A1210', opacity: 0.5 }}>
+                    <p className="font-nav text-[10px]  tracking-wider" style={{ color: '#1A1210', opacity: 0.5 }}>
                         {review.location}
                     </p>
                 </div>
                 <div
-                    className="ml-auto font-nav text-[9px] uppercase tracking-widest px-2 py-1"
+                    className="ml-auto font-nav text-[9px]  tracking-widest px-2 py-1"
                     style={{ backgroundColor: 'rgba(26,18,16,0.05)', color: '#1A1210', borderRadius: '999px' }}
                 >
                     Verified

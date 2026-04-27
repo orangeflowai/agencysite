@@ -89,11 +89,11 @@ export default function CookieBanner() {
                 >
                     <div className="max-w-5xl mx-auto bg-cream border border-forest p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center gap-6 shadow-2xl">
                         <div className="flex-1">
-                            <h3 className="font-serif text-xl font-bold text-forest mb-2 italic underline decoration-forest/20">{bannerTitle}</h3>
-                            <p className="font-sans text-xs text-forest leading-relaxed uppercase tracking-wider opacity-80">
+                            <h3 className="font-serif text-xl font-bold text-forest mb-2  underline decoration-forest/20">{bannerTitle}</h3>
+                            <p className="font-sans text-xs text-forest leading-relaxed  tracking-wider opacity-80">
                                 {bannerText}
                                 {' '}{getComplianceText()}
-                                <Link href={privacyPolicyLink} className="text-forest hover:underline font-black ml-1">
+                                <Link href={privacyPolicyLink} className="text-forest hover:underline font-bold ml-1">
                                     {privacyPolicyText}
                                 </Link>.
                             </p>
@@ -101,13 +101,13 @@ export default function CookieBanner() {
                         <div className="flex gap-3 shrink-0 w-full md:w-auto">
                             <button
                                 onClick={decline}
-                                className="flex-1 md:flex-none px-6 py-3 border border-forest text-forest font-black uppercase tracking-widest hover:bg-forest hover:text-cream transition-colors text-[10px]"
+                                className="flex-1 md:flex-none px-6 py-3 border border-forest text-forest font-bold  tracking-widest hover:bg-forest hover:text-cream transition-colors text-[10px]"
                             >
                                 {declineButtonText}
                             </button>
                             <button
                                 onClick={accept}
-                                className="flex-1 md:flex-none px-8 py-3 bg-forest text-cream font-black uppercase tracking-widest hover:bg-forest-light transition-colors text-[10px] shadow-lg shadow-forest/10"
+                                className="flex-1 md:flex-none px-8 py-3 bg-forest text-cream font-bold  tracking-widest hover:bg-forest-light transition-colors text-[10px] shadow-lg shadow-forest/10"
                             >
                                 {acceptButtonText}
                             </button>
