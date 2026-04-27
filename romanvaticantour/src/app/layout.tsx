@@ -13,7 +13,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 const googleSans = Google_Sans_Flex({ 
   subsets: ["latin"], 
   variable: "--font-google-sans",
-  weight: "100 550", // Variable weight up to 550
+  weight: "variable", // Use variable weight
   display: 'swap',
 });
 

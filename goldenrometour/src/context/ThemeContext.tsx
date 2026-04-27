@@ -11,6 +11,49 @@ export interface ThemeConfig {
     name: string;
 }
 
+export const PRESET_THEMES: Record<string, ThemeConfig> = {
+    golden: {
+        name: 'Golden Rome',
+        primary: '#D4AF37',
+        primaryLight: '#F4D03F',
+        primaryDark: '#B8860B',
+        secondary: '#8B4513',
+        accent: '#FFD700',
+    },
+    emerald: {
+        name: 'Emerald',
+        primary: '#10b981',
+        primaryLight: '#34d399',
+        primaryDark: '#059669',
+        secondary: '#14b8a6',
+        accent: '#6ee7b7',
+    },
+    ocean: {
+        name: 'Ocean Blue',
+        primary: '#0ea5e9',
+        primaryLight: '#38bdf8',
+        primaryDark: '#0284c7',
+        secondary: '#06b6d4',
+        accent: '#7dd3fc',
+    },
+    sunset: {
+        name: 'Sunset',
+        primary: '#f97316',
+        primaryLight: '#fb923c',
+        primaryDark: '#ea580c',
+        secondary: '#f59e0b',
+        accent: '#fbbf24',
+    },
+    royal: {
+        name: 'Royal Purple',
+        primary: '#9333ea',
+        primaryLight: '#a855f7',
+        primaryDark: '#7e22ce',
+        secondary: '#8b5cf6',
+        accent: '#c084fc',
+    },
+};
+
 interface ThemeContextType {
     theme: Partial<ThemeConfig>;
     setTheme: (themeKey: string) => void;
