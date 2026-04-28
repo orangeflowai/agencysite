@@ -1,8 +1,9 @@
 /**
  * dataAdapter.ts — Unified data layer
- * DATA_SOURCE=payload  → Payload CMS only (default for all sites now)
+ * DATA_SOURCE=payload  → Payload CMS only
  * DATA_SOURCE=sanity   → Sanity only
  * DATA_SOURCE=dual     → Payload first, Sanity fallback
+ * DATA_SOURCE=hybrid   → Payload data + Sanity images (RECOMMENDED)
  */
 
 import * as sanity  from './sanityService'
@@ -20,6 +21,47 @@ async function withFallback<T>(
 ): Promise<T> {
   if (source === 'payload') return payloadFn()
   if (source === 'sanity')  return sanityFn()
+  
+  // hybrid — Payload data with Sanity images merged
+  if (source === 'hybrid') {
+    try {
+      const [payloadResult, sanityResult] = await Promise.all([
+        payloadFn().catch(() => null),
+        sanityFn().catch(() => null)
+      ]);
+
+      // If we have both, merge them (Payload data + Sanity images)
+      if (payloadResult && sanityResult) {
+        if (Array.isArray(payloadResult) && Array.isArray(sanityResult)) {
+          // Merge tours: Payload data + Sanity images by matching slug
+          return payloadResult.map((payloadTour: any) => {
+            const sanityTour = sanityResult.find((st: any) => 
+              st.slug?.current === payloadTour.slug?.current
+            );
+            return {
+              ...payloadTour,
+              mainImage: sanityTour?.mainImage || payloadTour.mainImage,
+              images: sanityTour?.images || payloadTour.images,
+            };
+          }) as T;
+        } else if (typeof payloadResult === 'object' && typeof sanityResult === 'object') {
+          // Merge single tour
+          return {
+            ...payloadResult,
+            mainImage: (sanityResult as any).mainImage || (payloadResult as any).mainImage,
+            images: (sanityResult as any).images || (payloadResult as any).images,
+          } as T;
+        }
+      }
+
+      // Fallback to whichever we have
+      return payloadResult || sanityResult || ([] as T);
+    } catch (e) {
+      console.warn('[dataAdapter] Hybrid mode failed:', e);
+      return sanityFn();
+    }
+  }
+  
   // dual — try Payload, fall back to Sanity
   try {
     const result = await payloadFn()
