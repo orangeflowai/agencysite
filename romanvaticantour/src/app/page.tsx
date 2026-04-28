@@ -58,7 +58,7 @@ export default async function Home() {
               <div className="not-prose relative flex h-[500px] overflow-hidden rounded-3xl border border-border shadow-2xl group">
                 <Image
                   src={featuredTour.mainImage ? (typeof featuredTour.mainImage === 'string' ? featuredTour.mainImage : featuredTour.mainImage.asset?.url) : `${R2}/pexels-nastiz-12604242.jpg`}
-                  alt={featuredTour.title}
+                  alt={`${featuredTour.title} - Catholic pilgrimage tour with Roman Vatican Tour historian guide`}
                   fill
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
@@ -136,7 +136,7 @@ export default async function Home() {
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                      <div className="space-y-4 pt-12">
-                        <img src={`${R2}/pexels-nastiz-12604242.jpg`} className="rounded-2xl aspect-[3/4] object-cover shadow-2xl" alt="Museum detail" />
+                        <img src={`${R2}/pexels-nastiz-12604242.jpg`} className="rounded-2xl aspect-[3/4] object-cover shadow-2xl" alt="Vatican Museums interior with Roman Vatican Tour pilgrimage group" />
                         <div className="bg-primary/20 backdrop-blur-md p-6 rounded-2xl border border-white/10">
                            <BookOpen className="text-primary w-8 h-8 mb-4" />
                            <p className="text-xs font-bold  tracking-widest text-primary mb-1">Deep Research</p>
@@ -149,7 +149,7 @@ export default async function Home() {
                            <p className="text-xs font-bold  tracking-widest text-primary mb-1">Accredited</p>
                            <p className="text-[10px] text-background/40 font-sans ">Vetted by the Italian Ministry of Culture.</p>
                         </div>
-                        <img src={`${R2}/pexels-alex-250137-757239.jpg`} className="rounded-2xl aspect-[3/4] object-cover shadow-2xl" alt="Ancient Rome" />
+                        <img src={`${R2}/pexels-alex-250137-757239.jpg`} className="rounded-2xl aspect-[3/4] object-cover shadow-2xl" alt="Ancient Rome Colosseum on Roman Vatican Tour historical pilgrimage" />
                      </div>
                   </div>
                </div>
@@ -208,7 +208,7 @@ export default async function Home() {
                 </div>
               </div>
               <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-background group">
-                <Image src={`${R2}/pexels-giorgi-gobadze-2160475859-36770780.jpg`} alt="How to book" fill className="object-cover group-hover:scale-105 transition-transform duration-[2s]" sizes="(max-width: 1024px) 100vw, 50vw" />
+                <Image src={`${R2}/pexels-giorgi-gobadze-2160475859-36770780.jpg`} alt="Roman Vatican Tour booking process - secure skip-the-line Vatican tickets" fill className="object-cover group-hover:scale-105 transition-transform duration-[2s]" sizes="(max-width: 1024px) 100vw, 50vw" />
                 <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
                 <div className="absolute bottom-8 left-8 right-8">
                   <div className="bg-background/95 backdrop-blur-md rounded-2xl p-6 flex items-center gap-5 shadow-xl border border-white/20">
@@ -307,7 +307,7 @@ export default async function Home() {
                   <Link key={post._id} href={`/blog/${post.slug.current}`} className="group flex flex-col bg-card rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                     <div className="relative aspect-[16/9] overflow-hidden bg-muted">
                       {post.mainImage?.asset?.url && (
-                        <Image src={post.mainImage.asset.url} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                        <Image src={post.mainImage.asset.url} alt={`${post.title} - Rome pilgrimage travel guide by Roman Vatican Tour`} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                       )}
                     </div>
                     <div className="p-6 flex flex-col flex-1">

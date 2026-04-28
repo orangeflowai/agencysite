@@ -164,7 +164,7 @@ export default function ScrollExpandHero({
               {/* ── Date / scroll hint — slide apart ── */}
               <div className="flex flex-col items-center text-center relative z-10 mt-4 pointer-events-none">
                 <p
-                  className="text-white/70 text-xs font-bold uppercase tracking-[0.3em] mb-2"
+                  className="text-white/70 text-xs font-bold  tracking-[0.3em] mb-2"
                   style={{ transform: `translateX(-${textShift}px)` }}
                 >
                   Rome, Italy
@@ -182,13 +182,13 @@ export default function ScrollExpandHero({
               {/* ── Split title — slides apart as image expands ── */}
               <div className="flex items-center justify-center text-center gap-3 w-full relative z-10 pointer-events-none flex-col">
                 <h1
-                  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white tracking-tighter drop-shadow-2xl leading-none"
+                  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tighter drop-shadow-2xl leading-none"
                   style={{ transform: `translateX(-${textShift}px)` }}
                 >
                   {title}
                 </h1>
                 <h1
-                  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-blue-200 tracking-tighter drop-shadow-2xl leading-none italic"
+                  className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-blue-200 tracking-tighter drop-shadow-2xl leading-none "
                   style={{ transform: `translateX(${textShift}px)` }}
                 >
                   {subtitle}

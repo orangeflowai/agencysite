@@ -24,9 +24,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com';
 
   return {
-    title: site?.seo?.metaTitle || `${siteName} | Official Tours`,
-    description: site?.seo?.metaDescription || `Book skip-the-line tours with ${siteName}. Expert guides, instant confirmation.`,
+    title: site?.seo?.metaTitle || "Luxury Small-Group Rome Tours | Golden Rome Experience",
+    description: site?.seo?.metaDescription || "Luxury small-group Rome tours with art historians. Maximum 6 guests. Skip-the-line Vatican Museums, Colosseum arena floor access. Book Golden Rome.",
     applicationName: siteName,
+    keywords: ["luxury Rome tours", "small group Vatican tours", "art historian guide Rome", "exclusive Colosseum access", "VIP Vatican tours", "Golden Rome tours"],
     icons: {
       icon: site?.favicon?.asset?.url || '/logo.png',
       shortcut: site?.favicon?.asset?.url || '/logo.png',
@@ -34,10 +35,24 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       siteName,
-      title: site?.seo?.metaTitle || `${siteName} | Official Tours`,
-      description: site?.seo?.metaDescription || `Book skip-the-line tours with ${siteName}.`,
+      title: site?.seo?.metaTitle || "Luxury Small-Group Rome Tours | Golden Rome Experience",
+      description: site?.seo?.metaDescription || "Luxury small-group Rome tours with art historians. Maximum 6 guests per tour.",
       url: siteUrl,
       type: 'website',
+      images: [
+        {
+          url: site?.favicon?.asset?.url || "/logo.png",
+          width: 1200,
+          height: 630,
+          alt: "Golden Rome Tour - Luxury Small-Group Experiences"
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: site?.seo?.metaTitle || "Luxury Small-Group Rome Tours",
+      description: site?.seo?.metaDescription || "Exclusive tours with art historians. Max 6 guests.",
+    },
     },
     other: { 'viewport': 'width=device-width, initial-scale=1' },
   };
@@ -49,6 +64,40 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "TouristAttraction",
+              "name": "Golden Rome Tour",
+              "description": "Luxury small-group Rome tours with art historians. Maximum 6 guests per tour. Skip-the-line Vatican Museums and Colosseum arena floor access.",
+              "url": process.env.NEXT_PUBLIC_SITE_URL || "https://goldenrometour.com",
+              "image": site?.favicon?.asset?.url || "/logo.png",
+              "priceRange": "€€€",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Rome",
+                "addressCountry": "IT"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "850"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                  "@type": "EntryPoint",
+                  "urlTemplate": `${process.env.NEXT_PUBLIC_SITE_URL || "https://goldenrometour.com"}/search?q={search_term_string}`
+                },
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
+      </head>
       <body
         className={`${robotoFlex.variable} font-sans antialiased`}
         data-site-id={siteSlug}

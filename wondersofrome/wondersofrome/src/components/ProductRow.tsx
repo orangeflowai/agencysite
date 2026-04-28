@@ -30,18 +30,18 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link })
       <div className="container mx-auto px-6 mb-16">
         <div className="flex flex-col md:flex-row items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="text-primary font-black uppercase tracking-[0.4em] text-[10px] mb-4">Site_Sector_Archive</p>
-            <h2 className="text-4xl md:text-6xl font-serif font-black tracking-tighter uppercase italic leading-none mb-6">
+            <p className="text-primary font-bold  tracking-[0.4em] text-[10px] mb-4">Site_Sector_Archive</p>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold tracking-tighter   leading-none mb-6">
               {title}
             </h2>
             {subtitle && (
-              <p className="text-muted-foreground text-sm font-mono font-black uppercase tracking-widest opacity-60">
+              <p className="text-muted-foreground text-sm font-mono font-bold  tracking-widest opacity-60">
                 {subtitle}
               </p>
             )}
           </div>
           {link && (
-            <Link href={link} className="group flex items-center gap-3 font-black uppercase tracking-[0.2em] text-[10px] text-foreground hover:text-primary transition-colors">
+            <Link href={link} className="group flex items-center gap-3 font-bold  tracking-[0.2em] text-[10px] text-foreground hover:text-primary transition-colors">
               <span>View Directory</span>
               <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all">
                 <ArrowRight size={16} />
@@ -64,10 +64,10 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link })
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
             
             <div className="absolute inset-0 flex flex-col justify-end p-12 space-y-6">
-                <h3 className="text-5xl font-serif font-black text-white italic leading-none uppercase tracking-tighter">
+                <h3 className="text-5xl font-serif font-bold text-white  leading-none  tracking-tighter">
                    Discover the<br/>{title.split(' ')[0]} Gaze
                 </h3>
-                <Link href={link || '/search'} className="inline-flex items-center gap-4 text-white text-xs font-black uppercase tracking-[0.3em] group-hover:gap-6 transition-all">
+                <Link href={link || '/search'} className="inline-flex items-center gap-4 text-white text-xs font-bold  tracking-[0.3em] group-hover:gap-6 transition-all">
                     <span>Initiate Archive</span>
                     <ArrowRight size={18} className="text-primary" />
                 </Link>

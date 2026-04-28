@@ -46,10 +46,10 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
         const data = availability[dateStr];
         const isPast = props.date < new Date(new Date().setHours(0, 0, 0, 0));
 
-        if (isPast) return <span className="text-gray-300">{format(props.date, 'd')}</span>;
+        if (isPast) return <span className="text-muted-foreground">{format(props.date, 'd')}</span>;
 
         let bgClass = '';
-        let textClass = 'text-gray-600';
+        let textClass = 'text-muted-foreground';
 
         if (data) {
             if (data.spots === 0) {
@@ -59,13 +59,13 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                 bgClass = 'bg-amber-50';
                 textClass = 'text-amber-800';
             } else {
-                bgClass = 'bg-emerald-50';
+                bgClass = 'bg-secondary';
                 textClass = 'text-emerald-800';
             }
         }
 
         return (
-            <div className={`flex flex-col items-center justify-center p-1 w-full h-full rounded-md transition-colors ${bgClass} ${!data ? 'hover:bg-gray-50' : ''}`}>
+            <div className={`flex flex-col items-center justify-center p-1 w-full h-full rounded-md transition-colors ${bgClass} ${!data ? 'hover:bg-muted' : ''}`}>
                 <span className={`text-sm font-bold ${textClass}`}>{format(props.date, 'd')}</span>
                 {data ? (
                     <div className="flex flex-col items-center -mt-0.5">
@@ -79,18 +79,18 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                                 )}
                             </>
                         ) : (
-                            <span className="text-[9px] font-bold text-rose-400 uppercase tracking-tighter">Sold out</span>
+                            <span className="text-[9px] font-bold text-rose-400  tracking-tighter">Sold out</span>
                         )}
                     </div>
                 ) : (
-                    <span className="text-[10px] text-gray-300 font-medium">-</span>
+                    <span className="text-[10px] text-muted-foreground font-medium">-</span>
                 )}
             </div>
         );
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 relative notranslate" translate="no">
+        <div className="bg-card rounded-xl shadow-sm border border-border p-4 relative notranslate" translate="no">
             {loading && <div className="absolute top-4 right-4"><Loader2 className="w-4 h-4 animate-spin text-sky-600" /></div>}
             <DayPicker
                 mode="single"
@@ -107,7 +107,7 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                     },
                 }}
                 modifiersClassNames={{
-                    selected: 'bg-sky-600 text-white shadow-lg shadow-sky-100 scale-105 z-10',
+                    selected: 'bg-primary text-white shadow-lg shadow-sky-100 scale-105 z-10',
                     soldOut: 'cursor-not-allowed opacity-60',
                 }}
                 disabled={[
@@ -120,16 +120,16 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                 className="custom-calendar"
             />
             {/* Legend */}
-            <div className="flex items-center gap-3 mt-3 pt-3 border-t border-gray-100 justify-center">
+            <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border justify-center">
                 <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700"><span className="w-2.5 h-2.5 rounded-sm bg-emerald-100 inline-block" />Available</span>
                 <span className="flex items-center gap-1 text-[10px] font-bold text-amber-700"><span className="w-2.5 h-2.5 rounded-sm bg-amber-100 inline-block" />Limited</span>
                 <span className="flex items-center gap-1 text-[10px] font-bold text-rose-400"><span className="w-2.5 h-2.5 rounded-sm bg-rose-100 inline-block" />Sold out</span>
             </div>
             <style jsx global>{`
-                .rdp { --rdp-cell-size: 58px; --rdp-accent-color: #0284c7; margin: 0; }
-                .rdp-day_selected { background-color: #0284c7 !important; color: white !important; }
+                .rdp { --rdp-cell-size: 58px; --rdp-accent-color: var(--accent); margin: 0; }
+                .rdp-day_selected { background-color: var(--accent) !important; color: white !important; }
                 .rdp-day_selected span { color: white !important; }
-                .rdp-button:hover:not([disabled]):not(.rdp-day_selected) { background-color: transparent; border: 2px solid #0284c7; }
+                .rdp-button:hover:not([disabled]):not(.rdp-day_selected) { background-color: transparent; border: 2px solid var(--accent); }
             `}</style>
         </div>
     );

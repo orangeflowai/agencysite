@@ -69,7 +69,7 @@ export default function FloatingReviews() {
       {/* Rating summary */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-4">
         <div className="text-center">
-          <div className="text-6xl font-black text-background leading-none">4.9</div>
+          <div className="text-6xl font-bold text-background leading-none">4.9</div>
           <div className="flex gap-1 justify-center mt-2">
             {[...Array(5)].map((_, i) => <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />)}
           </div>
@@ -79,7 +79,7 @@ export default function FloatingReviews() {
         <div className="flex items-center gap-3">
           <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-8 h-8" />
           <div>
-            <p className="text-background font-black text-sm">Google Reviews</p>
+            <p className="text-background font-bold text-sm">Google Reviews</p>
             <p className="text-background/60 text-xs">Verified customer feedback</p>
           </div>
         </div>
@@ -95,12 +95,12 @@ export default function FloatingReviews() {
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-black text-sm shrink-0">
+                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm shrink-0">
                   {review.avatar}
                 </div>
                 <div>
                   <p className="text-background font-bold text-sm">{review.name}</p>
-                  <p className="text-background/50 text-[10px] uppercase tracking-widest">{review.date}</p>
+                  <p className="text-background/50 text-[10px]  tracking-widest">{review.date}</p>
                 </div>
               </div>
               <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-5 h-5 opacity-50" />
@@ -112,12 +112,12 @@ export default function FloatingReviews() {
             </div>
 
             {/* Text */}
-            <p className="text-background/80 text-sm leading-relaxed mb-4 font-serif italic">
+            <p className="text-background/80 text-sm leading-relaxed mb-4 font-serif ">
               &ldquo;{review.text}&rdquo;
             </p>
 
             {/* Tour tag */}
-            <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
+            <span className="text-[10px] font-bold  tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
               {review.tour}
             </span>
           </div>
@@ -130,7 +130,7 @@ export default function FloatingReviews() {
           href={GOOGLE_MAPS_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-10 py-4 bg-background text-foreground font-black uppercase tracking-widest text-xs rounded-full hover:bg-primary hover:text-white transition-all shadow-xl"
+          className="inline-flex items-center gap-3 px-10 py-4 bg-background text-foreground font-bold  tracking-widest text-xs rounded-full hover:bg-primary hover:text-white transition-all shadow-xl"
         >
           Read All Google Reviews <ExternalLink size={14} />
         </a>

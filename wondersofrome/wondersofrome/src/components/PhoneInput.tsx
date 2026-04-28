@@ -295,23 +295,23 @@ export default function PhoneInput({
     return (
         <div className={className}>
             {label && (
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-foreground mb-1">
                     {label} {required && <span className="text-red-500">*</span>}
                 </label>
             )}
             <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5 z-10" />
                 <div className="flex">
                     {/* Country Selector */}
                     <div className="relative">
                         <button
                             type="button"
                             onClick={() => setIsOpen(!isOpen)}
-                            className={`h-full px-3 py-3 pl-10 bg-gray-50 border border-r-0 border-gray-200 rounded-l-lg flex items-center gap-2 hover:bg-gray-100 transition-colors ${error ? 'border-red-400 bg-red-50' : ''}`}
+                            className={`h-full px-3 py-3 pl-10 bg-muted border border-r-0 border-border rounded-l-lg flex items-center gap-2 hover:bg-gray-100 transition-colors ${error ? 'border-red-400 bg-red-50' : ''}`}
                         >
                             <span className="text-lg">{selectedCountry.flag}</span>
-                            <span className="text-sm font-medium text-gray-700">{selectedCountry.dialCode}</span>
-                            <ChevronDown className="w-4 h-4 text-gray-400" />
+                            <span className="text-sm font-medium text-foreground">{selectedCountry.dialCode}</span>
+                            <ChevronDown className="w-4 h-4 text-muted-foreground" />
                         </button>
 
                         {/* Country Dropdown */}
@@ -321,18 +321,18 @@ export default function PhoneInput({
                                     className="fixed inset-0 z-40"
                                     onClick={() => setIsOpen(false)}
                                 />
-                                <div className="absolute top-full left-0 mt-1 w-64 max-h-64 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-xl z-50">
+                                <div className="absolute top-full left-0 mt-1 w-64 max-h-64 overflow-y-auto bg-card border border-border rounded-lg shadow-xl z-50">
                                     {countries.map((country) => (
                                         <button
                                             key={country.code}
                                             type="button"
                                             onClick={() => handleCountrySelect(country)}
-                                            className={`w-full px-4 py-2 flex items-center gap-3 hover:bg-gray-50 transition-colors text-left ${selectedCountry.code === country.code ? 'bg-sky-50 text-sky-700' : ''
+                                            className={`w-full px-4 py-2 flex items-center gap-3 hover:bg-muted transition-colors text-left ${selectedCountry.code === country.code ? 'bg-secondary text-primary' : ''
                                                 }`}
                                         >
                                             <span className="text-lg">{country.flag}</span>
                                             <span className="text-sm font-medium">{country.name}</span>
-                                            <span className="text-sm text-gray-500 ml-auto">{country.dialCode}</span>
+                                            <span className="text-sm text-muted-foreground ml-auto">{country.dialCode}</span>
                                         </button>
                                     ))}
                                 </div>
@@ -345,7 +345,7 @@ export default function PhoneInput({
                         id={id}
                         type="tel"
                         required={required}
-                        className={`flex-1 px-4 py-3 border border-gray-200 rounded-r-lg focus:ring-2 focus:ring-sky-500 outline-none ${error ? 'border-red-400 bg-red-50' : ''}`}
+                        className={`flex-1 px-4 py-3 border border-border rounded-r-lg focus:ring-2 focus:ring-sky-500 outline-none ${error ? 'border-red-400 bg-red-50' : ''}`}
                         value={phoneNumber}
                         onChange={handlePhoneChange}
                         placeholder={placeholder}

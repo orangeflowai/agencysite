@@ -45,7 +45,7 @@ export default function LoadingWithFacts() {
     <div className="flex flex-col items-center justify-center min-h-[200px] p-8">
       {/* Animated spinner */}
       <motion.div
-        className="w-16 h-16 border-4 border-sky-200 border-t-sky-600 rounded-full mb-6"
+        className="w-16 h-16 border-4 border-border border-t-sky-600 rounded-full mb-6"
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
       />
@@ -60,7 +60,7 @@ export default function LoadingWithFacts() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-md"
         >
-          <p className="text-sm text-gray-600 mb-2">Did you know?</p>
+          <p className="text-sm text-muted-foreground mb-2">Did you know?</p>
           <p className="text-base text-gray-800 font-medium">{fact}</p>
         </motion.div>
       </AnimatePresence>

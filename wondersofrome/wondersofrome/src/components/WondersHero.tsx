@@ -45,7 +45,7 @@ export default function WondersHero({ settings }: HeroProps) {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-[10px] font-black uppercase tracking-[0.3em] mb-6"
+            className="inline-flex items-center gap-2 px-4 py-1.5 bg-card/10 backdrop-blur-md border border-white/20 rounded-full text-white text-[10px] font-bold  tracking-[0.3em] mb-6"
           >
             <Star size={10} className="fill-yellow-400 text-yellow-400" />
             Rome's Premier Tour Operator
@@ -56,7 +56,7 @@ export default function WondersHero({ settings }: HeroProps) {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-serif font-black leading-[0.9] tracking-tighter italic uppercase mb-6"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-serif font-bold leading-[0.9] tracking-tighter   mb-6"
           >
             {settings?.heroTitle || <>Discover<br />Rome</>}
           </motion.h1>
@@ -80,13 +80,13 @@ export default function WondersHero({ settings }: HeroProps) {
           >
             <Link
               href="/search"
-              className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-black px-8 py-4 rounded-full uppercase tracking-widest text-sm transition-all shadow-2xl shadow-primary/30 hover:-translate-y-0.5 active:scale-95"
+              className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold px-8 py-4 rounded-full  tracking-widest text-sm transition-all shadow-2xl shadow-primary/30 hover:-translate-y-0.5 active:scale-95"
             >
               Book Now <ArrowRight size={16} />
             </Link>
             <Link
               href="/category/vatican"
-              className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold px-8 py-4 rounded-full uppercase tracking-widest text-sm transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-card/10 hover:bg-card/20 backdrop-blur-md border border-white/30 text-white font-bold px-8 py-4 rounded-full  tracking-widest text-sm transition-all"
             >
               Vatican Tours
             </Link>

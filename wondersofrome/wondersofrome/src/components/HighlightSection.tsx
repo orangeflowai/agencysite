@@ -30,7 +30,7 @@ export default function HighlightSection({
       <div className={`flex flex-col ${flip ? 'lg:flex-row-reverse' : 'lg:flex-row'} min-h-[480px]`}>
 
         {/* Text block */}
-        <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-20 py-16 lg:py-24 bg-[#0f172a]">
+        <div className="flex-1 flex flex-col justify-center px-8 md:px-16 lg:px-20 py-16 lg:py-24 bg-primary">
           {eyebrow && (
             <p className="eyebrow mb-5">{eyebrow}</p>
           )}
@@ -45,7 +45,7 @@ export default function HighlightSection({
           </p>
           <Link
             href={ctaHref}
-            className="self-start inline-flex items-center gap-2 font-heading font-semibold text-sm px-6 py-3 rounded-xl bg-[#d4af37] text-[#0f172a] hover:bg-[#e8c84a] transition-all hover:shadow-lg hover:shadow-[#d4af37]/25 active:scale-95"
+            className="self-start inline-flex items-center gap-2 font-heading font-semibold text-sm px-6 py-3 rounded-xl bg-accent text-primary hover:bg-[var(--accent)] transition-all hover:shadow-lg hover:shadow-[var(--accent)]/25 active:scale-95"
           >
             {ctaText}
             <ArrowRight size={15} />
@@ -56,7 +56,7 @@ export default function HighlightSection({
         <div
           className="flex-1 relative flex items-center justify-center py-12 px-8 lg:p-0 min-h-[360px] lg:min-h-0 overflow-hidden"
           style={{
-            backgroundColor: '#f8f7f4',
+            backgroundColor: 'var(--muted)',
             backgroundImage: `radial-gradient(circle at 1px 1px, rgba(212,175,55,0.15) 1px, transparent 0)`,
             backgroundSize: '32px 32px',
           }}
@@ -75,9 +75,9 @@ export default function HighlightSection({
           </div>
 
           {/* Floating stat */}
-          <div className="absolute top-8 right-8 lg:top-12 lg:right-12 w-20 h-20 rounded-2xl bg-[#0f172a] flex flex-col items-center justify-center text-center shadow-xl">
-            <span className="font-heading font-bold text-xl text-[#d4af37] leading-none">50K</span>
-            <span className="font-mono text-[0.5625rem] text-white/50 uppercase tracking-[0.08em] mt-1">Guests</span>
+          <div className="absolute top-8 right-8 lg:top-12 lg:right-12 w-20 h-20 rounded-2xl bg-primary flex flex-col items-center justify-center text-center shadow-xl">
+            <span className="font-heading font-bold text-xl text-accent leading-none">50K</span>
+            <span className="font-mono text-[0.5625rem] text-white/50  tracking-[0.08em] mt-1">Guests</span>
           </div>
         </div>
       </div>

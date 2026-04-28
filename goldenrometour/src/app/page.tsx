@@ -50,7 +50,7 @@ export default async function Home() {
         <div className="absolute inset-0 z-0">
            <img 
               src={heroImage} 
-              alt="Golden Rome Hero" 
+              alt="Luxury small-group Vatican tour with art historian guide - Golden Rome Tour exclusive experience" 
               className="w-full h-full object-cover animate-[kenburns_20s_ease-out_forwards]"
            />
            <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628]/40 to-[#0A1628]/80" />
@@ -116,12 +116,12 @@ export default async function Home() {
 
                <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-4 pt-12">
-                     <img src={pexelsVatican[0]?.url} className="rounded-2xl aspect-[4/5] object-cover shadow-lg hover:scale-[1.02] transition-transform duration-500" alt="Vatican" />
-                     <img src={pexelsColosseum[1]?.url} className="rounded-2xl aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform duration-500" alt="Colosseum" />
+                     <img src={pexelsVatican[0]?.url} className="rounded-2xl aspect-[4/5] object-cover shadow-lg hover:scale-[1.02] transition-transform duration-500" alt="Vatican Museums interior with Golden Rome Tour small group" />
+                     <img src={pexelsColosseum[1]?.url} className="rounded-2xl aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform duration-500" alt="Colosseum arena floor access with Golden Rome Tour guide" />
                   </div>
                   <div className="space-y-4">
-                     <img src={pexelsColosseum[0]?.url} className="rounded-2xl aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform duration-500" alt="Rome Architecture" />
-                     <img src={pexelsVatican[2]?.url} className="rounded-2xl aspect-[4/5] object-cover shadow-lg hover:scale-[1.02] transition-transform duration-500" alt="Sistine Chapel detail" />
+                     <img src={pexelsColosseum[0]?.url} className="rounded-2xl aspect-square object-cover shadow-lg hover:scale-[1.02] transition-transform duration-500" alt="Ancient Rome architecture on Golden Rome luxury tour" />
+                     <img src={pexelsVatican[2]?.url} className="rounded-2xl aspect-[4/5] object-cover shadow-lg hover:scale-[1.02] transition-transform duration-500" alt="Sistine Chapel ceiling detail viewed on Golden Rome Vatican tour" />
                   </div>
                </div>
             </div>
@@ -140,6 +140,7 @@ export default async function Home() {
             imageUrl={featuredTour.mainImage?.asset?.url || (typeof featuredTour.mainImage === 'string' ? featuredTour.mainImage : pexelsVatican[0]?.url)}
             ctaText="View Details"
             ctaHref={`/tour/${featuredTour.slug?.current}`}
+            imageAlt={`${featuredTour.title} - Luxury small-group tour with Golden Rome art historian guide`}
          />
       )}
 

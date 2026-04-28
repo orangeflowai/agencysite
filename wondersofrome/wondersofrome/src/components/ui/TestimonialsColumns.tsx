@@ -92,7 +92,7 @@ export const TestimonialsColumn = ({
           {testimonials.map(({ text, image, name, role, rating }, i) => (
             <div
               key={i}
-              className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm max-w-xs w-full"
+              className="bg-card border border-border rounded-2xl p-6 shadow-sm max-w-xs w-full"
             >
               {/* Stars */}
               <div className="flex gap-0.5 mb-3">
@@ -100,7 +100,7 @@ export const TestimonialsColumn = ({
                   <Star key={s} size={13} className="fill-amber-400 text-amber-400" />
                 ))}
               </div>
-              <p className="text-gray-700 text-sm leading-relaxed mb-4">{text}</p>
+              <p className="text-foreground text-sm leading-relaxed mb-4">{text}</p>
               <div className="flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -111,8 +111,8 @@ export const TestimonialsColumn = ({
                   className="w-10 h-10 rounded-full object-cover"
                 />
                 <div>
-                  <p className="font-bold text-gray-900 text-sm leading-tight">{name}</p>
-                  <p className="text-xs text-gray-400 leading-tight mt-0.5">{role}</p>
+                  <p className="font-bold text-foreground text-sm leading-tight">{name}</p>
+                  <p className="text-xs text-muted-foreground leading-tight mt-0.5">{role}</p>
                 </div>
               </div>
             </div>

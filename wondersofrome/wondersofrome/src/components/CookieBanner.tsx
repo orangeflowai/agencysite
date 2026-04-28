@@ -87,13 +87,13 @@ export default function CookieBanner() {
                     exit={{ y: 100, opacity: 0 }}
                     className="fixed bottom-0 left-0 right-0 z-50 p-4"
                 >
-                    <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-100 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
+                    <div className="max-w-5xl mx-auto bg-card rounded-2xl shadow-2xl border border-border p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
                         <div className="flex-1">
-                            <h3 className="font-bold text-gray-900 mb-2">{bannerTitle}</h3>
-                            <p className="text-sm text-gray-600 leading-relaxed">
+                            <h3 className="font-bold text-foreground mb-2">{bannerTitle}</h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
                                 {bannerText}
                                 {' '}{getComplianceText()}
-                                <Link href={privacyPolicyLink} className="text-sky-700 hover:underline font-bold ml-1">
+                                <Link href={privacyPolicyLink} className="text-primary hover:underline font-bold ml-1">
                                     {privacyPolicyText}
                                 </Link>.
                             </p>
@@ -101,7 +101,7 @@ export default function CookieBanner() {
                         <div className="flex gap-3 shrink-0 w-full md:w-auto">
                             <button
                                 onClick={decline}
-                                className="flex-1 md:flex-none px-6 py-3 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-gray-50 transition-colors text-sm"
+                                className="flex-1 md:flex-none px-6 py-3 rounded-xl border border-border text-muted-foreground font-bold hover:bg-muted transition-colors text-sm"
                             >
                                 {declineButtonText}
                             </button>

@@ -56,7 +56,7 @@ export default function Footer() {
                   <div className="w-9 h-9 rounded-sm bg-primary flex items-center justify-center shadow-lg">
                     <span className="text-white font-mono font-bold text-sm">W</span>
                   </div>
-                  <span className="font-serif font-black text-xl tracking-tighter uppercase">{name}</span>
+                  <span className="font-serif font-bold text-xl tracking-tighter ">{name}</span>
                 </div>
               )}
             </Link>
@@ -88,13 +88,13 @@ export default function Footer() {
 
           {/* Explore */}
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-6">Directory</p>
+            <p className="text-[10px] font-bold  tracking-[0.3em] text-primary mb-6">Directory</p>
             <ul className="space-y-4">
               {EXPLORE.map(({ label, href }) => (
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors font-mono uppercase tracking-tight"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors font-mono  tracking-tight"
                   >
                     {label}
                   </Link>
@@ -105,13 +105,13 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-6">Resources</p>
+            <p className="text-[10px] font-bold  tracking-[0.3em] text-primary mb-6">Resources</p>
             <ul className="space-y-4">
               {SUPPORT.map(({ label, href }) => (
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors font-mono uppercase tracking-tight"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors font-mono  tracking-tight"
                   >
                     {label}
                   </Link>
@@ -122,7 +122,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-6">Terminal</p>
+            <p className="text-[10px] font-bold  tracking-[0.3em] text-primary mb-6">Terminal</p>
             <ul className="space-y-5">
               <li>
                 <a href={`mailto:${email}`} className="flex items-start gap-3 group">
@@ -146,7 +146,7 @@ export default function Footer() {
 
             {/* Payment logos */}
             <div className="mt-8 pt-8 border-t border-border">
-              <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mb-4 font-black">Secure Transfer</p>
+              <p className="font-mono text-[10px]  tracking-widest text-muted-foreground mb-4 font-bold">Secure Transfer</p>
               <div className="opacity-90 hover:grayscale hover:opacity-100 transition-all">
                 <PaymentLogos size="sm" />
               </div>
@@ -158,11 +158,11 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-border bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest font-black">
+          <p className="text-[10px] text-muted-foreground font-mono  tracking-widest font-bold">
             © {year} {name} // SYSTEM STATUS: NOMINAL
           </p>
           {site?.businessInfo?.vatNumber && (
-            <p className="text-[10px] text-muted-foreground font-mono uppercase">
+            <p className="text-[10px] text-muted-foreground font-mono ">
               REG: {site.businessInfo.vatNumber}
             </p>
           )}

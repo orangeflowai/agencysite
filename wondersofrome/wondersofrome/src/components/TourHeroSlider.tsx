@@ -85,13 +85,13 @@ export default function TourHeroSlider({
                 <>
                     <button
                         onClick={prevSlide}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition-colors opacity-0 group-hover:opacity-100 z-20"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 hover:bg-card/20 text-white rounded-full transition-colors opacity-0 group-hover:opacity-100 z-20"
                     >
                         <ChevronLeft size={32} />
                     </button>
                     <button
                         onClick={nextSlide}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 hover:bg-white/20 text-white rounded-full transition-colors opacity-0 group-hover:opacity-100 z-20"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 hover:bg-card/20 text-white rounded-full transition-colors opacity-0 group-hover:opacity-100 z-20"
                     >
                         <ChevronRight size={32} />
                     </button>
@@ -102,7 +102,7 @@ export default function TourHeroSlider({
                             <button
                                 key={idx}
                                 onClick={() => setCurrentIndex(idx)}
-                                className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex ? 'bg-white w-4' : 'bg-white/50 hover:bg-white'
+                                className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex ? 'bg-card w-4' : 'bg-card/50 hover:bg-card'
                                     }`}
                             />
                         ))}

@@ -67,14 +67,14 @@ export default function Navbar() {
   return (
     <>
       {/* 5K ROLLING MARQUEE */}
-      <div className="fixed top-0 left-0 right-0 z-[10002] bg-[#065f46] py-2 overflow-hidden border-b border-white/5 pointer-events-none">
+      <div className="fixed top-0 left-0 right-0 z-[10002] bg-primary py-2 overflow-hidden border-b border-white/5 pointer-events-none">
         <motion.div
             animate={{ x: [0, -1000] }}
             transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
             className="flex whitespace-nowrap gap-12 items-center"
         >
             {[...Array(10)].map((_, i) => (
-                <div key={i} className="flex items-center gap-12 text-white/90 font-mono font-bold uppercase tracking-[0.4em] text-[9px]">
+                <div key={i} className="flex items-center gap-12 text-white/90 font-mono font-bold  tracking-[0.4em] text-[9px]">
                     <span>✦ DISCOVER THE ANCIENT WONDERS ✦</span>
                     <span>✦ SKIP THE LINE PROTOCOLS ACTIVE ✦</span>
                     <span>✦ 100% SECURE BOOKING SYSTEM ✦</span>
@@ -111,11 +111,11 @@ export default function Navbar() {
                     <span className="text-white font-mono font-bold text-sm">W</span>
                   </div>
                   <span
-                    className={`font-serif font-black text-lg tracking-tighter transition-colors uppercase ${
+                    className={`font-serif font-bold text-lg tracking-tighter transition-colors  ${
                       scrolledOrOpen ? 'text-primary' : 'text-white drop-shadow-md'
                     }`}
                   >
-                    WONDERS <span className="italic opacity-70">OF</span> ROME
+                    WONDERS <span className=" opacity-70">OF</span> ROME
                   </span>
                 </div>
               )}
@@ -127,7 +127,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 text-[0.75rem] font-black uppercase tracking-[0.2em] transition-colors ${
+                  className={`relative px-3 py-2 text-[0.75rem] font-bold  tracking-[0.2em] transition-colors ${
                     isActive(link.href)
                       ? 'text-primary'
                       : scrolledOrOpen
@@ -150,7 +150,7 @@ export default function Navbar() {
                 <div className={`flex items-center gap-2 px-4 py-2 rounded-sm border transition-all ${
                   scrolledOrOpen
                     ? 'border-border bg-background'
-                    : 'border-white/20 bg-white/10 backdrop-blur-sm'
+                    : 'border-white/20 bg-card/10 backdrop-blur-sm'
                 }`}>
                   <Search size={14} className={scrolledOrOpen ? 'text-primary' : 'text-white/60'} />
                   <input
@@ -158,7 +158,7 @@ export default function Navbar() {
                     value={searchQ}
                     onChange={e => setSearchQ(e.target.value)}
                     placeholder="TERMINAL_SEARCH..."
-                    className={`bg-transparent text-[10px] font-black uppercase tracking-widest outline-none w-32 placeholder:opacity-50 transition-colors ${
+                    className={`bg-transparent text-[10px] font-bold  tracking-widest outline-none w-32 placeholder:opacity-50 transition-colors ${
                       scrolledOrOpen
                         ? 'text-foreground placeholder:text-muted-foreground'
                         : 'text-white placeholder:text-white/50'
@@ -171,8 +171,8 @@ export default function Navbar() {
               <div className="hidden lg:block relative">
                 <button
                   onClick={() => setLangOpen(!langOpen)}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
-                    scrolledOrOpen ? 'border-border text-foreground hover:bg-muted' : 'border-white/20 text-white hover:bg-white/10'
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold  tracking-widest transition-all border ${
+                    scrolledOrOpen ? 'border-border text-foreground hover:bg-muted' : 'border-white/20 text-white hover:bg-card/10'
                   }`}
                 >
                   <Globe size={13} />
@@ -180,7 +180,7 @@ export default function Navbar() {
                   <ChevronDown size={11} className={`transition-transform ${langOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {langOpen && (
-                  <div className="absolute right-0 top-full mt-2 bg-white border border-border rounded-xl shadow-xl overflow-hidden z-50 min-w-[140px]">
+                  <div className="absolute right-0 top-full mt-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50 min-w-[140px]">
                     {LANGS.map(l => (
                       <button
                         key={l.code}
@@ -203,12 +203,12 @@ export default function Navbar() {
               <Link
                 href="/checkout"
                 className={`relative lg:hidden p-2 rounded-sm transition-colors border ${
-                  scrolledOrOpen ? 'text-primary bg-background border-border' : 'text-white bg-white/10 border-white/20'
+                  scrolledOrOpen ? 'text-primary bg-background border-border' : 'text-white bg-card/10 border-white/20'
                 }`}
               >
                 <ShoppingBag size={20} />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-[9px] font-black rounded-full flex items-center justify-center border-2 border-background">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-background">
                     {totalItems}
                   </span>
                 )}
@@ -218,7 +218,7 @@ export default function Navbar() {
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className={`lg:hidden p-2 rounded-sm transition-colors border ${
-                  scrolledOrOpen ? 'text-primary bg-background border-border' : 'text-white bg-white/10 border-white/20'
+                  scrolledOrOpen ? 'text-primary bg-background border-border' : 'text-white bg-card/10 border-white/20'
                 }`}
                 aria-label="Toggle menu"
               >
@@ -242,7 +242,7 @@ export default function Navbar() {
                   value={searchQ}
                   onChange={e => setSearchQ(e.target.value)}
                   placeholder="QUERY_CORE..."
-                  className="flex-1 bg-transparent text-foreground text-sm font-black uppercase tracking-widest outline-none placeholder:text-muted-foreground"
+                  className="flex-1 bg-transparent text-foreground text-sm font-bold  tracking-widest outline-none placeholder:text-muted-foreground"
                 />
               </div>
             </form>
@@ -252,7 +252,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className={`flex items-center justify-between px-6 py-5 rounded-sm text-sm font-black uppercase tracking-[0.2em] transition-all border ${
+                className={`flex items-center justify-between px-6 py-5 rounded-sm text-sm font-bold  tracking-[0.2em] transition-all border ${
                   isActive(link.href)
                     ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
                     : 'text-foreground hover:bg-card border-transparent'
@@ -266,10 +266,10 @@ export default function Navbar() {
 
           {/* Mobile footer */}
           <div className="mt-auto px-8 py-10 border-t border-border bg-card">
-            <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-[0.4em] mb-4 font-black">Link Established</p>
+            <p className="font-mono text-[10px] text-muted-foreground  tracking-[0.4em] mb-4 font-bold">Link Established</p>
             <a
               href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+393514199425'}`}
-              className="text-primary font-black text-lg font-mono tracking-tighter"
+              className="text-primary font-bold text-lg font-mono tracking-tighter"
             >
               {process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 351 419 9425'}
             </a>

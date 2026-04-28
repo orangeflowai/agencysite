@@ -22,15 +22,15 @@ export default function Newsletter() {
 
     if (status === 'success') {
         return (
-            <div className="bg-emerald-50 border-y border-emerald-100 py-12">
+            <div className="bg-secondary border-y border-emerald-100 py-12">
                 <div className="container mx-auto px-4 text-center">
                     <div className="max-w-md mx-auto flex flex-col items-center gap-4">
-                        <CheckCircle2 size={48} className="text-emerald-500" />
-                        <h3 className="text-2xl font-bold text-gray-900">You're on the list!</h3>
-                        <p className="text-gray-600">Thanks for subscribing. We'll send you the best of Rome shortly.</p>
+                        <CheckCircle2 size={48} className="text-primary" />
+                        <h3 className="text-2xl font-bold text-foreground">You're on the list!</h3>
+                        <p className="text-muted-foreground">Thanks for subscribing. We'll send you the best of Rome shortly.</p>
                         <button
                             onClick={() => setStatus('idle')}
-                            className="text-emerald-600 font-bold text-sm hover:underline mt-2"
+                            className="text-primary font-bold text-sm hover:underline mt-2"
                         >
                             Subscribe another email
                         </button>
@@ -48,12 +48,12 @@ export default function Newsletter() {
                     {/* Left: Icon & Text */}
                     <div className="flex items-center gap-6 w-full lg:w-1/3 justify-center lg:justify-start">
                         <div className="relative">
-                            <Mail size={48} strokeWidth={1} className="text-gray-600" />
+                            <Mail size={48} strokeWidth={1} className="text-muted-foreground" />
                             <Bell size={24} className="absolute -bottom-2 -right-2 text-sky-400 fill-stone-900 bg-stone-900 rounded-full p-0.5" />
                         </div>
                         <div className="text-left">
                             <h3 className="text-xl font-bold text-white">Get Updates & More</h3>
-                            <p className="text-sm text-gray-400">Thoughtful thoughts to your inbox</p>
+                            <p className="text-sm text-muted-foreground">Thoughtful thoughts to your inbox</p>
                         </div>
                     </div>
 
@@ -66,13 +66,13 @@ export default function Newsletter() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Your email address"
-                                className="flex-grow bg-transparent px-4 py-3 text-sm text-white outline-none placeholder:text-gray-500"
+                                className="flex-grow bg-transparent px-4 py-3 text-sm text-white outline-none placeholder:text-muted-foreground"
                                 disabled={status === 'loading'}
                             />
                             <button
                                 type="submit"
                                 disabled={status === 'loading'}
-                                className="bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold uppercase tracking-widest px-6 py-4 transition-colors disabled:opacity-50"
+                                className="bg-primary hover:bg-sky-700 text-white text-xs font-bold  tracking-widest px-6 py-4 transition-colors disabled:opacity-50"
                             >
                                 {status === 'loading' ? '...' : 'Subscribe'}
                             </button>
@@ -93,7 +93,7 @@ export default function Newsletter() {
                                 <a
                                     key={i}
                                     href={href}
-                                    className="block p-2 rounded-full bg-stone-800 text-gray-400 hover:bg-sky-600 hover:text-white transition-all transform hover:-translate-y-1"
+                                    className="block p-2 rounded-full bg-stone-800 text-muted-foreground hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1"
                                 >
                                     <Icon size={18} />
                                 </a>

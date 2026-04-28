@@ -34,19 +34,19 @@ const itineraries = [
 
 export default function FeaturedItineraries() {
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-card overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header — like the reference image */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
-            <h2 className="font-serif text-4xl md:text-6xl font-bold text-gray-950 leading-none tracking-tight">
+            <h2 className="font-serif text-4xl md:text-6xl font-bold text-foreground leading-none tracking-tight">
               featured itineraries
             </h2>
-            <p className="text-gray-400 text-sm mt-2 italic">places that stay with you</p>
+            <p className="text-muted-foreground text-sm mt-2 ">places that stay with you</p>
           </div>
           <Link
             href="/search"
-            className="text-sm font-semibold text-sky-600 hover:text-sky-700 underline underline-offset-4 whitespace-nowrap self-end sm:self-auto"
+            className="text-sm font-semibold text-sky-600 hover:text-primary underline underline-offset-4 whitespace-nowrap self-end sm:self-auto"
           >
             view all →
           </Link>
@@ -77,10 +77,10 @@ export default function FeaturedItineraries() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-4">
-                <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-white/70 mb-1">
+                <span className="inline-block text-[10px] font-bold  tracking-widest text-white/70 mb-1">
                   {item.tag}
                 </span>
-                <p className="text-white text-xs font-bold uppercase tracking-wide leading-tight">
+                <p className="text-white text-xs font-bold  tracking-wide leading-tight">
                   {item.title}
                 </p>
               </div>
@@ -90,7 +90,7 @@ export default function FeaturedItineraries() {
 
         {/* Arrow nav hint on mobile */}
         <div className="flex items-center justify-end gap-3 mt-4 sm:hidden">
-          <span className="text-gray-400 text-sm">← →</span>
+          <span className="text-muted-foreground text-sm">← →</span>
         </div>
       </div>
     </section>

@@ -40,7 +40,7 @@ export default async function PrivateToursPage() {
                     <h2 className="text-2xl font-bold text-gray-800">
                         Exclusive Private Experiences
                     </h2>
-                    <p className="text-gray-500 mt-2">Customize your perfect day in Rome.</p>
+                    <p className="text-muted-foreground mt-2">Customize your perfect day in Rome.</p>
                 </div>
 
                 {filteredTours.length > 0 ? (
@@ -52,9 +52,9 @@ export default async function PrivateToursPage() {
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100">
-                        <h2 className="text-3xl font-bold text-gray-400 mb-4">No Private Tours Found</h2>
-                        <p className="text-gray-500">Please check back later or contact us to arrange a custom tour.</p>
+                    <div className="text-center py-20 bg-card rounded-3xl shadow-sm border border-border">
+                        <h2 className="text-3xl font-bold text-muted-foreground mb-4">No Private Tours Found</h2>
+                        <p className="text-muted-foreground">Please check back later or contact us to arrange a custom tour.</p>
                     </div>
                 )}
             </div>

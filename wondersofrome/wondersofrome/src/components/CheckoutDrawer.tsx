@@ -71,7 +71,7 @@ function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSucces
       />
       <div className="relative flex items-center gap-3 my-2">
         <div className="flex-1 h-px bg-gray-200" />
-        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">or pay by card</span>
+        <span className="text-[10px] font-bold text-muted-foreground  tracking-widest">or pay by card</span>
         <div className="flex-1 h-px bg-gray-200" />
       </div>
       <PaymentElement options={{ layout: 'accordion', wallets: { applePay: 'never', googlePay: 'never' } }} />
@@ -83,12 +83,12 @@ function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSucces
       <button
         type="submit"
         disabled={!stripe || processing}
-        className="w-full py-4 bg-gray-950 hover:bg-theme-primary-dark text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+        className="w-full py-4 bg-primary hover:bg-theme-primary-dark text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
       >
         {processing ? <Loader2 className="w-5 h-5 animate-spin" /> : <Lock className="w-4 h-4" />}
         {processing ? 'Processing...' : `Pay €${totalAmount.toFixed(2)}`}
       </button>
-      <p className="text-center text-xs text-gray-400 flex items-center justify-center gap-1">
+      <p className="text-center text-xs text-muted-foreground flex items-center justify-center gap-1">
         <Shield className="w-3 h-3" /> Secured by Stripe · 256-bit SSL
       </p>
     </form>
@@ -187,15 +187,15 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
 
   if (success) {
     return (
-      <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 checkout-modal-backdrop">
-        <div className="bg-white rounded-2xl p-10 max-w-sm w-full text-center shadow-2xl checkout-modal-panel">
-          <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Check className="w-10 h-10 text-emerald-600" />
+      <div className="fixed inset-0 z-[200] flex items-center justify-center bg-background/60 backdrop-blur-sm p-4 checkout-modal-backdrop">
+        <div className="bg-card rounded-2xl p-10 max-w-sm w-full text-center shadow-2xl checkout-modal-panel">
+          <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+            <Check className="w-10 h-10 text-primary" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Booking Confirmed!</h2>
-          <p className="text-gray-500 mb-2">Confirmation sent to <strong>{lead.email}</strong></p>
-          <p className="text-sm text-gray-400 mb-6">Check your inbox for your digital ticket and meeting point details.</p>
-          <button onClick={onClose} className="w-full py-3 bg-gray-950 text-white font-bold rounded-xl hover:bg-emerald-700 transition-colors">
+          <h2 className="text-2xl font-bold text-foreground mb-2">Booking Confirmed!</h2>
+          <p className="text-muted-foreground mb-2">Confirmation sent to <strong>{lead.email}</strong></p>
+          <p className="text-sm text-muted-foreground mb-6">Check your inbox for your digital ticket and meeting point details.</p>
+          <button onClick={onClose} className="w-full py-3 bg-primary text-white font-bold rounded-xl hover:opacity-90 transition-colors">
             Done
           </button>
         </div>
@@ -206,39 +206,39 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 checkout-modal-backdrop checkout-scope">
       {/* Backdrop — click to close */}
-      <div className="absolute inset-0 bg-black/55 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-background/55 backdrop-blur-sm" onClick={onClose} />
 
       {/* Centered modal panel */}
-      <div className="relative w-full max-w-3xl max-h-[92vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden checkout-modal-panel">
+      <div className="relative w-full max-w-3xl max-h-[92vh] bg-card rounded-2xl shadow-2xl flex flex-col overflow-hidden checkout-modal-panel">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card shrink-0">
           <div className="flex items-center gap-3">
             {step === 2 && (
               <button onClick={() => setStep(1)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
-                <ArrowLeft className="w-5 h-5 text-gray-600" />
+                <ArrowLeft className="w-5 h-5 text-muted-foreground" />
               </button>
             )}
             <div>
-              <h2 className="font-bold text-gray-900 text-lg">
+              <h2 className="font-bold text-foreground text-lg">
                 {step === 1 ? 'Contact Details' : 'Secure Payment'}
               </h2>
-              <p className="text-xs text-gray-400">Step {step} of 2</p>
+              <p className="text-xs text-muted-foreground">Step {step} of 2</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1 text-xs text-gray-400">
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
               <Lock className="w-3 h-3" /> Secure
             </div>
             <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <X className="w-5 h-5 text-gray-500" />
+              <X className="w-5 h-5 text-muted-foreground" />
             </button>
           </div>
         </div>
 
         {/* Progress bar */}
         <div className="h-1 bg-gray-100 shrink-0">
-          <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: step === 1 ? '50%' : '100%' }} />
+          <div className="h-full bg-primary transition-all duration-500" style={{ width: step === 1 ? '50%' : '100%' }} />
         </div>
 
         {/* Scrollable body */}
@@ -252,76 +252,76 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
               {step === 1 && (
                 <>
                   <div>
-                    <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">Required Fields *</h3>
+                    <h3 className="text-sm font-bold text-muted-foreground  tracking-wider mb-4">Required Fields *</h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">First name *</label>
+                        <label className="block text-sm font-semibold text-foreground mb-1.5">First name *</label>
                         <input
                           type="text"
                           value={lead.firstName}
                           onChange={e => setLead(p => ({ ...p, firstName: e.target.value }))}
                           placeholder="John"
-                          className={`w-full px-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 outline-none transition-all ${errors.firstName ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
+                          className={`w-full px-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none transition-all ${errors.firstName ? 'border-red-400 bg-red-50' : 'border-border'}`}
                         />
                         {errors.firstName && <p className="text-xs text-red-500 mt-1">{errors.firstName}</p>}
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Last name *</label>
+                        <label className="block text-sm font-semibold text-foreground mb-1.5">Last name *</label>
                         <input
                           type="text"
                           value={lead.lastName}
                           onChange={e => setLead(p => ({ ...p, lastName: e.target.value }))}
                           placeholder="Doe"
-                          className={`w-full px-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 outline-none transition-all ${errors.lastName ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
+                          className={`w-full px-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none transition-all ${errors.lastName ? 'border-red-400 bg-red-50' : 'border-border'}`}
                         />
                         {errors.lastName && <p className="text-xs text-red-500 mt-1">{errors.lastName}</p>}
                       </div>
                       <div className="col-span-2">
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Email *</label>
+                        <label className="block text-sm font-semibold text-foreground mb-1.5">Email *</label>
                         <div className="relative">
-                          <Mail className="absolute left-3 top-3.5 w-4 h-4 text-gray-400" />
+                          <Mail className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
                           <input
                             type="email"
                             value={lead.email}
                             onChange={e => setLead(p => ({ ...p, email: e.target.value }))}
                             placeholder="john@example.com"
-                            className={`w-full pl-10 pr-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 outline-none transition-all ${errors.email ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
+                            className={`w-full pl-10 pr-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none transition-all ${errors.email ? 'border-red-400 bg-red-50' : 'border-border'}`}
                           />
                         </div>
                         {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                       </div>
                       <div className="col-span-2">
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Mobile phone *</label>
+                        <label className="block text-sm font-semibold text-foreground mb-1.5">Mobile phone *</label>
                         <div className="relative">
-                          <Phone className="absolute left-3 top-3.5 w-4 h-4 text-gray-400" />
+                          <Phone className="absolute left-3 top-3.5 w-4 h-4 text-muted-foreground" />
                           <input
                             type="tel"
                             value={lead.phone}
                             onChange={e => setLead(p => ({ ...p, phone: e.target.value }))}
                             placeholder="+39 123 456 7890"
-                            className={`w-full pl-10 pr-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 outline-none transition-all ${errors.phone ? 'border-red-400 bg-red-50' : 'border-gray-200'}`}
+                            className={`w-full pl-10 pr-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none transition-all ${errors.phone ? 'border-red-400 bg-red-50' : 'border-border'}`}
                           />
                         </div>
                         {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
                       </div>
                       <div className="col-span-2">
-                        <label className="block text-sm font-semibold text-gray-700 mb-1.5">Notes (optional)</label>
+                        <label className="block text-sm font-semibold text-foreground mb-1.5">Notes (optional)</label>
                         <textarea
                           rows={3}
                           value={lead.notes}
                           onChange={e => setLead(p => ({ ...p, notes: e.target.value }))}
                           placeholder="Special requests, accessibility needs..."
-                          className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-400 outline-none resize-none"
+                          className="w-full px-4 py-3 border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none resize-none"
                         />
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-xl border border-gray-100">
-                    <Shield className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+                  <div className="flex items-start gap-3 p-4 bg-muted rounded-xl border border-border">
+                    <Shield className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                     <div>
-                      <p className="text-sm font-semibold text-gray-900">Free cancellation up to 24h before</p>
-                      <p className="text-xs text-gray-500 mt-0.5">Full refund if cancelled more than 24 hours before the tour starts.</p>
+                      <p className="text-sm font-semibold text-foreground">Free cancellation up to 24h before</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">Full refund if cancelled more than 24 hours before the tour starts.</p>
                     </div>
                   </div>
 
@@ -334,7 +334,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                   <button
                     onClick={goToPayment}
                     disabled={creatingIntent}
-                    className="w-full py-4 bg-gray-950 hover:bg-emerald-700 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-60"
+                    className="w-full py-4 bg-primary hover:opacity-90 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-60"
                   >
                     {creatingIntent ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
                     {creatingIntent ? 'Preparing payment...' : 'Continue to Payment →'}
@@ -347,12 +347,12 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                 <>
                   {!clientSecret ? (
                     <div className="flex items-center justify-center py-16">
-                      <Loader2 className="w-8 h-8 animate-spin text-emerald-500" />
+                      <Loader2 className="w-8 h-8 animate-spin text-primary" />
                     </div>
                   ) : (
                     <Elements stripe={stripePromise} options={{ 
                       clientSecret, 
-                      appearance: { theme: 'stripe', variables: { colorPrimary: '#059669' } },
+                      appearance: { theme: 'stripe', variables: { colorPrimary: '#064034' } },
                     }}>
                       <PaymentForm totalAmount={bookingData.totalPrice} onSuccess={() => {
                         // Redirect to success page — webhook will handle email/PDF
@@ -365,7 +365,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
             </div>
 
             {/* Right: Order Summary */}
-            <div className="md:col-span-2 bg-gray-50 border-t md:border-t-0 md:border-l border-gray-100 p-6 space-y-5">
+            <div className="md:col-span-2 bg-muted border-t md:border-t-0 md:border-l border-border p-6 space-y-5">
               <div>
                 {bookingData.tour.mainImage && (
                   <div className="relative w-full h-36 rounded-xl overflow-hidden mb-4">
@@ -376,41 +376,41 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                     />
                   </div>
                 )}
-                <h3 className="font-bold text-gray-900 text-sm leading-snug">{bookingData.tour.title}</h3>
+                <h3 className="font-bold text-foreground text-sm leading-snug">{bookingData.tour.title}</h3>
                 {bookingData.tour.category && (
-                  <span className="text-xs text-gray-500 capitalize">{bookingData.tour.category}</span>
+                  <span className="text-xs text-muted-foreground capitalize">{bookingData.tour.category}</span>
                 )}
               </div>
 
               <div className="space-y-2.5">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Calendar className="w-4 h-4 text-gray-400 shrink-0" />
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Calendar className="w-4 h-4 text-muted-foreground shrink-0" />
                   <span>{format(new Date(bookingData.date + 'T12:00:00'), 'EEEE, d MMMM yyyy')}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Clock className="w-4 h-4 text-gray-400 shrink-0" />
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Clock className="w-4 h-4 text-muted-foreground shrink-0" />
                   <span>{bookingData.time}</span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Users className="w-4 h-4 text-gray-400 shrink-0" />
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Users className="w-4 h-4 text-muted-foreground shrink-0" />
                   <span>{totalGuests} {totalGuests === 1 ? 'guest' : 'guests'}</span>
                 </div>
                 {bookingData.tour.meetingPoint && (
-                  <div className="flex items-start gap-2 text-sm text-gray-600">
-                    <MapPin className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
+                  <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <MapPin className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
                     <span className="text-xs">{bookingData.tour.meetingPoint}</span>
                   </div>
                 )}
               </div>
 
-              <div className="border-t border-gray-200 pt-4 space-y-2">
+              <div className="border-t border-border pt-4 space-y-2">
                 {guestLines.map(({ type, count, price }) => (
-                  <div key={type} className="flex justify-between text-sm text-gray-600">
+                  <div key={type} className="flex justify-between text-sm text-muted-foreground">
                     <span>{count}× {type}</span>
                     <span>€{(count * price).toFixed(2)}</span>
                   </div>
                 ))}
-                <div className="flex justify-between font-bold text-gray-900 text-base pt-2 border-t border-gray-200">
+                <div className="flex justify-between font-bold text-foreground text-base pt-2 border-t border-border">
                   <span>Total Due</span>
                   <span>€{bookingData.totalPrice.toFixed(2)}</span>
                 </div>
@@ -422,8 +422,8 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                   { icon: Lock,   text: 'Secure payment by Stripe' },
                   { icon: Star,   text: 'Instant confirmation email' },
                 ].map(({ icon: Icon, text }) => (
-                  <div key={text} className="flex items-center gap-2 text-xs text-gray-500">
-                    <Icon className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                  <div key={text} className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Icon className="w-3.5 h-3.5 text-primary shrink-0" />
                     <span>{text}</span>
                   </div>
                 ))}

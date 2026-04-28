@@ -14,7 +14,7 @@ export default function AdminLayout({
     return (
         <AdminProvider>
             <ThemeProvider>
-                <div className={`flex min-h-screen bg-gray-50 ${inter.className}`} suppressHydrationWarning>
+                <div className={`flex min-h-screen bg-muted ${inter.className}`} suppressHydrationWarning>
                     <AdminLayoutClient>{children}</AdminLayoutClient>
                 </div>
             </ThemeProvider>

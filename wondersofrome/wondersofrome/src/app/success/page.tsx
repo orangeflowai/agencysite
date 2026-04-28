@@ -185,25 +185,25 @@ function SuccessContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#fafaf8] flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
           <div className="animate-spin rounded-full h-12 w-12 border-2 border-[#d4af37] border-t-transparent mx-auto" />
-          <p className="text-[#64748b] font-medium">Confirming your booking...</p>
-          <p className="text-[#94a3b8] text-sm">This may take a few seconds</p>
+          <p className="text-muted-foreground font-medium">Confirming your booking...</p>
+          <p className="text-muted-foreground text-sm">This may take a few seconds</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#fafaf8] py-12 px-4">
+    <div className="min-h-screen bg-background py-12 px-4">
       <div className="max-w-2xl mx-auto space-y-6">
 
         {/* Success Header */}
-        <div className="bg-white rounded-2xl border border-[#e8e6e1] overflow-hidden shadow-[0_8px_32px_rgba(15,23,42,0.08)]">
-          <div className="bg-[#0f172a] p-8 text-center">
-            <div className="w-20 h-20 bg-[#d4af37]/15 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircle className="w-10 h-10 text-[#d4af37]" />
+        <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-[0_8px_32px_rgba(15,23,42,0.08)]">
+          <div className="bg-primary p-8 text-center">
+            <div className="w-20 h-20 bg-accent/15 rounded-full flex items-center justify-center mx-auto mb-4">
+              <CheckCircle className="w-10 h-10 text-accent" />
             </div>
             <h1 className="font-bold text-2xl text-white mb-1">Booking Confirmed!</h1>
             <p className="text-white/50 text-sm">A confirmation email has been sent to you</p>
@@ -211,57 +211,57 @@ function SuccessContent() {
 
           <div className="p-8 space-y-5">
             {/* Booking ref */}
-            <div className="text-center p-4 bg-[#fafaf8] rounded-xl border border-[#e8e6e1]">
-              <span className="text-xs text-[#94a3b8] uppercase tracking-widest font-mono">Booking Reference</span>
-              <p className="font-mono font-bold text-3xl text-[#0f172a] mt-1">#{bookingRef}</p>
+            <div className="text-center p-4 bg-background rounded-xl border border-border">
+              <span className="text-xs text-muted-foreground  tracking-widest font-mono">Booking Reference</span>
+              <p className="font-mono font-bold text-3xl text-primary mt-1">#{bookingRef}</p>
             </div>
 
             {booking ? (
               <>
                 {/* Tour details */}
-                <div className="bg-[#fafaf8] rounded-xl p-5 border border-[#e8e6e1] space-y-3">
-                  <h3 className="font-semibold text-[#0f172a] flex items-center gap-2 text-sm">
-                    <Calendar className="w-4 h-4 text-[#d4af37]" /> Tour Details
+                <div className="bg-background rounded-xl p-5 border border-border space-y-3">
+                  <h3 className="font-semibold text-primary flex items-center gap-2 text-sm">
+                    <Calendar className="w-4 h-4 text-accent" /> Tour Details
                   </h3>
                   <div className="text-sm space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-[#64748b]">Tour</span>
-                      <span className="font-medium text-[#0f172a] text-right max-w-[60%]">{booking.tour_title}</span>
+                      <span className="text-muted-foreground">Tour</span>
+                      <span className="font-medium text-primary text-right max-w-[60%]">{booking.tour_title}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#64748b]">Date</span>
-                      <span className="font-medium text-[#0f172a]">
+                      <span className="text-muted-foreground">Date</span>
+                      <span className="font-medium text-primary">
                         {new Date(booking.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#64748b]">Time</span>
-                      <span className="font-medium text-[#0f172a]">{booking.time}</span>
+                      <span className="text-muted-foreground">Time</span>
+                      <span className="font-medium text-primary">{booking.time}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#64748b]">Guests</span>
-                      <span className="font-medium text-[#0f172a]">{booking.guests}</span>
+                      <span className="text-muted-foreground">Guests</span>
+                      <span className="font-medium text-primary">{booking.guests}</span>
                     </div>
-                    <div className="flex justify-between border-t border-[#e8e6e1] pt-2 mt-2">
-                      <span className="font-semibold text-[#0f172a]">Total Paid</span>
-                      <span className="font-bold text-[#d4af37] text-lg">€{booking.total_price.toFixed(2)}</span>
+                    <div className="flex justify-between border-t border-border pt-2 mt-2">
+                      <span className="font-semibold text-primary">Total Paid</span>
+                      <span className="font-bold text-accent text-lg">€{booking.total_price.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Contact */}
-                <div className="bg-[#fafaf8] rounded-xl p-5 border border-[#e8e6e1] space-y-2">
-                  <h3 className="font-semibold text-[#0f172a] flex items-center gap-2 text-sm">
-                    <Mail className="w-4 h-4 text-[#d4af37]" /> Contact
+                <div className="bg-background rounded-xl p-5 border border-border space-y-2">
+                  <h3 className="font-semibold text-primary flex items-center gap-2 text-sm">
+                    <Mail className="w-4 h-4 text-accent" /> Contact
                   </h3>
                   <div className="text-sm space-y-1">
                     <div className="flex justify-between">
-                      <span className="text-[#64748b]">Name</span>
-                      <span className="font-medium text-[#0f172a]">{booking.customer_name}</span>
+                      <span className="text-muted-foreground">Name</span>
+                      <span className="font-medium text-primary">{booking.customer_name}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#64748b]">Email</span>
-                      <span className="font-medium text-[#0f172a]">{booking.customer_email}</span>
+                      <span className="text-muted-foreground">Email</span>
+                      <span className="font-medium text-primary">{booking.customer_email}</span>
                     </div>
                   </div>
                 </div>
@@ -281,7 +281,7 @@ function SuccessContent() {
               </>
             ) : (
               <div className="text-center py-6">
-                <p className="text-[#64748b]">Your booking is confirmed. Check your email for details.</p>
+                <p className="text-muted-foreground">Your booking is confirmed. Check your email for details.</p>
               </div>
             )}
 
@@ -289,7 +289,7 @@ function SuccessContent() {
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Link
                 href="/"
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-[#0f172a] text-white font-semibold text-sm rounded-xl hover:bg-[#1e293b] transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold text-sm rounded-xl hover:bg-[#1e293b] transition-colors"
               >
                 <Home size={16} /> Back to Home
               </Link>
@@ -297,7 +297,7 @@ function SuccessContent() {
                 <button
                   onClick={downloadPDF}
                   disabled={pdfLoading}
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-[#d4af37] text-[#0f172a] font-bold text-sm rounded-xl hover:bg-[#c9a227] transition-colors disabled:opacity-60"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-accent text-primary font-bold text-sm rounded-xl hover:bg-[#c9a227] transition-colors disabled:opacity-60"
                 >
                   {pdfLoading ? (
                     <div className="w-4 h-4 border-2 border-[#0f172a] border-t-transparent rounded-full animate-spin" />
@@ -312,10 +312,10 @@ function SuccessContent() {
         </div>
 
         {/* Trust row */}
-        <div className="flex justify-center gap-8 text-xs text-[#94a3b8] font-mono">
-          <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-[#d4af37]" /> Instant Confirmation</span>
-          <span className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5 text-[#d4af37]" /> Email Sent</span>
-          <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-[#d4af37]" /> Mobile Ticket</span>
+        <div className="flex justify-center gap-8 text-xs text-muted-foreground font-mono">
+          <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-accent" /> Instant Confirmation</span>
+          <span className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5 text-accent" /> Email Sent</span>
+          <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-accent" /> Mobile Ticket</span>
         </div>
       </div>
     </div>
@@ -327,7 +327,7 @@ export default function SuccessPage() {
     <>
       <Navbar />
       <Suspense fallback={
-        <div className="min-h-screen bg-[#fafaf8] flex items-center justify-center">
+        <div className="min-h-screen bg-background flex items-center justify-center">
           <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#d4af37] border-t-transparent" />
         </div>
       }>

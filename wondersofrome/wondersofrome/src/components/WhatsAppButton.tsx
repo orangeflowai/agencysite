@@ -17,7 +17,7 @@ export default function WhatsAppButton() {
       className="fixed bottom-6 right-6 z-50 flex items-center gap-3 group"
     >
       {/* Tooltip */}
-      <span className="hidden sm:flex items-center bg-[#0f172a] text-white text-xs font-mono font-medium px-3 py-2 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">
+      <span className="hidden sm:flex items-center bg-primary text-white text-xs font-mono font-medium px-3 py-2 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap translate-x-2 group-hover:translate-x-0">
         Chat · Usually replies in minutes
       </span>
 

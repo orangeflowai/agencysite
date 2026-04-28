@@ -24,67 +24,134 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: var(--font-radio), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-radio), ui-serif, Georgia, serif;
+  --font-mono: var(--font-radio), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --shadow-color: var(--shadow-color);
+  --shadow-opacity: var(--shadow-opacity);
+  --shadow-blur: var(--shadow-blur);
+  --shadow-spread: var(--shadow-spread);
+  --shadow-offset-x: var(--shadow-offset-x);
+  --shadow-offset-y: var(--shadow-offset-y);
 }
 
 @utility font-heading {
-  font-family: var(--font-serif);
-  font-weight: 900;
-  font-style: italic;
-  text-transform: uppercase;
-  letter-spacing: -0.05em;
-  line-height: 0.9;
+  font-family: var(--font-radio);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-transform: none;
+  font-style: normal;
 }
 
 @utility font-body {
-  font-family: var(--font-sans);
+  font-family: var(--font-radio);
+  font-weight: 400;
+}
+
+@utility font-mono {
+  font-family: var(--font-radio);
+  font-weight: 500;
+}
+
+@utility font-black {
+  font-weight: 600;
+}
+
+@utility font-bold {
+  font-weight: 600;
+}
+
+@utility font-extrabold {
+  font-weight: 600;
 }
 
 :root {
-  --background: #faf9f5;
-  --foreground: #3d3929;
-  --card: #faf9f5;
-  --card-foreground: #141413;
-  --popover: #ffffff;
-  --popover-foreground: #28261b;
-  --primary: #c96442;
-  --primary-foreground: #ffffff;
-  --secondary: #e9e6dc;
-  --secondary-foreground: #535146;
-  --muted: #ede9de;
-  --muted-foreground: #83827d;
-  --accent: #e9e6dc;
-  --accent-foreground: #28261b;
-  --destructive: #141413;
-  --destructive-foreground: #ffffff;
-  --border: #dad9d4;
-  --input: #b4b2a7;
-  --ring: #c96442;
-  --radius: 0.5rem;
+  /* Core Canvas */
+  --background: #F3EDD8;
+  --foreground: #393B0B;
+
+  /* Cards & Surfaces */
+  --card: #F7F2E4;
+  --card-foreground: #393B0B;
+  --popover: #F7F2E4;
+  --popover-foreground: #393B0B;
+
+  /* Primary Action: Deep Teal */
+  --primary: #064034;
+  --primary-foreground: #FAF9F5;
+
+  /* Secondary: Light Gold Beige */
+  --secondary: #D9C9A3;
+  --secondary-foreground: #393B0B;
+
+  /* Muted: Desaturated Parchment */
+  --muted: #E2D9C0;
+  --muted-foreground: #6B6238;
+
+  /* Accent: Antique Gold */
+  --accent: #C4A96A;
+  --accent-foreground: #393B0B;
+
+  /* Destructive: Harmonized Rust-Red */
+  --destructive: #B5422A;
+  --destructive-foreground: #FAF9F5;
+
+  /* Borders & Inputs */
+  --border: #896E26;
+  --input: #C4B896;
+  --ring: #064034;
+  --radius: 0.425rem;
+
+  /* Shadows */
+  --shadow-color: hsl(165 80% 12% / 0.15);
+  --shadow-opacity: 0.15;
+  --shadow-blur: 2px;
+  --shadow-spread: 0px;
+  --shadow-offset-x: 3px;
+  --shadow-offset-y: 3px;
 }
 
 .dark {
-  --background: #262624;
-  --foreground: #c3c0b6;
-  --card: #262624;
-  --card-foreground: #faf9f5;
-  --popover: #30302e;
-  --popover-foreground: #e5e5e2;
-  --primary: #d97757;
-  --primary-foreground: #ffffff;
-  --secondary: #faf9f5;
-  --secondary-foreground: #30302e;
-  --muted: #1b1b19;
-  --muted-foreground: #b7b5a9;
-  --accent: #1a1915;
-  --accent-foreground: #f5f4ee;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #3e3e38;
-  --input: #52514a;
-  --ring: #d97757;
+  /* Core Canvas */
+  --background: #0F1C19;
+  --foreground: #FAF9F5;
+
+  /* Cards & Surfaces */
+  --card: #1A2622;
+  --card-foreground: #FAF9F5;
+  --popover: #1A2622;
+  --popover-foreground: #FAF9F5;
+
+  /* Primary Action: Luminous Teal */
+  --primary: #3DAB91;
+  --primary-foreground: #0F1C19;
+
+  /* Secondary: Dark Olive-Gray */
+  --secondary: #3A453F;
+  --secondary-foreground: #FAF9F5;
+
+  /* Muted: Deep Teal-Gray */
+  --muted: #1A2622;
+  --muted-foreground: #A8A096;
+
+  /* Accent: Muted Teal */
+  --accent: #3D4F48;
+  --accent-foreground: #FAF9F5;
+
+  /* Destructive: Softened Rust */
+  --destructive: #D98B7E;
+  --destructive-foreground: #0F1C19;
+
+  /* Borders & Inputs */
+  --border: #5C4D2E;
+  --input: #3A453F;
+  --ring: #3DAB91;
+
+  /* Shadows */
+  --shadow-color: hsl(165 60% 45% / 0.12);
+  --shadow-opacity: 0.12;
 }
 
 @layer base {
@@ -94,4 +161,12 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

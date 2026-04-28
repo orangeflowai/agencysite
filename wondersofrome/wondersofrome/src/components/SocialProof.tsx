@@ -25,9 +25,9 @@ export default function SocialProof() {
           <div className="flex-1 space-y-6">
             <div className="inline-flex items-center space-x-2 bg-emerald-800/50 px-4 py-2 rounded-full border border-emerald-700/50 backdrop-blur-sm">
               <CheckCircle size={16} className="text-emerald-400" />
-              <span className="text-sm font-bold tracking-wider uppercase text-emerald-100">Official Partner</span>
+              <span className="text-sm font-bold tracking-wider  text-emerald-100">Official Partner</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black leading-none tracking-tight text-white">
+            <h2 className="text-4xl md:text-5xl font-bold leading-none tracking-tight text-white">
               Trusted by over <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-200">
                 50,000+
@@ -57,9 +57,9 @@ export default function SocialProof() {
           {[...reviews, ...reviews].map((review, i) => (
             <div
               key={i}
-              className="w-[350px] bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex-shrink-0 hover:bg-white/15 transition-colors cursor-pointer relative group"
+              className="w-[350px] bg-card/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex-shrink-0 hover:bg-card/15 transition-colors cursor-pointer relative group"
             >
-              <Quote className="absolute top-4 right-4 text-emerald-500/20 group-hover:text-emerald-400/40 transition-colors" size={40} />
+              <Quote className="absolute top-4 right-4 text-primary/20 group-hover:text-emerald-400/40 transition-colors" size={40} />
 
               <div className="flex items-center space-x-1 mb-3">
                 {[...Array(5)].map((_, s) => (
@@ -72,7 +72,7 @@ export default function SocialProof() {
               </p>
 
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-xs font-bold text-white shadow-inner">
+                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-xs font-bold text-white shadow-inner">
                   {review.name.charAt(0)}
                 </div>
                 <div className="flex flex-col">

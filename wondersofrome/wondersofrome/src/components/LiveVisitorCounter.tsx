@@ -17,11 +17,11 @@ export default function LiveVisitorCounter() {
   }, []);
 
   return (
-    <div className="inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-gray-100">
-      <Eye className="w-4 h-4 text-emerald-600 animate-pulse" />
+    <div className="inline-flex items-center gap-2 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-border">
+      <Eye className="w-4 h-4 text-primary animate-pulse" />
       <div className="flex items-center gap-1">
-        <span className="font-semibold text-gray-900 tabular-nums">{count}</span>
-        <span className="text-sm text-gray-600">people viewing now</span>
+        <span className="font-semibold text-foreground tabular-nums">{count}</span>
+        <span className="text-sm text-muted-foreground">people viewing now</span>
       </div>
     </div>
   );

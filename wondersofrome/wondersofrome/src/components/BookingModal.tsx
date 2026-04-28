@@ -58,21 +58,21 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={onClose}
-                    className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                    className="absolute inset-0 bg-background/60 backdrop-blur-sm"
                 />
 
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                    className="relative bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
+                    className="relative bg-card w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
                 >
                     {/* Header */}
-                    <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-cream/50">
-                        <h3 className="font-bold text-xl text-black">
+                    <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-cream/50">
+                        <h3 className="font-bold text-xl text-foreground">
                             {step === 3 ? 'Booking Confirmed' : 'Complete Booking'}
                         </h3>
-                        <button onClick={onClose} className="text-gray-400 hover:text-black transition-colors">
+                        <button onClick={onClose} className="text-muted-foreground hover:text-foreground transition-colors">
                             <X size={24} />
                         </button>
                     </div>
@@ -82,24 +82,24 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
                         {step === 1 && (
                             <form onSubmit={(e) => { e.preventDefault(); setStep(2); }} className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Select Date</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Select Date</label>
                                     <div className="relative">
-                                        <Calendar className="absolute left-3 top-3 text-gray-400" size={18} />
+                                        <Calendar className="absolute left-3 top-3 text-muted-foreground" size={18} />
                                         <input
                                             type="date"
                                             required
-                                            className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-olive focus:border-olive outline-none transition-all"
+                                            className="w-full pl-10 pr-4 py-3 bg-muted border border-border rounded-xl focus:ring-2 focus:ring-olive focus:border-olive outline-none transition-all"
                                             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                                         />
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Number of Guests</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Number of Guests</label>
                                     <div className="relative">
-                                        <User className="absolute left-3 top-3 text-gray-400" size={18} />
+                                        <User className="absolute left-3 top-3 text-muted-foreground" size={18} />
                                         <select
-                                            className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-olive focus:border-olive outline-none transition-all"
+                                            className="w-full pl-10 pr-4 py-3 bg-muted border border-border rounded-xl focus:ring-2 focus:ring-olive focus:border-olive outline-none transition-all"
                                             value={formData.guests}
                                             onChange={(e) => setFormData({ ...formData, guests: Number(e.target.value) })}
                                         >
@@ -109,7 +109,7 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
                                 </div>
 
                                 <div className="bg-cream p-4 rounded-xl flex justify-between items-center mt-6">
-                                    <span className="text-gray-600 font-medium">Total Price</span>
+                                    <span className="text-muted-foreground font-medium">Total Price</span>
                                     <span className="text-2xl font-bold text-olive">€{total}</span>
                                 </div>
 
@@ -122,32 +122,32 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
                         {step === 2 && (
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Full Name</label>
                                     <input
                                         type="text"
                                         required
                                         placeholder="John Doe"
-                                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-olive focus:border-olive outline-none"
+                                        className="w-full px-4 py-3 bg-muted border border-border rounded-xl focus:ring-2 focus:ring-olive focus:border-olive outline-none"
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                    <label className="block text-sm font-medium text-foreground mb-1">Email Address</label>
                                     <div className="relative">
-                                        <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
+                                        <Mail className="absolute left-3 top-3 text-muted-foreground" size={18} />
                                         <input
                                             type="email"
                                             required
                                             placeholder="john@example.com"
-                                            className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-olive focus:border-olive outline-none"
+                                            className="w-full pl-10 pr-4 py-3 bg-muted border border-border rounded-xl focus:ring-2 focus:ring-olive focus:border-olive outline-none"
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         />
                                     </div>
                                 </div>
 
                                 <div className="pt-4 pb-2">
-                                    <div className="flex items-center space-x-2 text-sm text-gray-500 mb-4 bg-gray-50 p-3 rounded-lg">
+                                    <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-4 bg-muted p-3 rounded-lg">
                                         <CreditCard size={16} />
                                         <span>No payment required for this demo.</span>
                                     </div>
@@ -160,7 +160,7 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
                                 >
                                     {isSubmitting ? 'Processing...' : `Confirm Booking • €${total}`}
                                 </button>
-                                <button type="button" onClick={() => setStep(1)} className="w-full text-gray-500 text-sm py-2 hover:text-black">
+                                <button type="button" onClick={() => setStep(1)} className="w-full text-muted-foreground text-sm py-2 hover:text-foreground">
                                     Back
                                 </button>
                             </form>
@@ -171,12 +171,12 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
                                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                                     <CheckCircle className="w-10 h-10 text-green-600" />
                                 </div>
-                                <h4 className="text-2xl font-bold text-black">Booking Successful!</h4>
-                                <p className="text-gray-600">
+                                <h4 className="text-2xl font-bold text-foreground">Booking Successful!</h4>
+                                <p className="text-muted-foreground">
                                     Thanks {formData.name}, your tickets have been reserved.
                                     <br />A confirmation email has been sent to {formData.email}.
                                 </p>
-                                <p className="text-sm text-gray-400 mt-4 animate-pulse">Redirecting...</p>
+                                <p className="text-sm text-muted-foreground mt-4 animate-pulse">Redirecting...</p>
                             </div>
                         )}
                     </div>

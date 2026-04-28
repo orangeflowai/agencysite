@@ -88,7 +88,7 @@ export default async function CategoryPage({ params }: PageProps) {
                     <h2 className="text-2xl font-bold text-gray-800">
                         Top Rated {categoryInfo.title}
                     </h2>
-                    <p className="text-gray-500 mt-2">Book official tickets and guided experiences.</p>
+                    <p className="text-muted-foreground mt-2">Book official tickets and guided experiences.</p>
                 </div>
 
                 {filteredTours.length > 0 ? (
@@ -100,9 +100,9 @@ export default async function CategoryPage({ params }: PageProps) {
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100">
-                        <h2 className="text-3xl font-bold text-gray-400 mb-4">Coming Soon</h2>
-                        <p className="text-gray-500">We are currently curating the best tours for this category.</p>
+                    <div className="text-center py-20 bg-card rounded-3xl shadow-sm border border-border">
+                        <h2 className="text-3xl font-bold text-muted-foreground mb-4">Coming Soon</h2>
+                        <p className="text-muted-foreground">We are currently curating the best tours for this category.</p>
                     </div>
                 )}
             </div>

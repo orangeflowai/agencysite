@@ -45,7 +45,7 @@ export function getThemeClasses(siteId: string = DEFAULT_SITE_ID) {
   const themes = {
     'rome-tour-tickets': {
       primary: 'bg-sky-700 hover:bg-sky-800',
-      primaryText: 'text-sky-700',
+      primaryText: 'text-primary',
       accent: 'bg-amber-500 hover:bg-amber-600',
       accentText: 'text-amber-500',
       gradient: 'from-emerald-800 to-emerald-600',

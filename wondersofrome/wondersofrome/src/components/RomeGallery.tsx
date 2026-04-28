@@ -23,10 +23,10 @@ export default function RomeGallery() {
     <section className="py-24 bg-neutral-900 border-t border-neutral-800 overflow-hidden relative">
       {/* Header */}
       <div className="container mx-auto px-4 mb-16 text-center relative z-10">
-        <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter mb-4">
-          Walk where the <span className="text-emerald-500">gladiators</span> walked
+        <h2 className="text-4xl md:text-6xl font-bold text-white  tracking-tighter mb-4">
+          Walk where the <span className="text-primary">gladiators</span> walked
         </h2>
-        <p className="text-gray-400 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-lg md:text-xl font-medium max-w-2xl mx-auto">
           Immerse yourself in the eternal beauty of Rome. Every corner tells a story waiting to be discovered.
         </p>
       </div>

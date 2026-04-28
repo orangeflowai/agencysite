@@ -56,32 +56,32 @@ export default function ExperienceShowcase({
   const imageUrl = getTourImage(tour);
 
   const isGold = accent === 'gold';
-  const accentBg = isGold ? 'bg-[#d4af37]' : 'bg-[#f97316]';
-  const accentText = isGold ? 'text-[#d4af37]' : 'text-[#f97316]';
-  const accentHover = isGold ? 'hover:bg-[#b8912a]' : 'hover:bg-[#ea580c]';
-  const ctaBg = isGold ? 'bg-[#d4af37] text-[#0f172a]' : 'bg-[#f97316] text-white';
+  const accentBg = isGold ? 'bg-accent' : 'bg-[var(--accent)]';
+  const accentText = isGold ? 'text-accent' : 'text-[var(--accent)]';
+  const accentHover = isGold ? 'hover:bg-[var(--accent)]' : 'hover:bg-[var(--accent)]';
+  const ctaBg = isGold ? 'bg-accent text-primary' : 'bg-[var(--accent)] text-white';
   const highlights = tour.highlights?.slice(0, 3) || [];
 
   return (
-    <section className="py-12 md:py-16 bg-white">
+    <section className="py-12 md:py-16 bg-card">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Row header */}
         <div className="flex items-end justify-between mb-8">
           <div>
-            <h2 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">{title}</h2>
-            {subtitle && <p className="text-gray-500 text-lg mt-2">{subtitle}</p>}
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">{title}</h2>
+            {subtitle && <p className="text-muted-foreground text-lg mt-2">{subtitle}</p>}
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setCurrent(i => (i - 1 + tours.length) % tours.length)}
-              className="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all"
+              className="w-10 h-10 rounded-full border-2 border-border flex items-center justify-center hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all"
               aria-label="Previous"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => setCurrent(i => (i + 1) % tours.length)}
-              className="w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all"
+              className="w-10 h-10 rounded-full border-2 border-border flex items-center justify-center hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all"
               aria-label="Next"
             >
               <ChevronRight className="w-5 h-5" />
@@ -108,37 +108,37 @@ export default function ExperienceShowcase({
             />
             {/* Badge overlay */}
             {tour.badge && (
-              <div className={`absolute top-5 left-5 ${accentBg} text-white text-xs font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg`}>
+              <div className={`absolute top-5 left-5 ${accentBg} text-white text-xs font-bold  tracking-widest px-3 py-1.5 rounded-full shadow-lg`}>
                 {tour.badge}
               </div>
             )}
             {/* Rating overlay */}
             {tour.rating && (
-              <div className="absolute bottom-5 left-5 flex items-center gap-1.5 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full shadow">
+              <div className="absolute bottom-5 left-5 flex items-center gap-1.5 bg-card/90 backdrop-blur px-3 py-1.5 rounded-full shadow">
                 <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-                <span className="text-sm font-black text-gray-900">{tour.rating}</span>
-                <span className="text-xs text-gray-500 font-medium">({tour.reviewCount || 0})</span>
+                <span className="text-sm font-bold text-foreground">{tour.rating}</span>
+                <span className="text-xs text-muted-foreground font-medium">({tour.reviewCount || 0})</span>
               </div>
             )}
           </div>
 
           {/* Right — content panel */}
-          <div className="bg-gray-50 flex flex-col justify-center p-8 md:p-12 gap-6">
+          <div className="bg-muted flex flex-col justify-center p-8 md:p-12 gap-6">
             {/* Category + index */}
             <div className="flex items-center gap-3">
-              <span className={`text-xs font-black uppercase tracking-widest ${accentText}`}>
+              <span className={`text-xs font-bold  tracking-widest ${accentText}`}>
                 {tour.category?.replace('-', ' ') || 'Tour'}
               </span>
-              <span className="text-xs text-gray-400 ml-auto">{current + 1} / {tours.length}</span>
+              <span className="text-xs text-muted-foreground ml-auto">{current + 1} / {tours.length}</span>
             </div>
 
             {/* Title */}
-            <h3 className="text-2xl md:text-3xl font-black text-gray-900 leading-tight">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
               {tour.title}
             </h3>
 
             {/* Meta row */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 font-bold">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground font-bold">
               {tour.duration && (
                 <span className="flex items-center gap-1.5">
                   <Clock className="w-4 h-4" /> {tour.duration}
@@ -155,8 +155,8 @@ export default function ExperienceShowcase({
             {highlights.length > 0 && (
               <ul className="space-y-2">
                 {highlights.map((h, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                    <span className={`mt-0.5 w-4 h-4 rounded-full ${accentBg} text-white flex items-center justify-center shrink-0 text-[10px] font-black`}>✓</span>
+                  <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <span className={`mt-0.5 w-4 h-4 rounded-full ${accentBg} text-white flex items-center justify-center shrink-0 text-[10px] font-bold`}>✓</span>
                     {h}
                   </li>
                 ))}
@@ -164,15 +164,15 @@ export default function ExperienceShowcase({
             )}
 
             {/* Price + CTA */}
-            <div className="flex items-center gap-4 mt-auto pt-4 border-t border-gray-200">
+            <div className="flex items-center gap-4 mt-auto pt-4 border-t border-border">
               <div>
-                <span className="text-xs text-gray-400 font-bold uppercase tracking-wider">From</span>
-                <p className="text-3xl font-black text-gray-900">€{tour.price}</p>
+                <span className="text-xs text-muted-foreground font-bold  tracking-wider">From</span>
+                <p className="text-3xl font-bold text-foreground">€{tour.price}</p>
               </div>
               <div className="flex gap-3 ml-auto">
                 <Link
                   href={`/tour/${tour.slug.current}`}
-                  className={`${ctaBg} ${accentHover} flex items-center gap-2 px-6 py-3 rounded-xl font-black text-sm uppercase tracking-wide transition-all hover:-translate-y-0.5 shadow-lg`}
+                  className={`${ctaBg} ${accentHover} flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm  tracking-wide transition-all hover:-translate-y-0.5 shadow-lg`}
                 >
                   Book Now <ArrowRight className="w-4 h-4" />
                 </Link>

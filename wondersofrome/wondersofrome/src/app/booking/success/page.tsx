@@ -142,10 +142,10 @@ function SuccessContent() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+            <div className="min-h-screen bg-muted flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
-                    <p className="text-gray-600">Confirming your booking...</p>
+                    <p className="text-muted-foreground">Confirming your booking...</p>
                 </div>
             </div>
         );
@@ -154,7 +154,7 @@ function SuccessContent() {
     const addOns = getAddOns();
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4">
+        <div className="min-h-screen bg-muted py-12 px-4">
             {showConfetti && (
                 <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
                     {[...Array(20)].map((_, i) => (
@@ -179,9 +179,9 @@ function SuccessContent() {
             )}
 
             <div className="max-w-3xl mx-auto">
-                <div className="bg-white rounded-2xl shadow-xl border border-emerald-100 overflow-hidden mb-6">
+                <div className="bg-card rounded-2xl shadow-xl border border-emerald-100 overflow-hidden mb-6">
                     <div className="bg-gradient-to-r from-emerald-600 to-teal-600 p-8 text-center">
-                        <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
+                        <div className="w-20 h-20 bg-card/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce">
                             <CheckCircle className="w-10 h-10 text-white" />
                         </div>
                         <h1 className="text-3xl font-bold text-white mb-2">Booking Confirmed!</h1>
@@ -191,36 +191,36 @@ function SuccessContent() {
                     <div className="p-8">
                         {booking ? (
                             <>
-                                <div className="text-center mb-8 p-4 bg-gray-50 rounded-xl">
-                                    <span className="text-sm text-gray-500">Booking Reference</span>
-                                    <p className="text-3xl font-mono font-bold text-gray-900 tracking-wider">
+                                <div className="text-center mb-8 p-4 bg-muted rounded-xl">
+                                    <span className="text-sm text-muted-foreground">Booking Reference</span>
+                                    <p className="text-3xl font-mono font-bold text-foreground tracking-wider">
                                         #{booking.id?.slice(-8).toUpperCase()}
                                     </p>
                                 </div>
                                 <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-6 mb-6 border border-emerald-100">
-                                    <h3 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-                                        <Calendar className="w-5 h-5 text-emerald-600" />
+                                    <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
+                                        <Calendar className="w-5 h-5 text-primary" />
                                         Tour Details
                                     </h3>
                                     <div className="space-y-3">
                                         <div className="flex justify-between items-start">
-                                            <span className="text-gray-600">Tour</span>
-                                            <span className="font-semibold text-gray-900 text-right max-w-[60%]">{booking.tour_title}</span>
+                                            <span className="text-muted-foreground">Tour</span>
+                                            <span className="font-semibold text-foreground text-right max-w-[60%]">{booking.tour_title}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-gray-600">Date</span>
-                                            <span className="font-semibold text-gray-900">{formatDate(booking.date)}</span>
+                                            <span className="text-muted-foreground">Date</span>
+                                            <span className="font-semibold text-foreground">{formatDate(booking.date)}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-gray-600">Time</span>
-                                            <span className="font-semibold text-gray-900">{booking.time}</span>
+                                            <span className="text-muted-foreground">Time</span>
+                                            <span className="font-semibold text-foreground">{booking.time}</span>
                                         </div>
                                     </div>
                                 </div>
                             </>
                         ) : null}
                         <div className="flex flex-col sm:flex-row gap-3">
-                            <Link href="/" className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-colors shadow-lg">
+                            <Link href="/" className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-primary text-white font-bold rounded-xl hover:opacity-90 transition-colors shadow-lg">
                                 <Home size={18} /> Back to Home
                             </Link>
                         </div>
@@ -243,7 +243,7 @@ function SuccessContent() {
 
 export default function SuccessPage() {
     return (
-        <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div></div>}>
+        <Suspense fallback={<div className="min-h-screen bg-muted flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div></div>}>
             <SuccessContent />
         </Suspense>
     );

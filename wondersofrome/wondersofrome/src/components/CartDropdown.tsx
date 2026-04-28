@@ -42,7 +42,7 @@ export default function CartDropdown() {
       <button
         onClick={() => setIsCartOpen(!isCartOpen)}
         aria-label="Shopping cart"
-        className="relative p-2 rounded-xl transition-all hover:bg-white/10 group"
+        className="relative p-2 rounded-xl transition-all hover:bg-card/10 group"
       >
         <ShoppingBag className="w-5 h-5 transition-transform group-hover:scale-110" />
         {totalItems > 0 && (
@@ -65,24 +65,24 @@ export default function CartDropdown() {
           <div className="relative bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 px-5 py-4 flex items-center justify-between overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)]" />
             <div className="relative flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-card/20 backdrop-blur-sm flex items-center justify-center">
                 <ShoppingBag size={17} className="text-white" />
               </div>
               <div>
                 <p className="text-white font-semibold text-sm leading-none">Your Cart</p>
-                <p className="text-emerald-100 text-xs mt-0.5">{totalItems} {totalItems === 1 ? 'experience' : 'experiences'}</p>
+                <p className="text-primary-foreground text-xs mt-0.5">{totalItems} {totalItems === 1 ? 'experience' : 'experiences'}</p>
               </div>
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="relative w-8 h-8 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition-colors"
+              className="relative w-8 h-8 rounded-lg bg-card/15 hover:bg-card/25 flex items-center justify-center text-white transition-colors"
             >
               <X size={15} />
             </button>
           </div>
 
           {/* Body */}
-          <div className="bg-white">
+          <div className="bg-card">
             {items.length === 0 ? (
               /* Empty state */
               <div className="px-6 py-12 text-center">
@@ -94,7 +94,7 @@ export default function CartDropdown() {
                 <Link
                   href="/search"
                   onClick={() => setIsCartOpen(false)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary transition-colors"
                 >
                   Explore experiences <ArrowRight size={12} />
                 </Link>
@@ -119,7 +119,7 @@ export default function CartDropdown() {
 
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2">
-                            <h4 className="font-semibold text-slate-800 text-sm leading-snug line-clamp-2 group-hover:text-emerald-700 transition-colors">
+                            <h4 className="font-semibold text-slate-800 text-sm leading-snug line-clamp-2 group-hover:text-primary transition-colors">
                               {item.tourTitle}
                             </h4>
                             <button
@@ -135,7 +135,7 @@ export default function CartDropdown() {
                             <span className="inline-flex items-center gap-1 text-[10px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
                               <Calendar size={9} /> {item.date}
                             </span>
-                            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                            <span className="inline-flex items-center gap-1 text-[10px] font-medium text-primary bg-secondary px-2 py-0.5 rounded-full">
                               <Clock size={9} /> {item.time}
                             </span>
                           </div>
@@ -146,19 +146,19 @@ export default function CartDropdown() {
                               if (count === 0 && Object.keys(item.guestCounts).length > 1) return null;
                               return (
                                 <div key={type} className="flex items-center justify-between">
-                                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide">{type}</span>
+                                  <span className="text-[10px] font-semibold text-slate-400  tracking-wide">{type}</span>
                                   <div className="flex items-center gap-2">
                                     <button
                                       onClick={() => adjustGuests(item.id, type, -1)}
                                       disabled={count <= 0}
-                                      className="w-6 h-6 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all disabled:opacity-30"
+                                      className="w-6 h-6 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-300 hover:text-primary hover:bg-secondary transition-all disabled:opacity-30"
                                     >
                                       <Minus size={10} />
                                     </button>
                                     <span className="w-5 text-center text-xs font-bold text-slate-700">{count}</span>
                                     <button
                                       onClick={() => adjustGuests(item.id, type, 1)}
-                                      className="w-6 h-6 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50 transition-all"
+                                      className="w-6 h-6 rounded-lg border border-slate-200 flex items-center justify-center text-slate-400 hover:border-emerald-300 hover:text-primary hover:bg-secondary transition-all"
                                     >
                                       <Plus size={10} />
                                     </button>
@@ -170,7 +170,7 @@ export default function CartDropdown() {
 
                           {/* Item price */}
                           <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
-                            <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wide">Subtotal</span>
+                            <span className="text-[10px] font-medium text-slate-400  tracking-wide">Subtotal</span>
                             <span className="text-sm font-bold text-slate-800">€{item.price.toFixed(2)}</span>
                           </div>
                         </div>
@@ -189,15 +189,15 @@ export default function CartDropdown() {
                     {/* Total row */}
                     <div className="flex items-center justify-between mb-4">
                       <div>
-                        <p className="text-blue-200 text-[10px] font-medium uppercase tracking-wider mb-0.5">Total</p>
+                        <p className="text-muted-foreground text-[10px] font-medium  tracking-wider mb-0.5">Total</p>
                         <p className="text-white font-bold text-2xl leading-none">€{totalPrice.toFixed(2)}</p>
                       </div>
                       {/* Trust badges */}
                       <div className="flex flex-col items-end gap-1">
-                        <div className="flex items-center gap-1 text-blue-200 text-[10px]">
+                        <div className="flex items-center gap-1 text-muted-foreground text-[10px]">
                           <Shield size={10} /> Secure checkout
                         </div>
-                        <div className="flex items-center gap-1 text-blue-200 text-[10px]">
+                        <div className="flex items-center gap-1 text-muted-foreground text-[10px]">
                           <Zap size={10} /> Instant confirmation
                         </div>
                       </div>
@@ -206,7 +206,7 @@ export default function CartDropdown() {
                     {/* CTA button */}
                     <button
                       onClick={handleCheckout}
-                      className="w-full bg-white hover:bg-blue-50 text-blue-700 font-bold py-3.5 rounded-xl transition-all active:scale-[0.98] text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-900/20 hover:shadow-xl"
+                      className="w-full bg-card hover:bg-blue-50 text-blue-700 font-bold py-3.5 rounded-xl transition-all active:scale-[0.98] text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-900/20 hover:shadow-xl"
                     >
                       Checkout Securely
                       <ArrowRight size={15} />
@@ -216,7 +216,7 @@ export default function CartDropdown() {
                     <Link
                       href="/search"
                       onClick={() => setIsCartOpen(false)}
-                      className="block text-center text-blue-200 hover:text-white text-xs mt-3 transition-colors"
+                      className="block text-center text-muted-foreground hover:text-white text-xs mt-3 transition-colors"
                     >
                       + Add another experience
                     </Link>

@@ -65,7 +65,7 @@ export default function ContactPage() {
                     className="relative z-10 container mx-auto px-4"
                 >
                     <h1 className="text-5xl md:text-8xl font-heading mb-6">{t('contact.title')}</h1>
-                    <p className="text-background/60 text-lg max-w-2xl mx-auto px-4 font-mono uppercase tracking-tighter">
+                    <p className="text-background/60 text-lg max-w-2xl mx-auto px-4 font-mono  tracking-tighter">
                         {t('contact.subtitle')}
                     </p>
                 </motion.div>
@@ -82,7 +82,7 @@ export default function ContactPage() {
                         className="space-y-12"
                     >
                         <div>
-                            <h2 className="text-4xl font-serif font-black italic uppercase tracking-tight text-foreground mb-4">Direct Channels</h2>
+                            <h2 className="text-4xl font-serif font-bold   tracking-tight text-foreground mb-4">Direct Channels</h2>
                             <p className="text-muted-foreground font-medium">Reach out to our operations center for immediate assistance or editorial inquiries.</p>
                         </div>
                         
@@ -92,9 +92,9 @@ export default function ContactPage() {
                                     <Mail className="w-6 h-6 text-primary" />
                                 </div>
                                 <div>
-                                    <h3 className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">Digital Terminal</h3>
+                                    <h3 className="font-mono text-[10px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Digital Terminal</h3>
                                     <p className="text-xl font-bold text-foreground hover:text-primary transition-colors cursor-pointer">info@wondersofrome.com</p>
-                                    <p className="text-primary text-[10px] mt-2 font-black uppercase tracking-widest">Priority Queue</p>
+                                    <p className="text-primary text-[10px] mt-2 font-bold  tracking-widest">Priority Queue</p>
                                 </div>
                             </div>
 
@@ -103,9 +103,9 @@ export default function ContactPage() {
                                     <Phone className="w-6 h-6 text-primary" />
                                 </div>
                                 <div>
-                                    <h3 className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">Voice Protocol</h3>
+                                    <h3 className="font-mono text-[10px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Voice Protocol</h3>
                                     <p className="text-xl font-bold text-foreground">+39 351 419 9425</p>
-                                    <p className="text-muted-foreground text-[10px] mt-2 font-black uppercase tracking-widest">MON-SUN // 09:00 - 18:00 CET</p>
+                                    <p className="text-muted-foreground text-[10px] mt-2 font-bold  tracking-widest">MON-SUN // 09:00 - 18:00 CET</p>
                                 </div>
                             </div>
 
@@ -114,9 +114,9 @@ export default function ContactPage() {
                                     <MapPin className="w-6 h-6 text-primary" />
                                 </div>
                                 <div>
-                                    <h3 className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">Physical Archive</h3>
+                                    <h3 className="font-mono text-[10px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Physical Archive</h3>
                                     <p className="text-xl font-bold text-foreground">Via Tunisi 43, Rome, Italy</p>
-                                    <p className="text-muted-foreground text-[10px] mt-2 font-black uppercase tracking-widest">Near St. Peter&apos;s Square</p>
+                                    <p className="text-muted-foreground text-[10px] mt-2 font-bold  tracking-widest">Near St. Peter&apos;s Square</p>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@ export default function ContactPage() {
                         <form className="space-y-8 relative z-10" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest">{t('contact.form.name')}</label>
+                                    <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">{t('contact.form.name')}</label>
                                     <input
                                         name="firstName"
                                         required
@@ -146,7 +146,7 @@ export default function ContactPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest">Last Name</label>
+                                    <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">Last Name</label>
                                     <input
                                         name="lastName"
                                         type="text"
@@ -159,7 +159,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest">Email Address</label>
+                                <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">Email Address</label>
                                 <input
                                     name="email"
                                     required
@@ -172,7 +172,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest">Phone Connection</label>
+                                <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">Phone Connection</label>
                                 <PhoneInput
                                     value={formData.phone}
                                     onChange={(val) => setFormData({ ...formData, phone: val })}
@@ -180,7 +180,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest">Inquiry Message</label>
+                                <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">Inquiry Message</label>
                                 <textarea
                                     name="message"
                                     required
@@ -195,7 +195,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full bg-primary hover:bg-primary/90 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-xl shadow-primary/20"
+                                className="w-full bg-primary hover:bg-primary/90 text-white py-5 rounded-2xl font-bold  tracking-[0.2em] text-xs transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-xl shadow-primary/20"
                             >
                                 {isSubmitting ? (
                                     'Transmitting...'

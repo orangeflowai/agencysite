@@ -53,18 +53,18 @@ export default function Hero({ settings }: HeroProps) {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="space-y-6">
-          <h2 className="text-white/90 text-sm md:text-base tracking-[0.2em] uppercase font-bold">
+          <h2 className="text-white/90 text-sm md:text-base tracking-[0.2em]  font-bold">
             Official Rome Tour Operator
           </h2>
 
           {title ? (
-            <h1 className="text-5xl md:text-7xl lg:text-9xl text-white font-black tracking-tighter drop-shadow-xl uppercase">
+            <h1 className="text-5xl md:text-7xl lg:text-9xl text-white font-bold tracking-tighter drop-shadow-xl ">
               {title}
             </h1>
           ) : (
-            <h1 className="text-5xl md:text-7xl lg:text-9xl text-white font-black tracking-tighter drop-shadow-xl">
+            <h1 className="text-5xl md:text-7xl lg:text-9xl text-white font-bold tracking-tighter drop-shadow-xl">
               THE ETERNAL CITY,<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-emerald-400 italic">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-emerald-400 ">
                 UNLOCKED.
               </span>
             </h1>
@@ -77,13 +77,13 @@ export default function Hero({ settings }: HeroProps) {
           <div className="pt-8 flex flex-col md:flex-row gap-4 justify-center">
             <Link
               href="/search"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest transition-all text-sm md:text-base shadow-lg hover:shadow-emerald-900/50 hover:scale-105"
+              className="bg-primary hover:opacity-90 text-white px-8 py-4 rounded-full font-bold  tracking-widest transition-all text-sm md:text-base shadow-lg hover:shadow-primary/50 hover:scale-105"
             >
               Explore All Tours
             </Link>
             <Link
               href="/private-tours"
-              className="bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white hover:text-black text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest transition-all text-sm md:text-base hover:scale-105"
+              className="bg-card/10 backdrop-blur-md border border-white/30 hover:bg-card hover:text-foreground text-white px-8 py-4 rounded-full font-bold  tracking-widest transition-all text-sm md:text-base hover:scale-105"
             >
               View Private Tours
             </Link>
@@ -94,7 +94,7 @@ export default function Hero({ settings }: HeroProps) {
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/70 animate-bounce">
         <div className="w-px h-16 bg-gradient-to-b from-transparent to-white/50 mx-auto mb-2" />
-        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+        <span className="text-[10px]  tracking-widest">Scroll</span>
       </div>
     </section>
   );
