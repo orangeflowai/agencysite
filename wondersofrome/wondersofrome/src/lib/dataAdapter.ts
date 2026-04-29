@@ -35,9 +35,12 @@ async function withFallback<T>(
         if (Array.isArray(payloadResult) && Array.isArray(sanityResult)) {
           // Merge tours: Payload data + Sanity images by matching slug
           return payloadResult.map((payloadTour: any) => {
-            const sanityTour = sanityResult.find((st: any) => 
-              st.slug?.current === payloadTour.slug?.current
-            );
+            // Normalize slugs for comparison
+            const payloadSlug = payloadTour.slug?.current || payloadTour.slug;
+            const sanityTour = sanityResult.find((st: any) => {
+              const sanitySlug = st.slug?.current || st.slug;
+              return sanitySlug === payloadSlug;
+            });
             return {
               ...payloadTour,
               mainImage: sanityTour?.mainImage || payloadTour.mainImage,
