@@ -30,10 +30,10 @@ async function withFallback<T>(
         sanityFn().catch(() => null)
       ]);
 
-      // If we have both, merge them (Payload data + Sanity images)
+      // If we have both, merge them (Payload data + Payload images with Sanity fallback)
       if (payloadResult && sanityResult) {
         if (Array.isArray(payloadResult) && Array.isArray(sanityResult)) {
-          // Merge tours: Payload data + Sanity images by matching slug
+          // Merge tours: Payload data + Payload images (Sanity as fallback)
           return payloadResult.map((payloadTour: any) => {
             // Normalize slugs for comparison
             const payloadSlug = payloadTour.slug?.current || payloadTour.slug;
@@ -43,16 +43,18 @@ async function withFallback<T>(
             });
             return {
               ...payloadTour,
-              mainImage: sanityTour?.mainImage || payloadTour.mainImage,
-              images: sanityTour?.images || payloadTour.images,
+              // Use Payload images first, fall back to Sanity only if Payload has none
+              mainImage: payloadTour.mainImage || sanityTour?.mainImage,
+              images: payloadTour.images || sanityTour?.images,
             };
           }) as T;
         } else if (typeof payloadResult === 'object' && typeof sanityResult === 'object') {
           // Merge single tour
           return {
             ...payloadResult,
-            mainImage: (sanityResult as any).mainImage || (payloadResult as any).mainImage,
-            images: (sanityResult as any).images || (payloadResult as any).images,
+            // Use Payload images first, fall back to Sanity only if Payload has none
+            mainImage: (payloadResult as any).mainImage || (sanityResult as any).mainImage,
+            images: (payloadResult as any).images || (sanityResult as any).images,
           } as T;
         }
       }
