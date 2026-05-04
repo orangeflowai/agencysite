@@ -77,6 +77,11 @@ export default function AutoScrollTourSection({
   const bgColor = category === 'vatican' ? 'bg-background' : 'bg-card';
   const labelColor = category === 'vatican' ? 'Vatican Collection' : 'Colosseum Collection';
 
+  // Don't render if no valid tours
+  if (validTours.length === 0) {
+    return null;
+  }
+
   return (
     <section className={`py-16 md:py-24 ${bgColor} border-b border-border`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
