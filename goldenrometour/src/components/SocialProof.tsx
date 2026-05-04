@@ -14,21 +14,21 @@ const reviews = [
 
 function ReviewCard({ review }: { review: typeof reviews[0] }) {
     return (
-        <div className="w-[340px] bg-cream border border-forest p-10 flex-shrink-0 relative">
-            <Quote className="absolute top-6 right-6 text-forest/10" size={48} />
+        <div className="w-[340px] bg-background border border-primary/20 p-10 flex-shrink-0 relative rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+            <Quote className="absolute top-6 right-6 text-primary/10" size={48} />
             <div className="flex items-center space-x-1 mb-6">
-                {[...Array(5)].map((_, i) => <Star key={i} size={14} className="fill-forest text-forest" />)}
+                {[...Array(5)].map((_, i) => <Star key={i} size={14} className="fill-primary text-primary" />)}
             </div>
-            <p className="font-serif text-lg text-forest  leading-[1.6] mb-8 min-h-[60px]">
+            <p className="font-heading text-lg text-secondary leading-[1.4] mb-8 min-h-[60px] uppercase tracking-tight">
                 &ldquo;{review.text}&rdquo;
             </p>
-            <div className="flex items-center gap-4 pt-6 border-t border-forest/10">
-                <div className="w-10 h-10 border border-forest flex items-center justify-center text-xs font-serif font-bold text-forest bg-forest/5">
+            <div className="flex items-center gap-4 pt-6 border-t border-secondary/10">
+                <div className="w-10 h-10 border border-primary/30 flex items-center justify-center text-xs font-heading font-bold text-secondary bg-primary/5 rounded-full">
                     {review.name.charAt(0)}
                 </div>
                 <div>
-                    <p className="font-sans text-xs font-bold text-forest  tracking-widest">{review.name}</p>
-                    <p className="font-sans text-[10px] text-forest/50  tracking-[0.2em]">{review.location}</p>
+                    <p className="font-heading text-[10px] font-bold text-secondary tracking-tight uppercase">{review.name}</p>
+                    <p className="font-heading text-[8px] text-secondary/50 tracking-tight uppercase">{review.location}</p>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
 
 export default function SocialProof() {
     return (
-        <section className="py-32 bg-cream text-forest border-t border-forest relative overflow-hidden">
+        <section className="py-32 bg-background text-secondary border-t border-primary/10 relative overflow-hidden">
             {/* Editorial Header */}
             <div className="container mx-auto px-8 md:px-16 relative z-10 mb-20 text-center md:text-left">
                 <div className="max-w-3xl">
@@ -45,7 +45,7 @@ export default function SocialProof() {
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        className="font-sans text-[10px]  font-bold tracking-[0.5em] text-forest/40"
+                        className="font-heading text-[10px] font-bold tracking-tighter text-primary/60 uppercase"
                     >
                         Client Testimonials
                     </motion.span>
@@ -54,22 +54,22 @@ export default function SocialProof() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.1 }}
-                        className="font-serif text-5xl md:text-7xl font-bold mt-6 leading-none"
+                        className="font-heading text-5xl md:text-7xl font-bold mt-6 leading-none text-secondary uppercase"
                     >
                         Verified Path <br />
-                        <span className="">Documentation.</span>
+                        <span className="text-primary">Documentation.</span>
                     </motion.h2>
                     <div className="flex items-center gap-6 mt-10 justify-center md:justify-start">
                         <div className="flex items-center space-x-1">
-                            {[...Array(5)].map((_, i) => <Star key={i} size={20} className="fill-forest text-forest" />)}
+                            {[...Array(5)].map((_, i) => <Star key={i} size={20} className="fill-primary text-primary" />)}
                         </div>
-                        <span className="font-sans text-sm  font-bold tracking-widest opacity-60">Avg Rating 4.9/5</span>
+                        <span className="font-heading text-[10px] font-bold tracking-tight opacity-60 uppercase">Avg Rating 4.9/5</span>
                     </div>
                 </div>
             </div>
 
             {/* Editorial Marquee */}
-            <div className="relative w-full overflow-hidden border-y border-forest/20 py-12 bg-forest/[0.02]">
+            <div className="relative w-full overflow-hidden border-y border-primary/10 py-12 bg-background/50 backdrop-blur-sm">
                 <div className="flex gap-10 w-max animate-marquee">
                     {[...reviews, ...reviews].map((review, i) => (
                         <ReviewCard key={i} review={review} />
@@ -78,10 +78,10 @@ export default function SocialProof() {
             </div>
 
             {/* Corporate/Partner Strip */}
-            <div className="container mx-auto px-8 mt-20 flex flex-wrap justify-center gap-12 opacity-40">
-                <span className="font-serif text-2xl font-bold  tracking-tighter">TripAdvisor Private</span>
-                <span className="font-serif text-2xl font-bold  tracking-tighter">Google Elite</span>
-                <span className="font-serif text-2xl font-bold  tracking-tighter">The Roman Guild</span>
+            <div className="container mx-auto px-8 mt-20 flex flex-wrap justify-center gap-12 opacity-30">
+                <span className="font-heading text-2xl font-bold tracking-tighter uppercase">TripAdvisor Private</span>
+                <span className="font-heading text-2xl font-bold tracking-tighter uppercase">Google Elite</span>
+                <span className="font-heading text-2xl font-bold tracking-tighter uppercase">The Roman Guild</span>
             </div>
         </section>
     );

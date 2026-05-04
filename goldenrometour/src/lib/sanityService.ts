@@ -140,10 +140,18 @@ export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-s
 async function getSiteRefBySlug(slug: string): Promise<string | null> {
     try {
         const query = `*[_type == "site" && slug.current == $slug][0]{ _id }`;
-        const result = await client.fetch(query, { slug });
-        return result?._id || null;
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+        
+        const result = await Promise.race([
+            client.fetch(query, { slug }),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('Sanity fetch timeout')), 5000))
+        ]);
+        
+        clearTimeout(timeoutId);
+        return (result as any)?._id || null;
     } catch (error) {
-        console.error('Failed to get site ref:', error);
+        console.warn(`[sanityService] Failed to get site ref for "${slug}":`, error);
         return null;
     }
 }
@@ -155,10 +163,13 @@ async function getSiteRefBySlug(slug: string): Promise<string | null> {
 export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
     try {
         // First get the actual site document _id from the slug
-        const siteRef = await getSiteRefBySlug(siteId);
+        const siteRef = await Promise.race([
+            getSiteRefBySlug(siteId),
+            new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
+        ]);
 
         if (!siteRef) {
-            console.warn(`Site with slug "${siteId}" not found. Returning empty tours.`);
+            console.warn(`[sanityService] Site with slug "${siteId}" not found or timed out. Returning empty tours.`);
             return [];
         }
 
@@ -191,7 +202,7 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
 
         return await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
     } catch (error) {
-        console.error('Failed to fetch tours:', error);
+        console.error('[sanityService] Failed to fetch tours:', error);
         return [];
     }
 }
@@ -270,9 +281,14 @@ export async function getPosts(siteId: string = DEFAULT_SITE_ID): Promise<Post[]
             "site": site->{ _id, title, slug }
         }`;
 
-        return await client.fetch(query, { siteId });
+        const result = await Promise.race([
+            client.fetch(query, { siteId }),
+            new Promise<any[]>((resolve) => setTimeout(() => resolve([]), 2000))
+        ]);
+
+        return result || [];
     } catch (error) {
-        console.error('Failed to fetch posts:', error);
+        console.error('[sanityService] Failed to fetch posts:', error);
         return [];
     }
 }
@@ -308,9 +324,14 @@ export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Set
             "site": site->{ _id, title, slug }
         }`;
 
-        return await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+        const result = await Promise.race([
+            client.fetch(query, { siteId }, { next: { revalidate: 60 } }),
+            new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
+        ]);
+
+        return result || null;
     } catch (error) {
-        console.error('Failed to fetch settings:', error);
+        console.error('[sanityService] Failed to fetch settings:', error);
         return null;
     }
 }

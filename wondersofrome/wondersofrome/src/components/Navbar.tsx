@@ -127,7 +127,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 text-[0.75rem] font-bold  tracking-[0.2em] transition-colors ${
+                  className={`relative px-3 py-2 text-[0.75rem] font-bold tracking-[0.2em] transition-colors hover-underline ${
                     isActive(link.href)
                       ? 'text-primary'
                       : scrolledOrOpen

@@ -67,7 +67,7 @@ export default function CartDropdown() {
                     />
                     <div className="absolute right-0 top-full mt-4 w-96 bg-card rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-border z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                         <div className="p-5 border-b border-border flex items-center justify-between bg-muted/50">
-                            <h3 className="font-bold text-foreground  tracking-widest text-xs">Your Booking Cart ({totalItems})</h3>
+                            <h3 className="font-bold text-foreground  tracking-tight text-xs">Your Booking Cart ({totalItems})</h3>
                             <button
                                 onClick={() => setIsCartOpen(false)}
                                 className="p-2 hover:bg-gray-100 rounded-xl transition-colors text-muted-foreground hover:text-foreground"
@@ -85,7 +85,7 @@ export default function CartDropdown() {
                                 <Link
                                     href="/search"
                                     onClick={() => setIsCartOpen(false)}
-                                    className="text-sky-600 text-xs font-bold mt-3 inline-block  tracking-widest hover:text-sky-700 transition-colors"
+                                    className="text-sky-600 text-xs font-bold mt-3 inline-block  tracking-tight hover:text-sky-700 transition-colors"
                                 >
                                     Explore Experiences
                                 </Link>
@@ -101,10 +101,10 @@ export default function CartDropdown() {
                                                         {item.tourTitle}
                                                     </h4>
                                                     <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-                                                        <span className="text-[10px] font-bold text-muted-foreground  tracking-widest flex items-center gap-1">
+                                                        <span className="text-[10px] font-bold text-muted-foreground  tracking-tight flex items-center gap-1">
                                                             {item.date}
                                                         </span>
-                                                        <span className="text-[10px] font-bold text-sky-600  tracking-widest bg-sky-50 px-1.5 py-0.5 rounded">
+                                                        <span className="text-[10px] font-bold text-sky-600  tracking-tight bg-sky-50 px-1.5 py-0.5 rounded">
                                                             {item.time}
                                                         </span>
                                                     </div>
@@ -115,7 +115,7 @@ export default function CartDropdown() {
                                                             if (count === 0 && Object.keys(item.guestCounts).length > 1) return null;
                                                             return (
                                                                 <div key={type} className="flex items-center justify-between text-xs">
-                                                                    <span className="text-muted-foreground font-bold  tracking-widest text-[9px]">{type}</span>
+                                                                    <span className="text-muted-foreground font-bold  tracking-tight text-[9px]">{type}</span>
                                                                     <div className="flex items-center gap-3">
                                                                         <button
                                                                             onClick={() => adjustGuests(item.id, type, -1)}
@@ -138,7 +138,7 @@ export default function CartDropdown() {
                                                     </div>
 
                                                     <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-                                                        <span className="text-[10px] font-bold text-muted-foreground  tracking-widest">Item Total</span>
+                                                        <span className="text-[10px] font-bold text-muted-foreground  tracking-tight">Item Total</span>
                                                         <span className="text-sm font-bold text-foreground">
                                                             €{item.price.toFixed(2)}
                                                         </span>
@@ -159,7 +159,7 @@ export default function CartDropdown() {
                                 <div className="p-6 bg-primary">
                                     <div className="flex items-center justify-between mb-4">
                                         <div className="flex flex-col">
-                                            <span className="text-[10px] font-bold text-muted-foreground  tracking-widest mb-0.5">Total Amount</span>
+                                            <span className="text-[10px] font-bold text-muted-foreground  tracking-tight mb-0.5">Total Amount</span>
                                             <span className="text-2xl font-bold text-white">€{totalPrice.toFixed(2)}</span>
                                         </div>
                                         <div className="flex -space-x-2">
@@ -196,7 +196,7 @@ export default function CartDropdown() {
                                                 router.push('/checkout');
                                             }
                                         }}
-                                        className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-4 rounded-xl transition-all active:scale-[0.98]  tracking-[0.2em] text-xs shadow-xl shadow-sky-900/20"
+                                        className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-4 rounded-xl transition-all active:scale-[0.98]  tracking-tight text-xs shadow-xl shadow-sky-900/20"
                                     >
                                         Checkout Securely
                                     </button>

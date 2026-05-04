@@ -47,11 +47,11 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
 
     if (!tours || tours.length === 0) return null;
 
-    const bgColor = dark ? '#555B02' : '#F5F0E8';
-    const titleColor = dark ? '#F5F0E8' : '#1A1210';
+    const bgColor = dark ? 'var(--color-secondary)' : 'var(--background)';
+    const titleColor = dark ? 'var(--color-ivory-parchment)' : 'var(--foreground)';
     const subtitleColor = dark ? 'rgba(245,240,232,0.6)' : 'rgba(26,18,16,0.6)';
-    const accentColor = dark ? '#F5F0E8' : '#1A1210';
-    const accentColorMuted = dark ? 'rgba(245,240,232,0.3)' : 'rgba(26,18,16,0.3)';
+    const accentColor = dark ? 'var(--color-vatican-gold)' : 'var(--primary)';
+    const accentColorMuted = dark ? 'rgba(201,168,76,0.3)' : 'rgba(201,168,76,0.3)';
 
     return (
         <section className="py-20 md:py-32 overflow-hidden transition-colors duration-500" style={{ backgroundColor: bgColor }}>
@@ -66,7 +66,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             className="flex items-center gap-3 mb-4"
                         >
                             <div className="w-10 h-px" style={{ backgroundColor: accentColor }} />
-                            <p className="font-nav text-[10px] tracking-[0.4em]  font-bold text-forest opacity-60" style={{ color: accentColor }}>
+                            <p className="font-heading text-[10px] tracking-tight font-bold uppercase" style={{ color: accentColor }}>
                                 Essential Rome
                             </p>
                         </motion.div>
@@ -75,7 +75,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="font-serif font-bold leading-tight mb-4" 
+                            className="font-heading font-bold leading-tight mb-4 uppercase" 
                             style={{ fontSize: 'clamp(32px, 5vw, 56px)', color: titleColor }}
                         >
                             {title}
@@ -86,7 +86,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
-                                className="font-sans text-base md:text-lg max-w-lg leading-relaxed" 
+                                className="font-body text-base md:text-lg max-w-lg leading-relaxed" 
                                 style={{ color: subtitleColor }}
                             >
                                 {subtitle}
@@ -148,7 +148,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                                 <div className="w-16 h-16 rounded-full border flex items-center justify-center mb-4 transition-all" style={{ borderColor: accentColor, color: accentColor }}>
                                     <ArrowUpRight size={32} />
                                 </div>
-                                <span className="font-nav text-xs  tracking-[0.3em] font-bold" style={{ color: titleColor }}>
+                                <span className="font-nav text-xs  tracking-tight font-bold" style={{ color: titleColor }}>
                                     Explore More
                                 </span>
                             </Link>
@@ -162,8 +162,8 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                 <div className="md:hidden text-center mt-12 px-6">
                     <Link
                         href={link}
-                        className="inline-flex items-center gap-3 text-[11px] font-bold  tracking-[0.3em] py-4 px-10 rounded-full transition-all active:scale-95"
-                        style={{ backgroundColor: '#1A1210', color: '#F5F0E8' }}
+                        className="inline-flex items-center gap-3 text-[11px] font-bold  tracking-tight py-4 px-10 rounded-full transition-all active:scale-95"
+                        style={{ backgroundColor: '#000000', color: '#F5F0E8' }}
                     >
                         View All Tours <ArrowUpRight size={14} />
                     </Link>

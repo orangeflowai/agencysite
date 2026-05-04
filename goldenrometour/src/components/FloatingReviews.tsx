@@ -18,37 +18,37 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
             className="w-[340px] shrink-0 relative p-7 shadow-xl"
             style={{
                 backgroundColor: '#ffffff',
-                border: '1px solid rgba(26,18,16,0.1)',
+                border: '1px solid rgba(0,0,0,0.1)',
                 borderRadius: '2px',
             }}
         >
             <Quote
                 className="absolute top-5 right-5"
                 size={32}
-                style={{ color: 'rgba(26,18,16,0.08)' }}
+                style={{ color: 'rgba(0,0,0,0.08)' }}
             />
 
             {/* Stars */}
             <div className="flex items-center gap-0.5 mb-4">
                 {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={13} style={{ fill: '#1A1210', color: '#1A1210' }} />
+                    <Star key={i} size={13} style={{ fill: '#000000', color: '#000000' }} />
                 ))}
             </div>
 
             {/* Review text */}
             <p
-                className="font-serif  text-base leading-relaxed mb-5 min-h-[80px] line-clamp-4"
-                style={{ color: '#1A1210' }}
+                className="font-body text-sm leading-relaxed mb-5 min-h-[80px] line-clamp-4"
+                style={{ color: '#000000' }}
             >
                 &ldquo;{review.text}&rdquo;
             </p>
 
             {/* Author */}
-            <div className="flex items-center gap-3 border-t pt-4" style={{ borderColor: 'rgba(26,18,16,0.1)' }}>
+            <div className="flex items-center gap-3 border-t pt-4" style={{ borderColor: 'rgba(0,0,0,0.1)' }}>
                 <div
-                    className="w-10 h-10 flex items-center justify-center text-sm font-serif font-bold shrink-0"
+                    className="w-10 h-10 flex items-center justify-center text-sm font-heading font-bold shrink-0"
                     style={{
-                        backgroundColor: '#1A1210',
+                        backgroundColor: '#000000',
                         color: '#F5F0E8',
                         borderRadius: '2px',
                     }}
@@ -56,16 +56,16 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                     {review.avatar}
                 </div>
                 <div>
-                    <p className="font-nav font-bold text-xs  tracking-widest" style={{ color: '#1A1210' }}>
+                    <p className="font-body font-bold text-[10px] tracking-tight" style={{ color: '#000000' }}>
                         {review.name}
                     </p>
-                    <p className="font-nav text-[10px]  tracking-wider" style={{ color: '#1A1210', opacity: 0.5 }}>
+                    <p className="font-body text-[10px] tracking-tight" style={{ color: '#000000', opacity: 0.5 }}>
                         {review.location}
                     </p>
                 </div>
                 <div
-                    className="ml-auto font-nav text-[9px]  tracking-widest px-2 py-1"
-                    style={{ backgroundColor: 'rgba(26,18,16,0.05)', color: '#1A1210', borderRadius: '999px' }}
+                    className="ml-auto font-body text-[10px] tracking-tight px-2 py-1"
+                    style={{ backgroundColor: 'rgba(0,0,0,0.05)', color: '#000000', borderRadius: '999px' }}
                 >
                     Verified
                 </div>

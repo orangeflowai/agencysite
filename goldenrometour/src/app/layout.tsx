@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto_Flex } from "next/font/google";
+import { Roboto_Flex, Playfair_Display, Cormorant_Garamond, Josefin_Sans, Great_Vibes, Open_Sans } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -18,12 +18,45 @@ const robotoFlex = Roboto_Flex({
   display: 'swap',
 });
 
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-cormorant',
+  display: 'swap',
+});
+
+const josefin = Josefin_Sans({
+  subsets: ['latin'],
+  variable: '--font-josefin',
+  display: 'swap',
+});
+
+const vibes = Great_Vibes({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-vibes',
+  display: 'swap',
+});
+
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  variable: '--font-open-sans',
+  display: 'swap',
+});
+
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite(DEFAULT_SITE_ID);
   const siteName = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour';
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com';
 
   return {
+    metadataBase: new URL(siteUrl),
     title: site?.seo?.metaTitle || "Luxury Small-Group Rome Tours | Golden Rome Experience",
     description: site?.seo?.metaDescription || "Luxury small-group Rome tours with art historians. Maximum 6 guests. Skip-the-line Vatican Museums, Colosseum arena floor access. Book Golden Rome.",
     applicationName: siteName,
@@ -52,7 +85,6 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: site?.seo?.metaTitle || "Luxury Small-Group Rome Tours",
       description: site?.seo?.metaDescription || "Exclusive tours with art historians. Max 6 guests.",
-    },
     },
     other: { 'viewport': 'width=device-width, initial-scale=1' },
   };
@@ -99,7 +131,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         />
       </head>
       <body
-        className={`${robotoFlex.variable} font-sans antialiased`}
+        className={`${robotoFlex.variable} ${playfair.variable} ${cormorant.variable} ${josefin.variable} ${vibes.variable} ${openSans.variable} font-sans antialiased`}
         data-site-id={siteSlug}
         data-site={siteSlug}
         suppressHydrationWarning

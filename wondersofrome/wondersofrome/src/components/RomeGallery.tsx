@@ -1,11 +1,13 @@
 'use client';
 
+import React, { useRef } from 'react';
 import Image from 'next/image';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import GradientProductSlider from './GradientProductSlider';
 
 const R2 = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
 
-// Real Rome photos from Cloudflare R2
-const images = [
+const galleryImages = [
   `${R2}/pexels-alex-250137-757239.jpg`,
   `${R2}/pexels-c1superstar-27096007.jpg`,
   `${R2}/pexels-efrem-efre-2786187-17282659.jpg`,
@@ -15,47 +17,109 @@ const images = [
   `${R2}/pexels-imagenesclau-35046617.jpg`,
   `${R2}/pexels-matteobasilephoto-11200578.jpg`,
   `${R2}/pexels-nastiz-12604242.jpg`,
-  `${R2}/pexels-mypointviews-34789638.jpg`,
 ];
 
-export default function RomeGallery() {
+interface RomeGalleryProps {
+  vaticanTours: any[];
+}
+
+export default function RomeGallery({ vaticanTours }: RomeGalleryProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Grid Transforms
+  const gridScale = useTransform(scrollYProgress, [0, 0.7], [1, 3]);
+  const gridOpacity = useTransform(scrollYProgress, [0.6, 0.8], [1, 0]);
+  
+  // Column Transforms (moving apart)
+  const leftColX = useTransform(scrollYProgress, [0, 0.7], ["0%", "-50%"]);
+  const rightColX = useTransform(scrollYProgress, [0, 0.7], ["0%", "50%"]);
+  const centerColY = useTransform(scrollYProgress, [0, 0.7], ["0%", "-20%"]);
+
+  // Product Slider Transforms
+  const sliderOpacity = useTransform(scrollYProgress, [0.6, 0.8], [0, 1]);
+  const sliderScale = useTransform(scrollYProgress, [0.6, 0.9], [0.8, 1]);
+  const sliderY = useTransform(scrollYProgress, [0.6, 0.8], [100, 0]);
+
+  // Group images into 3 columns
+  const col1 = galleryImages.slice(0, 3);
+  const col2 = galleryImages.slice(3, 6);
+  const col3 = galleryImages.slice(6, 9);
+
   return (
-    <section className="py-24 bg-neutral-900 border-t border-neutral-800 overflow-hidden relative">
-      {/* Header */}
-      <div className="container mx-auto px-4 mb-16 text-center relative z-10">
-        <h2 className="text-4xl md:text-6xl font-bold text-white  tracking-tighter mb-4">
-          Walk where the <span className="text-primary">gladiators</span> walked
-        </h2>
-        <p className="text-muted-foreground text-lg md:text-xl font-medium max-w-2xl mx-auto">
-          Immerse yourself in the eternal beauty of Rome. Every corner tells a story waiting to be discovered.
-        </p>
-      </div>
+    <div ref={containerRef} className="relative h-[300vh] bg-background">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+        
+        {/* The "Sink-In" Grid */}
+        <motion.div 
+          style={{ 
+            scale: gridScale, 
+            opacity: gridOpacity,
+          }}
+          className="absolute inset-0 z-10 flex justify-center items-center gap-4 md:gap-8 px-4"
+        >
+          {/* Column 1 */}
+          <motion.div style={{ x: leftColX }} className="flex flex-col gap-4 md:gap-8 w-1/3">
+            {col1.map((src, i) => (
+              <div key={i} className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                <Image src={src} alt="Rome" fill className="object-cover" />
+              </div>
+            ))}
+          </motion.div>
 
-      {/* Marquee */}
-      <div className="flex relative w-full overflow-hidden">
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-neutral-900 to-transparent z-10" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-neutral-900 to-transparent z-10" />
+          {/* Column 2 (Center) */}
+          <motion.div style={{ y: centerColY }} className="flex flex-col gap-4 md:gap-8 w-1/3 mt-20">
+            {col2.map((src, i) => (
+              <div key={i} className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-primary/20">
+                <Image src={src} alt="Rome" fill className="object-cover" />
+              </div>
+            ))}
+          </motion.div>
 
-        <div className="flex gap-6 animate-gallery-scroll" style={{ width: 'max-content' }}>
-          {[...images, ...images, ...images].map((src, i) => (
-            <div
-              key={i}
-              className="relative w-[300px] h-[400px] md:w-[400px] md:h-[500px] flex-shrink-0 rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105"
-            >
-              <Image
-                src={src}
-                alt={`Rome Gallery ${i}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 300px, 400px"
-                quality={60}
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-black/20 hover:bg-transparent transition-colors" />
-            </div>
-          ))}
-        </div>
+          {/* Column 3 */}
+          <motion.div style={{ x: rightColX }} className="flex flex-col gap-4 md:gap-8 w-1/3">
+            {col3.map((src, i) => (
+              <div key={i} className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                <Image src={src} alt="Rome" fill className="object-cover" />
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+
+        {/* The Text that stays until zoom hits */}
+        <motion.div 
+          initial={{ opacity: 1 }}
+          style={{ opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0]) }}
+          className="absolute z-20 text-center pointer-events-none"
+        >
+          <h2 className="text-5xl md:text-8xl font-serif font-bold text-white drop-shadow-2xl tracking-tighter leading-none">
+            UNFOLD THE<br/><span className="text-primary">ETERNAL</span>
+          </h2>
+          <p className="text-white/60 font-mono text-xs tracking-[0.5em] mt-8 uppercase">Scroll to enter the archive</p>
+        </motion.div>
+
+        {/* The revealed Product Slider */}
+        <motion.div 
+          style={{ 
+            opacity: sliderOpacity,
+            scale: sliderScale,
+            y: sliderY
+          }}
+          className="absolute inset-0 z-30 flex flex-col justify-center"
+        >
+          <GradientProductSlider 
+            title="Vatican Collection" 
+            subtitle="SKIP THE LINE: SISTINE CHAPEL, MUSEUMS, GARDENS." 
+            tours={vaticanTours} 
+            link="/category/vatican" 
+          />
+        </motion.div>
+
       </div>
-    </section>
+    </div>
   );
 }

@@ -239,7 +239,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
 
             {step === 1 && (
               <>
-                <p className="text-xs font-semibold text-muted-foreground  tracking-wider">* Required Fields</p>
+                <p className="text-xs font-semibold text-muted-foreground  tracking-tighter">* Required Fields</p>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="block text-sm font-semibold text-foreground mb-1.5">First name *</label>

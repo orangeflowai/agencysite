@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/**' },
       { protocol: 'https', hostname: 'api.dicebear.com', pathname: '/**' },
       { protocol: 'https', hostname: 'i.pravatar.cc', pathname: '/**' },
+      { protocol: 'https', hostname: 'images.pexels.com', pathname: '/**' },
       // Cloudflare R2 bucket URLs - Specific to user provided values
       { protocol: 'https', hostname: '6802e5ddd9360c77c3e4945d0a21c78a.r2.cloudflarestorage.com', pathname: '/romeagencywebsites/**' },
       { protocol: 'https', hostname: 'pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev', pathname: '/**' },

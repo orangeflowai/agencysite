@@ -110,7 +110,7 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
 
                                 <div className="bg-cream p-4 rounded-xl flex justify-between items-center mt-6">
                                     <span className="text-muted-foreground font-medium">Total Price</span>
-                                    <span className="text-2xl font-bold text-olive">€{total}</span>
+                                    <span className="text-2xl font-bold text-secondary">€{total}</span>
                                 </div>
 
                                 <button type="submit" className="w-full bg-olive hover:bg-olive-light text-white py-4 rounded-xl font-bold text-lg shadow-lg mt-4 transition-all hover:scale-[1.02]">

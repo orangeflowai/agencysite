@@ -1,209 +1,184 @@
 'use client';
 
 import Link from 'next/link';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
-import Newsletter from './Newsletter';
-import { useLanguage } from '@/context/LanguageContext';
-import { useSite } from '@/components/SiteProvider';
 import Image from 'next/image';
-import { SUPABASE_BUCKET_URL } from '@/lib/constants';
+import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
+import { useSite } from '@/components/SiteProvider';
+import { urlFor } from '@/lib/dataAdapter';
 import PaymentLogos from './PaymentLogos';
+import Newsletter from './Newsletter';
 
-// Category mapping with icons and descriptions
-const categoryLinks = [
-    {
-        id: 'colosseum',
-        href: '/category/colosseum',
-        translationKey: 'footer.colosseum'
-    },
-    {
-        id: 'vatican',
-        href: '/category/vatican',
-        translationKey: 'footer.vatican'
-    },
-    {
-        id: 'city',
-        href: '/category/city',
-        translationKey: 'footer.city'
-    },
-    {
-        id: 'hidden-gems',
-        href: '/category/hidden-gems',
-        translationKey: 'footer.hidden'
-    },
+const EXPLORE = [
+  { label: 'Vatican Tours',     href: '/category/vatican' },
+  { label: 'Colosseum Tours',   href: '/category/colosseum' },
+  { label: 'City Tours',        href: '/category/city' },
+  { label: 'Hidden Gems',       href: '/category/hidden-gems' },
+  { label: 'Private Tours',     href: '/private-tours' },
+  { label: 'The Dispatch (Blog)', href: '/blog' },
 ];
 
-const supportLinks = [
-    { href: '/contact', translationKey: 'footer.contact_us' },
-    { href: '/faq', translationKey: 'footer.faq' },
-    { href: '/terms-and-conditions', translationKey: 'footer.terms' },
-    { href: '/privacy-policy', translationKey: 'footer.privacy' },
-    { href: '/cancellation-policy', translationKey: 'footer.cancellation' },
-    { href: '/disclaimer', translationKey: 'footer.disclaimer' },
+const SUPPORT = [
+  { label: 'Contact Us',          href: '/contact' },
+  { label: 'FAQ',                  href: '/faq' },
+  { label: 'Cancellation Policy', href: '/cancellation-policy' },
+  { label: 'Terms & Conditions',  href: '/terms-and-conditions' },
+  { label: 'Privacy Policy',      href: '/privacy-policy' },
+  { label: 'Become a Partner',    href: '/become-a-partner' },
 ];
 
 export default function Footer() {
-    const { t } = useLanguage();
-    const site = useSite();
-    const currentYear = new Date().getFullYear();
+  const site = useSite();
+  const year = new Date().getFullYear();
 
-    // Get site settings with fallbacks
-    const companyName = site?.businessInfo?.companyName || site?.title || 'Rome Editorial Series';
-    const vatNumber = site?.businessInfo?.vatNumber || '';
-    const reaNumber = site?.businessInfo?.reaNumber || '';
-    const registeredAddress = site?.businessInfo?.registeredAddress || '';
-    const shareCapital = site?.businessInfo?.shareCapital;
+  const email  = site?.contactEmail  || 'info@goldenrometours.com';
+  const phone  = site?.contactPhone  || '+39 389 521 7315';
+  const name   = site?.title || 'Golden Rome Tour';
+  const address = site?.officeAddress || 'Via Germanico, 28, Rome, Italy';
 
-    // Contact info
-    const contactEmail = site?.contactEmail || 'info@goldenrometours.com';
-    const contactPhone = site?.contactPhone || '+39 389 521 7315';
-    const officeAddress = site?.officeAddress || 'Via Germanico, 28, Rome, Italy';
+  return (
+    <footer className="bg-background text-black border-t border-primary/10 selection:bg-primary selection:text-white font-body">
+      <Newsletter />
+      
+      {/* Main grid */}
+      <div className="max-w-7xl mx-auto px-6 py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
 
-    const socialLinks = {
-        facebook: site?.socialLinks?.facebook || 'https://facebook.com/goldenrometours',
-        instagram: site?.socialLinks?.instagram || 'https://instagram.com/goldenrometours',
-        twitter: site?.socialLinks?.twitter || 'https://twitter.com/goldenrometours',
-    };
-
-    return (
-        <footer className="bg-forest-black text-cream selection:bg-forest selection:text-cream">
-            <Newsletter />
-
-            {/* Main Footer */}
-            <div className="border-t border-forest/10 pt-24 pb-16">
-                <div className="container mx-auto px-8 md:px-16 text-left">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-12 mb-24">
-
-                        {/* Brand Column */}
-                        <div className="space-y-8">
-                            <Link href="/" className="inline-block">
-                                {site?.logo ? (
-                                    <img src={site.logo.asset.url} alt={site.title || 'Golden Rome Tour'} className="h-10 w-auto object-contain" />
-                                ) : (
-                                    <div className="flex flex-col items-start justify-center">
-                                        <span className="font-serif text-3xl font-bold tracking-tighter leading-none text-cream">
-                                            GOLDEN <span className=" text-[#C9A84C]">ROME TOUR</span>
-                                        </span>
-                                        <span className="font-sans text-[#C9A84C]/60 text-[8px]  font-bold tracking-[0.4em] mt-2">
-                                            Editorial Series
-                                        </span>
-                                    </div>
-                                )}
-                            </Link>
-                            <p className="text-forest/40 text-xs leading-relaxed max-w-xs font-sans  tracking-widest">
-                                A documentary approach to the eternal city. High-impact experiences Curated for the discerning traveler.
-                            </p>
-
-                            {/* Social Links - Editorial Style */}
-                            <div className="flex items-center space-x-4">
-                                <Link href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
-                                    <Facebook size={16} />
-                                </Link>
-                                <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
-                                    <Instagram size={16} />
-                                </Link>
-                                <Link href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-cream/5 border border-gold/20 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold transition-all duration-500 backdrop-blur-md">
-                                    <Twitter size={16} />
-                                </Link>
-                            </div>
-                        </div>
-
-                        {/* Explore Categories */}
-                        <div>
-                            <h4 className="font-serif text-xl font-bold  text-forest mb-8 border-b border-forest/10 pb-4">
-                                Exploration
-                            </h4>
-                            <ul className="space-y-4 text-sm font-sans tracking-tight text-cream/60">
-                                {categoryLinks.map((category) => (
-                                    <li key={category.id}>
-                                        <Link href={category.href} className="hover:text-cream transition-colors flex items-center group">
-                                            <span className="w-0 group-hover:w-4 h-px bg-forest mr-0 group-hover:mr-2 transition-all" />
-                                            {t(category.translationKey)}
-                                        </Link>
-                                    </li>
-                                ))}
-                                <li>
-                                    <Link href="/blog" className="hover:text-cream transition-colors flex items-center group  font-serif">
-                                        <span className="w-0 group-hover:w-4 h-px bg-forest mr-0 group-hover:mr-2 transition-all" />
-                                        The Dispatch
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-
-                        {/* Support Links */}
-                        <div>
-                            <h4 className="font-serif text-xl font-bold  text-forest mb-8 border-b border-forest/10 pb-4">
-                                Documentation
-                            </h4>
-                            <ul className="space-y-4 text-sm font-sans tracking-tight text-cream/60">
-                                {supportLinks.map((link) => (
-                                    <li key={link.href}>
-                                        <Link href={link.href} className="hover:text-cream transition-colors">
-                                            {t(link.translationKey)}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-
-                        {/* Contact Info */}
-                        <div>
-                            <h4 className="font-serif text-xl font-bold  text-forest mb-8 border-b border-forest/10 pb-4">
-                                Correspondence
-                            </h4>
-                            <ul className="space-y-6 text-sm text-cream/40 mb-12">
-                                <li className="flex items-start space-x-4">
-                                    <MapPin size={18} className="text-forest mt-0.5 shrink-0" />
-                                    <span>{officeAddress}</span>
-                                </li>
-                                <li className="flex items-center space-x-4">
-                                    <Phone size={18} className="text-forest shrink-0" />
-                                    <span>{contactPhone || '+39 06 123 4567'}</span>
-                                </li>
-                                <li className="flex items-center space-x-4">
-                                    <Mail size={18} className="text-forest shrink-0" />
-                                    <a href={`mailto:${contactEmail}`} className="hover:text-forest transition-colors">
-                                        {contactEmail}
-                                    </a>
-                                </li>
-                            </ul>
-
-                            {/* Trust Badges */}
-                            <div className="flex items-center gap-4 pt-4 border-t border-forest/10">
-                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-6 w-auto opacity-30 hover:opacity-100 transition-all" />
-                            </div>
-
-                            {/* Payment logos */}
-                            <div className="mt-8 pt-8 border-t border-forest/10">
-                                <p className="font-sans text-[10px]  tracking-widest text-forest/40 mb-4 font-bold">Secure Transfer</p>
-                                <div className="opacity-80 hover:grayscale hover:opacity-100 transition-all">
-                                    <PaymentLogos size="sm" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Bottom Bar */}
-                    <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] text-cream/30  font-bold tracking-widest">
-                        <div className="flex flex-col gap-4">
-                            <p>&copy; {currentYear} {site?.title || 'Golden Rome Tour'}. All rights reserved.</p>
-                        </div>
-
-                        {/* Company Details */}
-                        <div className="text-center md:text-right flex flex-col md:items-end gap-1">
-                            <span className="font-medium text-cream/50">{companyName}</span>
-                            <span>
-                                {vatNumber && `P.IVA: ${vatNumber}`}
-                                {reaNumber && vatNumber && ' • '}
-                                {reaNumber && `REA: ${reaNumber}`}
-                            </span>
-                            <span>{registeredAddress}</span>
-                            {shareCapital && <span>{shareCapital}</span>}
-                        </div>
-                    </div>
+          {/* Brand */}
+          <div className="lg:col-span-1 space-y-8">
+            <Link href="/" className="inline-block group">
+              {site?.logo ? (
+                <Image
+                  src={urlFor(site.logo).url()}
+                  alt={name}
+                  width={140}
+                  height={40}
+                  className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                  priority
+                />
+              ) : (
+                <div className="flex flex-col items-start justify-center transition-transform group-hover:scale-105 duration-300">
+                    <span className="font-heading text-3xl font-bold tracking-tighter leading-none italic uppercase">
+                        Vaticano <span className="text-primary not-italic">+</span>
+                    </span>
+                    <span className="font-heading text-primary/60 text-[7px] font-bold tracking-tight mt-1 uppercase">
+                        Sacred Luxury Editorial
+                    </span>
                 </div>
+              )}
+            </Link>
+
+            <p className="text-black/50 text-xs leading-relaxed max-w-xs uppercase tracking-tight">
+              ARCHIVAL CONCIERGE SERVICES FOR THE DISCERNING TRAVELER. CURATING THE RARE, THE HISTORICAL, AND THE GENUINELY SACRED WITHIN THE ETERNAL CITY.
+            </p>
+
+            {/* Social */}
+            <div className="flex items-center gap-3">
+              {[
+                { href: site?.socialLinks?.instagram || 'https://instagram.com/goldenrometours', Icon: Instagram, label: 'Instagram' },
+                { href: site?.socialLinks?.facebook  || 'https://facebook.com/goldenrometours',  Icon: Facebook,  label: 'Facebook' },
+                { href: site?.socialLinks?.twitter   || 'https://twitter.com/goldenrometours',   Icon: Twitter,   label: 'Twitter' },
+              ].map(({ href, Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary/40 hover:text-primary hover:border-primary transition-all duration-500 shadow-sm"
+                >
+                  <Icon size={16} />
+                </a>
+              ))}
             </div>
-        </footer>
-    );
+          </div>
+
+          {/* Explore */}
+          <div>
+            <p className="text-[10px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Exploration</p>
+            <ul className="space-y-4">
+              {EXPLORE.map(({ label, href }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-xs text-black/60 hover:text-primary transition-colors font-heading font-bold tracking-tight uppercase"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Support */}
+          <div>
+            <p className="text-[10px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Documentation</p>
+            <ul className="space-y-4">
+              {SUPPORT.map(({ label, href }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-xs text-black/60 hover:text-primary transition-colors font-heading font-bold tracking-tight uppercase"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <p className="text-[10px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Correspondence</p>
+            <ul className="space-y-6">
+              <li>
+                <a href={`mailto:${email}`} className="flex items-start gap-4 group">
+                  <Mail size={18} className="text-primary mt-0.5 shrink-0" />
+                  <span className="text-xs text-black/60 group-hover:text-primary transition-colors font-body uppercase tracking-tight">{email}</span>
+                </a>
+              </li>
+              <li>
+                <a href={`tel:${phone.replace(/\s/g, '')}`} className="flex items-center gap-4 group">
+                  <Phone size={18} className="text-primary shrink-0" />
+                  <span className="text-xs text-black/60 group-hover:text-primary transition-colors font-body uppercase tracking-tight">{phone}</span>
+                </a>
+              </li>
+              <li>
+                <div className="flex items-start gap-4">
+                  <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
+                  <span className="text-xs text-black/60 font-body uppercase tracking-tight">{address}</span>
+                </div>
+              </li>
+            </ul>
+
+            {/* Payment logos */}
+            <div className="mt-12 pt-8 border-t border-primary/10">
+              <p className="font-heading text-[9px] tracking-tight text-primary/40 mb-4 font-bold uppercase">Secure Transfer Protocol</p>
+              <div className="opacity-80 hover:opacity-100 transition-all grayscale hover:grayscale-0">
+                <PaymentLogos size="sm" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-primary/10 bg-background/50">
+        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <p className="text-[10px] text-black/30 font-heading font-bold tracking-tight uppercase">
+            © {year} {name} // ARCHIVAL CONCIERGE STATUS: NOMINAL
+          </p>
+          <div className="flex flex-wrap justify-center gap-6">
+            {site?.businessInfo?.vatNumber && (
+                <span className="text-[10px] text-black/30 font-heading font-bold tracking-tight uppercase">
+                    P.IVA: {site.businessInfo.vatNumber}
+                </span>
+            )}
+             <span className="text-[10px] text-black/20 font-heading font-bold tracking-tight uppercase">
+                System Version 1.0.4-GRT
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }

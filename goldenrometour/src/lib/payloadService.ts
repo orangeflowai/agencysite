@@ -58,15 +58,24 @@ async function payloadFetch(path: string, params: Record<string, string> = {}): 
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v)
 
   try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+
     const res = await fetch(url.toString(), {
       next: { revalidate: 3600 },
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `users API-Key ${ADMIN_BYPASS_KEY}`,
       },
+      signal: controller.signal,
     })
 
-    if (!res.ok) return null
+    clearTimeout(timeoutId)
+
+    if (!res.ok) {
+      console.warn(`[payloadService] HTTP ${res.status} from ${path}`)
+      return null
+    }
     return res.json()
   } catch (e) {
     console.warn('[payloadService] Fetch failed:', e)
@@ -115,7 +124,12 @@ function mapTour(doc: any): Tour {
     meetingPoint:  doc.meetingPoint || doc.meeting_point || '',
     mapAddress:    doc.mapAddress || '',
     maxParticipants: doc.maxParticipants || doc.max_participants || 20,
-    gallery:       [],
+    gallery:       (doc.gallery || []).map((g: any) => toMainImage(g)).filter(Boolean),
+    itinerary:     (doc.itinerary || []).map((i: any) => ({
+      title:       i.title,
+      duration:    i.duration,
+      description: i.description,
+    })),
     guestTypes:    (doc.guestTypes || []).map((g: any) => ({
       name:        g.name,
       price:       g.price,

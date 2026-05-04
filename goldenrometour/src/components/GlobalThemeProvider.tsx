@@ -5,6 +5,15 @@ import { useSite } from './SiteProvider';
 
 // Default themes for each site
 const DEFAULT_THEMES: Record<string, Record<string, string>> = {
+    'goldenrometour': {
+        '--color-primary': '#C9A84C', // Vatican Gold
+        '--color-primary-light': '#E8D5A3',
+        '--color-primary-dark': '#A07830',
+        '--color-secondary': '#000000', // Papal Purple
+        '--color-accent': '#7B2D2D',    // Cardinal Red
+        '--background': '#F5F0E8',     // Ivory Parchment
+        '--foreground': '#000000',     // Roman Stone Black
+    },
     'rome-tour-tickets': {
         '--color-primary': '#0f4c3a',
         '--color-primary-light': '#166534',
@@ -65,10 +74,10 @@ export default function GlobalThemeProvider({ children }: GlobalThemeProviderPro
                     '--color-primary': 'var(--primary)',
                     '--color-sidebar': 'var(--sidebar)',
                     '--color-font-mono': 'var(--font-mono)',
-                    '--color-font-sans': 'var(--font-sans)',
+                    '--color-font-body': 'var(--font-body)',
                     '--color-secondary': 'var(--secondary)',
                     '--color-background': 'var(--background)',
-                    '--color-font-serif': 'var(--font-serif)',
+                    '--color-font-heading': 'var(--font-heading)',
                     '--color-foreground': 'var(--foreground)',
                     '--color-destructive': 'var(--destructive)',
                     '--color-shadow-blur': 'var(--shadow-blur)',

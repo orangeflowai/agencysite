@@ -62,7 +62,7 @@ export default function ContactPage() {
                     transition={{ duration: 0.8 }}
                     className="relative z-10"
                 >
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">{t('contact.title')}</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4 font-heading">{t('contact.title')}</h1>
                     <p className="text-white/90 text-lg max-w-2xl mx-auto px-4 font-medium">
                         {t('contact.subtitle')}
                     </p>
@@ -79,7 +79,7 @@ export default function ContactPage() {
                         variants={fadeInUp}
                         className="space-y-8"
                     >
-                        <h2 className="text-3xl font-serif font-bold text-foreground border-b-2 border-olive/20 pb-4 inline-block">Get in Touch</h2>
+                        <h2 className="text-3xl font-heading font-bold text-foreground border-b-2 border-olive/20 pb-4 inline-block">Get in Touch</h2>
                         <div className="space-y-8">
                             <div className="flex items-start space-x-6 group">
                                 <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
@@ -87,8 +87,8 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg text-foreground mb-1">Email Us</h3>
-                                    <p className="text-muted-foreground font-medium hover:text-olive transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</p>
-                                    <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">24/7 Support</p>
+                                    <p className="text-muted-foreground font-medium hover:text-secondary transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</p>
+                                    <p className="text-muted-foreground text-xs mt-1  tracking-tighter font-bold">24/7 Support</p>
                                 </div>
                             </div>
 
@@ -99,7 +99,7 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-bold text-lg text-foreground mb-1">Call Us</h3>
                                     <p className="text-muted-foreground font-medium">351 419 9425</p>
-                                    <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">Mon-Sun, 9am - 6pm</p>
+                                    <p className="text-muted-foreground text-xs mt-1  tracking-tighter font-bold">Mon-Sun, 9am - 6pm</p>
                                 </div>
                             </div>
 
@@ -110,7 +110,7 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-bold text-lg text-foreground mb-1">Visit Our Office</h3>
                                     <p className="text-muted-foreground leading-relaxed">Via Tunisi 43,<br />Rome, Italy</p>
-                                    <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">Near St. Peter&apos;s Square</p>
+                                    <p className="text-muted-foreground text-xs mt-1  tracking-tighter font-bold">Near St. Peter&apos;s Square</p>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@ export default function ContactPage() {
                         <form className="space-y-5 relative z-10" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-2 gap-5">
                                 <div>
-                                    <label className="block text-xs font-bold text-muted-foreground  tracking-wider mb-2">{t('contact.form.name')}</label>
+                                    <label className="block text-xs font-bold text-muted-foreground  tracking-tighter mb-2">{t('contact.form.name')}</label>
                                     <input
                                         name="firstName"
                                         required
@@ -141,7 +141,7 @@ export default function ContactPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-bold text-muted-foreground  tracking-wider mb-2">Last Name</label>
+                                    <label className="block text-xs font-bold text-muted-foreground  tracking-tighter mb-2">Last Name</label>
                                     <input
                                         name="lastName"
                                         type="text"
@@ -153,7 +153,7 @@ export default function ContactPage() {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-muted-foreground  tracking-wider mb-2">{t('contact.form.email')}</label>
+                                <label className="block text-xs font-bold text-muted-foreground  tracking-tighter mb-2">{t('contact.form.email')}</label>
                                 <input
                                     name="email"
                                     required
@@ -174,7 +174,7 @@ export default function ContactPage() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-muted-foreground  tracking-wider mb-2">{t('contact.form.message')}</label>
+                                <label className="block text-xs font-bold text-muted-foreground  tracking-tighter mb-2">{t('contact.form.message')}</label>
                                 <textarea
                                     name="message"
                                     required
@@ -188,7 +188,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full bg-emerald-800 hover:bg-emerald-900 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-1 transition-all  tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full bg-emerald-800 hover:bg-emerald-900 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-1 transition-all  tracking-tight disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? 'Sending...' : t('contact.btn.submit')}
                             </button>

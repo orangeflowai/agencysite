@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-roboto), ui-serif, Georgia, serif;
+  --font-mono: var(--font-roboto), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --shadow-color: var(--shadow-color);
+  --shadow-opacity: var(--shadow-opacity);
+  --shadow-blur: var(--shadow-blur);
+  --shadow-spread: var(--shadow-spread);
+  --shadow-offset-x: var(--shadow-offset-x);
+  --shadow-offset-y: var(--shadow-offset-y);
+}
+
+@utility font-heading {
+  font-family: var(--font-roboto);
+  font-weight: 600;
+  font-variation-settings: "GRAD" 80, "XTRA" 468, "opsz" 48;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  text-transform: none;
+  font-style: normal;
+}
+
+@utility font-body {
+  font-family: var(--font-roboto);
+  font-weight: 400;
+  font-variation-settings: "GRAD" -10, "opsz" 12;
+}
+
+@utility font-black {
+  font-weight: 600;
+}
+
+@utility font-bold {
+  font-weight: 600;
+}
+
+@utility font-extrabold {
+  font-weight: 600;
+}
+
+:root {
+  /* Core Canvas */
+  --background: #FFFFFF;
+  --foreground: #0A192F;
+
+  /* Cards & Surfaces */
+  --card: #F8FAFC;
+  --card-foreground: #0A192F;
+  --popover: #FFFFFF;
+  --popover-foreground: #0A192F;
+
+  /* Primary Action: Royal Blue */
+  --primary: #1E3A8A;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary: Soft Slate */
+  --secondary: #F1F5F9;
+  --secondary-foreground: #1E3A8A;
+
+  /* Muted: Light Gray */
+  --muted: #F8FAFC;
+  --muted-foreground: #64748B;
+
+  /* Accent: Vivid Gold */
+  --accent: #D4AF37;
+  --accent-foreground: #0A192F;
+
+  /* Destructive: Crimson */
+  --destructive: #BE123C;
+  --destructive-foreground: #FFFFFF;
+
+  /* Borders & Inputs */
+  --border: #E2E8F0;
+  --input: #F1F5F9;
+  --ring: #1E3A8A;
+  --radius: 0.5rem;
+
+  /* Shadows */
+  --shadow-color: hsl(222 47% 11% / 0.1);
+  --shadow-opacity: 0.1;
+  --shadow-blur: 4px;
+  --shadow-spread: 0px;
+  --shadow-offset-x: 0px;
+  --shadow-offset-y: 2px;
+}
+
+.dark {
+  /* Core Canvas */
+  --background: #0A192F;
+  --foreground: #F8FAFC;
+
+  /* Cards & Surfaces */
+  --card: #112240;
+  --card-foreground: #F8FAFC;
+  --popover: #112240;
+  --popover-foreground: #F8FAFC;
+
+  /* Primary Action: Bright Royal */
+  --primary: #3B82F6;
+  --primary-foreground: #0A192F;
+
+  /* Secondary: Deep Navy */
+  --secondary: #172A45;
+  --secondary-foreground: #F8FAFC;
+
+  /* Muted: Navy Slate */
+  --muted: #112240;
+  --muted-foreground: #8892B0;
+
+  /* Accent: Luminous Gold */
+  --accent: #F1C40F;
+  --accent-foreground: #0A192F;
+
+  /* Destructive: Bright Red */
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+
+  /* Borders & Inputs */
+  --border: #233554;
+  --input: #172A45;
+  --ring: #3B82F6;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

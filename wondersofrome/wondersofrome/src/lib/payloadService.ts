@@ -113,9 +113,13 @@ async function payloadFetch(path: string, params: Record<string, string> = {}, r
 // ── Image helpers ─────────────────────────────────────────────────────────────
 
 function resolveImageUrl(doc: any): string | undefined {
-  if (doc.imageUrl) return doc.imageUrl
+  // Priority 1: Payload media object (after migration)
   if (doc.mainImage?.url) return doc.mainImage.url
-  if (doc.mainImage?.filename) return `${PAYLOAD_URL}/media/${doc.mainImage.filename}`
+  if (doc.mainImage?.filename) return `${PAYLOAD_URL}/api/media/file/${doc.mainImage.filename}`
+  
+  // Priority 2: Direct imageUrl (Sanity CDN URL or R2 fallback)
+  if (doc.imageUrl) return doc.imageUrl
+  
   return undefined
 }
 
@@ -199,7 +203,7 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
   const data = await payloadFetch('/tours', {
     'where[tenant][equals]': siteId,
     'sort': 'createdAt',
-    'depth': '0',
+    'depth': '1',  // Changed from '0' to '1' to populate mainImage
   })
   return (data?.docs || []).map(mapTour)
 }
@@ -219,7 +223,7 @@ export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): P
 }
 
 export async function getAllTours(): Promise<Tour[]> {
-  const data = await payloadFetch('/tours', { 'limit': '500' })
+  const data = await payloadFetch('/tours', { 'limit': '500', 'depth': '1' })
   return (data?.docs || []).map(mapTour)
 }
 

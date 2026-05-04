@@ -170,3 +170,54 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Self-drawing underline on hover */
+.hover-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Image Parallax Container */
+.parallax-img-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-img {
+  height: 120%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: -10%;
+  left: 0;
+  will-change: transform;
+}
+
+/* Mask Reveal */
+.mask-reveal {
+  overflow: hidden;
+  position: relative;
+}
+
+.mask-reveal-inner {
+  display: inline-block;
+  will-change: transform;
+}

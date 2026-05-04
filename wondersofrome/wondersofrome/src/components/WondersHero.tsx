@@ -1,9 +1,10 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ArrowRight, Star } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
 const R2_HERO_VIDEO = `${R2_BASE}/Video_Generation_Complete.mp4`;
@@ -18,100 +19,116 @@ interface HeroProps {
 }
 
 export default function WondersHero({ settings }: HeroProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const leftPanelRef = useRef<HTMLDivElement>(null);
+  const rightPanelRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
   const videoUrl = settings?.heroVideo?.asset?.url || R2_HERO_VIDEO;
   const imageUrl = settings?.heroImage?.asset?.url || `${R2_BASE}/pexels-giorgi-gobadze-2160475859-36770780.jpg`;
 
+  useGSAP(() => {
+    const tl = gsap.timeline({ defaults: { ease: 'expo.inOut' } });
+
+    // 1. Initial State: Panels cover the screen, text invisible
+    gsap.set([leftPanelRef.current, rightPanelRef.current], { xPercent: 0 });
+    gsap.set('.hero-line-inner', { yPercent: 100 });
+    gsap.set(ctaRef.current, { opacity: 0, y: 30 });
+
+    const isMobile = window.innerWidth < 768;
+    const panelDuration = isMobile ? 0.8 : 1.2;
+
+    // 2. Split Panels at 0.3s
+    tl.to(leftPanelRef.current, {
+      xPercent: -100,
+      duration: panelDuration
+    }, 0.3);
+    
+    tl.to(rightPanelRef.current, {
+      xPercent: 100,
+      duration: panelDuration
+    }, 0.3);
+
+    // 3. Reveal Text at 1.0s (overlapping)
+    tl.to('.hero-line-inner', {
+      yPercent: 0,
+      duration: 1,
+      stagger: 0.08,
+      ease: 'power4.out'
+    }, 1.0);
+
+    // 4. CTA Fade up at 1.8s
+    tl.to(ctaRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    }, 1.8);
+
+  }, { scope: containerRef });
+
+  // Split title into lines manually for the reveal effect
+  const title = settings?.heroTitle || "Discover Rome's Timeless Wonders";
+  const lines = title.split('\n');
+
   return (
-    <section className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden">
-      {/* Background */}
+    <section ref={containerRef} className="relative w-full flex flex-col justify-center overflow-hidden bg-black pt-[102px] min-h-screen">
+      {/* Background Video Layer */}
       <div className="absolute inset-0 z-0">
         <video
+          ref={videoRef}
           autoPlay loop muted playsInline preload="auto"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-60 scale-105"
           poster={imageUrl}
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
-        {/* Fallback image for slow connections */}
-        <Image src={imageUrl} alt="Rome" fill className="object-cover -z-10" priority />
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
       </div>
 
+      {/* Vertical Split Overlay */}
+      <div ref={leftPanelRef} className="absolute inset-y-0 left-0 w-1/2 bg-[#0F1C19] z-20 will-change-transform" />
+      <div ref={rightPanelRef} className="absolute inset-y-0 right-0 w-1/2 bg-[#0F1C19] z-20 will-change-transform" />
+
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 flex flex-col items-start justify-center min-h-screen">
-        <div className="max-w-2xl">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 bg-card/10 backdrop-blur-md border border-white/20 rounded-full text-white text-[10px] font-bold  tracking-[0.3em] mb-6"
-          >
-            <Star size={10} className="fill-yellow-400 text-yellow-400" />
-            Rome's Premier Tour Operator
-          </motion.div>
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex-1 flex flex-col justify-center">
+        <div ref={textRef} className="max-w-4xl">
+          {title.split('<br />').map((line, i) => (
+            <div key={i} className="overflow-hidden mb-2">
+              <h1 className="hero-line-inner text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-serif font-bold leading-[0.95] tracking-tighter will-change-transform">
+                {line.replace(/<[^>]*>?/gm, '')}
+              </h1>
+            </div>
+          ))}
+          
+          <div className="overflow-hidden mt-8 mb-12">
+            <p className="hero-line-inner text-base sm:text-lg text-white/70 max-w-lg leading-relaxed font-medium will-change-transform">
+              {settings?.heroSubtitle || 'Experience the Eternal City through the eyes of historians. Skip-the-line access and immersive AR technology.'}
+            </p>
+          </div>
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-serif font-bold leading-[0.9] tracking-tighter   mb-6"
-          >
-            {settings?.heroTitle || <>Discover<br />Rome</>}
-          </motion.h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.25 }}
-            className="text-base sm:text-lg text-white/75 max-w-md leading-relaxed mb-10"
-          >
-            {settings?.heroSubtitle || 'Skip-the-line access to the Vatican, Colosseum & hidden gems — with expert historian guides.'}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 }}
-            className="flex flex-col sm:flex-row gap-4"
-          >
+          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/search"
-              className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold px-8 py-4 rounded-full  tracking-widest text-sm transition-all shadow-2xl shadow-primary/30 hover:-translate-y-0.5 active:scale-95"
+              className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold px-10 py-5 rounded-full tracking-widest text-xs transition-all shadow-2xl hover:-translate-y-1 active:scale-95"
             >
-              Book Now <ArrowRight size={16} />
+              INITIATE JOURNEY <ArrowRight size={14} />
             </Link>
             <Link
               href="/category/vatican"
-              className="inline-flex items-center justify-center gap-2 bg-card/10 hover:bg-card/20 backdrop-blur-md border border-white/30 text-white font-bold px-8 py-4 rounded-full  tracking-widest text-sm transition-all"
+              className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white font-bold px-10 py-5 rounded-full tracking-widest text-xs transition-all"
             >
-              Vatican Tours
+              EXPLORE VATICAN
             </Link>
-          </motion.div>
-
-          {/* Social proof */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="flex items-center gap-4 mt-10"
-          >
-            <div className="flex -space-x-2">
-              {[11,12,13,14].map(i => (
-                <img key={i} src={`https://i.pravatar.cc/100?img=${i}`} alt="" className="w-8 h-8 rounded-full border-2 border-white/30 object-cover" />
-              ))}
-            </div>
-            <div>
-              <div className="flex gap-0.5 mb-0.5">
-                {[...Array(5)].map((_, i) => <Star key={i} size={12} className="fill-yellow-400 text-yellow-400" />)}
-              </div>
-              <p className="text-white/70 text-xs font-medium">50,000+ happy travelers</p>
-            </div>
-          </motion.div>
+          </div>
         </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-4 opacity-50">
+        <div className="w-[1px] h-12 bg-gradient-to-b from-white to-transparent animate-pulse" />
       </div>
     </section>
   );

@@ -43,8 +43,8 @@ export default function CancellationPolicy() {
                         <table className="min-w-full bg-card text-left text-sm md:text-base">
                             <thead className="bg-emerald-900 text-white">
                                 <tr>
-                                    <th className="py-4 px-6 font-bold  tracking-wider w-1/2">Time of Cancellation</th>
-                                    <th className="py-4 px-6 font-bold  tracking-wider w-1/2">Refund Amount</th>
+                                    <th className="py-4 px-6 font-bold  tracking-tighter w-1/2">Time of Cancellation</th>
+                                    <th className="py-4 px-6 font-bold  tracking-tighter w-1/2">Refund Amount</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">

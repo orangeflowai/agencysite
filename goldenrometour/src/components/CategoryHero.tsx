@@ -53,7 +53,7 @@ export default function CategoryHero({ images, title, subtitle }: CategoryHeroPr
             </AnimatePresence>
 
             {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black/40 z-1"></div>
+            <div className="absolute inset-0 bg-secondary/40 z-1"></div>
 
             {/* Hero Content */}
             <div className="relative z-10 container mx-auto px-4 mt-16">

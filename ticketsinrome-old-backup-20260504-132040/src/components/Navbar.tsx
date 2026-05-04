@@ -1,0 +1,234 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { Menu, X, Search, Calendar, Users, Minus, Plus, ShoppingBag } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import clsx from 'clsx';
+import { useRouter, usePathname } from 'next/navigation';
+import SmartCalendar from './ui/SmartCalendar';
+import { format } from 'date-fns';
+import Image from 'next/image';
+
+import { useLanguage } from '@/context/LanguageContext';
+import { useSite } from '@/components/SiteProvider';
+import { useCart } from '@/context/CartContext';
+import { urlFor } from '@/lib/dataAdapter';
+import CartDropdown from './CartDropdown';
+import LanguageSwitcher from './LanguageSwitcher';
+
+export default function Navbar() {
+    const { t } = useLanguage();
+    const site = useSite();
+    const { totalItems } = useCart();
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const [destination, setDestination] = useState('');
+    const [date, setDate] = useState('');
+    const [guests, setGuests] = useState(2);
+    const [isGuestOpen, setIsGuestOpen] = useState(false);
+    const guestRef = useRef<HTMLDivElement>(null);
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const calendarRef = useRef<HTMLDivElement>(null);
+
+    const [searchOptions, setSearchOptions] = useState<{ title: string; slug: string }[]>([]);
+
+    useEffect(() => {
+        async function loadOptions() {
+            try {
+                const { supabase } = await import('@/lib/supabase');
+                const { data } = await supabase.from('tours').select('title, slug').limit(20);
+                if (data && data.length > 0) setSearchOptions(data);
+            } catch (e) {
+                console.error('Failed to load search options', e);
+            }
+        }
+        loadOptions();
+    }, []);
+
+    const activeSlug = searchOptions.find((o) => o.title === destination)?.slug || '';
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
+                setIsCalendarOpen(false);
+            }
+            if (guestRef.current && !guestRef.current.contains(event.target as Node)) {
+                setIsGuestOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => setIsScrolled(window.scrollY > 20);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const handleSearch = () => {
+        const query = encodeURIComponent(destination);
+        const dateParam = date ? `&date=${date}` : '';
+        router.push(`/search?q=${query}${dateParam}&guests=${guests}`);
+        setIsMobileMenuOpen(false);
+    };
+
+    const navLinks = [
+        { name: t('nav.colosseum') || 'Colosseum', href: '/category/colosseum' },
+        { name: t('nav.vatican') || 'Vatican', href: '/category/vatican' },
+        { name: t('nav.city') || 'City Tours', href: '/category/city' },
+        { name: t('nav.about') || 'About Us', href: '/about' },
+    ];
+
+    const scrolled = isScrolled || isMobileMenuOpen;
+
+    return (
+        <>
+            <nav
+                className={clsx(
+                    'fixed top-0 left-0 right-0 z-[100] transition-all duration-500 border-b',
+                    scrolled
+                        ? 'bg-background/80 backdrop-blur-2xl shadow-lg border-border py-2'
+                        : 'bg-transparent border-transparent py-4 md:py-6'
+                )}
+            >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="relative flex items-center justify-between lg:justify-start gap-4 w-full">
+
+                        {/* Logo */}
+                        <Link href="/" className="shrink-0 group">
+                            {site?.logo ? (
+                                <Image
+                                    src={urlFor(site.logo).url()}
+                                    alt={site.title || 'Tickets In Rome'}
+                                    width={150}
+                                    height={48}
+                                    className="h-8 md:h-10 w-auto object-contain transition-transform group-hover:scale-105"
+                                    priority
+                                />
+                            ) : (
+                                <div className="flex flex-col items-start justify-center transition-transform group-hover:scale-105 duration-300">
+                                    <span className={clsx(
+                                        'font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none transition-colors',
+                                        scrolled ? 'text-primary' : 'text-white drop-shadow-lg'
+                                    )}>
+                                        TICKETS<span className="opacity-40 ">IN</span>ROME
+                                    </span>
+                                </div>
+                            )}
+                        </Link>
+
+                        {/* Desktop Nav Links */}
+                        <div className="hidden lg:flex items-center gap-4 xl:gap-6 flex-1 justify-center">
+                            {navLinks.map((link) => {
+                                const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
+                                return (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className={clsx(
+                                            'text-xs font-sans font-bold  tracking-widest transition-all duration-300 whitespace-nowrap relative pb-1',
+                                            isActive ? 'text-primary' : (scrolled ? 'text-foreground/70 hover:text-primary' : 'text-white/80 hover:text-white')
+                                        )}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+
+                        {/* Integrated Glassmorphism Search Bar */}
+                        <div
+                            className={clsx(
+                                'hidden lg:flex items-center rounded-full pl-4 pr-1.5 py-1.5 border shrink-0 gap-3 transition-all duration-300',
+                                scrolled
+                                    ? 'bg-card backdrop-blur-xl border-border shadow-sm'
+                                    : 'bg-card/10 backdrop-blur-md border-white/20 shadow-lg'
+                            )}
+                        >
+                            <div className={clsx('flex items-center border-r pr-4', scrolled ? 'border-border' : 'border-white/20')}>
+                                <Search size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
+                                <select
+                                    value={destination}
+                                    onChange={(e) => setDestination(e.target.value)}
+                                    className={clsx(
+                                        'bg-transparent text-[10px] font-bold  tracking-widest outline-none w-28 xl:w-32 cursor-pointer appearance-none truncate',
+                                        scrolled ? 'text-foreground' : 'text-white/90'
+                                    )}
+                                >
+                                    <option value="" disabled>Search Sector</option>
+                                    {searchOptions.map((opt) => (
+                                        <option key={opt.slug} value={opt.title} className="text-gray-800">{opt.title}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className={clsx('flex items-center border-r pr-4 relative cursor-pointer', scrolled ? 'border-border' : 'border-white/20')} ref={calendarRef}>
+                                <div className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
+                                    <Calendar size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
+                                    <span className={clsx(
+                                        'text-[10px] font-bold  tracking-widest w-20 xl:w-24 truncate',
+                                        date ? (scrolled ? 'text-foreground' : 'text-white') : (scrolled ? 'text-muted-foreground' : 'text-white/60')
+                                    )}>
+                                        {date ? format(new Date(date), 'MMM dd') : 'Add Date'}
+                                    </span>
+                                </div>
+                                <AnimatePresence>
+                                    {isCalendarOpen && (
+                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full left-1/2 -translate-x-1/2 mt-6 bg-card/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-border p-2 z-50">
+                                            <SmartCalendar slug={activeSlug} selectedDate={date ? new Date(date) : undefined} onSelect={(d) => { setDate(d ? format(d, 'yyyy-MM-dd') : ''); setIsCalendarOpen(false); }} />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            <div className="relative flex items-center pr-1 cursor-pointer" ref={guestRef}>
+                                <div className={clsx('flex items-center rounded-full px-2 py-1 transition-all', scrolled ? 'hover:bg-accent' : 'hover:bg-card/10')} onClick={() => setIsGuestOpen(!isGuestOpen)}>
+                                    <Users size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
+                                    <span className={clsx('text-[10px] font-bold  tracking-widest w-10 text-center', scrolled ? 'text-foreground' : 'text-white')}>
+                                        {guests}
+                                    </span>
+                                </div>
+                                <AnimatePresence>
+                                    {isGuestOpen && (
+                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full right-0 mt-6 w-48 bg-card/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-border p-4 z-50">
+                                            <div className="flex items-center justify-between font-bold  tracking-widest text-[10px] text-foreground">
+                                                <span>Guests</span>
+                                                <div className="flex items-center gap-3">
+                                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-accent flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Minus size={14} /></button>
+                                                    <span className="text-sm">{guests}</span>
+                                                    <button onClick={() => setGuests(guests + 1)} className="w-8 h-8 rounded-full bg-accent flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Plus size={14} /></button>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            <button onClick={handleSearch} className="bg-primary hover:bg-primary/90 text-white rounded-full p-2.5 transition-all shadow-lg active:scale-95">
+                                <Search size={16} />
+                            </button>
+                        </div>
+
+                        {/* Right Actions */}
+                        <div className="hidden lg:flex items-center gap-3 shrink-0 ml-4">
+                            <CartDropdown />
+                            <LanguageSwitcher />
+                        </div>
+
+                        {/* Mobile Toggle */}
+                        <div className="flex items-center gap-2 lg:hidden">
+                            <button className={clsx('p-2 rounded-full backdrop-blur-md active:scale-95 border', scrolled ? 'text-primary bg-accent border-border' : 'text-white bg-card/20 border-white/30')} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </>
+    );
+}

@@ -26,89 +26,60 @@ export default function HighlightSection({
     flip = false,
 }: HighlightSectionProps) {
     return (
-        <section className="w-full">
-            <div className={`flex flex-col ${flip ? 'lg:flex-row-reverse' : 'lg:flex-row'} min-h-[480px]`}>
-                {/* Left: Text Block */}
-                <motion.div
-                    initial={{ opacity: 0, x: flip ? 32 : -32 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7 }}
-                    className="flex-1 flex flex-col justify-center px-10 md:px-16 lg:px-20 py-16 lg:py-24"
-                    style={{ backgroundColor: '#555B02' }}
-                >
-                    {eyebrow && (
-                        <p
-                            className="text-[10px] font-bold  tracking-[0.3em] mb-5 opacity-60"
-                            style={{ color: '#F5F0E8' }}
-                        >
-                            {eyebrow}
+        <section className="w-full py-20 bg-background">
+            <div className="container mx-auto px-6">
+                <div className={`flex flex-col ${flip ? 'lg:flex-row-reverse' : 'lg:flex-row'} min-h-[600px] rounded-[3rem] overflow-hidden shadow-3xl`}>
+                    {/* Left: Text Block (Dark Purple) */}
+                    <motion.div
+                        initial={{ opacity: 0, x: flip ? 32 : -32 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7 }}
+                        className="flex-1 flex flex-col justify-center p-12 lg:p-20 bg-secondary"
+                    >
+                        {eyebrow && (
+                            <p className="text-primary font-heading font-bold uppercase tracking-tight text-[10px] mb-6">
+                                {eyebrow}
+                            </p>
+                        )}
+                        <h2 className="text-white font-heading text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-8 uppercase">
+                            {title}
+                        </h2>
+                        <p className="text-white/60 font-body text-base md:text-lg leading-relaxed mb-10 max-w-md">
+                            {body}
                         </p>
-                    )}
-                    <h2
-                        className="font-serif font-bold leading-tight mb-6"
-                        style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', color: '#F5F0E8' }}
-                    >
-                        {title}
-                    </h2>
-                    <p
-                        className="text-base leading-relaxed mb-8 max-w-md"
-                        style={{ color: 'rgba(245, 240, 232, 0.65)' }}
-                    >
-                        {body}
-                    </p>
-                    <Link
-                        href={ctaHref}
-                        className="self-start inline-flex items-center gap-2 font-bold  tracking-[0.2em] text-sm py-3 px-8 rounded-full transition-all hover:scale-105 shadow-xl"
-                        style={{ backgroundColor: '#555B02', color: '#F5F0E8' }}
-                    >
-                        {ctaText}
-                    </Link>
-                </motion.div>
+                        <Link
+                            href={ctaHref}
+                            className="self-start inline-flex items-center gap-4 bg-primary text-secondary px-10 py-5 font-heading font-bold tracking-tight text-[10px] hover:bg-white transition-all rounded-full uppercase"
+                        >
+                            {ctaText}
+                        </Link>
+                    </motion.div>
 
-                {/* Right: Masked Image on Pattern */}
-                <motion.div
-                    initial={{ opacity: 0, x: flip ? -32 : 32 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, delay: 0.15 }}
-                    className="flex-1 relative flex items-center justify-center py-12 px-8 lg:p-0 min-h-[360px] lg:min-h-0 overflow-hidden"
-                    style={{
-                        backgroundColor: '#F5F0E8',
-                        backgroundImage: `
-                            linear-gradient(rgba(26,18,16,0.05) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(26,18,16,0.05) 1px, transparent 1px)
-                        `,
-                        backgroundSize: '40px 40px',
-                    }}
-                >
-                    {/* Large blob/circle masked image */}
-                    <div
-                        className="relative w-full max-w-sm aspect-[4/5] shadow-2xl overflow-hidden"
-                        style={{
-                            borderRadius: '60% 40% 60% 40% / 60% 60% 40% 40%',
-                            boxShadow: '0 32px 80px rgba(26,18,16,0.25)',
-                        }}
+                    {/* Right: Image */}
+                    <motion.div
+                        initial={{ opacity: 0, x: flip ? -32 : 32 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, delay: 0.15 }}
+                        className="flex-1 relative min-h-[400px] lg:min-h-0"
                     >
                         <Image
                             src={imageUrl}
                             alt={imageAlt}
                             fill
-                            sizes="(max-width: 768px) 90vw, 50vw"
-                            className="object-cover hover:scale-105 transition-transform duration-700"
+                            className="object-cover contrast-[1.1] brightness-90"
                             priority
                         />
-                    </div>
-
-                    {/* Decorative floating badge */}
-                    <div
-                        className="absolute top-8 right-8 lg:top-12 lg:right-12 w-20 h-20 rounded-full flex flex-col items-center justify-center text-center shadow-lg"
-                        style={{ backgroundColor: '#1A1210', color: '#F5F0E8' }}
-                    >
-                        <span className="font-serif font-bold text-xl leading-none">50K</span>
-                        <span className="text-[9px] font-bold  tracking-wider leading-tight mt-0.5 opacity-80">Guests</span>
-                    </div>
-                </motion.div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-secondary/40 to-transparent"></div>
+                        
+                        {/* Floating Badge */}
+                        <div className="absolute bottom-12 right-12 bg-secondary/5 backdrop-blur-xl border border-primary/20 p-8 rounded-2xl shadow-2xl">
+                             <p className="text-primary font-heading text-2xl md:text-3xl font-bold">24/7</p>
+                             <p className="text-secondary/60 font-heading text-[10px] font-bold tracking-tight uppercase mt-1">Concierge Support</p>
+                        </div>
+                    </motion.div>
+                </div>
             </div>
         </section>
     );

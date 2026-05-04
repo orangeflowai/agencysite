@@ -90,7 +90,7 @@ export default function Navbar() {
     return (
         <>
             {/* 5K ROLLING MARQUEE */}
-            <div className="fixed top-0 left-0 right-0 z-[10002] bg-[#F5F0E8] py-2 overflow-hidden border-b border-[#555B02]/10 pointer-events-none">
+            <div className="fixed top-0 left-0 right-0 z-[10002] bg-background py-2 overflow-hidden border-b border-primary/10 pointer-events-none">
                 <motion.div
                     animate={{ x: [0, -1000] }}
                     transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -98,9 +98,9 @@ export default function Navbar() {
                 >
                     {[...Array(10)].map((_, i) => (
                         <div key={i} className="flex items-center gap-12">
-                            <span className="font-sans font-bold text-[10px]  tracking-[0.4em] text-[#555B02]">✦ Official Vatican Partner</span>
-                            <span className="font-sans font-bold text-[10px]  tracking-[0.4em] text-[#555B02]">✦ Skip the Line Priority Access</span>
-                            <span className="font-sans font-bold text-[10px]  tracking-[0.4em] text-[#555B02]">✦ Curator-Led Historian Routes</span>
+                            <span className="font-heading font-bold text-[10px] tracking-tight text-secondary uppercase">✦ Official Vatican Partner</span>
+                            <span className="font-heading font-bold text-[10px] tracking-tight text-secondary uppercase">✦ Skip the Line Priority Access</span>
+                            <span className="font-heading font-bold text-[10px] tracking-tight text-secondary uppercase">✦ Curator-Led Historian Routes</span>
                         </div>
                     ))}
                 </motion.div>
@@ -111,7 +111,7 @@ export default function Navbar() {
                 className={clsx(
                     'fixed left-0 right-0 z-[10001] transition-all duration-500 border-b',
                     scrolled
-                        ? 'bg-[#0A1628]/95 backdrop-blur-2xl shadow-xl border-[#C9A227]/20 py-2'
+                        ? 'bg-secondary/95 backdrop-blur-2xl shadow-xl border-primary/20 py-2'
                         : 'bg-transparent border-transparent py-4 md:py-6'
                 )}
             >
@@ -132,17 +132,20 @@ export default function Navbar() {
                             ) : (
                                 <div className="flex flex-col items-start justify-center transition-transform group-hover:scale-105 duration-300">
                                     <span className={clsx(
-                                        'font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none transition-colors duration-300',
-                                        scrolled ? 'text-white' : 'text-white'
+                                        'font-heading text-xl md:text-2xl font-bold tracking-tighter leading-none transition-colors duration-300 italic',
+                                        'text-white'
                                     )}>
-                                        GOLDEN <span className=" text-[#C9A227]">ROME</span>
+                                        Vaticano <span className="text-primary not-italic">+</span>
+                                    </span>
+                                    <span className="font-heading text-primary/40 text-[10px] font-bold tracking-tight mt-1 uppercase">
+                                        Sacred Luxury Editorial
                                     </span>
                                 </div>
                             )}
                         </Link>
 
                         {/* Desktop Nav Links */}
-                        <div className="hidden lg:flex items-center gap-6 xl:gap-8 flex-1 justify-center">
+                        <div className="hidden lg:flex items-center gap-10 xl:gap-14 flex-1 justify-center">
                             {navLinks.map((link) => {
                                 const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
                                 return (
@@ -150,82 +153,18 @@ export default function Navbar() {
                                         key={link.href}
                                         href={link.href}
                                         className={clsx(
-                                            'text-[10px] xl:text-xs font-sans font-bold  tracking-[0.3em] transition-all duration-300 whitespace-nowrap relative pb-1',
-                                            isActive ? 'text-[#C9A227]' : (scrolled ? 'text-white/80 hover:text-[#C9A227]' : 'text-white/90 hover:text-[#C9A227]')
+                                            'text-[10px] font-heading font-bold tracking-tight transition-all duration-300 whitespace-nowrap relative pb-1 uppercase group/link',
+                                            isActive ? 'text-primary' : (scrolled ? 'text-white/80 hover:text-primary' : 'text-white/90 hover:text-primary')
                                         )}
                                     >
                                         {link.name}
+                                        <span className="absolute bottom-0 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover/link:w-full"></span>
                                     </Link>
                                 );
                             })}
                         </div>
 
-                        {/* Integrated Glassmorphism Search Bar */}
-                        <div
-                            className={clsx(
-                                'hidden lg:flex items-center rounded-full pl-4 pr-1.5 py-1.5 border shrink-0 gap-3 transition-all duration-300',
-                                scrolled
-                                    ? 'bg-card/5 backdrop-blur-xl border-white/10 shadow-lg'
-                                    : 'bg-card/10 backdrop-blur-md border-white/20 shadow-lg'
-                            )}
-                        >
-                            <div className={clsx('flex items-center border-r pr-4', scrolled ? 'border-white/10' : 'border-white/20')}>
-                                <Search size={14} className="text-[#C9A227]" />
-                                <select
-                                    value={destination}
-                                    onChange={(e) => setDestination(e.target.value)}
-                                    className="bg-transparent text-[10px] font-bold  tracking-widest outline-none w-28 xl:w-32 cursor-pointer appearance-none truncate text-white"
-                                >
-                                    <option value="" disabled className="text-foreground">Archive Sector</option>
-                                    {searchOptions.map((opt) => (
-                                        <option key={opt.slug} value={opt.title} className="text-foreground">{opt.title}</option>
-                                    ))}
-                                </select>
-                            </div>
 
-                            <div className={clsx('flex items-center border-r pr-4 relative cursor-pointer', scrolled ? 'border-white/10' : 'border-white/20')} ref={calendarRef}>
-                                <div className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
-                                    <Calendar size={14} className="text-[#C9A227]" />
-                                    <span className="text-[10px] font-bold  tracking-widest w-20 xl:w-24 truncate text-white/80">
-                                        {date ? format(new Date(date), 'MMM dd') : 'Add Date'}
-                                    </span>
-                                </div>
-                                <AnimatePresence>
-                                    {isCalendarOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full left-1/2 -translate-x-1/2 mt-6 bg-[#0A1628]/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/10 p-2 z-50">
-                                            <SmartCalendar slug={activeSlug} selectedDate={date ? new Date(date) : undefined} onSelect={(d) => { setDate(d ? format(d, 'yyyy-MM-dd') : ''); setIsCalendarOpen(false); }} />
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-
-                            <div className="relative flex items-center pr-1 cursor-pointer" ref={guestRef}>
-                                <div className="flex items-center rounded-full px-2 py-1 transition-all hover:bg-card/5" onClick={() => setIsGuestOpen(!isGuestOpen)}>
-                                    <Users size={14} className="text-[#C9A227]" />
-                                    <span className="text-[10px] font-bold  tracking-widest w-10 text-center text-white">
-                                        {guests}
-                                    </span>
-                                </div>
-                                <AnimatePresence>
-                                    {isGuestOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full right-0 mt-6 w-48 bg-[#0A1628]/95 backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/10 p-4 z-50">
-                                            <div className="flex items-center justify-between font-bold  tracking-widest text-[10px] text-white">
-                                                <span>Guests</span>
-                                                <div className="flex items-center gap-3">
-                                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-card/5 flex items-center justify-center hover:bg-[#C9A227] transition-all"><Minus size={14} /></button>
-                                                    <span className="text-sm">{guests}</span>
-                                                    <button onClick={() => setGuests(guests + 1)} className="w-8 h-8 rounded-full bg-card/5 flex items-center justify-center hover:bg-[#C9A227] transition-all"><Plus size={14} /></button>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-
-                            <button onClick={handleSearch} className="bg-[#C9A227] text-[#0A1628] rounded-full p-2.5 transition-all shadow-lg active:scale-95">
-                                <Search size={16} />
-                            </button>
-                        </div>
 
                         {/* Right Actions */}
                         <div className="hidden lg:flex items-center gap-3 shrink-0 ml-4">
@@ -242,6 +181,53 @@ export default function Navbar() {
                     </div>
                 </div>
             </nav>
+
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, x: '100%' }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: '100%' }}
+                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                        className="fixed inset-0 z-[10003] bg-secondary lg:hidden flex flex-col"
+                    >
+                        <div className="p-6 flex justify-between items-center border-b border-primary/10">
+                            <span className="font-heading text-xl md:text-2xl font-bold text-white tracking-tight">VATICANO <span className="text-primary">+</span></span>
+                            <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-full border border-white/10 text-white">
+                                <X size={24} />
+                            </button>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto py-12 px-8 space-y-8 text-center">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    className="block font-heading text-3xl md:text-4xl text-white hover:text-primary transition-colors uppercase tracking-tight"
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
+                            
+                            <div className="pt-12 border-t border-primary/10 space-y-6">
+                                <Link href="/search" onClick={() => setIsMobileMenuOpen(false)} className="block bg-primary text-secondary py-4 rounded-full font-heading font-bold tracking-tight text-[10px] uppercase">
+                                    Explore Archive
+                                </Link>
+                                <div className="flex justify-center gap-6">
+                                    <CartDropdown />
+                                    <LanguageSwitcher />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="p-8 border-t border-primary/10 bg-secondary/20">
+                            <p className="font-body text-[10px] font-bold tracking-tight text-secondary/40 uppercase text-center">✦ sacred luxury editorial ✦</p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 }

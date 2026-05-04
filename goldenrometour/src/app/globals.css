@@ -24,8 +24,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-roboto), ui-serif, Georgia, serif;
+  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
   --font-mono: var(--font-roboto), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --shadow-color: var(--shadow-color);
@@ -34,81 +34,92 @@
   --shadow-spread: var(--shadow-spread);
   --shadow-offset-x: var(--shadow-offset-x);
   --shadow-offset-y: var(--shadow-offset-y);
+
+  /* Vaticano Redesign Tokens */
+  --color-vatican-gold: #C9A84C;
+  --color-papal-purple: #3D1A6E;
+  --color-roman-stone: #000000;
+  --color-ivory-parchment: #F5F0E8;
+  --color-cardinal-red: #7B2D2D;
+  --color-royal-purple: #3D1A6E;
+  
+  --color-cream: var(--color-ivory-parchment);
+  --color-gold: var(--color-vatican-gold);
+  --color-purple: var(--color-papal-purple);
+}
+
+@utility font-playfair {
+  font-family: "Playfair Display", serif;
+}
+
+@utility font-cormorant {
+  font-family: "Cormorant Garamond", serif;
+}
+
+@utility font-josefin {
+  font-family: var(--font-open-sans), sans-serif;
+}
+
+@utility font-open-sans {
+  font-family: var(--font-open-sans), sans-serif;
+}
+
+@utility font-vibes {
+  font-family: "Great Vibes", cursive;
 }
 
 @utility font-heading {
-  font-family: var(--font-roboto);
-  font-weight: 600;
-  font-variation-settings: "GRAD" 100, "XTRA" 468, "opsz" 48;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
-  text-transform: none;
-  font-style: normal;
+  @apply font-playfair font-bold;
+  letter-spacing: -0.04em;
 }
 
 @utility font-body {
-  font-family: var(--font-roboto);
-  font-weight: 400;
-  font-variation-settings: "GRAD" -20, "opsz" 14;
-}
-
-@utility font-black {
-  font-weight: 600;
-}
-
-@utility font-bold {
-  font-weight: 600;
-}
-
-@utility font-extrabold {
-  font-weight: 600;
+  @apply font-open-sans;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
 :root {
-  /* Core Canvas */
-  --background: #F4F7FB;
-  --foreground: #04257C;
+  /* Core Canvas - Vaticano Palette */
+  --background: #F5F0E8;
+  --foreground: #000000;
 
   /* Cards & Surfaces */
   --card: #FFFFFF;
-  --card-foreground: #04257C;
+  --card-foreground: #000000;
   --popover: #FFFFFF;
-  --popover-foreground: #04257C;
+  --popover-foreground: #000000;
 
-  /* Primary Action: Royal Blue */
-  --primary: #054A85;
-  --primary-foreground: #FFFFFF;
+  /* Primary Action: Vatican Gold */
+  --primary: #C9A84C;
+  --primary-foreground: #000000;
 
-  /* Secondary: Steel Blue */
-  --secondary: #4A7FB5;
+  /* Secondary: Royal Purple */
+  --secondary: #3D1A6E;
   --secondary-foreground: #FFFFFF;
 
-  /* Muted: Light Blue-Gray */
-  --muted: #E2EAF3;
-  --muted-foreground: #5A6B7D;
+  /* Neutral: Absolute Black */
+  --black: #000000;
 
-  /* Accent: Bright Sky Blue */
-  --accent: #3B8DD4;
+  /* Muted: Ivory Tint */
+  --muted: #E8E2D8;
+  --muted-foreground: #5A544A;
+
+  /* Accent: Cardinal Red */
+  --accent: #7B2D2D;
   --accent-foreground: #FFFFFF;
 
-  /* Destructive: Alert Red */
-  --destructive: #DC2626;
-  --destructive-foreground: #FFFFFF;
+  /* Borders & Inputs */
+  --border: #C9A84C;
+  --input: #E8E2D8;
+  --ring: #C9A84C;
+  --radius: 0.5rem;
 
-  /* Borders & Inputs: Steel family */
-  --border: #4A7FB5;
-  --input: #C8D8E8;
-  --ring: #054A85;
-  --radius: 0.425rem;
-
-  /* Shadows: Deep navy at low opacity */
-  --shadow-color: hsl(225 90% 25% / 0.12);
-  --shadow-opacity: 0.12;
-  --shadow-blur: 2px;
-  --shadow-spread: 0px;
-  --shadow-offset-x: 3px;
-  --shadow-offset-y: 3px;
+  /* Shadows */
+  --shadow-color: rgba(26, 18, 16, 0.15);
 }
+
 
 .dark {
   /* Core Canvas */

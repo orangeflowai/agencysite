@@ -16,22 +16,22 @@ export default function BecomeAPartner() {
             <Navbar />
 
             {/* Hero Section */}
-            <div className="relative bg-emerald-900 text-white overflow-hidden">
+            <div className="relative bg-forest text-white overflow-hidden">
                 <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                 <div className="container mx-auto px-4 py-32 relative z-10 text-center">
-                    <span className="inline-block py-1 px-3 rounded-full bg-emerald-800 border border-emerald-700 text-emerald-100 text-sm font-bold tracking-wider mb-6">B2B PARTNERSHIP</span>
+                    <span className="inline-block py-1 px-3 rounded-full bg-forest-black border border-white/10 text-secondary-light text-sm font-bold tracking-tighter mb-6">B2B PARTNERSHIP</span>
                     <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-none">
-                        Grow with <span className="text-accent">{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</span>
+                        Grow with <span className="text-secondary">{process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}</span>
                     </h1>
-                    <p className="text-emerald-100 text-xl md:text-2xl max-w-2xl mx-auto font-medium mb-10 leading-relaxed">
+                    <p className="text-cream/80 text-xl md:text-2xl max-w-2xl mx-auto font-medium mb-10 leading-relaxed">
                         Join our network of travel agencies, influencers, and affiliates. Offer your clients exclusive skip-the-line access to Rome's wonders.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="px-8 py-4 bg-card text-emerald-900 font-bold rounded-lg hover:bg-secondary transition-all transform hover:-translate-y-1 shadow-lg shadow-primary/50 flex items-center gap-2">
+                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="px-8 py-4 bg-card text-secondary font-bold rounded-lg hover:bg-cream transition-all transform hover:-translate-y-1 shadow-lg shadow-black/20 flex items-center gap-2">
                             <Mail size={20} />
                             Contact Partnership Team
                         </a>
-                        <Link href="#benefits" className="px-8 py-4 bg-transparent border border-emerald-700 text-white font-bold rounded-lg hover:bg-emerald-800 transition-all">
+                        <Link href="#benefits" className="px-8 py-4 bg-transparent border border-white/20 text-white font-bold rounded-lg hover:bg-white/10 transition-all">
                             Explore Benefits
                         </Link>
                     </div>
@@ -39,24 +39,24 @@ export default function BecomeAPartner() {
             </div>
 
             {/* Stats / Trust */}
-            <div className="bg-emerald-800 py-12 border-t border-emerald-700">
+            <div className="bg-forest-black py-12 border-t border-white/5">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         <div>
                             <div className="text-4xl font-bold text-white mb-1">50k+</div>
-                            <div className="text-emerald-200 text-sm  tracking-wider font-bold">Happy Travelers</div>
+                            <div className="text-secondary-light text-sm  tracking-tighter font-bold">Happy Travelers</div>
                         </div>
                         <div>
                             <div className="text-4xl font-bold text-white mb-1">4.9/5</div>
-                            <div className="text-emerald-200 text-sm  tracking-wider font-bold">Average Rating</div>
+                            <div className="text-secondary-light text-sm  tracking-tighter font-bold">Average Rating</div>
                         </div>
                         <div>
                             <div className="text-4xl font-bold text-white mb-1">24/7</div>
-                            <div className="text-emerald-200 text-sm  tracking-wider font-bold">Partner Support</div>
+                            <div className="text-secondary-light text-sm  tracking-tighter font-bold">Partner Support</div>
                         </div>
                         <div>
                             <div className="text-4xl font-bold text-white mb-1">100%</div>
-                            <div className="text-emerald-200 text-sm  tracking-wider font-bold">Booking Guarantee</div>
+                            <div className="text-secondary-light text-sm  tracking-tighter font-bold">Booking Guarantee</div>
                         </div>
                     </div>
                 </div>
@@ -119,21 +119,21 @@ export default function BecomeAPartner() {
 
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-4">
-                                    <div className="mt-1 p-1 rounded-full bg-emerald-100 text-emerald-700"><ShieldCheck size={16} /></div>
+                                    <div className="mt-1 p-1 rounded-full bg-olive/10 text-secondary"><ShieldCheck size={16} /></div>
                                     <div>
                                         <h4 className="font-bold text-foreground">Travel Agencies</h4>
                                         <p className="text-sm text-muted-foreground">Simplify your booking process with our B2B portal.</p>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-4">
-                                    <div className="mt-1 p-1 rounded-full bg-emerald-100 text-emerald-700"><Globe size={16} /></div>
+                                    <div className="mt-1 p-1 rounded-full bg-olive/10 text-secondary"><Globe size={16} /></div>
                                     <div>
                                         <h4 className="font-bold text-foreground">Travel Bloggers & Influencers</h4>
                                         <p className="text-sm text-muted-foreground">Monetize your content with trackable affiliate links.</p>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-4">
-                                    <div className="mt-1 p-1 rounded-full bg-emerald-100 text-emerald-700"><Users size={16} /></div>
+                                    <div className="mt-1 p-1 rounded-full bg-olive/10 text-secondary"><Users size={16} /></div>
                                     <div>
                                         <h4 className="font-bold text-foreground">Hotels & Concierges</h4>
                                         <p className="text-sm text-muted-foreground">Provide value-added services to your guests effortlessly.</p>
@@ -146,22 +146,22 @@ export default function BecomeAPartner() {
                             <form className="space-y-4">
                                 <div>
                                     <label className="block text-sm font-bold text-foreground mb-1">Company Name</label>
-                                    <input type="text" className="w-full px-4 py-3 rounded-lg bg-muted border border-border focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all" placeholder="Your Agency / Brand" />
+                                    <input type="text" className="w-full px-4 py-3 rounded-lg bg-muted border border-border focus:border-olive focus:ring-2 focus:ring-olive/20 outline-none transition-all" placeholder="Your Agency / Brand" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-bold text-foreground mb-1">Email Address</label>
-                                    <input type="email" className="w-full px-4 py-3 rounded-lg bg-muted border border-border focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all" placeholder="you@company.com" />
+                                    <input type="email" className="w-full px-4 py-3 rounded-lg bg-muted border border-border focus:border-olive focus:ring-2 focus:ring-olive/20 outline-none transition-all" placeholder="you@company.com" />
                                 </div>
                                 <div>
                                     <label className="block text-sm font-bold text-foreground mb-1">Partnership Type</label>
-                                    <select className="w-full px-4 py-3 rounded-lg bg-muted border border-border focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition-all">
+                                    <select className="w-full px-4 py-3 rounded-lg bg-muted border border-border focus:border-olive focus:ring-2 focus:ring-olive/20 outline-none transition-all">
                                         <option>Travel Agency</option>
                                         <option>Affiliate / Influencer</option>
                                         <option>Hotel / Concierge</option>
                                         <option>Other</option>
                                     </select>
                                 </div>
-                                <button type="button" className="w-full py-4 bg-primary text-white font-bold rounded-lg hover:opacity-90 transition-colors shadow-lg shadow-emerald-200">
+                                <button type="button" className="w-full py-4 bg-primary text-primary-foreground font-bold rounded-lg hover:opacity-90 transition-colors shadow-lg shadow-olive/20">
                                     Request Information
                                 </button>
                                 <p className="text-xs text-center text-muted-foreground mt-4">

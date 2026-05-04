@@ -58,7 +58,7 @@ export default function TourHeroSlider({
     };
 
     return (
-        <section className="relative h-[60vh] md:h-[70vh] w-full bg-black overflow-hidden group">
+        <section className="relative h-[60vh] md:h-[70vh] w-full bg-secondary overflow-hidden group">
             <AnimatePresence mode='wait'>
                 <motion.div
                     key={currentIndex}
@@ -76,7 +76,7 @@ export default function TourHeroSlider({
                         priority={currentIndex === 0}
                     />
                     {/* Gradient Overlay for Text Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-secondary/40 via-transparent to-secondary/80" />
                 </motion.div>
             </AnimatePresence>
 

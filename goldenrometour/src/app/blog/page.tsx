@@ -32,13 +32,13 @@ export default async function BlogPage() {
                     priority
                 />
                 <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-                    <span className="block text-emerald-300 font-bold tracking-widest  mb-4 text-sm md:text-base">
+                    <span className="block text-secondary-light font-bold tracking-tight  mb-4 text-sm md:text-base">
                         Travel Tips & Guides
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 drop-shadow-lg">
+                    <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 drop-shadow-lg">
                         Stories from Rome
                     </h1>
-                    <p className="text-lg md:text-xl text-emerald-50 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-lg md:text-xl text-cream/90 max-w-2xl mx-auto leading-relaxed">
                         Discover hidden gems, expert advice, and the rich history of the Eternal City before your visit.
                     </p>
                 </div>
@@ -51,7 +51,7 @@ export default async function BlogPage() {
                         <Link
                             key={post._id}
                             href={`/blog/${post.slug.current}`}
-                            className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-emerald-50 hover:-translate-y-1 flex flex-col"
+                            className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-olive/10 hover:-translate-y-1 flex flex-col"
                         >
                             <div className="relative h-56 overflow-hidden">
                                 <Image
@@ -60,11 +60,11 @@ export default async function BlogPage() {
                                     fill
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-secondary/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                             </div>
 
                             <div className="p-6 flex flex-col flex-1">
-                                <div className="flex items-center text-xs text-olive mb-3 font-semibold tracking-wide ">
+                                <div className="flex items-center text-xs text-secondary mb-3 font-semibold tracking-wide ">
                                     <Calendar className="w-3 h-3 mr-1.5" />
                                     {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', {
                                         month: 'long',
@@ -73,7 +73,7 @@ export default async function BlogPage() {
                                     }) : 'Recently Updated'}
                                 </div>
 
-                                <h2 className="text-xl font-serif font-bold text-foreground mb-3 group-hover:text-olive transition-colors line-clamp-2">
+                                <h2 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-secondary transition-colors line-clamp-2">
                                     {post.title}
                                 </h2>
 
@@ -81,7 +81,7 @@ export default async function BlogPage() {
                                     {post.excerpt}
                                 </p>
 
-                                <div className="flex items-center text-emerald-700 font-bold text-sm group-hover:translate-x-1 transition-transform mt-auto">
+                                <div className="flex items-center text-secondary font-bold text-sm group-hover:translate-x-1 transition-transform mt-auto">
                                     Read Article <ArrowRight className="w-4 h-4 ml-1.5" />
                                 </div>
                             </div>
@@ -90,9 +90,9 @@ export default async function BlogPage() {
                 </div>
 
                 {posts.length === 0 && (
-                    <div className="text-center py-20 bg-secondary rounded-2xl border border-emerald-100">
-                        <h3 className="text-2xl font-serif font-bold text-emerald-900 mb-2">No Stories Yet</h3>
-                        <p className="text-emerald-700">Check back soon for our first travel guide!</p>
+                    <div className="text-center py-20 bg-muted rounded-2xl border border-olive/10">
+                        <h3 className="text-2xl font-heading font-bold text-secondary mb-2">No Stories Yet</h3>
+                        <p className="text-muted-foreground">Check back soon for our first travel guide!</p>
                     </div>
                 )}
             </div>
