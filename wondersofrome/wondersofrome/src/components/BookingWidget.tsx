@@ -137,7 +137,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
             setTimeSlots([]);
             setSelectedTime('');
             try {
-                const res = await fetch(`/api/availability?slug=${tour.slug.current}&date=${selectedDate}`);
+                const res = await fetch(`/api/availability?slug=${tour.slug?.current || ''}&date=${selectedDate}`);
                 const data = await res.json();
                 setTimeSlots(data.slots || []);
             } catch (error) {
@@ -147,7 +147,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
             }
         }
         check();
-    }, [selectedDate, tour.slug.current]);
+    }, [selectedDate, tour.slug?.current]);
 
     const handleAddToCart = () => {
         if (!selectedDate) { setValidationError('Please select a date first'); return; }
@@ -160,7 +160,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
             id: `${tour._id}-${selectedDate}-${selectedTime}-${Date.now()}`,
             tourId: tour._id,
             tourTitle: tour.title,
-            tourSlug: tour.slug.current,
+            tourSlug: tour.slug?.current || '',
             date: selectedDate,
             time: selectedTime,
             guestCounts: counts,
@@ -250,7 +250,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                             {selectedDate && <span className="text-xs font-bold text-accent flex items-center gap-1"><CheckCircle size={12} /> {format(new Date(selectedDate), 'MMM dd, yyyy')}</span>}
                         </div>
                         <SmartCalendar
-                            slug={tour.slug.current}
+                            slug={tour.slug?.current || ''}
                             selectedDate={selectedDate ? new Date(selectedDate) : undefined}
                             onSelect={(d) => setSelectedDate(d ? format(d, 'yyyy-MM-dd') : '')}
                             basePrice={tour.price}

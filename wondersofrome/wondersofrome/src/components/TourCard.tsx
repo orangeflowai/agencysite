@@ -43,7 +43,7 @@ export default function TourCard({ tour }: TourCardProps) {
 
   return (
     <Link
-      href={`/tour/${tour.slug.current}`}
+      href={`/tour/${tour.slug?.current || '#'}`}
       className="group relative bg-card flex flex-col h-full rounded-[var(--radius)] overflow-hidden border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl min-h-[440px] lg:min-h-[500px] font-sans"
     >
       {/* Image */}

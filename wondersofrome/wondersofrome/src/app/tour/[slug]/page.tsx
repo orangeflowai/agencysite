@@ -20,7 +20,9 @@ interface PageProps {
 // Pre-build all tour pages at deploy time
 export async function generateStaticParams() {
     const tours = await getTours();
-    return tours.map((tour) => ({ slug: tour.slug.current }));
+    return tours
+        .filter((tour) => tour.slug?.current) // Only include tours with valid slugs
+        .map((tour) => ({ slug: tour.slug.current }));
 }
 
 export default async function TourPage({ params }: PageProps) {
@@ -192,7 +194,7 @@ export default async function TourPage({ params }: PageProps) {
 
                     {/* Inclusions & Exclusions */}
                     <section className="grid md:grid-cols-2 gap-8">
-                        {tour.includes && (
+                        {tour.includes && Array.isArray(tour.includes) && tour.includes.length > 0 && (
                             <div>
                                 <h3 className="font-heading text-lg font-semibold text-primary mb-4 flex items-center">
                                     <CheckCircle className="w-5 h-5 text-accent mr-2" /> What&apos;s Included
@@ -207,7 +209,7 @@ export default async function TourPage({ params }: PageProps) {
                                 </ul>
                             </div>
                         )}
-                        {tour.excludes && tour.excludes.length > 0 && (
+                        {tour.excludes && Array.isArray(tour.excludes) && tour.excludes.length > 0 && (
                             <div>
                                 <h3 className="font-heading text-lg font-semibold text-primary mb-4 flex items-center">
                                     <XCircle className="w-5 h-5 text-red-500 mr-2" /> What&apos;s Not Included

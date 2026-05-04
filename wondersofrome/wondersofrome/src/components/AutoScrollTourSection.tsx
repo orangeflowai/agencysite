@@ -24,14 +24,17 @@ export default function AutoScrollTourSection({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | undefined>(undefined);
 
+  // Filter out tours without valid slugs
+  const validTours = tours.filter(tour => tour.slug?.current);
+
   useEffect(() => {
     const container = scrollContainerRef.current;
-    if (!container || tours.length === 0) return;
+    if (!container || validTours.length === 0) return;
 
     let scrollPosition = 0;
     const scrollSpeed = 0.5; // pixels per frame
     const cardWidth = 400; // approximate card width + gap
-    const totalWidth = cardWidth * tours.length;
+    const totalWidth = cardWidth * validTours.length;
 
     const animate = () => {
       scrollPosition += scrollSpeed;
@@ -69,7 +72,7 @@ export default function AutoScrollTourSection({
       container.removeEventListener('mouseenter', handleMouseEnter);
       container.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [tours.length]);
+  }, [validTours.length]);
 
   const bgColor = category === 'vatican' ? 'bg-background' : 'bg-card';
   const labelColor = category === 'vatican' ? 'Vatican Collection' : 'Colosseum Collection';
@@ -109,7 +112,7 @@ export default function AutoScrollTourSection({
         style={{ scrollBehavior: 'auto' }}
       >
         {/* Duplicate tours for seamless loop */}
-        {[...tours, ...tours].map((tour, index) => (
+        {[...validTours, ...validTours].map((tour, index) => (
           <div 
             key={`${tour._id}-${index}`} 
             className="flex-shrink-0 w-[340px] md:w-[380px]"

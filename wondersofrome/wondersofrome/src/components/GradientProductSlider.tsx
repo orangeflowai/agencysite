@@ -189,7 +189,7 @@ export default function GradientProductSlider({ title, subtitle, tours, link }: 
               className="flex-shrink-0 w-[300px] md:w-[380px] scroll-snap-align-center perspective-1000"
               style={{ scrollSnapAlign: 'center' }}
             >
-              <Link href={`/tour/${tour.slug.current}`} className="block">
+              <Link href={`/tour/${tour.slug?.current || '#'}`} className="block">
                 <div className={`relative aspect-[4/5] rounded-[2rem] overflow-hidden border-2 transition-all duration-500 bg-card shadow-2xl group ${isActive ? 'border-primary' : 'border-border'}`}>
                   <Image
                     src={tour.mainImage?.asset?.url || tour.mainImage || 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-alex-250137-757239.jpg'}
