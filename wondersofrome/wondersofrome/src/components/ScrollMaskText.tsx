@@ -22,7 +22,7 @@ export default function ScrollMaskText({
   delay = 0,
 }: ScrollMaskTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLElement>(null);
+  const textRef = useRef<any>(null);
 
   useEffect(() => {
     const el = containerRef.current;
