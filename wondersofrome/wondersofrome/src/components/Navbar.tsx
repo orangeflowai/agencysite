@@ -146,7 +146,7 @@ export default function Navbar() {
             {/* Right actions */}
             <div className="flex items-center gap-3">
               {/* Search — desktop */}
-              <form onSubmit={handleSearch} className="hidden lg:flex items-center">
+              <form onSubmit={handleSearch} className="hidden lg:flex items-center relative group">
                 <div className={`flex items-center gap-2 px-4 py-2 rounded-sm border transition-all ${
                   scrolledOrOpen
                     ? 'border-border bg-background'
@@ -157,14 +157,34 @@ export default function Navbar() {
                     type="text"
                     value={searchQ}
                     onChange={e => setSearchQ(e.target.value)}
-                    placeholder="TERMINAL_SEARCH..."
-                    className={`bg-transparent text-[10px] font-bold  tracking-widest outline-none w-32 placeholder:opacity-50 transition-colors ${
+                    placeholder="Where you wanna go..."
+                    className={`bg-transparent text-[10px] font-bold tracking-widest outline-none w-40 placeholder:opacity-50 transition-colors ${
                       scrolledOrOpen
                         ? 'text-foreground placeholder:text-muted-foreground'
                         : 'text-white placeholder:text-white/50'
                     }`}
                   />
                 </div>
+                
+                {/* Category Dropdown */}
+                {searchQ && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50 min-w-[280px]">
+                    <div className="px-4 py-3 border-b border-border bg-muted/30">
+                      <p className="text-xs font-bold text-muted-foreground tracking-wider">EXPLORE CATEGORIES</p>
+                    </div>
+                    {NAV_LINKS.slice(0, 4).map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => { setSearchQ(''); setMenuOpen(false); }}
+                        className="flex items-center justify-between px-4 py-3 text-sm hover:bg-muted transition-colors group/item"
+                      >
+                        <span className="font-medium text-foreground group-hover/item:text-primary">{link.label}</span>
+                        <ChevronDown size={14} className="-rotate-90 text-muted-foreground group-hover/item:text-primary" />
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </form>
 
               {/* Language selector — desktop */}

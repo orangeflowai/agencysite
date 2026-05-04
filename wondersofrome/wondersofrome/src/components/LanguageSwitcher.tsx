@@ -33,15 +33,15 @@ export default function LanguageSwitcher() {
 
     const handleLanguageChange = (langCode: string) => {
         setLanguage(langCode as any);
-        // Trigger Google Translate if available
-        if (typeof window !== 'undefined') {
-            const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null;
-            if (select) {
-                select.value = langCode === 'en' ? '' : langCode;
-                select.dispatchEvent(new Event('change'));
-            }
-        }
         setIsOpen(false);
+        
+        // Force page reload to apply language change
+        if (typeof window !== 'undefined') {
+            // Store the language preference
+            localStorage.setItem('preferredLanguage', langCode);
+            // Reload the page to apply changes
+            window.location.reload();
+        }
     };
 
     return (
