@@ -12,7 +12,7 @@ import Link from "next/link";
 import ScrollMaskText from "@/components/ScrollMaskText";
 import ParallaxImage from "@/components/ParallaxImage";
 import WordHighlight from "@/components/WordHighlight";
-import UnifiedGallery from "@/components/UnifiedGallery";
+import AutoScrollTourSection from "@/components/AutoScrollTourSection";
 
 export const revalidate = 3600;
 
@@ -21,15 +21,13 @@ const FAQ = dynamic(() => import('@/components/FAQ'));
 const SEO_KEYWORDS = ["Vatican", "Colosseum", "Rome", "AR audio guide", "Skip-the-line", "Wonders of Rome", "Ancient Power"];
 const R2 = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
 const GALLERY_IMAGES = [
-  `${R2}/pexels-alex-250137-757239.jpg`,
-  `${R2}/pexels-c1superstar-27096007.jpg`,
-  `${R2}/pexels-efrem-efre-2786187-17282659.jpg`,
-  `${R2}/pexels-filiamariss-30785778.jpg`,
-  `${R2}/pexels-gaborbalazs97-34279960.jpg`,
-  `${R2}/pexels-holodna-29692553.jpg`,
-  `${R2}/pexels-imagenesclau-35046617.jpg`,
-  `${R2}/pexels-matteobasilephoto-11200578.jpg`,
-  `${R2}/pexels-nastiz-12604242.jpg`,
+  'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/extend_this_image_202604281706.jpeg',
+  'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/extend_this_image_202604281703.jpeg',
+  'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/extend_this_imgae_202604281701.jpeg',
+  'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/f8dc34db687eb4769b32be8032324505.jpg',
+  'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/fb4d6b804484ebe61d7e113e8523b5d8.jpg',
+  'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/pexels-ensar-84745078-32114348.jpg',
+  'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/pexels-jarod-13548736.jpg',
 ];
 
 export default async function Home() {
@@ -37,8 +35,8 @@ export default async function Home() {
     getTours(),
     getSettings(),
     getPosts(),
-    getPexelsImages(ROME_QUERIES.vatican, 4),
-    getPexelsImages(ROME_QUERIES.colosseum, 4)
+    getPexelsImages(ROME_QUERIES.vatican, 20),
+    getPexelsImages(ROME_QUERIES.colosseum, 20)
   ]);
 
   let tours = toursData;
@@ -48,21 +46,48 @@ export default async function Home() {
     })) as any;
   }
 
+  // Ensure all tours have a valid image fallback from Pexels
+  tours = tours.map((tour: any, idx: number) => ({
+    ...tour,
+    mainImage: tour.mainImage || (tour.category === 'colosseum' ? pexelsColosseum[idx % 20]?.url : pexelsVatican[idx % 20]?.url)
+  }));
+
   const vaticanTours    = tours.filter((t: any) => t.category === 'vatican');
   const colosseumTours  = tours.filter((t: any) => t.category === 'colosseum');
   const cityTours       = tours.filter((t: any) => t.category === 'city');
-  const featuredTour    = vaticanTours[0] || tours[0];
+
+  // Fill GALLERY_IMAGES to at least 9 using Pexels Vatican images
+  const finalGalleryImages = [...GALLERY_IMAGES];
+  if (finalGalleryImages.length < 9) {
+    const missingCount = 9 - finalGalleryImages.length;
+    for (let i = 0; i < missingCount; i++) {
+      if (pexelsVatican[i]) {
+        finalGalleryImages.push(pexelsVatican[i].url);
+      }
+    }
+  }
 
   return (
     <main className="min-h-screen bg-background selection:bg-primary selection:text-white font-sans">
       <Navbar />
       <WondersHero settings={settings} />
 
-      {/* CINEMATIC UNIFIED GALLERY SEQUENCE */}
-      <UnifiedGallery 
-        vaticanTours={vaticanTours} 
-        colosseumTours={colosseumTours} 
-        images={GALLERY_IMAGES} 
+      {/* Vatican Tours Section - Auto Scroll */}
+      <AutoScrollTourSection
+        title="Vatican Museums & Sistine Chapel"
+        subtitle="Skip the line to the Sistine Chapel, Vatican Museums, Gardens, and St. Peter's Basilica."
+        tours={vaticanTours}
+        link="/category/vatican"
+        category="vatican"
+      />
+
+      {/* Colosseum Tours Section - Auto Scroll */}
+      <AutoScrollTourSection
+        title="Colosseum & Ancient Rome"
+        subtitle="Walk in the footsteps of Gladiators. Arena Floor, Underground, and Roman Forum."
+        tours={colosseumTours}
+        link="/category/colosseum"
+        category="colosseum"
       />
 
       {/* Social Proof Bar */}
@@ -78,45 +103,50 @@ export default async function Home() {
           </div>
       </div>
 
-      {/* Tour Guide App Section */}
-      <section className="py-24 md:py-32 bg-[#111] text-white overflow-hidden relative group border-y border-white/5">
-           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
-                 <div className="space-y-12">
-                    <div className="space-y-4">
-                       <span className="inline-block px-4 py-1 bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold tracking-[0.4em] rounded-full">Next Gen Hardware</span>
-                       <ScrollMaskText className="text-5xl md:text-7xl font-serif font-bold leading-[0.85] text-white" as="h2">
-                        THE WONDERS GUIDE APP
-                       </ScrollMaskText>
-                    </div>
-                    <p className="text-xl opacity-60 max-w-md font-mono leading-relaxed tracking-tighter">
-                      <WordHighlight keywords={SEO_KEYWORDS} highlightClassName="text-white font-bold underline decoration-primary">
-                        EXPERIENCE ROME THROUGH OUR PROPRIETARY AUGMENTED REALITY ENGINE. REAL-TIME DATA OVERLAYS AND HIGH-FIDELITY AUDIO ARCHIVES.
-                      </WordHighlight>
-                    </p>
-                    <div className="flex flex-wrap gap-6 pt-4">
-                       <img src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/logod/applestore.png" alt="Download Wonders of Rome AR audio guide app on Apple App Store" className="h-14 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" />
-                       <img src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/logod/googleplay.png" alt="Download Wonders of Rome AR audio guide app on Google Play Store" className="h-14 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" />
-                    </div>
+      {/* Tour Guide App Section - Full Screen Cinematic */}
+      <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black text-white py-24 md:py-32">
+           {/* Background Image Layer */}
+           <div className="absolute inset-0 z-0">
+              <ParallaxImage 
+                src="/replace_the_screen_of_the_202605041559.jpeg" 
+                alt="Wonders of Rome proprietary AR guide engine - Augmented Reality experience in Rome" 
+                className="w-full h-full object-cover opacity-60"
+                aspectRatio="h-full"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+           </div>
+
+           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+              <div className="max-w-4xl mx-auto space-y-12">
+                 <div className="space-y-6">
+                    <span className="inline-block px-6 py-2 bg-primary/20 border border-primary/30 text-primary text-[10px] font-bold tracking-[0.4em] rounded-full backdrop-blur-md">
+                      Next Gen Hardware Integration
+                    </span>
+                    <ScrollMaskText className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold leading-[0.85] text-white justify-center" as="h2">
+                     THE WONDERS GUIDE APP
+                    </ScrollMaskText>
                  </div>
-                 <div className="relative">
-                    <div className="relative z-10 w-full max-w-md mx-auto transform hover:rotate-2 transition-transform duration-1000">
-                       <ParallaxImage 
-                        src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/Gemini_Generated_Image_xucflixucflixucf.png" 
-                        alt="Wonders of Rome mobile app showing AR overlay of Vatican Museums with real-time audio guide" 
-                        className="rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.8)] border-[12px] border-[#222]"
-                        aspectRatio="aspect-[9/16]"
-                       />
-                    </div>
-                    <div className="absolute -inset-10 bg-primary/10 blur-[120px] rounded-full -z-10 animate-pulse"></div>
+                 
+                 <p className="text-xl md:text-2xl opacity-80 max-w-2xl mx-auto font-mono leading-relaxed tracking-tighter">
+                   <WordHighlight keywords={SEO_KEYWORDS} highlightClassName="text-white font-bold underline decoration-primary">
+                     EXPERIENCE ROME THROUGH OUR PROPRIETARY AUGMENTED REALITY ENGINE. REAL-TIME DATA OVERLAYS AND HIGH-FIDELITY AUDIO ARCHIVES.
+                   </WordHighlight>
+                 </p>
+
+                 <div className="flex flex-wrap justify-center gap-8 pt-8">
+                    <img src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/logod/applestore.png" alt="Download Wonders of Rome AR audio guide app on Apple App Store" className="h-16 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" />
+                    <img src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/logod/googleplay.png" alt="Download Wonders of Rome AR audio guide app on Google Play Store" className="h-16 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" />
                  </div>
               </div>
+           </div>
+           
+           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
+              <div className="w-[1px] h-20 bg-white" />
            </div>
         </section>
 
       {/* Reviews */}
-      <div className="bg-background text-foreground py-24 md:py-32 border-b border-border relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.4]" style={{ backgroundImage: 'radial-gradient(var(--border) 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+      <div className="py-24 md:py-32 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 md:mb-20">
              <p className="text-primary font-bold tracking-[0.4em] text-[10px] mb-4">Verified Feedback</p>
