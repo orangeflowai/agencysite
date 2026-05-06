@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { useLanguage } from '@/context/LanguageContext';
 
 const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
-const R2_HERO_VIDEO = `${R2_BASE}/Video_Generation_Complete.mp4`;
+const R2_HERO_MEDIA = `${R2_BASE}/15509039_3840_2160_30fps-ezgif.com-optimize.gif`;
 
 interface HeroProps {
   settings?: {
@@ -20,19 +21,17 @@ interface HeroProps {
 
 export default function WondersHero({ settings }: HeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const leftPanelRef = useRef<HTMLDivElement>(null);
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
-  const videoUrl = settings?.heroVideo?.asset?.url || R2_HERO_VIDEO;
-  const imageUrl = settings?.heroImage?.asset?.url || `${R2_BASE}/pexels-giorgi-gobadze-2160475859-36770780.jpg`;
+  const mediaUrl = settings?.heroVideo?.asset?.url || settings?.heroImage?.asset?.url || R2_HERO_MEDIA;
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: 'expo.inOut' } });
 
-    // 1. Initial State: Panels cover the screen, text invisible
     gsap.set([leftPanelRef.current, rightPanelRef.current], { xPercent: 0 });
     gsap.set('.hero-line-inner', { yPercent: 100 });
     gsap.set(ctaRef.current, { opacity: 0, y: 30 });
@@ -40,51 +39,27 @@ export default function WondersHero({ settings }: HeroProps) {
     const isMobile = window.innerWidth < 768;
     const panelDuration = isMobile ? 0.8 : 1.2;
 
-    // 2. Split Panels at 0.3s
-    tl.to(leftPanelRef.current, {
-      xPercent: -100,
-      duration: panelDuration
-    }, 0.3);
-    
-    tl.to(rightPanelRef.current, {
-      xPercent: 100,
-      duration: panelDuration
-    }, 0.3);
-
-    // 3. Reveal Text at 1.0s (overlapping)
-    tl.to('.hero-line-inner', {
-      yPercent: 0,
-      duration: 1,
-      stagger: 0.08,
-      ease: 'power4.out'
-    }, 1.0);
-
-    // 4. CTA Fade up at 1.8s
-    tl.to(ctaRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power3.out'
-    }, 1.8);
+    tl.to(leftPanelRef.current, { xPercent: -100, duration: panelDuration }, 0.3);
+    tl.to(rightPanelRef.current, { xPercent: 100, duration: panelDuration }, 0.3);
+    tl.to('.hero-line-inner', { yPercent: 0, duration: 1, stagger: 0.08, ease: 'power4.out' }, 1.0);
+    tl.to(ctaRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 1.8);
 
   }, { scope: containerRef });
 
-  // Split title into lines manually for the reveal effect
-  const title = settings?.heroTitle || "Discover Rome's Timeless Wonders";
-  const lines = title.split('\n');
+  // Use translated title/subtitle — fall back to CMS settings, then hardcoded default
+  const title = settings?.heroTitle || t('hero.title');
+  const subtitle = settings?.heroSubtitle || t('hero.subtitle');
+  const ctaLabel = t('hero.cta');
 
   return (
     <section ref={containerRef} className="relative w-full flex flex-col justify-center overflow-hidden bg-black pt-[102px] min-h-screen">
-      {/* Background Video Layer */}
+      {/* Background Media Layer */}
       <div className="absolute inset-0 z-0">
-        <video
-          ref={videoRef}
-          autoPlay loop muted playsInline preload="auto"
+        <img
+          src={mediaUrl}
+          alt="Rome Hero"
           className="w-full h-full object-cover opacity-60 scale-105"
-          poster={imageUrl}
-        >
-          <source src={videoUrl} type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
       </div>
 
@@ -105,7 +80,7 @@ export default function WondersHero({ settings }: HeroProps) {
           
           <div className="overflow-hidden mt-8 mb-12">
             <p className="hero-line-inner text-base sm:text-lg text-white/70 max-w-lg leading-relaxed font-medium will-change-transform">
-              {settings?.heroSubtitle || 'Experience the Eternal City through the eyes of historians. Skip-the-line access and immersive AR technology.'}
+              {subtitle}
             </p>
           </div>
 
@@ -114,13 +89,13 @@ export default function WondersHero({ settings }: HeroProps) {
               href="/search"
               className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold px-10 py-5 rounded-full tracking-widest text-xs transition-all shadow-2xl hover:-translate-y-1 active:scale-95"
             >
-              INITIATE JOURNEY <ArrowRight size={14} />
+              {ctaLabel} <ArrowRight size={14} />
             </Link>
             <Link
               href="/category/vatican"
               className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white font-bold px-10 py-5 rounded-full tracking-widest text-xs transition-all"
             >
-              EXPLORE VATICAN
+              {t('cat.vatican_title')}
             </Link>
           </div>
         </div>
@@ -133,3 +108,4 @@ export default function WondersHero({ settings }: HeroProps) {
     </section>
   );
 }
+

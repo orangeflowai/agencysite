@@ -1,6 +1,6 @@
 
 
-export const revalidate = 3600; // ISR: revalidate tour data every hour
+export const revalidate = 300; // Revalidate every 5 minutes
 
 import { notFound } from 'next/navigation';
 import Navbar from '@/components/Navbar';
@@ -8,6 +8,17 @@ import Footer from '@/components/Footer';
 import TourCard from '@/components/TourCard';
 import { getTours } from '@/lib/dataAdapter';
 import CategoryHero from '@/components/CategoryHero';
+
+// Pre-generate all known category slugs at build time
+export async function generateStaticParams() {
+    return [
+        { slug: 'vatican' },
+        { slug: 'colosseum' },
+        { slug: 'city' },
+        { slug: 'city-tours' },
+        { slug: 'hidden-gems' },
+    ];
+}
 
 // Append Supabase image transform params — serve at 1280px WebP instead of raw full-res
 function supabaseImg(url: string) {
@@ -60,7 +71,10 @@ interface PageProps {
 
 export default async function CategoryPage({ params }: PageProps) {
     const { slug } = await params;
-    const categoryInfo = categoryMap[slug];
+    
+    // Normalize: treat 'city-tours' as 'city'
+    const normalizedSlug = slug === 'city-tours' ? 'city' : slug;
+    const categoryInfo = categoryMap[normalizedSlug];
 
     if (!categoryInfo) {
         notFound();
@@ -68,7 +82,28 @@ export default async function CategoryPage({ params }: PageProps) {
 
     const allTours = await getTours();
 
-    const filteredTours = allTours.filter(t => t.category === slug);
+    // Filter tours by category - support multiple category names
+    const filteredTours = allTours.filter(t => {
+        if (!t.category) return false;
+        const tourCategory = t.category.toLowerCase().trim();
+        if (normalizedSlug === 'city') {
+            return tourCategory === 'city' ||
+                   tourCategory === 'city-tours' ||
+                   tourCategory === 'city tours' ||
+                   tourCategory === 'rome-city' ||
+                   tourCategory === 'rome city' ||
+                   tourCategory.includes('city');
+        }
+        if (normalizedSlug === 'hidden-gems') {
+            return tourCategory === 'hidden-gems' ||
+                   tourCategory === 'hidden gems' ||
+                   tourCategory === 'hiddengems' ||
+                   tourCategory.includes('hidden');
+        }
+        return tourCategory === normalizedSlug ||
+               tourCategory === normalizedSlug.replace('-', ' ') ||
+               tourCategory === normalizedSlug.replace('-', '');
+    });
 
     return (
         <main className="min-h-screen bg-[#FDFFF5]">

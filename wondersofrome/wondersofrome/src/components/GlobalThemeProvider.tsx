@@ -22,20 +22,10 @@ export default function GlobalThemeProvider({ children }: GlobalThemeProviderPro
             try {
                 const root = document.documentElement;
 
-                // 1. Apply Brand Colors from Sanity (Server Data)
-                if (site?.brandColors) {
-                    if (site.brandColors.primary?.hex) {
-                        root.style.setProperty('--primary', site.brandColors.primary.hex);
-                    }
-                    if (site.brandColors.secondary?.hex) {
-                        root.style.setProperty('--secondary', site.brandColors.secondary.hex);
-                    }
-                    if (site.brandColors.accent?.hex) {
-                        root.style.setProperty('--accent', site.brandColors.accent.hex);
-                    }
-                }
-
-                // 2. Apply LocalStorage Overrides (Admin Panel Preview)
+                // Only apply LocalStorage Overrides (Admin Panel Preview)
+                // Sanity brandColors are intentionally skipped — the CSS theme in globals.css
+                // is the source of truth for site colors. Sanity brandColors are not fully
+                // configured and would override the correct theme.
                 const saved = localStorage.getItem('admin_theme_config');
                 if (saved) {
                     const parsed = JSON.parse(saved);
@@ -43,7 +33,6 @@ export default function GlobalThemeProvider({ children }: GlobalThemeProviderPro
                     if (parsed.isCustom && parsed.customColors) {
                         Object.entries(parsed.customColors).forEach(([key, value]) => {
                             if (value) {
-                                // Map old variable names to new ones if necessary
                                 const cssVar = `--${key.replace(/[A-Z]/g, m => `-${m.toLowerCase()}`)}`;
                                 root.style.setProperty(cssVar, value as string);
                             }

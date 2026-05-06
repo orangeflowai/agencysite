@@ -6,33 +6,34 @@ import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react'
 import { useSite } from '@/components/SiteProvider';
 import { urlFor } from '@/lib/dataAdapter';
 import PaymentLogos from './PaymentLogos';
-
-const EXPLORE = [
-  { label: 'Vatican Tours',     href: '/category/vatican' },
-  { label: 'Colosseum Tours',   href: '/category/colosseum' },
-  { label: 'City Tours',        href: '/category/city' },
-  { label: 'Hidden Gems',       href: '/category/hidden-gems' },
-  { label: 'Private Tours',     href: '/private-tours' },
-  { label: 'All Tours',         href: '/search' },
-];
-
-const SUPPORT = [
-  { label: 'Contact Us',          href: '/contact' },
-  { label: 'FAQ',                  href: '/faq' },
-  { label: 'Cancellation Policy', href: '/cancellation-policy' },
-  { label: 'Terms & Conditions',  href: '/terms-and-conditions' },
-  { label: 'Privacy Policy',      href: '/privacy-policy' },
-  { label: 'Become a Partner',    href: '/become-a-partner' },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
   const site = useSite();
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
 
   const email  = site?.contactEmail  || process.env.NEXT_PUBLIC_CONTACT_EMAIL  || 'info@wondersofrome.com';
   const phone  = site?.contactPhone  || process.env.NEXT_PUBLIC_SUPPORT_PHONE  || '+39 351 419 9425';
   const wa     = site?.whatsappNumber || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '3514199425';
   const name   = site?.title || 'Wonders of Rome';
+
+  const EXPLORE = [
+    { label: t('footer.vatican'),   href: '/category/vatican' },
+    { label: t('footer.colosseum'), href: '/category/colosseum' },
+    { label: t('footer.city'),      href: '/category/city-tours' },
+    { label: t('footer.hidden'),    href: '/category/hidden-gems' },
+    { label: t('footer.all_tours'), href: '/search' },
+  ];
+
+  const SUPPORT = [
+    { label: t('footer.contact_us'),    href: '/contact' },
+    { label: t('footer.faq'),           href: '/faq' },
+    { label: t('footer.cancellation'),  href: '/cancellation-policy' },
+    { label: t('footer.terms'),         href: '/terms-and-conditions' },
+    { label: t('footer.privacy'),       href: '/privacy-policy' },
+    { label: t('footer.partner'),       href: '/become-a-partner' },
+  ];
 
   return (
     <footer className="bg-card text-foreground border-t border-border">
@@ -61,8 +62,8 @@ export default function Footer() {
               )}
             </Link>
 
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs font-mono">
-              CERTIFIED OPERATOR: ROM-772-B. SKIP-THE-LINE ACCESS, EXPERT HISTORIANS, AND SECURE DATA ENCRYPTION SINCE 2015.
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
+              {t('footer.about')}
             </p>
 
             {/* Social */}
@@ -88,7 +89,7 @@ export default function Footer() {
 
           {/* Explore */}
           <div>
-            <p className="text-[10px] font-bold  tracking-[0.3em] text-primary mb-6">Directory</p>
+            <p className="text-[10px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.explore')}</p>
             <ul className="space-y-4">
               {EXPLORE.map(({ label, href }) => (
                 <li key={href}>
@@ -105,7 +106,7 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <p className="text-[10px] font-bold  tracking-[0.3em] text-primary mb-6">Resources</p>
+            <p className="text-[10px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.support')}</p>
             <ul className="space-y-4">
               {SUPPORT.map(({ label, href }) => (
                 <li key={href}>
@@ -122,7 +123,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="text-[10px] font-bold  tracking-[0.3em] text-primary mb-6">Terminal</p>
+            <p className="text-[10px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.contact')}</p>
             <ul className="space-y-5">
               <li>
                 <a href={`mailto:${email}`} className="flex items-start gap-3 group">
@@ -139,7 +140,7 @@ export default function Footer() {
               <li>
                 <div className="flex items-center gap-3">
                   <MapPin size={16} className="text-primary shrink-0" />
-                  <span className="text-sm text-muted-foreground font-mono">ROME, ITALY</span>
+                  <span className="text-sm text-muted-foreground font-mono">{t('footer.address')}</span>
                 </div>
               </li>
             </ul>
@@ -158,8 +159,8 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-border bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] text-muted-foreground font-mono  tracking-widest font-bold">
-            © {year} {name} // SYSTEM STATUS: NOMINAL
+          <p className="text-[10px] text-muted-foreground font-mono tracking-widest font-bold">
+            © {year} {name} — {t('footer.rights')}
           </p>
           {site?.businessInfo?.vatNumber && (
             <p className="text-[10px] text-muted-foreground font-mono ">

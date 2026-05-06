@@ -34,7 +34,7 @@ export default function TourCard({ tour }: TourCardProps) {
     : 'GUIDED TOUR';
 
   const middleBarText = tour.tags && tour.tags.length > 0
-    ? tour.tags[0].toUpperCase()
+    ? (typeof tour.tags[0] === 'string' ? tour.tags[0] : (tour.tags[0] as any)?.label || (tour.tags[0] as any)?.name || 'FEATURED TOUR').toUpperCase()
     : 'FEATURED TOUR';
 
   const displayPrice = tour.guestTypes?.length

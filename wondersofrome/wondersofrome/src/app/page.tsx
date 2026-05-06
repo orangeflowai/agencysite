@@ -14,7 +14,7 @@ import ParallaxImage from "@/components/ParallaxImage";
 import WordHighlight from "@/components/WordHighlight";
 import AutoScrollTourSection from "@/components/AutoScrollTourSection";
 
-export const revalidate = 3600;
+export const revalidate = 300; // Revalidate every 5 minutes
 
 const FAQ = dynamic(() => import('@/components/FAQ'));
 

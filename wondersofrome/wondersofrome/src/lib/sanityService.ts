@@ -123,7 +123,8 @@ export const client = createClient({
     projectId,
     dataset,
     apiVersion,
-    useCdn: true, // Enable CDN for better performance and higher rate limits
+    useCdn: false,   // Disable CDN so we always get fresh, published content
+    token: process.env.SANITY_API_TOKEN, // Use token to access all published content
 });
 
 // Helper for image URLs

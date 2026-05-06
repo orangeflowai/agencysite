@@ -10,35 +10,45 @@ import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
 import { getSite, DEFAULT_SITE_ID, urlFor } from "@/lib/dataAdapter";
 import CartDropdown from './CartDropdown';
+import { useLanguage } from '@/context/LanguageContext';
 
 const NAV_LINKS = [
-  { label: 'Vatican',     href: '/category/vatican' },
-  { label: 'Colosseum',   href: '/category/colosseum' },
-  { label: 'City Tours',  href: '/category/city' },
-  { label: 'Hidden Gems', href: '/category/hidden-gems' },
-  { label: 'About',       href: '/about' },
+  { labelKey: 'nav.vatican',    label: 'Vatican',     href: '/category/vatican' },
+  { labelKey: 'nav.colosseum',  label: 'Colosseum',   href: '/category/colosseum' },
+  { labelKey: 'nav.city',       label: 'City Tours',  href: '/category/city-tours' },
+  { labelKey: 'nav.hidden',     label: 'Hidden Gems', href: '/category/hidden-gems' },
+  { labelKey: 'nav.about',      label: 'About',       href: '/about' },
 ];
 
 export default function Navbar() {
   const site = useSite();
   const { totalItems } = useCart();
+  const { language, setLanguage, t } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
 
   const [scrolled, setScrolled]   = useState(false);
   const [menuOpen, setMenuOpen]   = useState(false);
   const [searchQ, setSearchQ]     = useState('');
-  const [lang, setLang]           = useState('EN');
   const [langOpen, setLangOpen]   = useState(false);
 
   const LANGS = [
-    { code: 'EN', label: 'English' },
-    { code: 'IT', label: 'Italiano' },
-    { code: 'ES', label: 'Español' },
-    { code: 'FR', label: 'Français' },
-    { code: 'DE', label: 'Deutsch' },
-    { code: 'ZH', label: '中文' },
+    { code: 'en', label: 'English' },
+    { code: 'it', label: 'Italiano' },
+    { code: 'es', label: 'Español' },
+    { code: 'fr', label: 'Français' },
+    { code: 'de', label: 'Deutsch' },
+    { code: 'zh', label: '中文' },
   ];
+
+  const handleLangChange = (code: string) => {
+    setLanguage(code as any);
+    setLangOpen(false);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('preferredLanguage', code);
+      window.location.reload();
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -135,7 +145,7 @@ export default function Navbar() {
                         : 'text-white/90 hover:text-white'
                   }`}
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                   {isActive(link.href) && (
                     <span className="absolute bottom-0.5 left-3 right-3 h-0.5 bg-primary rounded-full" />
                   )}
@@ -157,7 +167,7 @@ export default function Navbar() {
                     type="text"
                     value={searchQ}
                     onChange={e => setSearchQ(e.target.value)}
-                    placeholder="Where you wanna go..."
+                    placeholder={t('nav.search_placeholder')}
                     className={`bg-transparent text-[10px] font-bold tracking-widest outline-none w-40 placeholder:opacity-50 transition-colors ${
                       scrolledOrOpen
                         ? 'text-foreground placeholder:text-muted-foreground'
@@ -196,7 +206,7 @@ export default function Navbar() {
                   }`}
                 >
                   <Globe size={13} />
-                  {lang}
+                  {language.toUpperCase()}
                   <ChevronDown size={11} className={`transition-transform ${langOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {langOpen && (
@@ -204,8 +214,8 @@ export default function Navbar() {
                     {LANGS.map(l => (
                       <button
                         key={l.code}
-                        onClick={() => { setLang(l.code); setLangOpen(false); }}
-                        className={`w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-muted transition-colors ${lang === l.code ? 'text-primary bg-primary/5' : 'text-foreground'}`}
+                        onClick={() => handleLangChange(l.code)}
+                        className={`w-full text-left px-4 py-2.5 text-xs font-bold hover:bg-muted transition-colors ${language === l.code ? 'text-primary bg-primary/5' : 'text-foreground'}`}
                       >
                         {l.label}
                       </button>
@@ -278,7 +288,7 @@ export default function Navbar() {
                     : 'text-foreground hover:bg-card border-transparent'
                 }`}
               >
-                {link.label}
+                {t(link.labelKey)}
                 <ChevronDown size={16} className={isActive(link.href) ? "-rotate-90" : "-rotate-90 opacity-20"} />
               </Link>
             ))}

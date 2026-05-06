@@ -212,7 +212,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
       <div className="relative w-full max-w-3xl max-h-[92vh] bg-card rounded-2xl shadow-2xl flex flex-col overflow-hidden checkout-modal-panel">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card shrink-0 z-10 relative">
           <div className="flex items-center gap-3">
             {step === 2 && (
               <button onClick={() => setStep(1)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
@@ -237,16 +237,16 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
         </div>
 
         {/* Progress bar */}
-        <div className="h-1 bg-gray-100 shrink-0">
+        <div className="h-1 bg-gray-100 shrink-0 z-10 relative">
           <div className="h-full bg-primary transition-all duration-500" style={{ width: step === 1 ? '50%' : '100%' }} />
         </div>
 
         {/* Scrollable body */}
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto overscroll-contain min-h-0">
           <div className="grid grid-cols-1 md:grid-cols-5 min-h-full">
 
             {/* Left: Form */}
-            <div className="md:col-span-3 p-6 space-y-6">
+            <div className="md:col-span-3 p-6 space-y-6 relative z-10">
 
               {/* ── Step 1: Contact ── */}
               {step === 1 && (

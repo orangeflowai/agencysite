@@ -295,9 +295,9 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="text-sm text-rose-600 font-bold py-6 px-4 bg-rose-50/50 rounded-2xl border-2 border-rose-100 flex flex-col items-center justify-center gap-3">
-                                    <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center">
-                                        <AlertTriangle size={24} className="text-rose-600" />
+                                <div className="text-sm text-destructive font-bold py-6 px-4 bg-destructive/10 rounded-2xl border-2 border-destructive/20 flex flex-col items-center justify-center gap-3">
+                                    <div className="w-12 h-12 bg-destructive/20 rounded-full flex items-center justify-center">
+                                        <AlertTriangle size={24} className="text-destructive" />
                                     </div>
                                     <span className=" tracking-widest text-[10px]">Fully booked for this date</span>
                                 </div>
@@ -350,17 +350,17 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     <div className="mt-3 flex flex-col gap-1.5">
                         <div className="flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive"></span>
                             </span>
-                            <span className="text-[10px] font-bold text-rose-600  tracking-wide">
+                            <span className="text-[10px] font-bold text-destructive  tracking-wide">
                                 {viewerCount} people viewing this right now
                             </span>
                         </div>
                         {activeSlot && activeSlot.available_slots <= 8 && activeSlot.available_slots > 0 && (
                             <div className="flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-                                <span className="text-[10px] font-bold text-amber-700  tracking-wide">
+                                <span className="w-2 h-2 rounded-full bg-accent"></span>
+                                <span className="text-[10px] font-bold text-accent  tracking-wide">
                                     Only {activeSlot.available_slots} spots left for selected time!
                                 </span>
                             </div>
@@ -371,7 +371,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                 <div className="p-8 pt-2">
                     {/* Inline validation error */}
                     {validationError && (
-                        <div className="mb-4 px-4 py-3 bg-rose-50 border border-rose-200 rounded-xl text-xs font-bold text-rose-600 flex items-center gap-2">
+                        <div className="mb-4 px-4 py-3 bg-destructive/10 border border-destructive/20 rounded-xl text-xs font-bold text-destructive flex items-center gap-2">
                             <AlertTriangle size={14} />
                             {validationError}
                         </div>

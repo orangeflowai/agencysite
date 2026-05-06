@@ -50,17 +50,22 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
 
         let bgClass = '';
         let textClass = 'text-muted-foreground';
+        let badgeClass = '';
 
         if (data) {
             if (data.spots === 0) {
-                bgClass = 'bg-rose-100';
-                textClass = 'text-rose-400';
+                // Sold out - use destructive colors
+                bgClass = 'bg-destructive/10';
+                textClass = 'text-destructive';
             } else if (data.spots < 10) {
-                bgClass = 'bg-amber-50';
-                textClass = 'text-amber-800';
+                // Limited - use accent/warning colors
+                bgClass = 'bg-accent/10';
+                textClass = 'text-accent';
+                badgeClass = 'bg-accent text-white';
             } else {
-                bgClass = 'bg-secondary';
-                textClass = 'text-emerald-800';
+                // Available - use muted/success colors
+                bgClass = 'bg-muted';
+                textClass = 'text-foreground';
             }
         }
 
@@ -73,13 +78,13 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                             <>
                                 <span className={`text-[10px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
                                 {data.spots < 10 && (
-                                    <span className="text-[9px] font-extrabold text-white bg-amber-500 px-1 rounded-sm mt-0.5">
+                                    <span className={`text-[9px] font-extrabold px-1 rounded-sm mt-0.5 ${badgeClass}`}>
                                         {data.spots} left
                                     </span>
                                 )}
                             </>
                         ) : (
-                            <span className="text-[9px] font-bold text-rose-400  tracking-tighter">Sold out</span>
+                            <span className="text-[9px] font-bold text-destructive tracking-tighter">Sold out</span>
                         )}
                     </div>
                 ) : (
@@ -121,9 +126,9 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
             />
             {/* Legend */}
             <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border justify-center">
-                <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700"><span className="w-2.5 h-2.5 rounded-sm bg-emerald-100 inline-block" />Available</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold text-amber-700"><span className="w-2.5 h-2.5 rounded-sm bg-amber-100 inline-block" />Limited</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold text-rose-400"><span className="w-2.5 h-2.5 rounded-sm bg-rose-100 inline-block" />Sold out</span>
+                <span className="flex items-center gap-1 text-[10px] font-bold text-foreground"><span className="w-2.5 h-2.5 rounded-sm bg-muted inline-block" />Available</span>
+                <span className="flex items-center gap-1 text-[10px] font-bold text-accent"><span className="w-2.5 h-2.5 rounded-sm bg-accent/10 inline-block" />Limited</span>
+                <span className="flex items-center gap-1 text-[10px] font-bold text-destructive"><span className="w-2.5 h-2.5 rounded-sm bg-destructive/10 inline-block" />Sold out</span>
             </div>
             <style jsx global>{`
                 .rdp { --rdp-cell-size: 58px; --rdp-accent-color: var(--accent); margin: 0; }

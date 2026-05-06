@@ -1,9 +1,12 @@
 /**
  * dataAdapter.ts — Unified data layer
- * DATA_SOURCE=payload  → Payload CMS only
- * DATA_SOURCE=sanity   → Sanity only
- * DATA_SOURCE=dual     → Payload first, Sanity fallback
- * DATA_SOURCE=hybrid   → Payload data + Sanity images (RECOMMENDED)
+ * DATA_SOURCE=payload       → Payload CMS only
+ * DATA_SOURCE=sanity        → Sanity only (RECOMMENDED — use when Payload has drafts)
+ * DATA_SOURCE=dual          → Payload first, Sanity fallback
+ * DATA_SOURCE=hybrid        → Sanity content + Payload images merged
+ *
+ * NOTE: Availability (slots/inventory) always comes from Payload via /api/availability
+ * regardless of DATA_SOURCE. This adapter only controls tour content/images.
  */
 
 import * as sanity  from './sanityService'
@@ -11,7 +14,7 @@ import * as payload from './payloadService'
 
 export type { Tour, Post, Site, Settings } from './sanityService'
 
-const source = process.env.DATA_SOURCE || 'payload'
+const source = 'sanity' // Always use Sanity — Payload has draft-only tours
 
 export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome'
 
@@ -19,50 +22,46 @@ async function withFallback<T>(
   payloadFn: () => Promise<T>,
   sanityFn:  () => Promise<T>
 ): Promise<T> {
+  // sanity — use Sanity for all content (published, complete data + images)
+  if (source === 'sanity') return sanityFn()
+
+  // payload — use Payload only
   if (source === 'payload') return payloadFn()
-  if (source === 'sanity')  return sanityFn()
   
-  // hybrid — Payload data with Sanity images merged
+  // hybrid — Sanity content + Payload images merged (Sanity is primary)
   if (source === 'hybrid') {
     try {
-      const [payloadResult, sanityResult] = await Promise.all([
-        payloadFn().catch(() => null),
-        sanityFn().catch(() => null)
+      const [sanityResult, payloadResult] = await Promise.all([
+        sanityFn().catch(() => null),
+        payloadFn().catch(() => null)
       ]);
 
-      // If we have both, merge them (Payload data + Payload images with Sanity fallback)
-      if (payloadResult && sanityResult) {
-        if (Array.isArray(payloadResult) && Array.isArray(sanityResult)) {
-          // Merge tours: Payload data + Payload images (Sanity as fallback)
-          return payloadResult.map((payloadTour: any) => {
-            // Normalize slugs for comparison
-            const payloadSlug = payloadTour.slug?.current || payloadTour.slug;
-            const sanityTour = sanityResult.find((st: any) => {
-              const sanitySlug = st.slug?.current || st.slug;
-              return sanitySlug === payloadSlug;
+      // Sanity is primary source of truth for content
+      if (sanityResult) {
+        if (Array.isArray(sanityResult) && Array.isArray(payloadResult)) {
+          // Merge: Sanity content + Payload images (if Payload has better images)
+          return sanityResult.map((sanityTour: any) => {
+            const sanitySlug = sanityTour.slug?.current || sanityTour.slug;
+            const payloadTour = (payloadResult as any[]).find((pt: any) => {
+              const pSlug = pt.slug?.current || pt.slug;
+              return pSlug === sanitySlug;
             });
             return {
-              ...payloadTour,
-              // Use Payload images first, fall back to Sanity only if Payload has none
-              mainImage: payloadTour.mainImage || sanityTour?.mainImage,
-              images: payloadTour.images || sanityTour?.images,
+              ...sanityTour,
+              // Keep Sanity images (they're published and correct)
+              // Only use Payload image if Sanity has none
+              mainImage: sanityTour.mainImage || payloadTour?.mainImage,
+              gallery:   sanityTour.gallery   || payloadTour?.gallery,
             };
           }) as T;
-        } else if (typeof payloadResult === 'object' && typeof sanityResult === 'object') {
-          // Merge single tour
-          return {
-            ...payloadResult,
-            // Use Payload images first, fall back to Sanity only if Payload has none
-            mainImage: (payloadResult as any).mainImage || (sanityResult as any).mainImage,
-            images: (payloadResult as any).images || (sanityResult as any).images,
-          } as T;
         }
+        return sanityResult;
       }
 
-      // Fallback to whichever we have
-      return payloadResult || sanityResult || ([] as T);
+      // Fallback to Payload if Sanity fails
+      return payloadResult || ([] as T);
     } catch (e) {
-      console.warn('[dataAdapter] Hybrid mode failed:', e);
+      console.warn('[dataAdapter] Hybrid mode failed, falling back to Sanity:', e);
       return sanityFn();
     }
   }
@@ -70,7 +69,6 @@ async function withFallback<T>(
   // dual — try Payload, fall back to Sanity
   try {
     const result = await payloadFn()
-    // For arrays, check length; for objects check truthiness
     if (Array.isArray(result) ? (result as any[]).length > 0 : result) return result
   } catch (e) {
     console.warn('[dataAdapter] Payload failed, falling back to Sanity:', e)
@@ -87,13 +85,33 @@ export const getSettings  = (siteId?: string)              => withFallback(() =>
 export const getSite      = (siteId?: string)              => withFallback(() => payload.getSite(siteId),           () => sanity.getSite(siteId))
 export const getAllSites   = ()                             => withFallback(() => payload.getAllSites(),              () => sanity.getAllSites())
 
-// urlFor — Payload uses direct URLs; Sanity uses image builder
-// This shim works for both and supports chaining
+// urlFor — works for both Sanity image refs and plain URLs
 export function urlFor(source: any) {
-  const url = typeof source === 'string'
-    ? source
-    : source?.asset?.url || source?.url || ''
+  if (!source) {
+    const empty: any = { url: () => '', width: () => empty, height: () => empty, fit: () => empty, auto: () => empty }
+    return empty
+  }
 
+  // Sanity image reference (has asset._ref or _type === 'image') — use Sanity image builder
+  if (source._type === 'image' || source?.asset?._ref || source?.asset?._id?.startsWith('image-')) {
+    return sanity.urlFor(source)
+  }
+
+  // Already resolved Sanity asset with direct URL
+  if (source?.asset?.url) {
+    const url = source.asset.url
+    const builder: any = {
+      url:    ()           => url,
+      width:  (_w: number) => builder,
+      height: (_h: number) => builder,
+      fit:    (_f: string) => builder,
+      auto:   (_a: string) => builder,
+    }
+    return builder
+  }
+
+  // Plain URL string or Payload/R2/Supabase URL
+  const url = typeof source === 'string' ? source : source?.url || ''
   const builder: any = {
     url:    ()           => url,
     width:  (_w: number) => builder,
