@@ -86,14 +86,19 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {(tour.features || ["Skip the Line", "Professional Guide"]).map((feature, i) => (
-                      <span 
-                        key={i}
-                        className="px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full"
-                      >
-                        {feature}
-                      </span>
-                    ))}
+                    {(tour.features || ["Skip the Line", "Professional Guide"]).map((feature, i) => {
+                      // Handle both string and object formats
+                      const featureText = typeof feature === 'string' ? feature : (feature?.item || feature?.name || '');
+                      if (!featureText) return null;
+                      return (
+                        <span 
+                          key={i}
+                          className="px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full"
+                        >
+                          {featureText}
+                        </span>
+                      );
+                    })}
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-border">
