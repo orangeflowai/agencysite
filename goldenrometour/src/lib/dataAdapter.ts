@@ -3,6 +3,7 @@
  * DATA_SOURCE=payload  → Payload CMS only (default for all sites now)
  * DATA_SOURCE=sanity   → Sanity only
  * DATA_SOURCE=dual     → Payload first, Sanity fallback
+ * DATA_SOURCE=hybrid   → Sanity for content/images, Payload for availability
  */
 
 import * as sanity  from './sanityService'
@@ -20,6 +21,19 @@ async function withFallback<T>(
 ): Promise<T> {
   if (source === 'payload') return payloadFn()
   if (source === 'sanity')  return sanityFn()
+  
+  // hybrid mode — get content from Sanity, availability from Payload
+  if (source === 'hybrid') {
+    try {
+      const sanityResult = await sanityFn()
+      // For tours, we'll merge with Payload availability later
+      return sanityResult
+    } catch (e) {
+      console.warn('[dataAdapter] Sanity failed in hybrid mode, falling back to Payload:', e)
+      return payloadFn()
+    }
+  }
+  
   // dual — try Payload, fall back to Sanity
   try {
     const result = await payloadFn()
@@ -34,13 +48,62 @@ async function withFallback<T>(
 // Vatican-only filter for goldenrometour
 const VATICAN_ONLY = process.env.NEXT_PUBLIC_SITE_ID === 'goldenrometour'
 
+// Helper to merge Sanity tour content with Payload availability
+async function mergeTourWithAvailability(sanityTour: any, slug: string) {
+  try {
+    // Get availability data from Payload
+    const payloadTour = await payload.getTour(slug)
+    if (payloadTour) {
+      // Merge: keep Sanity content/images, add Payload availability
+      return {
+        ...sanityTour,
+        // Keep Sanity's rich content and images
+        title: sanityTour.title,
+        description: sanityTour.description,
+        mainImage: sanityTour.mainImage,
+        gallery: sanityTour.gallery,
+        features: sanityTour.features,
+        highlights: sanityTour.highlights,
+        // Add Payload's availability data if it exists
+        availability: payloadTour.availability,
+        maxParticipants: payloadTour.maxParticipants,
+        // Merge other fields, preferring Sanity
+      }
+    }
+  } catch (e) {
+    console.warn('[dataAdapter] Could not fetch Payload availability for', slug, e)
+  }
+  return sanityTour
+}
+
 export const getTours = async (siteId?: string) => {
-  const tours = await withFallback(() => payload.getTours(siteId), () => sanity.getTours(siteId))
+  let tours
+  
+  if (source === 'hybrid') {
+    // Get tours from Sanity (content + images)
+    tours = await sanity.getTours(siteId)
+    // Note: For list view, we don't merge availability (too many API calls)
+    // Availability will be fetched on-demand via API routes
+  } else {
+    tours = await withFallback(() => payload.getTours(siteId), () => sanity.getTours(siteId))
+  }
+  
   return VATICAN_ONLY ? tours.filter(t => t.category === 'vatican') : tours
 }
 
 export const getTour = async (slug: string, siteId?: string) => {
-  const tour = await withFallback(() => payload.getTour(slug, siteId), () => sanity.getTour(slug, siteId))
+  let tour
+  
+  if (source === 'hybrid') {
+    // Get tour content from Sanity
+    tour = await sanity.getTour(slug, siteId)
+    // Merge with Payload availability
+    if (tour) {
+      tour = await mergeTourWithAvailability(tour, slug)
+    }
+  } else {
+    tour = await withFallback(() => payload.getTour(slug, siteId), () => sanity.getTour(slug, siteId))
+  }
   
   // Log for debugging
   if (tour) {
@@ -65,9 +128,17 @@ export const getTour = async (slug: string, siteId?: string) => {
 }
 
 export const getAllTours = async () => {
-  const tours = await withFallback(() => payload.getAllTours(), () => sanity.getAllTours())
+  let tours
+  
+  if (source === 'hybrid') {
+    tours = await sanity.getAllTours()
+  } else {
+    tours = await withFallback(() => payload.getAllTours(), () => sanity.getAllTours())
+  }
+  
   return VATICAN_ONLY ? tours.filter(t => t.category === 'vatican') : tours
 }
+
 export const getPosts     = (siteId?: string)              => withFallback(() => payload.getPosts(siteId),          () => sanity.getPosts(siteId))
 export const getPost      = (slug: string, siteId?: string) => withFallback(() => payload.getPost(slug, siteId),    () => sanity.getPost(slug, siteId))
 export const getSettings  = (siteId?: string)              => withFallback(() => payload.getSettings(siteId),       () => sanity.getSettings(siteId))
