@@ -41,7 +41,26 @@ export const getTours = async (siteId?: string) => {
 
 export const getTour = async (slug: string, siteId?: string) => {
   const tour = await withFallback(() => payload.getTour(slug, siteId), () => sanity.getTour(slug, siteId))
-  if (VATICAN_ONLY && tour && tour.category !== 'vatican') return null
+  
+  // Log for debugging
+  if (tour) {
+    console.log(`[dataAdapter] Found tour: ${tour.title}, category: ${tour.category}, slug: ${tour.slug.current}`)
+  } else {
+    console.warn(`[dataAdapter] Tour not found for slug: ${slug}, siteId: ${siteId || DEFAULT_SITE_ID}`)
+  }
+  
+  // Vatican-only validation (only if tour exists and has category)
+  if (VATICAN_ONLY && tour) {
+    if (!tour.category) {
+      console.warn(`[dataAdapter] Tour "${tour.title}" has no category, allowing it through`)
+      return tour
+    }
+    if (tour.category !== 'vatican') {
+      console.warn(`[dataAdapter] Tour "${tour.title}" category is "${tour.category}", not "vatican" - filtering out`)
+      return null
+    }
+  }
+  
   return tour
 }
 

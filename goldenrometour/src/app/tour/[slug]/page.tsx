@@ -56,10 +56,21 @@ export async function generateStaticParams() {
 
 export default async function TourPage({ params }: PageProps) {
     const { slug } = await params;
+    
+    console.log(`[TourPage] Fetching tour with slug: ${slug}`)
     const tour = await getTour(slug);
 
+    if (!tour) {
+        console.error(`[TourPage] Tour not found for slug: ${slug}`)
+        notFound();
+    }
+
     // Vatican-only validation for goldenrometour
-    if (!tour || (process.env.NEXT_PUBLIC_SITE_ID === 'goldenrometour' && tour.category !== 'vatican')) {
+    const siteId = process.env.NEXT_PUBLIC_SITE_ID;
+    console.log(`[TourPage] Site ID: ${siteId}, Tour category: ${tour.category}`)
+    
+    if (siteId === 'goldenrometour' && tour.category && tour.category !== 'vatican') {
+        console.warn(`[TourPage] Non-Vatican tour on goldenrometour: ${tour.title} (${tour.category})`)
         notFound();
     }
 
@@ -74,7 +85,7 @@ export default async function TourPage({ params }: PageProps) {
         '@type': 'TouristTrip',
         'name': tour.title,
         'description': typeof tour.description === 'string' ? tour.description : 'Expert guided Vatican tour with art historians',
-        'image': sliderImages.map(img => urlFor(img).url()),
+        'image': sliderImages.length > 0 ? sliderImages.map(img => urlFor(img).url()).filter(Boolean) : [fallbackImage],
         'provider': {
             '@type': 'Organization',
             'name': process.env.NEXT_PUBLIC_SITE_NAME || 'Vatican Archives',
