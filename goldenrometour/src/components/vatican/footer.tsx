@@ -10,11 +10,11 @@ export default function VaticanFooter() {
   const site = useSite()
 
   const categories = [
-    { label: "Vatican Museums", href: "/category/vatican" },
-    { label: "Sistine Chapel Private", href: "/tour/vatican-museums-skip-line-audio-guide-grt" },
-    { label: "St. Peter's Dome", href: "/tour/st-peters-basilica-dome-climb-grt" },
-    { label: "Vatican Gardens", href: "/tour/vatican-gardens-private-tour-grt" },
-    { label: "Raphael Rooms", href: "/tour/vatican-museums-skip-line-audio-guide-grt" },
+    { label: "Skip The Line Tickets", href: "/tour/vatican-museum-sistine-chapel-skip-line-tickets" },
+    { label: "VIP Guided Tour", href: "/tour/vip-vatican-museum-sistine-chapel-st-basilica" },
+    { label: "About Us", href: "/about" },
+    { label: "Contact", href: "/contact" },
+    { label: "FAQ", href: "/faq" },
   ]
 
   const contactEmail = site?.contactEmail || process.env.EMAIL_FROM || "archives@goldenrometours.com"

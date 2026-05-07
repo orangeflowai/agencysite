@@ -143,10 +143,10 @@ export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroP
                 Explore the Archive
               </a>
               <a 
-                href="/category/vatican" 
+                href="/tour/vip-vatican-museum-sistine-chapel-st-basilica" 
                 className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-medium rounded-full border border-white/30 hover:bg-white hover:text-foreground transition-all"
               >
-                Vatican Access
+                VIP Tour
               </a>
             </motion.div>
           </div>

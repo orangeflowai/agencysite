@@ -77,10 +77,10 @@ export default function Navbar() {
         setIsMobileMenuOpen(false);
     };
 
-    // REMOVED Colosseum and City per request
+    // Updated to link to the 2 specific tours
     const navLinks = [
-        { name: t('nav.vatican') || 'Vatican', href: '/category/vatican' },
-        { name: t('nav.private') || 'Private Tours', href: '/private-tours' },
+        { name: 'Skip The Line', href: '/tour/vatican-museum-sistine-chapel-skip-line-tickets' },
+        { name: 'VIP Tour', href: '/tour/vip-vatican-museum-sistine-chapel-st-basilica' },
         { name: t('nav.about') || 'About Us', href: '/about' },
         { name: t('nav.faq') || 'FAQ', href: '/faq' },
     ];

@@ -9,12 +9,12 @@ import PaymentLogos from './PaymentLogos';
 import Newsletter from './Newsletter';
 
 const EXPLORE = [
-  { label: 'Vatican Tours',     href: '/category/vatican' },
-  { label: 'Colosseum Tours',   href: '/category/colosseum' },
-  { label: 'City Tours',        href: '/category/city' },
-  { label: 'Hidden Gems',       href: '/category/hidden-gems' },
-  { label: 'Private Tours',     href: '/private-tours' },
-  { label: 'The Dispatch (Blog)', href: '/blog' },
+  { label: 'Skip The Line Tickets', href: '/tour/vatican-museum-sistine-chapel-skip-line-tickets' },
+  { label: 'VIP Guided Tour',      href: '/tour/vip-vatican-museum-sistine-chapel-st-basilica' },
+  { label: 'About Us',             href: '/about' },
+  { label: 'Contact',              href: '/contact' },
+  { label: 'FAQ',                  href: '/faq' },
+  { label: 'The Dispatch (Blog)',  href: '/blog' },
 ];
 
 const SUPPORT = [
