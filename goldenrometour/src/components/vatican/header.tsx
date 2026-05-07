@@ -12,10 +12,10 @@ export default function VaticanHeader() {
   const site = useSite()
 
   const navLinks = [
-    { label: "The Museums", href: "/category/vatican" },
-    { label: "Sistine Chapel", href: "/tour/vatican-museums-skip-line-audio-guide-grt" },
-    { label: "St. Peter's", href: "/tour/st-peters-basilica-dome-climb-grt" },
-    { label: "Ancient Rome", href: "/category/colosseum" },
+    { label: "Vatican Museums", href: "/category/vatican", key: "museums" },
+    { label: "Sistine Chapel", href: "/tour/vatican-museums-skip-line-audio-guide-grt", key: "sistine" },
+    { label: "St. Peter's", href: "/tour/st-peters-basilica-dome-crypt-grt", key: "stpeters" },
+    { label: "Vatican Gardens", href: "/tour/vatican-gardens-private-tour-grt", key: "gardens" },
   ]
 
   return (
@@ -35,9 +35,9 @@ export default function VaticanHeader() {
             ) : (
               <>
                 <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-serif text-lg">G</span>
+                  <span className="text-primary-foreground font-serif text-lg">V</span>
                 </div>
-                <span className="font-serif text-xl text-foreground hidden sm:block">Golden Rome</span>
+                <span className="font-serif text-xl text-foreground hidden sm:block">Vatican Archives</span>
               </>
             )}
           </Link>
@@ -46,7 +46,7 @@ export default function VaticanHeader() {
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link 
-                key={link.href} 
+                key={link.key} 
                 href={link.href} 
                 className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all"
               >
@@ -93,7 +93,7 @@ export default function VaticanHeader() {
             <nav className="flex flex-col gap-5">
               {navLinks.map((link) => (
                 <Link 
-                  key={link.href} 
+                  key={link.key} 
                   href={link.href} 
                   className="text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all"
                   onClick={() => setIsMenuOpen(false)}
