@@ -37,6 +37,10 @@ export default function VaticanTourHeroFull({
   const scale = 1 + scrollY / 2000
   const blur = Math.min(10, scrollY / 50)
 
+  // Fallback image if mainImage is missing
+  const fallbackImage = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80&w=1920'
+  const imageUrl = mainImage ? urlFor(mainImage).width(1920).url() : fallbackImage
+
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
       {/* Background Image with Parallax and Scale */}
@@ -45,7 +49,7 @@ export default function VaticanTourHeroFull({
         style={{ scale }}
       >
         <img 
-          src={urlFor(mainImage).width(1920).url()} 
+          src={imageUrl} 
           alt={title}
           className="w-full h-full object-cover opacity-60"
         />
