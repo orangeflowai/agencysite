@@ -2,6 +2,7 @@
 
 import { Clock, Users, Star, ChevronRight } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { motion } from "framer-motion"
 
 interface Tour {
@@ -80,18 +81,21 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                 transition={{ duration: 0.3 }}
               >
                 {/* Image */}
-                <div className="relative h-56 md:h-64 overflow-hidden">
-                  <img 
+                <div className="relative h-56 md:h-64 overflow-hidden bg-muted">
+                  <Image 
                     src={typeof tour.mainImage === 'string' ? tour.mainImage : (tour.mainImage?.asset?.url || "/placeholder.jpg")} 
                     alt={tour.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={85}
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {tour.badge && (
-                    <div className="absolute top-4 left-4 px-3 py-1.5 bg-accent text-accent-foreground text-xs font-semibold rounded-full">
+                    <div className="absolute top-4 left-4 px-3 py-1.5 bg-accent text-accent-foreground text-xs font-semibold rounded-full shadow-lg">
                       {tour.badge}
                     </div>
                   )}
-                  <div className="absolute top-4 right-4 px-3 py-1.5 bg-card/90 backdrop-blur-sm rounded-full text-xs font-medium text-foreground">
+                  <div className="absolute top-4 right-4 px-3 py-1.5 bg-card/90 backdrop-blur-sm rounded-full text-xs font-medium text-foreground shadow-lg">
                     {tour.category || "Tour"}
                   </div>
                 </div>

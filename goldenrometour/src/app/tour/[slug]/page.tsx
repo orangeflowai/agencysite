@@ -9,8 +9,8 @@ import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
 import { PortableText } from '@portabletext/react';
 import { Metadata } from 'next';
 
-// Revalidate every hour
-export const revalidate = 3600;
+// Revalidate every 5 minutes for faster updates
+export const revalidate = 300;
 
 interface PageProps {
     params: Promise<{ slug: string }>;

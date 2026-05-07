@@ -29,31 +29,46 @@ export default function VaticanTourHeroFull({
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   const opacity = Math.max(0, 1 - scrollY / 500)
   const scale = 1 + scrollY / 2000
-  const blur = Math.min(10, scrollY / 50)
 
-  // Fallback image if mainImage is missing
-  const fallbackImage = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80&w=1920'
-  const imageUrl = mainImage ? urlFor(mainImage).width(1920).url() : fallbackImage
+  // Smart fallback images based on tour title
+  const getFallbackImage = (tourTitle: string) => {
+    const lowerTitle = tourTitle.toLowerCase();
+    if (lowerTitle.includes('sistine')) {
+      return 'https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=1920&q=85';
+    } else if (lowerTitle.includes('peter') || lowerTitle.includes('basilica')) {
+      return 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=1920&q=85';
+    } else if (lowerTitle.includes('garden')) {
+      return 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=1920&q=85';
+    }
+    return 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1920&q=85';
+  };
+
+  const fallbackImage = getFallbackImage(title);
+  const imageUrl = mainImage ? urlFor(mainImage).width(1920).url() : fallbackImage;
 
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
-      {/* Background Image with Parallax and Scale */}
+      {/* Background Image with Parallax and Scale - Optimized with Next Image */}
       <motion.div 
         className="absolute inset-0 z-0"
         style={{ scale }}
       >
-        <img 
+        <Image 
           src={imageUrl} 
           alt={title}
-          className="w-full h-full object-cover opacity-60"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover opacity-70"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background" />
       </motion.div>
 
       {/* Content Container */}
