@@ -6,6 +6,7 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';
 import GuestDetailsModal, { GuestDetail } from './GuestDetailsModal';
 import Image from 'next/image';
 import SmartCalendar from './ui/SmartCalendar';
+import VaticanCalendar from './ui/VaticanCalendar';
 import { format } from 'date-fns';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
@@ -262,7 +263,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                             <span className="text-[10px] font-heading font-bold tracking-tight text-secondary/40 uppercase">1. Calendrical Alignment</span>
                             {selectedDate && <span className="text-xs font-heading font-bold text-primary flex items-center gap-1 uppercase"><CheckCircle size={12} /> {format(new Date(selectedDate), 'MMM dd, yyyy')}</span>}
                         </div>
-                        <SmartCalendar
+                        <VaticanCalendar
                             slug={tour.slug.current}
                             selectedDate={selectedDate ? new Date(selectedDate) : undefined}
                             onSelect={(d) => setSelectedDate(d ? format(d, 'yyyy-MM-dd') : '')}
