@@ -213,7 +213,7 @@ export default async function TourPage({ params }: PageProps) {
                         <section>
                             <h2 className="font-heading text-2xl font-bold text-primary mb-6">Itinerary</h2>
                             <div className="pl-4 border-l-2 border-[#d4af37]/20 space-y-8">
-                                {tour.itinerary.map((stop, index) => (
+                                {tour.itinerary.map((stop: any, index: number) => (
                                     <div key={index} className="relative">
                                         <div className="absolute -left-[21px] top-0 w-4 h-4 bg-accent rounded-full border-2 border-[#fafaf8]" />
                                         <h3 className="font-heading text-base font-semibold text-primary">{stop.title}</h3>
