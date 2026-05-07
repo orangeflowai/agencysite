@@ -38,6 +38,21 @@ const cardVariants = {
 }
 
 export default function TourCards({ tours }: { tours: Tour[] }) {
+  // Smart fallback image function
+  const getFallbackImage = (tour: Tour) => {
+    const title = tour.title.toLowerCase();
+    if (title.includes('sistine')) {
+      return 'https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=85';
+    } else if (title.includes('peter') || title.includes('basilica')) {
+      return 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800&q=85';
+    } else if (title.includes('garden')) {
+      return 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=800&q=85';
+    } else if (title.includes('dome') || title.includes('climb')) {
+      return 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800&q=85';
+    }
+    return 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=85';
+  };
+
   return (
     <section id="tours" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
@@ -83,7 +98,11 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                 {/* Image */}
                 <div className="relative h-56 md:h-64 overflow-hidden bg-muted">
                   <Image 
-                    src={typeof tour.mainImage === 'string' ? tour.mainImage : (tour.mainImage?.asset?.url || "/placeholder.jpg")} 
+                    src={
+                      typeof tour.mainImage === 'string' 
+                        ? tour.mainImage 
+                        : (tour.mainImage?.asset?.url || getFallbackImage(tour))
+                    }
                     alt={tour.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -124,14 +143,18 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {(tour.features || ["Skip the Line", "Professional Guide"]).map((feature: any, i: number) => {
+                    {((tour.features && tour.features.length > 0 ? tour.features : [
+                      "Skip the Line Access",
+                      "Expert Guide",
+                      "Small Group"
+                    ])).slice(0, 3).map((feature: any, i: number) => {
                       // Handle both string and object formats
                       const featureText = typeof feature === 'string' ? feature : (feature?.item || feature?.name || '');
                       if (!featureText) return null;
                       return (
                         <span 
                           key={i}
-                          className="px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full"
+                          className="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full font-medium border border-accent/20"
                         >
                           {featureText}
                         </span>
