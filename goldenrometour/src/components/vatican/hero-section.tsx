@@ -68,16 +68,26 @@ export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroP
 
       {/* Main Hero Content */}
       <div className="flex-1 relative pt-24 md:pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        {/* Background Image with Parallax */}
+        {/* Background Video with Parallax */}
         <motion.div 
           className="absolute inset-0 z-0"
           style={{ y }}
         >
-          <img 
-            src={heroImage || "/vatican-sistine-chapel.jpg"} 
-            alt="Hero Background"
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
             className="w-full h-full object-cover"
-          />
+          >
+            <source src="/POV_Walking_Video_Generation-ezgif.com-optimize-2.mp4" type="video/mp4" />
+            {/* Fallback image if video doesn't load */}
+            <img 
+              src={heroImage || "/vatican-sistine-chapel.jpg"} 
+              alt="Vatican Museums"
+              className="w-full h-full object-cover"
+            />
+          </video>
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-background/95" />
         </motion.div>
 
