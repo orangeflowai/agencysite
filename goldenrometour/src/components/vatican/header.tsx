@@ -33,12 +33,13 @@ export default function VaticanHeader() {
                 className="h-8 md:h-10 w-auto"
               />
             ) : (
-              <>
-                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-serif text-lg">V</span>
-                </div>
-                <span className="font-serif text-xl text-foreground hidden sm:block">Vatican Archives</span>
-              </>
+              <Image 
+                src="/logo.png" 
+                alt="Golden Rome" 
+                width={120} 
+                height={40} 
+                className="h-8 md:h-10 w-auto"
+              />
             )}
           </Link>
 

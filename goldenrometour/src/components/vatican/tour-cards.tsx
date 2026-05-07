@@ -154,7 +154,7 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                       return (
                         <span 
                           key={i}
-                          className="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full font-medium border border-accent/20"
+                          className="px-3 py-1 bg-secondary/50 text-foreground text-xs rounded-full font-medium border border-border"
                         >
                           {featureText}
                         </span>

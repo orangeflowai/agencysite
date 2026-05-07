@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import { createPortal } from 'react-dom'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import {
@@ -84,7 +85,7 @@ function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSucces
   )
 }
 
-export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerProps) {
+function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
   const site = useSite()
   const siteId = site?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour'
 
@@ -96,7 +97,6 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const stripePromise = useMemo(() => {
-    // Next.js inlines NEXT_PUBLIC_ vars at build time — must reference them explicitly
     const keyMap: Record<string, string> = {
       'wondersofrome': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_WONDERSOFROME || '',
       'ticketsinrome': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME_TOUR_TICKETS || '',
@@ -176,7 +176,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
 
   if (success) {
     return (
-      <div className="fixed inset-0 z-[200] flex items-center justify-center bg-background/60 backdrop-blur-sm p-4">
+      <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
         <div className="bg-card rounded-2xl p-10 max-w-sm w-full text-center shadow-2xl">
           <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-10 h-10 text-primary" />
@@ -194,18 +194,24 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
     : ''
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-background/60 backdrop-blur-sm p-4">
-      <style>{`@keyframes popIn { from { opacity: 0; transform: scale(0.95) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }`}</style>
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 overflow-y-auto">
+      <style>{`
+        @keyframes popIn { 
+          from { opacity: 0; transform: scale(0.95) translateY(8px); } 
+          to { opacity: 1; transform: scale(1) translateY(0); } 
+        }
+        body.modal-open { overflow: hidden !important; }
+      `}</style>
 
       <div className="absolute inset-0" onClick={onClose} />
 
       <div
-        className="relative w-full max-w-3xl bg-card rounded-2xl shadow-2xl flex flex-col overflow-hidden"
-        style={{ maxHeight: '90vh', animation: 'popIn 0.25s ease-out' }}
+        className="relative w-full max-w-3xl bg-card rounded-2xl shadow-2xl flex flex-col my-8 overflow-hidden"
+        style={{ maxHeight: 'calc(100vh - 4rem)', animation: 'popIn 0.25s ease-out' }}
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border shrink-0 bg-card">
           <div className="flex items-center gap-3">
             {step === 2 && (
               <button onClick={() => setStep(1)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
@@ -236,7 +242,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
         <div className="flex flex-col md:flex-row overflow-y-auto flex-1 min-h-0">
 
           {/* Left: Form */}
-          <div className="flex-1 p-6 space-y-5">
+          <div className="flex-1 p-6 space-y-5 bg-card">
 
             {step === 1 && (
               <>
@@ -390,5 +396,21 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
         </div>
       </div>
     </div>
+  )
+}
+
+export default function CheckoutDrawer(props: CheckoutDrawerProps) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
+
+  if (!mounted || !props.bookingData) return null
+
+  return createPortal(
+    <CheckoutDrawerContent {...props} />,
+    document.body
   )
 }

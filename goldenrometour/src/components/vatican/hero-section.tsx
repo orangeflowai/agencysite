@@ -78,7 +78,7 @@ export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroP
             alt="Hero Background"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/70 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-background/95" />
         </motion.div>
 
         <motion.div 
@@ -92,20 +92,20 @@ export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroP
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-card/80 backdrop-blur-sm rounded-full border border-border shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/30 shadow-sm">
               <div className="flex items-center -space-x-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-accent text-accent" />
                 ))}
               </div>
-              <span className="text-sm font-medium text-foreground">50,000+ Verified Reviews</span>
+              <span className="text-sm font-medium text-white">50,000+ Verified Reviews</span>
             </div>
           </motion.div>
 
           {/* Headline */}
           <div className="text-center max-w-4xl mx-auto">
             <motion.p 
-              className="text-sm uppercase tracking-widest text-muted-foreground mb-4 font-medium"
+              className="text-sm uppercase tracking-widest text-white/80 mb-4 font-medium"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
@@ -113,7 +113,7 @@ export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroP
               Official Vatican Partner
             </motion.p>
             <motion.h1 
-              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-foreground leading-[1.1] mb-6"
+              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-6"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -121,7 +121,7 @@ export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroP
               {title || "Rome's Greatest Archives, Reopened."}
             </motion.h1>
             <motion.p 
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed"
+              className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -138,13 +138,13 @@ export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroP
             >
               <a 
                 href="#tours" 
-                className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground font-medium rounded-full hover:opacity-90 transition-all shadow-lg hover:shadow-xl"
+                className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground font-medium rounded-full hover:bg-white hover:text-foreground transition-all shadow-lg hover:shadow-xl"
               >
                 Explore the Archive
               </a>
               <a 
                 href="/category/vatican" 
-                className="w-full sm:w-auto px-8 py-4 bg-card text-foreground font-medium rounded-full border border-border hover:bg-secondary transition-all"
+                className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-medium rounded-full border border-white/30 hover:bg-white hover:text-foreground transition-all"
               >
                 Vatican Access
               </a>
