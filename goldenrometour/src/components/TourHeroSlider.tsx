@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -58,7 +57,7 @@ export default function TourHeroSlider({
     };
 
     return (
-        <section className="relative h-[60vh] md:h-[70vh] w-full bg-secondary overflow-hidden group">
+        <section className="relative h-[60vh] md:h-[70vh] w-full bg-black overflow-hidden group">
             <AnimatePresence mode='wait'>
                 <motion.div
                     key={currentIndex}
@@ -76,7 +75,7 @@ export default function TourHeroSlider({
                         priority={currentIndex === 0}
                     />
                     {/* Gradient Overlay for Text Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-secondary/40 via-transparent to-secondary/80" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
                 </motion.div>
             </AnimatePresence>
 
@@ -85,24 +84,24 @@ export default function TourHeroSlider({
                 <>
                     <button
                         onClick={prevSlide}
-                        className="absolute left-8 top-1/2 -translate-y-1/2 w-16 h-16 bg-forest/20 hover:bg-forest text-cream transition-all opacity-0 group-hover:opacity-100 z-20 flex items-center justify-center border border-cream/20"
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 hover:bg-card/20 text-white rounded-full transition-colors opacity-0 group-hover:opacity-100 z-20"
                     >
                         <ChevronLeft size={32} />
                     </button>
                     <button
                         onClick={nextSlide}
-                        className="absolute right-8 top-1/2 -translate-y-1/2 w-16 h-16 bg-forest/20 hover:bg-forest text-cream transition-all opacity-0 group-hover:opacity-100 z-20 flex items-center justify-center border border-cream/20"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-black/30 hover:bg-card/20 text-white rounded-full transition-colors opacity-0 group-hover:opacity-100 z-20"
                     >
                         <ChevronRight size={32} />
                     </button>
 
                     {/* Dots */}
-                    <div className="absolute bottom-12 left-0 right-0 flex justify-center gap-4 z-20">
+                    <div className="absolute bottom-32 left-0 right-0 flex justify-center gap-2 z-20">
                         {validImages.map((_, idx) => (
                             <button
                                 key={idx}
                                 onClick={() => setCurrentIndex(idx)}
-                                className={`w-8 h-[2px] transition-all ${idx === currentIndex ? 'bg-cream opacity-100' : 'bg-cream/40 hover:bg-cream/80'
+                                className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex ? 'bg-card w-4' : 'bg-card/50 hover:bg-card'
                                     }`}
                             />
                         ))}
