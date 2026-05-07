@@ -38,19 +38,18 @@ const cardVariants = {
 }
 
 export default function TourCards({ tours }: { tours: Tour[] }) {
+  // Limit to only 2 tours
+  const displayTours = tours.slice(0, 2);
+  
   // Smart fallback image function
   const getFallbackImage = (tour: Tour) => {
     const title = tour.title.toLowerCase();
-    if (title.includes('sistine')) {
-      return 'https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=85';
-    } else if (title.includes('peter') || title.includes('basilica')) {
-      return 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800&q=85';
-    } else if (title.includes('garden')) {
-      return 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=800&q=85';
-    } else if (title.includes('dome') || title.includes('climb')) {
-      return 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=800&q=85';
+    if (title.includes('sistine') || title.includes('skip') || title.includes('line')) {
+      return 'https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=1200&q=90';
+    } else if (title.includes('vip') || title.includes('peter') || title.includes('basilica')) {
+      return 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=1200&q=90';
     }
-    return 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=85';
+    return 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1200&q=90';
   };
 
   return (
@@ -64,39 +63,54 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-secondary rounded-full mb-6">
-            <span className="text-xs font-medium text-foreground uppercase tracking-wider">
-              50K+ Guests
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 rounded-full mb-6 border border-accent/20">
+            <Star className="w-4 h-4 fill-accent text-accent" />
+            <span className="text-xs font-bold text-accent uppercase tracking-wider">
+              50,000+ Verified Guests
             </span>
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-4">
-            Best Selling <span className="italic">Archives</span>
+          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground mb-6 leading-tight">
+            Vatican <span className="italic text-accent">Essentials</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            Curated selection of our most popular Vatican and Rome experiences
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+            Two exclusive experiences curated for the discerning traveler. Skip-the-line access and expert guidance to the world's most sacred art collection.
           </p>
         </motion.div>
 
-        {/* Tour Grid */}
+        {/* Tour Grid - Only 2 Tours */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {tours.map((tour) => {
+          {displayTours.map((tour) => {
             if (!tour || !tour.slug?.current) return null;
+            
+            // Ensure we have all the data
+            const tourRating = tour.rating || 4.9;
+            const tourReviews = tour.reviews || 216;
+            const tourDuration = tour.duration || "3 hours";
+            const tourPrice = tour.price || 45;
+            const tourBadge = tour.badge || "Popular";
+            const tourCategory = tour.category || "Vatican";
+            
+            // Get features with fallbacks
+            const tourFeatures = tour.features && tour.features.length > 0 
+              ? tour.features 
+              : ["Skip the Line Access", "Expert Guide", "Small Group"];
+            
             return (
               <motion.div 
                 key={tour._id}
                 variants={cardVariants}
-                className="group bg-card rounded-2xl overflow-hidden border border-border hover:border-accent/50 transition-all hover:shadow-xl"
-                whileHover={{ y: -8 }}
-                transition={{ duration: 0.3 }}
+                className="group bg-card rounded-[2rem] overflow-hidden border-2 border-border hover:border-accent/50 transition-all hover:shadow-2xl shadow-lg"
+                whileHover={{ y: -12, scale: 1.02 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
               >
                 {/* Image */}
-                <div className="relative h-56 md:h-64 overflow-hidden bg-muted">
+                <div className="relative h-72 md:h-80 overflow-hidden bg-muted">
                   <Image 
                     src={
                       typeof tour.mainImage === 'string' 
@@ -105,56 +119,56 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                     }
                     alt={tour.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    quality={85}
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    quality={90}
+                    priority
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  {tour.badge && (
-                    <div className="absolute top-4 left-4 px-3 py-1.5 bg-accent text-accent-foreground text-xs font-semibold rounded-full shadow-lg">
-                      {tour.badge}
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                  
+                  {/* Badge */}
+                  {tourBadge && (
+                    <div className="absolute top-6 left-6 px-4 py-2 bg-accent text-accent-foreground text-xs font-bold rounded-full shadow-xl backdrop-blur-sm uppercase tracking-wider">
+                      {tourBadge}
                     </div>
                   )}
-                  <div className="absolute top-4 right-4 px-3 py-1.5 bg-card/90 backdrop-blur-sm rounded-full text-xs font-medium text-foreground shadow-lg">
-                    {tour.category || "Tour"}
+                  
+                  {/* Category */}
+                  <div className="absolute top-6 right-6 px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full text-xs font-bold text-foreground shadow-xl uppercase tracking-wider">
+                    {tourCategory}
+                  </div>
+                  
+                  {/* Rating on Image */}
+                  <div className="absolute bottom-6 left-6 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-xl">
+                    <Star className="w-4 h-4 fill-accent text-accent" />
+                    <span className="text-sm font-bold text-foreground">{tourRating}</span>
+                    <span className="text-xs text-muted-foreground">({tourReviews.toLocaleString()})</span>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 fill-accent text-accent" />
-                      <span className="text-sm font-medium text-foreground">{tour.rating || 4.9}</span>
-                    </div>
-                    <span className="text-sm text-muted-foreground">
-                      ({(tour.reviews || 850).toLocaleString()} reviews)
-                    </span>
-                  </div>
-
-                  <h3 className="font-semibold text-lg text-foreground mb-3 group-hover:text-accent transition-colors">
+                <div className="p-8">
+                  <h3 className="font-serif text-2xl font-bold text-foreground mb-4 group-hover:text-accent transition-colors leading-tight">
                     {tour.title}
                   </h3>
 
-                  <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      {tour.duration || "3 hours"}
+                  <div className="flex items-center gap-6 mb-6 text-sm text-muted-foreground">
+                    <span className="flex items-center gap-2">
+                      <Clock className="w-5 h-5 text-accent" />
+                      <span className="font-medium">{tourDuration}</span>
                     </span>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {((tour.features && tour.features.length > 0 ? tour.features : [
-                      "Skip the Line Access",
-                      "Expert Guide",
-                      "Small Group"
-                    ])).slice(0, 3).map((feature: any, i: number) => {
-                      // Handle both string and object formats
+                  {/* Features */}
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {tourFeatures.slice(0, 3).map((feature: any, i: number) => {
                       const featureText = typeof feature === 'string' ? feature : (feature?.item || feature?.name || '');
                       if (!featureText) return null;
                       return (
                         <span 
                           key={i}
-                          className="px-3 py-1 bg-secondary/50 text-foreground text-xs rounded-full font-medium border border-border"
+                          className="px-4 py-2 bg-secondary/50 text-foreground text-xs rounded-full font-bold border border-border uppercase tracking-wide"
                         >
                           {featureText}
                         </span>
@@ -162,17 +176,21 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                     })}
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                  {/* Price and CTA */}
+                  <div className="flex items-center justify-between pt-6 border-t-2 border-border">
                     <div>
-                      <span className="text-sm text-muted-foreground">From</span>
-                      <p className="text-2xl font-semibold text-foreground">
-                        €{tour.price}
-                        <span className="text-sm font-normal text-muted-foreground">/person</span>
+                      <span className="text-xs text-muted-foreground uppercase tracking-wider font-bold block mb-1">From</span>
+                      <p className="text-3xl font-bold text-foreground">
+                        €{tourPrice}
+                        <span className="text-base font-normal text-muted-foreground ml-1">/person</span>
                       </p>
                     </div>
-                    <Link href={`/tour/${tour.slug.current}`} className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-full font-medium hover:opacity-90 transition-opacity">
+                    <Link 
+                      href={`/tour/${tour.slug.current}`} 
+                      className="flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-full font-bold hover:opacity-90 transition-all shadow-lg hover:shadow-xl uppercase tracking-wide text-sm"
+                    >
                       Book Now
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-5 h-5" />
                     </Link>
                   </div>
                 </div>
@@ -181,22 +199,7 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
           })}
         </motion.div>
 
-        {/* View All */}
-        <motion.div 
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-        >
-          <Link 
-            href="/search" 
-            className="inline-flex items-center gap-2 text-foreground font-medium hover:text-accent transition-colors"
-          >
-            View All Tours
-            <ChevronRight className="w-4 h-4" />
-          </Link>
-        </motion.div>
+        {/* No "View All" link - only 2 tours available */}
       </div>
     </section>
   )

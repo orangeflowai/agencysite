@@ -34,8 +34,8 @@ const heroTitle = settings?.heroTitle || "Official Vatican Access. Unfiltered.";
 const heroSubtitle = settings?.heroSubtitle || "The exclusive portal for authenticated Vatican Museum entry. Curated small group routes and private historian-led expeditions into the Holy See.";
 const heroImage = settings?.heroImage?.asset?.url || "/vatican-museums.jpg";
 
-// Vatican-only tours (already filtered by dataAdapter)
-const homeTours = tours.slice(0, 6);
+// Vatican-only tours (already filtered by dataAdapter) - limit to 2
+const homeTours = tours.slice(0, 2);
 
 return (
   <main className="min-h-screen bg-background text-foreground">
