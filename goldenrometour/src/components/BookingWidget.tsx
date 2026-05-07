@@ -58,6 +58,16 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
         };
         const key = keyMap[siteId] || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
         if (!key) {
+            console.warn('Stripe publishable key not configured for site:', siteId);
+            return null;
+        }
+        // Check if it's a mock/test key
+        if (key.includes('mock') || key.includes('REPLACE')) {
+            console.warn('Using mock Stripe key - payments will not work. Configure real Stripe keys in .env');
+            return null;
+        }
+        return loadStripe(key);
+    }, [siteId]);
             console.error('Stripe publishable key not configured for site:', siteId);
             return null;
         }

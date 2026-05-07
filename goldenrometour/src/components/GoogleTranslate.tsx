@@ -24,36 +24,45 @@ declare global {
 
 export default function GoogleTranslate() {
     const [loaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         // Initialize Google Translate
         window.googleTranslateElementInit = () => {
-            if (window.google && window.google.translate) {
-                new window.google.translate.TranslateElement(
-                    {
-                        pageLanguage: 'en',
-                        includedLanguages: 'en,it,es,fr,de,pt,ru',
-                        layout: window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-                        autoDisplay: false,
-                    },
-                    'google_translate_element'
-                );
-                setLoaded(true);
+            try {
+                if (window.google && window.google.translate) {
+                    new window.google.translate.TranslateElement(
+                        {
+                            pageLanguage: 'en',
+                            includedLanguages: 'en,it,es,fr,de,pt,ru',
+                            layout: window.google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+                            autoDisplay: false,
+                        },
+                        'google_translate_element'
+                    );
+                    setLoaded(true);
 
-                // Hide the default Google Translate widget
-                const style = document.createElement('style');
-                style.innerHTML = `
-                    .goog-te-banner-frame { display: none !important; }
-                    .goog-te-gadget { display: none !important; }
-                    .goog-te-combo { display: none !important; }
-                    body { top: 0 !important; }
-                    .skiptranslate { display: none !important; }
-                    #goog-gt-tt { display: none !important; }
-                `;
-                document.head.appendChild(style);
+                    // Hide the default Google Translate widget
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        .goog-te-banner-frame { display: none !important; }
+                        .goog-te-gadget { display: none !important; }
+                        .goog-te-combo { display: none !important; }
+                        body { top: 0 !important; }
+                        .skiptranslate { display: none !important; }
+                        #goog-gt-tt { display: none !important; }
+                    `;
+                    document.head.appendChild(style);
+                }
+            } catch (err) {
+                console.warn('Google Translate initialization failed:', err);
+                setError(true);
             }
         };
     }, []);
+
+    // Don't render if there's an error
+    if (error) return null;
 
     return (
         <>
@@ -61,6 +70,10 @@ export default function GoogleTranslate() {
                 src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
                 strategy="afterInteractive"
                 onLoad={() => console.log('Google Translate loaded')}
+                onError={(e) => {
+                    console.warn('Google Translate script failed to load:', e);
+                    setError(true);
+                }}
             />
             {/* Hidden container for Google Translate */}
             <div id="google_translate_element" style={{ display: 'none' }} />

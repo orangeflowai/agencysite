@@ -45,7 +45,7 @@ export default function VaticanTourHeroFull({
         style={{ scale }}
       >
         <img 
-          src={urlFor(mainImage).width(1920).quality(90).url()} 
+          src={urlFor(mainImage).width(1920).url()} 
           alt={title}
           className="w-full h-full object-cover opacity-60"
         />
