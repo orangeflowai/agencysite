@@ -65,13 +65,12 @@ export default function VaticanFooter() {
                     className="h-10 w-auto brightness-0 invert"
                   />
                 ) : (
-                  <Image 
-                    src="/logo.png" 
-                    alt="Golden Rome" 
-                    width={150} 
-                    height={50} 
-                    className="h-10 w-auto brightness-0 invert"
-                  />
+                  <>
+                    <div className="w-8 h-8 rounded-full bg-primary-foreground flex items-center justify-center">
+                      <span className="text-primary font-serif text-lg">G</span>
+                    </div>
+                    <span className="font-serif text-xl">Golden Rome</span>
+                  </>
                 )}
               </Link>
               <p className="text-primary-foreground/60 text-sm leading-relaxed mb-8">
