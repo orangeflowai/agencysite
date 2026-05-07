@@ -80,7 +80,7 @@ export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroP
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="/POV_Walking_Video_Generation-ezgif.com-optimize-2.mp4" type="video/mp4" />
+            <source src="/POV_Walking_Video_Generation.mp4" type="video/mp4" />
             {/* Fallback image if video doesn't load */}
             <img 
               src={heroImage || "/vatican-sistine-chapel.jpg"} 

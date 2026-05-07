@@ -1,3 +1,4 @@
+
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Clock, Users, Calendar, Check, Star, MapPin, Map as MapIcon, Info, XCircle, CheckCircle } from 'lucide-react';
@@ -10,8 +11,8 @@ import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
 import { PortableText } from '@portabletext/react';
 import { Metadata } from 'next';
 
-// Revalidate every hour
-export const revalidate = 3600;
+// Revalidate every 5 minutes for faster updates
+export const revalidate = 300;
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -59,21 +60,9 @@ export async function generateStaticParams() {
 
 export default async function TourPage({ params }: PageProps) {
     const { slug } = await params;
-    
-    console.log(`[TourPage] Fetching tour with slug: ${slug}`)
     const tour = await getTour(slug);
 
     if (!tour) {
-        console.error(`[TourPage] Tour not found for slug: ${slug}`)
-        notFound();
-    }
-
-    // Vatican-only validation for goldenrometour
-    const siteId = process.env.NEXT_PUBLIC_SITE_ID;
-    console.log(`[TourPage] Site ID: ${siteId}, Tour category: ${tour.category}`)
-    
-    if (siteId === 'goldenrometour' && tour.category && tour.category !== 'vatican') {
-        console.warn(`[TourPage] Non-Vatican tour on goldenrometour: ${tour.title} (${tour.category})`)
         notFound();
     }
 
@@ -85,17 +74,17 @@ export default async function TourPage({ params }: PageProps) {
     if (sliderImages.length === 0) {
         sliderImages.push(fallbackImage);
     }
-    
+
     // JSON-LD Schema for SEO
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'TouristTrip',
         'name': tour.title,
-        'description': typeof tour.description === 'string' ? tour.description : 'Expert guided Vatican tour with art historians',
-        'image': sliderImages.map(img => urlFor(img).url()).filter(Boolean),
+        'description': typeof tour.description === 'string' ? tour.description : 'Expert guided tour in Rome',
+        'image': sliderImages.map(img => urlFor(img).url()),
         'provider': {
             '@type': 'Organization',
-            'name': process.env.NEXT_PUBLIC_SITE_NAME || 'Vatican Archives',
+            'name': process.env.NEXT_PUBLIC_SITE_NAME || 'Wonders of Rome',
             'url': process.env.NEXT_PUBLIC_SITE_URL
         },
         'offers': {
@@ -133,13 +122,13 @@ export default async function TourPage({ params }: PageProps) {
 
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
                     <div className="max-w-4xl space-y-4 pointer-events-auto">
-                        <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-[0.4em] font-mono">
+                        <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold  tracking-[0.4em] font-mono">
                             {tour.category}
                         </span>
                         <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl text-white drop-shadow-2xl">
                             {tour.title}
                         </h1>
-                        <div className="flex flex-wrap items-center gap-6 text-white/80 text-[10px] font-bold uppercase tracking-[0.2em] font-mono">
+                        <div className="flex flex-wrap items-center gap-6 text-white/80 text-[10px] font-bold  tracking-[0.2em] font-mono">
                             <div className="flex items-center"><Clock className="w-4 h-4 mr-2 text-primary" /> {tour.duration}</div>
                             <div className="flex items-center"><Users className="w-4 h-4 mr-2 text-primary" /> {tour.groupSize || 'Small Group'}</div>
                             <div className="flex items-center text-primary">
@@ -156,8 +145,8 @@ export default async function TourPage({ params }: PageProps) {
                 <div className="lg:col-span-2 space-y-12">
 
                     {/* Overview / Description */}
-                    <section className="prose prose-lg prose-headings:font-serif prose-headings:font-bold prose-headings:uppercase prose-headings:tracking-tight prose-headings:text-foreground prose-p:text-muted-foreground prose-p:leading-loose prose-li:text-muted-foreground max-w-none">
-                        <h2 className="text-3xl font-serif font-bold uppercase tracking-tight text-foreground mb-8">Tour Overview</h2>
+                    <section className="prose prose-lg prose-headings:font-serif prose-headings:font-bold prose-headings: prose-headings: prose-headings:tracking-tight prose-headings:text-foreground prose-p:text-muted-foreground prose-p:leading-loose prose-li:text-muted-foreground max-w-none">
+                        <h2 className="text-3xl font-serif font-bold   tracking-tight text-foreground mb-8">Tour Overview</h2>
                         {typeof tour.description === 'string' ? (
                             <p className="mb-6">{tour.description}</p>
                         ) : (
@@ -228,7 +217,7 @@ export default async function TourPage({ params }: PageProps) {
                                     <div key={index} className="relative">
                                         <div className="absolute -left-[21px] top-0 w-4 h-4 bg-accent rounded-full border-2 border-[#fafaf8]" />
                                         <h3 className="font-heading text-base font-semibold text-primary">{stop.title}</h3>
-                                        <p className="font-mono text-xs text-muted-foreground mb-2 uppercase tracking-wide">{stop.duration}</p>
+                                        <p className="font-mono text-xs text-muted-foreground mb-2  tracking-wide">{stop.duration}</p>
                                         <p className="font-body text-sm text-muted-foreground leading-relaxed">{stop.description}</p>
                                     </div>
                                 ))}
@@ -284,7 +273,7 @@ export default async function TourPage({ params }: PageProps) {
                                     }
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center mt-3 font-mono text-xs text-accent hover:underline uppercase tracking-wide"
+                                    className="inline-flex items-center mt-3 font-mono text-xs text-accent hover:underline  tracking-wide"
                                 >
                                     <MapIcon className="w-4 h-4 mr-1" /> View on Map
                                 </a>
