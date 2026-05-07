@@ -31,30 +31,13 @@ const getStripeKey = (siteId: string) => {
     );
 };
 
-import { LucideIcon } from 'lucide-react';
-
-// Icon mapping from Sanity string to Lucide component
-const ICON_MAP: Record<string, LucideIcon> = {
-    MapPin,
-    Briefcase,
-    Star,
-    Sparkles,
-    Utensils,
-    Camera,
-    Shield,
-    User,
-    Gift,
-    Wifi,
-    Wine,
-};
-
 interface Tour {
     _id: string;
     title: string;
     slug: { current: string };
     price: number;
     duration: string;
-    mainImage?: { asset: { _ref: string; _type: string } };
+    mainImage?: any;
     category?: string;
     meetingPoint?: string;
     guestTypes?: Array<{ name: string; price: number; description?: string }>;
@@ -65,7 +48,6 @@ interface GuestDetail {
     type: string;
 }
 
-// Types
 interface BookingData {
     tour: Tour;
     date: string;
@@ -75,97 +57,18 @@ interface BookingData {
     guestDetails?: GuestDetail[];
 }
 
-interface AddOn {
-    id: string;
-    name: string;
-    description: string;
-    longDescription?: string;
-    price: number;
-    icon: string;
-    pricingType: 'perPerson' | 'perBooking' | 'perHour';
-    popular?: boolean;
-    category?: string;
-    image?: { asset: { _ref: string; _type: string } };
-    minHours?: number;
-    maxHours?: number;
-}
-
-const DEFAULT_ADDONS: AddOn[] = [
-    {
-        id: 'pickup',
-        name: 'Hotel Pickup Service',
-        description: 'Private transfer from your hotel to the meeting point. English-speaking driver.',
-        price: 45,
-        pricingType: 'perBooking',
-        icon: 'MapPin',
-        category: 'transport',
-        popular: true,
-    },
-    {
-        id: 'luggage',
-        name: 'Luggage Storage',
-        description: 'Secure, insured storage for your bags during the tour near the meeting point.',
-        price: 12,
-        pricingType: 'perBooking',
-        icon: 'Briefcase',
-        category: 'services',
-        popular: true,
-    },
-    {
-        id: 'priority',
-        name: 'VIP Priority Access',
-        description: 'Skip ALL lines including security. Direct entry with escort. Save 30+ minutes!',
-        price: 35,
-        pricingType: 'perBooking',
-        icon: 'Star',
-        category: 'experience',
-        popular: true,
-    },
-    {
-        id: 'lunch',
-        name: 'Authentic Roman Lunch',
-        description: '3-course lunch at a traditional Roman trattoria near the tour site. Includes wine!',
-        price: 55,
-        pricingType: 'perPerson',
-        icon: 'Utensils',
-        category: 'food',
-        popular: true,
-    },
-    {
-        id: 'photography',
-        name: 'Professional Photo Package',
-        description: 'Professional photographer captures your tour — 50+ edited photos delivered in 24h.',
-        price: 149,
-        pricingType: 'perBooking',
-        icon: 'Camera',
-        category: 'experience',
-        popular: false,
-    },
-];
-
-// Main Checkout Page Component
 function CheckoutContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const site = useSite();
     const siteId = site?.slug?.current || process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 
-    // Get booking data from URL
     const [bookingData, setBookingData] = useState<BookingData | null>(null);
     const [clientSecret, setClientSecret] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-
-    // Form states
     const [step, setStep] = useState(1);
-    const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
-    const [relatedTours, setRelatedTours] = useState<Tour[]>([]);
 
-    // Add-ons from Sanity
-    const [addons, setAddons] = useState<AddOn[]>([]);
-    const [addonsLoading, setAddonsLoading] = useState(true);
-
-    // Lead traveler
     const [leadTraveler, setLeadTraveler] = useState({
         firstName: '',
         lastName: '',
@@ -174,13 +77,7 @@ function CheckoutContent() {
         confirmEmail: '',
     });
 
-    // Guest details
     const [guests, setGuests] = useState<Array<{ name: string; type: string }>>([]);
-
-    // Hourly add-ons configuration
-    const [hourlyAddons, setHourlyAddons] = useState<Record<string, number>>({});
-
-    // Marketing
     const [marketing, setMarketing] = useState({
         source: '',
         emailOptIn: true,
@@ -188,75 +85,6 @@ function CheckoutContent() {
         specialRequests: '',
     });
 
-    // Helper functions
-    const calculateTotal = useCallback(() => {
-        if (!bookingData) return 0;
-        const totalGuestsCount = Object.values(bookingData?.guestCounts || {}).reduce((sum, count) => sum + (count || 0), 0);
-        const addOnsTotal = addons
-            .filter(a => selectedAddOns.includes(a.id))
-            .reduce((sum, a) => {
-                let price = a.price;
-                if (a.pricingType === 'perPerson') {
-                    price = a.price * totalGuestsCount;
-                } else if (a.pricingType === 'perHour') {
-                    const hours = hourlyAddons[a.id] || a.minHours || 3;
-                    price = a.price * hours;
-                }
-                return sum + price;
-            }, 0);
-        return bookingData.totalPrice + addOnsTotal;
-    }, [bookingData, addons, selectedAddOns, hourlyAddons]);
-
-    const getAddonPrice = useCallback((addon: AddOn) => {
-        const totalGuestsCount = Object.values(bookingData?.guestCounts || {}).reduce((sum, count) => sum + (count || 0), 0);
-        if (addon.pricingType === 'perPerson') {
-            return addon.price * totalGuestsCount;
-        } else if (addon.pricingType === 'perHour') {
-            const hours = hourlyAddons[addon.id] || addon.minHours || 3;
-            return addon.price * hours;
-        }
-        return addon.price;
-    }, [bookingData, hourlyAddons]);
-
-    const fetchRelatedTours = useCallback(async (category: string, excludeId: string) => {
-        try {
-            const query = `*[_type == "tour" && category == $category && _id != $excludeId && isActive == true][0...3] {
-                _id, title, slug, price, duration, mainImage, category
-            }`;
-            const tours = await client.fetch(query, { category, excludeId });
-            setRelatedTours(tours);
-        } catch (e) {
-            console.error('Failed to fetch related tours:', e);
-        }
-    }, []);
-
-    const fetchAddOns = useCallback(async () => {
-        try {
-            setAddonsLoading(true);
-            const response = await fetch(`/api/addons?site=${siteId}`);
-            if (!response.ok) throw new Error('Failed to fetch add-ons');
-            const data = await response.json();
-            const fetchedAddons = data.addons || [];
-            // Use defaults if API returned empty
-            if (fetchedAddons.length === 0) {
-                setAddons(DEFAULT_ADDONS);
-            } else {
-                // Ensure luggage is present
-                if (!fetchedAddons.find((a: AddOn) => a.id === 'luggage')) {
-                    fetchedAddons.push(DEFAULT_ADDONS.find(a => a.id === 'luggage')!);
-                }
-                setAddons(fetchedAddons);
-            }
-        } catch (e) {
-            console.error('Failed to fetch add-ons:', e);
-            // Fallback to defaults
-            setAddons(DEFAULT_ADDONS);
-        } finally {
-            setAddonsLoading(false);
-        }
-    }, [siteId]);
-
-    // Load booking data from URL and fetch related tours
     useEffect(() => {
         const data = searchParams.get('data');
         if (!data) {
@@ -269,30 +97,11 @@ function CheckoutContent() {
             const parsed = JSON.parse(decodeURIComponent(data));
             setBookingData(parsed);
 
-            // Hydrate state from previous step (BookingWidget Modal)
             if (parsed.guestDetails) {
-                const { leadTraveler: leadTravelerData, guests: guestDetails, marketing: marketingData } = parsed.guestDetails;
-
-                if (leadTravelerData) setLeadTraveler(prev => ({ ...prev, ...leadTravelerData }));
-
-                if (guestDetails) {
-                    const mappedGuests = guestDetails.map((g: any) => ({
-                        name: g.name,
-                        type: g.type
-                    }));
-                    setGuests(mappedGuests);
-                } else {
-                    const newGuests: Array<{ name: string; type: string }> = [];
-                    Object.entries(parsed.guestCounts).forEach(([type, count]) => {
-                        for (let i = 0; i < (count as number); i++) {
-                            newGuests.push({ name: '', type });
-                        }
-                    });
-                    setGuests(newGuests);
-                }
-
-                if (marketingData) setMarketing(prev => ({ ...prev, ...marketingData }));
-
+                const { leadTraveler: lt, guests: gs, marketing: mk } = parsed.guestDetails;
+                if (lt) setLeadTraveler(prev => ({ ...prev, ...lt }));
+                if (gs) setGuests(gs);
+                if (mk) setMarketing(prev => ({ ...prev, ...mk }));
             } else {
                 const newGuests: Array<{ name: string; type: string }> = [];
                 Object.entries(parsed.guestCounts).forEach(([type, count]) => {
@@ -302,41 +111,13 @@ function CheckoutContent() {
                 });
                 setGuests(newGuests);
             }
-
-            // Fetch related tours for upsell
-            fetchRelatedTours(parsed.tour?.category, parsed.tour?._id);
-
-            // Fetch add-ons from Sanity
-            fetchAddOns();
         } catch {
             setError('Invalid booking data');
             setLoading(false);
         }
-    }, [searchParams, fetchRelatedTours, fetchAddOns]);
+    }, [searchParams]);
 
     const createPaymentIntent = useCallback(async () => {
-        const totalGuestsCount = Object.values(bookingData?.guestCounts || {}).reduce((sum, count) => sum + (count || 0), 0);
-
-        const addOns = addons.filter(a => selectedAddOns.includes(a.id)).map(a => {
-            let price = a.price;
-            let quantity = 1;
-
-            if (a.pricingType === 'perPerson') {
-                quantity = totalGuestsCount;
-                price = a.price * quantity;
-            } else if (a.pricingType === 'perHour') {
-                quantity = hourlyAddons[a.id] || a.minHours || 3;
-                price = a.price * quantity;
-            }
-
-            return {
-                name: a.name,
-                price,
-                quantity,
-                pricingType: a.pricingType,
-            };
-        });
-
         try {
             const response = await fetch('/api/create-payment-intent', {
                 method: 'POST',
@@ -345,15 +126,14 @@ function CheckoutContent() {
                     'x-site-id': siteId,
                 },
                 body: JSON.stringify({
-                    amount: calculateTotal(),
+                    amount: bookingData!.totalPrice,
                     tourTitle: bookingData!.tour.title,
                     tourSlug: bookingData!.tour.slug.current,
                     meetingPoint: bookingData!.tour.meetingPoint || '',
                     date: bookingData!.date,
                     time: bookingData!.time,
-                    guests: totalGuestsCount,
+                    guests: Object.values(bookingData!.guestCounts).reduce((a, b) => a + (b || 0), 0),
                     guestCounts: bookingData!.guestCounts,
-                    addOns,
                     bookingDetails: {
                         leadTraveler,
                         guests,
@@ -363,71 +143,27 @@ function CheckoutContent() {
             });
 
             if (!response.ok) throw new Error('Failed to initialize payment');
-
             const data = await response.json();
             setClientSecret(data.clientSecret);
-        } catch (e: unknown) {
-            setError(e instanceof Error ? e.message : 'Payment initialization failed');
+        } catch (e: any) {
+            setError(e.message || 'Payment initialization failed');
         }
-    }, [bookingData, addons, selectedAddOns, hourlyAddons, siteId, leadTraveler, guests, marketing, calculateTotal]);
+    }, [bookingData, siteId, leadTraveler, guests, marketing]);
 
-    // Create payment intent when reaching payment step
     useEffect(() => {
         if (step === 3 && bookingData && !clientSecret) {
             createPaymentIntent();
         }
     }, [step, bookingData, clientSecret, createPaymentIntent]);
 
-    const validateStep = () => {
-        if (step === 1) {
-            if (!leadTraveler.firstName || !leadTraveler.lastName || !leadTraveler.email || !leadTraveler.phone) {
-                alert('Please fill in all lead traveler details');
-                return false;
-            }
-            if (leadTraveler.email !== leadTraveler.confirmEmail) {
-                alert('Email addresses do not match');
-                return false;
-            }
-            const missingNames = guests.some(g => !g.name.trim());
-            if (missingNames) {
-                alert('Please provide names for all guests');
-                return false;
-            }
-        }
-        return true;
-    };
-
-    const nextStep = () => {
-        if (validateStep()) setStep(s => Math.min(s + 1, 3));
-    };
-
-    const prevStep = () => setStep(s => Math.max(s - 1, 1));
-
-    const toggleAddOn = (id: string) => {
-        setSelectedAddOns(prev =>
-            prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
-        );
-    };
-
-    if (loading && !bookingData) {
-        return (
-            <div className="min-h-screen bg-muted flex items-center justify-center">
-                <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-muted-foreground">Loading checkout...</p>
-                </div>
-            </div>
-        );
-    }
-
     if (error || !bookingData) {
         return (
-            <div className="min-h-screen bg-muted flex items-center justify-center p-4">
-                <div className="bg-card rounded-2xl shadow-lg p-8 max-w-md w-full text-center">
-                    <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
-                    <h2 className="text-xl font-bold text-foreground mb-2">Something went wrong</h2>
+            <div className="min-h-screen bg-background flex items-center justify-center p-4 font-sans">
+                <div className="bg-card rounded-3xl shadow-xl p-8 max-w-md w-full text-center border border-border">
+                    <AlertTriangle className="w-16 h-16 text-accent mx-auto mb-4" />
+                    <h2 className="text-xl font-serif font-bold text-foreground mb-2">Something went wrong</h2>
                     <p className="text-muted-foreground mb-6">{error || 'Booking data not found'}</p>
-                    <Link href="/" className="inline-flex items-center gap-2 text-primary font-medium hover:underline">
+                    <Link href="/" className="inline-flex items-center gap-2 text-primary font-bold hover:underline">
                         <ArrowLeft className="w-4 h-4" /> Back to Home
                     </Link>
                 </div>
@@ -435,639 +171,245 @@ function CheckoutContent() {
         );
     }
 
-    const totalGuests = Object.values(bookingData?.guestCounts || {}).reduce((sum, count) => sum + (count || 0), 0);
+    const totalGuests = Object.values(bookingData.guestCounts).reduce((a, b) => a + (b || 0), 0);
     const stripeKey = getStripeKey(siteId);
     const stripePromise = loadStripe(stripeKey);
 
     return (
-        <div className="min-h-screen bg-muted checkout-scope">
+        <div className="min-h-screen bg-background font-sans">
             {/* Header */}
             <header className="bg-card border-b border-border sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2">
-                        {site?.logo ? (
-                            <Image src={urlFor(site.logo).url()} alt={site.title} width={120} height={40} className="h-8 w-auto" />
-                        ) : (
-                            <span className="text-xl font-bold text-foreground">{site?.title || 'Rome Tours'}</span>
-                        )}
+                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                            <span className="text-primary-foreground font-serif text-lg font-bold">G</span>
+                        </div>
+                        <span className="font-serif text-xl text-foreground font-bold">Golden Rome</span>
                     </Link>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <Lock className="w-4 h-4" />
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground bg-secondary/50 px-3 py-1.5 rounded-full border border-border">
+                        <Lock className="w-3 h-3 text-primary" />
                         <span>Secure Checkout</span>
                     </div>
                 </div>
             </header>
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Left Column - Forms */}
-                    <div className="lg:col-span-2 space-y-6">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <div className="lg:col-span-2 space-y-8">
                         {/* Progress Steps */}
-                        <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
-                            <div className="flex items-center justify-between">
-                                {[
-                                    { num: 1, label: 'Contact & Guests' },
-                                    { num: 2, label: 'Add-ons' },
-                                    { num: 3, label: 'Payment' },
-                                ].map((s, i) => (
-                                    <div key={s.num} className="flex items-center">
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${step >= s.num ? 'bg-primary text-primary-foreground' : 'bg-gray-100 text-muted-foreground'
-                                            }`}>
-                                            {step > s.num ? <Check className="w-5 h-5" /> : s.num}
-                                        </div>
-                                        <span className={`ml-2 text-sm font-medium hidden sm:block ${step >= s.num ? 'text-foreground' : 'text-muted-foreground'
-                                            }`}>
-                                            {s.label}
-                                        </span>
-                                        {i < 2 && <div className={`w-16 h-0.5 mx-3 ${step > s.num ? 'bg-primary' : 'bg-gray-200'}`} />}
+                        <div className="flex items-center justify-between bg-card rounded-2xl p-6 border border-border shadow-sm">
+                            {[
+                                { num: 1, label: 'Guests' },
+                                { num: 2, label: 'Add-ons' },
+                                { num: 3, label: 'Payment' },
+                            ].map((s, i) => (
+                                <div key={s.num} className="flex items-center">
+                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all ${
+                                        step >= s.num ? 'bg-primary text-primary-foreground' : 'bg-secondary text-muted-foreground'
+                                    }`}>
+                                        {step > s.num ? <Check className="w-4 h-4" /> : s.num}
                                     </div>
-                                ))}
-                            </div>
+                                    <span className={`ml-3 text-xs font-bold uppercase tracking-widest ${
+                                        step >= s.num ? 'text-foreground' : 'text-muted-foreground'
+                                    }`}>
+                                        {s.label}
+                                    </span>
+                                    {i < 2 && <div className={`w-12 h-px mx-4 ${step > s.num ? 'bg-primary' : 'bg-border'}`} />}
+                                </div>
+                            ))}
                         </div>
 
-                        {/* Step 1: Lead Traveler */}
                         {step === 1 && (
-                            <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
-                                <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-                                    <User className="w-5 h-5 text-primary" />
-                                    Lead Traveler Details
-                                </h2>
+                            <div className="space-y-8">
+                                <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                                    <h2 className="text-xl font-serif font-bold text-foreground mb-8 flex items-center gap-3 uppercase tracking-widest">
+                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <User className="w-5 h-5 text-primary" />
+                                        </div>
+                                        Lead Traveler Details
+                                    </h2>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-1">
-                                            First Name <span className="text-red-500">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            required
-                                            className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                                            value={leadTraveler.firstName}
-                                            onChange={e => setLeadTraveler({ ...leadTraveler, firstName: e.target.value })}
-                                            placeholder="As shown on ID"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-1">
-                                            Last Name <span className="text-red-500">*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            required
-                                            className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                                            value={leadTraveler.lastName}
-                                            onChange={e => setLeadTraveler({ ...leadTraveler, lastName: e.target.value })}
-                                            placeholder="As shown on ID"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-1">
-                                            Email Address <span className="text-red-500">*</span>
-                                        </label>
-                                        <div className="relative">
-                                            <Mail className="absolute left-3 top-3.5 text-muted-foreground w-5 h-5" />
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">First Name</label>
+                                            <input
+                                                type="text"
+                                                className="w-full px-5 py-4 bg-background border border-border rounded-2xl focus:ring-2 focus:ring-primary outline-none text-sm transition-all"
+                                                value={leadTraveler.firstName}
+                                                onChange={e => setLeadTraveler({ ...leadTraveler, firstName: e.target.value })}
+                                                placeholder="John"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Last Name</label>
+                                            <input
+                                                type="text"
+                                                className="w-full px-5 py-4 bg-background border border-border rounded-2xl focus:ring-2 focus:ring-primary outline-none text-sm transition-all"
+                                                value={leadTraveler.lastName}
+                                                onChange={e => setLeadTraveler({ ...leadTraveler, lastName: e.target.value })}
+                                                placeholder="Doe"
+                                            />
+                                        </div>
+                                        <div className="space-y-2 md:col-span-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">Email Address</label>
                                             <input
                                                 type="email"
-                                                required
-                                                className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                                className="w-full px-5 py-4 bg-background border border-border rounded-2xl focus:ring-2 focus:ring-primary outline-none text-sm transition-all"
                                                 value={leadTraveler.email}
                                                 onChange={e => setLeadTraveler({ ...leadTraveler, email: e.target.value })}
-                                                placeholder="your@email.com"
+                                                placeholder="john@example.com"
+                                            />
+                                        </div>
+                                        <div className="md:col-span-2">
+                                            <PhoneInput
+                                                label="Phone Number"
+                                                value={leadTraveler.phone}
+                                                onChange={(val) => setLeadTraveler({ ...leadTraveler, phone: val })}
+                                                className="w-full"
                                             />
                                         </div>
                                     </div>
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-1">
-                                            Confirm Email <span className="text-red-500">*</span>
-                                        </label>
-                                        <div className="relative">
-                                            <Mail className="absolute left-3 top-3.5 text-muted-foreground w-5 h-5" />
-                                            <input
-                                                type="email"
-                                                required
-                                                className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                                                value={leadTraveler.confirmEmail || ''}
-                                                onChange={e => setLeadTraveler({ ...leadTraveler, confirmEmail: e.target.value })}
-                                                placeholder="Repeat email"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="md:col-span-2">
-                                        <PhoneInput
-                                            label="Phone Number"
-                                            value={leadTraveler.phone}
-                                            onChange={(value) => setLeadTraveler({ ...leadTraveler, phone: value })}
-                                            placeholder="234 567 890"
-                                            required
-                                            className="w-full"
-                                        />
-                                        <p className="text-xs text-muted-foreground mt-1">For urgent tour updates or emergencies</p>
-                                    </div>
                                 </div>
 
-                                <div className="mt-6 p-4 bg-amber-50 rounded-lg border border-amber-100">
-                                    <div className="flex items-start gap-3">
-                                        <Info className="w-5 h-5 text-amber-600 mt-0.5" />
-                                        <div>
-                                            <p className="text-sm text-amber-800 font-medium">Important</p>
-                                            <p className="text-sm text-amber-700">Names must match your ID/Passport exactly. Security checks are strict at Vatican and Colosseum.</p>
+                                <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                                    <h2 className="text-xl font-serif font-bold text-foreground mb-8 flex items-center gap-3 uppercase tracking-widest">
+                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                            <Users className="w-5 h-5 text-primary" />
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Guest Names (merged into Step 1) */}
-                        {step === 1 && guests.length > 0 && (
-                            <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
-                                <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-                                    <Users className="w-5 h-5 text-primary" />
-                                    Guest Names ({totalGuests})
-                                </h2>
-
-                                <div className="space-y-3">
-                                    {guests.map((guest, idx) => (
-                                        <div key={idx} className="flex items-center gap-4 p-4 bg-muted rounded-lg">
-                                            <div className="w-8 h-8 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold text-sm">
-                                                {idx + 1}
-                                            </div>
-                                            <div className="flex-1">
+                                        Guest List
+                                    </h2>
+                                    <div className="space-y-4">
+                                        {guests.map((guest, idx) => (
+                                            <div key={idx} className="flex items-center gap-4 p-4 bg-secondary/30 rounded-2xl border border-border">
+                                                <div className="w-8 h-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center font-bold text-xs shrink-0">
+                                                    {idx + 1}
+                                                </div>
                                                 <input
                                                     type="text"
-                                                    required
-                                                    className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
+                                                    className="flex-1 px-4 py-3 bg-background border border-border rounded-xl outline-none text-sm focus:ring-1 focus:ring-primary transition-all"
                                                     value={guest.name}
                                                     onChange={e => {
                                                         const newGuests = [...guests];
                                                         newGuests[idx].name = e.target.value;
                                                         setGuests(newGuests);
                                                     }}
-                                                    placeholder={`${guest.type} name as on ID`}
+                                                    placeholder={`${guest.type} Name`}
                                                 />
+                                                <span className="text-[10px] font-bold uppercase tracking-widest text-accent bg-accent/10 px-3 py-1.5 rounded-full shrink-0">
+                                                    {guest.type}
+                                                </span>
                                             </div>
-                                            <span className={`text-xs font-bold px-2 py-1 rounded ${guest.type === 'Adult' ? 'bg-blue-100 text-blue-700' :
-                                                guest.type === 'Student' ? 'bg-orange-100 text-orange-700' :
-                                                    'bg-purple-100 text-purple-700'
-                                                }`}>
-                                                {guest.type}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Step 3: Add-ons + Related Tours */}
-                        {step === 2 && (
-                            <div className="space-y-6">
-                                {/* Add-ons - DISABLED: You can add your own add-ons through Sanity Studio */}
-                                {/*
-                                <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
-                                    <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
-                                        <Sparkles className="w-5 h-5 text-primary" />
-                                        Enhance Your Experience
-                                    </h2>
-                                    <p className="text-muted-foreground text-sm mb-6">Add these optional extras to make your tour even better</p>
-
-                                    {addonsLoading ? (
-                                        <div className="flex items-center justify-center py-8">
-                                            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                                        </div>
-                                    ) : addons.length === 0 ? (
-                                        <div className="text-center py-8 text-muted-foreground">
-                                            <p>No add-ons available for this tour.</p>
-                                        </div>
-                                    ) : (
-                                        <div className="space-y-3">
-                                            {addons.filter(a => a.id !== 'luggage').map(addon => {
-                                                const Icon = ICON_MAP[addon.icon] || Sparkles;
-                                                const isSelected = selectedAddOns.includes(addon.id);
-                                                const displayPrice = getAddonPrice(addon);
-                                                const selectedHours = hourlyAddons[addon.id] || addon.minHours || 3;
-
-                                                return (
-                                                    <div
-                                                        key={addon.id}
-                                                        className={`p-4 rounded-xl border-2 transition-all ${isSelected
-                                                            ? 'border-primary bg-secondary'
-                                                            : 'border-border hover:border-emerald-200'
-                                                            }`}
-                                                    >
-                                                        <div
-                                                            onClick={() => toggleAddOn(addon.id)}
-                                                            className="flex items-start gap-4 cursor-pointer"
-                                                        >
-                                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${isSelected ? 'bg-primary text-white' : 'bg-gray-100 text-muted-foreground'
-                                                                }`}>
-                                                                {addon.image ? (
-                                                                    <Image
-                                                                        src={urlFor(addon.image).width(48).height(48).url()}
-                                                                        alt={addon.name}
-                                                                        width={48}
-                                                                        height={48}
-                                                                        className="w-full h-full object-cover rounded-xl"
-                                                                    />
-                                                                ) : (
-                                                                    <Icon className="w-6 h-6" />
-                                                                )}
-                                                            </div>
-                                                            <div className="flex-1 min-w-0">
-                                                                <div className="flex items-center justify-between gap-2">
-                                                                    <h3 className="font-semibold text-foreground flex items-center gap-2">
-                                                                        {addon.name}
-                                                                        {addon.popular && (
-                                                                            <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">
-                                                                                Popular
-                                                                            </span>
-                                                                        )}
-                                                                    </h3>
-                                                                    <span className="font-bold text-primary shrink-0">
-                                                                        +€{displayPrice.toFixed(2)}
-                                                                    </span>
-                                                                </div>
-                                                                <p className="text-sm text-muted-foreground mt-1">{addon.description}</p>
-                                                                <p className="text-xs text-muted-foreground mt-1">
-                                                                    {addon.pricingType === 'perPerson' && `€${addon.price} per person × ${totalGuests} guests`}
-                                                                    {addon.pricingType === 'perHour' && `€${addon.price} per hour`}
-                                                                    {addon.pricingType === 'perBooking' && `Flat rate`}
-                                                                </p>
-                                                            </div>
-                                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-primary bg-primary' : 'border-gray-300'
-                                                                }`}>
-                                                                {isSelected && <Check className="w-4 h-4 text-white" />}
-                                                            </div>
-                                                        </div>
-
-                                                        {/* Hourly Pricing Selector *\/}
-                                                        {isSelected && addon.pricingType === 'perHour' && (
-                                                            <div className="mt-4 pt-4 border-t border-emerald-200" onClick={e => e.stopPropagation()}>
-                                                                <div className="flex items-center justify-between mb-2">
-                                                                    <span className="text-sm font-medium text-foreground">Number of hours:</span>
-                                                                    <span className="text-lg font-bold text-primary">{selectedHours} hrs</span>
-                                                                </div>
-                                                                <input
-                                                                    type="range"
-                                                                    min={addon.minHours || 1}
-                                                                    max={addon.maxHours || 12}
-                                                                    step={1}
-                                                                    value={selectedHours}
-                                                                    onChange={(e) => {
-                                                                        const hours = parseInt(e.target.value);
-                                                                        setHourlyAddons(prev => ({ ...prev, [addon.id]: hours }));
-                                                                    }}
-                                                                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
-                                                                />
-                                                                <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                                                                    <span>{addon.minHours || 1}h</span>
-                                                                    <span>{addon.maxHours || 12}h</span>
-                                                                </div>
-                                                                <div className="mt-3 flex items-center justify-between bg-card rounded-lg p-3 border border-emerald-200">
-                                                                    <span className="text-sm text-muted-foreground">Price for {selectedHours} hours:</span>
-                                                                    <span className="text-lg font-bold text-primary">€{(addon.price * selectedHours).toFixed(2)}</span>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-                                    )}
-                                </div>
-                                */}
-
-                                {/* Related Tours / Upsell */}
-                                {relatedTours.length > 0 && (
-                                    <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
-                                        <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
-                                            <Star className="w-5 h-5 text-amber-500" />
-                                            You Might Also Like
-                                        </h2>
-                                        <p className="text-muted-foreground text-sm mb-6">Customers who booked this tour also enjoyed these</p>
-
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            {relatedTours.map((tour: Tour) => (
-                                                <Link
-                                                    key={tour._id}
-                                                    href={`/tour/${tour.slug.current}`}
-                                                    className="group block border border-border rounded-xl overflow-hidden hover:shadow-md transition-shadow"
-                                                >
-                                                    <div className="relative h-32 bg-gray-100">
-                                                        {tour.mainImage && (
-                                                            <Image
-                                                                src={urlFor(tour.mainImage).width(400).height(200).url()}
-                                                                alt={tour.title}
-                                                                fill
-                                                                className="object-cover group-hover:scale-105 transition-transform"
-                                                            />
-                                                        )}
-                                                        <div className="absolute top-2 right-2 bg-card/90 backdrop-blur px-2 py-1 rounded-lg text-xs font-bold">
-                                                            €{tour.price}
-                                                        </div>
-                                                    </div>
-                                                    <div className="p-4">
-                                                        <h3 className="font-semibold text-foreground line-clamp-1">{tour.title}</h3>
-                                                        <p className="text-xs text-muted-foreground mt-1">{tour.duration}</p>
-                                                    </div>
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Marketing Preferences */}
-                                <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
-                                    <h2 className="text-lg font-bold text-foreground mb-4">Stay Connected</h2>
-
-                                    <div className="space-y-3">
-                                        <div className="flex items-start gap-3">
-                                            <input
-                                                type="checkbox"
-                                                id="emailOptIn"
-                                                className="mt-1 w-5 h-5 text-primary rounded focus:ring-primary"
-                                                checked={marketing.emailOptIn}
-                                                onChange={e => setMarketing({ ...marketing, emailOptIn: e.target.checked })}
-                                            />
-                                            <div>
-                                                <label htmlFor="emailOptIn" className="block text-sm font-medium text-foreground">
-                                                    Send me exclusive discounts and Rome travel tips
-                                                </label>
-                                                <p className="text-xs text-muted-foreground">Get 10% off your next booking!</p>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex items-start gap-3">
-                                            <input
-                                                type="checkbox"
-                                                id="smsOptIn"
-                                                className="mt-1 w-5 h-5 text-primary rounded focus:ring-primary"
-                                                checked={marketing.smsOptIn}
-                                                onChange={e => setMarketing({ ...marketing, smsOptIn: e.target.checked })}
-                                            />
-                                            <div>
-                                                <label htmlFor="smsOptIn" className="block text-sm font-medium text-foreground">
-                                                    Send me SMS reminders about my tour
-                                                </label>
-                                                <p className="text-xs text-muted-foreground">24-hour reminder + meeting point details</p>
-                                            </div>
-                                        </div>
-
-
-                                        <div>
-                                            <label className="block text-sm font-medium text-foreground mb-1">
-                                                Special Requests / Notes
-                                            </label>
-                                            <textarea
-                                                rows={3}
-                                                className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary outline-none"
-                                                value={marketing.specialRequests}
-                                                onChange={e => setMarketing({ ...marketing, specialRequests: e.target.value })}
-                                                placeholder="Any special requirements or questions for your guide..."
-                                            />
-                                        </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
                         )}
 
-                        {/* Step 3: Payment */}
                         {step === 3 && (
-                            <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
-                                <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-                                    <CreditCard className="w-5 h-5 text-primary" />
+                            <div className="bg-card rounded-3xl p-8 border border-border shadow-sm">
+                                <h2 className="text-xl font-serif font-bold text-foreground mb-8 flex items-center gap-3 uppercase tracking-widest">
+                                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                                        <CreditCard className="w-5 h-5 text-primary" />
+                                    </div>
                                     Secure Payment
                                 </h2>
-
                                 {!clientSecret ? (
-                                    <div className="flex items-center justify-center py-12">
-                                        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                                    <div className="flex flex-col items-center justify-center py-20 bg-secondary/20 rounded-2xl border-2 border-dashed border-border">
+                                        <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4" />
+                                        <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Initializing Security Protocol...</span>
                                     </div>
                                 ) : (
-                                    <Elements stripe={stripePromise} options={{
-                                        clientSecret,
-                                        appearance: { theme: 'stripe' },
-                                    }}>
-                                        <PaymentForm
-                                            totalAmount={calculateTotal()}
-                                            onSuccess={(paymentIntentId) => router.push(`/success?payment_intent=${paymentIntentId}`)}
-                                        />
+                                    <Elements stripe={stripePromise} options={{ clientSecret }}>
+                                        <PaymentForm totalAmount={bookingData.totalPrice} />
                                     </Elements>
                                 )}
                             </div>
                         )}
 
-                        {/* Navigation Buttons */}
-                        <div className="flex items-center justify-between">
-                            {step > 1 ? (
-                                <button
-                                    onClick={prevStep}
-                                    className="px-6 py-3 text-muted-foreground font-medium hover:text-foreground transition-colors"
-                                >
-                                    ← Back
-                                </button>
-                            ) : (
-                                <Link
-                                    href={`/tour/${bookingData.tour.slug.current}`}
-                                    className="px-6 py-3 text-muted-foreground font-medium hover:text-foreground transition-colors"
-                                >
-                                    ← Cancel
-                                </Link>
-                            )}
-
+                        <div className="flex items-center justify-between pt-4">
+                            <button 
+                                onClick={() => step > 1 ? setStep(step - 1) : router.back()}
+                                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all"
+                            >
+                                <ArrowLeft className="w-4 h-4" /> Back
+                            </button>
                             {step < 3 && (
-                                <button
-                                    onClick={nextStep}
-                                    className="ml-auto px-8 py-4 bg-primary hover:opacity-90 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+                                <button 
+                                    onClick={() => setStep(step + 1)}
+                                    className="px-10 py-5 bg-primary text-primary-foreground rounded-full font-bold uppercase tracking-widest text-xs shadow-xl shadow-primary/20 hover:opacity-90 transition-all flex items-center gap-3"
                                 >
-                                    Continue
-                                    <ChevronRight className="w-5 h-5" />
+                                    Proceed to {step === 1 ? 'Add-ons' : 'Payment'}
+                                    <ChevronRight className="w-4 h-4" />
                                 </button>
                             )}
                         </div>
                     </div>
 
-                    {/* Right Column - Enhanced Order Summary (Stripe-style) */}
+                    {/* Sidebar Summary */}
                     <div className="lg:col-span-1">
-                        <div className="sticky top-24 space-y-4">
-                            {/* Main Order Summary Card */}
-                            <div className="bg-muted rounded-xl p-6 shadow-sm border border-border">
-                                {/* Tour Header */}
-                                <div className="flex gap-4 mb-6 pb-6 border-b border-border">
-                                    <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-card shrink-0 border border-border">
-                                        {bookingData.tour.mainImage ? (
-                                            <Image
-                                                src={urlFor(bookingData.tour.mainImage).width(200).height(200).url()}
-                                                alt={bookingData.tour.title}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                                                <Calendar className="w-8 h-8 text-muted-foreground" />
-                                            </div>
-                                        )}
-                                        <div className="absolute top-1 left-1 bg-gray-900 text-white text-xs font-bold px-2 py-0.5 rounded">
-                                            Tour
-                                        </div>
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="font-bold text-foreground text-lg leading-tight">{bookingData.tour.title}</h4>
-                                        <div className="mt-2 space-y-1">
-                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                                <Calendar className="w-4 h-4 text-muted-foreground" />
-                                                {format(parseISO(bookingData.date), 'EEEE, MMMM d, yyyy')}
-                                            </div>
-                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                                <Clock className="w-4 h-4 text-muted-foreground" />
-                                                {bookingData.time}
-                                            </div>
-                                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                                <Users className="w-4 h-4 text-muted-foreground" />
-                                                {totalGuests} guests ({Object.entries(bookingData.guestCounts)
-                                                    .filter(([, count]) => count > 0)
-                                                    .map(([type, count]) => `${count} ${type}`)
-                                                    .join(', ')})
-                                            </div>
-                                            {bookingData.tour.meetingPoint && (
-                                                <div className="flex flex-col gap-1 pt-1 mt-1 border-t border-border">
-                                                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                                                        <MapPin className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
-                                                        <span className="leading-tight">{bookingData.tour.meetingPoint}</span>
-                                                    </div>
-                                                    <a
-                                                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(bookingData.tour.meetingPoint + ' Rome')}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="text-xs text-primary font-bold hover:underline ml-6"
-                                                    >
-                                                        View on Map
-                                                    </a>
-                                                </div>
+                        <div className="sticky top-32 space-y-6">
+                            <div className="bg-secondary/40 backdrop-blur-md rounded-3xl p-8 border border-border shadow-xl relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl" />
+                                
+                                <h3 className="text-lg font-serif font-bold text-foreground mb-6 uppercase tracking-widest flex items-center gap-2">
+                                    <Sparkles className="w-4 h-4 text-primary" />
+                                    Order Evaluation
+                                </h3>
+
+                                <div className="space-y-6">
+                                    <div className="flex gap-4">
+                                        <div className="w-20 h-20 rounded-2xl overflow-hidden bg-card border border-border shrink-0">
+                                            {bookingData.tour.mainImage && (
+                                                <img 
+                                                    src={urlFor(bookingData.tour.mainImage).width(200).height(200).url()} 
+                                                    alt={bookingData.tour.title}
+                                                    className="w-full h-full object-cover"
+                                                />
                                             )}
                                         </div>
-                                    </div>
-                                </div>
-
-                                {/* Pricing Breakdown */}
-                                <div className="space-y-3">
-                                    <h5 className="text-xs font-bold text-muted-foreground  tracking-wide">Tour Price</h5>
-
-                                    {Object.entries(bookingData.guestCounts).map(([type, count]) => {
-                                        if (count <= 0) return null;
-                                        const guestType = (bookingData.tour.guestTypes || []).find((gt: { name: string; price: number }) => gt.name === type);
-                                        const typePrice = guestType?.price || bookingData.tour.price;
-
-                                        return (
-                                            <div key={type} className="flex justify-between items-center">
-                                                <span className="text-sm text-muted-foreground">
-                                                    {type} × {count}
-                                                    <span className="text-muted-foreground ml-1">@ €{typePrice} each</span>
-                                                </span>
-                                                <span className="text-sm font-medium text-foreground">€{(count * typePrice).toFixed(2)}</span>
+                                        <div>
+                                            <h4 className="font-bold text-sm text-foreground line-clamp-2 uppercase leading-tight mb-2">{bookingData.tour.title}</h4>
+                                            <div className="space-y-1.5">
+                                                <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground uppercase">
+                                                    <Calendar className="w-3 h-3" /> {format(parseISO(bookingData.date), 'MMM dd, yyyy')}
+                                                </div>
+                                                <div className="flex items-center gap-2 text-[10px] font-bold text-muted-foreground uppercase">
+                                                    <Clock className="w-3 h-3" /> {bookingData.time}
+                                                </div>
                                             </div>
-                                        );
-                                    })}
-
-                                    <div className="flex justify-between items-center pt-2 border-t border-border">
-                                        <span className="text-sm font-semibold text-foreground">Subtotal</span>
-                                        <span className="text-sm font-semibold text-foreground">€{bookingData.totalPrice.toFixed(2)}</span>
-                                    </div>
-                                </div>
-
-                                {/* Add-ons Breakdown */}
-                                {selectedAddOns.length > 0 && (
-                                    <div className="mt-6 pt-6 border-t border-border">
-                                        <h5 className="text-xs font-bold text-muted-foreground  tracking-wide mb-3">Add-ons & Extras</h5>
-                                        <div className="space-y-3">
-                                            {addons.filter(a => selectedAddOns.includes(a.id)).map(addon => {
-                                                const price = getAddonPrice(addon);
-                                                return (
-                                                    <div key={addon.id} className="flex justify-between items-start">
-                                                        <div className="flex-1">
-                                                            <span className="text-sm text-foreground font-medium">{addon.name}</span>
-                                                            <p className="text-xs text-muted-foreground mt-0.5">
-                                                                {addon.pricingType === 'perPerson' && `${totalGuests} person × €${addon.price}`}
-                                                                {addon.pricingType === 'perHour' && `${hourlyAddons[addon.id] || addon.minHours || 3} hours × €${addon.price}/hr`}
-                                                                {addon.pricingType === 'perBooking' && 'Flat rate'}
-                                                            </p>
-                                                        </div>
-                                                        <span className="text-sm font-medium text-foreground ml-4">€{price.toFixed(2)}</span>
-                                                    </div>
-                                                );
-                                            })}
-                                        </div>
-
-                                        <div className="flex justify-between items-center pt-3 mt-3 border-t border-border">
-                                            <span className="text-sm font-semibold text-foreground">Add-ons Subtotal</span>
-                                            <span className="text-sm font-semibold text-foreground">
-                                                €{(calculateTotal() - bookingData.totalPrice).toFixed(2)}
-                                            </span>
                                         </div>
                                     </div>
-                                )}
 
-                                {/* Total */}
-                                <div className="mt-6 pt-6 border-t-2 border-gray-300">
-                                    <div className="flex justify-between items-center">
-                                        <div>
-                                            <span className="text-base font-bold text-foreground">Total</span>
-                                            <p className="text-xs text-muted-foreground">Including VAT & fees</p>
-                                        </div>
-                                        <span className="text-3xl font-bold text-primary">€{calculateTotal().toFixed(2)}</span>
+                                    <div className="space-y-3 pt-6 border-t border-border">
+                                        {Object.entries(bookingData.guestCounts).map(([type, count]) => (
+                                            count > 0 && (
+                                                <div key={type} className="flex justify-between text-xs font-bold uppercase tracking-widest">
+                                                    <span className="text-muted-foreground">{count} × {type}</span>
+                                                    <span className="text-foreground">€{(count * (bookingData.tour.guestTypes?.find(gt => gt.name === type)?.price || bookingData.tour.price)).toFixed(2)}</span>
+                                                </div>
+                                            )
+                                        ))}
                                     </div>
-                                </div>
 
-                                {/* Cancellation info */}
-                                <div className="mt-4 p-3 bg-muted rounded-lg border border-border">
-                                    <div className="flex items-start gap-2">
-                                        <Check className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
-                                        <div>
-                                            <p className="text-sm text-gray-800 font-medium">Free cancellation</p>
-                                            <p className="text-xs text-muted-foreground">Cancel up to 24 hours before for full refund</p>
+                                    <div className="pt-6 border-t-2 border-border flex justify-between items-end">
+                                        <div className="space-y-1">
+                                            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Total Valuation</span>
+                                            <div className="text-4xl font-serif font-bold text-foreground tracking-tighter">€{bookingData.totalPrice.toFixed(2)}</div>
                                         </div>
+                                        <div className="text-[10px] font-bold text-primary bg-primary/10 px-3 py-1 rounded-full uppercase tracking-widest mb-2">EUR</div>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Trust Badges */}
-                            <div className="bg-card rounded-xl p-5 shadow-sm border border-border">
-                                <p className="text-xs font-bold text-muted-foreground  tracking-wide mb-4">Secure Checkout</p>
-                                <div className="space-y-2">
-                                    <div className="flex items-center gap-3">
-                                        <div className="flex items-center gap-2 bg-muted px-3 py-2 rounded-lg border border-border">
-                                            <Shield className="w-4 h-4 text-muted-foreground" />
-                                            <span className="text-xs font-bold text-foreground">SSL 256-bit</span>
-                                        </div>
-                                        <span className="text-xs text-muted-foreground">Encrypted</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <div className="flex items-center gap-2 bg-muted px-3 py-2 rounded-lg border border-border">
-                                            <Lock className="w-4 h-4 text-muted-foreground" />
-                                            <span className="text-xs font-bold text-foreground">PCI DSS</span>
-                                        </div>
-                                        <span className="text-xs text-muted-foreground">Compliant</span>
-                                    </div>
-                                    <div className="flex items-center gap-3">
-                                        <div className="bg-gray-900 px-3 py-2 rounded-lg">
-                                            <span className="text-white text-xs font-bold tracking-wide">stripe</span>
-                                        </div>
-                                        <span className="text-xs text-muted-foreground">Powered by Stripe</span>
-                                    </div>
+                            <div className="bg-card rounded-2xl p-6 border border-border shadow-sm space-y-4">
+                                <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                                    <Shield className="w-5 h-5 text-accent" />
+                                    <span>24h Revocation Protocol</span>
                                 </div>
-                                <div className="mt-4 pt-4 border-t border-border">
-                                    <p className="text-xs text-muted-foreground mb-2">Accepted payments</p>
-                                    <PaymentLogos size="sm" />
+                                <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                                    <Star className="w-5 h-5 text-primary" />
+                                    <span>Verified Guest Archive</span>
                                 </div>
-                            </div>
-
-                            {/* Help Box */}
-                            <div className="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-xl p-5 text-white">
-                                <p className="text-base font-bold">Need help?</p>
-                                <p className="text-emerald-100 text-sm mt-1">Our team is available 7 days a week</p>
-                                <a href={`tel:${(site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '').replace(/\s/g, '')}`} className="flex items-center gap-2 mt-3 text-lg font-bold hover:underline">
-                                    <Phone className="w-5 h-5" />
-                                    {site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || ''}
-                                </a>
-                                <p className="text-emerald-200 text-xs mt-2">8am – 8pm Rome time (CET)</p>
                             </div>
                         </div>
                     </div>
@@ -1077,118 +419,63 @@ function CheckoutContent() {
     );
 }
 
-// Payment Form Component
-function PaymentForm({ totalAmount, onSuccess }: {
-    totalAmount: number;
-    onSuccess: (paymentIntentId: string) => void;
-}) {
+function PaymentForm({ totalAmount }: { totalAmount: number }) {
     const stripe = useStripe();
     const elements = useElements();
     const [isProcessing, setIsProcessing] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
     const [policyAccepted, setPolicyAccepted] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-
-        if (!stripe || !elements) return;
-        if (!policyAccepted) {
-            setErrorMessage('Please accept our policies to continue.');
-            return;
-        }
-
+        if (!stripe || !elements || !policyAccepted) return;
         setIsProcessing(true);
-        setErrorMessage('');
-
-        const { error, paymentIntent } = await stripe.confirmPayment({
+        const { error } = await stripe.confirmPayment({
             elements,
-            confirmParams: {
-                return_url: `${window.location.origin}/success`,
-            },
-            redirect: 'if_required',
+            confirmParams: { return_url: `${window.location.origin}/success` },
         });
-
-        if (error) {
-            setErrorMessage(error.message || 'Payment failed');
-            setIsProcessing(false);
-        } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-            onSuccess(paymentIntent.id);
-        }
+        if (error) setIsProcessing(false);
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Policy Checkbox */}
-            <div className="p-4 bg-muted border border-border rounded-xl">
-                <div className="flex items-start gap-3">
-                    <input
-                        type="checkbox"
-                        id="policyAcceptance"
-                        className="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
-                        checked={policyAccepted}
-                        onChange={(e) => setPolicyAccepted(e.target.checked)}
-                    />
-                    <label htmlFor="policyAcceptance" className="text-sm text-muted-foreground leading-relaxed cursor-pointer select-none">
-                        I agree to the{' '}
-                        <Link href="/terms-and-conditions" target="_blank" className="text-foreground font-semibold hover:underline">Terms & Conditions</Link>,{' '}
-                        <Link href="/privacy-policy" target="_blank" className="text-foreground font-semibold hover:underline">Privacy Policy</Link>, and{' '}
-                        <Link href="/cancellation-policy" target="_blank" className="text-foreground font-semibold hover:underline">Cancellation Policy</Link>.
-                    </label>
-                </div>
+        <form onSubmit={handleSubmit} className="space-y-8">
+            <PaymentElement options={{ layout: 'tabs' }} />
+            
+            <div className="p-5 bg-secondary/30 rounded-2xl border border-border flex items-start gap-4">
+                <input 
+                    type="checkbox" 
+                    id="policy" 
+                    className="mt-1 w-4 h-4 rounded text-primary focus:ring-primary cursor-pointer"
+                    checked={policyAccepted}
+                    onChange={e => setPolicyAccepted(e.target.checked)}
+                />
+                <label htmlFor="policy" className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground leading-relaxed cursor-pointer select-none">
+                    I acknowledge and agree to the <span className="text-foreground underline">Protocol Terms</span>, <span className="text-foreground underline">Privacy Directives</span>, and <span className="text-foreground underline">Revocation Policy</span>.
+                </label>
             </div>
-
-            <PaymentElement
-                options={{
-                    layout: { type: 'tabs', defaultCollapsed: false },
-                    paymentMethodOrder: ['card', 'paypal', 'apple_pay', 'revolut_pay', 'google_pay', 'klarna', 'link'],
-                }}
-            />
-
-            {errorMessage && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 shrink-0" />
-                    {errorMessage}
-                </div>
-            )}
 
             <button
                 type="submit"
                 disabled={!stripe || isProcessing || !policyAccepted}
-                className={`w-full py-4 rounded-xl transition-all flex items-center justify-center gap-2 font-bold text-base ${
-                    !stripe || isProcessing || !policyAccepted
-                        ? 'bg-gray-200 text-muted-foreground cursor-not-allowed'
-                        : 'bg-primary hover:opacity-90 text-white shadow-md shadow-emerald-200 active:scale-95'
+                className={`w-full py-6 rounded-full font-bold uppercase tracking-widest text-xs transition-all shadow-xl flex items-center justify-center gap-3 ${
+                    !stripe || isProcessing || !policyAccepted 
+                        ? 'bg-secondary text-muted-foreground cursor-not-allowed border border-border' 
+                        : 'bg-primary text-primary-foreground hover:opacity-90 shadow-primary/20'
                 }`}
             >
-                {isProcessing ? (
+                {isProcessing ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : (
                     <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Processing...
-                    </>
-                ) : (
-                    <>
-                        <Lock className="w-5 h-5" />
-                        Pay €{totalAmount.toFixed(2)} Securely
+                        <Lock className="w-4 h-4" />
+                        Authorize Payment • €{totalAmount.toFixed(2)}
                     </>
                 )}
             </button>
-
-            <div className="flex items-center justify-center gap-2 text-muted-foreground text-xs pt-2">
-                <Lock className="w-3 h-3" />
-                <span>Secured by Stripe · SSL encrypted · PCI DSS compliant</span>
-            </div>
         </form>
     );
 }
 
-// Main page with Suspense
 export default function CheckoutPage() {
     return (
-        <Suspense fallback={
-            <div className="min-h-screen bg-muted flex items-center justify-center">
-                <LoadingWithFacts />
-            </div>
-        }>
+        <Suspense fallback={<LoadingWithFacts />}>
             <CheckoutContent />
         </Suspense>
     );

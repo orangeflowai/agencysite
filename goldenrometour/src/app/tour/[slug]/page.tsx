@@ -1,11 +1,10 @@
-
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Clock, Users, Calendar, Check, Star, MapPin, Map as MapIcon, Info, XCircle, CheckCircle } from 'lucide-react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import VaticanHeader from '@/components/vatican/header';
+import VaticanFooter from '@/components/vatican/footer';
+import VaticanTourHeroFull from '@/components/vatican/tour-hero-full';
 import BookingWidget from '@/components/BookingWidget';
-import TourHeroSlider from '@/components/TourHeroSlider';
 import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
 import { PortableText } from '@portabletext/react';
 import { Metadata } from 'next';
@@ -23,11 +22,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     if (!tour) return { title: 'Tour Not Found' };
 
-    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour';
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Vatican Archives';
     const title = `${tour.title} | ${siteName}`;
     const description = tour.description 
-        ? (typeof tour.description === 'string' ? tour.description.slice(0, 160) : 'Book your exclusive skip-the-line tour in Rome.')
-        : `Experience ${tour.title} with expert guides.`;
+        ? (typeof tour.description === 'string' ? tour.description.slice(0, 160) : 'Book your exclusive Vatican skip-the-line tour with art historians.')
+        : `Experience ${tour.title} with expert Vatican guides.`;
 
     const imageUrl = tour.mainImage ? urlFor(tour.mainImage).width(1200).height(630).url() : '';
 
@@ -59,7 +58,8 @@ export default async function TourPage({ params }: PageProps) {
     const { slug } = await params;
     const tour = await getTour(slug);
 
-    if (!tour) {
+    // Vatican-only validation for goldenrometour
+    if (!tour || (process.env.NEXT_PUBLIC_SITE_ID === 'goldenrometour' && tour.category !== 'vatican')) {
         notFound();
     }
 
@@ -67,20 +67,17 @@ export default async function TourPage({ params }: PageProps) {
 
     // If no images at all, fallback
     const fallbackImage = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80';
-    if (sliderImages.length === 0) {
-        sliderImages.push(fallbackImage);
-    }
-
+    
     // JSON-LD Schema for SEO
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'TouristTrip',
         'name': tour.title,
-        'description': typeof tour.description === 'string' ? tour.description : 'Expert guided tour in Rome',
+        'description': typeof tour.description === 'string' ? tour.description : 'Expert guided Vatican tour with art historians',
         'image': sliderImages.map(img => urlFor(img).url()),
         'provider': {
             '@type': 'Organization',
-            'name': process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour',
+            'name': process.env.NEXT_PUBLIC_SITE_NAME || 'Vatican Archives',
             'url': process.env.NEXT_PUBLIC_SITE_URL
         },
         'offers': {
@@ -97,54 +94,37 @@ export default async function TourPage({ params }: PageProps) {
     };
 
     return (
-        <main className="min-h-screen bg-background text-foreground font-body selection:bg-primary selection:text-primary-foreground">
+        <main className="min-h-screen bg-background">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <Navbar />
+            <VaticanHeader />
 
-            {/* Tour Hero Slider */}
-            <div className="relative">
-                <TourHeroSlider
-                    images={sliderImages}
-                    title={tour.title}
-                    category={tour.category}
-                    duration={tour.duration}
-                    groupSize={tour.groupSize}
-                    rating={tour.rating}
-                    reviewCount={tour.reviewCount}
-                />
+            {/* Immersive Full Screen Intro */}
+            <VaticanTourHeroFull
+                title={tour.title}
+                mainImage={tour.mainImage || fallbackImage}
+                category={tour.category}
+                duration={tour.duration}
+                groupSize={tour.groupSize}
+                rating={tour.rating}
+                reviewCount={tour.reviewCount}
+            />
 
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
-                    <div className="max-w-4xl space-y-4 pointer-events-auto">
-                        <span className="bg-secondary text-white px-4 py-1.5 font-heading font-bold uppercase tracking-tight text-[10px]">
-                            {tour.category}
-                        </span>
-                        <h1 className="text-4xl md:text-5xl lg:text-7xl font-heading text-white drop-shadow-2xl leading-[0.9]">
-                            {tour.title}
-                        </h1>
-                        <div className="flex flex-wrap items-center gap-6 text-white/90 font-heading font-bold uppercase tracking-tight text-[10px]">
-                            <div className="flex items-center"><Clock className="w-5 h-5 mr-2 text-primary" /> {tour.duration}</div>
-                            <div className="flex items-center"><Users className="w-5 h-5 mr-2 text-primary" /> {tour.groupSize || 'Small Group'}</div>
-                            <div className="flex items-center text-primary">
-                                <Star className="w-5 h-5 mr-2 fill-current" />
-                                {tour.rating || '5.0'} ({tour.reviewCount || 100} REVIEWS)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 grid grid-cols-1 lg:grid-cols-3 gap-16">
                 {/* Main Content */}
-                <div className="lg:col-span-2 space-y-12">
+                <div className="lg:col-span-2 space-y-16">
 
                     {/* Overview / Description */}
-                    <section className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-secondary prose-p:font-body prose-p:text-secondary/80">
-                        <h2 className="text-3xl font-heading text-secondary mb-6 border-b border-primary/10 pb-4">Tour Overview</h2>
+                    <section className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-foreground prose-p:font-sans prose-p:text-muted-foreground">
+                        <div className="mb-10">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent mb-2">Exhibition Overview</p>
+                            <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground border-b border-border pb-6 leading-tight">Historical <span className="italic">Context</span></h2>
+                        </div>
+                        
                         {typeof tour.description === 'string' ? (
-                            <p className="mb-6">{tour.description}</p>
+                            <p className="mb-6 text-lg leading-relaxed">{tour.description}</p>
                         ) : (
                             <PortableText
                                 value={tour.description}
@@ -153,7 +133,7 @@ export default async function TourPage({ params }: PageProps) {
                                         image: ({ value }) => {
                                             if (!value?.asset?._ref) return null;
                                             return (
-                                                <div className="my-12 relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl border border-primary/10">
+                                                <div className="my-12 relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl border border-border">
                                                     <Image
                                                         src={urlFor(value).width(800).fit('max').url()}
                                                         alt={value.alt || 'Tour image'}
@@ -165,12 +145,12 @@ export default async function TourPage({ params }: PageProps) {
                                         }
                                     },
                                     block: {
-                                        normal: ({ children }) => <p className="mb-6">{children}</p>,
-                                        h2: ({ children }) => <h2 className="text-2xl font-heading mt-8 mb-4">{children}</h2>,
-                                        h3: ({ children }) => <h3 className="text-xl font-heading mt-6 mb-3">{children}</h3>,
+                                        normal: ({ children }) => <p className="mb-8 text-lg leading-relaxed">{children}</p>,
+                                        h2: ({ children }) => <h2 className="text-3xl font-serif font-bold mt-12 mb-6">{children}</h2>,
+                                        h3: ({ children }) => <h3 className="text-2xl font-serif font-bold mt-8 mb-4">{children}</h3>,
                                     },
                                     marks: {
-                                        strong: ({ children }) => <strong className="font-bold text-secondary">{children}</strong>,
+                                        strong: ({ children }) => <strong className="font-bold text-foreground">{children}</strong>,
                                         link: ({ value, children }) => {
                                             const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
                                             return (
@@ -181,8 +161,8 @@ export default async function TourPage({ params }: PageProps) {
                                         }
                                     },
                                     list: {
-                                        bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-2">{children}</ul>,
-                                        number: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-2">{children}</ol>,
+                                        bullet: ({ children }) => <ul className="list-disc pl-6 mb-8 space-y-3">{children}</ul>,
+                                        number: ({ children }) => <ol className="list-decimal pl-6 mb-8 space-y-3">{children}</ol>,
                                     }
                                 }}
                             />
@@ -192,98 +172,54 @@ export default async function TourPage({ params }: PageProps) {
                     {/* Highlights */}
                     {tour.highlights && tour.highlights.length > 0 && (
                         <section>
-                            <h2 className="text-2xl font-heading text-secondary mb-6 uppercase tracking-tight">Highlights</h2>
-                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="mb-10">
+                                <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent mb-2">Curated Experiences</p>
+                                <h2 className="text-3xl font-serif font-bold text-foreground uppercase tracking-widest">Highlights</h2>
+                            </div>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 {tour.highlights.map((feature: any, i: number) => (
-                                    <li key={i} className="flex items-start space-x-3 p-6 bg-white rounded-2xl shadow-sm border border-primary/10 transition-transform hover:-translate-y-1">
-                                        <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                                        <span className="text-secondary font-bold font-heading uppercase tracking-tight text-[10px]">{typeof feature === 'object' ? feature.item : feature}</span>
+                                    <li key={i} className="flex items-start space-x-4 p-8 bg-card rounded-3xl border border-border transition-all hover:border-accent/30 group">
+                                        <div className="w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-accent group-hover:text-white transition-colors">
+                                            <Check className="w-4 h-4" />
+                                        </div>
+                                        <span className="text-foreground font-sans font-bold uppercase tracking-[0.15em] text-[11px] leading-relaxed">{typeof feature === 'object' ? feature.item : feature}</span>
                                     </li>
                                 ))}
                             </ul>
                         </section>
                     )}
 
-                    {/* Itinerary */}
-                    {tour.itinerary && tour.itinerary.length > 0 && (
-                        <section>
-                            <h2 className="text-2xl font-heading text-secondary mb-6 uppercase tracking-tight">Itinerary</h2>
-                            <div className="pl-6 border-l-2 border-primary/20 space-y-10">
-                                {tour.itinerary.map((stop: any, index: number) => (
-                                    <div key={index} className="relative">
-                                        <div className="absolute -left-[33px] top-0 w-4 h-4 bg-primary rounded-full border-4 border-background" />
-                                        <h3 className="text-lg font-heading text-secondary uppercase tracking-tight">{stop.title}</h3>
-                                        <p className="text-[10px] font-heading font-bold text-primary mb-3 tracking-tight">{stop.duration}</p>
-                                        <p className="text-secondary/70 leading-relaxed font-body">{stop.description}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
-
-                    {/* Inclusions & Exclusions */}
-                    <section className="grid md:grid-cols-2 gap-8 py-8 border-y border-primary/10">
-                        {tour.includes && tour.includes.length > 0 && (
-                            <div>
-                                <h3 className="text-lg font-heading text-secondary mb-6 flex items-center uppercase tracking-tight">
-                                    <CheckCircle className="w-5 h-5 text-primary mr-3" /> Inclusions
-                                </h3>
-                                <ul className="space-y-4">
-                                    {tour.includes.map((item: any, i: number) => (
-                                        <li key={i} className="flex items-start text-secondary/80 text-sm font-body">
-                                            <Check className="w-4 h-4 text-primary mr-3 mt-0.5 shrink-0" />
-                                            {typeof item === 'object' ? item.item : item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                        {tour.excludes && tour.excludes.length > 0 && (
-                            <div>
-                                <h3 className="text-lg font-heading text-secondary mb-6 flex items-center uppercase tracking-tight">
-                                    <XCircle className="w-5 h-5 text-accent mr-3" /> Exclusions
-                                </h3>
-                                <ul className="space-y-4">
-                                    {tour.excludes.map((item: any, i: number) => (
-                                        <li key={i} className="flex items-start text-secondary/50 text-sm font-body">
-                                            <XCircle className="w-4 h-4 text-accent/40 mr-3 mt-0.5 shrink-0" />
-                                            {typeof item === 'object' ? item.item : item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </section>
-
-                    {/* Meeting Point & Important Info */}
-                    <section className="bg-background text-secondary rounded-[2rem] p-10 space-y-10 shadow-2xl">
+                    {/* meetingPoint & Preparation */}
+                    <section className="bg-secondary/20 rounded-[3rem] p-12 md:p-16 space-y-12 border border-border relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+                        
                         {tour.meetingPoint && (
-                            <div>
-                                <h3 className="font-heading text-xl text-primary mb-4 flex items-center uppercase tracking-tight">
-                                    <MapPin className="w-6 h-6 mr-3" /> Meeting Point
+                            <div className="relative z-10">
+                                <h3 className="font-serif text-2xl font-bold text-foreground mb-6 flex items-center uppercase tracking-widest">
+                                    <MapPin className="w-6 h-6 mr-4 text-accent" /> Rendezvous Point
                                 </h3>
-                                <p className="text-secondary font-body text-lg leading-relaxed mb-6">{tour.meetingPoint}</p>
+                                <p className="text-muted-foreground font-sans text-lg leading-relaxed mb-8">{tour.meetingPoint}</p>
                                 <a
                                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tour.meetingPoint + ' Rome')}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center bg-primary text-secondary px-8 py-4 font-heading font-bold uppercase tracking-tight text-[10px] hover:bg-white transition-all shadow-xl"
+                                    className="inline-flex items-center bg-primary text-primary-foreground px-10 py-5 font-sans font-bold uppercase tracking-widest text-[10px] rounded-full hover:opacity-90 transition-all shadow-2xl shadow-primary/20"
                                 >
-                                    <MapIcon className="w-4 h-4 mr-2" /> View on Dispatch Map
+                                    <MapIcon className="w-4 h-4 mr-3" /> View Geographic Coordinates
                                 </a>
                             </div>
                         )}
 
                         {tour.importantInfo && tour.importantInfo.length > 0 && (
-                            <div>
-                                <h3 className="font-heading text-xl text-primary mb-4 flex items-center uppercase tracking-tight">
-                                    <Info className="w-6 h-6 mr-3" /> Preparation Protocol
+                            <div className="relative z-10 pt-8 border-t border-border/50">
+                                <h3 className="font-serif text-2xl font-bold text-foreground mb-6 flex items-center uppercase tracking-widest">
+                                    <Info className="w-6 h-6 mr-4 text-accent" /> Entry Protocol
                                 </h3>
-                                <ul className="space-y-3 font-body text-secondary/70">
+                                <ul className="space-y-4 font-sans text-muted-foreground">
                                     {tour.importantInfo.map((info: any, i: number) => (
-                                        <li key={i} className="flex gap-3">
-                                            <span className="text-primary">•</span>
-                                            {typeof info === 'object' ? info.item : info}
+                                        <li key={i} className="flex gap-4 items-start">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                                            <span className="text-sm font-medium tracking-wide leading-relaxed">{typeof info === 'object' ? info.item : info}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -294,13 +230,16 @@ export default async function TourPage({ params }: PageProps) {
 
                 {/* Sidebar Booking Widget */}
                 <div className="lg:col-span-1">
-                    <div className="sticky top-24">
+                    <div className="sticky top-32">
+                        <div className="mb-6 p-4 bg-accent/10 border border-accent/20 rounded-2xl">
+                           <p className="text-[10px] font-bold uppercase tracking-widest text-accent text-center">Protocol: Secure Booking</p>
+                        </div>
                         <BookingWidget tour={tour} />
                     </div>
                 </div>
             </div>
 
-            <Footer />
+            <VaticanFooter />
         </main>
     );
 }

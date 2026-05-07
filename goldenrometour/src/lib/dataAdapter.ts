@@ -31,9 +31,24 @@ async function withFallback<T>(
   return sanityFn()
 }
 
-export const getTours     = (siteId?: string)              => withFallback(() => payload.getTours(siteId),          () => sanity.getTours(siteId))
-export const getTour      = (slug: string, siteId?: string) => withFallback(() => payload.getTour(slug, siteId),    () => sanity.getTour(slug, siteId))
-export const getAllTours   = ()                             => withFallback(() => payload.getAllTours(),              () => sanity.getAllTours())
+// Vatican-only filter for goldenrometour
+const VATICAN_ONLY = process.env.NEXT_PUBLIC_SITE_ID === 'goldenrometour'
+
+export const getTours = async (siteId?: string) => {
+  const tours = await withFallback(() => payload.getTours(siteId), () => sanity.getTours(siteId))
+  return VATICAN_ONLY ? tours.filter(t => t.category === 'vatican') : tours
+}
+
+export const getTour = async (slug: string, siteId?: string) => {
+  const tour = await withFallback(() => payload.getTour(slug, siteId), () => sanity.getTour(slug, siteId))
+  if (VATICAN_ONLY && tour && tour.category !== 'vatican') return null
+  return tour
+}
+
+export const getAllTours = async () => {
+  const tours = await withFallback(() => payload.getAllTours(), () => sanity.getAllTours())
+  return VATICAN_ONLY ? tours.filter(t => t.category === 'vatican') : tours
+}
 export const getPosts     = (siteId?: string)              => withFallback(() => payload.getPosts(siteId),          () => sanity.getPosts(siteId))
 export const getPost      = (slug: string, siteId?: string) => withFallback(() => payload.getPost(slug, siteId),    () => sanity.getPost(slug, siteId))
 export const getSettings  = (siteId?: string)              => withFallback(() => payload.getSettings(siteId),       () => sanity.getSettings(siteId))

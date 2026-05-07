@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto_Flex, Playfair_Display, Cormorant_Garamond, Josefin_Sans, Great_Vibes, Open_Sans } from "next/font/google";
+import { Roboto_Flex, Playfair_Display, Cormorant_Garamond, Josefin_Sans, Great_Vibes, Open_Sans, Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -11,6 +11,19 @@ import GoogleTranslate from "@/components/GoogleTranslate";
 import { getSite, DEFAULT_SITE_ID } from "@/lib/dataAdapter";
 import { CartProvider } from "@/context/CartContext";
 import CurveTransition from "@/components/CurveTransition";
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-instrument-serif',
+  display: 'swap',
+});
 
 const robotoFlex = Roboto_Flex({
   subsets: ['latin'],
@@ -52,15 +65,15 @@ const openSans = Open_Sans({
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite(DEFAULT_SITE_ID);
-  const siteName = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour';
+  const siteName = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Vatican Archives';
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com';
 
   return {
     metadataBase: new URL(siteUrl),
-    title: site?.seo?.metaTitle || "Luxury Small-Group Rome Tours | Golden Rome Experience",
-    description: site?.seo?.metaDescription || "Luxury small-group Rome tours with art historians. Maximum 6 guests. Skip-the-line Vatican Museums, Colosseum arena floor access. Book Golden Rome.",
+    title: site?.seo?.metaTitle || "Vatican Archives | Official Skip-the-Line Vatican Tours",
+    description: site?.seo?.metaDescription || "Experience the Vatican Museums & Sistine Chapel with accredited art historians. Authorized skip-the-line access for small groups and private expeditions.",
     applicationName: siteName,
-    keywords: ["luxury Rome tours", "small group Vatican tours", "art historian guide Rome", "exclusive Colosseum access", "VIP Vatican tours", "Golden Rome tours"],
+    keywords: ["Vatican tours", "Sistine Chapel private access", "Vatican Museums guide", "St. Peters Basilica tour", "art historian Vatican tour", "Vatican Archives", "Vatican skip-the-line", "Vatican private tours", "Vatican small group tours"],
     icons: {
       icon: site?.favicon?.asset?.url || '/logo.png',
       shortcut: site?.favicon?.asset?.url || '/logo.png',
@@ -68,23 +81,23 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     openGraph: {
       siteName,
-      title: site?.seo?.metaTitle || "Luxury Small-Group Rome Tours | Golden Rome Experience",
-      description: site?.seo?.metaDescription || "Luxury small-group Rome tours with art historians. Maximum 6 guests per tour.",
+      title: site?.seo?.metaTitle || "Vatican Archives | Official Vatican Museum Access",
+      description: site?.seo?.metaDescription || "Exclusive Vatican Museums & Sistine Chapel tours with art historians. Maximum 6 guests per tour. Skip-the-line access.",
       url: siteUrl,
       type: 'website',
       images: [
         {
-          url: site?.favicon?.asset?.url || "/logo.png",
+          url: site?.favicon?.asset?.url || "/vatican-museums.jpg",
           width: 1200,
           height: 630,
-          alt: "Golden Rome Tour - Luxury Small-Group Experiences"
+          alt: "Vatican Archives - Official Vatican Museum Tours"
         }
       ]
     },
     twitter: {
       card: "summary_large_image",
-      title: site?.seo?.metaTitle || "Luxury Small-Group Rome Tours",
-      description: site?.seo?.metaDescription || "Exclusive tours with art historians. Max 6 guests.",
+      title: site?.seo?.metaTitle || "Vatican Archives | Official Vatican Tours",
+      description: site?.seo?.metaDescription || "Exclusive Vatican Museums tours with art historians. Skip-the-line access.",
     },
     other: { 'viewport': 'width=device-width, initial-scale=1' },
   };
@@ -103,21 +116,24 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "TouristAttraction",
-              "name": "Golden Rome Tour",
-              "description": "Luxury small-group Rome tours with art historians. Maximum 6 guests per tour. Skip-the-line Vatican Museums and Colosseum arena floor access.",
+              "name": "Vatican Archives",
+              "description": "Official Vatican Museums & Sistine Chapel tours with accredited art historians. Skip-the-line access for small groups and private expeditions into the Holy See.",
               "url": process.env.NEXT_PUBLIC_SITE_URL || "https://goldenrometour.com",
-              "image": site?.favicon?.asset?.url || "/logo.png",
+              "image": site?.favicon?.asset?.url || "/vatican-museums.jpg",
               "priceRange": "€€€",
               "address": {
                 "@type": "PostalAddress",
-                "addressLocality": "Rome",
-                "addressCountry": "IT"
+                "addressLocality": "Vatican City",
+                "addressRegion": "Vatican",
+                "addressCountry": "VA"
               },
               "aggregateRating": {
                 "@type": "AggregateRating",
                 "ratingValue": "4.9",
                 "reviewCount": "850"
               },
+              "touristType": ["Art Enthusiasts", "History Buffs", "Religious Pilgrims"],
+              "availableLanguage": ["English", "Italian", "Spanish", "French", "German"],
               "potentialAction": {
                 "@type": "SearchAction",
                 "target": {
@@ -131,7 +147,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         />
       </head>
       <body
-        className={`${robotoFlex.variable} ${playfair.variable} ${cormorant.variable} ${josefin.variable} ${vibes.variable} ${openSans.variable} font-sans antialiased`}
+        className={`${robotoFlex.variable} ${playfair.variable} ${cormorant.variable} ${josefin.variable} ${vibes.variable} ${openSans.variable} ${inter.variable} ${instrumentSerif.variable} font-sans antialiased`}
         data-site-id={siteSlug}
         data-site={siteSlug}
         suppressHydrationWarning

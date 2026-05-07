@@ -42,6 +42,17 @@ export async function POST(req: Request) {
         const siteId = await getSiteIdFromRequest(req);
         console.log(`[Checkout] Processing payment for site: ${siteId}`);
 
+        // Vatican-only validation for goldenrometour
+        if (siteId === 'goldenrometour') {
+            const tourCategory = body.tourCategory || body.category;
+            if (tourCategory && tourCategory !== 'vatican') {
+                return NextResponse.json(
+                    { error: 'Only Vatican tours are available on this platform' },
+                    { status: 400 }
+                );
+            }
+        }
+
         // Get site-specific Stripe instance
         const stripe = getStripe(siteId);
 

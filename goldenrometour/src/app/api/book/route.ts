@@ -9,6 +9,17 @@ export async function POST(request: Request) {
     try {
         const body = await request.json();
 
+        // Vatican-only validation for goldenrometour
+        if (process.env.NEXT_PUBLIC_SITE_ID === 'goldenrometour') {
+            const tourCategory = body.tourCategory || body.category;
+            if (tourCategory && tourCategory !== 'vatican') {
+                return NextResponse.json(
+                    { success: false, message: "Only Vatican tours are available on this platform" },
+                    { status: 400 }
+                );
+            }
+        }
+
         console.log("------------------------------------------------");
         console.log("📧 NEW BOOKING RECEIVED");
         console.log("------------------------------------------------");

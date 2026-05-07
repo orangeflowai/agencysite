@@ -154,6 +154,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
           amount: bookingData.totalPrice,
           tourTitle: bookingData.tour.title,
           tourSlug: bookingData.tour.slug.current,
+          tourCategory: bookingData.tour.category,
           meetingPoint: bookingData.tour.meetingPoint || '',
           date: bookingData.date, time: bookingData.time,
           guests: totalGuests, guestCounts: bookingData.guestCounts,
