@@ -14,7 +14,7 @@ export default function VaticanHeader() {
   const navLinks = [
     { label: "Vatican Museums", href: "/category/vatican", key: "museums" },
     { label: "Sistine Chapel", href: "/tour/vatican-museums-skip-line-audio-guide-grt", key: "sistine" },
-    { label: "St. Peter's", href: "/tour/st-peters-basilica-dome-crypt-grt", key: "stpeters" },
+    { label: "St. Peter's", href: "/tour/st-peters-basilica-dome-climb-grt", key: "stpeters" },
     { label: "Vatican Gardens", href: "/tour/vatican-gardens-private-tour-grt", key: "gardens" },
   ]
 

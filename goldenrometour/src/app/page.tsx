@@ -11,8 +11,7 @@ import VaticanFooter from "@/components/vatican/footer";
 import { getTours, getSettings, getPosts } from "@/lib/dataAdapter";
 import { getPexelsImages, ROME_QUERIES } from "@/lib/pexels";
 import { tours as fallbackTours } from "@/lib/toursData";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import AnimatedSection from "@/components/AnimatedSection";
 
 export const revalidate = 3600;
 
@@ -42,61 +41,72 @@ return (
   <main className="min-h-screen bg-background text-foreground">
     <VaticanHeader />
     <VaticanHeroSection title={heroTitle} subtitle={heroSubtitle} heroImage={heroImage} />
-    <TrustFeatures />
+    
+    <AnimatedSection>
+      <TrustFeatures />
+    </AnimatedSection>
 
     {/* The Vatican Collection Grid */}
-    <div className="py-20 bg-background border-b border-border/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-         <div className="text-center mb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent mb-2">Authenticated Collection</p>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">The Vatican <span className="italic">Archives</span></h2>
-         </div>
-         <TourCards tours={homeTours} />
+    <AnimatedSection>
+      <div id="tours" className="py-20 bg-background border-b border-border/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div className="text-center mb-16">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-accent mb-2">Authenticated Collection</p>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">The Vatican <span className="italic">Archives</span></h2>
+           </div>
+           <TourCards tours={homeTours} />
+        </div>
       </div>
-    </div>
+    </AnimatedSection>
 
-    <AboutSection />
+    <AnimatedSection>
+      <AboutSection />
+    </AnimatedSection>
 
+    <AnimatedSection>
       <EntryRequirements />
+    </AnimatedSection>
       
-      {/* Testimonials Section */}
+    {/* Testimonials Section */}
+    <AnimatedSection>
       <Testimonials />
+    </AnimatedSection>
 
-      {/* Blog Section */}
-      {posts && posts.length > 0 && (
-        <section className="py-24 md:py-32 bg-secondary/30 text-foreground border-t border-border">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
-              <div>
-                <p className="text-sm uppercase tracking-widest text-accent mb-3 font-semibold">The Roman Journal</p>
-                <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">News & <span className="italic">Insights</span></h2>
-              </div>
-              <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline shrink-0">
-                All Articles <ArrowRight size={16} />
-              </Link>
+    {/* How to Book Section */}
+    <AnimatedSection>
+      <section className="py-24 md:py-32 bg-card text-foreground border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <p className="text-sm uppercase tracking-widest text-accent mb-3 font-semibold">Simple Process</p>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground">How to <span className="italic">Book</span></h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">Secure your Vatican access in three simple steps</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-background p-8 rounded-2xl border border-border hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-xl">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary font-bold text-xl">1</div>
+              <h3 className="text-xl font-serif font-bold text-foreground mb-3">Choose Your Tour</h3>
+              <p className="text-muted-foreground leading-relaxed">Browse our curated Vatican experiences and select the tour that matches your interests and schedule.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {posts.slice(0, 3).map((post: any) => (
-                <Link key={post._id} href={`/blog/${post.slug.current}`} className="group flex flex-col bg-card rounded-2xl overflow-hidden border border-border hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-xl">
-                  <div className="relative aspect-[16/9] overflow-hidden">
-                    {post.mainImage?.asset?.url && (
-                      <img src={post.mainImage.asset.url} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                    )}
-                  </div>
-                  <div className="p-6 md:p-8 flex flex-col flex-1">
-                    <h3 className="text-xl font-serif font-bold text-foreground mb-2 group-hover:text-accent transition-colors line-clamp-2">{post.title}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-3 mb-4 flex-1">{post.excerpt}</p>
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-1">Read More <ArrowRight size={12} /></span>
-                  </div>
-                </Link>
-              ))}
+            <div className="bg-background p-8 rounded-2xl border border-border hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-xl">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary font-bold text-xl">2</div>
+              <h3 className="text-xl font-serif font-bold text-foreground mb-3">Select Date & Time</h3>
+              <p className="text-muted-foreground leading-relaxed">Pick your preferred date and time slot. We offer early morning, standard, and private tour options.</p>
+            </div>
+            <div className="bg-background p-8 rounded-2xl border border-border hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-xl">
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary font-bold text-xl">3</div>
+              <h3 className="text-xl font-serif font-bold text-foreground mb-3">Secure Payment</h3>
+              <p className="text-muted-foreground leading-relaxed">Complete your booking with our secure payment system. Receive instant confirmation and skip-the-line tickets.</p>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+    </AnimatedSection>
 
+    <AnimatedSection>
       <FAQSection />
-      <VaticanFooter />
-    </main>
-  );
+    </AnimatedSection>
+    
+    <VaticanFooter />
+  </main>
+);
 }

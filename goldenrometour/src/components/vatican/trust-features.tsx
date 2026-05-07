@@ -1,6 +1,9 @@
 "use client"
 
 import { Shield, Clock, Users, CreditCard, CheckCircle, Headphones } from "lucide-react"
+import { motion } from "framer-motion"
+import { useInView } from "framer-motion"
+import { useRef } from "react"
 
 const features = [
   {
@@ -26,25 +29,36 @@ const features = [
 ]
 
 export default function TrustFeatures() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
+
   return (
-    <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-secondary/50 border-y border-border">
+    <section ref={ref} className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-secondary/50 border-y border-border">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6 }}
+        >
           <p className="text-sm uppercase tracking-widest text-muted-foreground mb-3 font-medium">
             Authenticated by 50,000+ Verified Logs
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground">
             Why Choose <span className="italic">Golden Rome</span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, i) => (
-            <div 
+            <motion.div 
               key={i}
               className="p-6 bg-card rounded-2xl border border-border hover:border-accent/30 transition-all group"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
             >
               <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-5 group-hover:bg-accent/10 transition-colors">
                 <feature.icon className="w-6 h-6 text-foreground group-hover:text-accent transition-colors" />
@@ -55,7 +69,7 @@ export default function TrustFeatures() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

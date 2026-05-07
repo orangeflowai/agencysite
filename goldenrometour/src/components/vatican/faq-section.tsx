@@ -6,35 +6,59 @@ import { ChevronDown } from "lucide-react"
 const faqs = [
   {
     question: "What is the Vatican dress code?",
-    answer: "Shoulders and knees must be covered. A light scarf in your bag is recommended for the Basilica. Sleeveless shirts, shorts above the knee, and miniskirts are not permitted."
+    answer: "Shoulders and knees must be covered for entry to the Vatican Museums and St. Peter's Basilica. No sleeveless shirts, shorts above the knee, miniskirts, or revealing clothing. We recommend bringing a light scarf or shawl."
   },
   {
-    question: "Do I need to print my tickets?",
-    answer: "No, digital tickets on your phone are accepted at all entry points. Simply show your confirmation email or QR code at the entrance."
+    question: "Do I need to print my Vatican tickets?",
+    answer: "No, digital tickets on your phone are accepted. Simply show your confirmation email or QR code at the entrance. We recommend downloading your tickets before arrival in case of connectivity issues."
   },
   {
-    question: "What happens at security?",
-    answer: "Airport-style security at all entrances. No large backpacks, knives, or glass bottles. Plan to arrive 15 minutes before your scheduled time."
+    question: "How early should I arrive for my Vatican tour?",
+    answer: "Please arrive 15 minutes before your scheduled tour time. This allows time for security screening and meeting your guide. Late arrivals may not be able to join the tour."
   },
   {
     question: "Is the Vatican wheelchair accessible?",
-    answer: "Yes, the Vatican Museums and St. Peter's Basilica are wheelchair accessible. Please inform us at booking so we can arrange appropriate assistance."
+    answer: "Yes, the Vatican Museums and St. Peter's Basilica are wheelchair accessible with ramps and elevators. Please inform us at booking so we can arrange appropriate assistance and ensure a smooth experience."
   },
   {
-    question: "What is the late arrival policy?",
-    answer: "Tours depart on time. If you arrive more than 15 minutes late, you may not be able to join. We recommend arriving 15 minutes early."
+    question: "Can I take photos in the Sistine Chapel?",
+    answer: "Photography is strictly prohibited in the Sistine Chapel. Guards actively enforce this rule. You may take photos in most other areas of the Vatican Museums, but flash photography is not allowed."
   },
   {
-    question: "What is the cancellation policy?",
-    answer: "Free cancellation up to 24 hours before your scheduled tour for a full refund. Cancellations within 24 hours are non-refundable."
+    question: "What is included in the Vatican tour price?",
+    answer: "Your tour includes skip-the-line entrance tickets, expert art historian guide, headsets for groups over 6 people, and access to all included areas. Some tours also include St. Peter's Basilica and Dome access."
+  },
+  {
+    question: "What is the Vatican cancellation policy?",
+    answer: "Free cancellation up to 24 hours before your scheduled tour for a full refund. Cancellations within 24 hours are non-refundable. Weather-related closures are fully refundable."
+  },
+  {
+    question: "How long does a Vatican tour take?",
+    answer: "Standard Vatican Museums tours last 2.5-3 hours. Tours including St. Peter's Basilica and Dome climb can take 4-5 hours. Private tours can be customized to your preferred duration."
+  },
+  {
+    question: "Are Vatican tours available in other languages?",
+    answer: "Yes, we offer tours in English, Italian, Spanish, French, and German. Private tours can be arranged in additional languages upon request. Please specify your language preference at booking."
+  },
+  {
+    question: "What happens at Vatican security?",
+    answer: "Airport-style security screening at all Vatican entrances. No large backpacks, knives, glass bottles, or sharp objects. Small bags and cameras are permitted. Security lines move quickly with skip-the-line access."
+  },
+  {
+    question: "Can children visit the Vatican Museums?",
+    answer: "Yes, children of all ages are welcome. Children under 6 enter free but must be registered. We offer family-friendly tours with engaging storytelling. Strollers are allowed but can be challenging in crowded areas."
   },
   {
     question: "Which payment methods are accepted?",
-    answer: "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and Apple Pay through our secure Stripe payment system."
+    answer: "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, and Google Pay through our secure Stripe payment system. Payment is required at time of booking."
   },
   {
-    question: "How do private tours work?",
-    answer: "Private tours are exclusively for your group. You choose the start time, pace, and focus areas. Our expert guide tailors the experience to your interests."
+    question: "What's the difference between group and private Vatican tours?",
+    answer: "Group tours have maximum 15 people and follow a set itinerary. Private tours are exclusively for your party, with flexible timing, personalized pace, and customized focus areas based on your interests."
+  },
+  {
+    question: "Is food allowed inside the Vatican Museums?",
+    answer: "No food or drinks (except water in sealed bottles) are allowed inside the Vatican Museums. There is a cafeteria inside for breaks. We recommend eating before or after your tour."
   }
 ]
 
@@ -47,13 +71,13 @@ export default function FAQSection() {
         {/* Section Header */}
         <div className="text-center mb-12">
           <p className="text-sm uppercase tracking-widest text-muted-foreground mb-3 font-medium">
-            Editorial Support
+            Vatican Support
           </p>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-4">
-            The Rome <span className="italic">Compendium</span>
+            Vatican <span className="italic">Guide</span>
           </h2>
           <p className="text-muted-foreground">
-            Essential insights for your curated exploration of the Eternal City.
+            Essential information for your Vatican Museums and Sistine Chapel visit.
           </p>
         </div>
 

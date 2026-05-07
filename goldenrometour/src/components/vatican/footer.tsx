@@ -13,12 +13,12 @@ export default function VaticanFooter() {
     { label: "Vatican Museums", href: "/category/vatican" },
     { label: "Sistine Chapel Private", href: "/tour/vatican-museums-skip-line-audio-guide-grt" },
     { label: "St. Peter's Dome", href: "/tour/st-peters-basilica-dome-climb-grt" },
-    { label: "Raphael Rooms", href: "/category/vatican" },
-    { label: "Ancient Rome (Ext-Territorial)", href: "/category/colosseum" },
+    { label: "Vatican Gardens", href: "/tour/vatican-gardens-private-tour-grt" },
+    { label: "Raphael Rooms", href: "/tour/vatican-museums-skip-line-audio-guide-grt" },
   ]
 
-  const contactEmail = site?.contactEmail || "archives@goldenrometours.com"
-  const contactPhone = site?.contactPhone || "+39 123 456 789"
+  const contactEmail = site?.contactEmail || process.env.EMAIL_FROM || "archives@goldenrometours.com"
+  const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 123 456 789"
   const address = site?.officeAddress || "Viale Vaticano, 00165 Roma RM, Italy"
 
   return (
@@ -74,7 +74,7 @@ export default function VaticanFooter() {
                 )}
               </Link>
               <p className="text-primary-foreground/60 text-sm leading-relaxed mb-8">
-                Official Vatican Partner offering premium skip-the-line access to Rome&apos;s greatest treasures. Curated by accredited historians.
+                Official Vatican Archives offering premium skip-the-line access to the Vatican Museums and Sistine Chapel. Curated by accredited art historians.
               </p>
               <div className="flex gap-4">
                 <a href={site?.socialLinks?.instagram || "#"} className="w-10 h-10 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors">
@@ -105,13 +105,12 @@ export default function VaticanFooter() {
 
             {/* Company */}
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-widest mb-6 opacity-40">Support</h3>
+              <h3 className="text-xs font-bold uppercase tracking-widest mb-6 opacity-40">Vatican Support</h3>
               <ul className="space-y-4 text-xs font-bold uppercase tracking-widest">
-                <li><Link href="/about" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">Our Ethos</Link></li>
-                <li><Link href="/faq" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">The Compendium</Link></li>
-                <li><Link href="/blog" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">Roman Journal</Link></li>
-                <li><Link href="/terms-and-conditions" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">Terms of Protocol</Link></li>
-                <li><Link href="/privacy-policy" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">Privacy Mandate</Link></li>
+                <li><Link href="/contact" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">Contact Us</Link></li>
+                <li><Link href="/faq" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">Vatican Guide</Link></li>
+                <li><Link href="/terms-and-conditions" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">Terms & Conditions</Link></li>
+                <li><Link href="/privacy-policy" className="text-primary-foreground/60 hover:text-primary-foreground transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
 
@@ -142,7 +141,7 @@ export default function VaticanFooter() {
           {/* Bottom Bar */}
           <div className="mt-20 pt-10 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground/30">
-              © 2024 Golden Rome Tours. A Curated Acquisition.
+              © 2024 Vatican Archives. All Rights Reserved.
             </p>
             <div className="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-primary-foreground/30">
               <Link href="/cancellation-policy" className="hover:text-primary-foreground transition-colors">Cancellation Protocol</Link>
