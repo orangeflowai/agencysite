@@ -158,11 +158,46 @@ async function getSiteRefBySlug(slug: string): Promise<string | null> {
 
 /**
  * Get tours for a specific site
- * Uses the sites array to filter tours that belong to the given site
+ * For goldenrometour: Fetch ALL Vatican tours from Sanity (ignore site assignment)
+ * This allows goldenrometour to show all Vatican tours from wondersofrome
  */
 export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
     try {
-        // First get the actual site document _id from the slug
+        // For goldenrometour: fetch ALL Vatican tours regardless of site assignment
+        if (siteId === 'goldenrometour') {
+            const query = `*[_type == "tour" && category == "vatican"]{
+                _id,
+                title,
+                slug,
+                mainImage {
+                    asset -> {
+                        _id,
+                        url
+                    }
+                },
+                price,
+                duration,
+                description,
+                category,
+                "features": highlights,
+                badge,
+                rating,
+                reviewCount,
+                tags,
+                guestTypes,
+                includes,
+                excludes,
+                importantInfo,
+                meetingPoint,
+                gallery,
+                groupSize,
+                location
+            }`;
+
+            return await client.fetch(query, {}, { next: { revalidate: 60 } });
+        }
+
+        // For other sites: use site filtering
         const siteRef = await Promise.race([
             getSiteRefBySlug(siteId),
             new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
@@ -209,9 +244,33 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
 
 /**
  * Get a single tour by slug
+ * For goldenrometour: Fetch ANY Vatican tour regardless of site assignment
  */
 export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Tour | null> {
     try {
+        // For goldenrometour: fetch ANY Vatican tour
+        if (siteId === 'goldenrometour') {
+            const query = `*[_type == "tour" && slug.current == $slug && category == "vatican"][0]{
+                ...,
+                "features": highlights,
+                mainImage {
+                    asset -> {
+                        _id,
+                        url
+                    }
+                },
+                gallery[] {
+                    asset -> {
+                        _id,
+                        url
+                    }
+                }
+            }`;
+
+            return await client.fetch(query, { slug }, { next: { revalidate: 60 } });
+        }
+
+        // For other sites: use site filtering
         const siteRef = await getSiteRefBySlug(siteId);
 
         if (!siteRef) {
