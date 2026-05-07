@@ -68,11 +68,6 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
         }
         return loadStripe(key);
     }, [siteId]);
-            console.error('Stripe publishable key not configured for site:', siteId);
-            return null;
-        }
-        return loadStripe(key);
-    }, [siteId]);
 
 
     // Use dynamic guest types if provided, otherwise fallback to default
