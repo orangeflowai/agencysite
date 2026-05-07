@@ -1,0 +1,117 @@
+{
+  "title": "VIP Vatican Museum, Sistine Chapel Tour & Access to St. Basilica",
+  "slug": "vip-vatican-museum-sistine-chapel-st-basilica",
+  "productCode": "5506006P1",
+  "category": "vatican",
+  "tenant": "goldenrometour",
+  "status": "active",
+  "rating": 4.6,
+  "reviewCount": 115,
+  "price": 89,
+  "duration": "4 hours",
+  "groupSize": "Small group (max 15)",
+  "badge": "VIP Experience",
+  "description": "Elevate your Vatican experience with this exclusive VIP tour that combines skip-the-line access, expert guidance, and privileged entry to St. Peter's Basilica. Led by a professional art historian, this small-group tour (maximum 15 guests) ensures an intimate and enriching experience.\n\nDiscover the Vatican Museums' most treasured masterpieces with insightful commentary that brings the art and history to life. Stand in awe beneath Michelangelo's Sistine Chapel ceiling as your guide reveals the stories and symbolism behind each fresco. Then, enjoy direct access to St. Peter's Basilica through a special passage, avoiding the separate public queue.\n\nThis VIP experience is perfect for art enthusiasts and those seeking a deeper understanding of Vatican City's incredible cultural heritage.",
+  "highlights": [
+    "VIP skip-the-line access to Vatican Museums",
+    "Expert art historian guide throughout the tour",
+    "Small group experience (maximum 15 people)",
+    "In-depth exploration of the Sistine Chapel",
+    "Direct access to St. Peter's Basilica (no separate queue)",
+    "See Michelangelo's Pietà and Bernini's Baldachin",
+    "Exclusive insights into Vatican art and history",
+    "Premium headset system for clear audio"
+  ],
+  "includes": [
+    "Professional art historian guide",
+    "Skip-the-line entrance to Vatican Museums",
+    "Access to Sistine Chapel with guided commentary",
+    "Direct access to St. Peter's Basilica",
+    "Premium headset for clear audio",
+    "Small group experience (max 15 guests)",
+    "All entrance fees and taxes"
+  ],
+  "excludes": [
+    "Hotel pickup and drop-off",
+    "Food and beverages",
+    "Gratuities (optional)",
+    "Dome climb at St. Peter's (optional upgrade)",
+    "Personal expenses"
+  ],
+  "importantInfo": [
+    "Dress code strictly enforced: Shoulders and knees must be covered",
+    "Comfortable walking shoes recommended",
+    "Tour involves walking and standing for extended periods",
+    "Not wheelchair accessible",
+    "Large bags and backpacks not permitted",
+    "No photography in Sistine Chapel",
+    "Please arrive 15 minutes before departure time",
+    "Tour operates in English",
+    "Minimum age: 6 years old",
+    "St. Peter's Basilica may close without notice for religious ceremonies"
+  ],
+  "meetingPoint": "Via Tunisi 4, 00192 Roma RM, Italy - In front of Caffè Vaticano (look for guide with Golden Rome sign)",
+  "itinerary": [
+    {
+      "title": "Meeting Point & Introduction",
+      "duration": "10 minutes",
+      "description": "Meet your expert guide at Caffè Vaticano. Receive your headset and get an introduction to the Vatican's history and what you'll see today."
+    },
+    {
+      "title": "VIP Entry to Vatican Museums",
+      "duration": "10 minutes",
+      "description": "Skip the long public queues with your VIP access. Pass through security and enter the Vatican Museums through the priority entrance."
+    },
+    {
+      "title": "Gallery of Maps & Candelabra",
+      "duration": "30 minutes",
+      "description": "Walk through the stunning Gallery of Maps with 40 topographical maps of Italy. Continue through the Gallery of Candelabra featuring ancient Roman sculptures."
+    },
+    {
+      "title": "Gallery of Tapestries",
+      "duration": "20 minutes",
+      "description": "Admire the magnificent Flemish tapestries depicting scenes from the life of Christ, woven in Brussels in the 16th century."
+    },
+    {
+      "title": "Raphael Rooms",
+      "duration": "30 minutes",
+      "description": "Explore the four Raphael Rooms, including the famous School of Athens. Your guide will explain the Renaissance masterpieces and their historical context."
+    },
+    {
+      "title": "Sistine Chapel",
+      "duration": "30 minutes",
+      "description": "Enter the breathtaking Sistine Chapel. Your guide will have explained the ceiling frescoes before entry, allowing you to fully appreciate Michelangelo's genius in silence."
+    },
+    {
+      "title": "St. Peter's Basilica",
+      "duration": "45 minutes",
+      "description": "Access St. Peter's Basilica directly from the Sistine Chapel, avoiding the separate public queue. Marvel at Michelangelo's Pietà, Bernini's Baldachin, and the stunning dome interior."
+    },
+    {
+      "title": "St. Peter's Square",
+      "duration": "15 minutes",
+      "description": "Conclude your tour in the magnificent St. Peter's Square. Your guide will answer final questions and provide recommendations for the rest of your day."
+    }
+  ],
+  "guestTypes": [
+    {
+      "name": "Adult",
+      "price": 89,
+      "description": "Age 18+"
+    },
+    {
+      "name": "Youth",
+      "price": 79,
+      "description": "Age 6-17"
+    },
+    {
+      "name": "Child",
+      "price": 0,
+      "description": "Age 0-5 (Not recommended)"
+    }
+  ],
+  "maxParticipants": 15,
+  "tags": ["vip", "guided-tour", "vatican", "sistine-chapel", "st-peters-basilica", "small-group", "art-historian"],
+  "location": "Vatican City",
+  "cancellationPolicy": "Free cancellation up to 24 hours before the experience starts. No refund for cancellations within 24 hours."
+}
