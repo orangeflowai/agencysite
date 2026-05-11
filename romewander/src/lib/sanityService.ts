@@ -162,11 +162,9 @@ export const HARDCODED_SITE_INFO = {
 };
 
 // Hardcoded hero settings (rarely changes)
-export const HARDCODED_HERO_SETTINGS = {
+export const HARDCODED_HERO_SETTINGS: Partial<Settings> = {
   heroTitle: 'Discover Vatican City with Expert Guides',
   heroSubtitle: 'Skip-the-line tours, small groups, unforgettable experiences in the heart of Rome',
-  heroVideo: null, // Add video URL if needed
-  heroImage: null  // Add image URL if needed
 };
 
 // Helper to get site reference from slug
@@ -357,7 +355,7 @@ export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Set
         const settings = await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
         
         // Return Sanity settings if they exist, otherwise use hardcoded
-        return settings || HARDCODED_HERO_SETTINGS as Settings;
+        return settings || (HARDCODED_HERO_SETTINGS as Settings);
     } catch (error) {
         console.error('Failed to fetch settings, using hardcoded:', error);
         return HARDCODED_HERO_SETTINGS as Settings;
