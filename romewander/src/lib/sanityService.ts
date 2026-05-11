@@ -134,7 +134,40 @@ export function urlFor(source: any) {
 }
 
 // Site Configuration
-export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
+export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
+
+// Hardcoded site info for small agency (rarely changes)
+export const HARDCODED_SITE_INFO = {
+  title: 'Rome Wander',
+  contactEmail: 'info@romewander.com',
+  contactPhone: '+39 351 419 9425',
+  whatsappNumber: '3514199425',
+  logoText: 'Rome',
+  logoTextAccent: 'Wander',
+  brandColors: {
+    primary: { hex: '#0f4c3a' },
+    secondary: { hex: '#f5f5dc' },
+    accent: { hex: '#C9A84C' }
+  },
+  businessInfo: {
+    companyName: 'Rome Wander Tours',
+    vatNumber: 'IT12345678901',
+    registeredAddress: 'Via Roma 1, 00100 Roma, Italy'
+  },
+  socialLinks: {
+    instagram: 'https://instagram.com/romewander',
+    facebook: 'https://facebook.com/romewander',
+    tripadvisor: 'https://tripadvisor.com/romewander'
+  }
+};
+
+// Hardcoded hero settings (rarely changes)
+export const HARDCODED_HERO_SETTINGS = {
+  heroTitle: 'Discover Vatican City with Expert Guides',
+  heroSubtitle: 'Skip-the-line tours, small groups, unforgettable experiences in the heart of Rome',
+  heroVideo: null, // Add video URL if needed
+  heroImage: null  // Add image URL if needed
+};
 
 // Helper to get site reference from slug
 async function getSiteRefBySlug(slug: string): Promise<string | null> {
@@ -151,6 +184,7 @@ async function getSiteRefBySlug(slug: string): Promise<string | null> {
 /**
  * Get tours for a specific site
  * Uses the sites array to filter tours that belong to the given site
+ * Falls back to hardcoded tours if Sanity returns empty or tours without images
  */
 export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
     try {
@@ -158,7 +192,7 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
         const siteRef = await getSiteRefBySlug(siteId);
 
         if (!siteRef) {
-            console.error(`[Sanity] Site with slug "${siteId}" not found. Check if site document exists with isActive=true`);
+            console.warn(`[Sanity] Site with slug "${siteId}" not found. Using fallback tours.`);
             return [];
         }
 
@@ -190,10 +224,19 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
         }`;
 
         const tours = await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
-        console.log(`[Sanity] Fetched ${tours.length} tours for site: ${siteId}`);
-        return tours;
+        
+        // Check if tours have images - if not, return empty to trigger fallback
+        const toursWithImages = tours.filter((t: any) => t.mainImage?.asset?.url);
+        
+        if (toursWithImages.length === 0 && tours.length > 0) {
+            console.warn(`[Sanity] Found ${tours.length} tours but none have images. Using fallback tours.`);
+            return [];
+        }
+        
+        console.log(`[Sanity] Fetched ${toursWithImages.length} tours with images for site: ${siteId}`);
+        return toursWithImages;
     } catch (error) {
-        console.error('[Sanity] Failed to fetch tours:', error);
+        console.error('[Sanity] Failed to fetch tours, using fallback:', error);
         return [];
     }
 }
@@ -299,6 +342,7 @@ export async function getPost(slug: string, siteId: string = DEFAULT_SITE_ID): P
 
 /**
  * Get settings for a specific site
+ * Falls back to hardcoded settings if Sanity has none
  */
 export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Settings | null> {
     try {
@@ -310,15 +354,19 @@ export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Set
             "site": site->{ _id, title, slug }
         }`;
 
-        return await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+        const settings = await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+        
+        // Return Sanity settings if they exist, otherwise use hardcoded
+        return settings || HARDCODED_HERO_SETTINGS as Settings;
     } catch (error) {
-        console.error('Failed to fetch settings:', error);
-        return null;
+        console.error('Failed to fetch settings, using hardcoded:', error);
+        return HARDCODED_HERO_SETTINGS as Settings;
     }
 }
 
 /**
  * Get site information
+ * Merges Sanity data with hardcoded fallbacks
  */
 export async function getSite(siteId: string = DEFAULT_SITE_ID): Promise<Site | null> {
     try {
@@ -350,10 +398,40 @@ export async function getSite(siteId: string = DEFAULT_SITE_ID): Promise<Site | 
             legalLinks
         }`;
 
-        return await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+        const sanitySite = await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+        
+        // Merge Sanity data with hardcoded fallbacks
+        if (sanitySite) {
+            return {
+                ...HARDCODED_SITE_INFO,
+                ...sanitySite,
+                // Ensure critical fields have fallbacks
+                contactEmail: sanitySite.contactEmail || HARDCODED_SITE_INFO.contactEmail,
+                contactPhone: sanitySite.contactPhone || HARDCODED_SITE_INFO.contactPhone,
+                whatsappNumber: sanitySite.whatsappNumber || HARDCODED_SITE_INFO.whatsappNumber,
+                logoText: sanitySite.logoText || HARDCODED_SITE_INFO.logoText,
+                logoTextAccent: sanitySite.logoTextAccent || HARDCODED_SITE_INFO.logoTextAccent,
+                brandColors: sanitySite.brandColors || HARDCODED_SITE_INFO.brandColors,
+                businessInfo: sanitySite.businessInfo || HARDCODED_SITE_INFO.businessInfo,
+                socialLinks: sanitySite.socialLinks || HARDCODED_SITE_INFO.socialLinks,
+            } as Site;
+        }
+        
+        // If no Sanity site, return hardcoded with basic structure
+        return {
+            _id: siteId,
+            slug: { current: siteId },
+            isActive: true,
+            ...HARDCODED_SITE_INFO
+        } as Site;
     } catch (error) {
-        console.error('Failed to fetch site:', error);
-        return null;
+        console.error('Failed to fetch site, using hardcoded:', error);
+        return {
+            _id: siteId,
+            slug: { current: siteId },
+            isActive: true,
+            ...HARDCODED_SITE_INFO
+        } as Site;
     }
 }
 

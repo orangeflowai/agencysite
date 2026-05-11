@@ -11,6 +11,25 @@ import {
     ShoppingBag,
 } from 'lucide-react'
 
+// ─── Allowed sites for this studio instance ───────────────────────────────────
+// This studio is deployed on wondersofrome.com and ticketsinrome.com.
+// It must ONLY show content belonging to these two sites.
+// Other agency sites (goldenrometour, romanvaticantour, romewander) are hidden.
+const ALLOWED_SITE_IDS = [
+    'f696f927-e2a7-407d-82d6-585b8a354caa', // wondersofrome
+    'tickets-in-rome-site',                   // ticketsinrome
+]
+
+// GROQ filter: tours linked to either of the two allowed sites
+const TOURS_FILTER = `_type == "tour" && count(sites[_ref in $allowedSites]) > 0`
+// GROQ filter: posts/settings linked to either of the two allowed sites
+const POSTS_FILTER = `_type == "post" && site._ref in $allowedSites`
+const SETTINGS_FILTER = `_type == "settings" && site._ref in $allowedSites`
+// GROQ filter: only the two allowed site documents
+const SITES_FILTER = `_type == "site" && _id in $allowedSites`
+
+const ALLOWED_PARAMS = { allowedSites: ALLOWED_SITE_IDS }
+
 export const structure: StructureResolver = (S) => {
     return S.list()
         .title('Content Manager')
@@ -36,10 +55,16 @@ export const structure: StructureResolver = (S) => {
                                 .icon(ShoppingBag)
                                 .child(S.editor().schemaType('product').documentId('new-product-draft')),
                             S.divider(),
+                            // Only show the two allowed website profiles
                             S.listItem()
                                 .title('🌐 Setup Website Profile')
                                 .icon(Globe)
-                                .child(S.documentTypeList('site').title('Website Profiles')),
+                                .child(
+                                    S.documentList()
+                                        .title('Website Profiles')
+                                        .filter(SITES_FILTER)
+                                        .params(ALLOWED_PARAMS)
+                                ),
                         ])
                 ),
 
@@ -53,21 +78,22 @@ export const structure: StructureResolver = (S) => {
                     S.list()
                         .title('Select Website to Manage')
                         .items([
+                            // ── Wonders of Rome ──────────────────────────────
                             S.listItem()
-                                .title('🎟️ Rome Tour Tickets')
+                                .title('✨ Wonders of Rome')
                                 .icon(Eye)
                                 .child(
                                     S.list()
-                                        .title('Rome Tour Tickets Content')
+                                        .title('Wonders of Rome Content')
                                         .items([
                                             S.listItem()
                                                 .title('🎯 Tours')
                                                 .icon(Map)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Tours for Rome Tour Tickets')
+                                                        .title('Tours — Wonders of Rome')
                                                         .filter('_type == "tour" && $siteId in sites[]._ref')
-                                                        .params({ siteId: 'rome-tour-tickets' })
+                                                        .params({ siteId: 'f696f927-e2a7-407d-82d6-585b8a354caa' })
                                                         .defaultOrdering([{ field: 'title', direction: 'asc' }])
                                                 ),
                                             S.listItem()
@@ -75,39 +101,49 @@ export const structure: StructureResolver = (S) => {
                                                 .icon(FileText)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Posts for Rome Tour Tickets')
+                                                        .title('Posts — Wonders of Rome')
                                                         .filter('_type == "post" && site._ref == $siteId')
-                                                        .params({ siteId: 'rome-tour-tickets' })
+                                                        .params({ siteId: 'f696f927-e2a7-407d-82d6-585b8a354caa' })
                                                 ),
                                             S.listItem()
                                                 .title('⚙️ Settings')
                                                 .icon(Settings)
                                                 .child(
                                                     S.documentList()
-                                                        .title('Settings for Rome Tour Tickets')
+                                                        .title('Settings — Wonders of Rome')
                                                         .filter('_type == "settings" && site._ref == $siteId')
-                                                        .params({ siteId: 'rome-tour-tickets' })
+                                                        .params({ siteId: 'f696f927-e2a7-407d-82d6-585b8a354caa' })
+                                                ),
+                                            S.listItem()
+                                                .title('🌐 Site Profile')
+                                                .icon(Globe)
+                                                .child(
+                                                    S.document()
+                                                        .schemaType('site')
+                                                        .documentId('f696f927-e2a7-407d-82d6-585b8a354caa')
+                                                        .title('Wonders of Rome Profile')
                                                 ),
                                         ])
                                 ),
 
                             S.divider(),
 
+                            // ── Tickets in Rome ───────────────────────────────
                             S.listItem()
-                                .title(`✨ ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
+                                .title('🎟️ Tickets in Rome')
                                 .icon(Eye)
                                 .child(
                                     S.list()
-                                        .title(`${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} Content`)
+                                        .title('Tickets in Rome Content')
                                         .items([
                                             S.listItem()
-                                                .title(`🎯 Tours`)
+                                                .title('🎯 Tours')
                                                 .icon(Map)
                                                 .child(
                                                     S.documentList()
-                                                        .title(`Tours for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
+                                                        .title('Tours — Tickets in Rome')
                                                         .filter('_type == "tour" && $siteId in sites[]._ref')
-                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
+                                                        .params({ siteId: 'tickets-in-rome-site' })
                                                         .defaultOrdering([{ field: 'title', direction: 'asc' }])
                                                 ),
                                             S.listItem()
@@ -115,29 +151,29 @@ export const structure: StructureResolver = (S) => {
                                                 .icon(FileText)
                                                 .child(
                                                     S.documentList()
-                                                        .title(`Posts for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
+                                                        .title('Posts — Tickets in Rome')
                                                         .filter('_type == "post" && site._ref == $siteId')
-                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
+                                                        .params({ siteId: 'tickets-in-rome-site' })
                                                 ),
                                             S.listItem()
                                                 .title('⚙️ Settings')
                                                 .icon(Settings)
                                                 .child(
                                                     S.documentList()
-                                                        .title(`Settings for ${process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}`)
+                                                        .title('Settings — Tickets in Rome')
                                                         .filter('_type == "settings" && site._ref == $siteId')
-                                                        .params({ siteId: process.env.NEXT_PUBLIC_SITE_ID || 'your-agency-slug' })
+                                                        .params({ siteId: 'tickets-in-rome-site' })
+                                                ),
+                                            S.listItem()
+                                                .title('🌐 Site Profile')
+                                                .icon(Globe)
+                                                .child(
+                                                    S.document()
+                                                        .schemaType('site')
+                                                        .documentId('tickets-in-rome-site')
+                                                        .title('Tickets in Rome Profile')
                                                 ),
                                         ])
-                                ),
-
-                            S.divider(),
-
-                            S.listItem()
-                                .title('⚡ Manage Websites')
-                                .icon(Settings)
-                                .child(
-                                    S.documentTypeList('site').title('All Websites')
                                 ),
                         ])
                 ),
@@ -165,18 +201,24 @@ export const structure: StructureResolver = (S) => {
 
             S.divider(),
 
-            // === ALL CONTENT (Admin) ===
+            // === ALL CONTENT — scoped to wondersofrome + ticketsinrome only ===
             S.listItem()
-                .title('📁 All Content (Admin)')
+                .title('📁 All Content')
                 .icon(LayoutTemplate)
                 .child(
                     S.list()
-                        .title('All Content')
+                        .title('All Content (This Agency)')
                         .items([
                             S.listItem()
                                 .title('🎯 All Tours')
                                 .icon(Map)
-                                .child(S.documentTypeList('tour').title('All Tours')),
+                                .child(
+                                    S.documentList()
+                                        .title('All Tours')
+                                        .filter(TOURS_FILTER)
+                                        .params(ALLOWED_PARAMS)
+                                        .defaultOrdering([{ field: 'title', direction: 'asc' }])
+                                ),
                             S.listItem()
                                 .title('🎧 All Audio Guide Sights')
                                 .icon(Headphones)
@@ -188,21 +230,36 @@ export const structure: StructureResolver = (S) => {
                             S.listItem()
                                 .title('📝 All Blog Posts')
                                 .icon(FileText)
-                                .child(S.documentTypeList('post').title('All Posts')),
+                                .child(
+                                    S.documentList()
+                                        .title('All Blog Posts')
+                                        .filter(POSTS_FILTER)
+                                        .params(ALLOWED_PARAMS)
+                                ),
                             S.listItem()
                                 .title('⚙️ All Settings')
                                 .icon(Settings)
-                                .child(S.documentTypeList('settings').title('All Settings')),
+                                .child(
+                                    S.documentList()
+                                        .title('All Settings')
+                                        .filter(SETTINGS_FILTER)
+                                        .params(ALLOWED_PARAMS)
+                                ),
                             S.listItem()
-                                .title('🌐 All Websites')
+                                .title('🌐 Our Websites')
                                 .icon(Globe)
-                                .child(S.documentTypeList('site').title('All Sites')),
+                                .child(
+                                    S.documentList()
+                                        .title('Our Websites')
+                                        .filter(SITES_FILTER)
+                                        .params(ALLOWED_PARAMS)
+                                ),
                         ])
                 ),
 
             S.divider(),
 
-            // === FILTER BY CATEGORY ===
+            // === FILTER BY CATEGORY — scoped to allowed sites ===
             S.listItem()
                 .title('🔍 Filter by Category')
                 .icon(Filter)
@@ -216,8 +273,8 @@ export const structure: StructureResolver = (S) => {
                                 .child(
                                     S.documentList()
                                         .title('Colosseum Tours')
-                                        .filter('_type == "tour" && category == $category')
-                                        .params({ category: 'colosseum' })
+                                        .filter(`${TOURS_FILTER} && category == $category`)
+                                        .params({ ...ALLOWED_PARAMS, category: 'colosseum' })
                                 ),
                             S.listItem()
                                 .title('Vatican Tours')
@@ -225,8 +282,8 @@ export const structure: StructureResolver = (S) => {
                                 .child(
                                     S.documentList()
                                         .title('Vatican Tours')
-                                        .filter('_type == "tour" && category == $category')
-                                        .params({ category: 'vatican' })
+                                        .filter(`${TOURS_FILTER} && category == $category`)
+                                        .params({ ...ALLOWED_PARAMS, category: 'vatican' })
                                 ),
                             S.listItem()
                                 .title('City Tours')
@@ -234,8 +291,8 @@ export const structure: StructureResolver = (S) => {
                                 .child(
                                     S.documentList()
                                         .title('City Tours')
-                                        .filter('_type == "tour" && category == $category')
-                                        .params({ category: 'city' })
+                                        .filter(`${TOURS_FILTER} && category == $category`)
+                                        .params({ ...ALLOWED_PARAMS, category: 'city' })
                                 ),
                             S.listItem()
                                 .title('Hidden Gems')
@@ -243,8 +300,8 @@ export const structure: StructureResolver = (S) => {
                                 .child(
                                     S.documentList()
                                         .title('Hidden Gems')
-                                        .filter('_type == "tour" && category == $category')
-                                        .params({ category: 'hidden-gems' })
+                                        .filter(`${TOURS_FILTER} && category == $category`)
+                                        .params({ ...ALLOWED_PARAMS, category: 'hidden-gems' })
                                 ),
                         ])
                 ),

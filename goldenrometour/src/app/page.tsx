@@ -26,7 +26,11 @@ export default async function Home() {
   let tours = toursData;
   if (!tours || tours.length === 0) {
     tours = fallbackTours.map((t: any) => ({
-      ...t, _id: t.id, slug: { current: t.slug }, mainImage: t.imageUrl,
+      ...t, 
+      _id: t.id, 
+      slug: { current: t.slug }, 
+      mainImage: t.imageUrl,
+      features: t.highlights, // Map highlights to features for tour cards
     })) as any;
   }
 // Use settings for Hero if available

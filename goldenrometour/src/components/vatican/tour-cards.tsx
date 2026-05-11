@@ -135,7 +135,7 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                   )}
                   
                   {/* Category */}
-                  <div className="absolute top-6 right-6 px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full text-xs font-bold text-foreground shadow-xl uppercase tracking-wider">
+                  <div className="absolute top-6 right-6 px-4 py-2 bg-card backdrop-blur-sm rounded-full text-xs font-bold text-foreground shadow-xl uppercase tracking-wider border border-border">
                     {tourCategory}
                   </div>
                   
@@ -168,7 +168,7 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                       return (
                         <span 
                           key={i}
-                          className="px-4 py-2 bg-secondary/50 text-foreground text-xs rounded-full font-bold border border-border uppercase tracking-wide"
+                          className="px-4 py-2 bg-accent/10 text-accent-foreground text-xs rounded-full font-bold border border-accent/30 uppercase tracking-wide"
                         >
                           {featureText}
                         </span>
