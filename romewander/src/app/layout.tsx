@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Cormorant_Garamond, Josefin_Sans, Great_Vibes } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
@@ -11,31 +11,9 @@ import GoogleTranslate from "@/components/GoogleTranslate";
 import { getSite, DEFAULT_SITE_ID } from "@/lib/sanityService";
 import { CartProvider } from "@/context/CartContext";
 
-const playfair = Playfair_Display({
-  weight: ['400', '500', '600', '700'],
+const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-serif',
-  display: 'swap',
-});
-
-const cormorant = Cormorant_Garamond({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-sans',
-  display: 'swap',
-});
-
-const josefin = Josefin_Sans({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-nav',
-  display: 'swap',
-});
-
-const greatVibes = Great_Vibes({
-  weight: ['400'],
-  subsets: ['latin'],
-  variable: '--font-accent',
+  variable: '--font-inter',
   display: 'swap',
 });
 
@@ -48,11 +26,6 @@ export async function generateMetadata(): Promise<Metadata> {
     title: site?.seo?.metaTitle || `${siteName} | Official Tours`,
     description: site?.seo?.metaDescription || `Book skip-the-line tours with ${siteName}. Expert guides, instant confirmation.`,
     applicationName: siteName,
-    icons: {
-      icon: site?.favicon?.asset?.url || '/logo.png',
-      shortcut: site?.favicon?.asset?.url || '/logo.png',
-      apple: site?.favicon?.asset?.url || '/logo.png',
-    },
     openGraph: {
       siteName,
       title: site?.seo?.metaTitle || `${siteName} | Official Tours`,
@@ -91,7 +64,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         />
       </head>
       <body
-        className={`${cormorant.variable} ${playfair.variable} ${josefin.variable} ${greatVibes.variable} font-sans antialiased`}
+        className={`${inter.variable} font-inter antialiased`}
         data-site-id={siteSlug}
         data-site={siteSlug}
         suppressHydrationWarning
@@ -102,7 +75,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               <CartProvider>
                 <GoogleTranslate />
                 <SmoothScroll>
-                  <WhatsAppButton />
                   <CookieBanner />
                   {children}
                 </SmoothScroll>

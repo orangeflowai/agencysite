@@ -9,7 +9,7 @@ export default function AboutPage() {
     const siteName = process.env.NEXT_PUBLIC_SITE_NAME || "Rome Wander";
 
     return (
-        <main className="min-h-screen bg-background selection:bg-primary selection:text-white font-sans text-foreground">
+        <main className="min-h-screen bg-background selection:bg-primary selection:text-white font-inter text-foreground">
             <Navbar />
 
             {/* Hero Section */}
@@ -36,7 +36,7 @@ export default function AboutPage() {
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto">
                         <div className="prose prose-lg mx-auto text-foreground/80 font-medium leading-relaxed space-y-8">
-                            <p className="text-2xl font-serif font-black italic text-foreground border-l-4 border-primary pl-6">
+                            <p className="text-2xl font-inter font-black italic text-foreground border-l-4 border-primary pl-6">
                                 "Gladiators once fought right here... and one of them probably complained about the traffic on the Via Sacra." 😄
                             </p>
 
@@ -49,7 +49,7 @@ export default function AboutPage() {
                             </p>
 
                             <div className="bg-card p-8 rounded-3xl border border-border my-12 shadow-sm">
-                                <h3 className="text-xl font-serif font-black italic uppercase tracking-tight text-primary mb-4">How it Started</h3>
+                                <h3 className="text-xl font-inter font-black italic uppercase tracking-tight text-primary mb-4">How it Started</h3>
                                 <p className="mb-0 text-muted-foreground">
                                     Back in the day (okay, not that far back), a few of us got tired of seeing visitors rush through the Vatican lines, snap a quick selfie at the Trevi Fountain, and miss the real soul of the Eternal City. So we said: "Enough chaos. Let's make Rome feel like an adventure again."
                                 </p>
@@ -77,7 +77,7 @@ export default function AboutPage() {
                                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                     <History className="text-primary w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-serif font-black italic uppercase tracking-tight text-foreground mb-4">No Boring Lectures</h3>
+                                <h3 className="text-xl font-inter font-black italic uppercase tracking-tight text-foreground mb-4">No Boring Lectures</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">Just fun, fascinating stories that bring 2,800 years of history to life in a way you'll actually remember.</p>
                             </div>
 
@@ -85,7 +85,7 @@ export default function AboutPage() {
                                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                     <Ticket className="text-primary w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-serif font-black italic uppercase tracking-tight text-foreground mb-4">Zero Stress</h3>
+                                <h3 className="text-xl font-inter font-black italic uppercase tracking-tight text-foreground mb-4">Zero Stress</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">We handle the lines, the crowds, and the "where do we meet?" panic. Your only job is to enjoy the view.</p>
                             </div>
 
@@ -93,7 +93,7 @@ export default function AboutPage() {
                                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                     <Users className="text-primary w-8 h-8" />
                                 </div>
-                                <h3 className="text-xl font-serif font-black italic uppercase tracking-tight text-foreground mb-4">Memories that Stick</h3>
+                                <h3 className="text-xl font-inter font-black italic uppercase tracking-tight text-foreground mb-4">Memories that Stick</h3>
                                 <p className="text-muted-foreground text-sm leading-relaxed">You'll leave feeling like you didn't just visit Rome—you lived a little piece of its vibrant soul.</p>
                             </div>
                         </div>

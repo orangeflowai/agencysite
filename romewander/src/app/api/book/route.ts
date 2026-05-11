@@ -32,7 +32,7 @@ export async function POST(request: Request) {
                     to: body.email,
                     subject: `Booking Confirmed: ${body.tourTitle}`,
                     html: `
-                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                        <div style="font-family: var(--font-inter); max-width: 600px; margin: 0 auto;">
                             <div style="background: ${process.env.NEXT_PUBLIC_BRAND_COLOR || "#4a5d4a"}; padding: 30px; text-align: center;">
                                 <h1 style="color: white; margin: 0;">Booking Confirmed!</h1>
                             </div>

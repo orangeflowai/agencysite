@@ -51,8 +51,8 @@ export default async function Home() {
               { stat: '100%',    label: 'Satisfaction' },
             ].map((item) => (
               <div key={item.label} className="text-center px-4 py-2">
-                <p className="font-serif font-bold text-xl md:text-2xl leading-none text-[#C9A84C]">{item.stat}</p>
-                <p className="font-sans text-[9px] uppercase tracking-[0.2em] mt-1 text-white/50">{item.label}</p>
+                <p className="font-inter font-bold text-xl md:text-2xl leading-none text-[#C9A84C]">{item.stat}</p>
+                <p className="font-inter text-[9px] uppercase tracking-[0.2em] mt-1 text-white/50">{item.label}</p>
               </div>
             ))}
           </div>
@@ -62,8 +62,8 @@ export default async function Home() {
       {/* Reviews */}
       <div className="py-20 bg-[#FDFFF5]">
         <div className="container mx-auto px-6 md:px-16 text-center mb-10">
-          <p className="font-sans text-[10px] tracking-[0.4em] uppercase font-bold mb-3 text-[#C9A84C]">✦ GUEST EXPERIENCES ✦</p>
-          <h2 className="font-serif font-bold text-4xl text-[#1A1210]">What our travelers say</h2>
+          <p className="font-inter text-[10px] tracking-[0.4em] uppercase font-bold mb-3 text-[#C9A84C]">✦ GUEST EXPERIENCES ✦</p>
+          <h2 className="font-inter font-bold text-4xl text-[#1A1210]">What our travelers say</h2>
         </div>
         <FloatingReviews />
       </div>
@@ -85,27 +85,17 @@ export default async function Home() {
         imageAlt="Inside the Vatican Museums"
       />
 
-      {/* Colosseum */}
-      <AnimatedSection id="colosseum" delay={0.2}>
-        <ProductRow title="Colosseum & Ancient Rome" subtitle="Walk in the footsteps of Gladiators — Arena, Underground, and Forum." tours={colosseumTours} link="/category/colosseum" dark={true} />
-      </AnimatedSection>
-
       {/* City */}
       <AnimatedSection id="city" delay={0.3}>
         <ProductRow title="Rome City Tours" subtitle="Explore the Pantheon, Trevi Fountain, Spanish Steps and iconic squares." tours={cityTours} link="/category/city" dark={false} />
-      </AnimatedSection>
-
-      {/* Hidden Gems */}
-      <AnimatedSection id="hidden-gems" delay={0.4}>
-        <ProductRow title="Italy Hidden Gems" subtitle="Catacombs, Golf Cart tours, Day trips, Food tours & unique experiences." tours={hiddenGemsTours} link="/category/hidden-gems" dark={true} />
       </AnimatedSection>
 
       {/* Trust */}
       <AnimatedSection delay={0.6}>
         <section className="py-16 bg-white">
           <div className="container mx-auto px-6 md:px-16 text-center mb-8">
-            <p className="font-sans text-[10px] tracking-[0.35em] uppercase font-bold mb-3 text-[#C9A84C]">✦ BOOK WITH CONFIDENCE ✦</p>
-            <h2 className="font-serif font-bold text-[#1A1210]" style={{ fontSize: 'clamp(28px, 3.5vw, 42px)' }}>Why Choose RomeWander</h2>
+            <p className="font-inter text-[10px] tracking-[0.35em] uppercase font-bold mb-3 text-[#C9A84C]">✦ BOOK WITH CONFIDENCE ✦</p>
+            <h2 className="font-inter font-bold text-[#1A1210]" style={{ fontSize: 'clamp(28px, 3.5vw, 42px)' }}>Why Choose RomeWander</h2>
           </div>
           <TrustBadges />
         </section>
@@ -121,7 +111,7 @@ export default async function Home() {
               <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
                 <div>
                   <p className="text-[#C9A84C] font-bold uppercase tracking-widest text-xs mb-3">Travel Guides</p>
-                  <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1A1210]">From Our Blog</h2>
+                  <h2 className="text-4xl md:text-5xl font-inter font-bold text-[#1A1210]">From Our Blog</h2>
                 </div>
                 <Link href="/blog" className="inline-flex items-center gap-2 text-[#C9A84C] font-bold text-sm uppercase tracking-widest hover:underline shrink-0">
                   All Articles <ArrowRight size={16} />

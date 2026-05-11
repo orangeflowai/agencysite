@@ -4,165 +4,153 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-// High-quality Vatican & Rome images from Pexels / Unsplash with correct IDs
+// High-quality Vatican & Rome images
 const images = [
   {
-    src: 'https://images.pexels.com/photos/532263/pexels-photo-532263.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    alt: 'St. Peter\'s Basilica, Vatican City',
+    src: 'https://images.pexels.com/photos/532263/pexels-photo-532263.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1',
+    alt: 'St. Peter\'s Basilica Arch',
     label: "St. Peter's Basilica",
-    span: 'col-span-2 row-span-2',
+    type: 'arch',
   },
   {
-    src: 'https://images.pexels.com/photos/1701595/pexels-photo-1701595.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
-    alt: 'Vatican Museums Grand Gallery',
+    src: 'https://images.pexels.com/photos/1701595/pexels-photo-1701595.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=1',
+    alt: 'Vatican Museums Circle',
     label: 'Vatican Museums',
-    span: 'col-span-1 row-span-1',
+    type: 'circle',
   },
   {
-    src: 'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
-    alt: 'Sistine Chapel ceiling detail',
+    src: 'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1',
+    alt: 'Sistine Chapel Arch',
     label: 'Sistine Chapel',
-    span: 'col-span-1 row-span-1',
+    type: 'arch',
   },
   {
-    src: 'https://images.pexels.com/photos/2422461/pexels-photo-2422461.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
-    alt: 'Colosseum at sunset, Rome',
+    src: 'https://images.pexels.com/photos/2422461/pexels-photo-2422461.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&dpr=1',
+    alt: 'Colosseum Circle',
     label: 'The Colosseum',
-    span: 'col-span-1 row-span-1',
+    type: 'circle',
   },
   {
-    src: 'https://images.pexels.com/photos/356966/pexels-photo-356966.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
-    alt: 'Trevi Fountain, Rome',
+    src: 'https://images.pexels.com/photos/356966/pexels-photo-356966.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1',
+    alt: 'Trevi Fountain Arch',
     label: 'Trevi Fountain',
-    span: 'col-span-1 row-span-1',
-  },
-  {
-    src: 'https://images.pexels.com/photos/1797161/pexels-photo-1797161.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&dpr=1',
-    alt: 'Roman Forum ancient ruins',
-    label: 'Roman Forum',
-    span: 'col-span-1 row-span-1',
+    type: 'arch',
   },
 ];
 
 export default function RomeGallery() {
   return (
-    <section
-      className="py-24 overflow-hidden"
-      style={{ backgroundColor: '#1A1210' }}
-    >
+    <section className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-6 md:px-16">
-
+        
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
-            style={{ color: '#C9A84C' }}
+            className="font-inter text-[11px] tracking-[0.4em] uppercase font-bold mb-5 text-[#C9A84C]"
           >
-            ✦ SACRED DESTINATIONS ✦
+            ✦ THE SOUL OF ROME ✦
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-serif font-bold text-white leading-tight mb-4"
-            style={{ fontSize: 'clamp(36px, 5vw, 60px)' }}
+            className="font-inter font-bold text-[#1A1210] tracking-tight leading-tight mb-6"
+            style={{ fontSize: 'clamp(32px, 5vw, 56px)' }}
           >
-            Relics of the{' '}
-            <span className="font-accent italic" style={{ color: '#C9A84C' }}>
-              Eternal City
+            Experience the{' '}
+            <span className="italic font-medium text-[#C9A84C]">
+              Sacred & Eternal
             </span>
           </motion.h2>
-          <div className="w-16 h-px mx-auto mb-6" style={{ backgroundColor: 'rgba(201,168,76,0.4)' }} />
-          <p
-            className="font-serif italic text-lg max-w-xl mx-auto"
-            style={{ color: 'rgba(245,240,232,0.55)' }}
-          >
-            Sacred architecture and timeless history, experienced through the lens of absolute luxury.
+          <p className="font-inter text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed">
+            A curated visual journey through the most iconic monuments of the Vatican and Rome, 
+            presented with the elegance and clarity they deserve.
           </p>
         </div>
 
-        {/* Masonry-style Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4" style={{ gridAutoRows: '220px' }}>
-
-          {/* Large hero image — spans 2 cols × 2 rows */}
+        {/* Apple-style Organic Collage */}
+        <div className="relative h-[800px] md:h-[900px] w-full max-w-6xl mx-auto">
+          
+          {/* 1. Large Arch Left */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative overflow-hidden group col-span-2 row-span-2 cursor-pointer"
-            style={{ borderRadius: '2px' }}
+            transition={{ duration: 0.8 }}
+            className="absolute left-0 top-0 w-[45%] h-[60%] overflow-hidden group shadow-2xl"
+            style={{ borderRadius: '240px 240px 24px 24px' }}
           >
-            <Image
-              src={images[0].src}
-              alt={images[0].alt}
-              fill
-              className="object-cover transition-transform duration-1000 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'linear-gradient(to top, rgba(26,18,16,0.85) 30%, transparent)' }} />
-            <div className="absolute bottom-5 left-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p className="font-nav text-[9px] uppercase tracking-[0.25em] mb-1" style={{ color: '#C9A84C' }}>Sacred Site</p>
-              <p className="font-serif font-bold text-xl text-white">{images[0].label}</p>
-            </div>
-            {/* Always visible gold tag */}
-            <div
-              className="absolute top-4 left-4 font-nav text-[9px] uppercase tracking-[0.2em] px-3 py-1.5"
-              style={{ backgroundColor: 'rgba(201,168,76,0.9)', color: '#1A1210', borderRadius: '999px' }}
-            >
-              Featured
+            <Image src={images[0].src} alt={images[0].alt} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+            <div className="absolute bottom-10 left-10 text-white drop-shadow-lg">
+              <p className="font-inter text-[10px] uppercase tracking-widest mb-1 opacity-80">Architecture</p>
+              <h3 className="font-inter font-bold text-2xl">{images[0].label}</h3>
             </div>
           </motion.div>
 
-          {/* 4 smaller images — 1 col × 1 row each */}
-          {images.slice(1, 5).map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="relative overflow-hidden group cursor-pointer"
-              style={{ borderRadius: '2px' }}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover transition-all duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 50vw, 25vw"
-              />
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'rgba(26,18,16,0.55)' }} />
-              <p className="absolute bottom-3 left-3 right-3 font-nav text-[9px] uppercase tracking-wider text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg">
-                {img.label}
-              </p>
-            </motion.div>
-          ))}
-
-          {/* Bottom wide image — 2 cols */}
+          {/* 2. Circle Center-Top */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="relative overflow-hidden group cursor-pointer col-span-2"
-            style={{ borderRadius: '2px' }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="absolute left-[38%] top-[10%] w-[25%] aspect-square overflow-hidden group shadow-xl z-10"
+            style={{ borderRadius: '50%' }}
           >
-            <Image
-              src={images[5].src}
-              alt={images[5].alt}
-              fill
-              className="object-cover transition-all duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ background: 'rgba(26,18,16,0.55)' }} />
-            <p className="absolute bottom-3 left-4 font-nav text-[9px] uppercase tracking-wider text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {images[5].label}
-            </p>
+            <Image src={images[1].src} alt={images[1].alt} fill className="object-cover group-hover:scale-110 transition-transform duration-1000" />
+            <div className="absolute inset-0 bg-black/5 group-hover:bg-black/15 transition-colors" />
           </motion.div>
+
+          {/* 3. Tall Arch Right */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="absolute right-0 top-[15%] w-[40%] h-[70%] overflow-hidden group shadow-2xl"
+            style={{ borderRadius: '200px 200px 24px 24px' }}
+          >
+            <Image src={images[2].src} alt={images[2].alt} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+            <div className="absolute bottom-10 right-10 text-right text-white drop-shadow-lg">
+              <p className="font-inter text-[10px] uppercase tracking-widest mb-1 opacity-80">Heritage</p>
+              <h3 className="font-inter font-bold text-2xl">{images[2].label}</h3>
+            </div>
+          </motion.div>
+
+          {/* 4. Large Circle Bottom-Left */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="absolute left-[15%] bottom-[5%] w-[30%] aspect-square overflow-hidden group shadow-xl"
+            style={{ borderRadius: '50%' }}
+          >
+            <Image src={images[3].src} alt={images[3].alt} fill className="object-cover group-hover:scale-110 transition-transform duration-1000" />
+            <div className="absolute inset-0 bg-black/5 group-hover:bg-black/15 transition-colors" />
+          </motion.div>
+
+          {/* 5. Medium Arch Center-Bottom */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="absolute left-[45%] bottom-0 w-[35%] h-[45%] overflow-hidden group shadow-2xl z-10"
+            style={{ borderRadius: '150px 150px 24px 24px' }}
+          >
+            <Image src={images[4].src} alt={images[4].alt} fill className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+            <div className="absolute bottom-10 left-10 text-white drop-shadow-lg">
+              <p className="font-inter text-[10px] uppercase tracking-widest mb-1 opacity-80">Moments</p>
+              <h3 className="font-inter font-bold text-xl">{images[4].label}</h3>
+            </div>
+          </motion.div>
+
         </div>
 
         {/* CTA */}
@@ -170,14 +158,15 @@ export default function RomeGallery() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center mt-14"
+          className="text-center mt-24"
         >
           <Link
             href="/category/vatican"
-            className="inline-block font-nav font-bold uppercase tracking-[0.2em] text-sm py-4 px-12 transition-all hover:scale-105"
-            style={{ border: '1px solid rgba(201,168,76,0.5)', color: '#C9A84C', borderRadius: '2px', backgroundColor: 'transparent' }}
+            className="inline-flex items-center gap-3 font-inter font-bold uppercase tracking-[0.2em] text-xs py-5 px-14 transition-all hover:gap-5"
+            style={{ border: '1px solid #C9A84C', color: '#C9A84C', borderRadius: '4px' }}
           >
-            View All Experiences →
+            Explore All Destinations
+            <span className="text-lg">→</span>
           </Link>
         </motion.div>
       </div>

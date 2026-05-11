@@ -285,7 +285,7 @@ export default function CheckoutModal({
                     <div className="shrink-0 flex items-center justify-between px-6 py-5 bg-[#1A1210] text-white">
                         <div>
                             <p className="text-[10px] uppercase tracking-[0.3em] text-[#C9A84C] font-bold">Secure Booking</p>
-                            <h2 className="text-lg font-serif font-bold leading-tight mt-0.5 line-clamp-1">{tour.title}</h2>
+                            <h2 className="text-lg font-inter font-bold leading-tight mt-0.5 line-clamp-1">{tour.title}</h2>
                         </div>
                         <button onClick={onClose}
                             className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
@@ -366,7 +366,7 @@ export default function CheckoutModal({
                             <div className="space-y-5">
                                 {/* Lead Traveler */}
                                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                    <h3 className="font-serif font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
+                                    <h3 className="font-inter font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
                                         <User size={18} className="text-[#C9A84C]" /> Lead Traveler
                                     </h3>
                                     <div className="grid grid-cols-2 gap-3">
@@ -426,7 +426,7 @@ export default function CheckoutModal({
                                 {/* Guest Names */}
                                 {guests.length > 0 && (
                                     <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                        <h3 className="font-serif font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
+                                        <h3 className="font-inter font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
                                             <Users size={18} className="text-[#C9A84C]" /> Guest Names
                                         </h3>
                                         <div className="space-y-3">
@@ -476,7 +476,7 @@ export default function CheckoutModal({
                             <div className="space-y-5">
                                 {/* Order Summary */}
                                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                    <h3 className="font-serif font-bold text-lg text-[#1A1210] mb-4">Order Summary</h3>
+                                    <h3 className="font-inter font-bold text-lg text-[#1A1210] mb-4">Order Summary</h3>
                                     <div className="space-y-2">
                                         {currentGuestTypes.filter(gt => (preGuestCounts[gt.name] || 0) > 0).map(gt => (
                                             <div key={gt.name} className="flex justify-between text-sm">
@@ -493,7 +493,7 @@ export default function CheckoutModal({
 
                                 {/* Special Requests */}
                                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                    <h3 className="font-serif font-bold text-base text-[#1A1210] mb-3">Special Requests (Optional)</h3>
+                                    <h3 className="font-inter font-bold text-base text-[#1A1210] mb-3">Special Requests (Optional)</h3>
                                     <textarea
                                         rows={3}
                                         placeholder="Any dietary requirements, accessibility needs, or special occasions?"
@@ -506,7 +506,7 @@ export default function CheckoutModal({
                                 {/* Related Tours Upsell */}
                                 {relatedTours.length > 0 && (
                                     <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                        <h3 className="font-serif font-bold text-base text-[#1A1210] mb-1 flex items-center gap-2">
+                                        <h3 className="font-inter font-bold text-base text-[#1A1210] mb-1 flex items-center gap-2">
                                             <Sparkles size={16} className="text-[#C9A84C]" /> You Might Also Like
                                         </h3>
                                         <p className="text-xs text-gray-500 mb-4">Customers who booked this tour also loved:</p>
@@ -547,7 +547,7 @@ export default function CheckoutModal({
                         {step === 3 && (
                             <div className="space-y-5">
                                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                    <h3 className="font-serif font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
+                                    <h3 className="font-inter font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
                                         <CreditCard size={18} className="text-[#C9A84C]" /> Payment Details
                                     </h3>
                                     {clientSecret && stripePromise ? (
@@ -604,7 +604,7 @@ export default function CheckoutModal({
                                     <CheckCircle size={48} className="text-green-600" />
                                 </motion.div>
                                 <div>
-                                    <h3 className="font-serif font-bold text-2xl text-[#1A1210] mb-2">Booking Confirmed!</h3>
+                                    <h3 className="font-inter font-bold text-2xl text-[#1A1210] mb-2">Booking Confirmed!</h3>
                                     <p className="text-gray-600 text-sm">
                                         Thank you, {leadTraveler.firstName}! A confirmation email has been sent to {leadTraveler.email}.
                                     </p>

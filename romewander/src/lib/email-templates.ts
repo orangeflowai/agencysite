@@ -100,7 +100,7 @@ export function generateCustomerEmail(
                     <tr>
                       <td style="background:#f9fafb;border-radius:8px;padding:12px;text-align:center;">
                         <span style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#9ca3af;">Booking Reference</span><br>
-                        <span style="font-size:24px;font-weight:700;font-family:monospace;color:#111827;">#${bookingRef}</span>
+                        <span style="font-size:24px;font-weight:700;font-family: var(--font-inter);color:#111827;">#${bookingRef}</span>
                       </td>
                     </tr>
                   </table>
@@ -334,7 +334,7 @@ export function generateAdminEmail(
     <html>
     <head>
       <style>
-        body { font-family: monospace; color: #333; }
+        body { font-family: var(--font-inter); color: #333; }
         .container { max-width: 800px; margin: 0 auto; border: 1px solid #ccc; padding: 20px; }
         h2 { border-bottom: 2px solid #333; padding-bottom: 5px; }
         .section { margin-bottom: 20px; }

@@ -16,7 +16,7 @@ export default function SearchPage() {
         <main className="min-h-screen bg-cream">
             <Navbar />
             <div className="pt-32 pb-20 container mx-auto px-4 min-h-[60vh]">
-                <h1 className="text-4xl font-serif font-bold text-emerald-900 mb-8 text-center">Search Results</h1>
+                <h1 className="text-4xl font-inter font-bold text-emerald-900 mb-8 text-center">Search Results</h1>
                 <Suspense fallback={<div className="text-center">Loading...</div>}>
                     <SearchResults />
                 </Suspense>

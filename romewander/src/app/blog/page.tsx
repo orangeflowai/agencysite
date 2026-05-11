@@ -29,7 +29,7 @@ export default async function BlogPage() {
                     <span className="block text-emerald-300 font-bold tracking-widest uppercase mb-4 text-sm md:text-base">
                         Travel Tips & Guides
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-serif font-bold text-white mb-6 drop-shadow-lg">
+                    <h1 className="text-4xl md:text-6xl font-inter font-bold text-white mb-6 drop-shadow-lg">
                         Stories from Rome
                     </h1>
                     <p className="text-lg md:text-xl text-emerald-50 max-w-2xl mx-auto leading-relaxed">
@@ -67,7 +67,7 @@ export default async function BlogPage() {
                                     }) : 'Recently Updated'}
                                 </div>
 
-                                <h2 className="text-xl font-serif font-bold text-gray-900 mb-3 group-hover:text-olive transition-colors line-clamp-2">
+                                <h2 className="text-xl font-inter font-bold text-gray-900 mb-3 group-hover:text-olive transition-colors line-clamp-2">
                                     {post.title}
                                 </h2>
 
@@ -85,7 +85,7 @@ export default async function BlogPage() {
 
                 {posts.length === 0 && (
                     <div className="text-center py-20 bg-emerald-50 rounded-2xl border border-emerald-100">
-                        <h3 className="text-2xl font-serif font-bold text-emerald-900 mb-2">No Stories Yet</h3>
+                        <h3 className="text-2xl font-inter font-bold text-emerald-900 mb-2">No Stories Yet</h3>
                         <p className="text-emerald-700">Check back soon for our first travel guide!</p>
                     </div>
                 )}

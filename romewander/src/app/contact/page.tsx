@@ -62,7 +62,7 @@ export default function ContactPage() {
                     transition={{ duration: 0.8 }}
                     className="relative z-10"
                 >
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 font-serif">{t('contact.title')}</h1>
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4 font-inter">{t('contact.title')}</h1>
                     <p className="text-white/90 text-lg max-w-2xl mx-auto px-4 font-medium">
                         {t('contact.subtitle')}
                     </p>
@@ -79,7 +79,7 @@ export default function ContactPage() {
                         variants={fadeInUp}
                         className="space-y-8"
                     >
-                        <h2 className="text-3xl font-serif font-bold text-black border-b-2 border-olive/20 pb-4 inline-block">Get in Touch</h2>
+                        <h2 className="text-3xl font-inter font-bold text-black border-b-2 border-olive/20 pb-4 inline-block">Get in Touch</h2>
                         <div className="space-y-8">
                             <div className="flex items-start space-x-6 group">
                                 <div className="w-14 h-14 bg-white rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">

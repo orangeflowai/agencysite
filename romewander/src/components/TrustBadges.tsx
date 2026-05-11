@@ -48,27 +48,27 @@ export default function TrustBadges() {
                             <div className="relative mb-8">
                                 <div className="absolute inset-0 bg-[#C9A84C]/20 blur-xl rounded-full scale-0 group-hover:scale-125 transition-transform duration-500 opacity-0 group-hover:opacity-100"></div>
                                 <div
-                                    className="relative w-24 h-24 rounded-[2rem] flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 overflow-hidden shadow-sm"
+                                    className="relative w-28 h-28 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:-translate-y-2 overflow-hidden shadow-sm"
                                     style={{
-                                        background: 'rgba(255, 255, 255, 0.4)',
-                                        backdropFilter: 'blur(12px)',
-                                        WebkitBackdropFilter: 'blur(12px)',
-                                        border: '1px solid rgba(201,168,76,0.15)',
-                                        boxShadow: '0 8px 32px rgba(26,18,16,0.03)',
+                                        background: 'rgba(255, 255, 255, 0.6)',
+                                        backdropFilter: 'blur(20px)',
+                                        WebkitBackdropFilter: 'blur(20px)',
+                                        border: '1px solid rgba(201,168,76,0.12)',
+                                        boxShadow: '0 12px 48px rgba(26,18,16,0.04)',
                                     }}
                                 >
-                                    <Icon className="w-10 h-10 relative z-10 transition-transform duration-500" style={{ color: '#C9A84C' }} strokeWidth={1.25} />
-                                    <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                    <Icon className="w-11 h-11 relative z-10 transition-transform duration-500" style={{ color: '#C9A84C' }} strokeWidth={1} />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 </div>
                             </div>
 
                             <h3
-                                className="font-nav font-black text-xs tracking-[0.3em] mb-4 uppercase leading-relaxed whitespace-pre-line text-[#1A1210]"
+                                className="font-inter font-bold text-xs tracking-[0.4em] mb-4 uppercase leading-relaxed whitespace-pre-line text-[#1A1210]"
                             >
                                 {title}
                             </h3>
 
-                            <p className="font-sans text-xs leading-relaxed text-[#6B5C45] max-w-[200px] opacity-80">
+                            <p className="font-inter text-xs leading-relaxed text-[#6B5C45] max-w-[210px] opacity-70">
                                 {description}
                             </p>
                         </motion.div>
@@ -81,14 +81,14 @@ export default function TrustBadges() {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.8 }}
-                    className="flex flex-col items-center mt-24 pt-12 border-t border-[#1A1210]/5"
+                    className="flex flex-col items-center mt-32 pt-16 border-t border-[#1A1210]/5"
                 >
-                    <p className="font-nav font-bold text-[9px] uppercase tracking-[0.5em] text-[#C9A84C]/40 mb-10">THE GOLD STANDARD OF ROMAN TRAVEL</p>
-                    <div className="flex items-center justify-center gap-12 lg:gap-24 flex-wrap opacity-40 hover:opacity-100 transition-opacity duration-700">
+                    <p className="font-inter font-bold text-[8px] uppercase tracking-[0.6em] text-[#C9A84C]/50 mb-12">THE GOLD STANDARD OF ROMAN TRAVEL</p>
+                    <div className="flex items-center justify-center gap-16 lg:gap-28 flex-wrap opacity-50 hover:opacity-100 transition-opacity duration-1000">
                         {[['TripAdvisor', '★★★★★'], ['Google', '★★★★★'], ['Viator', 'Elite'], ['GetYourGuide', 'Certified']].map(([name, stars]) => (
-                            <div key={name} className="flex items-center gap-3 group cursor-default">
-                                <span className="font-serif text-xl font-bold italic text-[#1A1210] group-hover:text-[#C9A84C] transition-colors">{name}</span>
-                                {stars && <span className="font-nav text-[10px] font-black tracking-widest text-[#C9A84C] opacity-60 uppercase">{stars}</span>}
+                            <div key={name} className="flex items-center gap-4 group cursor-default">
+                                <span className="font-inter text-2xl font-bold tracking-tighter text-[#1A1210] group-hover:text-[#C9A84C] transition-colors">{name}</span>
+                                {stars && <span className="font-inter text-[9px] font-black tracking-widest text-[#C9A84C] opacity-70 uppercase">{stars}</span>}
                             </div>
                         ))}
                     </div>

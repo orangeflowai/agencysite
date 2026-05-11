@@ -64,7 +64,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             className="flex items-center gap-3 mb-4"
                         >
                             <div className="w-10 h-px bg-[#C9A84C]" />
-                            <p className="font-nav text-[10px] tracking-[0.4em] uppercase font-bold" style={{ color: '#C9A84C' }}>
+                            <p className="font-inter text-[10px] tracking-[0.4em] uppercase font-bold" style={{ color: '#C9A84C' }}>
                                 Essential Rome
                             </p>
                         </motion.div>
@@ -73,7 +73,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="font-serif font-bold leading-tight mb-4" 
+                            className="font-inter font-bold leading-tight mb-4" 
                             style={{ fontSize: 'clamp(32px, 5vw, 56px)', color: titleColor }}
                         >
                             {title}
@@ -84,7 +84,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
-                                className="font-sans text-base md:text-lg max-w-lg leading-relaxed" 
+                                className="font-inter text-base md:text-lg max-w-lg leading-relaxed" 
                                 style={{ color: subtitleColor }}
                             >
                                 {subtitle}
@@ -144,7 +144,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                                 <div className="w-16 h-16 rounded-full bg-[#C9A84C]/10 flex items-center justify-center mb-4 group-hover:bg-[#C9A84C] group-hover:text-[#1A1210] transition-all">
                                     <ArrowUpRight size={32} />
                                 </div>
-                                <span className="font-nav text-xs uppercase tracking-[0.3em] font-bold" style={{ color: titleColor }}>
+                                <span className="font-inter text-xs uppercase tracking-[0.3em] font-bold" style={{ color: titleColor }}>
                                     Explore More
                                 </span>
                             </Link>

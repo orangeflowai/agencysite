@@ -234,6 +234,13 @@ const tourType = defineType({
             group: 'logistics',
         }),
         defineField({
+            name: 'mapAddress',
+            title: 'Exact Map Address / link',
+            type: 'string',
+            group: 'logistics',
+            description: 'The precise address or Google Maps URL strictly for the "View on Map" links (e.g. "Piazza Navona, 00186 Roma RM, Italy"). Overrides auto-extracting from Meeting Point.'
+        }),
+        defineField({
             name: 'importantInfo',
             title: 'Important Information',
             type: 'array',

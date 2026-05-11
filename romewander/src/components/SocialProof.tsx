@@ -30,7 +30,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
 
             {/* Review text */}
             <p
-                className="font-serif italic text-sm leading-relaxed mb-4 line-clamp-3"
+                className="font-inter italic text-sm leading-relaxed mb-4 line-clamp-3"
                 style={{ color: 'rgba(245,240,232,0.85)' }}
             >
                 &ldquo;{review.text}&rdquo;
@@ -39,16 +39,16 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
             {/* Author */}
             <div className="flex items-center gap-3">
                 <div
-                    className="w-9 h-9 flex items-center justify-center text-sm font-serif font-bold shrink-0"
+                    className="w-9 h-9 flex items-center justify-center text-sm font-inter font-bold shrink-0"
                     style={{ backgroundColor: '#C9A84C', color: '#1A1210', borderRadius: '2px' }}
                 >
                     {review.name.charAt(0)}
                 </div>
                 <div>
-                    <p className="font-nav font-bold text-[11px] uppercase tracking-widest" style={{ color: '#F5F0E8' }}>
+                    <p className="font-inter font-bold text-[11px] uppercase tracking-widest" style={{ color: '#F5F0E8' }}>
                         {review.name}
                     </p>
-                    <p className="font-nav text-[9px] uppercase tracking-wider" style={{ color: 'rgba(201,168,76,0.6)' }}>
+                    <p className="font-inter text-[9px] uppercase tracking-wider" style={{ color: 'rgba(201,168,76,0.6)' }}>
                         {review.location}
                     </p>
                 </div>
@@ -71,17 +71,17 @@ export default function SocialProof() {
             {/* Header */}
             <div className="container mx-auto px-6 md:px-16 mb-12 text-center relative z-10">
                 <p
-                    className="font-nav text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
+                    className="font-inter text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
                     style={{ color: '#C9A84C' }}
                 >
                     ✦ TRUSTED WORLDWIDE ✦
                 </p>
                 <h2
-                    className="font-serif font-bold text-white leading-none mb-3"
+                    className="font-inter font-bold text-white leading-none mb-3"
                     style={{ fontSize: 'clamp(36px, 5vw, 60px)' }}
                 >
                     Trusted by over{' '}
-                    <span className="font-accent italic" style={{ color: '#C9A84C', fontSize: '1.15em' }}>
+                    <span className="font-inter italic" style={{ color: '#C9A84C', fontSize: '1.15em' }}>
                         1M+
                     </span>{' '}
                     Pilgrims
@@ -92,7 +92,7 @@ export default function SocialProof() {
                             <Star key={i} size={18} style={{ fill: '#C9A84C', color: '#C9A84C' }} />
                         ))}
                     </div>
-                    <span className="font-sans" style={{ color: 'rgba(245,240,232,0.7)', fontSize: '15px' }}>
+                    <span className="font-inter" style={{ color: 'rgba(245,240,232,0.7)', fontSize: '15px' }}>
                         <strong style={{ color: '#F5F0E8' }}>4.9/5</strong> Average Rating
                     </span>
                 </div>

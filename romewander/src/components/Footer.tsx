@@ -2,29 +2,18 @@
 
 import Link from 'next/link';
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
-import Newsletter from './Newsletter';
 import { useLanguage } from '@/context/LanguageContext';
 import { useSite } from '@/components/SiteProvider';
 import Image from 'next/image';
 import { SUPABASE_BUCKET_URL } from '@/lib/constants';
 import PaymentLogos from './PaymentLogos';
+import LanguageSwitcher from './LanguageSwitcher';
 
-// Category mapping with icons and descriptions
 const categoryLinks = [
     {
         id: 'vatican',
         href: '/category/vatican',
         label: 'Vatican Museums'
-    },
-    {
-        id: 'sistine',
-        href: '/category/vatican',
-        label: 'Sistine Chapel'
-    },
-    {
-        id: 'papal',
-        href: '/category/vatican',
-        label: 'Papal Audiences'
     },
     {
         id: 'private',
@@ -38,239 +27,100 @@ const supportLinks = [
     { href: '/faq', translationKey: 'footer.faq' },
     { href: '/terms-and-conditions', translationKey: 'footer.terms' },
     { href: '/privacy-policy', translationKey: 'footer.privacy' },
-    { href: '/cancellation-policy', translationKey: 'footer.cancellation' },
-    { href: '/disclaimer', translationKey: 'footer.disclaimer' },
 ];
 
 export default function Footer() {
-    const { t, language } = useLanguage();
+    const { t } = useLanguage();
     const site = useSite();
     const currentYear = new Date().getFullYear();
 
-    // Get site settings with fallbacks
-    const siteTitle = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'RomeWander';
-    const logoText = site?.logoText || 'Rome';
-    const logoTextAccent = site?.logoTextAccent || 'Wander';
-    const logo = site?.logo?.asset?.url;
-
-    // Business info
-    const businessInfo = site?.businessInfo;
-    const companyName = businessInfo?.companyName || site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'RomeWander';
-    const vatNumber = businessInfo?.vatNumber || '';
-    const reaNumber = businessInfo?.reaNumber || '';
-    const registeredAddress = businessInfo?.registeredAddress || '';
-    const shareCapital = businessInfo?.shareCapital;
-
-    // Contact info
     const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@romewander.com';
     const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 389 892 2088';
-    const officeAddress = site?.officeAddress || 'Via della Conciliazione, 00193 Rome, Italy';
-
-    // Social links
-    const socialLinks = site?.socialLinks;
-    const hasSocialLinks = socialLinks && (socialLinks.facebook || socialLinks.instagram || socialLinks.twitter);
 
     return (
-        <footer className="selection:bg-gold selection:text-black" style={{ backgroundColor: '#1A1210', color: 'rgba(245,240,232,0.9)' }}>
-            <Newsletter />
+        <footer className="selection:bg-gold selection:text-black border-t border-gray-100" style={{ backgroundColor: '#1A1210', color: 'rgba(245,240,232,0.9)' }}>
+            <div className="container mx-auto px-6 md:px-12 py-24">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-24">
 
-            {/* Main Footer */}
-            <div className="border-t border-white/5 pt-20 pb-16">
-                <div className="container mx-auto px-6 md:px-12">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-20">
-
-                        {/* Brand Column */}
-                        <div className="space-y-8">
-                            <Link href="/" className="inline-block">
-                                <div className="flex flex-col items-start">
-                                    <span className="font-serif text-3xl font-bold tracking-tight text-white">
-                                        ROME<span className="text-gold italic">WANDER</span>
-                                    </span>
-                                    <div className="h-px w-full bg-gold/30 mt-1" />
-                                    <span className="font-sans text-[9px] uppercase tracking-[0.3em] text-gold mt-1">
-                                        Sacred Luxury Travel
-                                    </span>
-                                </div>
-                            </Link>
-                            <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(245,240,232,0.6)' }}>
-                                {t('footer.about')}
-                            </p>
-
-                             {/* Social Links - Sacred Luxury Style */}
-                             <div className="flex items-center space-x-4">
-                                    <Link href="/" aria-label="Facebook" className="w-12 h-12 rounded-full border border-gold/10 bg-white/5 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-500 backdrop-blur-xl">
-                                        <Facebook size={18} />
-                                    </Link>
-                                    <Link href="/" aria-label="Instagram" className="w-12 h-12 rounded-full border border-gold/10 bg-white/5 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-500 backdrop-blur-xl">
-                                        <Instagram size={18} />
-                                    </Link>
-                                    <Link href="/" aria-label="Twitter" className="w-12 h-12 rounded-full border border-gold/10 bg-white/5 flex items-center justify-center text-gold/40 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-500 backdrop-blur-xl">
-                                        <Twitter size={18} />
-                                    </Link>
-                             </div>
-                                    {socialLinks?.instagram && (
-                                        <a
-                                            href={socialLinks.instagram}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label="Instagram"
-                                            className="w-10 h-10 rounded-sm bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-gold hover:text-white transition-all duration-300"
-                                        >
-                                            <Instagram size={18} />
-                                        </a>
-                                    )}
-                                    {socialLinks?.twitter && (
-                                        <a
-                                            href={socialLinks.twitter}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label="Twitter"
-                                            className="w-10 h-10 rounded-sm bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-gold hover:text-white transition-all duration-300"
-                                        >
-                                            <Twitter size={18} />
-                                        </a>
-                                    )}
-                                    {/* Fallback social links if none configured */}
-                                    {!hasSocialLinks && !site && (
-                                        <>
-                                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-sm bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-gold hover:text-white transition-all duration-300">
-                                                <Facebook size={18} />
-                                            </a>
-                                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-sm bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-gold hover:text-white transition-all duration-300">
-                                                <Instagram size={18} />
-                                            </a>
-                                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-10 h-10 rounded-sm bg-stone-900 flex items-center justify-center text-stone-400 hover:bg-gold hover:text-white transition-all duration-300">
-                                                <Twitter size={18} />
-                                            </a>
-                                        </>
-                                    )}
-                                </div>
-
-                        {/* Explore Categories */}
-                        <div>
-                            <h4 className="font-serif text-lg text-gold mb-8 italic">
-                                The Collection
-                            </h4>
-                            <ul className="space-y-4 text-sm text-white/50 font-serif">
-                                {categoryLinks.map((category) => (
-                                    <li key={category.id}>
-                                        <Link
-                                            href={category.href}
-                                            className="hover:text-gold transition-colors flex items-center group"
-                                        >
-                                            <div className="w-0 group-hover:w-4 h-px bg-gold mr-0 group-hover:mr-2 transition-all opacity-0 group-hover:opacity-100" />
-                                            {category.label}
-                                        </Link>
-                                    </li>
-                                ))}
-                                <li>
-                                    <Link
-                                        href="/blog"
-                                        className="hover:text-gold transition-colors flex items-center group font-medium text-gold/80"
-                                    >
-                                        <ArrowRight
-                                            size={12}
-                                            className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all duration-300 mr-2"
-                                        />
-                                        Vatican Travel Blog
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href="/search"
-                                        className="hover:text-gold transition-colors flex items-center group"
-                                    >
-                                        <ArrowRight
-                                            size={12}
-                                            className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all duration-300 mr-2"
-                                        />
-                                        All Vatican Tours
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-
-                        {/* Support Links */}
-                        <div>
-                            <h4 className="font-serif text-lg text-gold mb-8 italic">
-                                Information
-                            </h4>
-                            <ul className="space-y-4 text-sm text-white/50">
-                                {supportLinks.map((link) => (
-                                    <li key={link.href}>
-                                        <Link
-                                            href={link.href}
-                                            className="hover:text-gold transition-colors"
-                                        >
-                                            {t(link.translationKey)}
-                                        </Link>
-                                    </li>
-                                ))}
-                                <li>
-                                    <Link
-                                        href="/become-a-partner"
-                                        className="text-gold/80 hover:text-gold transition-colors font-medium underline underline-offset-4"
-                                    >
-                                        {t('footer.partner')}
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-
-                        {/* Contact Info */}
-                        <div>
-                            <h4 className="font-serif text-lg text-gold mb-8 italic">
-                                Sanctuary Office
-                            </h4>
-                            <ul className="space-y-6 text-sm text-white/40 mb-10">
-                                <li className="flex items-start space-x-4">
-                                    <MapPin size={18} className="text-gold mt-0.5 shrink-0" />
-                                    <span>{officeAddress}</span>
-                                </li>
-                                <li className="flex items-center space-x-4">
-                                    <Phone size={18} className="text-gold shrink-0" />
-                                    <span>{contactPhone || '+39 06 9876 5432'}</span>
-                                </li>
-                                <li className="flex items-center space-x-4">
-                                    <Mail size={18} className="text-gold shrink-0" />
-                                    <a href={`mailto:${contactEmail}`} className="hover:text-gold transition-colors">
-                                        {contactEmail}
-                                    </a>
-                                </li>
-                            </ul>
-
-                            {/* Trust Badges */}
-                            <div className="flex items-center gap-6 pt-6 border-t border-white/5">
-                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-30 hover:opacity-100 transition-all duration-500" />
-                                <div className="h-8 w-px" style={{ backgroundColor: 'rgba(201,168,76,0.2)' }} />
-                                <p className="text-[10px] uppercase tracking-[0.2em]" style={{ color: 'rgba(245,240,232,0.4)' }}>Verified Luxury</p>
+                    {/* Brand & Mission */}
+                    <div className="md:col-span-5 space-y-10">
+                        <Link href="/" className="inline-block group">
+                            <div className="flex flex-col items-start transition-transform group-hover:scale-105 duration-500">
+                                <span className="font-inter text-4xl font-black tracking-tighter text-white">
+                                    ROMEWANDER
+                                </span>
+                                <span className="font-inter text-[10px] uppercase font-black tracking-[0.5em] text-[#C9A84C] mt-1">
+                                    Vatican Tours
+                                </span>
                             </div>
-
-                            {/* Payment logos */}
-                            <div className="mt-8 pt-8 border-t border-white/5">
-                                <p className="font-sans text-[10px] uppercase tracking-widest mb-4 font-black" style={{ color: 'rgba(245,240,232,0.4)' }}>Secure Transfer</p>
-                                <div className="opacity-80 hover:grayscale hover:opacity-100 transition-all">
-                                    <PaymentLogos size="sm" />
-                                </div>
-                            </div>
+                        </Link>
+                        <p className="text-lg leading-relaxed text-white/50 max-w-md font-medium">
+                            Providing exclusive access to Rome's most sacred treasures. Experience history, art, and the sacred through our curated private journeys.
+                        </p>
+                        <div className="flex items-center gap-6">
+                            {[Facebook, Instagram, Twitter].map((Icon, i) => (
+                                <Link key={i} href="/" className="w-14 h-14 rounded-full border border-white/5 bg-white/5 flex items-center justify-center text-white/40 hover:text-[#C9A84C] hover:border-[#C9A84C]/30 hover:bg-[#C9A84C]/5 transition-all duration-500 backdrop-blur-xl">
+                                    <Icon size={20} strokeWidth={1.5} />
+                                </Link>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Bottom Bar */}
-                    <div className="border-t border-white/5 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-[10px] text-white/20 uppercase tracking-[0.3em]">
-                        <p>&copy; {currentYear} RomeWander. All rights reserved.</p>
-
-                        {/* Company Details */}
-                        <div className="text-center md:text-right flex flex-col md:items-end gap-1">
-                            <span className="font-medium text-stone-400">{companyName}</span>
-                            <span>
-                                {vatNumber && `P.IVA: ${vatNumber}`}
-                                {reaNumber && vatNumber && ' • '}
-                                {reaNumber && `REA: ${reaNumber}`}
-                            </span>
-                            <span>{registeredAddress}</span>
-                            {shareCapital && <span>{shareCapital}</span>}
+                    {/* Navigation Columns */}
+                    <div className="md:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">
+                        <div className="space-y-8">
+                            <h4 className="font-inter text-xs font-black uppercase tracking-[0.3em] text-[#C9A84C]">Experience</h4>
+                            <ul className="space-y-5 text-sm font-bold text-white/40">
+                                {categoryLinks.map((category) => (
+                                    <li key={category.id}>
+                                        <Link href={category.href} className="hover:text-white transition-colors">{category.label}</Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
+
+                        <div className="space-y-8">
+                            <h4 className="font-inter text-xs font-black uppercase tracking-[0.3em] text-[#C9A84C]">Company</h4>
+                            <ul className="space-y-5 text-sm font-bold text-white/40">
+                                {supportLinks.map((link) => (
+                                    <li key={link.href}>
+                                        <Link href={link.href} className="hover:text-white transition-colors">{t(link.translationKey)}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="space-y-8 col-span-2 md:col-span-1">
+                            <h4 className="font-inter text-xs font-black uppercase tracking-[0.3em] text-[#C9A84C]">Concierge</h4>
+                            <ul className="space-y-5 text-sm font-bold text-white/40">
+                                <li className="flex items-center gap-3">
+                                    <Mail size={16} className="text-[#C9A84C]" />
+                                    <a href={`mailto:${contactEmail}`} className="hover:text-white transition-colors truncate">{contactEmail}</a>
+                                </li>
+                                <li className="flex items-center gap-3">
+                                    <Phone size={16} className="text-[#C9A84C]" />
+                                    <span className="hover:text-white transition-colors">{contactPhone}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom Bar */}
+                <div className="mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div className="flex flex-col md:flex-row items-center gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-white/20">
+                        <p>&copy; {currentYear} RomeWander</p>
+                        <div className="hidden md:block h-3 w-px bg-white/5" />
+                        <Link href="/privacy-policy" className="hover:text-[#C9A84C]">Privacy</Link>
+                        <Link href="/terms-and-conditions" className="hover:text-[#C9A84C]">Terms</Link>
+                        <div className="hidden md:block h-3 w-px bg-white/5" />
+                        <div className="opacity-60 hover:opacity-100 transition-opacity">
+                            <LanguageSwitcher />
+                        </div>
+                    </div>
+                    
+                    <div className="opacity-30 hover:opacity-100 transition-opacity duration-1000 grayscale hover:grayscale-0">
+                        <PaymentLogos size="sm" />
                     </div>
                 </div>
             </div>

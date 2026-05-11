@@ -53,18 +53,18 @@ export default function StickyRomeSection() {
                 <div className="h-screen flex items-center justify-center sticky top-0">
                     <motion.div style={{ opacity: text1Opacity }} className="text-center z-20 px-6 max-w-4xl">
                         <p
-                            className="font-nav text-[11px] tracking-[0.4em] uppercase mb-6"
+                            className="font-inter text-[11px] tracking-[0.4em] uppercase mb-6"
                             style={{ color: '#C9A84C' }}
                         >
                             ✦ THE PROBLEM ✦
                         </p>
                         <h2
-                            className="font-serif font-black text-white drop-shadow-2xl leading-[1.05] mb-4"
+                            className="font-inter font-black text-white drop-shadow-2xl leading-[1.05] mb-4"
                             style={{ fontSize: 'clamp(48px, 8vw, 100px)' }}
                         >
                             Rome is Chaotic.
                         </h2>
-                        <p className="text-xl md:text-2xl text-white/70 font-sans font-light tracking-widest uppercase">
+                        <p className="text-xl md:text-2xl text-white/70 font-inter font-light tracking-widest uppercase">
                             Your pilgrimage shouldn&apos;t be.
                         </p>
                     </motion.div>
@@ -74,31 +74,31 @@ export default function StickyRomeSection() {
                 <div className="h-screen flex items-center justify-center sticky top-0">
                     <motion.div style={{ opacity: text2Opacity, y: text2Y }} className="max-w-4xl text-center z-20 px-6">
                         <p
-                            className="font-nav text-[11px] tracking-[0.4em] uppercase mb-6"
+                            className="font-inter text-[11px] tracking-[0.4em] uppercase mb-6"
                             style={{ color: '#C9A84C' }}
                         >
                             ✦ THE SOLUTION ✦
                         </p>
                         <h2
-                            className="font-accent italic text-white mb-6 drop-shadow-lg"
+                            className="font-inter italic text-white mb-6 drop-shadow-lg"
                             style={{ fontSize: 'clamp(42px, 7vw, 88px)', lineHeight: 1.1 }}
                         >
                             &ldquo;Experience the Eternal City,<br />Unlocked.&rdquo;
                         </h2>
-                        <p className="text-white/60 font-sans text-lg mb-10 max-w-lg mx-auto">
+                        <p className="text-white/60 font-inter text-lg mb-10 max-w-lg mx-auto">
                             Skip the queues, skip the chaos. Private Vatican access curated for the discerning pilgrim.
                         </p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4 pointer-events-auto">
                             <Link
                                 href="/search"
-                                className="font-nav font-bold uppercase tracking-widest text-sm px-10 py-5 transition-all hover:scale-105 hover:shadow-2xl"
+                                className="font-inter font-bold uppercase tracking-widest text-sm px-10 py-5 transition-all hover:scale-105 hover:shadow-2xl"
                                 style={{ backgroundColor: '#C9A84C', color: '#1A1210', borderRadius: '2px' }}
                             >
                                 Find Your Experience
                             </Link>
                             <Link
                                 href="/private-tours"
-                                className="font-nav font-bold uppercase tracking-widest text-sm px-10 py-5 border-2 transition-all hover:scale-105"
+                                className="font-inter font-bold uppercase tracking-widest text-sm px-10 py-5 border-2 transition-all hover:scale-105"
                                 style={{ borderColor: 'rgba(201,168,76,0.6)', color: '#F5F0E8', borderRadius: '2px' }}
                             >
                                 View Private Tours

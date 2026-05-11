@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BookingWidget from '@/components/BookingWidget';
 import TourHeroSlider from '@/components/TourHeroSlider';
+import MobileBookingBar from '@/components/MobileBookingBar';
 import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
 import { PortableText } from '@portabletext/react';
 
@@ -83,163 +84,108 @@ export default async function TourPage({ params }: PageProps) {
                 </div>
             </div>
 
-            <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
-                {/* Main Content */}
-                <div className="lg:col-span-2 space-y-12">
+            <div className="container mx-auto px-4 py-16">
+                <div className="flex flex-col xl:flex-row gap-12 items-start">
+                    
+                    {/* Column 1: Booking Experience (The unique part) */}
+                    <div className="w-full xl:w-[450px] shrink-0 xl:sticky xl:top-32 order-2 xl:order-1">
+                        <div className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-black/5 border border-olive/5">
+                            <h2 className="text-2xl font-inter font-bold text-[#1A1210] mb-8 tracking-tighter">Reserve Experience</h2>
+                            <BookingWidget tour={tour} />
+                        </div>
+                    </div>
 
-                    {/* Overview / Description */}
-                    <section className="prose prose-lg prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-gray-700 prose-p:leading-loose prose-li:text-gray-700 max-w-none">
-                        <h2 className="text-3xl font-serif font-bold text-emerald-900 mb-6">Tour Overview</h2>
-                        {typeof tour.description === 'string' ? (
-                            <p className="mb-6">{tour.description}</p>
-                        ) : (
-                        <PortableText
-                            value={tour.description}
-                            components={{
-                                types: {
-                                    image: ({ value }) => {
-                                        if (!value?.asset?._ref) return null;
-                                        return (
-                                            <div className="my-8 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
-                                                <Image
-                                                    src={urlFor(value).width(800).fit('max').url()}
-                                                    alt={value.alt || 'Tour image'}
-                                                    fill
-                                                    className="object-cover"
-                                                />
+                    {/* Column 2: Tour Details & Narrative */}
+                    <div className="flex-1 space-y-20 order-1 xl:order-2">
+                        
+                        {/* Highlights Row (Horizontal) */}
+                        {tour.highlights && tour.highlights.length > 0 && (
+                            <section>
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="w-12 h-px bg-olive/20" />
+                                    <h2 className="text-sm uppercase font-black tracking-[0.4em] text-olive">Highlights</h2>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {tour.highlights.map((feature, i) => (
+                                        <div key={i} className="flex flex-col gap-4 p-8 bg-white rounded-[2.5rem] border border-olive/5 hover:border-olive/20 transition-all group">
+                                            <div className="w-10 h-10 rounded-full bg-olive/5 flex items-center justify-center group-hover:bg-olive group-hover:text-white transition-all">
+                                                <Check className="w-5 h-5" />
                                             </div>
-                                        );
-                                    }
-                                },
-                                block: {
-                                    normal: ({ children }) => <p className="mb-6">{children}</p>,
-                                    h2: ({ children }) => <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>,
-                                    h3: ({ children }) => <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>,
-                                },
-                                marks: {
-                                    strong: ({ children }) => <strong className="font-bold text-black">{children}</strong>,
-                                    link: ({ value, children }) => {
-                                        const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
-                                        return (
-                                            <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-emerald-600 underline decoration-emerald-300 hover:decoration-emerald-600 transition-all font-medium">
-                                                {children}
-                                            </a>
-                                        )
-                                    }
-                                },
-                                list: {
-                                    bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-2">{children}</ul>,
-                                    number: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-2">{children}</ol>,
-                                }
-                            }}
-                        />
+                                            <span className="text-[#1A1210] font-bold text-sm leading-tight tracking-tight">{feature}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
                         )}
-                    </section>
 
-                    {/* Highlights */}
-                    {tour.highlights && tour.highlights.length > 0 && (
-                        <section>
-                            <h2 className="text-2xl font-serif font-bold text-black mb-6">Highlights</h2>
-                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {tour.highlights.map((feature, i) => (
-                                    <li key={i} className="flex items-start space-x-3 p-4 bg-white rounded-xl shadow-sm border border-olive/5">
-                                        <Check className="w-5 h-5 text-olive shrink-0 mt-0.5" />
-                                        <span className="text-gray-700 font-medium">{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </section>
-                    )}
-
-                    {/* Itinerary */}
-                    {tour.itinerary && tour.itinerary.length > 0 && (
-                        <section>
-                            <h2 className="text-2xl font-serif font-bold text-black mb-6">Itinerary</h2>
-                            <div className="pl-4 border-l-2 border-olive/20 space-y-8">
-                                {tour.itinerary.map((stop, index) => (
-                                    <div key={index} className="relative">
-                                        <div className="absolute -left-[21px] top-0 w-4 h-4 bg-olive rounded-full border-2 border-cream" />
-                                        <h3 className="text-lg font-bold text-black">{stop.title}</h3>
-                                        <p className="text-sm text-gray-500 mb-2">{stop.duration}</p>
-                                        <p className="text-gray-600 leading-relaxed">{stop.description}</p>
-                                    </div>
-                                ))}
+                        {/* Overview (Clean & Wide) */}
+                        <section className="prose prose-xl prose-emerald max-w-none">
+                            <div className="flex items-center gap-4 mb-10">
+                                <div className="w-12 h-px bg-olive/20" />
+                                <h2 className="text-sm uppercase font-black tracking-[0.4em] text-olive m-0">The Story</h2>
+                            </div>
+                            <div className="font-inter text-[#1A1210]/80 leading-[1.8] text-lg">
+                                {typeof tour.description === 'string' ? (
+                                    <p>{tour.description}</p>
+                                ) : (
+                                    <PortableText value={tour.description} />
+                                )}
                             </div>
                         </section>
-                    )}
 
-                    {/* Inclusions & Exclusions */}
-                    <section className="grid md:grid-cols-2 gap-8">
-                        {tour.includes && (
-                            <div>
-                                <h3 className="text-xl font-serif font-bold text-black mb-4 flex items-center">
-                                    <CheckCircle className="w-5 h-5 text-olive mr-2" /> What's Included
+                        {/* Itinerary (Horizontal Flow) */}
+                        {tour.itinerary && tour.itinerary.length > 0 && (
+                            <section>
+                                <div className="flex items-center gap-4 mb-10">
+                                    <div className="w-12 h-px bg-olive/20" />
+                                    <h2 className="text-sm uppercase font-black tracking-[0.4em] text-olive">The Path</h2>
+                                </div>
+                                <div className="flex flex-row overflow-x-auto gap-8 pb-8 no-scrollbar snap-x">
+                                    {tour.itinerary.map((stop, index) => (
+                                        <div key={index} className="min-w-[300px] flex-shrink-0 bg-white p-10 rounded-[3rem] border border-olive/5 snap-center shadow-sm hover:shadow-xl transition-all">
+                                            <span className="text-[10px] font-black text-olive uppercase tracking-[0.3em] mb-4 block">Stop {index + 1}</span>
+                                            <h3 className="text-xl font-bold text-[#1A1210] mb-4 tracking-tight leading-tight">{stop.title}</h3>
+                                            <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-4">
+                                                <Clock size={12} /> {stop.duration}
+                                            </div>
+                                            <p className="text-sm text-gray-500 leading-relaxed">{stop.description}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Inclusions / Practical Info */}
+                        <div className="grid md:grid-cols-2 gap-12">
+                            <section className="bg-white p-10 rounded-[3rem] border border-olive/5 shadow-sm">
+                                <h3 className="text-lg font-bold text-[#1A1210] mb-6 flex items-center tracking-tight">
+                                    <CheckCircle className="w-5 h-5 text-olive mr-3" /> Essentials
                                 </h3>
-                                <ul className="space-y-3">
-                                    {tour.includes.map((item, i) => (
-                                        <li key={i} className="flex items-start text-gray-700 text-sm">
-                                            <Check className="w-4 h-4 text-olive mr-2 mt-0.5 shrink-0" />
+                                <ul className="space-y-4">
+                                    {tour.includes?.map((item, i) => (
+                                        <li key={i} className="flex items-start text-gray-500 text-xs font-bold uppercase tracking-wider leading-relaxed">
+                                            <Check className="w-4 h-4 text-olive mr-3 mt-0.5 shrink-0" strokeWidth={3} />
                                             {item}
                                         </li>
                                     ))}
                                 </ul>
-                            </div>
-                        )}
-                        {tour.excludes && tour.excludes.length > 0 && (
-                            <div>
-                                <h3 className="text-xl font-serif font-bold text-black mb-4 flex items-center">
-                                    <XCircle className="w-5 h-5 text-red-500 mr-2" /> What's Not Included
-                                </h3>
-                                <ul className="space-y-3">
-                                    {tour.excludes.map((item, i) => (
-                                        <li key={i} className="flex items-start text-gray-600 text-sm">
-                                            <XCircle className="w-4 h-4 text-red-400 mr-2 mt-0.5 shrink-0" />
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </section>
+                            </section>
 
-                    {/* Meeting Point & Important Info */}
-                    <section className="bg-gray-50 rounded-2xl p-8 space-y-6">
-                        {tour.meetingPoint && (
-                            <div>
-                                <h3 className="text-lg font-bold text-black mb-2 flex items-center">
-                                    <MapPin className="w-5 h-5 text-olive mr-2" /> Meeting Point
+                            <section className="bg-[#1A1210] p-10 rounded-[3rem] shadow-xl text-white">
+                                <h3 className="text-lg font-bold text-white mb-6 flex items-center tracking-tight">
+                                    <MapPin className="w-5 h-5 text-olive mr-3" /> Rendezvous
                                 </h3>
-                                <p className="text-gray-700">{tour.meetingPoint}</p>
+                                <p className="text-sm text-white/60 mb-6 leading-relaxed">{tour.meetingPoint}</p>
                                 <a
                                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tour.meetingPoint + ' Rome')}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center mt-3 text-olive font-bold hover:underline"
+                                    className="inline-flex items-center gap-2 text-olive font-black text-[10px] uppercase tracking-[0.3em] hover:tracking-[0.4em] transition-all"
                                 >
-                                    <MapIcon className="w-4 h-4 mr-1" /> View on Map
+                                    Open Maps <ArrowRight size={14} />
                                 </a>
-                            </div>
-                        )}
-
-                        {tour.importantInfo && tour.importantInfo.length > 0 && (
-                            <div>
-                                <h3 className="text-lg font-bold text-black mb-2 flex items-center">
-                                    <Info className="w-5 h-5 text-olive mr-2" /> Important Information
-                                </h3>
-                                <ul className="list-disc list-inside space-y-1 text-gray-700">
-                                    {tour.importantInfo.map((info, i) => (
-                                        <li key={i}>{info}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </section>
-                </div>
-
-                {/* Sidebar Booking Widget */}
-                <div className="lg:col-span-1">
-                    <div className="sticky top-24" id="booking-widget">
-                        <BookingWidget tour={tour} />
+                            </section>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,21 +193,7 @@ export default async function TourPage({ params }: PageProps) {
             <Footer />
 
             {/* Mobile Sticky Booking Bar */}
-            <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/80 backdrop-blur-xl border-t border-gray-100 flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-                <div>
-                    <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">From</p>
-                    <p className="text-xl font-black text-gray-950">€{tour.price}</p>
-                </div>
-                <button 
-                    onClick={() => {
-                        const widget = document.getElementById('booking-widget');
-                        if (widget) widget.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="bg-olive text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-all"
-                >
-                    Check Availability
-                </button>
-            </div>
+            <MobileBookingBar price={tour.price} />
         </main>
     );
 }

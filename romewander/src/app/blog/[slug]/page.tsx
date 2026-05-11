@@ -73,7 +73,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                             <span>Travel Guide</span>
                         </div>
 
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-8 leading-tight drop-shadow-2xl">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-inter font-bold text-white mb-8 leading-tight drop-shadow-2xl">
                             {post.title}
                         </h1>
 
@@ -102,12 +102,12 @@ export default async function BlogPostPage({ params }: PageProps) {
                 <div className="container mx-auto px-4 -mt-20 relative z-20">
                     <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 lg:p-16 max-w-4xl mx-auto border border-emerald-50">
                         {/* Excerpt */}
-                        <div className="text-xl md:text-2xl font-serif text-emerald-900 leading-relaxed mb-12 border-l-4 border-olive pl-6 italic">
+                        <div className="text-xl md:text-2xl font-inter text-emerald-900 leading-relaxed mb-12 border-l-4 border-olive pl-6 italic">
                             {post.excerpt}
                         </div>
 
                         {/* Body - Portable Text */}
-                        <div className="prose prose-lg md:prose-xl prose-emerald prose-headings:font-serif prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-gray-700 prose-p:leading-loose prose-li:text-gray-700 max-w-none">
+                        <div className="prose prose-lg md:prose-xl prose-emerald prose-headings:font-inter prose-headings:font-bold prose-headings:text-emerald-950 prose-p:text-gray-700 prose-p:leading-loose prose-li:text-gray-700 max-w-none">
                             <PortableText
                                 value={post.body}
                                 components={{

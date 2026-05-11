@@ -7,49 +7,31 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TourCard from '@/components/TourCard';
 import { getTours } from '@/lib/dataAdapter';
+import { tours as fallbackTours } from "@/lib/toursData";
 import CategoryHero from '@/components/CategoryHero';
 
-// Append Supabase image transform params — serve at 1280px WebP instead of raw full-res
+// Append Supabase image transform params
 function supabaseImg(url: string) {
     return `${url}?width=1280&quality=75&format=webp`;
 }
 
-// Define the categories mapping for titles/slugs/images
 const categoryMap: Record<string, { title: string; subtitle: string; images: string[] }> = {
     'vatican': {
         title: 'Vatican Museums Tours',
         subtitle: 'Skip the line to the Sistine Chapel, Gardens, and St. Peter’s Basilica.',
         images: [
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/05487657941d3eb0676bbf6ab64bbad7.jpg`),
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/5299212d395c8521d7c342332eaed823.jpg`),
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/05487657941d3eb0676bbf6ab64bbad7.jpg`)
-        ]
-    },
-    'colosseum': {
-        title: 'Colosseum & Ancient Rome Tours',
-        subtitle: 'Walk in the footsteps of Gladiators. Arena Floor, Underground, and Forum.',
-        images: [
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/54d70ba36759f71567f18e252ff1959c.jpg`),
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/72be220be1e429973552a10c0b73b534.jpg`),
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/54d70ba36759f71567f18e252ff1959c.jpg`)
+            'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-photo-532263.jpeg',
+            'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-photo-1701595.jpeg',
+            'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-photo-2064827.jpeg'
         ]
     },
     'city': {
-        title: 'City Tours',
+        title: 'Rome City Tours',
         subtitle: 'Explore the Pantheon, Trevi Fountain, and Spanish Steps with a local expert.',
         images: [
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/7a7a1aaf8a210f4c317ff7fa391e6738.jpg`),
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/bad62cca-199f-4e71-91f1-e478ba8a1b29.jpg`),
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/7a7a1aaf8a210f4c317ff7fa391e6738.jpg`)
-        ]
-    },
-    'hidden-gems': {
-        title: 'Italy Hidden Gems',
-        subtitle: 'Catacombs, Golf Cart tours, Day trips, Food tours & unique experiences.',
-        images: [
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/e5b1479b445c00ff11bbad9415d42a31.jpg`),
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/f86b196f-a022-4f5b-9684-63979caa26af.jpg`),
-            supabaseImg(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/e5b1479b445c00ff11bbad9415d42a31.jpg`)
+            'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-photo-356966.jpeg',
+            'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-photo-1797161.jpeg',
+            'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-photo-356966.jpeg'
         ]
     }
 };
@@ -66,9 +48,17 @@ export default async function CategoryPage({ params }: PageProps) {
         notFound();
     }
 
-    const allTours = await getTours();
+    const toursData = await getTours();
+    let tours = toursData;
 
-    const filteredTours = allTours.filter(t => t.category === slug);
+    // Use fallback if Sanity returns nothing (e.g. env issues on local)
+    if (!tours || tours.length === 0) {
+        tours = fallbackTours.map((t: any) => ({
+            ...t, _id: t.id, slug: { current: t.slug }, mainImage: t.imageUrl,
+        })) as any;
+    }
+
+    const filteredTours = tours.filter((t: any) => t.category === slug);
 
     return (
         <main className="min-h-screen bg-[#FDFFF5]">
@@ -82,17 +72,16 @@ export default async function CategoryPage({ params }: PageProps) {
             />
 
             {/* Content Section */}
-            <div className="container mx-auto px-4 py-20">
-                {/* Breadcrumb-ish Text */}
-                <div className="mb-12 text-center">
-                    <h2 className="text-2xl font-bold text-gray-800">
-                        Top Rated {categoryInfo.title}
+            <div className="container mx-auto px-6 md:px-12 py-24">
+                <div className="text-center mb-16">
+                    <p className="font-inter text-[10px] tracking-[0.4em] uppercase font-bold mb-4 text-[#C9A84C]">✦ CURATED EXPERIENCES ✦</p>
+                    <h2 className="font-inter font-bold text-4xl text-[#1A1210] tracking-tight">
+                        Our {categoryInfo.title}
                     </h2>
-                    <p className="text-gray-500 mt-2">Book official tickets and guided experiences.</p>
                 </div>
 
                 {filteredTours.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-12">
                         {filteredTours.map(tour => (
                             <div key={tour._id} className="h-full">
                                 <TourCard tour={tour} />
@@ -100,9 +89,9 @@ export default async function CategoryPage({ params }: PageProps) {
                         ))}
                     </div>
                 ) : (
-                    <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-100">
-                        <h2 className="text-3xl font-bold text-gray-400 mb-4">Coming Soon</h2>
-                        <p className="text-gray-500">We are currently curating the best tours for this category.</p>
+                    <div className="text-center py-32 bg-white rounded-[3rem] border border-gray-100 shadow-sm">
+                        <h2 className="font-inter text-3xl font-bold text-gray-300 mb-4">Coming Soon</h2>
+                        <p className="text-gray-400 font-medium tracking-wide uppercase text-[10px]">We are curating more experiences</p>
                     </div>
                 )}
             </div>

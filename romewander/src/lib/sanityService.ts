@@ -158,7 +158,7 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
         const siteRef = await getSiteRefBySlug(siteId);
 
         if (!siteRef) {
-            console.warn(`Site with slug "${siteId}" not found. Returning empty tours.`);
+            console.error(`[Sanity] Site with slug "${siteId}" not found. Check if site document exists with isActive=true`);
             return [];
         }
 
@@ -189,9 +189,11 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
             sites
         }`;
 
-        return await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
+        const tours = await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
+        console.log(`[Sanity] Fetched ${tours.length} tours for site: ${siteId}`);
+        return tours;
     } catch (error) {
-        console.error('Failed to fetch tours:', error);
+        console.error('[Sanity] Failed to fetch tours:', error);
         return [];
     }
 }

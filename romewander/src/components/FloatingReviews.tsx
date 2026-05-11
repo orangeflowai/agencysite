@@ -39,7 +39,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
 
             {/* Review text */}
             <p
-                className="font-serif italic text-base leading-relaxed mb-5 min-h-[80px] line-clamp-4"
+                className="font-inter italic text-base leading-relaxed mb-5 min-h-[80px] line-clamp-4"
                 style={{ color: '#1A1210' }}
             >
                 &ldquo;{review.text}&rdquo;
@@ -48,7 +48,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
             {/* Author */}
             <div className="flex items-center gap-3 border-t pt-4" style={{ borderColor: 'rgba(201,168,76,0.15)' }}>
                 <div
-                    className="w-10 h-10 flex items-center justify-center text-sm font-serif font-bold shrink-0"
+                    className="w-10 h-10 flex items-center justify-center text-sm font-inter font-bold shrink-0"
                     style={{
                         backgroundColor: '#3D1A6E',
                         color: '#C9A84C',
@@ -58,15 +58,15 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                     {review.avatar}
                 </div>
                 <div>
-                    <p className="font-nav font-bold text-xs uppercase tracking-widest" style={{ color: '#1A1210' }}>
+                    <p className="font-inter font-bold text-xs uppercase tracking-widest" style={{ color: '#1A1210' }}>
                         {review.name}
                     </p>
-                    <p className="font-nav text-[10px] uppercase tracking-wider" style={{ color: '#3D1A6E', opacity: 0.6 }}>
+                    <p className="font-inter text-[10px] uppercase tracking-wider" style={{ color: '#3D1A6E', opacity: 0.6 }}>
                         {review.location}
                     </p>
                 </div>
                 <div
-                    className="ml-auto font-nav text-[9px] uppercase tracking-widest px-2 py-1"
+                    className="ml-auto font-inter text-[9px] uppercase tracking-widest px-2 py-1"
                     style={{ backgroundColor: 'rgba(201,168,76,0.1)', color: '#C9A84C', borderRadius: '999px' }}
                 >
                     Verified

@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import {
     Calendar, Users, CheckCircle, Loader2,
-    AlertTriangle, Star, Minus, Plus, ChevronRight, ShoppingCart, Clock
+    AlertTriangle, Star, Minus, Plus, ChevronRight, ShoppingCart, Clock, ArrowRight
 } from 'lucide-react';
 import Image from 'next/image';
 import SmartCalendar from './ui/SmartCalendar';
@@ -201,7 +201,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                 ))}
                             </div>
                         </div>
-                        <h3 className="text-xl font-serif font-bold text-white">Book Your Experience</h3>
+                        <h3 className="text-xl font-inter font-bold text-white">Book Your Experience</h3>
                         <p className="text-[#C9A84C]/80 text-xs mt-1">From <span className="text-[#C9A84C] font-black text-lg">€{tour.price}</span> per person</p>
                     </div>
 

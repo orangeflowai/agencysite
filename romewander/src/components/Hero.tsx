@@ -111,114 +111,53 @@ export default function Hero({ settings }: HeroProps) {
                 className="relative z-10 flex flex-col items-center justify-center text-center px-4 md:px-16"
             >
                 {/* Eyebrow */}
-                <p className="wander-reveal font-nav text-[10px] sm:text-[11px] tracking-[0.4em] uppercase font-bold mb-6 sm:mb-8 text-[#F5F0E8]">
+                <p className="wander-reveal font-inter text-[10px] sm:text-[11px] tracking-[0.4em] uppercase font-bold mb-6 sm:mb-8" style={{ color: '#F5F0E8' }}>
                     ✦ Welcome to RomeWander ✦
                 </p>
 
                 {/* H1 */}
                 <h1 className="wander-reveal leading-[1.05] mb-4 sm:mb-6 max-w-5xl">
                     <span
-                        className="block font-serif font-black text-white px-2"
-                        style={{ fontSize: 'clamp(36px, 6vw, 100px)' }}
+                        className="block font-inter font-black px-2"
+                        style={{ fontSize: 'clamp(36px, 6vw, 100px)', color: '#F5F0E8' }}
                     >
                         Discover the
                     </span>
                     <span
-                        className="block font-accent italic px-2"
-                        style={{ fontSize: 'clamp(44px, 7.5vw, 116px)', color: '#F5F0E8', lineHeight: 1 }}
+                        className="block font-inter italic px-2"
+                        style={{ fontSize: 'clamp(44px, 7.5vw, 116px)', color: '#C9A84C', lineHeight: 1 }}
                     >
                         Eternal City
                     </span>
                     <span
-                        className="block font-serif font-black text-white px-2"
-                        style={{ fontSize: 'clamp(36px, 6vw, 100px)' }}
+                        className="block font-inter font-black px-2"
+                        style={{ fontSize: 'clamp(36px, 6vw, 100px)', color: '#F5F0E8' }}
                     >
                         with Purpose
                     </span>
                 </h1>
 
                 {/* Subtitle */}
-                <p className="wander-reveal font-sans text-white/90 max-w-xl mb-8 sm:mb-10 leading-relaxed px-4 text-sm sm:text-base md:text-lg">
+                <p className="wander-reveal font-inter max-w-xl mb-8 sm:mb-10 leading-relaxed px-4 text-sm sm:text-base md:text-lg" style={{ color: 'rgba(245, 240, 232, 0.8)' }}>
                     Private Vatican access · Sistine Chapel after-hours · Swiss Guard escorted walks. Curated for the discerning pilgrim.
                 </p>
 
                 {/* CTAs */}
-                <div className="wander-reveal flex flex-col sm:flex-row gap-4 mb-10 sm:mb-16 w-full sm:w-auto px-4">
+                <div className="wander-reveal flex flex-col sm:flex-row gap-4 w-full sm:w-auto px-4">
                     <Link
                         href="/category/vatican"
-                        className="w-full sm:w-auto text-center font-nav font-bold uppercase tracking-widest text-xs sm:text-sm px-8 py-4 sm:py-5 transition-all hover:scale-105 hover:shadow-2xl"
-                        style={{ backgroundColor: '#C9A84C', color: '#1A1210', borderRadius: '2px' }}
+                        className="w-full sm:w-auto text-center font-inter font-bold uppercase tracking-widest text-xs sm:text-sm px-10 py-5 transition-all hover:scale-105 hover:shadow-2xl rounded-full"
+                        style={{ backgroundColor: '#C9A84C', color: '#1A1210' }}
                     >
                         Explore Vatican Tours
                     </Link>
                     <Link
                         href="/private-tours"
-                        className="w-full sm:w-auto text-center font-nav font-bold uppercase tracking-widest text-xs sm:text-sm px-8 py-4 sm:py-5 border-2 transition-all hover:scale-105 backdrop-blur-sm"
-                        style={{ borderColor: 'rgba(201,168,76,0.7)', color: '#F5F0E8', borderRadius: '2px', backgroundColor: 'rgba(255,255,255,0.08)' }}
+                        className="w-full sm:w-auto text-center font-inter font-bold uppercase tracking-widest text-xs sm:text-sm px-10 py-5 border-2 transition-all hover:scale-105 backdrop-blur-sm rounded-full"
+                        style={{ borderColor: 'rgba(201,168,76,0.7)', color: '#F5F0E8', backgroundColor: 'rgba(255,255,255,0.08)' }}
                     >
                         Private Experiences
                     </Link>
-                </div>
-            </div>
-
-            {/* ── SEARCH BAR (GLASS) ── */}
-            <div className="wander-reveal lg:absolute lg:bottom-12 left-0 right-0 z-20 px-6 md:px-16 xl:px-24">
-                <div
-                    className="w-full max-w-6xl mx-auto glass shadow-2xl overflow-hidden rounded-[2rem] border border-white/20"
-                >
-                    <div className="bg-white/10 backdrop-blur-2xl flex flex-col lg:flex-row items-stretch overflow-hidden">
-                        <div className="flex-1 flex flex-col px-8 py-6 border-b lg:border-b-0 lg:border-r border-white/10 group focus-within:bg-white/10 transition-all duration-300">
-                            <label className="font-nav text-[10px] uppercase tracking-[0.3em] font-black mb-2 text-[#C9A84C]/80">
-                                📍 Destination
-                            </label>
-                            <input
-                                type="text"
-                                placeholder={settings?.heroSubtitle || "Vatican, Sistine Chapel..."}
-                                value={destination}
-                                onChange={e => setDestination(e.target.value)}
-                                onKeyDown={e => e.key === 'Enter' && handleSearch()}
-                                className="font-serif text-xl outline-none bg-transparent placeholder-white/30 text-white w-full"
-                            />
-                        </div>
-                        
-                        <div className="flex-1 flex flex-col px-8 py-6 border-b lg:border-b-0 lg:border-r border-white/10 group focus-within:bg-white/10 transition-all duration-300">
-                            <label className="font-nav text-[10px] uppercase tracking-[0.3em] font-black mb-2 text-[#C9A84C]/80">
-                                🗓 Travel Date
-                            </label>
-                            <input
-                                type="date"
-                                value={date}
-                                onChange={e => setDate(e.target.value)}
-                                className="font-sans text-sm outline-none bg-transparent text-white/50 w-full focus:text-white transition-colors"
-                                style={{ colorScheme: 'dark' }}
-                            />
-                        </div>
-                        
-                        <div className="flex-1 flex flex-col px-8 py-6 border-b lg:border-b-0 lg:border-r border-white/10 group focus-within:bg-white/10 transition-all duration-300">
-                            <label className="font-nav text-[10px] uppercase tracking-[0.3em] font-black mb-2 text-[#C9A84C]/80">
-                                👥 Pilgrims
-                            </label>
-                            <select
-                                value={guests}
-                                onChange={e => setGuests(e.target.value)}
-                                className="font-sans text-sm outline-none bg-transparent text-white/50 w-full focus:text-white transition-colors cursor-pointer appearance-none"
-                            >
-                                <option value="" className="bg-[#1A1210]">Select group size</option>
-                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => (
-                                    <option key={n} value={n} className="bg-[#1A1210]">{n} {n === 1 ? 'Pilgrim' : 'Pilgrims'}</option>
-                                ))}
-                                <option value="11+" className="bg-[#1A1210]">11+ (Group)</option>
-                            </select>
-                        </div>
-                        
-                        <button
-                            onClick={handleSearch}
-                            className="flex items-center justify-center gap-4 bg-[#C9A84C] text-[#1A1210] font-nav font-black uppercase tracking-[0.25em] text-xs px-12 py-8 transition-all hover:bg-[#d4b766] active:scale-95 group/btn lg:w-[240px]"
-                        >
-                            <span>Search</span>
-                            <Search size={16} className="group-hover/btn:scale-125 transition-transform" />
-                        </button>
-                    </div>
                 </div>
             </div>
         </section>

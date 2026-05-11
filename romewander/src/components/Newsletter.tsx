@@ -38,7 +38,7 @@ export default function Newsletter() {
                                 viewport={{ once: true }}
                                 className="inline-block px-6 py-2 rounded-full border border-gold/20 bg-gold/5 backdrop-blur-md"
                             >
-                                <span className="font-sans text-[10px] uppercase tracking-[0.4em] text-gold font-bold">Sacred Sanctuary</span>
+                                <span className="font-inter text-[10px] uppercase tracking-[0.4em] text-gold font-bold">Sacred Sanctuary</span>
                             </motion.div>
                             
                             <motion.h2
@@ -46,7 +46,7 @@ export default function Newsletter() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 }}
-                                className="font-serif text-5xl md:text-8xl text-white font-bold italic leading-[0.9] tracking-tight"
+                                className="font-inter text-5xl md:text-8xl text-white font-bold italic leading-[0.9] tracking-tight"
                             >
                                 The <span className="text-gold">Wander</span> List.
                             </motion.h2>
@@ -56,7 +56,7 @@ export default function Newsletter() {
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
-                                className="font-serif text-gray-400 text-xl md:text-2xl italic leading-relaxed max-w-lg"
+                                className="font-inter text-gray-400 text-xl md:text-2xl italic leading-relaxed max-w-lg"
                             >
                                 Private invitations to Rome's most guarded sanctuaries. Stories of light, stone, and the sacred pulse of the city.
                             </motion.p>
@@ -74,8 +74,8 @@ export default function Newsletter() {
                                         <div className="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-gold/20">
                                             <CheckCircle2 size={40} className="text-black" strokeWidth={1.5} />
                                         </div>
-                                        <h3 className="font-serif text-3xl text-white mb-4 italic">Invitation Accepted</h3>
-                                        <p className="font-sans text-[10px] uppercase font-bold tracking-[0.2em] text-gold/60">The first Chapter arrives soon.</p>
+                                        <h3 className="font-inter text-3xl text-white mb-4 italic">Invitation Accepted</h3>
+                                        <p className="font-inter text-[10px] uppercase font-bold tracking-[0.2em] text-gold/60">The first Chapter arrives soon.</p>
                                     </motion.div>
                                 ) : (
                                     <motion.form
@@ -91,7 +91,7 @@ export default function Newsletter() {
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
                                                 placeholder="Requesting Access (Email)"
-                                                className="w-full bg-white/5 border border-gold/10 rounded-2xl px-10 py-7 text-white text-lg font-serif italic outline-none focus:border-gold/30 focus:bg-white/10 transition-all backdrop-blur-xl"
+                                                className="w-full bg-white/5 border border-gold/10 rounded-2xl px-10 py-7 text-white text-lg font-inter italic outline-none focus:border-gold/30 focus:bg-white/10 transition-all backdrop-blur-xl"
                                                 disabled={status === 'loading'}
                                             />
                                             <Mail className="absolute right-10 top-1/2 -translate-y-1/2 text-gold/40" size={20} strokeWidth={1} />

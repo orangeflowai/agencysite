@@ -21,7 +21,7 @@ export async function POST(request: Request) {
             subject: `New Contact Message from ${firstName} ${lastName || ''}`,
             replyTo: email,
             html: `
-                <div style="font-family: sans-serif; padding: 20px; color: #333;">
+                <div style="font-family: var(--font-inter); padding: 20px; color: #333;">
                     <h2>New Message Received</h2>
                     <p><strong>Name:</strong> ${firstName} ${lastName || ''}</p>
                     <p><strong>Email:</strong> ${email}</p>

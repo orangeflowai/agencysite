@@ -46,7 +46,7 @@ export default function HighlightSection({
                         </p>
                     )}
                     <h2
-                        className="font-serif font-bold leading-tight mb-6"
+                        className="font-inter font-bold leading-tight mb-6"
                         style={{ fontSize: 'clamp(28px, 3.5vw, 48px)', color: '#F5F0E8' }}
                     >
                         {title}
@@ -105,7 +105,7 @@ export default function HighlightSection({
                         className="absolute top-8 right-8 lg:top-12 lg:right-12 w-20 h-20 rounded-full flex flex-col items-center justify-center text-center shadow-lg"
                         style={{ backgroundColor: '#1A1210', color: '#C9A84C' }}
                     >
-                        <span className="font-serif font-bold text-xl leading-none">50K</span>
+                        <span className="font-inter font-bold text-xl leading-none">50K</span>
                         <span className="text-[9px] font-bold uppercase tracking-wider leading-tight mt-0.5 opacity-80">Guests</span>
                     </div>
                 </motion.div>

@@ -209,7 +209,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#f8f9fa] flex font-sans">
+        <div className="min-h-screen bg-[#f8f9fa] flex font-inter">
             {/* Desktop Sidebar */}
             <aside className="w-72 bg-[#09090b] fixed inset-y-0 z-50 hidden lg:flex flex-col shadow-2xl">
                 <Sidebar />

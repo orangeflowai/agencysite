@@ -48,7 +48,7 @@ export default function TourContent({ tour }: TourContentProps) {
                         <span className="bg-olive text-white px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wide">
                             {translatedTour.category}
                         </span>
-                        <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg">
+                        <h1 className="font-inter text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg">
                             {translatedTour.title}
                         </h1>
 
