@@ -12,12 +12,10 @@ import {
 } from 'lucide-react'
 
 // ─── Allowed sites for this studio instance ───────────────────────────────────
-// This studio is deployed on wondersofrome.com and ticketsinrome.com.
-// It must ONLY show content belonging to these two sites.
-// Other agency sites (goldenrometour, romanvaticantour, romewander) are hidden.
+// This studio is deployed on romewander.com.
+// It must ONLY show content belonging to Rome Wander.
 const ALLOWED_SITE_IDS = [
-    'f696f927-e2a7-407d-82d6-585b8a354caa', // wondersofrome
-    'tickets-in-rome-site',                   // ticketsinrome
+    'romewander', // Rome Wander site ID
 ]
 
 // GROQ filter: tours linked to either of the two allowed sites
@@ -72,108 +70,48 @@ export const structure: StructureResolver = (S) => {
 
             // === SITE SWITCHER ===
             S.listItem()
-                .title('🌐 Website Profiles')
+                .title('🌐 Website Profile')
                 .icon(Globe)
                 .child(
                     S.list()
-                        .title('Select Website to Manage')
+                        .title('Rome Wander Content')
                         .items([
-                            // ── Wonders of Rome ──────────────────────────────
                             S.listItem()
-                                .title('✨ Wonders of Rome')
-                                .icon(Eye)
+                                .title('🎯 Tours')
+                                .icon(Map)
                                 .child(
-                                    S.list()
-                                        .title('Wonders of Rome Content')
-                                        .items([
-                                            S.listItem()
-                                                .title('🎯 Tours')
-                                                .icon(Map)
-                                                .child(
-                                                    S.documentList()
-                                                        .title('Tours — Wonders of Rome')
-                                                        .filter('_type == "tour" && $siteId in sites[]._ref')
-                                                        .params({ siteId: 'f696f927-e2a7-407d-82d6-585b8a354caa' })
-                                                        .defaultOrdering([{ field: 'title', direction: 'asc' }])
-                                                ),
-                                            S.listItem()
-                                                .title('📝 Blog Posts')
-                                                .icon(FileText)
-                                                .child(
-                                                    S.documentList()
-                                                        .title('Posts — Wonders of Rome')
-                                                        .filter('_type == "post" && site._ref == $siteId')
-                                                        .params({ siteId: 'f696f927-e2a7-407d-82d6-585b8a354caa' })
-                                                ),
-                                            S.listItem()
-                                                .title('⚙️ Settings')
-                                                .icon(Settings)
-                                                .child(
-                                                    S.documentList()
-                                                        .title('Settings — Wonders of Rome')
-                                                        .filter('_type == "settings" && site._ref == $siteId')
-                                                        .params({ siteId: 'f696f927-e2a7-407d-82d6-585b8a354caa' })
-                                                ),
-                                            S.listItem()
-                                                .title('🌐 Site Profile')
-                                                .icon(Globe)
-                                                .child(
-                                                    S.document()
-                                                        .schemaType('site')
-                                                        .documentId('f696f927-e2a7-407d-82d6-585b8a354caa')
-                                                        .title('Wonders of Rome Profile')
-                                                ),
-                                        ])
+                                    S.documentList()
+                                        .title('Tours — Rome Wander')
+                                        .filter('_type == "tour" && $siteId in sites[]._ref')
+                                        .params({ siteId: 'romewander' })
+                                        .defaultOrdering([{ field: 'title', direction: 'asc' }])
                                 ),
-
-                            S.divider(),
-
-                            // ── Tickets in Rome ───────────────────────────────
                             S.listItem()
-                                .title('🎟️ Tickets in Rome')
-                                .icon(Eye)
+                                .title('📝 Blog Posts')
+                                .icon(FileText)
                                 .child(
-                                    S.list()
-                                        .title('Tickets in Rome Content')
-                                        .items([
-                                            S.listItem()
-                                                .title('🎯 Tours')
-                                                .icon(Map)
-                                                .child(
-                                                    S.documentList()
-                                                        .title('Tours — Tickets in Rome')
-                                                        .filter('_type == "tour" && $siteId in sites[]._ref')
-                                                        .params({ siteId: 'tickets-in-rome-site' })
-                                                        .defaultOrdering([{ field: 'title', direction: 'asc' }])
-                                                ),
-                                            S.listItem()
-                                                .title('📝 Blog Posts')
-                                                .icon(FileText)
-                                                .child(
-                                                    S.documentList()
-                                                        .title('Posts — Tickets in Rome')
-                                                        .filter('_type == "post" && site._ref == $siteId')
-                                                        .params({ siteId: 'tickets-in-rome-site' })
-                                                ),
-                                            S.listItem()
-                                                .title('⚙️ Settings')
-                                                .icon(Settings)
-                                                .child(
-                                                    S.documentList()
-                                                        .title('Settings — Tickets in Rome')
-                                                        .filter('_type == "settings" && site._ref == $siteId')
-                                                        .params({ siteId: 'tickets-in-rome-site' })
-                                                ),
-                                            S.listItem()
-                                                .title('🌐 Site Profile')
-                                                .icon(Globe)
-                                                .child(
-                                                    S.document()
-                                                        .schemaType('site')
-                                                        .documentId('tickets-in-rome-site')
-                                                        .title('Tickets in Rome Profile')
-                                                ),
-                                        ])
+                                    S.documentList()
+                                        .title('Posts — Rome Wander')
+                                        .filter('_type == "post" && site._ref == $siteId')
+                                        .params({ siteId: 'romewander' })
+                                ),
+                            S.listItem()
+                                .title('⚙️ Settings')
+                                .icon(Settings)
+                                .child(
+                                    S.documentList()
+                                        .title('Settings — Rome Wander')
+                                        .filter('_type == "settings" && site._ref == $siteId')
+                                        .params({ siteId: 'romewander' })
+                                ),
+                            S.listItem()
+                                .title('🌐 Site Profile')
+                                .icon(Globe)
+                                .child(
+                                    S.document()
+                                        .schemaType('site')
+                                        .documentId('romewander')
+                                        .title('Rome Wander Profile')
                                 ),
                         ])
                 ),
@@ -201,13 +139,13 @@ export const structure: StructureResolver = (S) => {
 
             S.divider(),
 
-            // === ALL CONTENT — scoped to wondersofrome + ticketsinrome only ===
+            // === ALL CONTENT — scoped to romewander only ===
             S.listItem()
                 .title('📁 All Content')
                 .icon(LayoutTemplate)
                 .child(
                     S.list()
-                        .title('All Content (This Agency)')
+                        .title('All Content (Rome Wander)')
                         .items([
                             S.listItem()
                                 .title('🎯 All Tours')
