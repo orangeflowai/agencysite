@@ -13,6 +13,14 @@ import { format } from 'date-fns'
 import { useSite } from '@/components/SiteProvider'
 import { urlFor } from '@/lib/dataAdapter'
 
+// Helper function for image URLs
+function getImageUrl(image: any): string {
+  if (!image) return '/placeholder.jpg'
+  if (typeof image === 'string') return image
+  if (image.asset?.url) return image.asset.url
+  return urlFor(image).width(400).height(200).url()
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface GuestType { name: string; price: number; description?: string }

@@ -24,47 +24,46 @@ export const tours: TourProduct[] = [
     // --- ONLY 2 VATICAN TOURS FOR GOLDENROMETOUR ---
     {
         id: 'vatican-museums-and-sistine-chapel-guided-tour',
-        title: 'Vatican Museums & Sistine Chapel Guided Tour',
+        title: 'Complete Guided Tour: Vatican Museums & Sistine Chapel',
         slug: 'vatican-museums-and-sistine-chapel-guided-tour',
         category: 'vatican',
         tourType: 'Guided Tour',
         price: 65,
-        duration: '2 Hours',
-        groupSize: 'Max 20 People',
-        description: "Skip the long lines at the entrance to one of the world's busiest cultural attractions with priority access to the Vatican Museums and Sistine Chapel. Step inside a vast complex of galleries, corridors, and courtyards housing one of the most important art collections on Earth, spanning over two millennia of human creativity.\n\nAccompanied by your expert licensed guide, discover the stories and secrets behind magnificent halls adorned with frescoes, tapestries, sculptures, and maps. Admire priceless works by legendary masters such as Raphael, Michelangelo, and Leonardo da Vinci, tracing the evolution of art from classical antiquity through the Renaissance and into the modern era. In the Raphael Rooms, marvel at the stunning frescoes of the Stanze, where art, philosophy, and papal history intertwine in breathtaking detail.\n\nContinue through iconic galleries such as the Gallery of Maps, the Gallery of Tapestries, and the Gallery of Candelabra, each richly decorated with intricate ceilings and masterpieces from the papal collections. Visit the peaceful Belvedere Courtyard and the Octagonal Courtyard to see celebrated ancient sculptures, including the dramatic Laocoön Group, one of the greatest surviving works of classical antiquity.\n\nTravel further back in time in the Egyptian and Etruscan Museums, where artifacts reveal the mysteries of ancient civilizations, or explore the Ethnological Museum to discover cultures from across the globe. The museums also house an impressive collection of modern religious art, featuring works by artists such as Van Gogh, Matisse, and Moore.\n\nYour visit culminates in the Sistine Chapel, where you will stand beneath Michelangelo's legendary ceiling frescoes, including The Creation of Adam, and the powerful Last Judgment on the altar wall. This sacred space, still used for papal conclaves, offers a moment of awe as art, faith, and history converge in one of the most celebrated interiors in the world.\n\nThis guided tour offers the perfect balance of insight and efficiency, allowing you to experience the highlights of the Vatican's unparalleled collections while gaining a deeper understanding of the art, history, and faith that define this remarkable place.",
+        duration: '3 Hours',
+        groupSize: 'Up to 24 participants',
+        description: "Bring history to life with an expert guide on this comprehensive tour of the Vatican Museums and the Sistine Chapel. Bypass the legendary crowds with exclusive skip-the-line access and dive deep into the world's largest collection of outstanding Renaissance masterpieces, guided by dedicated experts who reveal the secrets behind the art.",
         highlights: [
-            'Guided visit to the Vatican Museums with an expert licensed guide',
-            'Explore world-famous galleries, including the Raphael Rooms, Gallery of Maps, and more',
-            'Marvel at Michelangelo\'s frescoes in the Sistine Chapel',
-            'Learn the stories and secrets behind the masterpieces of Renaissance art',
-            'Professional licensed Vatican guide',
-            'Navigate the vast complex efficiently without getting lost',
-            'Ideal for first-time visitors and art lovers alike'
+            'Exclusive Skip-the-Line Entry: Save hours of waiting with fast-track access into the Vatican Museums and Sistine Chapel',
+            'Expert Storytelling: Learn the history, secrets, and context of the Vatican\'s treasures from a professional guide',
+            'Iconic Masterpieces: Witness the genius of Michelangelo, Raphael, and Bernini up close',
+            'Comprehensive Route: Explore highlights like Raphael\'s Rooms, the Gallery of the Maps, and Bramante\'s Pinecone Courtyard',
+            'Small Group Experience: Enjoy a more personal and comfortable sightseeing experience with a capped group size'
         ],
         includes: [
-            'Skip-the-line entry ticket to Vatican Museums and Sistine Chapel',
-            'Professional licensed guide',
-            'Headsets for groups',
-            'Access to the museums\' permanent collection',
-            'Host at the meeting point (IN OUR OFFICE)',
-            'Vatican Museums reservation fee',
-            'Guest relations assistance to enter the Museums',
-            'Instant Confirmation'
+            'Guided tour of the Vatican Museums',
+            'Guided tour of the Sistine Chapel',
+            'Fast-track, skip-the-line entry to all included sites',
+            'Professional expert tour guide'
         ],
         excludes: [
-            'Hotel pickup and Drop-off',
-            'Foods and drinks',
-            'Gratuities'
+            'Guided tour inside St. Peter\'s Basilica',
+            'Hotel pick-up and drop-off',
+            'Gratuities',
+            'Food and beverages'
         ],
-        meetingPoint: 'Via Tunisi 43, located just a short walk from the entrance to the Vatican Museums. The nearest metro stop is Cipro metro station (Line A), approximately a 5-minute walk away. We recommend arriving at least 15-20 minutes before your scheduled time for check-in.',
+        meetingPoint: 'Via Germanico, 40, 00192 Roma, RM, Italy',
         importantInfo: [
+            'Availability: Monday – Saturday (Closed on Sundays)',
+            'Duration: 3 Hours',
+            'Starting Time: Flexible (Choose a time that works best for your schedule)',
+            'Arrival Time: Please arrive 25 minutes prior to your scheduled start time',
+            'Group Size: Up to 24 participants',
+            'Guide: Professional, expert tour guide',
             'Security screening is mandatory at the Vatican',
             'Valid photo ID may be required',
             'Dress code: shoulders and knees must be covered',
             'Large bags, suitcases, and sharp objects are not allowed',
-            'Entry to the Sistine Chapel prohibits photography',
-            'Please arrive at least 15 minutes before your scheduled entry time',
-            'Activity operates rain or shine'
+            'Entry to the Sistine Chapel prohibits photography'
         ],
         imageUrl: 'https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=1200&q=90',
         badge: 'Best Seller',
@@ -73,46 +72,41 @@ export const tours: TourProduct[] = [
     },
     {
         id: 'vatican-museums-sistine-chapel-skip-the-line',
-        title: 'Vatican Museums and Sistine Chapel Skip-the-Line Ticket',
+        title: 'Premium Skip-the-Line: Vatican Museums & Sistine Chapel Ticket',
         slug: 'vatican-museums-sistine-chapel-skip-the-line',
         category: 'vatican',
         tourType: 'Skip-the-Line',
         price: 45,
-        duration: '3 Hours',
+        duration: 'Flexible',
         groupSize: 'Self-Guided',
-        description: "Skip the long lines at the entrance to one of the world's busiest cultural attractions with priority access to the Vatican Museums and Sistine Chapel. Step inside a vast complex of galleries, corridors, and courtyards housing one of the most important art collections on Earth, spanning over two millennia of human creativity.\n\nWander at your own pace through magnificent halls adorned with frescoes, tapestries, sculptures, and maps. Admire priceless works by legendary masters such as Raphael, Michelangelo, and Leonardo da Vinci, tracing the evolution of art from classical antiquity through the Renaissance and into the modern era. In the Raphael Rooms, marvel at the stunning frescoes of the Stanze, where art, philosophy, and papal history intertwine in breathtaking detail.\n\nContinue through iconic galleries such as the Gallery of Maps, the Gallery of Tapestries, and the Gallery of Candelabra, each richly decorated with intricate ceilings and masterpieces from the papal collections. Visit the peaceful Belvedere Courtyard and the Octagonal Courtyard to see celebrated ancient sculptures, including the dramatic Laocoön Group, one of the greatest surviving works of classical antiquity.\n\nTravel further back in time in the Egyptian and Etruscan Museums, where artifacts reveal the mysteries of ancient civilizations, or explore the Ethnological Museum to discover cultures from across the globe. The museums also house an impressive collection of modern religious art, featuring works by artists such as Van Gogh, Matisse, and Moore.\n\nYour visit culminates in the Sistine Chapel, where you will stand beneath Michelangelo's legendary ceiling frescoes, including The Creation of Adam, and the powerful Last Judgment on the altar wall. This sacred space, still used for papal conclaves, offers a moment of awe as art, faith, and history converge in one of the most celebrated interiors in the world.\n\nIdeal for independent travelers, this skip-the-line ticket allows you to experience the Vatican's artistic treasures at your own rhythm while avoiding long waits, making the most of your time inside this extraordinary cultural and spiritual landmark.",
+        description: "Bypass the crowds and maximize your time inside one of the world's most incredible art collections. This fast-track entry ticket lets you skip the notorious Vatican queues, giving you the freedom to explore the Vatican Museums and the awe-inspiring Sistine Chapel at your own pace.\n\nHave you ever dreamed of gazing at Michelangelo's masterpieces in the Sistine Chapel without the exhaustion of an hours-long wait? Our premium skip-the-line tickets offer the ultimate solution.\n\nInstead of wasting your day standing outside the walls of Vatican City, this fast-track ticket allows you to breeze past the queues and step right into history. Once inside, you are your own host. Take your time wandering through the endless galleries, discovering centuries of iconic art, and soaking in the breathtaking beauty of the Sistine Chapel. You've saved the waiting time—now you can invest it in experiencing the treasures of the Pope's state exactly the way you want to.",
         highlights: [
-            'Fast-track entry to the Vatican Museums',
-            'Explore world-famous galleries, including the Raphael Rooms, Gallery of Maps, and more',
-            'Marvel at Michelangelo\'s frescoes in the Sistine Chapel',
-            'Ideal for independent travelers or those short on time',
-            'See masterpieces at your own pace without waiting in long lines'
+            'Fast-Track Access: Breeze past the long lines with priority entry into the Vatican Museums and Sistine Chapel',
+            'Independent Exploration: Be your own guide and explore the vast collections for as long as you wish, completely at your own pace',
+            'Michelangelo\'s Masterpieces: Stand beneath the world-famous, breathtaking frescoes of the Sistine Chapel',
+            'Self-Guided Map: Easily navigate the massive museum complex and locate key artworks with a complimentary Vatican map'
         ],
         includes: [
-            'Skip-the-line entry ticket to Vatican Museums and Sistine Chapel',
-            'Access to the museums\' permanent collection',
-            'Booking and handling fee',
-            'Host at the meeting point (IN OUR OFFICE)',
-            'Vatican Museums reservation fee',
-            'Guest relations assistance to enter the Museums',
-            'Instant Confirmation'
+            'Priority Skip-the-Line Entry Ticket',
+            'Instant ticket delivery with a convenient Mobile Voucher',
+            'Detailed map of the Vatican Museums',
+            'All reservation and service fees'
         ],
         excludes: [
-            'Guided tour or live commentary',
-            'Hotel pickup and Drop-off',
-            'Foods and drinks',
-            'Audio Guided tour (if option selected)',
-            'Gratuities'
+            'Hotel pick-up and drop-off',
+            'Gratuities',
+            'Food and beverages'
         ],
-        meetingPoint: 'Via Tunisi 43, located just a short walk from the entrance to the Vatican Museums. The nearest metro stop is Cipro metro station (Line A), approximately a 5-minute walk away. We recommend arriving at least 15-20 minutes before your scheduled time for check-in.',
+        meetingPoint: 'Via Germanico, 40, 00192 Roma, RM, Italy',
         importantInfo: [
+            'Availability: Monday – Saturday (Closed on Sundays)',
+            'Duration: Flexible (Spend as much time as you like inside)',
+            'Starting Time: Flexible (Begin your visit at whatever time is most convenient for you)',
             'Security screening is mandatory at the Vatican',
             'Valid photo ID may be required',
             'Dress code: shoulders and knees must be covered',
             'Large bags, suitcases, and sharp objects are not allowed',
-            'Entry to the Sistine Chapel prohibits photography',
-            'Please arrive at least 15 minutes before your scheduled entry time',
-            'Activity operates rain or shine'
+            'Entry to the Sistine Chapel prohibits photography'
         ],
         imageUrl: 'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=1200&q=90',
         badge: 'Popular',

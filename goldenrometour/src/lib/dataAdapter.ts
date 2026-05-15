@@ -15,6 +15,87 @@ const source = process.env.DATA_SOURCE || 'payload'
 
 export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome'
 
+// Helper to load JSON tours (server-side only)
+async function loadJSONTours() {
+  if (typeof window !== 'undefined') return []
+  
+  try {
+    const { loadToursFromJSON } = await import('./jsonTours')
+    const jsonTours = loadToursFromJSON()
+    
+    // Map JSON tours to Tour type
+    return jsonTours.map((t: any) => ({
+      _id: t.productCode,
+      title: t.title,
+      slug: { current: t.slug },
+      mainImage: undefined,
+      price: t.price,
+      duration: t.duration,
+      description: t.description,
+      category: t.category,
+      features: t.highlights || [],
+      highlights: t.highlights || [],
+      badge: t.badge,
+      rating: t.rating,
+      reviewCount: t.reviewCount,
+      groupSize: t.groupSize,
+      tags: t.tags || [],
+      includes: t.includes || [],
+      excludes: t.excludes || [],
+      importantInfo: t.importantInfo || [],
+      meetingPoint: t.meetingPoint,
+      itinerary: t.itinerary || [],
+      guestTypes: t.guestTypes || [],
+      maxParticipants: t.maxParticipants,
+      location: t.location,
+    }))
+  } catch (error) {
+    console.error('[dataAdapter] Error loading JSON tours:', error)
+    return []
+  }
+}
+
+async function loadJSONTour(slug: string) {
+  if (typeof window !== 'undefined') return null
+  
+  try {
+    const { loadTourFromJSON } = await import('./jsonTours')
+    const jsonTour = loadTourFromJSON(slug)
+    
+    if (!jsonTour) return null
+    
+    // Map JSON tour to Tour type
+    return {
+      _id: jsonTour.productCode,
+      title: jsonTour.title,
+      slug: { current: jsonTour.slug },
+      mainImage: undefined,
+      price: jsonTour.price,
+      duration: jsonTour.duration,
+      description: jsonTour.description,
+      category: jsonTour.category,
+      features: jsonTour.highlights || [],
+      highlights: jsonTour.highlights || [],
+      badge: jsonTour.badge,
+      rating: jsonTour.rating,
+      reviewCount: jsonTour.reviewCount,
+      groupSize: jsonTour.groupSize,
+      tags: jsonTour.tags || [],
+      includes: jsonTour.includes || [],
+      excludes: jsonTour.excludes || [],
+      importantInfo: jsonTour.importantInfo || [],
+      meetingPoint: jsonTour.meetingPoint,
+      itinerary: jsonTour.itinerary || [],
+      guestTypes: jsonTour.guestTypes || [],
+      maxParticipants: jsonTour.maxParticipants,
+      location: jsonTour.location,
+    }
+  } catch (error) {
+    console.error('[dataAdapter] Error loading JSON tour:', error)
+    return null
+  }
+}
+
 async function withFallback<T>(
   payloadFn: () => Promise<T>,
   sanityFn:  () => Promise<T>
@@ -88,6 +169,12 @@ export const getTours = async (siteId?: string) => {
     tours = await withFallback(() => payload.getTours(siteId), () => sanity.getTours(siteId))
   }
   
+  // If no tours from CMS and this is goldenrometour, try JSON fallback
+  if ((!tours || tours.length === 0) && (siteId === 'goldenrometour' || DEFAULT_SITE_ID === 'goldenrometour')) {
+    console.log('[dataAdapter] No tours from CMS, trying JSON fallback...')
+    tours = await loadJSONTours()
+  }
+  
   return VATICAN_ONLY ? tours.filter(t => t.category === 'vatican') : tours
 }
 
@@ -103,6 +190,12 @@ export const getTour = async (slug: string, siteId?: string) => {
     }
   } else {
     tour = await withFallback(() => payload.getTour(slug, siteId), () => sanity.getTour(slug, siteId))
+  }
+  
+  // If no tour from CMS and this is goldenrometour, try JSON fallback
+  if (!tour && (siteId === 'goldenrometour' || DEFAULT_SITE_ID === 'goldenrometour')) {
+    console.log(`[dataAdapter] No tour "${slug}" from CMS, trying JSON fallback...`)
+    tour = await loadJSONTour(slug)
   }
   
   // Log for debugging

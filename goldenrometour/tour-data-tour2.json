@@ -1,5 +1,5 @@
 {
-  "title": "Vatican Museums & Sistine Chapel Guided Tour",
+  "title": "Complete Guided Tour: Vatican Museums & Sistine Chapel",
   "slug": "vatican-museums-and-sistine-chapel-guided-tour",
   "productCode": "VAT-GUD-TOR",
   "category": "vatican",
@@ -8,59 +8,53 @@
   "rating": 4.8,
   "reviewCount": 2850,
   "price": 65,
-  "duration": "2 Hours",
-  "groupSize": "Max 20 People",
+  "duration": "3 Hours",
+  "groupSize": "Up to 24 participants",
   "badge": "Best Seller",
-  "description": "Skip the long lines at the entrance to one of the world's busiest cultural attractions with priority access to the Vatican Museums and Sistine Chapel. Step inside a vast complex of galleries, corridors, and courtyards housing one of the most important art collections on Earth, spanning over two millennia of human creativity.\n\nAccompanied by your expert licensed guide, discover the stories and secrets behind magnificent halls adorned with frescoes, tapestries, sculptures, and maps. Admire priceless works by legendary masters such as Raphael, Michelangelo, and Leonardo da Vinci, tracing the evolution of art from classical antiquity through the Renaissance and into the modern era. In the Raphael Rooms, marvel at the stunning frescoes of the Stanze, where art, philosophy, and papal history intertwine in breathtaking detail.\n\nContinue through iconic galleries such as the Gallery of Maps, the Gallery of Tapestries, and the Gallery of Candelabra, each richly decorated with intricate ceilings and masterpieces from the papal collections. Visit the peaceful Belvedere Courtyard and the Octagonal Courtyard to see celebrated ancient sculptures, including the dramatic Laocoön Group, one of the greatest surviving works of classical antiquity.\n\nTravel further back in time in the Egyptian and Etruscan Museums, where artifacts reveal the mysteries of ancient civilizations, or explore the Ethnological Museum to discover cultures from across the globe. The museums also house an impressive collection of modern religious art, featuring works by artists such as Van Gogh, Matisse, and Moore.\n\nYour visit culminates in the Sistine Chapel, where you will stand beneath Michelangelo's legendary ceiling frescoes, including The Creation of Adam, and the powerful Last Judgment on the altar wall. This sacred space, still used for papal conclaves, offers a moment of awe as art, faith, and history converge in one of the most celebrated interiors in the world.\n\nThis guided tour offers the perfect balance of insight and efficiency, allowing you to experience the highlights of the Vatican's unparalleled collections while gaining a deeper understanding of the art, history, and faith that define this remarkable place.",
+  "description": "Bring history to life with an expert guide on this comprehensive tour of the Vatican Museums and the Sistine Chapel. Bypass the legendary crowds with exclusive skip-the-line access and dive deep into the world's largest collection of outstanding Renaissance masterpieces, guided by dedicated experts who reveal the secrets behind the art.",
   "highlights": [
-    "Guided visit to the Vatican Museums with an expert licensed guide",
-    "Explore world-famous galleries, including the Raphael Rooms, Gallery of Maps, and more",
-    "Marvel at Michelangelo's frescoes in the Sistine Chapel",
-    "Learn the stories and secrets behind the masterpieces of Renaissance art",
-    "Professional licensed Vatican guide",
-    "Navigate the vast complex efficiently without getting lost",
-    "Ideal for first-time visitors and art lovers alike"
+    "Exclusive Skip-the-Line Entry: Save hours of waiting with fast-track access into the Vatican Museums and Sistine Chapel",
+    "Expert Storytelling: Learn the history, secrets, and context of the Vatican's treasures from a professional guide",
+    "Iconic Masterpieces: Witness the genius of Michelangelo, Raphael, and Bernini up close",
+    "Comprehensive Route: Explore highlights like Raphael's Rooms, the Gallery of the Maps, and Bramante's Pinecone Courtyard",
+    "Small Group Experience: Enjoy a more personal and comfortable sightseeing experience with a capped group size"
   ],
   "includes": [
-    "Skip-the-line entry ticket to Vatican Museums and Sistine Chapel",
-    "Professional licensed guide",
-    "Headsets for groups",
-    "Access to the museums’ permanent collection",
-    "Host at the meeting point (IN OUR OFFICE)",
-    "Vatican Museums reservation fee",
-    "Guest relations assistance to enter the Museums",
-    "Instant Confirmation"
+    "Guided tour of the Vatican Museums",
+    "Guided tour of the Sistine Chapel",
+    "Fast-track, skip-the-line entry to all included sites",
+    "Professional expert tour guide"
   ],
   "excludes": [
-    "Hotel pickup and Drop-off",
-    "Foods and drinks",
-    "Gratuities"
+    "Guided tour inside St. Peter's Basilica",
+    "Hotel pick-up and drop-off",
+    "Gratuities",
+    "Food and beverages"
   ],
   "importantInfo": [
+    "Availability: Monday – Saturday (Closed on Sundays)",
+    "Duration: 3 Hours",
+    "Starting Time: Flexible (Choose a time that works best for your schedule)",
+    "Arrival Time: Please arrive 25 minutes prior to your scheduled start time",
+    "Group Size: Up to 24 participants",
+    "Guide: Professional, expert tour guide",
     "Security screening is mandatory at the Vatican",
     "Valid photo ID may be required",
     "Dress code: shoulders and knees must be covered",
     "Large bags, suitcases, and sharp objects are not allowed",
-    "Entry to the Sistine Chapel prohibits photography",
-    "Please arrive at least 15 minutes before your scheduled entry time",
-    "Activity operates rain or shine"
+    "Entry to the Sistine Chapel prohibits photography"
   ],
-  "meetingPoint": "Via Tunisi 43, located just a short walk from the entrance to the Vatican Museums. The nearest metro stop is Cipro metro station (Line A), approximately a 5-minute walk away. We recommend arriving at least 15-20 minutes before your scheduled time for check-in.",
+  "meetingPoint": "Via Germanico, 40, 00192 Roma, RM, Italy",
   "itinerary": [
     {
-      "title": "Meeting Point",
-      "duration": "15 minutes",
-      "description": "Meet your guide at our office on Via Tunisi 43."
+      "title": "The Vatican Museums & Sistine Chapel",
+      "duration": "2.5 hours",
+      "description": "Step straight inside using our reserved, fast-track entrance. Your expert guide will lead your small group through the extensive corridors of the Vatican Museums, taking you beyond the standard route. You will explore renowned spaces like Raphael's Rooms, the Gallery of the Maps, and Bramante's Pinecone Courtyard, while discovering stunning ancient sculptures and hidden gems. As you approach the Sistine Chapel, your guide will provide the vital history, context, and secrets behind Michelangelo's legendary frescoes, ensuring you fully grasp the symbolism and magnitude of the artwork before you enter in silence to marvel at it yourself."
     },
     {
-      "title": "Vatican Museums Guided Tour",
-      "duration": "90 minutes",
-      "description": "Guided exploration of the galleries including the Gallery of Maps and Raphael Rooms."
-    },
-    {
-      "title": "Sistine Chapel",
-      "duration": "15 minutes",
-      "description": "Visit the Sistine Chapel with expert context provided by your guide beforehand."
+      "title": "St. Peter's Basilica (Important Visit Information)",
+      "duration": "30 minutes",
+      "description": "Your guided tour officially concludes near St. Peter's Basilica. While your guide will provide valuable insights into the exterior architecture and history of this sacred landmark, entry and a guided tour inside the Basilica are not included. Independent Visit: Travelers are welcome to enter St. Peter's Basilica independently and free of charge after the tour. Here, you can witness masterpieces like Michelangelo's Pietà and Bernini's baldachin. Access via Sistine Chapel: Occasionally, a passageway from the Sistine Chapel directly to the Basilica is open. While you may use this if available, it is not guaranteed. Unannounced Closures: As an active place of worship, St. Peter's Basilica can close without warning for religious activities. It is also completely closed on major religious holidays (e.g., Easter, December 24th, and December 31st)."
     }
   ],
   "guestTypes": [
@@ -80,7 +74,7 @@
       "description": "Age 0-5"
     }
   ],
-  "maxParticipants": 20,
+  "maxParticipants": 24,
   "tags": ["guided-tour", "vatican", "sistine-chapel", "museums", "art", "expert-guide"],
   "location": "Vatican City",
   "cancellationPolicy": "Free cancellation up to 24 hours before the experience starts"

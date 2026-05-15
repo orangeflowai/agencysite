@@ -70,6 +70,66 @@ const tourType = defineType({
             validation: (rule) => rule.required().min(0),
         }),
         defineField({
+            name: 'currency',
+            title: 'Currency',
+            type: 'string',
+            group: 'details',
+            initialValue: 'EUR',
+            options: {
+                list: [
+                    { title: 'EUR (€)', value: 'EUR' },
+                    { title: 'USD ($)', value: 'USD' },
+                    { title: 'GBP (£)', value: 'GBP' },
+                ]
+            },
+        }),
+        defineField({
+            name: 'shortDescription',
+            title: 'Short Description',
+            type: 'text',
+            rows: 2,
+            group: 'details',
+            description: 'Brief summary for cards and previews',
+        }),
+        defineField({
+            name: 'featured',
+            title: 'Featured Tour',
+            type: 'boolean',
+            group: 'details',
+            initialValue: false,
+            description: 'Show this tour in featured sections',
+        }),
+        defineField({
+            name: 'active',
+            title: 'Active',
+            type: 'boolean',
+            group: 'details',
+            initialValue: true,
+            description: 'Is this tour currently available for booking?',
+        }),
+        defineField({
+            name: 'status',
+            title: 'Status',
+            type: 'string',
+            group: 'details',
+            options: {
+                list: [
+                    { title: 'Live', value: 'live' },
+                    { title: 'Draft', value: 'draft' },
+                    { title: 'Archived', value: 'archived' },
+                ]
+            },
+            initialValue: 'live',
+        }),
+        defineField({
+            name: 'tenant',
+            title: 'Tenant (Legacy)',
+            type: 'string',
+            group: 'details',
+            hidden: true,
+            description: 'Legacy field from Payload CMS - use "sites" instead',
+        }),
+        defineField({
             name: 'guestTypes',
             title: 'Guest Types & Pricing',
             type: 'array',
@@ -192,11 +252,37 @@ const tourType = defineType({
             of: [{ type: 'string' }],
         }),
         defineField({
+            name: 'included',
+            title: 'Included (Legacy)',
+            type: 'array',
+            group: 'content',
+            of: [{ type: 'string' }],
+            hidden: true,
+            description: 'Legacy field from Payload - use "includes" instead',
+        }),
+        defineField({
             name: 'excludes',
             title: 'What\'s Not Included',
             type: 'array',
             group: 'content',
             of: [{ type: 'string' }],
+        }),
+        defineField({
+            name: 'notIncluded',
+            title: 'Not Included (Legacy)',
+            type: 'array',
+            group: 'content',
+            of: [{ type: 'string' }],
+            hidden: true,
+            description: 'Legacy field from Payload - use "excludes" instead',
+        }),
+        defineField({
+            name: 'cancellationPolicy',
+            title: 'Cancellation Policy',
+            type: 'text',
+            rows: 3,
+            group: 'content',
+            description: 'e.g., "Free cancellation up to 48 hours before the tour"',
         }),
         defineField({
             name: 'faqs',
@@ -232,6 +318,48 @@ const tourType = defineType({
             title: 'Meeting Point',
             type: 'text',
             group: 'logistics',
+        }),
+        defineField({
+            name: 'accessibility',
+            title: 'Accessibility',
+            type: 'string',
+            group: 'logistics',
+            description: 'e.g., "Wheelchair accessible"',
+        }),
+        defineField({
+            name: 'ageRestriction',
+            title: 'Age Restriction',
+            type: 'string',
+            group: 'logistics',
+            description: 'e.g., "Recommended for ages 12+"',
+        }),
+        defineField({
+            name: 'difficulty',
+            title: 'Difficulty Level',
+            type: 'string',
+            group: 'logistics',
+            options: {
+                list: [
+                    { title: 'Easy', value: 'Easy' },
+                    { title: 'Moderate', value: 'Moderate' },
+                    { title: 'Challenging', value: 'Challenging' },
+                ]
+            },
+        }),
+        defineField({
+            name: 'languages',
+            title: 'Available Languages',
+            type: 'array',
+            group: 'logistics',
+            of: [{ type: 'string' }],
+            description: 'Languages in which the tour is available',
+        }),
+        defineField({
+            name: 'minParticipants',
+            title: 'Minimum Participants',
+            type: 'number',
+            group: 'logistics',
+            validation: (rule) => rule.min(1),
         }),
         defineField({
             name: 'mapAddress',

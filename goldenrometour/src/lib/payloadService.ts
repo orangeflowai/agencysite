@@ -180,7 +180,14 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
     'sort': 'createdAt',
     'limit': '500',
   })
-  return (data?.docs || []).map(mapTour)
+  
+  // If Payload returns tours, use them
+  if (data?.docs && data.docs.length > 0) {
+    return data.docs.map(mapTour)
+  }
+  
+  // Return empty array - fallback will be handled in dataAdapter
+  return []
 }
 
 export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Tour | null> {
