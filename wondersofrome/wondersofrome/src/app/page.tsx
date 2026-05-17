@@ -13,6 +13,8 @@ import ScrollMaskText from "@/components/ScrollMaskText";
 import ParallaxImage from "@/components/ParallaxImage";
 import WordHighlight from "@/components/WordHighlight";
 import AutoScrollTourSection from "@/components/AutoScrollTourSection";
+import { PhilosophySection } from "@/components/PhilosophySection";
+import { TechnologySection } from "@/components/TechnologySection";
 
 export const revalidate = 300; // Revalidate every 5 minutes
 
@@ -71,6 +73,12 @@ export default async function Home() {
     <main className="min-h-screen bg-background selection:bg-primary selection:text-white font-sans">
       <Navbar />
       <WondersHero settings={settings} />
+
+      {/* Philosophy Section - Scroll-animated tour cards */}
+      <PhilosophySection />
+
+      {/* Technology Section - Multi-image reveal */}
+      <TechnologySection />
 
       {/* Vatican Tours Section - Auto Scroll */}
       <AutoScrollTourSection

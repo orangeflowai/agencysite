@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Clock, Star, MapPin, Users, Heart, Tag } from 'lucide-react';
 import { urlFor } from '@/lib/dataAdapter';
 import type { Tour } from '@/lib/dataAdapter';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface TourCardProps {
   tour: Tour;
@@ -16,41 +17,45 @@ const FALLBACK_IMAGE = `${R2_BASE}/pexels-alex-250137-757239.jpg`;
 
 export default function TourCard({ tour }: TourCardProps) {
   const [imgError, setImgError] = useState(false);
+  const { translateTour, t } = useLanguage();
+  
+  // Get translated tour data
+  const translatedTour = translateTour(tour);
 
-  const rawImageUrl = tour.mainImage?.asset?.url 
-    ? tour.mainImage.asset.url 
-    : typeof tour.mainImage === 'string' 
-      ? tour.mainImage 
-      : tour.mainImage 
-        ? urlFor(tour.mainImage).width(600).height(400).url() 
+  const rawImageUrl = translatedTour.mainImage?.asset?.url 
+    ? translatedTour.mainImage.asset.url 
+    : typeof translatedTour.mainImage === 'string' 
+      ? translatedTour.mainImage 
+      : translatedTour.mainImage 
+        ? urlFor(translatedTour.mainImage).width(600).height(400).url() 
         : FALLBACK_IMAGE;
 
   const imageUrl = imgError ? FALLBACK_IMAGE : rawImageUrl;
 
-  const topBadgeText = tour.badge
-    ? tour.badge.toUpperCase()
-    : tour.category === 'colosseum' ? 'COLOSSEUM TOUR'
-    : tour.category === 'vatican' ? 'VATICAN TOUR'
-    : 'GUIDED TOUR';
+  const topBadgeText = translatedTour.badge
+    ? translatedTour.badge.toUpperCase()
+    : translatedTour.category === 'colosseum' ? t('nav.colosseum').toUpperCase()
+    : translatedTour.category === 'vatican' ? t('nav.vatican').toUpperCase()
+    : t('common.guided_tour').toUpperCase();
 
-  const middleBarText = tour.tags && tour.tags.length > 0
-    ? (typeof tour.tags[0] === 'string' ? tour.tags[0] : (tour.tags[0] as any)?.label || (tour.tags[0] as any)?.name || 'FEATURED TOUR').toUpperCase()
-    : 'FEATURED TOUR';
+  const middleBarText = translatedTour.tags && translatedTour.tags.length > 0
+    ? (typeof translatedTour.tags[0] === 'string' ? translatedTour.tags[0] : (translatedTour.tags[0] as any)?.label || (translatedTour.tags[0] as any)?.name || t('common.featured_tour')).toUpperCase()
+    : t('common.featured_tour').toUpperCase();
 
-  const displayPrice = tour.guestTypes?.length
-    ? Math.min(...tour.guestTypes.filter(g => (g as any).price > 0).map(g => (g as any).price))
-    : tour.price;
+  const displayPrice = translatedTour.guestTypes?.length
+    ? Math.min(...translatedTour.guestTypes.filter(g => (g as any).price > 0).map(g => (g as any).price))
+    : translatedTour.price;
 
   return (
     <Link
-      href={`/tour/${tour.slug?.current || '#'}`}
+      href={`/tour/${translatedTour.slug?.current || '#'}`}
       className="group relative bg-card flex flex-col h-full rounded-[var(--radius)] overflow-hidden border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl min-h-[440px] lg:min-h-[500px] font-sans"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={imageUrl}
-          alt={tour.title}
+          alt={translatedTour.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
@@ -80,23 +85,23 @@ export default function TourCard({ tour }: TourCardProps) {
       <div className="p-6 flex flex-col grow space-y-4">
         <div className="min-h-[3.5rem]">
           <h3 className="text-lg font-serif font-bold text-foreground leading-tight line-clamp-2 tracking-tight group-hover:text-primary transition-colors">
-            {tour.title}
+            {translatedTour.title}
           </h3>
         </div>
 
         <div className="flex items-center text-muted-foreground text-xs font-bold tracking-widest h-5">
           <MapPin size={14} className="text-primary mr-1.5 shrink-0" />
-          <span className="line-clamp-1">{tour.location || 'Rome, Italy'}</span>
+          <span className="line-clamp-1">{translatedTour.location || 'Rome, Italy'}</span>
         </div>
 
         <div className="flex items-center space-x-3 text-[10px] font-bold tracking-widest text-muted-foreground">
           <div className="flex items-center bg-background px-2.5 py-1.5 rounded-sm border border-border group-hover:border-primary/30 transition-colors">
             <Users size={14} className="mr-1.5 text-primary" />
-            <span>{tour.groupSize || '25'}</span>
+            <span>{translatedTour.groupSize || '25'}</span>
           </div>
           <div className="flex items-center bg-background px-2.5 py-1.5 rounded-sm border border-border group-hover:border-primary/30 transition-colors">
             <Clock size={14} className="mr-1.5 text-primary" />
-            <span>{tour.duration}</span>
+            <span>{translatedTour.duration}</span>
           </div>
         </div>
 
@@ -104,10 +109,10 @@ export default function TourCard({ tour }: TourCardProps) {
         <div className="mt-auto flex items-center justify-between pt-4 border-t border-border/50">
           <div className="flex items-center gap-1.5">
             <Star size={12} className="fill-primary text-primary" />
-            <span className="text-xs font-bold text-foreground">{tour.rating || '5.0'}</span>
+            <span className="text-xs font-bold text-foreground">{translatedTour.rating || '5.0'}</span>
           </div>
           <span className="text-[9px] text-muted-foreground font-bold tracking-widest opacity-60">
-            {tour.reviewCount || 120} reviews
+            {translatedTour.reviewCount || 120} {t('tour.reviews')}
           </span>
         </div>
       </div>
@@ -115,11 +120,11 @@ export default function TourCard({ tour }: TourCardProps) {
       {/* Footer: Price & Book */}
       <div className="flex h-16 mt-auto border-t border-border">
         <div className="w-[60%] bg-card text-foreground flex flex-col justify-center px-6 relative overflow-hidden group-hover:bg-primary group-hover:text-white transition-colors">
-          <span className="text-[8px] opacity-80 font-bold tracking-widest mb-0.5 uppercase">From</span>
+          <span className="text-[8px] opacity-80 font-bold tracking-widest mb-0.5 uppercase">{t('tour.from')}</span>
           <span className="text-2xl font-serif font-bold tracking-tighter">€{displayPrice}</span>
         </div>
         <div className="w-[40%] bg-primary text-white flex items-center justify-center font-bold text-[10px] tracking-[0.2em] hover:brightness-110 group-hover:bg-accent group-hover:text-foreground transition-all cursor-pointer text-center px-4 leading-tight">
-          BOOK NOW
+          {t('tour.book_now').toUpperCase()}
         </div>
       </div>
     </Link>

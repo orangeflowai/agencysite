@@ -8,7 +8,8 @@ import { useGSAP } from '@gsap/react';
 import { useLanguage } from '@/context/LanguageContext';
 
 const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
-const R2_HERO_MEDIA = `${R2_BASE}/15509039_3840_2160_30fps-ezgif.com-optimize.gif`;
+const R2_HERO_VIDEO = `${R2_BASE}/15509039_3840_2160_30fps.mp4`; // Use MP4 instead of GIF
+const R2_HERO_POSTER = `${R2_BASE}/hero-poster.jpg`; // Poster image for instant display
 
 interface HeroProps {
   settings?: {
@@ -25,9 +26,11 @@ export default function WondersHero({ settings }: HeroProps) {
   const rightPanelRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { t } = useLanguage();
 
-  const mediaUrl = settings?.heroVideo?.asset?.url || settings?.heroImage?.asset?.url || R2_HERO_MEDIA;
+  const videoUrl = settings?.heroVideo?.asset?.url || R2_HERO_VIDEO;
+  const posterUrl = settings?.heroImage?.asset?.url || R2_HERO_POSTER;
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: 'expo.inOut' } });
@@ -53,13 +56,30 @@ export default function WondersHero({ settings }: HeroProps) {
 
   return (
     <section ref={containerRef} className="relative w-full flex flex-col justify-center overflow-hidden bg-black pt-[102px] min-h-screen">
-      {/* Background Media Layer */}
+      {/* Background Video Layer */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={mediaUrl}
-          alt="Rome Hero"
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          poster={posterUrl}
           className="w-full h-full object-cover opacity-60 scale-105"
-        />
+          style={{ 
+            willChange: 'auto',
+            transform: 'translateZ(0)', // Hardware acceleration
+          }}
+        >
+          <source src={videoUrl} type="video/mp4" />
+          {/* Fallback to poster image if video fails */}
+          <img
+            src={posterUrl}
+            alt="Rome Hero"
+            className="w-full h-full object-cover"
+          />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
       </div>
 

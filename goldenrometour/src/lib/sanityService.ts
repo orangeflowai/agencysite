@@ -158,84 +158,42 @@ async function getSiteRefBySlug(slug: string): Promise<string | null> {
 
 /**
  * Get tours for a specific site
- * For goldenrometour: Fetch ALL Vatican tours from Sanity (ignore site assignment)
- * This allows goldenrometour to show all Vatican tours from wondersofrome
+ * Refactored for dedicated dashboards:
+ * 1. Try fetching with site filtering (legacy/multi-tenant)
+ * 2. If empty, fetch ALL tours from the project (dedicated dashboard mode)
  */
 export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
     try {
-        // For goldenrometour: fetch ALL Vatican tours regardless of site assignment
-        if (siteId === 'goldenrometour') {
-            const query = `*[_type == "tour" && category == "vatican"]{
-                _id,
-                title,
-                slug,
-                mainImage {
-                    asset -> {
-                        _id,
-                        url
-                    }
-                },
-                price,
-                duration,
-                description,
-                category,
-                "features": highlights,
-                badge,
-                rating,
-                reviewCount,
-                tags,
-                guestTypes,
-                includes,
-                excludes,
-                importantInfo,
-                meetingPoint,
-                gallery,
-                groupSize,
-                location
+        // Try site filtering first
+        const siteRef = await getSiteRefBySlug(siteId);
+        let tours = [];
+
+        if (siteRef) {
+            const query = `*[_type == "tour" && $siteRef in sites[]._ref]{
+                _id, title, slug, mainImage { asset -> { _id, url } },
+                price, duration, "description": pt::text(description),
+                category, "features": highlights, badge, rating, reviewCount,
+                tags, guestTypes, includes, excludes, importantInfo, sites
             }`;
-
-            return await client.fetch(query, {}, { next: { revalidate: 60 } });
+            tours = await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
         }
 
-        // For other sites: use site filtering
-        const siteRef = await Promise.race([
-            getSiteRefBySlug(siteId),
-            new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
-        ]);
-
-        if (!siteRef) {
-            console.warn(`[sanityService] Site with slug "${siteId}" not found or timed out. Returning empty tours.`);
-            return [];
+        // FALLBACK: If no tours found with site filter, fetch ALL tours
+        // This is ideal for dedicated dashboards where site tagging might be missing
+        if (tours.length === 0) {
+            console.log(`[sanityService] No tours found for site "${siteId}", fetching all tours from project...`);
+            const query = `*[_type == "tour"]{
+                _id, title, slug, mainImage { asset -> { _id, url } },
+                price, duration, "description": pt::text(description),
+                category, "features": highlights, badge, rating, reviewCount,
+                tags, guestTypes, includes, excludes, importantInfo, gallery, groupSize, location
+            }`;
+            tours = await client.fetch(query, {}, { next: { revalidate: 60 } });
         }
 
-        // Query tours where the sites array contains a reference to this site
-        const query = `*[_type == "tour" && $siteRef in sites[]._ref]{
-            _id,
-            title,
-            slug,
-            mainImage {
-                asset -> {
-                    _id,
-                    url
-                }
-            },
-            price,
-            duration,
-            "description": pt::text(description),
-            category,
-            "features": highlights,
-            badge,
-            rating,
-            reviewCount,
-            tags,
-            guestTypes,
-            includes,
-            excludes,
-            importantInfo,
-            sites
-        }`;
-
-        return await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
+        // For goldenrometour, we still might want to filter by vatican category if the user insists,
+        // but if they have a dedicated dashboard, they likely only put vatican tours there.
+        return siteId === 'goldenrometour' ? tours.filter(t => t.category === 'vatican' || !t.category) : tours;
     } catch (error) {
         console.error('[sanityService] Failed to fetch tours:', error);
         return [];
@@ -244,46 +202,35 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
 
 /**
  * Get a single tour by slug
- * For goldenrometour: Fetch ANY Vatican tour regardless of site assignment
  */
 export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Tour | null> {
     try {
-        // For goldenrometour: fetch ANY Vatican tour
-        if (siteId === 'goldenrometour') {
-            const query = `*[_type == "tour" && slug.current == $slug && category == "vatican"][0]{
+        // Try site-filtered first
+        const siteRef = await getSiteRefBySlug(siteId);
+        let tour = null;
+
+        if (siteRef) {
+            const query = `*[_type == "tour" && slug.current == $slug && $siteRef in sites[]._ref][0]{
                 ...,
                 "features": highlights,
-                mainImage {
-                    asset -> {
-                        _id,
-                        url
-                    }
-                },
-                gallery[] {
-                    asset -> {
-                        _id,
-                        url
-                    }
-                }
+                mainImage { asset -> { _id, url } },
+                gallery[] { asset -> { _id, url } }
             }`;
-
-            return await client.fetch(query, { slug }, { next: { revalidate: 60 } });
+            tour = await client.fetch(query, { slug, siteRef }, { next: { revalidate: 60 } });
         }
 
-        // For other sites: use site filtering
-        const siteRef = await getSiteRefBySlug(siteId);
-
-        if (!siteRef) {
-            console.warn(`Site with slug "${siteId}" not found.`);
-            return null;
+        // FALLBACK: Fetch by slug only
+        if (!tour) {
+            const query = `*[_type == "tour" && slug.current == $slug][0]{
+                ...,
+                "features": highlights,
+                mainImage { asset -> { _id, url } },
+                gallery[] { asset -> { _id, url } }
+            }`;
+            tour = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
         }
 
-        const query = `*[_type == "tour" && slug.current == $slug && $siteRef in sites[]._ref][0]{
-            ...,
-            "features": highlights
-        }`;
-
-        return await client.fetch(query, { slug, siteRef }, { next: { revalidate: 60 } });
+        return tour;
     } catch (error) {
         console.error('Failed to fetch tour:', error);
         return null;
@@ -383,12 +330,18 @@ export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Set
             "site": site->{ _id, title, slug }
         }`;
 
-        const result = await Promise.race([
+        let settings = await Promise.race([
             client.fetch(query, { siteId }, { next: { revalidate: 60 } }),
             new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
         ]);
 
-        return result || null;
+        // FALLBACK: If no settings found for site, get the first one available
+        if (!settings) {
+            console.log(`[sanityService] No settings found for site "${siteId}", fetching first available settings...`);
+            settings = await client.fetch(`*[_type == "settings"][0]{ ... }`);
+        }
+
+        return settings || null;
     } catch (error) {
         console.error('[sanityService] Failed to fetch settings:', error);
         return null;
@@ -428,7 +381,15 @@ export async function getSite(siteId: string = DEFAULT_SITE_ID): Promise<Site | 
             legalLinks
         }`;
 
-        return await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+        let site = await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+
+        // FALLBACK: If no site found by slug, get the first active one
+        if (!site) {
+            console.log(`[sanityService] No site found for slug "${siteId}", fetching first active site...`);
+            site = await client.fetch(`*[_type == "site" && isActive == true][0]{ ... }`);
+        }
+
+        return site;
     } catch (error) {
         console.error('Failed to fetch site:', error);
         return null;

@@ -38,6 +38,7 @@ export interface TranslatedTour {
     tags?: string[];
     seoTitle?: string;
     seoDescription?: string;
+    guestTypes?: any[];
     // Raw translations object
     translations?: Record<string, any>;
 }
@@ -140,6 +141,8 @@ const translations: Record<Language, Record<string, string>> = {
         'common.yes': 'Yes',
         'common.no': 'No',
         'common.translated_by_google': 'Translated by Google',
+        'common.guided_tour': 'Guided Tour',
+        'common.featured_tour': 'Featured Tour',
     },
     it: {
         // Navigation
@@ -238,6 +241,8 @@ const translations: Record<Language, Record<string, string>> = {
         'common.yes': 'Sì',
         'common.no': 'No',
         'common.translated_by_google': 'Tradotto da Google',
+        'common.guided_tour': 'Tour Guidato',
+        'common.featured_tour': 'Tour in Evidenza',
     },
     es: {
         // Navigation
@@ -336,6 +341,8 @@ const translations: Record<Language, Record<string, string>> = {
         'common.yes': 'Sí',
         'common.no': 'No',
         'common.translated_by_google': 'Traducido por Google',
+        'common.guided_tour': 'Tour Guiado',
+        'common.featured_tour': 'Tour Destacado',
     },
     fr: {
         // Navigation
@@ -434,6 +441,8 @@ const translations: Record<Language, Record<string, string>> = {
         'common.yes': 'Oui',
         'common.no': 'Non',
         'common.translated_by_google': 'Traduit par Google',
+        'common.guided_tour': 'Visite Guidée',
+        'common.featured_tour': 'Visite en Vedette',
     },
     de: {
         // Navigation
@@ -532,6 +541,8 @@ const translations: Record<Language, Record<string, string>> = {
         'common.yes': 'Ja',
         'common.no': 'Nein',
         'common.translated_by_google': 'Übersetzt von Google',
+        'common.guided_tour': 'Geführte Tour',
+        'common.featured_tour': 'Empfohlene Tour',
     },
     pt: {
         // Navigation
@@ -630,6 +641,8 @@ const translations: Record<Language, Record<string, string>> = {
         'common.yes': 'Sim',
         'common.no': 'Não',
         'common.translated_by_google': 'Traduzido pelo Google',
+        'common.guided_tour': 'Tour Guiado',
+        'common.featured_tour': 'Tour em Destaque',
     },
     ru: {
         // Navigation
@@ -728,6 +741,8 @@ const translations: Record<Language, Record<string, string>> = {
         'common.yes': 'Да',
         'common.no': 'Нет',
         'common.translated_by_google': 'Переведено Google',
+        'common.guided_tour': 'Экскурсия с гидом',
+        'common.featured_tour': 'Рекомендуемая экскурсия',
     }
 };
 

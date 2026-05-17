@@ -35,12 +35,9 @@ export default function LanguageSwitcher() {
         setLanguage(langCode as any);
         setIsOpen(false);
         
-        // Force page reload to apply language change
+        // Store the language preference (no reload needed - React context handles updates)
         if (typeof window !== 'undefined') {
-            // Store the language preference
             localStorage.setItem('preferredLanguage', langCode);
-            // Reload the page to apply changes
-            window.location.reload();
         }
     };
 

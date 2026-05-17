@@ -181,60 +181,42 @@ async function getSiteRefBySlug(slug: string): Promise<string | null> {
 
 /**
  * Get tours for a specific site
- * Uses the sites array to filter tours that belong to the given site
- * Falls back to hardcoded tours if Sanity returns empty or tours without images
+ * Refactored for dedicated dashboards:
+ * 1. Try fetching with site filtering (legacy/multi-tenant)
+ * 2. If empty, fetch ALL tours from the project (dedicated dashboard mode)
  */
 export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
     try {
-        // First get the actual site document _id from the slug
         const siteRef = await getSiteRefBySlug(siteId);
+        let tours = [];
 
-        if (!siteRef) {
-            console.warn(`[Sanity] Site with slug "${siteId}" not found. Using fallback tours.`);
-            return [];
+        if (siteRef) {
+            const query = `*[_type == "tour" && $siteRef in sites[]._ref]{
+                _id, title, slug, mainImage { asset -> { _id, url } },
+                price, duration, "description": pt::text(description),
+                category, "features": highlights, badge, rating, reviewCount,
+                tags, guestTypes, includes, excludes, importantInfo, sites
+            }`;
+            tours = await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
         }
 
-        // Query tours where the sites array contains a reference to this site
-        const query = `*[_type == "tour" && $siteRef in sites[]._ref]{
-            _id,
-            title,
-            slug,
-            mainImage {
-                asset -> {
-                    _id,
-                    url
-                }
-            },
-            price,
-            duration,
-            "description": pt::text(description),
-            category,
-            "features": highlights,
-            badge,
-            rating,
-            reviewCount,
-            tags,
-            guestTypes,
-            includes,
-            excludes,
-            importantInfo,
-            sites
-        }`;
-
-        const tours = await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
+        // FALLBACK: Fetch ALL tours if site-specific search yields nothing
+        if (tours.length === 0) {
+            console.log(`[Sanity] No tours found for site "${siteId}", fetching all tours from dashboard...`);
+            const query = `*[_type == "tour"]{
+                _id, title, slug, mainImage { asset -> { _id, url } },
+                price, duration, "description": pt::text(description),
+                category, "features": highlights, badge, rating, reviewCount,
+                tags, guestTypes, includes, excludes, importantInfo, gallery, groupSize, location
+            }`;
+            tours = await client.fetch(query, {}, { next: { revalidate: 60 } });
+        }
         
-        // Check if tours have images - if not, return empty to trigger fallback
+        // Filter out tours without images only if we have plenty of tours
         const toursWithImages = tours.filter((t: any) => t.mainImage?.asset?.url);
-        
-        if (toursWithImages.length === 0 && tours.length > 0) {
-            console.warn(`[Sanity] Found ${tours.length} tours but none have images. Using fallback tours.`);
-            return [];
-        }
-        
-        console.log(`[Sanity] Fetched ${toursWithImages.length} tours with images for site: ${siteId}`);
-        return toursWithImages;
+        return toursWithImages.length > 0 ? toursWithImages : tours;
     } catch (error) {
-        console.error('[Sanity] Failed to fetch tours, using fallback:', error);
+        console.error('[Sanity] Failed to fetch tours:', error);
         return [];
     }
 }
@@ -245,18 +227,25 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
 export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Tour | null> {
     try {
         const siteRef = await getSiteRefBySlug(siteId);
+        let tour = null;
 
-        if (!siteRef) {
-            console.warn(`Site with slug "${siteId}" not found.`);
-            return null;
+        if (siteRef) {
+            const query = `*[_type == "tour" && slug.current == $slug && $siteRef in sites[]._ref][0]{
+                ...,
+                "features": highlights
+            }`;
+            tour = await client.fetch(query, { slug, siteRef }, { next: { revalidate: 60 } });
         }
 
-        const query = `*[_type == "tour" && slug.current == $slug && $siteRef in sites[]._ref][0]{
-            ...,
-            "features": highlights
-        }`;
+        if (!tour) {
+            const query = `*[_type == "tour" && slug.current == $slug][0]{
+                ...,
+                "features": highlights
+            }`;
+            tour = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
+        }
 
-        return await client.fetch(query, { slug, siteRef }, { next: { revalidate: 60 } });
+        return tour;
     } catch (error) {
         console.error('Failed to fetch tour:', error);
         return null;
@@ -340,7 +329,7 @@ export async function getPost(slug: string, siteId: string = DEFAULT_SITE_ID): P
 
 /**
  * Get settings for a specific site
- * Falls back to hardcoded settings if Sanity has none
+ * Falls back to first available settings if site-specific ones are missing
  */
 export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Settings | null> {
     try {
@@ -352,9 +341,14 @@ export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Set
             "site": site->{ _id, title, slug }
         }`;
 
-        const settings = await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+        let settings = await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
         
-        // Return Sanity settings if they exist, otherwise use hardcoded
+        // FALLBACK: If no settings found for site, get the first one available in dashboard
+        if (!settings) {
+            console.log(`[Sanity] No settings found for site "${siteId}", fetching first available settings...`);
+            settings = await client.fetch(`*[_type == "settings"][0]{ ... }`);
+        }
+
         return settings || (HARDCODED_HERO_SETTINGS as Settings);
     } catch (error) {
         console.error('Failed to fetch settings, using hardcoded:', error);
@@ -396,8 +390,14 @@ export async function getSite(siteId: string = DEFAULT_SITE_ID): Promise<Site | 
             legalLinks
         }`;
 
-        const sanitySite = await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+        let sanitySite = await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
         
+        // FALLBACK: If no site found by slug, get the first active one in dashboard
+        if (!sanitySite) {
+            console.log(`[Sanity] No site doc found for slug "${siteId}", fetching first active site...`);
+            sanitySite = await client.fetch(`*[_type == "site" && isActive == true][0]{ ... }`);
+        }
+
         // Merge Sanity data with hardcoded fallbacks
         if (sanitySite) {
             return {
