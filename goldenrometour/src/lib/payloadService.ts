@@ -32,6 +32,7 @@ export interface Tour {
   itinerary?: Array<{ title: string; duration: string; description: string }>
   meetingPoint?: string; mapAddress?: string; maxParticipants?: number; gallery?: any[]
   guestTypes?: Array<{ name: string; price: number; description?: string; _key?: string }>
+  availability?: any; // Availability data from Payload
 }
 
 export interface Post {

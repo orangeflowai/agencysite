@@ -1,43 +1,72 @@
 @import "tailwindcss";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Golden Rome Tours - Warm Cream & Rich Brown Palette */
-  --background: oklch(0.975 0.005 85);
-  --foreground: oklch(0.22 0.02 50);
-  --card: oklch(0.99 0.003 85);
-  --card-foreground: oklch(0.22 0.02 50);
-  --popover: oklch(0.99 0.003 85);
-  --popover-foreground: oklch(0.22 0.02 50);
-  --primary: oklch(0.25 0.025 45);
-  --primary-foreground: oklch(0.98 0.005 85);
-  --secondary: oklch(0.96 0.008 85);
-  --secondary-foreground: oklch(0.25 0.025 45);
-  --muted: oklch(0.94 0.01 80);
-  --muted-foreground: oklch(0.45 0.015 50);
-  --accent: oklch(0.72 0.12 75);
-  --accent-foreground: oklch(0.18 0.02 45);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.90 0.015 80);
-  --input: oklch(0.92 0.01 80);
-  --ring: oklch(0.65 0.08 70);
-  --chart-1: oklch(0.72 0.12 75);
-  --chart-2: oklch(0.55 0.08 45);
-  --chart-3: oklch(0.45 0.05 50);
-  --chart-4: oklch(0.75 0.1 85);
-  --chart-5: oklch(0.65 0.15 65);
+  /* Golden Rome Tours - Warm Cream & Rich Golden Palette */
+  --background: #FAF8F3;
+  --foreground: #2A2520;
+  --card: #FFFFFF;
+  --card-foreground: #2A2520;
+  --popover: #FFFFFF;
+  --popover-foreground: #2A2520;
+  --primary: #2A2520;
+  --primary-foreground: #FAF8F3;
+  --secondary: #F5F0E8;
+  --secondary-foreground: #2A2520;
+  --muted: #EDE8DD;
+  --muted-foreground: #6B6560;
+  --accent: #C9A84C;
+  --accent-foreground: #2A2520;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5DFD0;
+  --input: #F5F0E8;
+  --ring: #C9A84C;
+  --chart-1: #C9A84C;
+  --chart-2: #8B7355;
+  --chart-3: #6B6560;
+  --chart-4: #D4B86A;
+  --chart-5: #B89968;
   --radius: 0.5rem;
   
   /* Golden accent color */
-  --gold: oklch(0.72 0.12 75);
-  --gold-dark: oklch(0.58 0.12 70);
+  --gold: #C9A84C;
+  --gold-dark: #A88A3D;
 }
 
-@theme {
+.dark {
+  --background: #1A1612;
+  --foreground: #FAF8F3;
+  --card: #1A1612;
+  --card-foreground: #FAF8F3;
+  --popover: #1A1612;
+  --popover-foreground: #FAF8F3;
+  --primary: #FAF8F3;
+  --primary-foreground: #1A1612;
+  --secondary: #2A2520;
+  --secondary-foreground: #FAF8F3;
+  --muted: #3A3530;
+  --muted-foreground: #B8B3AE;
+  --accent: #C9A84C;
+  --accent-foreground: #1A1612;
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+  --border: #3A3530;
+  --input: #2A2520;
+  --ring: #C9A84C;
+  --chart-1: #C9A84C;
+  --chart-2: #B8B3AE;
+  --chart-3: #8B7355;
+  --chart-4: #6B6560;
+  --chart-5: #3A3530;
+}
+
+@theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
   
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -58,6 +87,11 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -104,6 +138,157 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-reveal-up {
+  animation: reveal-up 0.8s ease-out forwards;
+}
+
+.animate-reveal-left {
+  animation: reveal-left 0.8s ease-out forwards;
+}
+
+.animate-reveal-right {
+  animation: reveal-right 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+}
+
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+.animation-delay-600 { animation-delay: 600ms; }
+
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  animation: grain 8s steps(10) infinite;
+}
+
+.text-stroke {
+  -webkit-text-stroke: 1px currentColor;
+  -webkit-text-fill-color: transparent;
+}
+
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.clip-diagonal-reverse {
+  clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.7s ease-out forwards;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* Custom styles for the landing page */

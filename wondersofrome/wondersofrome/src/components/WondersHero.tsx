@@ -7,9 +7,9 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useLanguage } from '@/context/LanguageContext';
 
-const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
-const R2_HERO_VIDEO = `${R2_BASE}/15509039_3840_2160_30fps.mp4`; // Use MP4 instead of GIF
-const R2_HERO_POSTER = `${R2_BASE}/hero-poster.jpg`; // Poster image for instant display
+const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev';
+const R2_HERO_VIDEO = `${R2_BASE}/15442544_3840_2160_30fps.mp4`; // Updated hero video
+const R2_HERO_POSTER = `${R2_BASE}/rome%20photos/hero-poster.jpg`; // Poster image for instant display
 
 interface HeroProps {
   settings?: {
@@ -66,57 +66,117 @@ export default function WondersHero({ settings }: HeroProps) {
           playsInline
           preload="auto"
           poster={posterUrl}
-          className="w-full h-full object-cover opacity-60 scale-105"
+          className="w-full h-full object-cover opacity-70"
           style={{ 
             willChange: 'auto',
             transform: 'translateZ(0)', // Hardware acceleration
           }}
+          onError={(e) => {
+            console.error('Video failed to load:', e);
+            // Fallback to poster if video fails
+            if (videoRef.current) {
+              videoRef.current.style.display = 'none';
+            }
+          }}
         >
           <source src={videoUrl} type="video/mp4" />
-          {/* Fallback to poster image if video fails */}
-          <img
-            src={posterUrl}
-            alt="Rome Hero"
-            className="w-full h-full object-cover"
-          />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
       </div>
 
       {/* Vertical Split Overlay */}
       <div ref={leftPanelRef} className="absolute inset-y-0 left-0 w-1/2 bg-[#0F1C19] z-20 will-change-transform" />
       <div ref={rightPanelRef} className="absolute inset-y-0 right-0 w-1/2 bg-[#0F1C19] z-20 will-change-transform" />
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex-1 flex flex-col justify-center">
-        <div ref={textRef} className="max-w-4xl">
-          {title.split('<br />').map((line, i) => (
-            <div key={i} className="overflow-hidden mb-2">
-              <h1 className="hero-line-inner text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-serif font-bold leading-[0.95] tracking-tighter will-change-transform">
-                {line.replace(/<[^>]*>?/gm, '')}
-              </h1>
-            </div>
-          ))}
+      {/* Content - Centered and Aligned */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex-1 flex flex-col justify-center items-center">
+        <div ref={textRef} className="max-w-5xl w-full flex flex-col items-center text-center">
+          {/* Title - Centered */}
+          <div className="w-full flex flex-col items-center">
+            {title.split('<br />').map((line, i) => (
+              <div key={i} className="overflow-hidden mb-2">
+                <h1 className="hero-line-inner text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-white font-serif font-bold leading-[0.95] tracking-tighter will-change-transform">
+                  {line.replace(/<[^>]*>?/gm, '')}
+                </h1>
+              </div>
+            ))}
+          </div>
           
-          <div className="overflow-hidden mt-8 mb-12">
-            <p className="hero-line-inner text-base sm:text-lg text-white/70 max-w-lg leading-relaxed font-medium will-change-transform">
+          {/* Subtitle - Centered */}
+          <div className="overflow-hidden mt-8 mb-12 w-full flex justify-center">
+            <p className="hero-line-inner text-base sm:text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed font-medium will-change-transform px-4">
               {subtitle}
             </p>
           </div>
 
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/search"
-              className="inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold px-10 py-5 rounded-full tracking-widest text-xs transition-all shadow-2xl hover:-translate-y-1 active:scale-95"
-            >
-              {ctaLabel} <ArrowRight size={14} />
-            </Link>
-            <Link
-              href="/category/vatican"
-              className="inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white font-bold px-10 py-5 rounded-full tracking-widest text-xs transition-all"
-            >
-              {t('cat.vatican_title')}
-            </Link>
+          {/* Quick Search Widget */}
+          <div ref={ctaRef} className="w-full max-w-4xl space-y-6">
+            {/* Search Bar */}
+            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-2xl">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Category Select */}
+                <div className="space-y-2">
+                  <label className="text-white/70 text-xs font-bold tracking-wider uppercase">Category</label>
+                  <select className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="">All Tours</option>
+                    <option value="vatican">Vatican Tours</option>
+                    <option value="colosseum">Colosseum Tours</option>
+                    <option value="food">Food Tours</option>
+                  </select>
+                </div>
+                
+                {/* Date Picker */}
+                <div className="space-y-2">
+                  <label className="text-white/70 text-xs font-bold tracking-wider uppercase">Date</label>
+                  <input 
+                    type="date" 
+                    className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+                
+                {/* Guests */}
+                <div className="space-y-2">
+                  <label className="text-white/70 text-xs font-bold tracking-wider uppercase">Guests</label>
+                  <select className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="1">1 Guest</option>
+                    <option value="2">2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="5+">5+ Guests</option>
+                  </select>
+                </div>
+              </div>
+              
+              {/* Search Button */}
+              <Link
+                href="/search"
+                className="mt-6 w-full inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-white font-bold px-10 py-4 rounded-xl tracking-widest text-sm transition-all shadow-xl hover:-translate-y-1 active:scale-95"
+              >
+                Search Tours <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            {/* Quick Links */}
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                href="/category/vatican"
+                className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white font-semibold px-6 py-3 rounded-full text-xs transition-all hover:-translate-y-1"
+              >
+                Vatican Tours
+              </Link>
+              <Link
+                href="/category/colosseum"
+                className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white font-semibold px-6 py-3 rounded-full text-xs transition-all hover:-translate-y-1"
+              >
+                Colosseum Tours
+              </Link>
+              <Link
+                href="/search"
+                className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur-xl border border-white/10 text-white font-semibold px-6 py-3 rounded-full text-xs transition-all hover:-translate-y-1"
+              >
+                All Tours
+              </Link>
+            </div>
           </div>
         </div>
       </div>
