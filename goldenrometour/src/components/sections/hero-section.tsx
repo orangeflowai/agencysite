@@ -7,25 +7,25 @@ const word = "ROMA";
 
 const sideImages = [
   {
-    src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/vatican-sistine.jpg",
+    src: "/images/vatican-sistine.jpg",
     alt: "Sistine Chapel ceiling",
     position: "left",
     span: 1,
   },
   {
-    src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/trevi-fountain.jpg",
+    src: "/images/trevi-fountain.jpg",
     alt: "Trevi Fountain at dusk",
     position: "left",
     span: 1,
   },
   {
-    src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/pantheon.jpg",
+    src: "/images/pantheon.jpg",
     alt: "Pantheon interior",
     position: "right",
     span: 1,
   },
   {
-    src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/roman-forum.jpg",
+    src: "/images/roman-forum.jpg",
     alt: "Roman Forum at sunset",
     position: "right",
     span: 1,
@@ -118,7 +118,7 @@ export function HeroSection() {
               }}
             >
               <Image
-                src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome-hero.jpg"
+                src="/images/rome-hero.jpg"
                 alt="The Colosseum at golden hour"
                 fill
                 className="object-cover"

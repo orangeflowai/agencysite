@@ -59,25 +59,25 @@ function ScrollRevealText({ text }: { text: string }) {
 
 const sideImages = [
   {
-    src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/vatican-sistine.jpg",
+    src: "/images/vatican-sistine.jpg",
     alt: "Sistine Chapel",
     position: "left",
     span: 1,
   },
   {
-    src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/trevi-fountain.jpg",
+    src: "/images/trevi-fountain.jpg",
     alt: "Trevi Fountain",
     position: "left",
     span: 1,
   },
   {
-    src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/trastevere.jpg",
+    src: "/images/trastevere.jpg",
     alt: "Trastevere streets",
     position: "right",
     span: 1,
   },
   {
-    src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/pantheon.jpg",
+    src: "/images/pantheon.jpg",
     alt: "Pantheon interior",
     position: "right",
     span: 1,
@@ -171,7 +171,7 @@ export function TechnologySection() {
               }}
             >
               <Image
-                src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/colosseum-night.jpg"
+                src="/images/colosseum-night.jpg"
                 alt="The Colosseum illuminated at night"
                 fill
                 className="object-cover"

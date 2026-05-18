@@ -75,7 +75,7 @@ export function PhilosophySection() {
                 onClick={() => window.location.href = '/category/vatican'}
               >
                 <Image
-                  src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/st-peters.jpg"
+                  src="/images/st-peters.jpg"
                   alt="St. Peter's Basilica Vatican"
                   fill
                   className="object-cover"
@@ -99,7 +99,7 @@ export function PhilosophySection() {
                 onClick={() => window.location.href = '/category/colosseum'}
               >
                 <Image
-                  src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/colosseum-night.jpg"
+                  src="/images/colosseum-night.jpg"
                   alt="Colosseum illuminated at night"
                   fill
                   className="object-cover"

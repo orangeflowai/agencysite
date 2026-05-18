@@ -12,14 +12,14 @@ export function GallerySection() {
   const rafRef = useRef<number | null>(null);
 
   const images = [
-    { src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome-hero.jpg",         alt: "Colosseum at sunset",      title: "Colosseum",      href: "/category/colosseum" },
-    { src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/vatican-sistine.jpg",   alt: "Sistine Chapel ceiling",   title: "Sistine Chapel", href: "/category/vatican" },
-    { src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/trevi-fountain.jpg",    alt: "Trevi Fountain at dusk",   title: "Trevi Fountain", href: "/category/city" },
-    { src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/pantheon.jpg",          alt: "Pantheon interior",        title: "Pantheon",       href: "/category/city" },
-    { src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/st-peters.jpg",         alt: "St. Peter's Basilica",     title: "St. Peter's",    href: "/category/vatican" },
-    { src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/roman-forum.jpg",       alt: "Roman Forum ruins",        title: "Roman Forum",    href: "/category/colosseum" },
-    { src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/trastevere.jpg",        alt: "Trastevere streets",       title: "Trastevere",     href: "/category/hidden-gems" },
-    { src: "https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/colosseum-night.jpg",   alt: "Colosseum at night",       title: "Night Tour",     href: "/category/colosseum" },
+    { src: "/images/rome-hero.jpg",         alt: "Colosseum at sunset",      title: "Colosseum",      href: "/category/colosseum" },
+    { src: "/images/vatican-sistine.jpg",   alt: "Sistine Chapel ceiling",   title: "Sistine Chapel", href: "/category/vatican" },
+    { src: "/images/trevi-fountain.jpg",    alt: "Trevi Fountain at dusk",   title: "Trevi Fountain", href: "/category/city" },
+    { src: "/images/pantheon.jpg",          alt: "Pantheon interior",        title: "Pantheon",       href: "/category/city" },
+    { src: "/images/st-peters.jpg",         alt: "St. Peter's Basilica",     title: "St. Peter's",    href: "/category/vatican" },
+    { src: "/images/roman-forum.jpg",       alt: "Roman Forum ruins",        title: "Roman Forum",    href: "/category/colosseum" },
+    { src: "/images/trastevere.jpg",        alt: "Trastevere streets",       title: "Trastevere",     href: "/category/hidden-gems" },
+    { src: "/images/colosseum-night.jpg",   alt: "Colosseum at night",       title: "Night Tour",     href: "/category/colosseum" },
   ];
 
   useEffect(() => {
