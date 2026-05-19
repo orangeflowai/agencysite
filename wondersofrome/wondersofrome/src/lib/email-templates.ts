@@ -16,6 +16,9 @@ export function generateCustomerEmail(
   const supportPhone  = process.env.NEXT_PUBLIC_SUPPORT_PHONE  || '+39 351 419 9425';
   const providerPhone = process.env.NEXT_PUBLIC_PROVIDER_PHONE || supportPhone;
   const bookingRef  = data.orderId.slice(-8).toUpperCase();
+  
+  // Deep link to ticket viewer
+  const ticketUrl = `https://${brandDomain}/ticket/${data.orderId}?source=email&ref=booking`;
 
   const meetingPoint = (data.metadata.meetingPoint && data.metadata.meetingPoint !== 'See booking confirmation for details')
     ? data.metadata.meetingPoint
@@ -98,6 +101,15 @@ export function generateCustomerEmail(
       <tr><td style="padding:14px 16px;">
         <p style="margin:0 0 4px;font-size:13px;font-weight:800;color:#92400e;">&#128221; What to Remember</p>
         <p style="margin:0;font-size:13px;color:#78350f;line-height:1.5;">This voucher is <strong>NOT your entry ticket</strong>. Exchange it at the meeting point at least <strong>15 minutes before</strong> your start time.</p>
+      </td></tr>
+    </table>
+  </td></tr>
+  <tr><td style="background:#fff;padding:0 40px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0fdf4;border-left:4px solid #10b981;border-radius:0 12px 12px 0;">
+      <tr><td style="padding:16px 20px;text-align:center;">
+        <p style="margin:0 0 8px;font-size:13px;font-weight:800;color:#065f46;">&#128241; View Your Ticket Anytime</p>
+        <p style="margin:0 0 14px;font-size:12px;color:#047857;line-height:1.5;">Access your ticket on any device, even offline when you download our app!</p>
+        <a href="${ticketUrl}" style="display:inline-block;background:#10b981;color:#fff;padding:12px 24px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700;box-shadow:0 4px 6px rgba(16,185,129,0.2);">View My Ticket &#8594;</a>
       </td></tr>
     </table>
   </td></tr>
