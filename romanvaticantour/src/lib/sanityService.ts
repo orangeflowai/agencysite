@@ -162,9 +162,10 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
         if (siteRef) {
             const query = `*[_type == "tour" && $siteRef in sites[]._ref]{
                 _id, title, slug, mainImage { asset -> { _id, url } },
-                price, duration, "description": pt::text(description),
-                category, "features": highlights, badge, rating, reviewCount,
-                tags, guestTypes, includes, excludes, importantInfo, sites
+                price, duration, description,
+                category, "features": highlights, highlights, badge, rating, reviewCount,
+                tags, guestTypes, includes, excludes, importantInfo, itinerary, meetingPoint,
+                groupSize, location, gallery, sites
             }`;
             tours = await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
         }
@@ -174,9 +175,10 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
             console.log(`[Sanity] No tours found for site "${siteId}", fetching all tours from dashboard...`);
             const query = `*[_type == "tour"]{
                 _id, title, slug, mainImage { asset -> { _id, url } },
-                price, duration, "description": pt::text(description),
-                category, "features": highlights, badge, rating, reviewCount,
-                tags, guestTypes, includes, excludes, importantInfo, gallery, groupSize, location
+                price, duration, description,
+                category, "features": highlights, highlights, badge, rating, reviewCount,
+                tags, guestTypes, includes, excludes, importantInfo, itinerary, meetingPoint,
+                groupSize, location, gallery
             }`;
             tours = await client.fetch(query, {}, { next: { revalidate: 60 } });
         }
@@ -199,7 +201,14 @@ export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): P
         if (siteRef) {
             const query = `*[_type == "tour" && slug.current == $slug && $siteRef in sites[]._ref][0]{
                 ...,
-                "features": highlights
+                "features": highlights,
+                mainImage { asset -> { _id, url } },
+                gallery[] { asset -> { _id, url } },
+                includes,
+                excludes,
+                importantInfo,
+                itinerary,
+                meetingPoint
             }`;
             tour = await client.fetch(query, { slug, siteRef }, { next: { revalidate: 60 } });
         }
@@ -207,7 +216,14 @@ export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): P
         if (!tour) {
             const query = `*[_type == "tour" && slug.current == $slug][0]{
                 ...,
-                "features": highlights
+                "features": highlights,
+                mainImage { asset -> { _id, url } },
+                gallery[] { asset -> { _id, url } },
+                includes,
+                excludes,
+                importantInfo,
+                itinerary,
+                meetingPoint
             }`;
             tour = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
         }

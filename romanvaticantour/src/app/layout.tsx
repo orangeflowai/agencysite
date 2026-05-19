@@ -1,20 +1,22 @@
 import type { Metadata } from "next";
-import { Google_Sans_Flex } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { SiteProvider } from "@/components/SiteProvider";
-import GlobalThemeProvider from "@/components/GlobalThemeProvider";
-import GoogleTranslate from "@/components/GoogleTranslate";
 import { getSite, DEFAULT_SITE_ID } from "@/lib/dataAdapter";
+import { SiteProvider } from "@/components/SiteProvider";
 import { CartProvider } from "@/context/CartContext";
-import CurveTransition from "@/components/CurveTransition";
+import { LanguageProvider } from "@/context/LanguageContext";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
-const googleSans = Google_Sans_Flex({ 
-  subsets: ["latin"], 
-  variable: "--font-google-sans",
-  weight: "variable", // Use variable weight
-  display: 'swap',
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -78,19 +80,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         />
       </head>
-      <body className={`${googleSans.variable} font-sans antialiased`}>
+      <body className={`${playfair.variable} ${inter.variable} font-sans antialiased`}>
         <SiteProvider site={site}>
-          <GlobalThemeProvider>
-            <LanguageProvider>
-              <CartProvider>
-                <GoogleTranslate />
-                <CurveTransition>
-                  {children}
-                </CurveTransition>
-                <WhatsAppButton />
-              </CartProvider>
-            </LanguageProvider>
-          </GlobalThemeProvider>
+          <LanguageProvider>
+            <CartProvider>
+              {children}
+              <WhatsAppButton />
+            </CartProvider>
+          </LanguageProvider>
         </SiteProvider>
       </body>
     </html>
