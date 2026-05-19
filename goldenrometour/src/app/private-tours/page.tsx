@@ -1,5 +1,5 @@
 
-import Navbar from '@/components/Navbar';
+import VaticanHeader from '@/components/vatican/header';
 import Footer from '@/components/Footer';
 import TourCard from '@/components/TourCard';
 import { getTours } from '@/lib/dataAdapter';
@@ -27,7 +27,7 @@ export default async function PrivateToursPage() {
 
     return (
         <main className="min-h-screen bg-[#FDFFF5]">
-            <Navbar />
+            <VaticanHeader />
 
             <CategoryHero
                 images={pageInfo.images}

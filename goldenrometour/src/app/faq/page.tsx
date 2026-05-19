@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Navbar from "@/components/Navbar";
+import VaticanHeader from "@/components/vatican/header";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, Mail, Phone, Shield, CreditCard, Clock, Camera, UserCheck } from 'lucide-react';
@@ -88,7 +88,7 @@ export default function FAQPage() {
 
     return (
         <main className="min-h-screen bg-[#FAF9F6] font-body selection:bg-[#C9A227] selection:text-white">
-            <Navbar />
+            <VaticanHeader />
 
             <div className="bg-[#0A1628] text-white py-24 text-center relative overflow-hidden border-b border-[#C9A227]/20">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>

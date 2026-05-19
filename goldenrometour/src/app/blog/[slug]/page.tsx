@@ -1,9 +1,8 @@
-
 import React from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { getPost, urlFor } from '@/lib/dataAdapter';
-import Navbar from '@/components/Navbar';
+import VaticanHeader from '@/components/vatican/header';
 import Footer from '@/components/Footer';
 import { PortableText } from '@portabletext/react';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
@@ -48,7 +47,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
     return (
         <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
-            <Navbar />
+            <VaticanHeader />
 
             {/* Progress Bar (Optional, can be added later) */}
 

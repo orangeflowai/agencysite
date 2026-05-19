@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Navbar from "@/components/Navbar";
+import VaticanHeader from "@/components/vatican/header";
 import Footer from "@/components/Footer";
 import { TrendingUp, Users, Globe, ShieldCheck, ArrowRight, Mail } from 'lucide-react';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ export const metadata = {
 export default function BecomeAPartner() {
     return (
         <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
-            <Navbar />
+            <VaticanHeader />
 
             {/* Hero Section */}
             <div className="relative bg-forest text-white overflow-hidden">

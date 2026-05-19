@@ -1,4 +1,4 @@
-import { Header } from "@/components/sections/header";
+import VaticanHeader from '@/components/vatican/header';
 import { HeroSection } from "@/components/sections/hero-section";
 import { PhilosophySection } from "@/components/sections/philosophy-section";
 import { FeaturedProductsSection } from "@/components/sections/featured-products-section";
@@ -31,7 +31,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-background">
-      <Header />
+      <VaticanHeader />
       <HeroSection />
       <PhilosophySection />
       <FeaturedProductsSection tours={mappedTours} />

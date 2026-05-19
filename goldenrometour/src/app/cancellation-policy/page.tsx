@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Navbar from "@/components/Navbar";
+import VaticanHeader from "@/components/vatican/header";
 import Footer from "@/components/Footer";
 import Link from 'next/link';
 import type { Metadata } from 'next';
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function CancellationPolicy() {
     return (
         <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
-            <Navbar />
+            <VaticanHeader />
 
             <div className="container mx-auto px-4 py-24 max-w-4xl">
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8 tracking-tight text-center">CANCELLATION & REFUND POLICY</h1>

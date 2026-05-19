@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getPosts, urlFor } from '@/lib/dataAdapter';
-import Navbar from '@/components/Navbar';
+import VaticanHeader from '@/components/vatican/header';
 import Footer from '@/components/Footer';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { Metadata } from 'next';
@@ -20,7 +20,7 @@ export default async function BlogPage() {
 
     return (
         <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
-            <Navbar />
+            <VaticanHeader />
 
             {/* Hero Section */}
             <div className="relative h-[40vh] min-h-[400px] flex items-center justify-center overflow-hidden">
