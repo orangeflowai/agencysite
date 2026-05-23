@@ -5,8 +5,6 @@ import { useEffect, useRef, useState, useCallback } from "react";
 
 export function PhilosophySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [vaticanTranslateX, setVaticanTranslateX] = useState(-100);
-  const [colosseumTranslateX, setColosseumTranslateX] = useState(100);
   const [titleOpacity, setTitleOpacity] = useState(1);
   const rafRef = useRef<number | null>(null);
 
@@ -21,8 +19,6 @@ export function PhilosophySection() {
     const scrolled = -rect.top;
     const progress = Math.max(0, Math.min(1, scrolled / scrollableRange));
     
-    setVaticanTranslateX((1 - progress) * -100);
-    setColosseumTranslateX((1 - progress) * 100);
     setTitleOpacity(1 - progress);
   }, []);
 
@@ -47,66 +43,46 @@ export function PhilosophySection() {
 
   return (
     <section id="tours" className="bg-background">
-      {/* Scroll-Animated Product Grid */}
-      <div ref={sectionRef} className="relative" style={{ height: "200vh" }}>
+      {/* Scroll-Animated Vatican Showcase */}
+      <div ref={sectionRef} className="relative" style={{ height: "150vh" }}>
         <div className="sticky top-0 h-screen flex items-center justify-center">
-          <div className="relative w-full">
+          <div className="relative w-full max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
             {/* Title */}
             <div 
               className="absolute inset-0 flex items-center justify-center pointer-events-none z-0"
               style={{ opacity: titleOpacity }}
             >
               <h2 className="text-[12vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[10vw] lg:text-[8vw] text-center px-6">
-                Vatican & Colosseum.
+                Vatican Museums.
               </h2>
             </div>
 
-            {/* Tour Cards Grid */}
-            <div className="relative z-10 grid grid-cols-1 gap-4 px-6 md:grid-cols-2 md:px-12 lg:px-20">
-              {/* Vatican Tour */}
+            {/* Vatican Showcase - Single Large Image */}
+            <div className="relative z-10">
               <div 
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer"
+                className="relative aspect-[16/9] overflow-hidden rounded-3xl cursor-pointer shadow-2xl"
                 style={{
-                  transform: `translate3d(${vaticanTranslateX}%, 0, 0)`,
-                  WebkitTransform: `translate3d(${vaticanTranslateX}%, 0, 0)`,
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
+                  transform: `scale(${0.85 + (1 - titleOpacity) * 0.15})`,
+                  opacity: 0.3 + (1 - titleOpacity) * 0.7,
                 }}
-                onClick={() => window.location.href = '/category/vatican'}
+                onClick={() => document.getElementById('vatican')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 <Image
                   src="/images/st-peters.jpg"
-                  alt="St. Peter's Basilica Vatican"
+                  alt="Vatican Museums & Sistine Chapel"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    Vatican Tours — Explore Now →
-                  </span>
-                </div>
-              </div>
-
-              {/* Colosseum Tour */}
-              <div 
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer"
-                style={{
-                  transform: `translate3d(${colosseumTranslateX}%, 0, 0)`,
-                  WebkitTransform: `translate3d(${colosseumTranslateX}%, 0, 0)`,
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                }}
-                onClick={() => window.location.href = '/category/colosseum'}
-              >
-                <Image
-                  src="/images/colosseum-night.jpg"
-                  alt="Colosseum illuminated at night"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    Colosseum Tours — Explore Now →
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <h3 className="text-white text-3xl font-semibold mb-3">
+                    Vatican Museums & Sistine Chapel
+                  </h3>
+                  <p className="text-white/90 text-lg mb-4">
+                    Skip-the-Line Access • Expert Guided Tours
+                  </p>
+                  <span className="inline-block backdrop-blur-md px-6 py-3 text-sm font-medium rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors">
+                    Explore Tours →
                   </span>
                 </div>
               </div>
@@ -117,13 +93,13 @@ export function PhilosophySection() {
 
       {/* Description */}
       <div className="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-36 lg:pb-14">
-        <div className="text-center">
+        <div className="text-center max-w-4xl mx-auto">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            Official Entry Protocols
+            Official Vatican Access
           </p>
-          <p className="mt-8 leading-relaxed text-muted-foreground text-3xl text-center">
+          <p className="mt-8 leading-relaxed text-muted-foreground text-3xl">
             Bypass 2-3 hour queues with authenticated priority vouchers. 
-            Small group experiences led by accredited art historians vetted by the Italian Ministry of Culture.
+            Choose independent exploration or expert-guided experiences led by accredited art historians.
           </p>
         </div>
       </div>
