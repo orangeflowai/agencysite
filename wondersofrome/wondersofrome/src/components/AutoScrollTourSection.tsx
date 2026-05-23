@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Pause, Play } from 'lucide-react';
-import TourCard from './TourCard';
+import { ArrowRight, Star, Clock } from 'lucide-react';
+import Image from 'next/image';
+import { urlFor } from '@/lib/dataAdapter';
 import type { Tour } from '@/lib/dataAdapter';
 
 interface AutoScrollTourSectionProps {
@@ -21,58 +22,8 @@ export default function AutoScrollTourSection({
   link,
   category 
 }: AutoScrollTourSectionProps) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number | undefined>(undefined);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-
   // Filter out tours without valid slugs
   const validTours = tours.filter(tour => tour.slug?.current);
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container || validTours.length === 0) return;
-
-    let scrollPosition = 0;
-    const scrollSpeed = 0.5; // pixels per frame
-    const cardWidth = 400; // approximate card width + gap
-    const totalWidth = cardWidth * validTours.length;
-
-    const animate = () => {
-      if (!isPaused && !isHovering) {
-        scrollPosition += scrollSpeed;
-        
-        // Reset when we've scrolled through all cards
-        if (scrollPosition >= totalWidth) {
-          scrollPosition = 0;
-        }
-        
-        container.scrollLeft = scrollPosition;
-      }
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    // Start animation
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [validTours.length, isPaused, isHovering]);
-
-  const handleMouseEnter = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-  };
-
-  const togglePause = () => {
-    setIsPaused(!isPaused);
-  };
 
   const bgColor = category === 'vatican' ? 'bg-background' : 'bg-card';
   const labelColor = category === 'vatican' ? 'Vatican Collection' : 'Colosseum Collection';
@@ -99,62 +50,107 @@ export default function AutoScrollTourSection({
               </p>
             )}
           </div>
-          <div className="flex items-center gap-4">
-            {/* Manual Scroll Control Button */}
-            <button
-              onClick={togglePause}
-              className="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-primary/20 text-primary hover:bg-primary hover:text-white transition-all shrink-0"
-              aria-label={isPaused ? "Resume auto-scroll" : "Pause auto-scroll"}
+          {link && (
+            <Link 
+              href={link} 
+              className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary/20 text-primary text-[10px] font-bold tracking-widest rounded-full hover:bg-primary hover:text-white transition-all shrink-0"
             >
-              {isPaused ? <Play size={18} /> : <Pause size={18} />}
-            </button>
-            {link && (
-              <Link 
-                href={link} 
-                className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary/20 text-primary text-[10px] font-bold tracking-widest rounded-full hover:bg-primary hover:text-white transition-all shrink-0"
-              >
-                View All <ArrowRight size={14} />
-              </Link>
-            )}
-          </div>
+              View All <ArrowRight size={14} />
+            </Link>
+          )}
         </div>
       </div>
 
-      {/* Auto-scrolling container with manual scroll support */}
-      <div 
-        ref={scrollContainerRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="flex gap-8 overflow-x-auto px-4 sm:px-6 lg:px-8 cursor-grab active:cursor-grabbing"
-        style={{ scrollBehavior: 'smooth' }}
-      >
-        {/* Duplicate tours for seamless loop */}
-        {[...validTours, ...validTours].map((tour, index) => (
-          <div 
-            key={`${tour._id}-${index}`} 
-            className="flex-shrink-0 w-[340px] md:w-[380px]"
-          >
-            <TourCard tour={tour} />
-          </div>
-        ))}
-      </div>
+      {/* Dropdown/Stack Layout - Vertical Cards */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        {validTours.slice(0, 6).map((tour) => {
+          const tourSlug = tour.slug?.current || tour.slug;
+          const imageUrl = tour.mainImage 
+            ? (typeof tour.mainImage === 'string' ? tour.mainImage : urlFor(tour.mainImage).url())
+            : '/placeholder.jpg';
 
-      <style jsx>{`
-        div::-webkit-scrollbar {
-          height: 8px;
-        }
-        div::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        div::-webkit-scrollbar-thumb {
-          background: var(--primary);
-          border-radius: 4px;
-          opacity: 0.5;
-        }
-        div::-webkit-scrollbar-thumb:hover {
-          opacity: 1;
-        }
-      `}</style>
+          return (
+            <Link 
+              key={tour._id} 
+              href={`/tour/${tourSlug}`}
+              className="group block"
+            >
+              <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div className="grid md:grid-cols-5 gap-0">
+                  {/* Image - 2 columns */}
+                  <div className="relative aspect-[4/3] md:aspect-auto md:col-span-2 overflow-hidden">
+                    <Image
+                      src={imageUrl}
+                      alt={tour.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    {tour.category && (
+                      <div className="absolute top-4 left-4">
+                        <span className="bg-primary text-primary-foreground px-4 py-2 text-xs font-medium rounded-full uppercase tracking-wide">
+                          {tour.category}
+                        </span>
+                      </div>
+                    )}
+                    {tour.badge && (
+                      <div className="absolute top-4 right-4">
+                        <span className="bg-accent text-accent-foreground px-3 py-1 text-xs font-medium rounded-full">
+                          {tour.badge}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Content - 3 columns */}
+                  <div className="md:col-span-3 p-6 md:p-8">
+                    {/* Rating */}
+                    {(tour.rating || tour.reviewCount) && (
+                      <div className="flex items-center gap-2 mb-3">
+                        <Star className="w-4 h-4 fill-primary text-primary" />
+                        <span className="text-sm font-medium">{tour.rating || "4.9"}</span>
+                        <span className="text-sm text-muted-foreground">
+                          ({tour.reviewCount || "0"} reviews)
+                        </span>
+                      </div>
+                    )}
+                    
+                    {/* Title */}
+                    <h3 className="text-foreground text-xl md:text-2xl font-semibold leading-tight group-hover:text-primary transition-colors mb-3">
+                      {tour.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    {tour.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                        {typeof tour.description === 'string' ? tour.description : ''}
+                      </p>
+                    )}
+                    
+                    {/* Details & Price */}
+                    <div className="flex items-center justify-between pt-4 border-t border-border">
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          <span>{tour.duration}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <div className="text-right">
+                          <span className="text-sm text-muted-foreground block">From</span>
+                          <span className="text-2xl font-semibold text-foreground">€{tour.price}</span>
+                        </div>
+                        <span className="inline-flex items-center bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm font-medium group-hover:bg-foreground transition-colors">
+                          Book Now →
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
     </section>
   );
 }
