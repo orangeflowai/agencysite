@@ -12,14 +12,12 @@ export function GallerySection() {
   const rafRef = useRef<number | null>(null);
 
   const images = [
-    { src: "/images/rome-hero.jpg",         alt: "Colosseum at sunset",      title: "Colosseum",      href: "/category/colosseum" },
-    { src: "/images/vatican-sistine.jpg",   alt: "Sistine Chapel ceiling",   title: "Sistine Chapel", href: "/category/vatican" },
-    { src: "/images/trevi-fountain.jpg",    alt: "Trevi Fountain at dusk",   title: "Trevi Fountain", href: "/category/city" },
-    { src: "/images/pantheon.jpg",          alt: "Pantheon interior",        title: "Pantheon",       href: "/category/city" },
-    { src: "/images/st-peters.jpg",         alt: "St. Peter's Basilica",     title: "St. Peter's",    href: "/category/vatican" },
-    { src: "/images/roman-forum.jpg",       alt: "Roman Forum ruins",        title: "Roman Forum",    href: "/category/colosseum" },
-    { src: "/images/trastevere.jpg",        alt: "Trastevere streets",       title: "Trastevere",     href: "/category/hidden-gems" },
-    { src: "/images/colosseum-night.jpg",   alt: "Colosseum at night",       title: "Night Tour",     href: "/category/colosseum" },
+    { src: "/images/vatican-sistine.jpg",   alt: "Sistine Chapel Michelangelo ceiling",   title: "Sistine Chapel",      href: "/#vatican" },
+    { src: "/images/st-peters.jpg",         alt: "St. Peter's Basilica dome",             title: "St. Peter's Basilica", href: "/#vatican" },
+    { src: "/images/1.jpg",                 alt: "Vatican Museums galleries",             title: "Vatican Museums",     href: "/#vatican" },
+    { src: "/images/2.jpg",                 alt: "Raphael Rooms frescoes",                title: "Raphael Rooms",       href: "/#vatican" },
+    { src: "/images/3.jpg",                 alt: "Vatican Gardens",                       title: "Vatican Gardens",     href: "/#vatican" },
+    { src: "/images/4.jpg",                 alt: "Papal Basilica interior",               title: "Papal Basilica",      href: "/#vatican" },
   ];
 
   useEffect(() => {
@@ -84,8 +82,11 @@ export function GallerySection() {
       {/* Section Title */}
       <div className="absolute top-8 left-6 z-10 md:left-12 lg:left-20">
         <h2 className="text-2xl font-medium tracking-tight text-foreground md:text-3xl">
-          Discover Rome
+          Vatican Treasures
         </h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Explore the world's greatest art collection
+        </p>
       </div>
 
       {/* Sticky container */}

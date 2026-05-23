@@ -5,21 +5,21 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Sarah M.",
-    location: "New York, USA",
-    quote: "The skip-the-line access saved us hours. Our guide Marco brought ancient Rome to life in ways no guidebook could.",
+    name: "Jennifer L.",
+    location: "Boston, USA",
+    quote: "The Vatican skip-the-line tour was phenomenal. Our art historian guide revealed details about the Sistine Chapel I never would have noticed. Worth every euro!",
     rating: 5,
   },
   {
-    name: "James & Emily",
-    location: "London, UK",
-    quote: "Absolutely worth every penny. The Colosseum underground tour was the highlight of our entire trip to Italy.",
+    name: "David & Claire",
+    location: "Sydney, Australia",
+    quote: "We booked both Vatican tours - skip-the-line and guided. The guided tour with an expert was absolutely transformative. Michelangelo's work came alive!",
     rating: 5,
   },
   {
-    name: "Hans K.",
-    location: "Munich, Germany",
-    quote: "Professional, punctual, and incredibly knowledgeable. The Vatican tour exceeded all our expectations.",
+    name: "Maria G.",
+    location: "Barcelona, Spain",
+    quote: "No waiting, no stress. Direct entry to the Vatican Museums and St. Peter's Basilica. The small group size made it feel like a private tour.",
     rating: 5,
   },
 ];
@@ -30,8 +30,9 @@ export function TestimonialsSection() {
       {/* Large Text Statement */}
       <div className="px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40">
         <p className="mx-auto max-w-5xl text-2xl leading-relaxed text-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
-          Official entry protocols for Vatican Museums, Colosseum, and all major Rome attractions.
-          Curated experiences by accredited art historians for travelers who refuse to wait in line.
+          Exclusive Vatican access with certified art historians. 
+          Skip 3-hour queues and experience Michelangelo's masterpieces with expert insights. 
+          Two carefully curated tours for the discerning traveler.
         </p>
       </div>
 
@@ -60,8 +61,8 @@ export function TestimonialsSection() {
       {/* About Image */}
       <div className="relative aspect-[16/9] w-full">
         <Image
-          src="/images/roman-forum.jpg"
-          alt="Roman Forum at sunset"
+          src="/images/5.jpg"
+          alt="Vatican Museums interior"
           fill
           className="object-cover"
         />

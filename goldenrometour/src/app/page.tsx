@@ -2,11 +2,8 @@ import VaticanHeader from '@/components/vatican/header';
 import { HeroSection } from "@/components/sections/hero-section";
 import { PhilosophySection } from "@/components/sections/philosophy-section";
 import { FeaturedProductsSection } from "@/components/sections/featured-products-section";
-import { TechnologySection } from "@/components/sections/technology-section";
 import { GallerySection } from "@/components/sections/gallery-section";
-import { CollectionSection } from "@/components/sections/collection-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
-import { EditorialSection } from "@/components/sections/editorial-section";
 import { FooterSection } from "@/components/sections/footer-section";
 import { getTours } from "@/lib/dataAdapter";
 
@@ -35,11 +32,8 @@ export default async function Home() {
       <HeroSection />
       <PhilosophySection tours={tours} />
       <FeaturedProductsSection tours={mappedTours} />
-      <TechnologySection />
       <GallerySection />
-      <CollectionSection />
       <TestimonialsSection />
-      <EditorialSection />
       <FooterSection />
     </main>
   );

@@ -4,7 +4,7 @@ const client = createClient({
   projectId: 'gycprksj',
   dataset: 'production',
   apiVersion: '2024-01-01',
-  token: 'skxMygHyPvOtvJ09PlCYpaqDmx6jFStRyF5VsKOKFLmIGTQO0TMo6XlOHfCHcnCslGJfkCNQIjCyKway6H2uEvxMV9tnF0659Zj7zluXg6C6UdK5UxbrXPF5d6UwIys88dxEsmPPuCCFuL0LYICf7yaQrwnD40q6K7plxqQflqH5YevcVHA1',
+  token: 'skWZJMIJsNv4VnwRqoEuorNTCBey7wu0ey6inmeP6k7iQ1exf49h0wPfA8lBz8DT5ePHxQzotXprGu2yRjUodDtdl4NmuxTBaEGaCXHCaEWawAyx4TzEQKxQLkQKRhmR6djjUzhIXFeEYbzjdD357hDfQbrxhEucN9hRIgqvx9fY2xXgcNi2',
   useCdn: false,
 });
 
