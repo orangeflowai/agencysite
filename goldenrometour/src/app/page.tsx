@@ -33,7 +33,7 @@ export default async function Home() {
     <main className="min-h-screen bg-background">
       <VaticanHeader />
       <HeroSection />
-      <PhilosophySection />
+      <PhilosophySection tours={tours} />
       <FeaturedProductsSection tours={mappedTours} />
       <TechnologySection />
       <GallerySection />
