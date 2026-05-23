@@ -11,7 +11,7 @@ import * as payload from './payloadService'
 
 export type { Tour, Post, Site, Settings } from './sanityService'
 
-const source = process.env.DATA_SOURCE || 'payload'
+const source = process.env.DATA_SOURCE || 'sanity'
 
 export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome'
 

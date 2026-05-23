@@ -50,62 +50,78 @@ export function FeaturedProductsSection({ tours }: FeaturedProductsSectionProps)
           Official Access
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground">
-          Choose between our two exclusive Vatican experiences: Skip-the-Line for independent exploration or Guided Tour for expert insights
+          Choose between our two exclusive Vatican experiences
         </p>
       </div>
 
-      {/* Tours Grid - 2 Column Layout for Premium Display */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 gap-8 px-6 pb-20 md:grid-cols-2 md:px-12 lg:px-20">
+      {/* Tours Dropdown - Vertical Stack */}
+      <div className="max-w-4xl mx-auto px-6 pb-20 md:px-12 lg:px-20 space-y-6">
         {featuredTours.map((tour) => (
           <Link 
             key={tour.id} 
             href={`/tour/${tour.slug}`}
             className="group cursor-pointer block"
           >
-            {/* Image */}
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
-              <Image
-                src={tour.image || "/images/1.jpg"}
-                alt={tour.title}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105 animate-fade-in"
-              />
-              {tour.category && (
-                <div className="absolute top-4 left-4">
-                  <span className="bg-foreground text-background px-4 py-2 text-xs font-medium rounded-full uppercase tracking-wide">
-                    {tour.category}
-                  </span>
+            <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
+              <div className="grid md:grid-cols-5 gap-0">
+                {/* Image - 2 columns */}
+                <div className="relative aspect-[4/3] md:aspect-auto md:col-span-2 overflow-hidden">
+                  <Image
+                    src={tour.image || "/images/1.jpg"}
+                    alt={tour.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  {tour.category && (
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-primary text-primary-foreground px-4 py-2 text-xs font-medium rounded-full uppercase tracking-wide">
+                        {tour.category}
+                      </span>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* Content */}
-            <div className="py-6">
-              {(tour.rating || tour.reviews) && (
-                <div className="flex items-center gap-2 mb-3">
-                  <Star className="w-4 h-4 fill-foreground text-foreground" />
-                  <span className="text-sm font-medium">{tour.rating || "4.9"}</span>
-                  <span className="text-sm text-muted-foreground">
-                    ({tour.reviews || "0"} reviews)
-                  </span>
+                {/* Content - 3 columns */}
+                <div className="md:col-span-3 p-8">
+                  {/* Rating */}
+                  {(tour.rating || tour.reviews) && (
+                    <div className="flex items-center gap-2 mb-3">
+                      <Star className="w-4 h-4 fill-foreground text-foreground" />
+                      <span className="text-sm font-medium">{tour.rating || "4.9"}</span>
+                      <span className="text-sm text-muted-foreground">
+                        ({tour.reviews || "0"} reviews)
+                      </span>
+                    </div>
+                  )}
+                  
+                  {/* Title */}
+                  <h3 className="text-foreground text-2xl font-semibold leading-tight group-hover:text-primary transition-colors mb-3">
+                    {tour.title}
+                  </h3>
+                  
+                  {/* Description */}
+                  {tour.description && (
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                      {tour.description}
+                    </p>
+                  )}
+                  
+                  {/* Details & Price */}
+                  <div className="flex items-center justify-between pt-4 border-t border-border">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <span>{tour.duration}</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-right">
+                        <span className="text-sm text-muted-foreground block">From</span>
+                        <span className="text-2xl font-semibold text-foreground">€{tour.price}</span>
+                      </div>
+                      <span className="inline-flex items-center bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm font-medium group-hover:bg-foreground transition-colors">
+                        Book Now →
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              )}
-              <h3 className="text-foreground text-2xl font-semibold leading-tight group-hover:text-primary transition-colors">
-                {tour.title}
-              </h3>
-              {tour.description && (
-                <p className="mt-3 text-sm text-muted-foreground line-clamp-2">
-                  {tour.description}
-                </p>
-              )}
-              <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
-                <span className="text-sm text-muted-foreground">{tour.duration}</span>
-                <span className="text-xl font-semibold text-foreground">From €{tour.price}</span>
-              </div>
-              <div className="mt-4">
-                <span className="inline-block bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm font-medium group-hover:bg-foreground transition-colors">
-                  Book Now →
-                </span>
               </div>
             </div>
           </Link>
