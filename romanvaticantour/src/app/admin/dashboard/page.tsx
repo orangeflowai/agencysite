@@ -185,7 +185,7 @@ export default function DashboardPage() {
                                 <div className="text-center">
                                     <span className="text-xs font-medium text-muted-foreground">{day.day}</span>
                                     {day.count > 0 && (
-                                        <p className="text-[10px] text-muted-foreground">{day.count} orders</p>
+                                        <p className="text-[8px] text-muted-foreground">{day.count} orders</p>
                                     )}
                                 </div>
                             </div>

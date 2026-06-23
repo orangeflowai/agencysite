@@ -1,68 +1,24 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Search, Calendar, Users, Minus, Plus, ShoppingBag } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
-import { useRouter, usePathname } from 'next/navigation';
-import SmartCalendar from './ui/SmartCalendar';
-import { format } from 'date-fns';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 import { useLanguage } from '@/context/LanguageContext';
 import { useSite } from '@/components/SiteProvider';
-import { useCart } from '@/context/CartContext';
 import { urlFor } from '@/lib/dataAdapter';
-import CartDropdown from './CartDropdown';
 import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
     const { t } = useLanguage();
     const site = useSite();
-    const { totalItems } = useCart();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const router = useRouter();
     const pathname = usePathname();
-
-    const [destination, setDestination] = useState('');
-    const [date, setDate] = useState('');
-    const [guests, setGuests] = useState(2);
-    const [isGuestOpen, setIsGuestOpen] = useState(false);
-    const guestRef = useRef<HTMLDivElement>(null);
-    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-    const calendarRef = useRef<HTMLDivElement>(null);
-
-    const [searchOptions, setSearchOptions] = useState<{ title: string; slug: string }[]>([]);
-
-    useEffect(() => {
-        async function loadOptions() {
-            try {
-                const { supabase } = await import('@/lib/supabase');
-                const { data } = await supabase.from('tours').select('title, slug').limit(20);
-                if (data && data.length > 0) setSearchOptions(data);
-            } catch (e) {
-                console.error('Failed to load search options', e);
-            }
-        }
-        loadOptions();
-    }, []);
-
-    const activeSlug = searchOptions.find((o) => o.title === destination)?.slug || '';
-
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
-                setIsCalendarOpen(false);
-            }
-            if (guestRef.current && !guestRef.current.contains(event.target as Node)) {
-                setIsGuestOpen(false);
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -70,33 +26,26 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const handleSearch = () => {
-        const query = encodeURIComponent(destination);
-        const dateParam = date ? `&date=${date}` : '';
-        router.push(`/search?q=${query}${dateParam}&guests=${guests}`);
-        setIsMobileMenuOpen(false);
-    };
-
     const navLinks = [
-        { name: t('nav.colosseum') || 'Colosseum', href: '/category/colosseum' },
-        { name: t('nav.vatican') || 'Vatican', href: '/category/vatican' },
-        { name: t('nav.city') || 'City Tours', href: '/category/city' },
-        { name: t('nav.about') || 'About Us', href: '/about' },
+        { name: 'Vatican', href: '/category/vatican' },
+        { name: 'Colosseum', href: '/category/colosseum' },
+        { name: 'Private Tours', href: '/category/hidden-gems' },
+        { name: 'All Tours', href: '/search' },
     ];
 
     const scrolled = isScrolled || isMobileMenuOpen;
 
     return (
         <>
-            {/* 5K ROLLING MARQUEE */}
-            <div className="fixed top-0 left-0 right-0 z-[10002] bg-[#E36533] py-2 overflow-hidden border-b border-white/10 pointer-events-none">
+            {/* ANNOUNCEMENT MARQUEE */}
+            <div className="fixed top-0 left-0 right-0 z-[10002] bg-primary py-2 overflow-hidden border-b border-white/10 pointer-events-none">
                 <motion.div
                     animate={{ x: [0, -1000] }}
                     transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
                     className="flex whitespace-nowrap gap-12 items-center"
                 >
                     {[...Array(10)].map((_, i) => (
-                        <div key={i} className="flex items-center gap-12 text-[#1e40af] font-bold  tracking-[0.3em] text-[10px]">
+                        <div key={i} className="flex items-center gap-12 text-white/90 font-bold tracking-[0.2em] text-[11px] font-sans">
                             <span>✦ EXCLUSIVE VATICAN ACCESS ✦</span>
                             <span>✦ SECURE YOUR ENTRY TICKETS NOW ✦</span>
                             <span>✦ EXPERT LICENSED HISTORIANS ✦</span>
@@ -110,7 +59,7 @@ export default function Navbar() {
                 className={clsx(
                     'fixed left-0 right-0 z-[10001] transition-all duration-500 border-b',
                     scrolled
-                        ? 'bg-[#e4d7b0]/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(141,157,79,0.08)] border-[#b19681]/30 py-2'
+                        ? 'bg-background/90 backdrop-blur-2xl shadow-[0_8px_32px_rgba(91,44,111,0.12)] border-primary/20 py-2'
                         : 'bg-transparent border-transparent py-3 md:py-4'
                 )}
             >
@@ -132,7 +81,7 @@ export default function Navbar() {
                                 <div className="flex flex-col items-start justify-center transition-transform group-hover:scale-105 duration-300">
                                     <span className={clsx(
                                         'font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none transition-colors duration-300',
-                                        scrolled ? 'text-[#5c4b3e]' : 'text-white drop-shadow-md'
+                                        scrolled ? 'text-foreground' : 'text-white drop-shadow-md'
                                     )}>
                                         ROMAN <span className=" text-primary">VATICAN</span>
                                     </span>
@@ -152,7 +101,7 @@ export default function Navbar() {
                                             'text-[10px] xl:text-xs font-serif font-bold  tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
                                             'after:absolute after:bottom-0 after:left-0 after:h-[1px] after:transition-all after:duration-500',
                                             isActive ? 'after:w-full after:bg-primary text-primary' : 'after:w-0 hover:after:w-full after:bg-primary',
-                                            scrolled ? (!isActive && 'text-[#5c4b3e] hover:text-primary') : (!isActive && 'text-white/80 hover:text-white')
+                                            scrolled ? (!isActive && 'text-foreground/70 hover:text-primary') : (!isActive && 'text-white/80 hover:text-white')
                                         )}
                                     >
                                         {link.name}
@@ -161,93 +110,59 @@ export default function Navbar() {
                             })}
                         </div>
 
-                        {/* Integrated Glassmorphism Search Bar */}
-                        <div
-                            className={clsx(
-                                'hidden lg:flex items-center rounded-full pl-4 pr-1.5 py-1.5 border shrink-0 gap-3 transition-all duration-300',
-                                scrolled
-                                    ? 'bg-card/70 backdrop-blur-xl border-white/60 shadow-lg shadow-primary/5'
-                                    : 'bg-card/20 backdrop-blur-md border-white/30 shadow-lg'
-                            )}
-                        >
-                            <div className={clsx('flex items-center border-r pr-4', scrolled ? 'border-primary/10' : 'border-white/20')}>
-                                <Search size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
-                                <select
-                                    value={destination}
-                                    onChange={(e) => setDestination(e.target.value)}
-                                    className={clsx(
-                                        'bg-transparent text-xs xl:text-sm font-bold outline-none w-28 xl:w-32 cursor-pointer appearance-none truncate',
-                                        scrolled ? 'text-gray-800' : 'text-white/90'
-                                    )}
-                                >
-                                    <option value="" disabled className="text-muted-foreground">Search Tours</option>
-                                    {searchOptions.map((opt) => (
-                                        <option key={opt.slug} value={opt.title} className="text-gray-800">{opt.title}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div className={clsx('flex items-center border-r pr-4 relative cursor-pointer', scrolled ? 'border-primary/10' : 'border-white/20')} ref={calendarRef}>
-                                <div className="flex items-center hover:opacity-80 transition-opacity" onClick={() => setIsCalendarOpen(!isCalendarOpen)}>
-                                    <Calendar size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
-                                    <span className={clsx(
-                                        'text-xs xl:text-sm font-sans font-bold  tracking-widest w-20 xl:w-24 truncate',
-                                        date ? (scrolled ? 'text-gray-800' : 'text-white') : (scrolled ? 'text-muted-foreground' : 'text-white/60')
-                                    )}>
-                                        {date ? format(new Date(date), 'MMM dd') : 'Add Date'}
-                                    </span>
-                                </div>
-                                <AnimatePresence>
-                                    {isCalendarOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full left-1/2 -translate-x-1/2 mt-6 bg-card/90 backdrop-blur-2xl rounded-2xl shadow-xl border border-white/50 p-2 z-50">
-                                            <SmartCalendar slug={activeSlug} selectedDate={date ? new Date(date) : undefined} onSelect={(d) => { setDate(d ? format(d, 'yyyy-MM-dd') : ''); setIsCalendarOpen(false); }} />
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-
-                            <div className="relative flex items-center pr-1 cursor-pointer" ref={guestRef}>
-                                <div className={clsx('flex items-center rounded-full px-2 py-1 transition-all', scrolled ? 'hover:bg-primary/5' : 'hover:bg-card/10')} onClick={() => setIsGuestOpen(!isGuestOpen)}>
-                                    <Users size={14} className={clsx('mr-2 shrink-0', scrolled ? 'text-primary' : 'text-white')} />
-                                    <span className={clsx('text-xs xl:text-sm font-sans font-bold  tracking-widest w-14 text-center', scrolled ? 'text-gray-800' : 'text-white')}>
-                                        {guests} pax
-                                    </span>
-                                </div>
-                                <AnimatePresence>
-                                    {isGuestOpen && (
-                                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full right-0 mt-6 w-48 bg-card/90 backdrop-blur-2xl rounded-2xl shadow-xl border border-white/50 p-4 z-50">
-                                            <div className="flex items-center justify-between font-bold">
-                                                <span>Guests</span>
-                                                <div className="flex gap-3">
-                                                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Minus size={14} /></button>
-                                                    <span>{guests}</span>
-                                                    <button onClick={() => setGuests(guests + 1)} className="w-8 h-8 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-white transition-all"><Plus size={14} /></button>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-
-                            <button onClick={handleSearch} className="bg-primary hover:bg-primary/90 text-white rounded-full p-2.5 transition-all shadow-md">
-                                <Search size={16} />
-                            </button>
-                        </div>
-
                         {/* Right Actions */}
                         <div className="hidden lg:flex items-center gap-3 shrink-0 ml-4">
-                            <CartDropdown />
+                            <Link 
+                                href="/search"
+                                className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full text-xs font-bold tracking-widest transition-all shadow-md active:scale-95"
+                            >
+                                BOOK NOW
+                            </Link>
                             <LanguageSwitcher />
                         </div>
 
                         {/* Mobile Toggle */}
                         <div className="flex items-center gap-2 lg:hidden">
-                            <button className={clsx('p-2 rounded-full backdrop-blur-md active:scale-95', scrolled ? 'text-primary bg-primary/5' : 'text-white bg-card/20')} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                            <button className={clsx('p-2 rounded-full backdrop-blur-md active:scale-95', scrolled ? 'text-primary bg-primary/5' : 'text-white bg-white/20')} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                             </button>
                         </div>
                     </div>
                 </div>
+
+                {/* Mobile Menu */}
+                <AnimatePresence>
+                    {isMobileMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="lg:hidden bg-background border-t border-primary/20 overflow-hidden"
+                        >
+                            <div className="px-4 pt-2 pb-6 space-y-1">
+                                {navLinks.map((link) => (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className="block px-3 py-4 text-sm font-serif font-bold text-foreground hover:text-primary border-b border-primary/10"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                ))}
+                                <div className="pt-4 px-3">
+                                    <Link
+                                        href="/search"
+                                        className="block w-full bg-primary text-white text-center py-4 rounded-xl font-bold tracking-widest text-xs"
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                    >
+                                        BOOK NOW
+                                    </Link>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </nav>
         </>
     );

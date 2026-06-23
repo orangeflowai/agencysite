@@ -71,7 +71,7 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                     <div className="flex flex-col items-center -mt-0.5">
                         {data.spots > 0 ? (
                             <>
-                                <span className={`text-[9px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
+                                <span className={`text-[8px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
                                 {data.spots < 10 && (
                                     <span className="text-[8px] font-bold text-white bg-primary px-1 rounded-sm mt-0.5 shadow-sm  tracking-tighter">
                                         {data.spots} left
@@ -83,7 +83,7 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                         )}
                     </div>
                 ) : (
-                    <span className="text-[9px] text-muted-foreground/30 font-medium">-</span>
+                    <span className="text-[8px] text-muted-foreground/30 font-medium">-</span>
                 )}
             </div>
         );
@@ -121,9 +121,9 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
             />
             {/* Legend */}
             <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border justify-center">
-                <span className="flex items-center gap-1 text-[9px] font-bold  tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-primary/20 inline-block" />Available</span>
-                <span className="flex items-center gap-1 text-[9px] font-bold  tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-accent inline-block" />Limited</span>
-                <span className="flex items-center gap-1 text-[9px] font-bold  tracking-widest text-destructive"><span className="w-2.5 h-2.5 rounded-sm bg-destructive/20 inline-block" />Sold out</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold  tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-primary/20 inline-block" />Available</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold  tracking-widest text-foreground/60"><span className="w-2.5 h-2.5 rounded-sm bg-accent inline-block" />Limited</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold  tracking-widest text-destructive"><span className="w-2.5 h-2.5 rounded-sm bg-destructive/20 inline-block" />Sold out</span>
             </div>
             <style jsx global>{`
                 .rdp { --rdp-cell-size: 52px; --rdp-accent-color: var(--primary); margin: 0; }

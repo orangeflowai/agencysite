@@ -52,7 +52,7 @@ export default function CartDropdown() {
             >
                 <ShoppingBag className="w-5 h-5" />
                 {totalItems > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-sky-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-lg transform scale-110">
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-sky-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center shadow-lg transform scale-110">
                         {totalItems}
                     </span>
                 )}
@@ -101,10 +101,10 @@ export default function CartDropdown() {
                                                         {item.tourTitle}
                                                     </h4>
                                                     <div className="flex items-center gap-3 mt-1.5 flex-wrap">
-                                                        <span className="text-[10px] font-bold text-muted-foreground  tracking-widest flex items-center gap-1">
+                                                        <span className="text-[8px] font-bold text-muted-foreground  tracking-widest flex items-center gap-1">
                                                             {item.date}
                                                         </span>
-                                                        <span className="text-[10px] font-bold text-sky-600  tracking-widest bg-sky-50 px-1.5 py-0.5 rounded">
+                                                        <span className="text-[8px] font-bold text-sky-600  tracking-widest bg-sky-50 px-1.5 py-0.5 rounded">
                                                             {item.time}
                                                         </span>
                                                     </div>
@@ -115,7 +115,7 @@ export default function CartDropdown() {
                                                             if (count === 0 && Object.keys(item.guestCounts).length > 1) return null;
                                                             return (
                                                                 <div key={type} className="flex items-center justify-between text-xs">
-                                                                    <span className="text-muted-foreground font-bold  tracking-widest text-[9px]">{type}</span>
+                                                                    <span className="text-muted-foreground font-bold  tracking-widest text-[8px]">{type}</span>
                                                                     <div className="flex items-center gap-3">
                                                                         <button
                                                                             onClick={() => adjustGuests(item.id, type, -1)}
@@ -138,7 +138,7 @@ export default function CartDropdown() {
                                                     </div>
 
                                                     <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-                                                        <span className="text-[10px] font-bold text-muted-foreground  tracking-widest">Item Total</span>
+                                                        <span className="text-[8px] font-bold text-muted-foreground  tracking-widest">Item Total</span>
                                                         <span className="text-sm font-bold text-foreground">
                                                             €{item.price.toFixed(2)}
                                                         </span>
@@ -159,44 +159,20 @@ export default function CartDropdown() {
                                 <div className="p-6 bg-primary">
                                     <div className="flex items-center justify-between mb-4">
                                         <div className="flex flex-col">
-                                            <span className="text-[10px] font-bold text-muted-foreground  tracking-widest mb-0.5">Total Amount</span>
+                                            <span className="text-[8px] font-bold text-muted-foreground  tracking-widest mb-0.5">Total Amount</span>
                                             <span className="text-2xl font-bold text-white">€{totalPrice.toFixed(2)}</span>
                                         </div>
                                         <div className="flex -space-x-2">
-                                            <div className="w-8 h-5 bg-gray-800 rounded flex items-center justify-center text-[7px] text-white font-bold border border-gray-700">VISA</div>
-                                            <div className="w-8 h-5 bg-gray-800 rounded flex items-center justify-center text-[7px] text-white font-bold border border-gray-700">MC</div>
+                                            <div className="w-8 h-5 bg-gray-800 rounded flex items-center justify-center text-[8px] text-white font-bold border border-gray-700">VISA</div>
+                                            <div className="w-8 h-5 bg-gray-800 rounded flex items-center justify-center text-[8px] text-white font-bold border border-gray-700">MC</div>
                                         </div>
                                     </div>
                                     <button
                                         onClick={() => {
                                             setIsCartOpen(false);
-                                            // Redirect to checkout with the items
-                                            // If we have multiple items, the current checkout expects 'data' for one.
-                                            // Let's improve this by calculating the total from all items if possible, 
-                                            // or just taking the most recently added one but with better validation.
-                                            const item = items[items.length - 1]; // Take the latest added
-                                            if (item) {
-                                                const counts = item.guestCounts || {};
-                                                const bookingData = {
-                                                    tour: {
-                                                        _id: item.tourId,
-                                                        title: item.tourTitle,
-                                                        slug: { current: item.tourSlug },
-                                                        // Fallback price if guest pricing not found, but item.price is the total for that item
-                                                        price: item.price / Math.max(Object.values(counts).reduce((a, b) => a + b, 0), 1),
-                                                    },
-                                                    date: item.date,
-                                                    time: item.time,
-                                                    guestCounts: counts,
-                                                    totalPrice: item.price,
-                                                };
-                                                const encoded = encodeURIComponent(JSON.stringify(bookingData));
-                                                router.push(`/checkout?data=${encoded}`);
-                                            } else {
-                                                router.push('/checkout');
-                                            }
+                                            router.push('/checkout');
                                         }}
-                                        className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-4 rounded-xl transition-all active:scale-[0.98]  tracking-[0.2em] text-xs shadow-xl shadow-sky-900/20"
+                                        className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl transition-all active:scale-[0.98] tracking-[0.2em] text-xs shadow-xl shadow-primary/20"
                                     >
                                         Checkout Securely
                                     </button>

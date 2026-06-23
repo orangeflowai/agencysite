@@ -21,9 +21,32 @@ export async function POST(req: Request) {
   try {
     const headersList = await headers()
     const siteId = headersList.get('x-site-id') || tenant
+    const { amount, tourTitle, tourSlug, meetingPoint, date, time, guests, guestCounts = {}, bookingDetails, addOns = [] } = body
+
+    // Server-side inventory check — prevent double-booking
+    if (payloadUrl && tourSlug && date && time) {
+      try {
+        const availRes = await fetch(
+          `${payloadUrl}/api/availability?slug=${encodeURIComponent(tourSlug)}&date=${encodeURIComponent(date)}`,
+          { headers: { 'x-tenant-id': tenant }, cache: 'no-store' }
+        );
+        if (availRes.ok) {
+          const availData = await availRes.json();
+          const slot = (availData.slots || []).find((s: any) => s.time === time);
+          if (slot && (slot.available_slots || 0) < guests) {
+            return NextResponse.json({ error: `Only ${slot.available_slots} spots remaining for ${time}. Please choose another time.` }, { status: 409 });
+          }
+          if (!slot) {
+            return NextResponse.json({ error: 'This time slot is no longer available. Please select another.' }, { status: 409 });
+          }
+        }
+      } catch (e) {
+        console.warn('[create-payment-intent] Inventory check failed, proceeding:', e);
+      }
+    }
+
     const { getStripe } = await import('@/lib/stripe')
     const stripe = getStripe(siteId)
-    const { amount, tourTitle, tourSlug, meetingPoint, date, time, guests, guestCounts = {}, bookingDetails, addOns = [] } = body
     const legacyAdults = guestCounts.Adult || guestCounts.Adults || body.adults || 0
     const legacyStudents = guestCounts.Student || guestCounts.Students || body.students || 0
     const legacyYouths = guestCounts.Youth || guestCounts.Youths || body.youths || 0

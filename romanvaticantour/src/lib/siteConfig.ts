@@ -2,7 +2,7 @@ export const siteConfig = {
   name: 'Roman Vatican Tour',
   description: 'Official skip-the-line tours for Vatican Museums, Sistine Chapel, and Colosseum. Small groups and expert licensed guides.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://romanvaticantour.com',
-  email: 'info@romanvaticantour.com',
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com",
   phone: '+39 389 521 7315',
   address: 'Via Germanico, 28, Rome, Italy',
   social: {

@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Eye } from 'lucide-react';
 
 export default function LiveVisitorCounter() {
@@ -23,32 +22,32 @@ export default function LiveVisitorCounter() {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
+    <div
+      }
+      }
       className="inline-flex items-center gap-2 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-border"
     >
-      <motion.div
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
+      <div
+        }
+        }
       >
         <Eye className="w-4 h-4 text-sky-600" />
-      </motion.div>
+      </div>
       <div className="flex items-center gap-1">
-        <AnimatePresence mode="wait">
-          <motion.span
+        
+          <span
             key={count}
-            initial={{ y: 10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -10, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            }
+            }
+            }
+            }
             className="font-semibold text-foreground"
           >
             {count}
-          </motion.span>
-        </AnimatePresence>
+          </span>
+        
         <span className="text-sm text-muted-foreground">people viewing now</span>
       </div>
-    </motion.div>
+    </div>
   );
 }

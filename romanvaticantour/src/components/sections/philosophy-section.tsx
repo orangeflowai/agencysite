@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
 
 export function PhilosophySection() {
+  const router = useRouter();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [vaticanTranslateX, setVaticanTranslateX] = useState(-100);
   const [colosseumTranslateX, setColosseumTranslateX] = useState(100);
@@ -46,7 +48,7 @@ export function PhilosophySection() {
   }, [updateTransforms]);
 
   return (
-    <section id="tours" className="bg-background">
+    <section id="philosophy" className="bg-background">
       {/* Scroll-Animated Product Grid */}
       <div ref={sectionRef} className="relative" style={{ height: "200vh" }}>
         <div className="sticky top-0 h-screen flex items-center justify-center">
@@ -72,7 +74,7 @@ export function PhilosophySection() {
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
-                onClick={() => window.location.href = '/category/vatican'}
+                onClick={() => router.push('/category/vatican')}
               >
                 <Image
                   src="/images/st-peters.jpg"
@@ -96,7 +98,7 @@ export function PhilosophySection() {
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
-                onClick={() => window.location.href = '/category/colosseum'}
+                onClick={() => router.push('/category/colosseum')}
               >
                 <Image
                   src="/images/colosseum-night.jpg"

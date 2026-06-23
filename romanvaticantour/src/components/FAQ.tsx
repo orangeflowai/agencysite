@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, HelpCircle } from 'lucide-react'; // Changed to Plus/Minus for cleaner look
 import clsx from 'clsx';
 
@@ -50,13 +49,13 @@ export default function FAQ() {
 
             <div className="container mx-auto px-4 max-w-4xl relative z-10">
                 <div className="text-center mb-16">
-                    <span className="text-primary font-sans font-bold  tracking-[0.4em] text-[10px] mb-2 block">
+                    <span className="text-primary font-sans font-bold  tracking-[0.4em] text-[8px] mb-2 block">
                         Support & Help
                     </span>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#5c4b3e] mb-6 tracking-tight">
+                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-6 tracking-tight">
                         Common Questions
                     </h2>
-                    <p className="text-lg text-[#85766a] max-w-2xl mx-auto font-sans">
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-sans">
                         Everything you need to know about your Roman adventure, tickets, and entry guidelines.
                     </p>
                 </div>
@@ -66,17 +65,13 @@ export default function FAQ() {
                         const isOpen = activeIndex === index;
 
                         return (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
+                            <div
                                 key={index}
                                 className={clsx(
                                     "rounded-2xl border transition-all duration-300 overflow-hidden",
                                     isOpen
                                         ? "bg-card border-primary/20 shadow-xl shadow-primary/5"
-                                        : "bg-card/50 border-[#b19681]/20 hover:border-primary/30 hover:shadow-lg"
+                                        : "bg-card/50 border-border/20 hover:border-primary/30 hover:shadow-lg"
                                 )}
                             >
                                 <button
@@ -92,7 +87,7 @@ export default function FAQ() {
                                         </div>
                                         <span className={clsx(
                                             "text-lg md:text-xl font-serif font-bold transition-colors pr-8 ",
-                                            isOpen ? "text-primary" : "text-[#5c4b3e]"
+                                            isOpen ? "text-primary" : "text-foreground"
                                         )}>
                                             {faq.question}
                                         </span>
@@ -106,23 +101,18 @@ export default function FAQ() {
                                     </div>
                                 </button>
 
-                                <AnimatePresence>
+                                
                                     {isOpen && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: "auto", opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                                        >
+                                        <div>
                                             <div className="px-6 md:px-8 pb-8 pt-0 pl-6 md:pl-[5.5rem]">
-                                                <p className="text-[#85766a] leading-relaxed text-base md:text-lg font-sans">
+                                                <p className="text-muted-foreground leading-relaxed text-base md:text-lg font-sans">
                                                     {faq.answer}
                                                 </p>
                                             </div>
-                                        </motion.div>
+                                        </div>
                                     )}
-                                </AnimatePresence>
-                            </motion.div>
+                                
+                            </div>
                         );
                     })}
                 </div>

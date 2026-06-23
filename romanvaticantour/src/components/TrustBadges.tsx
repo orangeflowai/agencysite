@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ShieldCheck, Award, Clock, Headset, ArrowRight } from 'lucide-react';
 
 const badges = [
@@ -48,12 +47,12 @@ export default function TrustBadges() {
             <div className="container mx-auto">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {badges.map(({ Icon, label, sub, gradient, ring, iconBg, iconColor }, i) => (
-                        <motion.div
+                        <div
                             key={label}
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            }
+                            }
                             viewport={{ once: true }}
-                            transition={{ duration: 0.45, delay: i * 0.08 }}
+                            }
                             className={`group relative flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br ${gradient} ring-1 ${ring} backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-sky-500/5 cursor-default`}
                         >
                             {/* Subtle animated glow on hover */}
@@ -65,9 +64,9 @@ export default function TrustBadges() {
 
                             <div className="relative min-w-0">
                                 <p className="text-sm font-bold text-neutral-800 leading-snug">{label}</p>
-                                <p className="text-[11px] text-neutral-500 mt-0.5 leading-snug">{sub}</p>
+                                <p className="text-[12px] text-neutral-500 mt-0.5 leading-snug">{sub}</p>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>

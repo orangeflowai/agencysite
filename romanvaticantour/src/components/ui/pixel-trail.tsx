@@ -1,5 +1,4 @@
 import React, { useCallback, useMemo, useRef } from "react"
-import { motion, useAnimationControls } from "framer-motion"
 import { v4 as uuidv4 } from "uuid"
 
 import { cn } from "@/lib/utils"
@@ -109,7 +108,7 @@ const PixelDot: React.FC<PixelDotProps> = React.memo(
     )
 
     return (
-      <motion.div
+      <div
         id={id}
         ref={ref}
         className={cn("cursor-pointer-none", className)}
@@ -117,9 +116,9 @@ const PixelDot: React.FC<PixelDotProps> = React.memo(
           width: `${size}px`,
           height: `${size}px`,
         }}
-        initial={{ opacity: 0 }}
-        animate={controls}
-        exit={{ opacity: 0 }}
+        }
+        
+        }
       />
     )
   }

@@ -1,32 +1,33 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-const word = "ROMA";
+const words = ["ROMAN", "VATICAN", "COLOSSEUM", "TOURS"];
 
 const sideImages = [
   {
-    src: "/images/vatican-sistine.jpg",
-    alt: "Sistine Chapel ceiling",
+    src: "https://images.unsplash.com/photo-1541185933-710f50b90c28?w=800&q=80",
+    alt: "Sistine Chapel",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/trevi-fountain.jpg",
-    alt: "Trevi Fountain at dusk",
+    src: "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80",
+    alt: "St. Peter's Dome",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/pantheon.jpg",
-    alt: "Pantheon interior",
+    src: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80",
+    alt: "Colosseum Underground",
     position: "right",
     span: 1,
   },
   {
-    src: "/images/roman-forum.jpg",
-    alt: "Roman Forum at sunset",
+    src: "https://images.unsplash.com/photo-1509024644558-2f56ce76c490?w=800&q=80",
+    alt: "Arena Floor",
     position: "right",
     span: 1,
   },
@@ -35,24 +36,29 @@ const sideImages = [
 export function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [currentWordIdx, setCurrentWordIdx] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
-      
       const rect = sectionRef.current.getBoundingClientRect();
       const scrollableHeight = window.innerHeight * 2;
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
-      
       setScrollProgress(progress);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     
+    // Cycle words
+    const interval = setInterval(() => {
+      setCurrentWordIdx((prev) => (prev + 1) % words.length);
+    }, 2000);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      clearInterval(interval);
     };
   }, []);
 
@@ -118,32 +124,20 @@ export function HeroSection() {
               }}
             >
               <Image
-                src="/images/rome-hero.jpg"
-                alt="The Colosseum at golden hour"
+                src="https://images.unsplash.com/photo-1529260830199-42c24126f198?w=1600&q=80"
+                alt="The Vatican at Night"
                 fill
                 className="object-cover"
                 priority
               />
               
-              {/* Overlay Text */}
+              {/* Dynamic Word Overlay */}
               <div 
-                className="absolute inset-0 flex items-end overflow-hidden"
+                className="absolute inset-0 flex items-center justify-center"
                 style={{ opacity: textOpacity }}
               >
-                <h1 className="w-full text-[22vw] font-medium leading-[0.8] tracking-tighter text-white">
-                  {word.split("").map((letter, index) => (
-                    <span
-                      key={index}
-                      className="inline-block animate-[slideUp_0.8s_ease-out_forwards] opacity-0"
-                      style={{
-                        animationDelay: `${index * 0.08}s`,
-                        transition: 'all 1.5s',
-                        transitionTimingFunction: 'cubic-bezier(0.86, 0, 0.07, 1)',
-                      }}
-                    >
-                      {letter}
-                    </span>
-                  ))}
+                <h1 className="text-[15vw] font-black tracking-tighter text-white drop-shadow-2xl">
+                  {words[currentWordIdx]}
                 </h1>
               </div>
             </div>
@@ -181,15 +175,21 @@ export function HeroSection() {
         </div>
       </div>
 
-      <div className="h-[200vh]" />
+      <div className="h-[100vh]" />
 
       {/* Tagline Section */}
-      <div className="px-6 pt-32 pb-28 md:pt-48 md:px-12 md:pb-36 lg:px-20 lg:pt-56 lg:pb-44">
-        <p className="mx-auto max-w-2xl text-center text-2xl leading-relaxed text-muted-foreground md:text-3xl lg:text-[2.5rem] lg:leading-snug">
+      <div className="px-6 pt-32 pb-28 md:pt-48 md:px-12 md:pb-36 lg:px-20 lg:pt-56 lg:pb-44 text-center">
+        <h2 className="text-4xl md:text-6xl font-bold mb-8 text-foreground">ROMAN VATICAN</h2>
+        <p className="mx-auto max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
           Skip the line. Experience history.
           <br />
-          Official priority access.
+          Official priority access to the Vatican and Colosseum.
         </p>
+        <div className="mt-12">
+            <Link href="/#tours" className="px-12 py-5 bg-primary text-primary-foreground font-bold rounded-full text-lg hover:scale-105 transition-transform inline-block">
+                Book Now
+            </Link>
+        </div>
       </div>
     </section>
   );

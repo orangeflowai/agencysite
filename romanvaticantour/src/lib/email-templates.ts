@@ -1,3 +1,4 @@
+
 export function generateCustomerEmail(
   siteId: string,
   data: {
@@ -79,7 +80,7 @@ export function generateCustomerEmail(
               <!-- Header with Logo -->
               <tr>
                 <td style="background:${brandColor};padding:32px 40px;text-align:center;">
-                  <img src="${logoUrl}" alt="${brandName}" style="max-width:180px;height:auto;margin-bottom:12px;" />
+                  <img  src="${logoUrl}" alt="${brandName}" style="max-width:180px;height:auto;margin-bottom:12px;" />
                   <h1 style="margin:0;font-size:24px;font-weight:700;color:#ffffff;letter-spacing:0.5px;">${brandName}</h1>
                 </td>
               </tr>
@@ -171,7 +172,7 @@ export function generateCustomerEmail(
                     <tr>
                       <td style="padding:0;">
                         <a href="${googleMapsUrl}" target="_blank" style="display:block;">
-                          ${staticMapUrl ? `<img src="${staticMapUrl}" alt="Meeting Point Map" style="width:100%;height:auto;display:block;border:none;" />` : ''}
+                          ${staticMapUrl ? `<img  src="${staticMapUrl}" alt="Meeting Point Map" style="width:100%;height:auto;display:block;border:none;" />` : ''}
                         </a>
                       </td>
                     </tr>
@@ -271,7 +272,7 @@ export function generateCustomerEmail(
               <!-- Footer -->
               <tr>
                 <td style="background:#f3f4f6;padding:24px 40px;text-align:center;">
-                  <img src="${logoUrl}" alt="${brandName}" style="max-width:120px;height:auto;margin-bottom:12px;opacity:0.7;" />
+                  <img  src="${logoUrl}" alt="${brandName}" style="max-width:120px;height:auto;margin-bottom:12px;opacity:0.7;" />
                   <p style="margin:0;font-size:12px;color:#9ca3af;">
                     &copy; ${new Date().getFullYear()} ${brandName}. All rights reserved.
                   </p>

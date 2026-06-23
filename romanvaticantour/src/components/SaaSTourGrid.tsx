@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { urlFor } from '@/lib/dataAdapter';
@@ -58,12 +57,12 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
                     {tours.slice(0, 3).map((tour, idx) => {
                         const imgSrc = resolveImage(tour.mainImage);
                         return (
-                            <motion.div
+                            <div
                                 key={tour._id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+                                }
+                                }
                                 viewport={{ once: true, margin: '-50px' }}
-                                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                                }
                                 className={`group flex flex-col rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
                                     dark
                                         ? 'bg-neutral-900/80 backdrop-blur-sm border-neutral-800 hover:border-neutral-700 hover:shadow-[0_20px_60px_rgba(14,165,233,0.1)]'
@@ -87,7 +86,7 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
 
                                     {tour.isPopular && (
                                         <div
-                                            className="absolute top-4 left-4 text-white text-[10px] font-bold  tracking-widest px-3 py-1.5 rounded-full z-10"
+                                            className="absolute top-4 left-4 text-white text-[8px] font-bold  tracking-widest px-3 py-1.5 rounded-full z-10"
                                             style={{ background: 'linear-gradient(135deg, #0ea5e9, #0284c7)', boxShadow: '0 4px 12px rgba(14,165,233,0.4)' }}
                                         >
                                             Most Popular
@@ -140,7 +139,7 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
                                         <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
                                     </Link>
                                 </div>
-                            </motion.div>
+                            </div>
                         );
                     })}
                 </div>

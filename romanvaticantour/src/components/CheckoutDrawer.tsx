@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import {
@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { format } from 'date-fns'
 import { useSite } from '@/components/SiteProvider'
 import { urlFor } from '@/lib/dataAdapter'
+import { getStripeKey } from '@/lib/stripeKeys'
 
 interface GuestType { name: string; price: number; description?: string }
 interface BookingData {
@@ -29,23 +30,31 @@ interface CheckoutDrawerProps {
   onClose: () => void
 }
 
-function CountdownTimer() {
-  const [seconds, setSeconds] = useState(29 * 60 + 48)
+function CountdownTimer({ onExpired }: { onExpired: () => void }) {
+  const [seconds, setSeconds] = useState(14 * 60 + 59)
+  const expired = useRef(false)
   useEffect(() => {
-    const t = setInterval(() => setSeconds(s => Math.max(0, s - 1)), 1000)
+    const t = setInterval(() => setSeconds(s => {
+      if (s <= 1) {
+        clearInterval(t)
+        if (!expired.current) { expired.current = true; onExpired() }
+        return 0
+      }
+      return s - 1
+    }), 1000)
     return () => clearInterval(t)
-  }, [])
+  }, [onExpired])
   const m = Math.floor(seconds / 60)
   const s = seconds % 60
   return (
-    <div className="flex items-center gap-1.5 text-sm font-bold text-orange-600">
+    <div className={`flex items-center gap-1.5 text-sm font-bold ${seconds < 120 ? 'text-red-600 animate-pulse' : 'text-orange-600'}`}>
       <Timer className="w-4 h-4" />
       <span>{String(m).padStart(2, '0')}:{String(s).padStart(2, '0')}</span>
     </div>
   )
 }
 
-function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSuccess: () => void }) {
+function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSuccess: (id: string) => void }) {
   const stripe = useStripe()
   const elements = useElements()
   const [processing, setProcessing] = useState(false)
@@ -61,7 +70,7 @@ function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSucces
       redirect: 'if_required',
     })
     if (stripeError) { setError(stripeError.message || 'Payment failed'); setProcessing(false) }
-    else if (paymentIntent?.status === 'succeeded') onSuccess()
+    else if (paymentIntent?.status === 'succeeded') onSuccess(paymentIntent.id)
   }
 
   return (
@@ -96,15 +105,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   const stripePromise = useMemo(() => {
-    const keyMap: Record<string, string> = {
-      'wondersofrome': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_WONDERSOFROME || '',
-      'ticketsinrome': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME_TOUR_TICKETS || '',
-      'rome-tour-tickets': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROME_TOUR_TICKETS || '',
-      'goldenrometour': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_GOLDENROMETOUR || '',
-      'romanvaticantour': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROMANVATICANTOUR || '',
-      'romewander': process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_ROMEWANDER || '',
-    };
-    const key = keyMap[siteId] || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '';
+    const key = getStripeKey(siteId);
     return key ? loadStripe(key) : null;
   }, [siteId])
 
@@ -171,7 +172,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
     : ''
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-background/60 backdrop-blur-sm p-4">
+    <div data-lenis-prevent className="fixed inset-0 z-[200] flex items-center justify-center bg-background/60 backdrop-blur-sm p-4">
       <div className="absolute inset-0" onClick={onClose} />
 
       <div className="relative w-full max-w-3xl bg-card rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in duration-200" style={{ maxHeight: '90vh' }}>
@@ -190,7 +191,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <CountdownTimer />
+            <CountdownTimer onExpired={() => { setErrors({ submit: 'Your session expired. Please restart your booking.' }) }} />
             <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
               <X className="w-5 h-5 text-muted-foreground" />
             </button>
@@ -201,7 +202,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
           <div className="h-full bg-primary transition-all duration-500" style={{ width: step === 1 ? '50%' : '100%' }} />
         </div>
 
-        <div className="flex flex-col md:flex-row overflow-y-auto flex-1 min-h-0">
+        <div data-lenis-prevent className="flex flex-col md:flex-row overflow-y-auto flex-1 min-h-0">
           <div className="flex-1 p-6 space-y-5">
             {step === 1 && (
               <>
@@ -276,7 +277,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                   </div>
                 ) : (
                   <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe', variables: { colorPrimary: '#A8362F' } } }}>
-                    <PaymentForm totalAmount={bookingData.totalPrice} onSuccess={() => window.location.href = '/booking/success'} />
+              <PaymentForm totalAmount={bookingData.totalPrice} onSuccess={(piId) => window.location.href = `/success?payment_intent=${piId}`} />
                   </Elements>
                 )}
               </>

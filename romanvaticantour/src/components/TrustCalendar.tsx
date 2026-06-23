@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin, Calendar as CalendarIcon, Clock, ShieldCheck, ChevronRight, Info, Star } from 'lucide-react';
 import { format } from 'date-fns';
 import SmartCalendar from './ui/SmartCalendar';
@@ -110,7 +109,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                       Selected Date
                     </label>
                     <div className={cn(
-                      "w-full rounded-2xl px-5 py-4 text-sm font-bold border transition-all h-[54px] flex items-center",
+                      "w-full rounded-2xl px-5 py-4 text-sm font-bold border transition-all h-[56px] flex items-center",
                       selectedDate ? "bg-sky-50 border-sky-200 text-sky-700" : "bg-card border-neutral-200 text-neutral-400"
                     )}>
                       {selectedDate ? format(selectedDate, 'EEEE, d MMMM yyyy') : 'Pick a date on the calendar'}
@@ -179,7 +178,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
               {/* Trust Subtext */}
               <div className="flex items-center gap-4 px-6 opacity-60">
                 <ShieldCheck size={24} className="text-primary" />
-                <p className="text-[10px] font-bold text-neutral-500  tracking-widest">
+                <p className="text-[8px] font-bold text-neutral-500  tracking-widest">
                   Secure 256-bit encrypted checkout. <br /> Tickets sent instantly.
                 </p>
               </div>
@@ -199,7 +198,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                   </div>
                   <div className="flex items-center gap-1.5 px-3 py-1.5 bg-card rounded-full border border-neutral-200 shadow-sm">
                     <Star size={12} className="fill-amber-400 text-amber-400" />
-                    <span className="text-[10px] font-bold text-neutral-900 ">Top Seller this month</span>
+                    <span className="text-[8px] font-bold text-neutral-900 ">Top Seller this month</span>
                   </div>
                </div>
 
@@ -217,7 +216,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                     <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500">
                       <Info size={20} />
                     </div>
-                    <p className="text-[10px] font-bold text-neutral-500  tracking-tight leading-relaxed">
+                    <p className="text-[8px] font-bold text-neutral-500  tracking-tight leading-relaxed">
                       Pricing shown includes all booking fees and skip-the-line entrance.
                     </p>
                   </div>
@@ -225,7 +224,7 @@ export default function TrustCalendar({ tours }: TrustCalendarProps) {
                     <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center text-primary">
                       <ShieldCheck size={20} />
                     </div>
-                    <p className="text-[10px] font-bold text-neutral-500  tracking-tight leading-relaxed">
+                    <p className="text-[8px] font-bold text-neutral-500  tracking-tight leading-relaxed">
                       Instant confirmation. No need to print — mobile tickets accepted.
                     </p>
                   </div>

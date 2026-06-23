@@ -4,22 +4,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
 
-export function GallerySection() {
+interface GallerySectionProps {
+  tours?: any[];
+}
+
+export function GallerySection({ tours = [] }: GallerySectionProps) {
   const galleryRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [sectionHeight, setSectionHeight] = useState("100vh");
   const [translateX, setTranslateX] = useState(0);
   const rafRef = useRef<number | null>(null);
 
-  const images = [
+  // Use provided tours or fallback to some meaningful ones if empty
+  const displayTours = tours.length > 0 ? tours.slice(0, 8) : [];
+  
+  // If no tours, we'll keep the static ones as fallback but realistically we should have tours now
+  const staticFallback = [
     { src: "/images/rome-hero.jpg",         alt: "Colosseum at sunset",      title: "Colosseum",      href: "/category/colosseum" },
     { src: "/images/vatican-sistine.jpg",   alt: "Sistine Chapel ceiling",   title: "Sistine Chapel", href: "/category/vatican" },
     { src: "/images/trevi-fountain.jpg",    alt: "Trevi Fountain at dusk",   title: "Trevi Fountain", href: "/category/city" },
     { src: "/images/pantheon.jpg",          alt: "Pantheon interior",        title: "Pantheon",       href: "/category/city" },
-    { src: "/images/st-peters.jpg",         alt: "St. Peter's Basilica",     title: "St. Peter's",    href: "/category/vatican" },
-    { src: "/images/roman-forum.jpg",       alt: "Roman Forum ruins",        title: "Roman Forum",    href: "/category/colosseum" },
-    { src: "/images/trastevere.jpg",        alt: "Trastevere streets",       title: "Trastevere",     href: "/category/hidden-gems" },
-    { src: "/images/colosseum-night.jpg",   alt: "Colosseum at night",       title: "Night Tour",     href: "/category/colosseum" },
   ];
 
   useEffect(() => {
@@ -105,29 +109,36 @@ export function GallerySection() {
               touchAction: 'pan-y',
             }}
           >
-            {images.map((image, index) => (
-              <Link
-                key={index}
-                href={image.href}
-                className="group relative h-[70vh] w-[85vw] flex-shrink-0 overflow-hidden rounded-2xl md:w-[60vw] lg:w-[45vw] block"
-                style={{ transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  priority={index < 3}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent" />
-                <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
-                  <span className="text-white text-2xl font-medium">{image.title}</span>
-                  <span className="text-white/80 text-sm font-medium bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                    View Tours →
-                  </span>
-                </div>
-              </Link>
-            ))}
+            {(displayTours.length > 0 ? displayTours : staticFallback).map((item: any, index: number) => {
+              const href = item.href || `/tour/${item.slug}`;
+              const image = item.image || item.src;
+              const title = item.title;
+              const alt = item.alt || item.title;
+
+              return (
+                <Link
+                  key={index}
+                  href={href}
+                  className="group relative h-[70vh] w-[85vw] flex-shrink-0 overflow-hidden rounded-2xl md:w-[60vw] lg:w-[45vw] block"
+                  style={{ transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
+                >
+                  <Image
+                    src={image}
+                    alt={alt}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    priority={index < 3}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent" />
+                  <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
+                    <span className="text-white text-2xl font-medium">{title}</span>
+                    <span className="text-white/80 text-sm font-medium bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                      View Tour →
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>

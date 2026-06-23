@@ -1,4 +1,4 @@
-import VaticanHeader from '@/components/vatican/header';
+import Navbar from '@/components/Navbar';
 import { HeroSection } from "@/components/sections/hero-section";
 import { PhilosophySection } from "@/components/sections/philosophy-section";
 import { FeaturedProductsSection } from "@/components/sections/featured-products-section";
@@ -7,7 +7,7 @@ import { GallerySection } from "@/components/sections/gallery-section";
 import { CollectionSection } from "@/components/sections/collection-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
-import { FooterSection } from "@/components/sections/footer-section";
+import Footer from '@/components/Footer';
 import { getTours } from "@/lib/dataAdapter";
 
 export const revalidate = 300;
@@ -31,16 +31,16 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-background">
-      <VaticanHeader />
+      <Navbar />
       <HeroSection />
       <PhilosophySection />
       <FeaturedProductsSection tours={mappedTours} />
       <TechnologySection />
-      <GallerySection />
+      <GallerySection tours={mappedTours} />
       <CollectionSection />
       <TestimonialsSection />
       <EditorialSection />
-      <FooterSection />
+      <Footer />
     </main>
   );
 }

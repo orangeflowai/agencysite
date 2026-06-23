@@ -7,6 +7,7 @@ import { useAdmin } from '@/context/AdminContext';
 import { urlFor } from '@/sanity/lib/image';
 import { updateTour } from '@/app/actions/tourActions';
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
 
 export default function AdminProductsPage() {
     const { selectedSiteId, isLoading: isSiteLoading } = useAdmin();
@@ -204,7 +205,7 @@ export default function AdminProductsPage() {
                                             <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden relative">
                                                 {tour.mainImage && (
                                                     // eslint-disable-next-line @next/next/no-img-element
-                                                    <img
+                                                    <Image fill 
                                                         src={urlFor(tour.mainImage).width(100).height(100).url()}
                                                         alt={tour.title}
                                                         className="w-full h-full object-cover"
@@ -399,7 +400,7 @@ export default function AdminProductsPage() {
                                             {editingTour.mainImage && (
                                                 <div className="w-20 h-20 rounded-lg bg-gray-200 overflow-hidden shrink-0">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img
+                                                    <Image fill 
                                                         src={urlFor(editingTour.mainImage).width(200).url()}
                                                         alt="Current"
                                                         className="w-full h-full object-cover"
@@ -429,7 +430,7 @@ export default function AdminProductsPage() {
                                                 {editingTour.gallery.map((img: any, idx: number) => (
                                                     <div key={idx} className="aspect-square rounded-lg bg-gray-200 overflow-hidden relative group">
                                                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                        <img
+                                                        <Image fill 
                                                             src={urlFor(img).width(200).url()}
                                                             alt={`Gallery ${idx}`}
                                                             className="w-full h-full object-cover"

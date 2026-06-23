@@ -1,9 +1,7 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X, User, FileText } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { X, User, FileText, Globe, Calendar } from 'lucide-react';
 
 interface GuestValues {
     [key: string]: string; // "guest_1_name": "John", "guest_1_passport": "A123"
@@ -12,6 +10,9 @@ interface GuestValues {
 export interface GuestDetail {
     index: number;
     name: string;
+    passportNumber: string;
+    country: string;
+    dateOfBirth: string;
 }
 
 interface GuestDetailsModalProps {
@@ -26,7 +27,6 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
 
     const totalCount = Object.values(guestCounts || {}).reduce((sum, count) => sum + (count || 0), 0);
 
-    // List of guests with their labels: [{ index: 1, label: "Adult 1" }, { index: 2, label: "Adult 2" }, { index: 3, label: "Student 1" }]
     const guestLabels = Object.entries(guestCounts).flatMap(([type, count]) => {
         return Array.from({ length: count }).map((_, i) => ({
             type,
@@ -34,7 +34,6 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
         }));
     });
 
-    // Reset values when opened
     useEffect(() => {
         if (isOpen) {
             setValues({});
@@ -54,6 +53,9 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
             return {
                 index,
                 name: values[`guest_${index}_name`] || '',
+                passportNumber: values[`guest_${index}_passport`] || '',
+                country: values[`guest_${index}_country`] || '',
+                dateOfBirth: values[`guest_${index}_dob`] || '',
             };
         });
 
@@ -65,24 +67,21 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
     };
 
     return (
-        <AnimatePresence>
+        <>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
+                    <div
                         className="bg-card w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
                     >
                         {/* Header */}
-                        <div className="bg-sky-900 p-6 flex justify-between items-center text-white shrink-0">
+                        <div className="bg-primary p-6 flex justify-between items-center text-white shrink-0">
                             <div>
                                 <h2 className="text-xl font-bold">Guest Details Required</h2>
-                                <p className="text-sky-200 text-sm mt-1">
-                                    Why? We need to register every visitor with the Vatican/Colosseum security.
+                                <p className="text-primary-foreground/80 text-sm mt-1">
+                                    Vatican/Colosseum security requires full passport details for every visitor.
                                 </p>
                             </div>
-                            <button onClick={onClose} className="p-2 hover:bg-sky-800 rounded-full transition-colors">
+                            <button onClick={onClose} className="p-2 hover:bg-white/20 rounded-full transition-colors">
                                 <X size={24} />
                             </button>
                         </div>
@@ -94,20 +93,58 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
                                     return (
                                         <div key={index} className="bg-muted p-4 rounded-xl border border-border">
                                             <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                                                <User size={16} className="text-sky-600" />
+                                                <User size={16} className="text-primary" />
                                                 Guest {index} - {guest.label} {index === 1 ? '(Lead Traveler)' : ''}
                                             </h3>
 
-                                            <div className="grid grid-cols-1 gap-4">
-                                                <div>
-                                                    <label className="block text-xs font-bold text-muted-foreground  mb-1">Full Name</label>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="col-span-2">
+                                                    <label className="block text-xs font-bold text-muted-foreground mb-1">Full Name (as on Passport) *</label>
                                                     <input
                                                         type="text"
                                                         required
                                                         placeholder="As on Passport"
                                                         value={values[`guest_${index}_name`] || ''}
                                                         onChange={(e) => handleChange(`guest_${index}_name`, e.target.value)}
-                                                        className="w-full p-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+                                                        className="w-full p-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-primary/50 outline-none"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs font-bold text-muted-foreground mb-1 flex items-center gap-1">
+                                                        <FileText size={12} /> Passport Number *
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        placeholder="e.g. AB123456"
+                                                        value={values[`guest_${index}_passport`] || ''}
+                                                        onChange={(e) => handleChange(`guest_${index}_passport`, e.target.value)}
+                                                        className="w-full p-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-primary/50 outline-none"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-xs font-bold text-muted-foreground mb-1 flex items-center gap-1">
+                                                        <Globe size={12} /> Nationality *
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        placeholder="e.g. Italy"
+                                                        value={values[`guest_${index}_country`] || ''}
+                                                        onChange={(e) => handleChange(`guest_${index}_country`, e.target.value)}
+                                                        className="w-full p-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-primary/50 outline-none"
+                                                    />
+                                                </div>
+                                                <div className="col-span-2">
+                                                    <label className="block text-xs font-bold text-muted-foreground mb-1 flex items-center gap-1">
+                                                        <Calendar size={12} /> Date of Birth *
+                                                    </label>
+                                                    <input
+                                                        type="date"
+                                                        required
+                                                        value={values[`guest_${index}_dob`] || ''}
+                                                        onChange={(e) => handleChange(`guest_${index}_dob`, e.target.value)}
+                                                        className="w-full p-3 bg-card border border-border rounded-lg focus:ring-2 focus:ring-primary/50 outline-none"
                                                     />
                                                 </div>
                                             </div>
@@ -134,14 +171,14 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
                             <button
                                 type="submit"
                                 form="guest-form"
-                                className="px-8 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl shadow-lg transition-all"
+                                className="px-8 py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl shadow-lg transition-all"
                             >
                                 Confirm & Pay
                             </button>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             )}
-        </AnimatePresence>
+        </>
     );
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useState, MouseEvent, ReactNode } from 'react';
-import { motion } from 'framer-motion';
 
 interface MagneticButtonProps {
   children: ReactNode;
@@ -37,21 +36,16 @@ export default function MagneticButton({
   };
 
   return (
-    <motion.button
+    <button
       ref={ref}
       className={className}
       onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x, y: position.y }}
-      transition={{
-        type: 'spring',
-        stiffness: 150,
-        damping: 15,
-        mass: 0.1,
-      }}
+      }
+      }
     >
       {children}
-    </motion.button>
+    </button>
   );
 }

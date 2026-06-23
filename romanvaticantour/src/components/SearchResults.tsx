@@ -64,7 +64,7 @@ export default function SearchResults() {
                 </div>
             )}
 
-            {/* Reuse ProductRow but force grid layout if we had a Grid render. 
+            {/* Reuse ProductRow but force grid  if we had a Grid render. 
                 Since ProductRow is a scroll row, let's just use it as a container or map manually. 
                 ProductRow is designed for horizontal scroll. Let's make a Grid here. */}
 

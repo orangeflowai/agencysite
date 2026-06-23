@@ -84,12 +84,15 @@ After deploying to your domain:
 
 ## Deploy
 
+This site is deployed on Vercel. Push to the main branch to trigger automatic deployment.
+
 ```bash
+# Local development
+npm run dev
+
+# Production build
 npm run build
 npm start
 ```
 
-Or use the included `ecosystem.config.js` for PM2:
-```bash
-pm2 start ecosystem.config.js
-```
+Vercel auto-deploys on `git push` to main.

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ShieldCheck, Clock, Users, ArrowRight, Ticket } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,38 +9,38 @@ export default function SaaSBentoFeatures() {
         <section className="py-24 bg-neutral-50 border-y border-neutral-100 relative overflow-hidden">
             {/* Background dynamic elements */}
             <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-sky-100/30 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-emerald-100/20 blur-[100px] rounded-full translate-y-1/2 -translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-emerald-100/20 blur-[96px] rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
             <div className="container mx-auto px-6 md:px-12 relative z-10">
                 <div className="max-w-3xl mb-16">
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    <div
+                        }
+                        }
                         viewport={{ once: true }}
                     >
                         <h2 className="text-xs font-bold tracking-[0.3em] text-theme-primary  mb-3 px-4 py-1.5 bg-sky-50 inline-block rounded-full border border-sky-100">
                             The Premium Experience
                         </h2>
-                    </motion.div>
-                    <motion.h3 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    </div>
+                    <h3 
+                        }
+                        }
                         viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
+                        }
                         className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-950 leading-[1.1] tracking-tight mt-6"
                     >
                         Everything you need for the <span className="text-theme-primary">perfect</span> Roman holiday.
-                    </motion.h3>
+                    </h3>
                 </div>
 
                 <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6 auto-rows-[320px]">
                     
                     {/* Bento Block 1: Large Feature (spans 2 columns) */}
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    <div 
+                        }
+                        }
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
+                        }
                         className="relative group col-span-1 lg:col-span-2 row-span-1 rounded-[2.5rem] bg-neutral-950 overflow-hidden shadow-2xl border border-white/10"
                     >
                         <Image 
@@ -59,14 +58,14 @@ export default function SaaSBentoFeatures() {
                             <h4 className="text-3xl font-bold text-white mb-3 tracking-tight">Expert Local Storytellers</h4>
                             <p className="text-neutral-300 max-w-lg text-lg leading-relaxed">Our guides are licensed historians and archaeologists. They don't just show you Rome; they make you feel it.</p>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Bento Block 2: Skip the Line */}
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    <div 
+                        }
+                        }
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
+                        }
                         className="col-span-1 border border-neutral-200/60 rounded-[2.5rem] bg-card p-10 flex flex-col shadow-xl hover:shadow-2xl hover:border-sky-200 transition-all duration-500 relative overflow-hidden group"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-sky-100 transition-colors"></div>
@@ -83,14 +82,14 @@ export default function SaaSBentoFeatures() {
                                 <ArrowRight className="w-5 h-5" />
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Bento Block 3: Easy Cancellation */}
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    <div 
+                        }
+                        }
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        }
                         className="col-span-1 border border-neutral-200/60 rounded-[2.5rem] bg-card p-10 flex flex-col shadow-xl hover:shadow-2xl hover:border-emerald-200 transition-all duration-500 relative overflow-hidden group"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-secondary rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-emerald-100 transition-colors"></div>
@@ -99,20 +98,20 @@ export default function SaaSBentoFeatures() {
                             <div className="w-14 h-14 bg-secondary rounded-2xl flex items-center justify-center border border-emerald-100 group-hover:scale-110 transition-transform duration-500">
                                 <ShieldCheck className="w-7 h-7 text-primary" />
                             </div>
-                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-4 py-1.5 rounded-full  tracking-widest border border-emerald-200">
+                            <span className="bg-emerald-100 text-emerald-800 text-[8px] font-bold px-4 py-1.5 rounded-full  tracking-widest border border-emerald-200">
                                 Guarantee
                             </span>
                         </div>
                         <h4 className="text-2xl font-bold text-neutral-900 mb-3 tracking-tight">Maximum Flexibility</h4>
                         <p className="text-neutral-500 text-lg leading-relaxed">Travel plans change. Enjoy free cancellation up to 24 hours before your tour starts.</p>
-                    </motion.div>
+                    </div>
 
                     {/* Bento Block 4: Instant Tickets */}
-                    <motion.div 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    <div 
+                        }
+                        }
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                        }
                         className="relative group col-span-1 lg:col-span-2 row-span-1 rounded-[2.5rem] bg-theme-primary overflow-hidden shadow-2xl transition-all duration-500"
                         style={{ background: 'linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)' }}
                     >
@@ -144,7 +143,7 @@ export default function SaaSBentoFeatures() {
                                         </div>
                                         <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                                     </div>
-                                    <p className="text-[10px] text-neutral-400  font-bold tracking-widest leading-none">Official Entry Ticket</p>
+                                    <p className="text-[8px] text-neutral-400  font-bold tracking-widest leading-none">Official Entry Ticket</p>
                                     <p className="text-lg font-serif font-bold mt-2">Sistine Chapel Privé</p>
                                 </div>
                                 <div className="flex-1 flex flex-col items-center justify-center gap-4">
@@ -153,11 +152,11 @@ export default function SaaSBentoFeatures() {
                                             <div className="w-full h-full bg-[radial-gradient(circle_at_center,_black_1.5px,_transparent_1.5px)] bg-[size:6px_6px] opacity-80"></div>
                                         </div>
                                     </div>
-                                    <p className="font-mono text-[10px] text-neutral-400">#RV-2026-X991</p>
+                                    <p className="font-mono text-[8px] text-neutral-400">#RV-2026-X991</p>
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                 </div>
             </div>

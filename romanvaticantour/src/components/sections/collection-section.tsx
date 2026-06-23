@@ -50,69 +50,31 @@ const features = [
 
 export function CollectionSection() {
   return (
-    <section id="about" className="bg-background">
+    <section id="about" className="bg-background border-t border-secondary/10">
       {/* Section Title */}
-      <div className="px-6 py-20 md:px-12 lg:px-20 md:py-10">
-        <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl">
+      <div className="px-6 py-20 md:px-12 lg:px-20 text-center">
+        <h2 className="text-3xl font-serif font-bold tracking-tight text-foreground md:text-5xl">
           The Golden Standard
         </h2>
-        <p className="mt-4 text-muted-foreground max-w-xl">
-          Why thousands of travelers trust us for their Roman adventure.
+        <p className="mt-6 text-muted-foreground max-w-2xl mx-auto text-lg">
+          Excellence in every detail. Why thousands of travelers choose us for their Roman journey.
         </p>
       </div>
 
       {/* Features Grid */}
-      <div className="pb-24">
-        {/* Mobile: Horizontal Carousel */}
-        <div className="flex gap-6 overflow-x-auto px-6 pb-4 md:hidden snap-x snap-mandatory scrollbar-hide">
+      <div className="pb-32 px-6 md:px-12 lg:px-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {features.map((feature) => (
-            <div key={feature.id} className="group flex-shrink-0 w-[75vw] snap-center">
-              {/* Image */}
-              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-secondary">
-                <FadeImage
-                  src={feature.image}
-                  alt={feature.name}
-                  fill
-                  className="object-cover group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <feature.icon className="w-8 h-8 text-white mb-3" />
-                  <h3 className="text-lg font-medium text-white">
-                    {feature.name}
-                  </h3>
-                  <p className="mt-2 text-sm text-white/80">
-                    {feature.description}
-                  </p>
-                </div>
+            <div key={feature.id} className="flex flex-col items-center text-center group">
+              <div className="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                <feature.icon className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
               </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Desktop: Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-8 md:px-12 lg:px-20">
-          {features.map((feature) => (
-            <div key={feature.id} className="group">
-              {/* Image */}
-              <div className="relative aspect-[2/3] overflow-hidden rounded-2xl bg-secondary">
-                <FadeImage
-                  src={feature.image}
-                  alt={feature.name}
-                  fill
-                  className="object-cover group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <feature.icon className="w-8 h-8 text-white mb-3" />
-                  <h3 className="text-lg font-medium text-white">
-                    {feature.name}
-                  </h3>
-                  <p className="mt-2 text-sm text-white/80">
-                    {feature.description}
-                  </p>
-                </div>
-              </div>
+              <h3 className="text-xl font-serif font-bold text-foreground mb-3">
+                {feature.name}
+              </h3>
+              <p className="text-muted-foreground leading-relaxed">
+                {feature.description}
+              </p>
             </div>
           ))}
         </div>

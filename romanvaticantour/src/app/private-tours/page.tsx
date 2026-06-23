@@ -26,7 +26,7 @@ export default async function PrivateToursPage() {
     );
 
     return (
-        <main className="min-h-screen bg-[#FDFFF5]">
+        <main className="min-h-screen bg-background">
             <Navbar />
 
             <CategoryHero

@@ -50,11 +50,11 @@ export default function ContactPage() {
     };
 
     return (
-        <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
+        <main className="min-h-screen bg-cream selection:bg-primary selection:text-white">
             <Navbar />
 
             {/* Header - Reduced padding for cleaner look */}
-            <div className="bg-olive pt-32 pb-20 text-center text-white relative overflow-hidden">
+            <div className="bg-primary pt-32 pb-20 text-center text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -79,10 +79,10 @@ export default function ContactPage() {
                         variants={fadeInUp}
                         className="space-y-8"
                     >
-                        <h2 className="text-3xl font-serif font-bold text-foreground border-b-2 border-olive/20 pb-4 inline-block">Get in Touch</h2>
+                        <h2 className="text-3xl font-serif font-bold text-foreground border-b-2 border-primary/20 pb-4 inline-block">Get in Touch</h2>
                         <div className="space-y-8">
                             <div className="flex items-start space-x-6 group">
-                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
+                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                     <Mail className="w-6 h-6" />
                                 </div>
                                 <div>
@@ -93,7 +93,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="flex items-start space-x-6 group">
-                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
+                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                     <Phone className="w-6 h-6" />
                                 </div>
                                 <div>
@@ -104,7 +104,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="flex items-start space-x-6 group">
-                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-olive/10 flex items-center justify-center shrink-0 group-hover:bg-olive group-hover:text-white transition-all duration-300">
+                                <div className="w-14 h-14 bg-card rounded-2xl shadow-sm border border-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-300">
                                     <MapPin className="w-6 h-6" />
                                 </div>
                                 <div>
@@ -124,7 +124,7 @@ export default function ContactPage() {
                         className="bg-card p-8 md:p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-border relative overflow-hidden"
                     >
                         {/* Decorative background element */}
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-olive/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
                         <form className="space-y-5 relative z-10" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-2 gap-5">
@@ -134,7 +134,7 @@ export default function ContactPage() {
                                         name="firstName"
                                         required
                                         type="text"
-                                        className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-foreground"
+                                        className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-primary/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-primary/10/10 outline-none transition-all font-medium text-foreground"
                                         placeholder="John"
                                         value={formData.firstName}
                                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
@@ -145,7 +145,7 @@ export default function ContactPage() {
                                     <input
                                         name="lastName"
                                         type="text"
-                                        className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-foreground"
+                                        className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-primary/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-primary/10/10 outline-none transition-all font-medium text-foreground"
                                         placeholder="Doe"
                                         value={formData.lastName}
                                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
@@ -158,7 +158,7 @@ export default function ContactPage() {
                                     name="email"
                                     required
                                     type="email"
-                                    className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-foreground"
+                                    className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-primary/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-primary/10/10 outline-none transition-all font-medium text-foreground"
                                     placeholder="john@example.com"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -179,7 +179,7 @@ export default function ContactPage() {
                                     name="message"
                                     required
                                     rows={4}
-                                    className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-olive/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-olive/10 outline-none transition-all font-medium text-foreground resize-none"
+                                    className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-primary/20 rounded-xl focus:bg-card focus:ring-4 focus:ring-primary/10/10 outline-none transition-all font-medium text-foreground resize-none"
                                     placeholder="How can we help you?"
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -188,7 +188,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full bg-emerald-800 hover:bg-emerald-900 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-emerald-900/20 transform hover:-translate-y-1 transition-all  tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-primary/20 transform hover:-translate-y-1 transition-all tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? 'Sending...' : t('contact.btn.submit')}
                             </button>

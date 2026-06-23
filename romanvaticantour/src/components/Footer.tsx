@@ -13,24 +13,24 @@ import PaymentLogos from './PaymentLogos';
 // Category mapping with icons and descriptions
 const categoryLinks = [
     {
-        id: 'colosseum',
-        href: '/category/colosseum',
-        translationKey: 'footer.colosseum'
-    },
-    {
         id: 'vatican',
         href: '/category/vatican',
-        translationKey: 'footer.vatican'
+        label: 'Vatican Tours'
+    },
+    {
+        id: 'colosseum',
+        href: '/category/colosseum',
+        label: 'Colosseum Tours'
     },
     {
         id: 'city',
         href: '/category/city',
-        translationKey: 'footer.city'
+        label: 'City Sights'
     },
     {
-        id: 'hidden-gems',
-        href: '/category/hidden-gems',
-        translationKey: 'footer.hidden'
+        id: 'private',
+        href: '/search?type=Private',
+        label: 'Private Tours'
     },
 ];
 
@@ -63,8 +63,8 @@ export default function Footer() {
     const shareCapital = businessInfo?.shareCapital;
 
     // Contact info
-    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'Hmabdul845@gmail.com';
-    const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 389 521 7315';
+    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || '';
+    const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '';
     const officeAddress = site?.officeAddress || 'Via Germanico, 28, Rome, Italy';
 
     // Social links
@@ -72,7 +72,7 @@ export default function Footer() {
     const hasSocialLinks = socialLinks && (socialLinks.facebook || socialLinks.instagram || socialLinks.twitter);
 
     return (
-        <footer className="bg-[#413c33] text-stone-300 selection:bg-primary selection:text-white">
+        <footer className="bg-foreground/90 text-stone-300 selection:bg-primary selection:text-white">
             <Newsletter />
 
             {/* Main Footer */}
@@ -84,15 +84,15 @@ export default function Footer() {
                         <div className="space-y-8">
                             <Link href="/" className="inline-block group">
                                 {site?.logo ? (
-                                    <img src={urlFor(site.logo).url()} alt={site.title || 'Roman Vatican Tour'} className="h-10 w-auto object-contain" />
+                                    <Image src={urlFor(site.logo).url()} alt={site.title || 'Roman Vatican Tour'} width={120} height={40} className="h-10 w-auto object-contain" />
                                 ) : (
-                                    <span className="text-2xl font-serif font-bold tracking-tight text-white">
-                                        ROMAN<span className="text-accent ">VATICAN</span>
+                                    <span className="text-2xl font-serif font-bold tracking-tight text-white uppercase">
+                                        ROMAN <span className="text-primary ">VATICAN</span>
                                     </span>
                                 )}
                             </Link>
-                            <p className="text-stone-400 text-sm leading-relaxed max-w-xs font-sans">
-                                {site?.seo?.metaDescription || 'Skip-the-line Vatican & Rome tours. Expert guides, instant confirmation, unforgettable experiences.'}
+                            <p className="text-stone-400 text-sm leading-relaxed max-w-xs font-sans italic">
+                                "{site?.seo?.metaDescription || 'Excellence in Roman hospitality. Skip-the-line Vatican & Colosseum tours with expert licensed guides.'}"
                             </p>
 
                              {/* Social Links - SaaS Style */}
@@ -100,15 +100,15 @@ export default function Footer() {
                                 {/* Fallback/Static Links (if no dynamic ones exist) */}
                                 {!hasSocialLinks && (
                                     <>
-                                        <Link href="/" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
+                                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Facebook size={18} />
-                                        </Link>
-                                        <Link href="/" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
+                                        </a>
+                                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Instagram size={18} />
-                                        </Link>
-                                        <Link href="/" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
+                                        </a>
+                                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="w-10 h-10 rounded-2xl bg-card/5 flex items-center justify-center text-stone-400 hover:bg-primary hover:text-white transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-primary/50">
                                             <Twitter size={18} />
-                                        </Link>
+                                        </a>
                                     </>
                                 )}
 
@@ -133,7 +133,7 @@ export default function Footer() {
 
                         {/* Explore Categories */}
                         <div>
-                            <h4 className="font-bold text-white mb-8  tracking-widest text-[10px] font-sans">
+                            <h4 className="font-bold text-white mb-8 tracking-widest text-xs font-sans">
                                 Platform
                             </h4>
                             <ul className="space-y-4 text-sm text-stone-400 font-sans">
@@ -143,7 +143,7 @@ export default function Footer() {
                                             href={category.href}
                                             className="hover:text-primary transition-colors flex items-center group"
                                         >
-                                            {t(category.translationKey)}
+                                            {category.label}
                                         </Link>
                                     </li>
                                 ))}
@@ -152,7 +152,7 @@ export default function Footer() {
 
                         {/* Support Links */}
                         <div>
-                            <h4 className="font-bold text-white mb-8  tracking-widest text-[10px] font-sans">
+                            <h4 className="font-bold text-white mb-8 tracking-widest text-xs font-sans">
                                 Resources
                             </h4>
                             <ul className="space-y-4 text-sm text-stone-400 font-sans">
@@ -179,7 +179,7 @@ export default function Footer() {
 
                         {/* Contact Info */}
                         <div>
-                            <h4 className="font-bold text-white mb-8  tracking-widest text-[10px] font-sans">
+                            <h4 className="font-bold text-white mb-8 tracking-widest text-xs font-sans">
                                 Support
                             </h4>
                             <ul className="space-y-5 text-sm text-stone-400 mb-10 font-sans">
@@ -189,7 +189,7 @@ export default function Footer() {
                                 </li>
                                 <li className="flex items-center space-x-4">
                                     <Phone size={18} className="text-primary shrink-0" />
-                                    <span>{contactPhone || '+39 06 1122 3344'}</span>
+                                    <span>{contactPhone}</span>
                                 </li>
                                 <li className="flex items-center space-x-4">
                                     <Mail size={18} className="text-primary shrink-0" />
@@ -201,14 +201,14 @@ export default function Footer() {
 
                             {/* Trust Badges */}
                             <div className="flex items-center gap-6 pt-6 border-t border-stone-800/50">
-                                <img src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" className="h-8 w-auto opacity-50 hover:opacity-100 transition-all duration-300" />
+                                <Image src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" width={80} height={32} className="h-8 w-auto opacity-50 hover:opacity-100 transition-all duration-300" />
                                 <div className="h-8 w-px bg-stone-800" />
-                                <p className="text-[10px] text-stone-500  tracking-widest font-bold font-sans">Powered by RomanVatican Engine</p>
+                                <p className="text-[10px] text-stone-500 tracking-widest font-bold font-sans">Powered by RomanVatican Engine</p>
                             </div>
 
                             {/* Payment logos */}
                             <div className="mt-8 pt-8 border-t border-stone-800/50">
-                                <p className="font-sans text-[10px]  tracking-widest text-stone-500 mb-4 font-bold">Secure Transfer</p>
+                                <p className="font-sans text-[11px] tracking-widest text-stone-500 mb-4 font-bold">Secure Transfer</p>
                                 <div className="opacity-80 hover:grayscale hover:opacity-100 transition-all">
                                     <PaymentLogos size="sm" />
                                 </div>
@@ -217,7 +217,7 @@ export default function Footer() {
                     </div>
 
                     {/* Bottom Bar */}
-                    <div className="border-t border-stone-800/50 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-[11px] text-stone-500 font-sans">
+                    <div className="border-t border-stone-800/50 pt-10 flex flex-col md:flex-row items-center justify-between gap-8 text-[12px] text-stone-500 font-sans">
                         <div className="flex flex-col gap-4">
                             <p>&copy; {currentYear} {site?.title || 'Roman Vatican Tour'}. All rights reserved.</p>
                         </div>

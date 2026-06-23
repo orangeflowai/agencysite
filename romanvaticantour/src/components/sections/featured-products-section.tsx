@@ -25,7 +25,7 @@ export function FeaturedProductsSection({ tours }: FeaturedProductsSectionProps)
 
   if (featuredTours.length === 0) {
     return (
-      <section id="vatican" className="bg-background">
+      <section id="tours" className="bg-background">
         <div className="px-6 py-20 text-center md:px-12 md:py-28 lg:px-20 lg:py-32">
           <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
             Curated Experiences.
@@ -41,7 +41,7 @@ export function FeaturedProductsSection({ tours }: FeaturedProductsSectionProps)
   }
 
   return (
-    <section id="vatican" className="bg-background">
+    <section id="tours" className="bg-background">
       {/* Section Title */}
       <div className="px-6 py-20 text-center md:px-12 md:py-28 lg:px-20 lg:py-32 lg:pb-20">
         <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">

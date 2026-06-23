@@ -34,6 +34,9 @@
   /* Vatican purple accent */
   --vatican-purple: #5B2C6F;
   --vatican-gold: #D4AF37;
+  --cream: #FDFBF7;
+  --olive: #5B6B4D;
+  --olive-light: #7A8B6D;
 }
 
 .dark {
@@ -92,6 +95,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-cream: var(--cream);
+  --color-olive: var(--olive);
+  --color-olive-light: var(--olive-light);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
