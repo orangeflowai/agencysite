@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { FadeImage } from "@/components/fade-image";
 
 const stats = [
@@ -55,7 +56,7 @@ export function EditorialSection() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {articles.map((article, idx) => (
-            <div key={idx} className="group cursor-pointer">
+            <Link key={idx} href="/blog" className="group cursor-pointer block">
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl mb-4">
                 <FadeImage
                   src={article.image}
@@ -70,7 +71,7 @@ export function EditorialSection() {
               <h3 className="text-lg font-medium text-foreground group-hover:underline">
                 {article.title}
               </h3>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

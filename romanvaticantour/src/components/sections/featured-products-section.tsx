@@ -32,9 +32,20 @@ export function FeaturedProductsSection({ tours }: FeaturedProductsSectionProps)
             <br />
             Unforgettable Memories.
           </h2>
-          <p className="mx-auto mt-6 max-w-md text-sm text-muted-foreground">
-            No tours available at the moment
+          <p className="mx-auto mt-6 max-w-lg text-base text-muted-foreground">
+            We&apos;re preparing our exclusive collection of skip-the-line Vatican, Colosseum, and Rome tours.
           </p>
+          <div className="mt-10 flex flex-wrap gap-4 justify-center">
+            <Link href="/category/vatican" className="px-6 py-3 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              Vatican Tours
+            </Link>
+            <Link href="/category/colosseum" className="px-6 py-3 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              Colosseum Tours
+            </Link>
+            <Link href="/category/city" className="px-6 py-3 bg-primary text-white rounded-full text-sm font-medium hover:bg-primary/90 transition-colors">
+              City Tours
+            </Link>
+          </div>
         </div>
       </section>
     );

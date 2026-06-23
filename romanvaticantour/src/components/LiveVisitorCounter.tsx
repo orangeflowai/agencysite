@@ -23,24 +23,15 @@ export default function LiveVisitorCounter() {
 
   return (
     <div
-      }
-      }
       className="inline-flex items-center gap-2 bg-card/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md border border-border"
     >
-      <div
-        }
-        }
-      >
+      <div>
         <Eye className="w-4 h-4 text-sky-600" />
       </div>
       <div className="flex items-center gap-1">
         
           <span
             key={count}
-            }
-            }
-            }
-            }
             className="font-semibold text-foreground"
           >
             {count}

@@ -59,10 +59,6 @@ export default function SaaSTourGrid({ title, subtitle, tours, link, dark = fals
                         return (
                             <div
                                 key={tour._id}
-                                }
-                                }
-                                viewport={{ once: true, margin: '-50px' }}
-                                }
                                 className={`group flex flex-col rounded-3xl border overflow-hidden transition-all duration-500 hover:-translate-y-2 ${
                                     dark
                                         ? 'bg-neutral-900/80 backdrop-blur-sm border-neutral-800 hover:border-neutral-700 hover:shadow-[0_20px_60px_rgba(14,165,233,0.1)]'

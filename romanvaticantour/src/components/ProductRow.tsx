@@ -46,29 +46,17 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div className="max-w-3xl">
                         <div
-                            }
-                            }
-                            viewport={{ once: true }}
-                            }
                             className={`text-[8px] font-bold px-4 py-1.5 rounded-full inline-block  tracking-[0.25em] mb-6 shadow-sm ${dark ? 'bg-card/10 text-white' : 'bg-primary text-white'}`}
                         >
                             Exclusive Routes
                         </div>
                         <h2
-                            }
-                            }
-                            viewport={{ once: true }}
-                            }
                             className={`text-4xl md:text-6xl font-serif font-bold mb-6 tracking-tight leading-[0.95]   ${dark ? 'text-white' : 'text-primary'}`}
                         >
                             {title}
                         </h2>
                         {subtitle && (
                             <p
-                                }
-                                }
-                                viewport={{ once: true }}
-                                }
                                 className={`text-lg md:text-xl font-sans font-bold  tracking-widest opacity-60 leading-relaxed max-w-xl`}
                             >
                                 {subtitle}
@@ -78,10 +66,6 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                     
                     {link && (
                         <div
-                            }
-                            }
-                            viewport={{ once: true }}
-                            }
                         >
                             <Link href={link} className={`inline-flex items-center gap-2 font-bold  tracking-[0.2em] text-[8px] transition-colors group ${dark ? 'text-white hover:text-white/60' : 'text-primary hover:text-primary/60'}`}>
                                 <span>Browse category</span>
@@ -111,10 +95,6 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                     {tours.map((tour, index) => (
                         <div 
                             key={tour._id || tour.id} 
-                            }
-                            }
-                            viewport={{ once: true }}
-                            }
                             className="w-[85vw] md:w-[416px] shrink-0"
                         >
                             <TourCard tour={tour} />

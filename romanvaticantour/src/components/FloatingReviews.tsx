@@ -45,9 +45,6 @@ export default function FloatingReviews() {
         {reviews.map((review) => (
           <div
             key={review.id}
-            }
-            }
-            }
             className="bg-card backdrop-blur-sm rounded-2xl p-4 shadow-lg max-w-xs border border-border"
           >
             <div className="flex items-center gap-3 mb-2">

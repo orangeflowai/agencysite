@@ -45,18 +45,12 @@ export default function LoadingWithFacts() {
       {/* Animated spinner */}
       <div
         className="w-16 h-16 border-4 border-sky-200 border-t-sky-600 rounded-full mb-6"
-        }
-        }
       />
 
       {/* Fact display */}
       
         <div
           key={fact}
-          }
-          }
-          }
-          }
           className="text-center max-w-md"
         >
           <p className="text-sm text-muted-foreground mb-2">Did you know?</p>

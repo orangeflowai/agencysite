@@ -42,8 +42,6 @@ export default function MagneticButton({
       onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      }
-      }
     >
       {children}
     </button>

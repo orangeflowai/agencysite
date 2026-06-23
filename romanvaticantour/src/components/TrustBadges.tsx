@@ -49,10 +49,6 @@ export default function TrustBadges() {
                     {badges.map(({ Icon, label, sub, gradient, ring, iconBg, iconColor }, i) => (
                         <div
                             key={label}
-                            }
-                            }
-                            viewport={{ once: true }}
-                            }
                             className={`group relative flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br ${gradient} ring-1 ${ring} backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-sky-500/5 cursor-default`}
                         >
                             {/* Subtle animated glow on hover */}

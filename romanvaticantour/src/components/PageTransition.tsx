@@ -22,10 +22,6 @@ export default function PageTransition({ children }: { children: React.ReactNode
     
       <div
         key={pathname}
-        }
-        }
-        }
-        }
         className="w-full bg-card origin-top"
       >
         <FrozenRouter>{children}</FrozenRouter>

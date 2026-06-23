@@ -3,6 +3,8 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+type Variants = Record<string, Record<string, unknown>>;
+
 export default function CurveTransition({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });

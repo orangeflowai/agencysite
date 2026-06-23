@@ -10,10 +10,6 @@ export default function SplitText({ children, className, style }: { children: st
       {words.map((word, i) => (
         <div key={i} className="overflow-hidden mr-[0.25em]">
           <span
-            }
-            }
-            viewport={{ once: true }}
-            }
             className="inline-block"
           >
             {word}

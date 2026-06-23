@@ -14,19 +14,12 @@ export default function SaaSBentoFeatures() {
             <div className="container mx-auto px-6 md:px-12 relative z-10">
                 <div className="max-w-3xl mb-16">
                     <div
-                        }
-                        }
-                        viewport={{ once: true }}
                     >
                         <h2 className="text-xs font-bold tracking-[0.3em] text-theme-primary  mb-3 px-4 py-1.5 bg-sky-50 inline-block rounded-full border border-sky-100">
                             The Premium Experience
                         </h2>
                     </div>
                     <h3 
-                        }
-                        }
-                        viewport={{ once: true }}
-                        }
                         className="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-950 leading-[1.1] tracking-tight mt-6"
                     >
                         Everything you need for the <span className="text-theme-primary">perfect</span> Roman holiday.
@@ -37,10 +30,6 @@ export default function SaaSBentoFeatures() {
                     
                     {/* Bento Block 1: Large Feature (spans 2 columns) */}
                     <div 
-                        }
-                        }
-                        viewport={{ once: true }}
-                        }
                         className="relative group col-span-1 lg:col-span-2 row-span-1 rounded-[2.5rem] bg-neutral-950 overflow-hidden shadow-2xl border border-white/10"
                     >
                         <Image 
@@ -62,10 +51,6 @@ export default function SaaSBentoFeatures() {
 
                     {/* Bento Block 2: Skip the Line */}
                     <div 
-                        }
-                        }
-                        viewport={{ once: true }}
-                        }
                         className="col-span-1 border border-neutral-200/60 rounded-[2.5rem] bg-card p-10 flex flex-col shadow-xl hover:shadow-2xl hover:border-sky-200 transition-all duration-500 relative overflow-hidden group"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-sky-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-sky-100 transition-colors"></div>
@@ -86,10 +71,6 @@ export default function SaaSBentoFeatures() {
 
                     {/* Bento Block 3: Easy Cancellation */}
                     <div 
-                        }
-                        }
-                        viewport={{ once: true }}
-                        }
                         className="col-span-1 border border-neutral-200/60 rounded-[2.5rem] bg-card p-10 flex flex-col shadow-xl hover:shadow-2xl hover:border-emerald-200 transition-all duration-500 relative overflow-hidden group"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-secondary rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-emerald-100 transition-colors"></div>
@@ -108,10 +89,6 @@ export default function SaaSBentoFeatures() {
 
                     {/* Bento Block 4: Instant Tickets */}
                     <div 
-                        }
-                        }
-                        viewport={{ once: true }}
-                        }
                         className="relative group col-span-1 lg:col-span-2 row-span-1 rounded-[2.5rem] bg-theme-primary overflow-hidden shadow-2xl transition-all duration-500"
                         style={{ background: 'linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%)' }}
                     >

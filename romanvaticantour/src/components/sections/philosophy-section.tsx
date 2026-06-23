@@ -1,11 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
 
 export function PhilosophySection() {
-  const router = useRouter();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [vaticanTranslateX, setVaticanTranslateX] = useState(-100);
   const [colosseumTranslateX, setColosseumTranslateX] = useState(100);
@@ -66,15 +65,15 @@ export function PhilosophySection() {
             {/* Tour Cards Grid */}
             <div className="relative z-10 grid grid-cols-1 gap-4 px-6 md:grid-cols-2 md:px-12 lg:px-20">
               {/* Vatican Tour */}
-              <div 
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer"
+              <Link
+                href="/category/vatican"
+                className="relative aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer block"
                 style={{
                   transform: `translate3d(${vaticanTranslateX}%, 0, 0)`,
                   WebkitTransform: `translate3d(${vaticanTranslateX}%, 0, 0)`,
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
-                onClick={() => router.push('/category/vatican')}
               >
                 <Image
                   src="/images/st-peters.jpg"
@@ -87,18 +86,18 @@ export function PhilosophySection() {
                     Vatican Tours — Explore Now →
                   </span>
                 </div>
-              </div>
+              </Link>
 
               {/* Colosseum Tour */}
-              <div 
-                className="relative aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer"
+              <Link
+                href="/category/colosseum"
+                className="relative aspect-[4/3] overflow-hidden rounded-2xl cursor-pointer block"
                 style={{
                   transform: `translate3d(${colosseumTranslateX}%, 0, 0)`,
                   WebkitTransform: `translate3d(${colosseumTranslateX}%, 0, 0)`,
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
-                onClick={() => router.push('/category/colosseum')}
               >
                 <Image
                   src="/images/colosseum-night.jpg"
@@ -111,7 +110,7 @@ export function PhilosophySection() {
                     Colosseum Tours — Explore Now →
                   </span>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useRef } from "react"
 import { v4 as uuidv4 } from "uuid"
+import { useAnimationControls } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 import { useDimensions } from "@/components/hooks/use-debounced-dimensions"
@@ -116,9 +117,6 @@ const PixelDot: React.FC<PixelDotProps> = React.memo(
           width: `${size}px`,
           height: `${size}px`,
         }}
-        }
-        
-        }
       />
     )
   }
