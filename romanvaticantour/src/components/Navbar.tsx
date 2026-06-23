@@ -29,8 +29,10 @@ export default function Navbar() {
     const navLinks = [
         { name: 'Vatican', href: '/category/vatican' },
         { name: 'Colosseum', href: '/category/colosseum' },
-        { name: 'Private Tours', href: '/category/hidden-gems' },
+        { name: 'Private Tours', href: '/private-tours' },
         { name: 'All Tours', href: '/search' },
+        { name: 'About', href: '/about' },
+        { name: 'Contact', href: '/contact' },
     ];
 
     const scrolled = isScrolled || isMobileMenuOpen;

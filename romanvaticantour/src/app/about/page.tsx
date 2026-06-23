@@ -17,7 +17,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-primary/5 opacity-40" />
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto text-center">
-                        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[8px] font-bold  tracking-[0.3em] mb-6">
+                        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[11px] font-bold tracking-[0.3em] mb-6">
                             Our Story
                         </span>
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading text-foreground mb-8">
@@ -126,7 +126,7 @@ export default function AboutPage() {
                         </div>
                     </div>
 
-                    <p className="mt-12 text-[8px] font-bold text-muted-foreground  tracking-[0.5em]">{siteName.toUpperCase()} // OFFICIAL ARCHIVES.</p>
+                    <p className="mt-12 text-[11px] font-boldtext-muted-foreground  tracking-[0.5em]">{siteName.toUpperCase()} // OFFICIAL ARCHIVES.</p>
                 </div>
             </section>
 
