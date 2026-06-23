@@ -45,7 +45,7 @@ export default function TourContent({ tour }: TourContentProps) {
                 {/* Overlay Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
                     <div className="max-w-4xl space-y-4 pointer-events-auto">
-                        <span className="bg-forest text-cream px-4 py-1.5 text-[10px] font-bold  tracking-tight">
+                        <span className="bg-forest text-cream px-4 py-1.5 text-[8px] font-bold  tracking-tight">
                             {translatedTour.category}
                         </span>
                         <h1 className="font-heading text-4xl md:text-6xl lg:text-8xl font-bold text-white drop-shadow-2xl  leading-[0.9]">
@@ -59,7 +59,7 @@ export default function TourContent({ tour }: TourContentProps) {
                                     <Star className="w-3 h-3 fill-gold text-gold" />
                                     <span className="font-heading  font-bold">{translatedTour.rating}</span>
                                 </div>
-                                <span className="font-body text-[10px] font-bold  tracking-tight opacity-80">
+                                <span className="font-body text-[8px] font-bold  tracking-tight opacity-80">
                                     {translatedTour.reviewCount || 0} {t('tour.reviews')}
                                 </span>
                             </div>
@@ -78,19 +78,19 @@ export default function TourContent({ tour }: TourContentProps) {
                             {translatedTour.duration && (
                                 <div className="flex items-center gap-2 text-secondary">
                                     <Clock className="w-4 h-4 text-secondary" />
-                                    <span className="font-body text-[11px] font-bold  tracking-tight">{translatedTour.duration}</span>
+                                    <span className="font-body text-[12px] font-bold  tracking-tight">{translatedTour.duration}</span>
                                 </div>
                             )}
                             {translatedTour.groupSize && (
                                 <div className="flex items-center gap-2 text-secondary">
                                     <Users className="w-4 h-4 text-secondary" />
-                                    <span className="font-body text-[11px] font-bold  tracking-tight">{translatedTour.groupSize}</span>
+                                    <span className="font-body text-[12px] font-bold  tracking-tight">{translatedTour.groupSize}</span>
                                 </div>
                             )}
                             {translatedTour.location && (
                                 <div className="flex items-center gap-2 text-secondary">
                                     <MapPin className="w-4 h-4 text-secondary" />
-                                    <span className="font-body text-[11px] font-bold  tracking-tight">{translatedTour.location}</span>
+                                    <span className="font-body text-[12px] font-bold  tracking-tight">{translatedTour.location}</span>
                                 </div>
                             )}
                         </div>
@@ -165,14 +165,14 @@ export default function TourContent({ tour }: TourContentProps) {
                                         </div>
                                         <div>
                                             <p className="text-secondary font-heading font-bold  text-lg leading-tight mb-2">{translatedTour.meetingPoint}</p>
-                                            <p className="text-[10px] text-secondary/40  tracking-tight font-bold">Please arrive 15 min early for check-in</p>
+                                            <p className="text-[8px] text-secondary/40  tracking-tight font-bold">Please arrive 15 min early for check-in</p>
                                         </div>
                                     </div>
                                     <a
                                         href={translatedTour.location || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(translatedTour.meetingPoint + ' Rome')}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="bg-forest text-cream px-10 py-4 font-bold text-[10px]  tracking-tight hover:bg-forest-light transition-all shrink-0 text-center shadow-lg shadow-forest/20"
+                                        className="bg-forest text-cream px-10 py-4 font-bold text-[8px]  tracking-tight hover:bg-forest-light transition-all shrink-0 text-center shadow-lg shadow-forest/20"
                                     >
                                         Dispatch Location
                                     </a>

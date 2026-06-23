@@ -4,7 +4,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import PhoneInput from '@/components/PhoneInput';
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -58,27 +57,24 @@ export default function ContactPage() {
             <div className="bg-foreground pt-48 pb-32 text-center text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
                 <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative z-10 container mx-auto px-4"
+                <div
+                    className="relative z-10 container mx-auto px-4 animate-fade-in"
                 >
                     <h1 className="text-5xl md:text-8xl font-heading mb-6">{t('contact.title')}</h1>
                     <p className="text-background/60 text-lg max-w-2xl mx-auto px-4 font-mono  tracking-tighter">
                         {t('contact.subtitle')}
                     </p>
-                </motion.div>
+                </div>
             </div>
 
             <div className="container mx-auto px-4 py-24">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 max-w-6xl mx-auto items-start">
 
                     {/* Contact Info */}
-                    <motion.div
-                        initial="initial"
-                        animate="animate"
-                        variants={fadeInUp}
+                    <div
+                        
+                        
+                        
                         className="space-y-12"
                     >
                         <div>
@@ -92,9 +88,9 @@ export default function ContactPage() {
                                     <Mail className="w-6 h-6 text-primary" />
                                 </div>
                                 <div>
-                                    <h3 className="font-mono text-[10px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Digital Terminal</h3>
-                                    <p className="text-xl font-bold text-foreground hover:text-primary transition-colors cursor-pointer">info@wondersofrome.com</p>
-                                    <p className="text-primary text-[10px] mt-2 font-bold  tracking-widest">Priority Queue</p>
+                                    <h3 className="font-mono text-[8px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Digital Terminal</h3>
+                                    <p className="text-xl font-bold text-foreground hover:text-primary transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</p>
+                                    <p className="text-primary text-[8px] mt-2 font-bold  tracking-widest">Priority Queue</p>
                                 </div>
                             </div>
 
@@ -103,9 +99,9 @@ export default function ContactPage() {
                                     <Phone className="w-6 h-6 text-primary" />
                                 </div>
                                 <div>
-                                    <h3 className="font-mono text-[10px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Voice Protocol</h3>
-                                    <p className="text-xl font-bold text-foreground">+39 351 419 9425</p>
-                                    <p className="text-muted-foreground text-[10px] mt-2 font-bold  tracking-widest">MON-SUN // 09:00 - 18:00 CET</p>
+                                    <h3 className="font-mono text-[8px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Voice Protocol</h3>
+                                    <p className="text-xl font-bold text-foreground">{process.env.NEXT_PUBLIC_SUPPORT_PHONE || ''}</p>
+                                    <p className="text-muted-foreground text-[8px] mt-2 font-bold  tracking-widest">MON-SUN // 09:00 - 18:00 CET</p>
                                 </div>
                             </div>
 
@@ -114,19 +110,16 @@ export default function ContactPage() {
                                     <MapPin className="w-6 h-6 text-primary" />
                                 </div>
                                 <div>
-                                    <h3 className="font-mono text-[10px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Physical Archive</h3>
+                                    <h3 className="font-mono text-[8px] font-bold  tracking-[0.2em] text-muted-foreground mb-2">Physical Archive</h3>
                                     <p className="text-xl font-bold text-foreground">Via Tunisi 43, Rome, Italy</p>
-                                    <p className="text-muted-foreground text-[10px] mt-2 font-bold  tracking-widest">Near St. Peter&apos;s Square</p>
+                                    <p className="text-muted-foreground text-[8px] mt-2 font-bold  tracking-widest">Near St. Peter&apos;s Square</p>
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Contact Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                    <div
                         className="bg-card p-10 md:p-12 rounded-[3rem] border border-border shadow-2xl relative overflow-hidden"
                     >
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
@@ -134,7 +127,7 @@ export default function ContactPage() {
                         <form className="space-y-8 relative z-10" onSubmit={handleSubmit}>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">{t('contact.form.name')}</label>
+                                    <label className="block text-[8px] font-bold text-muted-foreground  tracking-widest">{t('contact.form.name')}</label>
                                     <input
                                         name="firstName"
                                         required
@@ -146,7 +139,7 @@ export default function ContactPage() {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">Last Name</label>
+                                    <label className="block text-[8px] font-bold text-muted-foreground  tracking-widest">Last Name</label>
                                     <input
                                         name="lastName"
                                         type="text"
@@ -159,7 +152,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">Email Address</label>
+                                <label className="block text-[8px] font-bold text-muted-foreground  tracking-widest">Email Address</label>
                                 <input
                                     name="email"
                                     required
@@ -172,7 +165,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">Phone Connection</label>
+                                <label className="block text-[8px] font-bold text-muted-foreground  tracking-widest">Phone Connection</label>
                                 <PhoneInput
                                     value={formData.phone}
                                     onChange={(val) => setFormData({ ...formData, phone: val })}
@@ -180,7 +173,7 @@ export default function ContactPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="block text-[10px] font-bold text-muted-foreground  tracking-widest">Inquiry Message</label>
+                                <label className="block text-[8px] font-bold text-muted-foreground  tracking-widest">Inquiry Message</label>
                                 <textarea
                                     name="message"
                                     required
@@ -206,7 +199,7 @@ export default function ContactPage() {
                                 )}
                             </button>
                         </form>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
 

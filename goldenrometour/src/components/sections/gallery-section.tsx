@@ -12,12 +12,12 @@ export function GallerySection() {
   const rafRef = useRef<number | null>(null);
 
   const images = [
-    { src: "/images/vatican-sistine.jpg",   alt: "Sistine Chapel Michelangelo ceiling",   title: "Sistine Chapel",      href: "/#vatican" },
-    { src: "/images/st-peters.jpg",         alt: "St. Peter's Basilica dome",             title: "St. Peter's Basilica", href: "/#vatican" },
-    { src: "/images/1.jpg",                 alt: "Vatican Museums galleries",             title: "Vatican Museums",     href: "/#vatican" },
-    { src: "/images/2.jpg",                 alt: "Raphael Rooms frescoes",                title: "Raphael Rooms",       href: "/#vatican" },
-    { src: "/images/3.jpg",                 alt: "Vatican Gardens",                       title: "Vatican Gardens",     href: "/#vatican" },
-    { src: "/images/4.jpg",                 alt: "Papal Basilica interior",               title: "Papal Basilica",      href: "/#vatican" },
+    { src: "https://images.pexels.com/photos/3874600/pexels-photo-3874600.jpeg?auto=compress&cs=tinysrgb&w=1200", alt: "Sistine Chapel Michelangelo ceiling",   title: "Sistine Chapel",       href: "/#tours" },
+    { src: "https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=1200", alt: "Vatican Museums galleries",             title: "Vatican Museums",      href: "/#tours" },
+    { src: "https://images.pexels.com/photos/2422461/pexels-photo-2422461.jpeg?auto=compress&cs=tinysrgb&w=1200", alt: "St. Peter's Basilica dome",             title: "St. Peter's Basilica", href: "/#tours" },
+    { src: "https://images.pexels.com/photos/532263/pexels-photo-532263.jpeg?auto=compress&cs=tinysrgb&w=1200",   alt: "Colosseum Rome at golden hour",         title: "Eternal Rome",         href: "/#tours" },
+    { src: "https://images.pexels.com/photos/1174136/pexels-photo-1174136.jpeg?auto=compress&cs=tinysrgb&w=1200", alt: "Roman Forum ancient ruins",             title: "Ancient History",      href: "/#tours" },
+    { src: "https://images.pexels.com/photos/1797158/pexels-photo-1797158.jpeg?auto=compress&cs=tinysrgb&w=1200", alt: "Trevi Fountain Rome",                   title: "Trevi Fountain",       href: "/#tours" },
   ];
 
   useEffect(() => {

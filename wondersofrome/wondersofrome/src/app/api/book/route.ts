@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
@@ -48,7 +49,7 @@ export async function POST(request: Request) {
                                 
                                 <p style="color: #666;">Please arrive 15 minutes before your scheduled time. Remember to bring a valid ID and dress appropriately (shoulders and knees covered).</p>
                                 
-                                <p>Questions? Contact us at <a href="mailto:info@wondersofrome.com">info@wondersofrome.com</a></p>
+                                <p>Questions? Contact us at <a href="mailto:info@wondersofrome.com">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</a></p>
                             </div>
                             <div style="background: #333; padding: 20px; text-align: center; color: #999; font-size: 12px;">
                                 © 2026 wondersofrome.com. All rights reserved.

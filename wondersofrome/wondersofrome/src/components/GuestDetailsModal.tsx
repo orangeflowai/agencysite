@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from 'react';
 import { X, User, FileText } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface GuestValues {
     [key: string]: string; // "guest_1_name": "John", "guest_1_passport": "A123"
@@ -65,13 +64,10 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
     };
 
     return (
-        <AnimatePresence>
+        <>
             {isOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
+                    <div
                         className="bg-card w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
                     >
                         {/* Header */}
@@ -139,9 +135,9 @@ export default function GuestDetailsModal({ isOpen, onClose, onSubmit, guestCoun
                                 Confirm & Pay
                             </button>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             )}
-        </AnimatePresence>
+        </>
     );
 }

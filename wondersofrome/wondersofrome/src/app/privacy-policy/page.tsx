@@ -112,7 +112,7 @@ export default function PrivacyPolicy() {
                     </ul>
 
                     <h3 id="deletion" className="text-2xl font-bold text-foreground mt-12">10. Can I delete my Personal Data from Wonders of Rome?</h3>
-                    <p>Please write an email to <a href="mailto:info@wondersofrome.com" className="text-emerald-700 font-bold hover:underline">info@wondersofrome.com</a> with your name, email address, and phone number to request removal. We will require identity verification before processing the request.</p>
+                    <p>Please write an email to <a href="mailto:info@wondersofrome.com" className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</a> with your name, email address, and phone number to request removal. We will require identity verification before processing the request.</p>
 
                     <h3 id="children" className="text-2xl font-bold text-foreground mt-12">11. Children’s Online Privacy Protection</h3>
                     <p>We comply with COPPA. Our Service does not address anyone under the age of 18. If we discover a child under 18 has provided us with Personal Information, we will delete it immediately.</p>
@@ -121,7 +121,7 @@ export default function PrivacyPolicy() {
                     <p>We may update this policy from time to time. We will notify you by posting the new Privacy Policy on this page. Changes are effective immediately upon posting.</p>
 
                     <h3 id="contact" className="text-2xl font-bold text-foreground mt-12">13. Contact Information & Feedback</h3>
-                    <p>If you wish to modify, correct, or delete your personal information, please contact us at <a href="mailto:info@wondersofrome.com" className="text-emerald-700 font-bold hover:underline">info@wondersofrome.com</a>.</p>
+                    <p>If you wish to modify, correct, or delete your personal information, please contact us at <a href="mailto:info@wondersofrome.com" className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</a>.</p>
                     <p>For our full contact info, visit: <a href="/contact" className="text-emerald-700 font-bold hover:underline">https://wondersofrome.com/contact/</a></p>
                 </div>
             </div>

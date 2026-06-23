@@ -58,13 +58,15 @@ async function getToken(): Promise<string> {
   const password = process.env.PAYLOAD_API_PASSWORD || 'SuperAdmin2025!'
 
   try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 5000) // 5s timeout on auth
     const res = await fetch(`${PAYLOAD_URL}/api/users/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
-      // Do NOT use cache: 'no-store' here — it breaks static rendering in Next.js 15+
-      // Token is cached in module-level variable with expiry check above
+      signal: controller.signal,
     })
+    clearTimeout(timeout)
     if (!res.ok) throw new Error(`Auth failed: ${res.status}`)
     const data = await res.json()
     _token = data.token
@@ -198,6 +200,152 @@ function mapSite(doc: any): Site {
 }
 
 // ── Public API ────────────────────────────────────────────────────────────────
+
+export interface InventorySlot {
+  id: string;
+  tour_slug: string;
+  date: string;
+  time: string;
+  available_slots: number;
+  total_slots?: number;
+  price_override?: number;
+}
+
+export async function getInventory(start: string, end: string): Promise<InventorySlot[]> {
+  const dateStart = `${start}T00:00:00.000Z`;
+  const dateEnd = `${end}T23:59:59.999Z`;
+
+  const data = await payloadFetch('/inventory', {
+    'where[tenant][equals]': DEFAULT_SITE_ID,
+    'where[date][greater_than_equal]': dateStart,
+    'where[date][less_than_equal]': dateEnd,
+    'limit': '1000',
+    'depth': '1', // To get tour slug
+  });
+
+  return (data?.docs || []).map((doc: any) => ({
+    id: String(doc.id),
+    tour_slug: doc.tour?.slug || '',
+    date: typeof doc.date === 'string' ? doc.date.slice(0, 10) : '',
+    time: doc.time,
+    available_slots: doc.availableSlots || 0,
+    total_slots: doc.totalSlots || 0,
+    price_override: doc.priceOverride,
+  }));
+}
+
+export async function updateInventorySlot(id: string, updates: Partial<InventorySlot>): Promise<InventorySlot | null> {
+  const token = await getToken();
+  const payload: any = {};
+  if (updates.available_slots !== undefined) payload.availableSlots = updates.available_slots;
+  if (updates.price_override !== undefined) payload.priceOverride = updates.price_override;
+  // Always ensure tenant is present on update if possible, though Payload usually preserves it
+  payload.tenant = DEFAULT_SITE_ID;
+
+  try {
+    const res = await fetch(`${PAYLOAD_URL}/api/inventory/${id}?depth=1`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+        const errText = await res.text();
+        console.error(`[payloadService] PATCH /inventory/${id} failed:`, res.status, errText);
+        return null;
+    }
+    const data = await res.json();
+    const doc = data.doc || data; // Handle both nested and flat responses
+    return {
+      id: String(doc.id),
+      tour_slug: doc.tour?.slug || doc.tour || '',
+      date: typeof doc.date === 'string' ? doc.date.slice(0, 10) : '',
+      time: doc.time,
+      available_slots: doc.availableSlots || 0,
+      price_override: doc.priceOverride,
+    };
+  } catch (err) {
+    console.error(`[payloadService] PATCH /inventory/${id} exception:`, err);
+    return null;
+  }
+}
+
+export async function createInventorySlot(slot: Omit<InventorySlot, 'id'>): Promise<InventorySlot | null> {
+  const token = await getToken();
+  
+  // First, find the tour ID by slug
+  const tourRes = await payloadFetch('/tours', {
+    'where[slug][equals]': slot.tour_slug,
+    'limit': '1',
+    'depth': '0'
+  });
+  const tourId = tourRes?.docs?.[0]?.id;
+  if (!tourId) {
+      console.error(`[payloadService] Create slot failed: Tour not found for slug ${slot.tour_slug}`);
+      return null;
+  }
+
+  const payload = {
+    tour: tourId,
+    date: `${slot.date}T12:00:00.000Z`, 
+    time: slot.time,
+    availableSlots: slot.available_slots,
+    totalSlots: slot.total_slots || slot.available_slots,
+    priceOverride: slot.price_override,
+    tenant: DEFAULT_SITE_ID,
+  };
+
+  try {
+    const res = await fetch(`${PAYLOAD_URL}/api/inventory?depth=1`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+        const errText = await res.text();
+        console.error(`[payloadService] POST /inventory failed:`, res.status, errText);
+        return null;
+    }
+    const data = await res.json();
+    const doc = data.doc || data;
+    return {
+      id: String(doc.id),
+      tour_slug: slot.tour_slug,
+      date: slot.date,
+      time: doc.time,
+      available_slots: doc.availableSlots || 0,
+      price_override: doc.priceOverride,
+    };
+  } catch (err) {
+    console.error(`[payloadService] POST /inventory exception:`, err);
+    return null;
+  }
+}
+
+export async function deleteInventorySlot(id: string): Promise<boolean> {
+  const token = await getToken();
+  try {
+    const res = await fetch(`${PAYLOAD_URL}/api/inventory/${id}`, {
+      method: 'DELETE',
+      headers: {
+        ...(token && { Authorization: `Bearer ${token}` }),
+      },
+    });
+    if (!res.ok) {
+        const errText = await res.text();
+        console.error(`[payloadService] DELETE /inventory/${id} failed:`, res.status, errText);
+    }
+    return res.ok;
+  } catch (err) {
+    console.error(`[payloadService] DELETE /inventory/${id} exception:`, err);
+    return false;
+  }
+}
 
 export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
   const data = await payloadFetch('/tours', {

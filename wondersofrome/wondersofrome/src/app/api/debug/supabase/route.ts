@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
     try {
         const { data, error } = await supabase
-            .from('inventory')
+            .from('tour_slots')
             .select('id')
             .limit(1);
 

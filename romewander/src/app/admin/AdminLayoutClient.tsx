@@ -22,7 +22,6 @@ import {
     Search
 } from 'lucide-react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import SiteSwitcher from '@/components/admin/SiteSwitcher';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -56,10 +55,10 @@ function NavLink({ href, icon: Icon, children, external, onClick }: NavLinkProps
             target={external ? "_blank" : undefined}
         >
             {isActive && (
-                <motion.div
-                    layoutId="active-pill"
+                <div
+                    
                     className="absolute left-0 w-1 h-6 bg-primary rounded-r-full"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    }
                 />
             )}
             <Icon size={18} className={cn(
@@ -74,7 +73,7 @@ function NavLink({ href, icon: Icon, children, external, onClick }: NavLinkProps
 
 function Sidebar({ onClose }: { onClose?: () => void }) {
     return (
-        <div className="flex flex-col h-full bg-[#09090b] text-white">
+        <div className="flex flex-col h-full bg-card text-white">
             {/* Mobile Header */}
             <div className="lg:hidden flex items-center justify-between p-6 border-b border-white/5">
                 <div className="flex items-center gap-3">
@@ -101,7 +100,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Management</div>
+                    <div className="text-[8px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Management</div>
                     <div className="space-y-1">
                         <NavLink href="/admin" icon={LayoutDashboard} onClick={onClose}>Overview</NavLink>
                         <NavLink href="/admin/bookings" icon={Calendar} onClick={onClose}>Reservations</NavLink>
@@ -109,7 +108,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Inventory</div>
+                    <div className="text-[8px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Inventory</div>
                     <div className="space-y-1">
                         <NavLink href="/admin/products" icon={Package} onClick={onClose}>Tours & Products</NavLink>
                         <NavLink href="/admin/addons" icon={Store} onClick={onClose}>Add-ons & Extras</NavLink>
@@ -119,7 +118,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Finance & CMS</div>
+                    <div className="text-[8px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Finance & CMS</div>
                     <div className="space-y-1">
                         <NavLink href="/admin/payments" icon={Wallet} onClick={onClose}>Revenue Hub</NavLink>
                         <NavLink href="/studio" icon={ExternalLink} external onClick={onClose}>Content Studio</NavLink>
@@ -127,7 +126,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Configuration</div>
+                    <div className="text-[8px] font-bold text-zinc-500 uppercase tracking-[0.2em] px-3 mb-4">Configuration</div>
                     <div className="space-y-1">
                         <NavLink href="/admin/users" icon={Users} onClick={onClose}>Team Directory</NavLink>
                         <NavLink href="/admin/settings" icon={Settings} onClick={onClose}>Global Settings</NavLink>
@@ -169,7 +168,7 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
                 <div className="hidden lg:flex items-center gap-2 text-zinc-400 bg-zinc-100/50 px-3 py-1.5 rounded-full border border-zinc-200/50 cursor-pointer hover:bg-zinc-100 transition-colors">
                     <Search size={16} />
                     <span className="text-xs font-medium">Search anything...</span>
-                    <span className="text-[10px] bg-white border border-zinc-200 px-1.5 rounded ml-2">⌘K</span>
+                    <span className="text-[8px] bg-white border border-zinc-200 px-1.5 rounded ml-2">⌘K</span>
                 </div>
             </div>
 
@@ -184,7 +183,7 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
                 <div className="flex items-center gap-3 pl-2 group cursor-pointer">
                     <div className="text-right hidden sm:block">
                         <p className="text-xs font-bold text-zinc-900 group-hover:text-primary transition-colors">Admin User</p>
-                        <p className="text-[10px] text-zinc-500 font-medium">Super Admin</p>
+                        <p className="text-[8px] text-zinc-500 font-medium">Super Admin</p>
                     </div>
                     <div className="relative">
                         <div className="w-9 h-9 rounded-full border-2 border-white shadow-md overflow-hidden group-hover:ring-2 ring-primary/20 transition-all">
@@ -209,47 +208,47 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#f8f9fa] flex font-inter">
+        <div className="min-h-screen bg-card flex font-inter">
             {/* Desktop Sidebar */}
-            <aside className="w-72 bg-[#09090b] fixed inset-y-0 z-50 hidden lg:flex flex-col shadow-2xl">
+            <aside className="w-72 bg-card fixed inset-y-0 z-50 hidden lg:flex flex-col shadow-2xl">
                 <Sidebar />
             </aside>
 
             {/* Mobile Sidebar Overlay */}
-            <AnimatePresence>
+            
                 {mobileMenuOpen && (
                     <div className="fixed inset-0 z-50 lg:hidden">
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+                        <div
+                            }
+                            }
+                            }
                             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                             onClick={() => setMobileMenuOpen(false)}
                         />
-                        <motion.aside
-                            initial={{ x: '-100%' }}
-                            animate={{ x: 0 }}
-                            exit={{ x: '-100%' }}
-                            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                            className="absolute left-0 top-0 bottom-0 w-[280px] bg-[#09090b] shadow-2xl flex flex-col"
+                        <aside
+                            }
+                            }
+                            }
+                            }
+                            className="absolute left-0 top-0 bottom-0 w-[280px] bg-card shadow-2xl flex flex-col"
                         >
                             <Sidebar onClose={() => setMobileMenuOpen(false)} />
-                        </motion.aside>
+                        </aside>
                     </div>
                 )}
-            </AnimatePresence>
+            
 
             {/* Main Content */}
             <div className="lg:ml-72 flex-1 flex flex-col min-w-0">
                 <TopBar onMenuClick={() => setMobileMenuOpen(true)} />
                 <main className="flex-1 p-4 lg:p-10 max-w-[1600px] mx-auto w-full">
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, ease: "easeOut" }}
+                    <div
+                        }
+                        }
+                        }
                     >
                         {children}
-                    </motion.div>
+                    </div>
                 </main>
             </div>
         </div>

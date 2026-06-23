@@ -14,7 +14,7 @@ const reviews = [
 function ReviewCard({ review }: { review: typeof reviews[0] }) {
     return (
         <div
-            className="w-[340px] shrink-0 relative p-6"
+            className="w-[336px] shrink-0 relative p-6"
             style={{
                 backgroundColor: 'rgba(255,255,255,0.06)',
                 border: '1px solid rgba(201,168,76,0.2)',
@@ -45,10 +45,10 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                     {review.name.charAt(0)}
                 </div>
                 <div>
-                    <p className="font-inter font-bold text-[11px] uppercase tracking-widest" style={{ color: '#F5F0E8' }}>
+                    <p className="font-inter font-bold text-[12px] uppercase tracking-widest" style={{ color: '#F5F0E8' }}>
                         {review.name}
                     </p>
-                    <p className="font-inter text-[9px] uppercase tracking-wider" style={{ color: 'rgba(201,168,76,0.6)' }}>
+                    <p className="font-inter text-[8px] uppercase tracking-wider" style={{ color: 'rgba(201,168,76,0.6)' }}>
                         {review.location}
                     </p>
                 </div>
@@ -71,7 +71,7 @@ export default function SocialProof() {
             {/* Header */}
             <div className="container mx-auto px-6 md:px-16 mb-12 text-center relative z-10">
                 <p
-                    className="font-inter text-[10px] tracking-[0.35em] uppercase font-bold mb-4"
+                    className="font-inter text-[8px] tracking-[0.35em] uppercase font-bold mb-4"
                     style={{ color: '#C9A84C' }}
                 >
                     ✦ TRUSTED WORLDWIDE ✦

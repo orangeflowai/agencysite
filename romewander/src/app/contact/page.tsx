@@ -4,7 +4,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import PhoneInput from '@/components/PhoneInput';
 
@@ -56,27 +55,27 @@ export default function ContactPage() {
             {/* Header - Reduced padding for cleaner look */}
             <div className="bg-olive pt-32 pb-20 text-center text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                <div
+                    }
+                    }
+                    }
                     className="relative z-10"
                 >
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 font-inter">{t('contact.title')}</h1>
                     <p className="text-white/90 text-lg max-w-2xl mx-auto px-4 font-medium">
                         {t('contact.subtitle')}
                     </p>
-                </motion.div>
+                </div>
             </div>
 
             <div className="container mx-auto px-4 py-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
 
                     {/* Contact Info */}
-                    <motion.div
-                        initial="initial"
-                        animate="animate"
-                        variants={fadeInUp}
+                    <div
+                        
+                        
+                        
                         className="space-y-8"
                     >
                         <h2 className="text-3xl font-inter font-bold text-black border-b-2 border-olive/20 pb-4 inline-block">Get in Touch</h2>
@@ -114,13 +113,13 @@ export default function ContactPage() {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Contact Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                    <div
+                        }
+                        }
+                        }
                         className="bg-white p-8 md:p-10 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 relative overflow-hidden"
                     >
                         {/* Decorative background element */}
@@ -193,7 +192,7 @@ export default function ContactPage() {
                                 {isSubmitting ? 'Sending...' : t('contact.btn.submit')}
                             </button>
                         </form>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
             <Footer />

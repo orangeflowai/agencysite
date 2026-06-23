@@ -1,127 +1,133 @@
 import { NextResponse } from 'next/server';
+import { supabaseAdmin } from '@/lib/supabaseAdmin';
 
 export const dynamic = 'force-dynamic';
 
-const PAYLOAD_URL = process.env.PAYLOAD_API_URL || process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://admin.wondersofrome.com';
-const SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome';
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const slug = searchParams.get('slug') || '';
-  const date = searchParams.get('date') || '';
-  const mode = searchParams.get('mode') || 'day';
+  const tourSlug = searchParams.get('slug');
+  const date = searchParams.get('date');
+  const mode = searchParams.get('mode'); // 'day' or 'month'
 
-  if (!slug) return NextResponse.json(mode === 'month' ? {} : { slots: [] });
+  if (!tourSlug || !date) {
+    return NextResponse.json({ error: 'Missing slug or date' }, { status: 400 });
+  }
 
   try {
-    // Step 1: find the tour by slug + tenant in Payload
-    const tourRes = await fetch(
-      `${PAYLOAD_URL}/api/tours?where[slug][equals]=${encodeURIComponent(slug)}&where[tenant][equals]=${encodeURIComponent(SITE_ID)}&limit=1&depth=0`,
-      { cache: 'no-store' }
-    );
-
-    let tourId: string | null = null;
-    let basePrice = 0;
-
-    if (tourRes.ok) {
-      const tourData = await tourRes.json();
-      const tour = tourData?.docs?.[0];
-      if (tour) {
-        tourId = tour.id;
-        basePrice = tour.price || 0;
-      }
-    }
-
-    // Fallback: try without tenant filter
-    if (!tourId) {
-      const fallbackRes = await fetch(
-        `${PAYLOAD_URL}/api/tours?where[slug][equals]=${encodeURIComponent(slug)}&limit=1&depth=0`,
-        { cache: 'no-store' }
-      );
-      if (fallbackRes.ok) {
-        const fallbackData = await fallbackRes.json();
-        const tour = fallbackData?.docs?.[0];
-        if (tour) {
-          tourId = tour.id;
-          basePrice = tour.price || 0;
-        }
-      }
-    }
-
-    if (!tourId) {
-      return NextResponse.json(mode === 'month' ? {} : { slots: [] });
-    }
-
     if (mode === 'month') {
-      return await getMonthAvailability(tourId, basePrice, date);
+      return await getMonthAvailability(tourSlug, date);
+    } else if (mode === 'next') {
+      return await getNextAvailableDates(tourSlug, date);
+    } else {
+      return await getDayAvailability(tourSlug, date);
     }
-
-    return await getDayAvailability(tourId, basePrice, date);
-
   } catch (err) {
     console.error('[availability] Error:', err);
-    return NextResponse.json(mode === 'month' ? {} : { slots: [] });
+    return NextResponse.json(mode === 'month' ? {} : mode === 'next' ? { dates: [] } : { slots: [] });
   }
 }
 
-async function getDayAvailability(tourId: string, basePrice: number, date: string) {
-  // Query Payload inventory for this tour + date
-  const dateStart = `${date}T00:00:00.000Z`;
-  const dateEnd = `${date}T23:59:59.999Z`;
+async function getNextAvailableDates(tourSlug: string, startDate: string) {
+  // Find the next 3 dates that have at least one non-paused slot with capacity
+  // We fetch a larger range and filter specifically for "available in the future"
+  const now = new Date();
+  const todayStr = now.toISOString().split('T')[0];
+  const currentTime = now.getHours() * 60 + now.getMinutes();
 
-  const res = await fetch(
-    `${PAYLOAD_URL}/api/inventory?where[tour][equals]=${tourId}&where[date][greater_than_equal]=${encodeURIComponent(dateStart)}&where[date][less_than_equal]=${encodeURIComponent(dateEnd)}&limit=50&sort=time&depth=0`,
-    { cache: 'no-store' }
-  );
+  const { data, error } = await supabaseAdmin
+    .from('tour_slots')
+    .select('date, time, available_slots, is_paused')
+    .eq('tour_slug', tourSlug)
+    .gte('date', startDate) // Start from current selected or today
+    .gt('available_slots', 0)
+    .eq('is_paused', false)
+    .order('date', { ascending: true })
+    .order('time', { ascending: true })
+    .limit(300);
 
-  if (!res.ok) return NextResponse.json({ slots: [] });
+  if (error) throw error;
 
-  const data = await res.json();
-  const docs = data?.docs || [];
+  const validDates: string[] = [];
+  const dateSet = new Set<string>();
 
-  // Only return slots with available capacity
-  const slots = docs
-    .filter((s: any) => (s.availableSlots ?? 0) > 0)
+  for (const slot of (data || [])) {
+    if (dateSet.size >= 3) break;
+
+    // If it's today, check if time has passed
+    if (slot.date === todayStr) {
+      const [h, m] = (slot.time || '00:00').split(':').map(Number);
+      const slotTime = h * 60 + m;
+      if (slotTime < currentTime) continue;
+    }
+
+    // If it's the current selected date (which we already know is fully booked or passed), skip it
+    if (slot.date === startDate && slot.date !== todayStr) continue;
+
+    if (!dateSet.has(slot.date)) {
+      dateSet.add(slot.date);
+      validDates.push(slot.date);
+    }
+  }
+
+  // If we found the "current" date but it was fully booked (which is why this was called), 
+  // ensure we return dates STRICTLY after it.
+  const finalDates = validDates.filter(d => d !== startDate).slice(0, 3);
+
+  return NextResponse.json({ dates: finalDates });
+}
+
+async function getDayAvailability(tourSlug: string, date: string) {
+  // Query Supabase for this tour + date
+  const { data: docs, error } = await supabaseAdmin
+    .from('tour_slots')
+    .select('*')
+    .eq('tour_slug', tourSlug)
+    .eq('date', date)
+    .order('time', { ascending: true });
+
+  if (error) throw error;
+
+  // Only return slots with available capacity that are not paused
+  const slots = (docs || [])
+    .filter((s: any) => (s.available_slots ?? 0) > 0 && !s.is_paused)
     .map((s: any) => ({
       time: s.time,
-      available_slots: s.availableSlots,
-      total_slots: s.totalSlots,
-      price: s.priceOverride || basePrice,
+      available_slots: s.available_slots,
+      total_slots: s.total_slots || 20,
+      price: s.price_override,
     }));
 
   return NextResponse.json({ slots });
 }
 
-async function getMonthAvailability(tourId: string, basePrice: number, monthStr: string) {
+async function getMonthAvailability(tourSlug: string, monthStr: string) {
   // monthStr = "2026-04"
   const [year, month] = monthStr.split('-').map(Number);
   const lastDay = new Date(year, month, 0).getDate();
-  const monthStart = `${monthStr}-01T00:00:00.000Z`;
-  const monthEnd = `${monthStr}-${String(lastDay).padStart(2, '0')}T23:59:59.999Z`;
+  const startDate = `${monthStr}-01`;
+  const endDate = `${monthStr}-${String(lastDay).padStart(2, '0')}`;
 
-  const res = await fetch(
-    `${PAYLOAD_URL}/api/inventory?where[tour][equals]=${tourId}&where[date][greater_than_equal]=${encodeURIComponent(monthStart)}&where[date][less_than_equal]=${encodeURIComponent(monthEnd)}&limit=500&depth=0`,
-    { cache: 'no-store' }
-  );
+  const { data: docs, error } = await supabaseAdmin
+    .from('tour_slots')
+    .select('*')
+    .eq('tour_slug', tourSlug)
+    .gte('date', startDate)
+    .lte('date', endDate);
 
-  if (!res.ok) return NextResponse.json({});
+  if (error) throw error;
 
-  const data = await res.json();
-  const docs = data?.docs || [];
-
-  // Aggregate by date
-  const byDate: Record<string, { spots: number; price: number }> = {};
-  for (const slot of docs) {
-    // Payload stores date as ISO timestamp
-    const dateKey = typeof slot.date === 'string' ? slot.date.slice(0, 10) : '';
-    if (!dateKey) continue;
+  // Aggregate by date — exclude paused slots
+  const byDate: Record<string, { spots: number; price: number | null }> = {};
+  for (const slot of (docs || [])) {
+    if (slot.is_paused) continue; // skip paused slots
+    const dateKey = slot.date;
     if (!byDate[dateKey]) {
-      byDate[dateKey] = { spots: 0, price: slot.priceOverride || basePrice };
+      byDate[dateKey] = { spots: 0, price: slot.price_override };
     }
-    byDate[dateKey].spots += slot.availableSlots || 0;
-    // Use lowest price override for the day
-    if (slot.priceOverride && slot.priceOverride < byDate[dateKey].price) {
-      byDate[dateKey].price = slot.priceOverride;
+    byDate[dateKey].spots += slot.available_slots || 0;
+    
+    if (slot.price_override && (byDate[dateKey].price === null || slot.price_override < (byDate[dateKey].price || 9999))) {
+      byDate[dateKey].price = slot.price_override;
     }
   }
 

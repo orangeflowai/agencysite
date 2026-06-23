@@ -18,7 +18,7 @@ export default function Disclaimer() {
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8 tracking-tight">Disclaimer</h1>
 
                 <div className="prose prose-lg prose-emerald text-muted-foreground max-w-none space-y-8">
-                    <p className="lead text-xl text-gray-800 font-medium">
+                    <p className="lead text-xl text-black font-medium">
                         The information provided by {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"} (“we,” “us,” or “our”) on <a href={process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_SITE_URL || "https://yourdomain.com"}</a> (the “Site”) and through our mobile applications or services is for general informational purposes only. All information on the Site is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information on the Site.
                     </p>
 

@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Search, ShoppingBag, ChevronDown, Globe } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Menu, X, Search, ShoppingBag, ChevronDown, ChevronRight, Globe } from 'lucide-react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSite } from '@/components/SiteProvider';
 import { useCart } from '@/context/CartContext';
@@ -38,7 +37,7 @@ export default function Navbar() {
     { code: 'es', label: 'Español' },
     { code: 'fr', label: 'Français' },
     { code: 'de', label: 'Deutsch' },
-    { code: 'zh', label: '中文' },
+    { code: 'pt', label: 'Português' },
   ];
 
   const handleLangChange = (code: string) => {
@@ -46,7 +45,7 @@ export default function Navbar() {
     setLangOpen(false);
     if (typeof window !== 'undefined') {
       localStorage.setItem('preferredLanguage', code);
-      window.location.reload();
+      // No reload needed — LanguageContext is reactive and re-renders all components
     }
   };
 
@@ -77,29 +76,25 @@ export default function Navbar() {
   return (
     <>
       {/* 5K ROLLING MARQUEE */}
-      <div className="fixed top-0 left-0 right-0 z-[10002] bg-primary py-2 overflow-hidden border-b border-white/5 pointer-events-none">
-        <motion.div
-            animate={{ x: [0, -1000] }}
-            transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-            className="flex whitespace-nowrap gap-12 items-center"
+      <div className="fixed top-0 left-0 right-0 z-[10002] bg-primary py-2.5 overflow-hidden border-b border-white/10 pointer-events-none">
+        <div
+            style={{ animation: 'marquee 40s linear infinite' }}
+            className="flex whitespace-nowrap gap-16 items-center"
         >
-            {[...Array(10)].map((_, i) => (
-                <div key={i} className="flex items-center gap-12 text-white/90 font-mono font-bold  tracking-[0.4em] text-[9px]">
-                    <span>✦ DISCOVER THE ANCIENT WONDERS ✦</span>
-                    <span>✦ SKIP THE LINE PROTOCOLS ACTIVE ✦</span>
-                    <span>✦ 100% SECURE BOOKING SYSTEM ✦</span>
+            {[...Array(4)].map((_, i) => (
+                <div key={i} className="flex items-center gap-16 text-white/95 font-mono font-bold tracking-[0.3em] text-[10px]">
+                    <span className="flex items-center gap-2"><span className="text-accent">★</span> RATED 4.9/5 FROM 1,200+ VERIFIED REVIEWS</span>
+                    <span className="flex items-center gap-2"><span className="text-accent">✦</span> 12,400+ TOURS BOOKED IN 2024</span>
+                    <span className="flex items-center gap-2"><span className="text-accent">✦</span> SKIP-THE-LINE ENTRY ON ALL COLOSSEUM &amp; VATICAN TOURS</span>
+                    <span className="flex items-center gap-2"><span className="text-accent">✦</span> FREE CANCELLATION UP TO 72 HOURS BEFORE</span>
                 </div>
             ))}
-        </motion.div>
+        </div>
       </div>
 
       <nav
-        style={{ top: '34px' }}
-        className={`fixed left-0 right-0 z-[9000] transition-all duration-300 border-b ${
-          scrolledOrOpen
-            ? 'bg-card/98 backdrop-blur-md border-border shadow-sm py-3'
-            : 'bg-transparent border-transparent py-4'
-        }`}
+        style={{ top: '37px' }}
+        className={`fixed left-0 right-0 z-[9000] transition-all duration-300 border-b bg-card/98 backdrop-blur-md border-border shadow-md py-3`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-6">
@@ -110,69 +105,55 @@ export default function Navbar() {
                 <Image
                   src={urlFor(site.logo).url()}
                   alt={site.title || 'Wonders of Rome'}
-                  width={140}
-                  height={40}
-                  className="h-9 w-auto object-contain group-hover:scale-105 transition-transform"
+                  width={160}
+                  height={48}
+                  className="h-10 w-auto object-contain group-hover:scale-105 transition-transform"
                   priority
                 />
               ) : (
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-sm bg-primary flex items-center justify-center shadow-lg">
-                    <span className="text-white font-mono font-bold text-sm">W</span>
-                  </div>
-                  <span
-                    className={`font-serif font-bold text-lg tracking-tighter transition-colors  ${
-                      scrolledOrOpen ? 'text-primary' : 'text-white drop-shadow-md'
-                    }`}
-                  >
-                    WONDERS <span className=" opacity-70">OF</span> ROME
-                  </span>
-                </div>
+                <Image
+                  src="/logo.png"
+                  alt="Wonders of Rome"
+                  width={160}
+                  height={48}
+                  className="h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+                  priority
+                />
               )}
             </Link>
 
             {/* Desktop nav links */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-2">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 text-[0.75rem] font-bold tracking-[0.2em] transition-colors hover-underline ${
+                  className={`relative px-4 py-2 text-[11px] font-bold tracking-[0.15em] transition-all hover-underline uppercase ${
                     isActive(link.href)
                       ? 'text-primary'
-                      : scrolledOrOpen
-                        ? 'text-foreground hover:text-primary'
-                        : 'text-white/90 hover:text-white'
+                      : 'text-foreground hover:text-primary'
                   }`}
                 >
                   {t(link.labelKey)}
                   {isActive(link.href) && (
-                    <span className="absolute bottom-0.5 left-3 right-3 h-0.5 bg-primary rounded-full" />
+                    <span className="absolute bottom-0.5 left-4 right-4 h-0.5 bg-primary rounded-full" />
                   )}
                 </Link>
               ))}
             </div>
 
             {/* Right actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               {/* Search — desktop */}
               <form onSubmit={handleSearch} className="hidden lg:flex items-center relative group">
-                <div className={`flex items-center gap-2 px-4 py-2 rounded-sm border transition-all ${
-                  scrolledOrOpen
-                    ? 'border-border bg-background'
-                    : 'border-white/20 bg-card/10 backdrop-blur-sm'
-                }`}>
-                  <Search size={14} className={scrolledOrOpen ? 'text-primary' : 'text-white/60'} />
+                <div className="flex items-center gap-3 px-5 py-2.5 rounded-full border border-border bg-muted/50 focus-within:border-primary focus-within:bg-background transition-all">
+                  <Search size={16} className="text-primary" />
                   <input
                     type="text"
                     value={searchQ}
                     onChange={e => setSearchQ(e.target.value)}
                     placeholder={t('nav.search_placeholder')}
-                    className={`bg-transparent text-[10px] font-bold tracking-widest outline-none w-40 placeholder:opacity-50 transition-colors ${
-                      scrolledOrOpen
-                        ? 'text-foreground placeholder:text-muted-foreground'
-                        : 'text-white placeholder:text-white/50'
-                    }`}
+                    className="bg-transparent text-[11px] font-bold tracking-wider outline-none w-44 placeholder:opacity-50 transition-colors text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 
@@ -201,16 +182,14 @@ export default function Navbar() {
               <div className="hidden lg:block relative">
                 <button
                   onClick={() => setLangOpen(!langOpen)}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-[10px] font-bold  tracking-widest transition-all border ${
-                    scrolledOrOpen ? 'border-border text-foreground hover:bg-muted' : 'border-white/20 text-white hover:bg-card/10'
-                  }`}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[8px] font-bold  tracking-widest transition-all border border-border text-foreground hover:bg-muted"
                 >
                   <Globe size={13} />
                   {language.toUpperCase()}
                   <ChevronDown size={11} className={`transition-transform ${langOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {langOpen && (
-                  <div className="absolute right-0 top-full mt-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50 min-w-[140px]">
+                  <div className="absolute right-0 top-full mt-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50 min-w-[144px]">
                     {LANGS.map(l => (
                       <button
                         key={l.code}
@@ -232,13 +211,11 @@ export default function Navbar() {
               {/* Cart — mobile */}
               <Link
                 href="/checkout"
-                className={`relative lg:hidden p-2 rounded-sm transition-colors border ${
-                  scrolledOrOpen ? 'text-primary bg-background border-border' : 'text-white bg-card/10 border-white/20'
-                }`}
+                className="relative lg:hidden p-2.5 rounded-full transition-all border text-primary bg-muted/50 border-border shadow-sm"
               >
                 <ShoppingBag size={20} />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-background">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-background shadow-lg">
                     {totalItems}
                   </span>
                 )}
@@ -247,9 +224,7 @@ export default function Navbar() {
               {/* Hamburger */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className={`lg:hidden p-2 rounded-sm transition-colors border ${
-                  scrolledOrOpen ? 'text-primary bg-background border-border' : 'text-white bg-card/10 border-white/20'
-                }`}
+                className="lg:hidden p-2.5 rounded-full transition-all border shadow-sm text-primary bg-muted/50 border-border hover:bg-muted"
                 aria-label="Toggle menu"
               >
                 {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -261,18 +236,18 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[8999] bg-background flex flex-col pt-24 overflow-y-auto">
-          <div className="px-6 py-8 space-y-3">
+        <div className="fixed inset-0 z-[8999] bg-background flex flex-col pt-28 overflow-y-auto animate-in fade-in duration-300">
+          <div className="px-6 py-8 space-y-4">
             {/* Mobile search */}
             <form onSubmit={handleSearch} className="mb-8">
-              <div className="flex items-center gap-3 px-4 py-4 bg-card rounded-sm border border-border">
-                <Search size={18} className="text-primary shrink-0" />
+              <div className="flex items-center gap-4 px-5 py-5 bg-muted/30 rounded-2xl border border-border focus-within:border-primary transition-all">
+                <Search size={20} className="text-primary shrink-0" />
                 <input
                   type="text"
                   value={searchQ}
                   onChange={e => setSearchQ(e.target.value)}
-                  placeholder="QUERY_CORE..."
-                  className="flex-1 bg-transparent text-foreground text-sm font-bold  tracking-widest outline-none placeholder:text-muted-foreground"
+                  placeholder={t('nav.search_placeholder')}
+                  className="flex-1 bg-transparent text-foreground text-base font-bold tracking-widest outline-none placeholder:text-muted-foreground"
                 />
               </div>
             </form>
@@ -282,26 +257,26 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className={`flex items-center justify-between px-6 py-5 rounded-sm text-sm font-bold  tracking-[0.2em] transition-all border ${
+                className={`flex items-center justify-between px-6 py-6 rounded-2xl text-sm font-bold tracking-[0.2em] transition-all border uppercase ${
                   isActive(link.href)
-                    ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20'
-                    : 'text-foreground hover:bg-card border-transparent'
+                    ? 'bg-primary text-white border-primary shadow-xl shadow-primary/20'
+                    : 'text-foreground hover:bg-muted border-transparent'
                 }`}
               >
                 {t(link.labelKey)}
-                <ChevronDown size={16} className={isActive(link.href) ? "-rotate-90" : "-rotate-90 opacity-20"} />
+                <ChevronRight size={18} className={isActive(link.href) ? "opacity-100" : "opacity-20"} />
               </Link>
             ))}
           </div>
 
           {/* Mobile footer */}
-          <div className="mt-auto px-8 py-10 border-t border-border bg-card">
-            <p className="font-mono text-[10px] text-muted-foreground  tracking-[0.4em] mb-4 font-bold">Link Established</p>
+          <div className="mt-auto px-8 py-12 border-t border-border bg-muted/30">
+            <p className="font-mono text-[10px] text-muted-foreground tracking-[0.4em] mb-4 font-bold uppercase">Emergency Contact</p>
             <a
-              href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+393514199425'}`}
-              className="text-primary font-bold text-lg font-mono tracking-tighter"
+              href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ''}`}
+              className="text-primary font-bold text-2xl font-serif tracking-tighter hover:text-accent transition-colors"
             >
-              {process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 351 419 9425'}
+              {process.env.NEXT_PUBLIC_SUPPORT_PHONE || 'CONTACT_SUPPORT'}
             </a>
           </div>
         </div>

@@ -1,4 +1,6 @@
 'use client';
+import Image from 'next/image';
+'use client';
 
 import React from 'react';
 import { useAdmin } from '@/context/AdminContext';
@@ -27,7 +29,7 @@ export default function SiteSwitcher() {
                     <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-emerald-200 shadow-sm group-hover:shadow-md transition-all">
                         {currentSite?.logo ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={currentSite.logo.asset?.url} alt="Logo" className="w-full h-full object-cover rounded-lg" />
+                            <Image src={currentSite.logo.asset?.url || ""} alt="Logo" width={32} height={32} className="w-full h-full object-cover rounded-lg" />
                         ) : (
                             <Map className="text-white w-5 h-5" />
                         )}
@@ -36,7 +38,7 @@ export default function SiteSwitcher() {
                         <span className="block font-bold text-foreground tracking-tight truncate">
                             {currentSite?.title || 'Unknown Site'}
                         </span>
-                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground  tracking-widest font-bold">
+                        <div className="flex items-center gap-1 text-[8px] text-muted-foreground  tracking-widest font-bold">
                             <span>Switch Site</span>
                             <ChevronDown size={10} />
                         </div>
@@ -46,7 +48,7 @@ export default function SiteSwitcher() {
 
             <Popover.Portal>
                 <Popover.Content className="w-60 bg-card rounded-xl shadow-xl border border-border p-2 z-50 animate-in fade-in zoom-in-95 duration-200" side="bottom" align="start" sideOffset={5}>
-                    <div className="text-[10px] font-bold text-muted-foreground  tracking-wider px-3 mb-2 mt-2">Available Sites</div>
+                    <div className="text-[8px] font-bold text-muted-foreground  tracking-wider px-3 mb-2 mt-2">Available Sites</div>
                     {sites.map((site) => (
                         <button
                             key={site._id}

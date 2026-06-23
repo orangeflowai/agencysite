@@ -4,7 +4,7 @@ export default function MobileStickyBar({ price }: { price: number }) {
   return (
     <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 p-4 bg-card/80 backdrop-blur-xl border-t border-border flex items-center justify-between shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
       <div>
-        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">From</p>
+        <p className="text-[8px] font-bold text-muted-foreground uppercase tracking-widest">From</p>
         <p className="text-xl font-bold text-foreground">€{price}</p>
       </div>
       <button

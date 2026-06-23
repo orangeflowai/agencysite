@@ -4,10 +4,17 @@ import { getStripe, getWebhookSecret } from '@/lib/stripe';
 import { Resend } from 'resend';
 import { generateCustomerEmail, generateAdminEmail } from '@/lib/email-templates';
 import { nanoid } from 'nanoid';
+import { createClient } from '@supabase/supabase-js';
 
 export const dynamic = 'force-dynamic';
 
 const resend = new Resend(process.env.RESEND_API_KEY as string);
+
+// Supabase admin client for inventory + booking writes
+const supabaseAdmin = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 function determineSiteFromEvent(event: any): string {
   if (event.data?.object?.metadata?.siteId) return event.data.object.metadata.siteId;
@@ -88,6 +95,67 @@ async function writeToPayload(siteId: string, data: {
   }
 }
 
+// ── Decrement inventory in Supabase tour_slots ───────────────────────────────
+async function decrementSupabaseInventory(tourSlug: string, date: string, time: string, guestCount: number) {
+  try {
+    const { data: slot } = await supabaseAdmin
+      .from('tour_slots')
+      .select('id, available_slots')
+      .eq('tour_slug', tourSlug)
+      .eq('date', date)
+      .eq('time', time)
+      .single();
+
+    if (!slot) return; // no slot configured — silently skip
+
+    const newSlots = Math.max(0, (slot.available_slots || 0) - guestCount);
+    await supabaseAdmin
+      .from('tour_slots')
+      .update({ available_slots: newSlots })
+      .eq('id', slot.id);
+  } catch (err) {
+    console.warn('[webhook] Supabase inventory decrement failed:', err);
+  }
+}
+
+// ── Write booking to Supabase ─────────────────────────────────────────────────
+async function writeToSupabase(siteId: string, data: {
+  bookingRef: string; tourTitle: string; tourSlug: string;
+  date: string; time: string; guestCount: number;
+  name: string; email: string; phone: string;
+  totalAmount: number; stripePaymentIntentId: string;
+}) {
+  try {
+    // Avoid duplicates
+    const { data: existing } = await supabaseAdmin
+      .from('bookings')
+      .select('id')
+      .eq('stripe_payment_intent_id', data.stripePaymentIntentId)
+      .limit(1);
+    if (existing && existing.length > 0) return;
+
+    await supabaseAdmin.from('bookings').insert({
+      booking_ref:              data.bookingRef,
+      tenant:                   siteId,
+      tour_title:               data.tourTitle,
+      date:                     data.date,
+      time:                     data.time,
+      guests:                   data.guestCount,
+      total_amount:             data.totalAmount,
+      currency:                 'eur',
+      status:                   'confirmed',
+      stripe_payment_intent_id: data.stripePaymentIntentId,
+      lead_first_name:          data.name.split(' ')[0] || '',
+      lead_last_name:           data.name.split(' ').slice(1).join(' ') || '',
+      lead_email:               data.email,
+      lead_phone:               data.phone,
+      source:                   'website',
+    });
+  } catch (err) {
+    console.warn('[webhook] Supabase booking write failed:', err);
+  }
+}
+
 // ── Decrement inventory in Payload ────────────────────────────────────────────
 async function decrementPayloadInventory(tourSlug: string, date: string, time: string, guestCount: number, siteId: string) {
   const payloadUrl = process.env.PAYLOAD_API_URL || process.env.NEXT_PUBLIC_PAYLOAD_URL;
@@ -132,9 +200,27 @@ async function sendEmails(siteId: string, email: string, name: string, tourTitle
   }
 
   const senderName = process.env.NEXT_PUBLIC_SITE_NAME || (siteId === 'wondersofrome' ? 'Wonders of Rome' : 'Tickets in Rome');
-  const senderEmail = process.env.EMAIL_FROM || 'info@wondersofrome.com';
+  const senderEmail = process.env.EMAIL_FROM || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com";
   const adminEmails = (process.env.ADMIN_EMAIL || senderEmail).split(',').map(e => e.trim());
   const pin = orderId.slice(-6).toUpperCase();
+
+  // Parse participant names stored as JSON in metadata
+  let participants: Array<{ index: number; label: string; name: string; dob?: string }> = [];
+  if (metadata.participants) {
+    try { participants = JSON.parse(metadata.participants); } catch { /* ignore */ }
+  }
+
+  // Build a readable participant list for emails (including DOB)
+  const participantListHtml = participants.length > 0
+    ? `<table style="width:100%;border-collapse:collapse;margin:8px 0;">
+        <tr style="background:#f5f5f5;"><th style="padding:6px 10px;text-align:left;font-size:12px;color:#555;">Guest</th><th style="padding:6px 10px;text-align:left;font-size:12px;color:#555;">Name</th><th style="padding:6px 10px;text-align:left;font-size:12px;color:#555;">DOB</th></tr>
+        ${participants.map(p => `<tr><td style="padding:6px 10px;font-size:13px;border-top:1px solid #eee;">${p.label}</td><td style="padding:6px 10px;font-size:13px;font-weight:bold;border-top:1px solid #eee;">${p.name || '—'}</td><td style="padding:6px 10px;font-size:13px;border-top:1px solid #eee;">${p.dob || '—'}</td></tr>`).join('')}
+      </table>`
+    : '';
+
+  const participantListText = participants.length > 0
+    ? '\n\nParticipants:\n' + participants.map(p => `  ${p.label}: ${p.name || '—'} (DOB: ${p.dob || '—'})`).join('\n')
+    : '';
 
   try {
     if (email) {
@@ -144,6 +230,7 @@ async function sendEmails(siteId: string, email: string, name: string, tourTitle
         students: metadata.students || '0',
         youths: metadata.youths || '0',
         orderId, pin, totalAmount, metadata,
+        participantListHtml,
       });
       const result = await resend.emails.send({
         from: `${senderName} <${senderEmail}>`,
@@ -161,6 +248,8 @@ async function sendEmails(siteId: string, email: string, name: string, tourTitle
       adults: metadata.adults || '0',
       students: metadata.students || '0',
       orderId, pin, totalAmount, metadata,
+      participantListHtml,
+      participantListText,
     });
     const adminResult = await resend.emails.send({
       from: `System Alert <${senderEmail}>`,
@@ -218,14 +307,25 @@ export async function POST(request: Request) {
     // 1. Send emails FIRST — most important, never block on DB
     await sendEmails(siteId, email, name, tourTitle, date, time, guests, totalAmount, pi.id, meta);
 
-    // 2. Write to Payload (non-blocking)
+    // 2. Write to Supabase (primary, non-blocking)
+    writeToSupabase(siteId, {
+      bookingRef, tourTitle, tourSlug, date, time, guestCount,
+      name, email, phone: meta.leadPhone || '',
+      totalAmount, stripePaymentIntentId: pi.id,
+    }).catch(err => console.warn('[webhook] Supabase write failed:', err));
+
+    // 3. Decrement Supabase inventory (primary, non-blocking)
+    decrementSupabaseInventory(tourSlug, date, time, guestCount)
+      .catch(err => console.warn('[webhook] Supabase inventory failed:', err));
+
+    // 4. Write to Payload (non-blocking fallback)
     writeToPayload(siteId, {
       bookingRef, tourTitle, tourSlug, date, time, guestCount, guestCounts,
       name, email, phone: meta.leadPhone || '',
       totalAmount, stripePaymentIntentId: pi.id, addOns,
     }).catch(err => console.warn('[webhook] Payload write failed:', err));
 
-    // 3. Decrement inventory (non-blocking)
+    // 5. Decrement Payload inventory (non-blocking fallback)
     decrementPayloadInventory(tourSlug, date, time, guestCount, siteId)
       .catch(err => console.warn('[webhook] Inventory decrement failed:', err));
   }
@@ -248,14 +348,25 @@ export async function POST(request: Request) {
     // 1. Send emails FIRST
     await sendEmails(siteId, email, name, tourTitle, date, time, guests, totalAmount, piId, meta);
 
-    // 2. Write to Payload (non-blocking)
+    // 2. Write to Supabase (primary, non-blocking)
+    writeToSupabase(siteId, {
+      bookingRef, tourTitle, tourSlug, date, time, guestCount,
+      name, email, phone: meta.leadPhone || '',
+      totalAmount, stripePaymentIntentId: piId,
+    }).catch(err => console.warn('[webhook] Supabase write failed:', err));
+
+    // 3. Decrement Supabase inventory (primary, non-blocking)
+    decrementSupabaseInventory(tourSlug, date, time, guestCount)
+      .catch(err => console.warn('[webhook] Supabase inventory failed:', err));
+
+    // 4. Write to Payload (non-blocking fallback)
     writeToPayload(siteId, {
       bookingRef, tourTitle, tourSlug, date, time, guestCount, guestCounts,
       name, email, phone: meta.leadPhone || '',
       totalAmount, stripePaymentIntentId: piId, addOns,
     }).catch(err => console.warn('[webhook] Payload write failed:', err));
 
-    // 3. Decrement inventory (non-blocking)
+    // 5. Decrement Payload inventory (non-blocking fallback)
     decrementPayloadInventory(tourSlug, date, time, guestCount, siteId)
       .catch(err => console.warn('[webhook] Inventory decrement failed:', err));
   }

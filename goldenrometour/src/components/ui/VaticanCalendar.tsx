@@ -73,9 +73,9 @@ export default function VaticanCalendar({ slug, selectedDate, onSelect, basePric
                     <div className="flex flex-col items-center -mt-0.5">
                         {data.spots > 0 ? (
                             <>
-                                <span className={`text-[9px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
+                                <span className={`text-[8px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
                                 {data.spots < 10 && (
-                                    <span className="text-[7px] font-bold text-white bg-accent px-1 py-0.5 rounded mt-0.5 shadow-sm uppercase tracking-tight">
+                                    <span className="text-[8px] font-bold text-white bg-accent px-1 py-0.5 rounded mt-0.5 shadow-sm uppercase tracking-tight">
                                         {data.spots} left
                                     </span>
                                 )}
@@ -85,7 +85,7 @@ export default function VaticanCalendar({ slug, selectedDate, onSelect, basePric
                         )}
                     </div>
                 ) : (
-                    <span className="text-[9px] text-muted-foreground/30 font-medium">—</span>
+                    <span className="text-[8px] text-muted-foreground/30 font-medium">—</span>
                 )}
             </div>
         );
@@ -132,15 +132,15 @@ export default function VaticanCalendar({ slug, selectedDate, onSelect, basePric
 
             {/* Legend */}
             <div className="flex flex-wrap items-center gap-4 mt-6 pt-4 border-t border-border/50 justify-center">
-                <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground/70">
+                <span className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-wider text-foreground/70">
                     <span className="w-3 h-3 rounded border-2 border-primary/30 bg-primary/10 inline-block" />
                     Available
                 </span>
-                <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-foreground/70">
+                <span className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-wider text-foreground/70">
                     <span className="w-3 h-3 rounded border-2 border-accent/30 bg-accent/20 inline-block" />
                     Limited
                 </span>
-                <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-destructive/70">
+                <span className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-wider text-destructive/70">
                     <span className="w-3 h-3 rounded border-2 border-destructive/30 bg-destructive/10 inline-block" />
                     Full
                 </span>

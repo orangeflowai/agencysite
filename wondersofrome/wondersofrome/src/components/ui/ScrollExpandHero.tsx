@@ -7,7 +7,6 @@ import {
   ReactNode,
 } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 interface ScrollExpandHeroProps {
   mediaSrc: string;
@@ -113,10 +112,8 @@ export default function ScrollExpandHero({
         <div className="relative w-full flex flex-col items-center min-h-[100dvh]">
 
           {/* ── Background image fades out as media expands ── */}
-          <motion.div
+          <div
             className="absolute inset-0 z-0 h-full"
-            animate={{ opacity: 1 - scrollProgress }}
-            transition={{ duration: 0.1 }}
           >
             <Image
               src={bgImageSrc}
@@ -127,7 +124,7 @@ export default function ScrollExpandHero({
               sizes="100vw"
             />
             <div className="absolute inset-0 bg-black/20" />
-          </motion.div>
+          </div>
 
           {/* ── Main content ── */}
           <div className="container mx-auto flex flex-col items-center justify-start relative z-10">
@@ -154,10 +151,8 @@ export default function ScrollExpandHero({
                   sizes="(max-width: 768px) 95vw, 1500px"
                 />
                 {/* Overlay fades as it expands */}
-                <motion.div
+                <div
                   className="absolute inset-0 bg-black/50 rounded-2xl"
-                  animate={{ opacity: 0.5 - scrollProgress * 0.4 }}
-                  transition={{ duration: 0.1 }}
                 />
               </div>
 
@@ -198,14 +193,11 @@ export default function ScrollExpandHero({
             </div>
 
             {/* ── Content revealed after full expansion ── */}
-            <motion.section
+            <section
               className="flex flex-col w-full px-6 py-10 md:px-16 lg:py-20"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: expanded ? 1 : 0 }}
-              transition={{ duration: 0.7 }}
             >
               {children}
-            </motion.section>
+            </section>
           </div>
         </div>
       </section>

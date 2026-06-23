@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, HelpCircle } from 'lucide-react'; // Changed to Plus/Minus for cleaner look
 import clsx from 'clsx';
 
@@ -38,7 +37,7 @@ const faqs = [
         question: "Do you offer private tours?",
         answer: "Yes! We offer private personalized tours for individuals, couples, and groups. Private tours include a dedicated guide, flexible timing, and customized itineraries."
     },
-    // Reduced list slightly for balanced layout or keep all if needed
+    // Reduced list slightly for balanced  or keep all if needed
 ];
 
 export default function FAQ() {
@@ -68,13 +67,10 @@ export default function FAQ() {
                         const isOpen = activeIndex === index;
 
                         return (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
+                            <div
                                 key={index}
-                                className={clsx(
+                                style={{ animationDelay: `${index * 0.1}s` }}
+                                className={clsx('animate-fade-in ', 
                                     "rounded-2xl border transition-all duration-300 overflow-hidden",
                                     isOpen
                                         ? "bg-card border-border shadow-xl shadow-lg"
@@ -108,23 +104,17 @@ export default function FAQ() {
                                     </div>
                                 </button>
 
-                                <AnimatePresence>
-                                    {isOpen && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: "auto", opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                                        >
-                                            <div className="px-6 md:px-8 pb-8 pt-0 pl-6 md:pl-[5.5rem]">
-                                                <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-                                                    {faq.answer}
-                                                </p>
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </motion.div>
+                                <div
+                                    className="overflow-hidden transition-all duration-300 ease-in-out"
+                                    style={{ maxHeight: isOpen ? '500px' : '0', opacity: isOpen ? 1 : 0 }}
+                                >
+                                    <div className="px-6 md:px-8 pb-8 pt-0 pl-6 md:pl-[5.5rem]">
+                                        <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
+                                            {faq.answer}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         );
                     })}
                 </div>

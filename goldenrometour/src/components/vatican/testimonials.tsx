@@ -49,7 +49,7 @@ export default function Testimonials() {
     const scrollContainer = scrollRef.current
     if (!scrollContainer) return
 
-    const animate = () => {
+    const  = () => {
       if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
         scrollContainer.scrollLeft = 0
       } else {
@@ -84,7 +84,7 @@ export default function Testimonials() {
         {[...testimonials, ...testimonials].map((testimonial, i) => (
           <div 
             key={i}
-            className="flex-shrink-0 w-[350px] md:w-[400px] p-6 bg-card rounded-2xl border border-border"
+            className="flex-shrink-0 w-[352px] md:w-[400px] p-6 bg-card rounded-2xl border border-border"
           >
             <Quote className="w-8 h-8 text-accent/30 mb-4" />
             <p className="text-foreground leading-relaxed mb-6">

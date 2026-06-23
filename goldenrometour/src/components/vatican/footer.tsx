@@ -10,11 +10,11 @@ export default function VaticanFooter() {
   const site = useSite()
 
   const categories = [
-    { label: "Skip The Line Tickets", href: "/tour/vatican-museum-sistine-chapel-skip-line-tickets" },
-    { label: "VIP Guided Tour", href: "/tour/vip-vatican-museum-sistine-chapel-st-basilica" },
+    { label: "Vatican Guided Tour", href: "/tour/vatican-museums-and-sistine-chapel-guided-tour" },
+    { label: "Skip-the-Line Tickets", href: "/tour/vatican-museums-sistine-chapel-skip-the-line" },
     { label: "About Us", href: "/about" },
-    { label: "Contact", href: "/contact" },
     { label: "FAQ", href: "/faq" },
+    { label: "Contact", href: "/contact" },
   ]
 
   const contactEmail = site?.contactEmail || process.env.EMAIL_FROM || "archives@goldenrometours.com"
@@ -35,15 +35,15 @@ export default function VaticanFooter() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               href="/#tours" 
-              className="px-10 py-5 bg-background text-foreground font-bold uppercase tracking-widest text-[10px] rounded-full hover:opacity-90 transition-opacity shadow-xl"
+              className="px-10 py-5 bg-background text-foreground font-bold uppercase tracking-widest text-[8px] rounded-full hover:opacity-90 transition-opacity shadow-xl"
             >
-              Secure Access
+              Book a Tour
             </Link>
             <Link 
               href="/contact" 
-              className="px-10 py-5 border border-primary-foreground/30 text-primary-foreground font-bold uppercase tracking-widest text-[10px] rounded-full hover:bg-primary-foreground/10 transition-colors"
+              className="px-10 py-5 border border-primary-foreground/30 text-primary-foreground font-bold uppercase tracking-widest text-[8px] rounded-full hover:bg-primary-foreground/10 transition-colors"
             >
-              Private Folio
+              Contact Us
             </Link>
           </div>
         </div>
@@ -140,10 +140,10 @@ export default function VaticanFooter() {
 
           {/* Bottom Bar */}
           <div className="mt-20 pt-10 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground/30">
-              © 2024 Vatican Archives. All Rights Reserved.
+            <p className="text-[8px] font-bold uppercase tracking-widest text-primary-foreground/30">
+              © {new Date().getFullYear()} {site?.title || 'Golden Rome Tour'}. All Rights Reserved.
             </p>
-            <div className="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-primary-foreground/30">
+            <div className="flex gap-8 text-[8px] font-bold uppercase tracking-widest text-primary-foreground/30">
               <Link href="/cancellation-policy" className="hover:text-primary-foreground transition-colors">Cancellation Protocol</Link>
               <Link href="/disclaimer" className="hover:text-primary-foreground transition-colors">Legal Disclosure</Link>
             </div>

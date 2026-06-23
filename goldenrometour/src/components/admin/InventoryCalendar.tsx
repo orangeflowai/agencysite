@@ -97,7 +97,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
             {/* Header / Toolbar */}
             <div className="p-4 border-b border-border flex items-center justify-between bg-card z-10">
                 <div className="flex items-center gap-4">
-                    <h2 className="text-xl font-bold text-gray-800 w-48">
+                    <h2 className="text-xl font-bold text-black w-48">
                         {format(currentMonth, 'MMMM yyyy')}
                     </h2>
                     <div className="flex bg-gray-100 rounded-lg p-1">
@@ -149,7 +149,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                     return (
                         <div
                             key={day.toString()}
-                            className={`min-h-[140px] bg-card p-2 relative group flex flex-col gap-1 transition-colors
+                            className={`min-h-[144px] bg-card p-2 relative group flex flex-col gap-1 transition-colors
                                 ${!isCurrentMonth ? 'bg-muted/50 text-muted-foreground' : ''}
                                 ${isToday ? 'bg-background/30' : ''}
                             `}
@@ -179,7 +179,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                                         <button
                                             key={tour._id}
                                             onClick={() => handleProductClick(tour, dateStr)}
-                                            className={`w-full text-left px-2 py-1.5 rounded text-[10px] font-medium border flex items-center justify-between gap-2 transition-all hover:scale-[1.02]
+                                            className={`w-full text-left px-2 py-1.5 rounded text-[8px] font-medium border flex items-center justify-between gap-2 transition-all hover:scale-[1.02]
                                                 ${!hasSlots
                                                     ? 'bg-muted border-transparent text-muted-foreground hover:bg-gray-100 hover:border-border'
                                                     : isSoldOut

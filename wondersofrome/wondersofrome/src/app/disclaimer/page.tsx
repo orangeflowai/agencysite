@@ -51,7 +51,7 @@ export default function Disclaimer() {
 
                     <h3 className="text-2xl font-bold text-foreground mt-12">5. Contact Us</h3>
                     <p>
-                        If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at <a href="mailto:info@wondersofrome.com" className="text-emerald-700 font-bold hover:underline">info@wondersofrome.com</a>.
+                        If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at <a href="mailto:info@wondersofrome.com" className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</a>.
                     </p>
                 </div>
             </div>

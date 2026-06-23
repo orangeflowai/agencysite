@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Globe, Check } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useGoogleTranslate } from '@/components/GoogleTranslate';
 
 const languages = [
     { code: 'en', name: 'English', flag: '🇬🇧' },
@@ -30,14 +31,31 @@ export default function LanguageSwitcher() {
     }, []);
 
     const currentLang = languages.find(l => l.code === language) || languages[0];
+    const { translateTo } = useGoogleTranslate();
 
     const handleLanguageChange = (langCode: string) => {
         setLanguage(langCode as any);
         setIsOpen(false);
-        
+
         // Store the language preference (no reload needed - React context handles updates)
         if (typeof window !== 'undefined') {
             localStorage.setItem('preferredLanguage', langCode);
+        }
+
+        // Trigger Google Translate for full page translation
+        // For English, reload to reset translation
+        if (langCode === 'en') {
+            // Remove Google Translate cookie to reset
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            window.location.reload();
+        } else {
+            // Try programmatic translation first
+            const success = translateTo(langCode);
+            // If Google Translate isn't ready yet, set cookie and reload
+            if (!success) {
+                document.cookie = `googtrans=/en/${langCode}; path=/;`;
+                window.location.reload();
+            }
         }
     };
 

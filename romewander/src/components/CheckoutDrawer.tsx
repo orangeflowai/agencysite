@@ -174,7 +174,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
 
   if (success) {
     return (
-      <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <div data-lenis-prevent className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
         <div className="bg-white rounded-2xl p-10 max-w-sm w-full text-center shadow-2xl">
           <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-10 h-10 text-emerald-600" />
@@ -192,7 +192,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
     : ''
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+    <div data-lenis-prevent className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
       <style>{`@keyframes popIn { from { opacity: 0; transform: scale(0.95) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }`}</style>
 
       <div className="absolute inset-0" onClick={onClose} />
@@ -231,7 +231,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
         </div>
 
         {/* Body */}
-        <div className="flex flex-col md:flex-row overflow-y-auto flex-1 min-h-0">
+        <div data-lenis-prevent className="flex flex-col md:flex-row overflow-y-auto flex-1 min-h-0">
 
           {/* Left: Form */}
           <div className="flex-1 p-6 space-y-5">

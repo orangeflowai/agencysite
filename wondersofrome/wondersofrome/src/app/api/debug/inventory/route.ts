@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 export async function GET() {
     try {
         const { data, error, count } = await supabase
-            .from('inventory')
+            .from('tour_slots')
             .select('*', { count: 'exact' });
 
         if (error) {

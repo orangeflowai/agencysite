@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
     LayoutDashboard,
     Package,
@@ -12,32 +13,41 @@ import {
     PenTool,
     ChevronRight,
     Store,
-    ExternalLink,
-    Wallet,
     LucideIcon,
     Menu,
     X
 } from 'lucide-react';
 import Image from 'next/image';
-import SiteSwitcher from '@/components/admin/SiteSwitcher';
+import { useAdmin } from '@/context/AdminContext';
 
 interface NavLinkProps {
     href: string;
     icon: LucideIcon;
     children: React.ReactNode;
     external?: boolean;
+    exact?: boolean;
     onClick?: () => void;
 }
 
-function NavLink({ href, icon: Icon, children, external, onClick }: NavLinkProps) {
+function NavLink({ href, icon: Icon, children, external, exact, onClick }: NavLinkProps) {
+    const pathname = usePathname();
+    const isActive = exact ? pathname === href : pathname === href || pathname.startsWith(href + '/');
+
     return (
         <Link
             href={href}
             onClick={onClick}
-            className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-muted-foreground rounded-lg hover:bg-muted hover:text-emerald-700 transition-all group"
+            className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-all group ${
+                isActive
+                    ? 'bg-secondary text-primary'
+                    : 'text-muted-foreground hover:bg-muted hover:text-emerald-700'
+            }`}
             target={external ? "_blank" : undefined}
         >
-            <Icon size={18} className="text-muted-foreground group-hover:text-primary transition-colors" />
+            <Icon
+                size={18}
+                className={isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-primary transition-colors'}
+            />
             <span className="flex-1">{children}</span>
             {external && <ChevronRight size={14} className="text-muted-foreground" />}
         </Link>
@@ -45,11 +55,15 @@ function NavLink({ href, icon: Icon, children, external, onClick }: NavLinkProps
 }
 
 function Sidebar({ onClose }: { onClose?: () => void }) {
+    const { currentSite, isLoading } = useAdmin();
+
     return (
         <>
             {/* Mobile Header */}
             <div className="lg:hidden flex items-center justify-between p-4 border-b border-border bg-card">
-                <span className="font-bold text-foreground">TravelAgent Admin</span>
+                <span className="font-bold text-foreground">
+                    {currentSite?.title || 'Admin'}
+                </span>
                 {onClose && (
                     <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg">
                         <X size={24} />
@@ -57,36 +71,47 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 )}
             </div>
 
-            {/* Replaced Static Header with Switcher */}
-            <div className="hidden lg:block">
-                <SiteSwitcher />
+            {/* Brand Header */}
+            <div className="p-6 border-b border-border flex items-center gap-3">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-sm">
+                    {currentSite?.logo ? (
+                        <Image 
+                            src={currentSite.logo.asset?.url || ""} 
+                            alt="Logo" 
+                            width={32} 
+                            height={32} 
+                            className="w-full h-full object-cover rounded-lg" 
+                        />
+                    ) : (
+                        <Store className="text-white w-5 h-5" />
+                    )}
+                </div>
+                <div className="flex-1 min-w-0">
+                    {isLoading ? (
+                        <div className="h-4 w-24 bg-gray-200 animate-pulse rounded" />
+                    ) : (
+                        <span className="block font-bold text-foreground tracking-tight truncate">
+                            {currentSite?.title || 'Wonders of Rome'}
+                        </span>
+                    )}
+                    <span className="block text-[8px] text-muted-foreground uppercase tracking-widest font-bold">
+                        Admin Dashboard
+                    </span>
+                </div>
             </div>
 
             <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-                <div className="lg:hidden mb-4">
-                    <SiteSwitcher />
-                </div>
-
-                <div className="text-[10px] font-bold text-muted-foreground  tracking-wider px-3 mb-2 mt-4">Main</div>
-                <NavLink href="/admin" icon={LayoutDashboard} onClick={onClose}>Dashboard</NavLink>
+                <div className="text-[8px] font-bold text-muted-foreground tracking-wider px-3 mb-2 mt-4">Main</div>
+                <NavLink href="/admin/dashboard" icon={LayoutDashboard} exact onClick={onClose}>Dashboard</NavLink>
                 <NavLink href="/admin/bookings" icon={Calendar} onClick={onClose}>Bookings</NavLink>
 
-                <div className="text-[10px] font-bold text-muted-foreground  tracking-wider px-3 mb-2 mt-6">Content</div>
+                <div className="text-[8px] font-bold text-muted-foreground tracking-wider px-3 mb-2 mt-6">Content</div>
                 <NavLink href="/admin/products" icon={Package} onClick={onClose}>Tours & Products</NavLink>
                 <NavLink href="/admin/addons" icon={Store} onClick={onClose}>Add-ons & Extras</NavLink>
                 <NavLink href="/admin/inventory" icon={Calendar} onClick={onClose}>Inventory Calendar</NavLink>
                 <NavLink href="/admin/blog" icon={PenTool} onClick={onClose}>Blog Posts</NavLink>
 
-                <div className="text-[10px] font-bold text-muted-foreground  tracking-wider px-3 mb-2 mt-6">Payments</div>
-                <NavLink href="/admin/payments" icon={Wallet} onClick={onClose}>Payment Methods</NavLink>
-                {/* External Link to Studio */}
-                <a href="/studio" target="_blank" className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-muted-foreground rounded-lg hover:bg-muted hover:text-emerald-700 transition-all group">
-                    <ExternalLink size={18} className="text-muted-foreground group-hover:text-primary transition-colors" />
-                    <span className="flex-1">Content Studio (CMS)</span>
-                    <ChevronRight size={14} className="text-muted-foreground" />
-                </a>
-
-                <div className="text-[10px] font-bold text-muted-foreground  tracking-wider px-3 mb-2 mt-6">System</div>
+                <div className="text-[8px] font-bold text-muted-foreground tracking-wider px-3 mb-2 mt-6">System</div>
                 <NavLink href="/admin/users" icon={Users} onClick={onClose}>Team Members</NavLink>
                 <NavLink href="/admin/settings" icon={Settings} onClick={onClose}>Settings</NavLink>
             </nav>
@@ -102,6 +127,8 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
 }
 
 function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
+    const { currentSite } = useAdmin();
+
     return (
         <header className="h-16 bg-card border-b border-border sticky top-0 z-40 px-4 lg:px-6 flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -111,7 +138,9 @@ function TopBar({ onMenuClick }: { onMenuClick: () => void }) {
                 >
                     <Menu size={24} className="text-muted-foreground" />
                 </button>
-                <span className="lg:hidden font-bold text-foreground">TravelAgent Admin</span>
+                <span className="lg:hidden font-bold text-foreground">
+                    {currentSite?.title || 'Admin'}
+                </span>
             </div>
 
             <div className="flex items-center gap-4">

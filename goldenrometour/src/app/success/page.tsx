@@ -91,7 +91,7 @@ function SuccessContent() {
                             <CheckCircle className="w-10 h-10 text-white" />
                         </div>
                         <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-2">Protocol <span className="italic">Confirmed</span></h1>
-                        <p className="text-primary-foreground/80 font-bold uppercase tracking-[0.2em] text-[10px]">Your Archive Access is Secured</p>
+                        <p className="text-primary-foreground/80 font-bold uppercase tracking-[0.2em] text-[8px]">Your Archive Access is Secured</p>
                     </div>
 
                     <div className="p-8 md:p-12">
@@ -99,7 +99,7 @@ function SuccessContent() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                 <div className="space-y-8">
                                     <div>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Access Reference</p>
+                                        <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Access Reference</p>
                                         <p className="text-3xl font-serif font-bold text-foreground tracking-tight">#{bookingRef}</p>
                                     </div>
 
@@ -109,11 +109,11 @@ function SuccessContent() {
                                         </h3>
                                         <div className="space-y-3">
                                             <div className="flex flex-col">
-                                                <span className="text-[10px] font-bold text-muted-foreground uppercase">Experience</span>
+                                                <span className="text-[8px] font-bold text-muted-foreground uppercase">Experience</span>
                                                 <span className="font-bold text-foreground line-clamp-1">{booking.tour_title}</span>
                                             </div>
                                             <div className="flex flex-col">
-                                                <span className="text-[10px] font-bold text-muted-foreground uppercase">Protocol Date</span>
+                                                <span className="text-[8px] font-bold text-muted-foreground uppercase">Protocol Date</span>
                                                 <span className="font-bold text-foreground">
                                                     {new Date(booking.date).toLocaleDateString('en-US', {
                                                         weekday: 'long',
@@ -124,7 +124,7 @@ function SuccessContent() {
                                                 </span>
                                             </div>
                                             <div className="flex flex-col">
-                                                <span className="text-[10px] font-bold text-muted-foreground uppercase">Confirmed Time</span>
+                                                <span className="text-[8px] font-bold text-muted-foreground uppercase">Confirmed Time</span>
                                                 <span className="font-bold text-foreground">{booking.time}</span>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@ function SuccessContent() {
                                             )}
                                         </div>
                                         <div className="pt-4 border-t border-border flex justify-between items-end">
-                                            <span className="text-[10px] font-bold text-muted-foreground uppercase">Total Contribution</span>
+                                            <span className="text-[8px] font-bold text-muted-foreground uppercase">Total Contribution</span>
                                             <span className="text-2xl font-serif font-bold text-primary">€{booking.total_price.toFixed(2)}</span>
                                         </div>
                                     </div>
@@ -174,7 +174,7 @@ function SuccessContent() {
                                     <h4 className="text-xs font-bold uppercase tracking-widest text-accent mb-3 flex items-center gap-2">
                                         <Clock className="w-4 h-4" /> Preparation Protocol
                                     </h4>
-                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-[8px] font-bold uppercase tracking-widest text-muted-foreground">
                                         <li className="flex items-center gap-2">
                                             <div className="w-1 h-1 rounded-full bg-accent" />
                                             Arrive 20m before schedule
@@ -205,7 +205,7 @@ function SuccessContent() {
                         <div className="mt-12 flex flex-col sm:flex-row gap-4">
                             <Link
                                 href="/"
-                                className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-primary text-primary-foreground font-bold uppercase tracking-widest text-[10px] rounded-full shadow-xl shadow-primary/20 hover:opacity-90 transition-all"
+                                className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-primary text-primary-foreground font-bold uppercase tracking-widest text-[8px] rounded-full shadow-xl shadow-primary/20 hover:opacity-90 transition-all"
                             >
                                 <Home size={14} />
                                 Return to Gallery
@@ -213,7 +213,7 @@ function SuccessContent() {
                             </Link>
                             <button
                                 onClick={() => window.print()}
-                                className="flex items-center justify-center gap-3 px-8 py-5 bg-card border border-border text-foreground font-bold uppercase tracking-widest text-[10px] rounded-full hover:bg-secondary transition-all"
+                                className="flex items-center justify-center gap-3 px-8 py-5 bg-card border border-border text-foreground font-bold uppercase tracking-widest text-[8px] rounded-full hover:bg-secondary transition-all"
                             >
                                 <Download size={14} />
                                 Print Certificate
@@ -222,7 +222,7 @@ function SuccessContent() {
                     </div>
                 </div>
 
-                <div className="flex justify-center gap-8 text-[10px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">
+                <div className="flex justify-center gap-8 text-[8px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">
                     <span className="flex items-center gap-2">
                         <CheckCircle className="w-3 h-3 text-primary" />
                         Verified Archive

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
-import { motion } from 'framer-motion';
 
 export default function Navbar() {
     const { t } = useLanguage();
@@ -36,7 +35,7 @@ export default function Navbar() {
                 
                 {/* Logo (Left) */}
                 <Link href="/" className="group flex items-center gap-3 shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-[#1A1210] flex items-center justify-center text-[#C9A84C] group-hover:scale-110 transition-transform duration-500 shadow-xl shadow-black/10">
+                    <div className="w-10 h-10 rounded-full bg-card flex items-center justify-center text-foreground group-hover:scale-110 transition-transform duration-500 shadow-xl shadow-black/10">
                         <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16 2L2 16L16 30L30 16L16 2Z" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
@@ -44,11 +43,11 @@ export default function Navbar() {
                     <div className="flex flex-col">
                         <span className={clsx(
                             "font-inter text-xl font-black tracking-tighter leading-none transition-colors",
-                            isScrolled ? "text-[#1A1210]" : "text-[#F5F0E8] drop-shadow-lg"
+                            isScrolled ? "text-foreground" : "text-foreground drop-shadow-lg"
                         )}>
                             ROMEWANDER
                         </span>
-                        <span className="font-inter text-[8px] uppercase font-black tracking-[0.4em] text-[#C9A84C] mt-1 opacity-90">
+                        <span className="font-inter text-[8px] uppercase font-black tracking-[0.4em] text-foreground mt-1 opacity-90">
                             Vatican Tours
                         </span>
                     </div>
@@ -61,17 +60,17 @@ export default function Navbar() {
                             key={link.href} 
                             href={link.href}
                             className={clsx(
-                                "text-[11px] font-black uppercase tracking-[0.3em] transition-all duration-300 relative py-1",
+                                "text-[12px] font-black uppercase tracking-[0.3em] transition-all duration-300 relative py-1",
                                 pathname === link.href 
-                                    ? "text-[#C9A84C]" 
-                                    : isScrolled ? "text-[#1A1210]/50 hover:text-[#1A1210]" : "text-[#F5F0E8]/80 hover:text-white drop-shadow-md"
+                                    ? "text-foreground" 
+                                    : isScrolled ? "text-foreground/50 hover:text-foreground" : "text-foreground/80 hover:text-white drop-shadow-md"
                             )}
                         >
                             {link.name}
                             {pathname === link.href && (
-                                <motion.span 
-                                    layoutId="nav-underline"
-                                    className="absolute -bottom-1.5 left-0 right-0 h-[2px] bg-[#C9A84C] rounded-full" 
+                                <span 
+                                    
+                                    className="absolute -bottom-1.5 left-0 right-0 h-[4px] bg-card rounded-full" 
                                 />
                             )}
                         </Link>
@@ -80,10 +79,10 @@ export default function Navbar() {
                     <Link 
                         href="/contact" 
                         className={clsx(
-                            "px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.35em] transition-all border",
+                            "px-8 py-3 rounded-full text-[8px] font-black uppercase tracking-[0.35em] transition-all border",
                             isScrolled 
-                                ? "bg-[#1A1210] text-white border-[#1A1210] hover:bg-[#C9A84C] hover:border-[#C9A84C] shadow-lg shadow-black/10" 
-                                : "bg-white/10 text-white border-white/20 hover:bg-[#F5F0E8] hover:text-[#1A1210] backdrop-blur-md"
+                                ? "bg-card text-white border-border hover:bg-card hover:border-border shadow-lg shadow-black/10" 
+                                : "bg-white/10 text-white border-white/20 hover:bg-card hover:text-foreground backdrop-blur-md"
                         )}
                     >
                         Contact

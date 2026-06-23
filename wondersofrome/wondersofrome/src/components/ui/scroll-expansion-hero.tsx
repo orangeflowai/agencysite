@@ -9,7 +9,6 @@ import {
   WheelEvent,
 } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 interface ScrollExpandMediaProps {
   mediaType?: 'video' | 'image';
@@ -176,11 +175,8 @@ const ScrollExpandMedia = ({
     >
       <section className='relative flex flex-col items-center justify-start min-h-[100dvh]'>
         <div className='relative w-full flex flex-col items-center min-h-[100dvh]'>
-          <motion.div
+          <div
             className='absolute inset-0 z-0 h-full'
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 - scrollProgress }}
-            transition={{ duration: 0.1 }}
           >
             <Image
               src={bgImageSrc}
@@ -195,7 +191,7 @@ const ScrollExpandMedia = ({
               priority
             />
             <div className='absolute inset-0 bg-black/30' />
-          </motion.div>
+          </div>
 
           <div className='container mx-auto flex flex-col items-center justify-start relative z-10 w-full'>
             <div className='flex flex-col items-center justify-center w-full h-[100dvh] relative'>
@@ -224,11 +220,8 @@ const ScrollExpandMedia = ({
                       disableRemotePlayback
                     />
                     <div className='absolute inset-0 z-10 pointer-events-none'></div>
-                    <motion.div
+                    <div
                       className='absolute inset-0 bg-black/40 rounded-xl'
-                      initial={{ opacity: 0.7 }}
-                      animate={{ opacity: 0.5 - scrollProgress * 0.3 }}
-                      transition={{ duration: 0.2 }}
                     />
                   </div>
                 ) : (
@@ -241,11 +234,8 @@ const ScrollExpandMedia = ({
                       className='w-full h-full object-cover rounded-xl'
                       priority
                     />
-                    <motion.div
+                    <div
                       className='absolute inset-0 bg-black/40 rounded-xl'
-                      initial={{ opacity: 0.7 }}
-                      animate={{ opacity: 0.3 - scrollProgress * 0.3 }}
-                      transition={{ duration: 0.2 }}
                     />
                   </div>
                 )}
@@ -275,34 +265,28 @@ const ScrollExpandMedia = ({
                   textBlend ? 'mix-blend-difference' : 'mix-blend-normal'
                 }`}
               >
-                <motion.h1
+                <h1
                   className='text-5xl md:text-7xl lg:text-8xl font-bold text-white transition-none  tracking-tighter'
                   style={{ transform: `translateX(-${textTranslateX}vw)` }}
                 >
                   {displayTitle}
-                </motion.h1>
+                </h1>
                 {displaySubtitle && (
-                  <motion.h1
+                  <h1
                     className='text-4xl md:text-6xl lg:text-7xl font-bold text-center text-accent transition-none  tracking-tight'
                     style={{ transform: `translateX(${textTranslateX}vw)` }}
                   >
                     {displaySubtitle}
-                  </motion.h1>
+                  </h1>
                 )}
               </div>
             </div>
 
-            <motion.section
+            <section
               className='flex flex-col w-full h-auto will-change-transform pb-24'
-              initial={{ opacity: 0, y: 50 }}
-              animate={{
-                opacity: showContent ? 1 : 0,
-                y: showContent ? 0 : 50,
-              }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
             >
               {children}
-            </motion.section>
+            </section>
           </div>
         </div>
       </section>

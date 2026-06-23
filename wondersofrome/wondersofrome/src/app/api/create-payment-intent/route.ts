@@ -54,6 +54,15 @@ export async function POST(req: Request) {
                 meetingPoint: meetingPoint || mapAddress || location || '',
                 specialRequests: bookingDetails?.marketing?.specialRequests || '',
                 addOns: JSON.stringify(addOns.map((a: any) => ({ name: a.name, price: a.price, quantity: a.quantity }))),
+                // Participant names for site security registration
+                participants: JSON.stringify(
+                    (bookingDetails?.participants || []).map((p: any) => ({
+                        index: p.index,
+                        label: p.label,
+                        name: p.name,
+                        dob: p.dob || '',
+                    }))
+                ),
             },
             description: `${tourTitle} — ${date} at ${time} (${guests} guests)`,
             receipt_email: bookingDetails?.leadTraveler?.email,

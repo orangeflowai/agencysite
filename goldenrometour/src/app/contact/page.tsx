@@ -3,7 +3,6 @@
 import VaticanHeader from '@/components/vatican/header';
 import VaticanFooter from '@/components/vatican/footer';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useState } from 'react';
 import PhoneInput from '@/components/PhoneInput';
 import { useSite } from '@/components/SiteProvider';
@@ -49,7 +48,7 @@ export default function ContactPage() {
         }
     };
 
-    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || process.env.EMAIL_FROM || "info@goldenrometour.com";
+    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || process.env.EMAIL_FROM || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com";
     const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 351 419 9425";
     const address = site?.officeAddress || "Viale Vaticano, 00165 Roma RM, Italy";
 
@@ -60,30 +59,20 @@ export default function ContactPage() {
             {/* Header */}
             <div className="bg-primary pt-32 pb-20 text-center text-primary-foreground relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('/vatican-museums.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-                >
+                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <p className="text-xs uppercase tracking-widest text-primary-foreground/60 mb-4 font-bold">Vatican Archives</p>
                     <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Contact Us</h1>
                     <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto px-4 leading-relaxed">
                         Have questions about Vatican tours? Our team is here to help you plan your perfect visit.
                     </p>
-                </motion.div>
+                </div>
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
                     {/* Contact Info */}
-                    <motion.div
-                        initial="initial"
-                        animate="animate"
-                        variants={fadeInUp}
-                        className="space-y-8"
-                    >
+                    <div className="space-y-8">
                         <h2 className="text-3xl font-serif font-bold text-foreground border-b-2 border-primary/20 pb-4 inline-block">Get in Touch</h2>
                         <div className="space-y-8">
                             <div className="flex items-start gap-6 group">
@@ -119,15 +108,10 @@ export default function ContactPage() {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
 
                     {/* Contact Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="bg-card p-8 md:p-10 rounded-3xl shadow-xl border border-border relative overflow-hidden"
-                    >
+                    <div className="bg-card p-8 md:p-10 rounded-3xl shadow-xl border border-border relative overflow-hidden">
                         {/* Decorative background element */}
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
 
@@ -198,7 +182,7 @@ export default function ContactPage() {
                                 {isSubmitting ? 'Sending...' : 'Send Message'}
                             </button>
                         </form>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
             <VaticanFooter />

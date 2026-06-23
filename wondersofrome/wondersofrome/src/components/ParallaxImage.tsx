@@ -1,13 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Image from 'next/image';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 interface ParallaxImageProps {
   src: string;
@@ -22,41 +16,56 @@ export default function ParallaxImage({
   alt,
   className = '',
   aspectRatio = 'aspect-[16/9]',
-  speed = 0.5,
+  speed = 0.3,
 }: ParallaxImageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = containerRef.current;
+    const container = containerRef.current;
     const img = imgRef.current;
-    if (!el || !img) return;
+    if (!container || !img) return;
 
-    gsap.to(img, {
-      y: (i, target) => {
-        return (el.offsetHeight - img.offsetHeight) * 1;
-      },
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-      },
-    });
+    let rafId: number;
+
+    const handleScroll = () => {
+      rafId = requestAnimationFrame(() => {
+        const rect = container.getBoundingClientRect();
+        const viewH = window.innerHeight;
+        // progress: -1 (above viewport) → 0 (centered) → 1 (below)
+        const progress = (rect.top + rect.height / 2 - viewH / 2) / viewH;
+        const offset = progress * speed * 80; // max ~80px shift
+        img.style.transform = `translateY(${offset}px)`;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(rafId);
+    };
   }, [speed]);
 
   return (
     <div
       ref={containerRef}
-      className={`parallax-img-container ${aspectRatio} ${className}`}
+      className={`overflow-hidden ${aspectRatio} ${className}`}
     >
-      <img
+      <div
         ref={imgRef}
-        src={src}
-        alt={alt}
-        className="parallax-img"
-      />
+        className="relative w-full h-[120%] -top-[10%] will-change-transform"
+        style={{ transform: 'translateY(0)' }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover"
+        />
+      </div>
     </div>
   );
 }

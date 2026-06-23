@@ -20,7 +20,7 @@ export default function CancellationPolicy() {
                 <p className="text-center text-muted-foreground mb-12  text-sm">Last Updated: February 20, 2026</p>
 
                 <div className="prose prose-lg prose-emerald text-muted-foreground max-w-none space-y-8">
-                    <p className="lead text-xl text-gray-800 font-medium">
+                    <p className="lead text-xl text-black font-medium">
                         At {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, we understand that travel plans can change. This policy outlines the conditions under which you may cancel your bookings and your eligibility for refunds.
                     </p>
 

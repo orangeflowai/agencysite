@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -29,17 +28,17 @@ export default function HighlightSection({
         <section className="w-full">
             <div className={`flex flex-col ${flip ? 'lg:flex-row-reverse' : 'lg:flex-row'} min-h-[480px]`}>
                 {/* Left: Text Block */}
-                <motion.div
-                    initial={{ opacity: 0, x: flip ? 32 : -32 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                <div
+                    }
+                    }
                     viewport={{ once: true }}
-                    transition={{ duration: 0.7 }}
+                    }
                     className="flex-1 flex flex-col justify-center px-10 md:px-16 lg:px-20 py-16 lg:py-24"
                     style={{ backgroundColor: '#1A1210' }}
                 >
                     {eyebrow && (
                         <p
-                            className="text-[10px] font-bold uppercase tracking-[0.3em] mb-5"
+                            className="text-[8px] font-bold uppercase tracking-[0.3em] mb-5"
                             style={{ color: '#C9A84C' }}
                         >
                             {eyebrow}
@@ -64,14 +63,14 @@ export default function HighlightSection({
                     >
                         {ctaText}
                     </Link>
-                </motion.div>
+                </div>
 
                 {/* Right: Masked Image on Pattern */}
-                <motion.div
-                    initial={{ opacity: 0, x: flip ? -32 : 32 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                <div
+                    }
+                    }
                     viewport={{ once: true }}
-                    transition={{ duration: 0.7, delay: 0.15 }}
+                    }
                     className="flex-1 relative flex items-center justify-center py-12 px-8 lg:p-0 min-h-[360px] lg:min-h-0 overflow-hidden"
                     style={{
                         backgroundColor: '#F5F0E8',
@@ -106,9 +105,9 @@ export default function HighlightSection({
                         style={{ backgroundColor: '#1A1210', color: '#C9A84C' }}
                     >
                         <span className="font-inter font-bold text-xl leading-none">50K</span>
-                        <span className="text-[9px] font-bold uppercase tracking-wider leading-tight mt-0.5 opacity-80">Guests</span>
+                        <span className="text-[8px] font-bold uppercase tracking-wider leading-tight mt-0.5 opacity-80">Guests</span>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );

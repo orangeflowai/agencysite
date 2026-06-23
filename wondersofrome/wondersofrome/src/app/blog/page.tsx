@@ -10,7 +10,8 @@ import { Calendar, ArrowRight } from 'lucide-react';
 export const revalidate = 60; // Revalidate every minute
 
 export default async function BlogPage() {
-    const posts = await getPosts();
+    const allPosts = await getPosts();
+    const posts = allPosts.filter(p => p.slug?.current);
 
     return (
         <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">

@@ -23,10 +23,10 @@ export default function Marquee() {
 
             {/* Two copies for seamless loop */}
             <div className="flex whitespace-nowrap animate-marquee">
-                <span className="inline-block px-8 font-inter text-[10px] uppercase tracking-[0.25em]" style={{ color: '#F5F0E8' }}>
+                <span className="inline-block px-8 font-inter text-[8px] uppercase tracking-[0.25em]" style={{ color: '#F5F0E8' }}>
                     {text}&nbsp;&nbsp;&nbsp;&nbsp;{text}
                 </span>
-                <span className="inline-block px-8 font-inter text-[10px] uppercase tracking-[0.25em]" style={{ color: '#F5F0E8' }}>
+                <span className="inline-block px-8 font-inter text-[8px] uppercase tracking-[0.25em]" style={{ color: '#F5F0E8' }}>
                     {text}&nbsp;&nbsp;&nbsp;&nbsp;{text}
                 </span>
             </div>

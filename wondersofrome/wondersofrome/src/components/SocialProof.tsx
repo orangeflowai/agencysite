@@ -57,7 +57,7 @@ export default function SocialProof() {
           {[...reviews, ...reviews].map((review, i) => (
             <div
               key={i}
-              className="w-[350px] bg-card/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex-shrink-0 hover:bg-card/15 transition-colors cursor-pointer relative group"
+              className="w-[352px] bg-card/10 backdrop-blur-md border border-white/10 p-6 rounded-2xl flex-shrink-0 hover:bg-card/15 transition-colors cursor-pointer relative group"
             >
               <Quote className="absolute top-4 right-4 text-primary/20 group-hover:text-emerald-400/40 transition-colors" size={40} />
 

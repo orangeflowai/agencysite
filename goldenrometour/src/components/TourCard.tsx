@@ -35,7 +35,7 @@ export default function TourCard({ tour }: TourCardProps) {
         : 'Experience the heart of Rome with our expert-led archival tours.';
 
     return (
-        <div className="min-w-[300px] md:min-w-[400px] h-full p-2">
+        <div className="min-w-[304px] md:min-w-[400px] h-full p-2">
             <Link
                 href={`/tour/${tour.slug.current}`}
                 className="group relative flex flex-col h-full rounded-[2.5rem] overflow-hidden transition-all duration-700 hover:-translate-y-2 border border-primary/10 bg-white shadow-sm hover:shadow-[0_32px_64px_-16px_rgba(201,168,76,0.15)]"
@@ -56,7 +56,7 @@ export default function TourCard({ tour }: TourCardProps) {
                     
                     {/* Top Badges */}
                     <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-10">
-                        <span className="px-4 py-2 text-[9px] font-heading tracking-tight font-bold text-white rounded-full bg-secondary/80 backdrop-blur-xl border border-white/20 uppercase">
+                        <span className="px-4 py-2 text-[8px] font-heading tracking-tight font-bold text-white rounded-full bg-secondary/80 backdrop-blur-xl border border-white/20 uppercase">
                             {tour.category || 'Rome'}
                         </span>
                         
@@ -77,11 +77,11 @@ export default function TourCard({ tour }: TourCardProps) {
                             <div className="flex items-center gap-1.5 text-primary">
                                 <Star size={14} fill="currentColor" />
                                 <span className="font-heading text-xs font-bold">{tour.rating || '5.0'}</span>
-                                <span className="text-[10px] opacity-60 font-body uppercase tracking-tighter">({tour.reviewCount || 100} Logs)</span>
+                                <span className="text-[8px] opacity-60 font-body uppercase tracking-tighter">({tour.reviewCount || 100} Logs)</span>
                             </div>
                             <div className="flex items-center gap-2 opacity-90">
                                 <MapPin size={12} className="text-primary" />
-                                <span className="font-heading text-[10px] tracking-tight uppercase">{tour.location || 'Rome, Italy'}</span>
+                                <span className="font-heading text-[8px] tracking-tight uppercase">{tour.location || 'Rome, Italy'}</span>
                             </div>
                         </div>
                         <div className="bg-primary text-secondary px-5 py-3 rounded-2xl shadow-xl border border-white/10 text-center">
@@ -96,11 +96,11 @@ export default function TourCard({ tour }: TourCardProps) {
                     <div className="flex items-center gap-6 mb-4">
                         <div className="flex items-center gap-2 text-black/40">
                             <Clock size={14} className="text-primary/60" />
-                            <span className="font-heading text-[10px] tracking-tighter font-bold uppercase">{tour.duration || '3h'}</span>
+                            <span className="font-heading text-[8px] tracking-tighter font-bold uppercase">{tour.duration || '3h'}</span>
                         </div>
                         <div className="flex items-center gap-2 text-black/40">
                             <Users size={14} className="text-primary/60" />
-                            <span className="font-heading text-[10px] tracking-tighter font-bold uppercase">{tour.groupSize || 'Max 15'}</span>
+                            <span className="font-heading text-[8px] tracking-tighter font-bold uppercase">{tour.groupSize || 'Max 15'}</span>
                         </div>
                     </div>
 
@@ -117,19 +117,19 @@ export default function TourCard({ tour }: TourCardProps) {
                         {(tour.highlights && tour.highlights.length > 0 ? tour.highlights.slice(0, 4) : ['Skip the Line', 'Private Access', 'Historian Led', 'Archival Entry']).map((feat: any) => (
                             <div key={typeof feat === 'object' ? feat.item : feat} className="flex items-center gap-2 py-2 px-3 bg-background/50 rounded-xl border border-primary/5">
                                 <Check size={12} className="text-primary shrink-0" />
-                                <span className="font-heading text-[9px] font-bold text-black/60 tracking-tight uppercase truncate">{typeof feat === 'object' ? feat.item : feat}</span>
+                                <span className="font-heading text-[8px] font-bold text-black/60 tracking-tight uppercase truncate">{typeof feat === 'object' ? feat.item : feat}</span>
                             </div>
                         ))}
                     </div>
 
                     {/* Footer CTA */}
                     <div className="mt-auto pt-6 flex items-center justify-between border-t border-primary/5">
-                        <div className="flex items-center gap-2 text-primary font-heading font-bold text-[10px] tracking-tight uppercase">
+                        <div className="flex items-center gap-2 text-primary font-heading font-bold text-[8px] tracking-tight uppercase">
                             <Info size={14} />
                             <span>Detailed Protocol</span>
                         </div>
                         <div className="flex items-center gap-4">
-                            <span className="font-heading text-[10px] font-bold text-black uppercase tracking-tight opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">Reserve Seat</span>
+                            <span className="font-heading text-[8px] font-bold text-black uppercase tracking-tight opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">Reserve Seat</span>
                             <div className="w-12 h-12 rounded-full flex items-center justify-center bg-secondary text-white shadow-xl transition-all duration-500 group-hover:bg-primary group-hover:scale-110 group-hover:rotate-[360deg]">
                                 <ArrowRight size={18} />
                             </div>

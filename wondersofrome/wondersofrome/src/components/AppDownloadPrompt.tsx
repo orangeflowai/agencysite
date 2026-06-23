@@ -55,7 +55,7 @@ export default function AppDownloadPrompt({ ticketId }: AppDownloadPromptProps) 
         <div className="flex items-center gap-2 flex-shrink-0">
           <button
             onClick={handleDownload}
-            className="bg-white text-primary px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 hover:bg-gray-100 transition whitespace-nowrap"
+            className="bg-white text-primary px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 hover:bg-gray-100  whitespace-nowrap"
           >
             <Download className="w-4 h-4" />
             <span className="hidden sm:inline">Download App</span>

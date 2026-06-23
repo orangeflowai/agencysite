@@ -69,8 +69,13 @@ export default async function TourPage({ params }: PageProps) {
     // Combine main image and gallery for the slider
     const sliderImages = [tour.mainImage].concat(tour.gallery || []).filter(Boolean);
 
-    // If no images at all, fallback
-    const fallbackImage = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&q=80';
+    // If no images at all, fallback to a Pexels image based on category
+    const categoryFallbacks: Record<string, string> = {
+      vatican: 'https://images.pexels.com/photos/3874600/pexels-photo-3874600.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      colosseum: 'https://images.pexels.com/photos/532263/pexels-photo-532263.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      city: 'https://images.pexels.com/photos/1797158/pexels-photo-1797158.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    };
+    const fallbackImage = categoryFallbacks[tour.category || ''] || 'https://images.pexels.com/photos/1174136/pexels-photo-1174136.jpeg?auto=compress&cs=tinysrgb&w=1600';
     if (sliderImages.length === 0) {
         sliderImages.push(fallbackImage);
     }
@@ -122,13 +127,13 @@ export default async function TourPage({ params }: PageProps) {
 
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
                     <div className="max-w-4xl space-y-4 pointer-events-auto">
-                        <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[10px] font-bold  tracking-[0.4em] font-mono">
+                        <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[8px] font-bold  tracking-[0.4em] font-mono">
                             {tour.category}
                         </span>
                         <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl text-white drop-shadow-2xl">
                             {tour.title}
                         </h1>
-                        <div className="flex flex-wrap items-center gap-6 text-white/80 text-[10px] font-bold  tracking-[0.2em] font-mono">
+                        <div className="flex flex-wrap items-center gap-6 text-white/80 text-[8px] font-bold  tracking-[0.2em] font-mono">
                             <div className="flex items-center"><Clock className="w-4 h-4 mr-2 text-primary" /> {tour.duration}</div>
                             <div className="flex items-center"><Users className="w-4 h-4 mr-2 text-primary" /> {tour.groupSize || 'Small Group'}</div>
                             <div className="flex items-center text-primary">
@@ -178,7 +183,7 @@ export default async function TourPage({ params }: PageProps) {
                                         link: ({ value, children }) => {
                                             const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
                                             return (
-                                                <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-accent underline decoration-[#d4af37]/30 hover:decoration-[#d4af37] transition-all font-medium">
+                                                <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-accent underline decoration-accent/30 hover:decoration-accent transition-all font-medium">
                                                     {children}
                                                 </a>
                                             )
@@ -212,10 +217,10 @@ export default async function TourPage({ params }: PageProps) {
                     {tour.itinerary && tour.itinerary.length > 0 && (
                         <section>
                             <h2 className="font-heading text-2xl font-bold text-primary mb-6">Itinerary</h2>
-                            <div className="pl-4 border-l-2 border-[#d4af37]/20 space-y-8">
+                            <div className="pl-4 border-l-2 border-border/20 space-y-8">
                                 {tour.itinerary.map((stop: any, index: number) => (
                                     <div key={index} className="relative">
-                                        <div className="absolute -left-[21px] top-0 w-4 h-4 bg-accent rounded-full border-2 border-[#fafaf8]" />
+                                        <div className="absolute -left-[24px] top-0 w-4 h-4 bg-accent rounded-full border-2 border-border" />
                                         <h3 className="font-heading text-base font-semibold text-primary">{stop.title}</h3>
                                         <p className="font-mono text-xs text-muted-foreground mb-2  tracking-wide">{stop.duration}</p>
                                         <p className="font-body text-sm text-muted-foreground leading-relaxed">{stop.description}</p>

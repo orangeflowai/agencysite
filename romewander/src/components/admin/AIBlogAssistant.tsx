@@ -358,7 +358,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                             )}
 
                             {result && !loading && (
-                                <div className="space-y-4 max-h-[500px] overflow-y-auto">
+                                <div className="space-y-4 max-h-[496px] overflow-y-auto">
                                     <div>
                                         <label className="text-xs font-semibold text-gray-500 uppercase">Title</label>
                                         <p className="font-bold text-lg text-gray-900">{result.title}</p>
@@ -418,7 +418,7 @@ export default function AIBlogAssistant({ onApply, onClose }: AIBlogAssistantPro
                                                     <div key={i} className="flex items-center gap-2 text-xs text-blue-800">
                                                         <Check className="w-3 h-3" />
                                                         <span className="truncate">{tour.title}</span>
-                                                        <code className="text-blue-500 text-[10px]">/tour/{tour.slug}</code>
+                                                        <code className="text-blue-500 text-[8px]">/tour/{tour.slug}</code>
                                                     </div>
                                                 ))}
                                             </div>

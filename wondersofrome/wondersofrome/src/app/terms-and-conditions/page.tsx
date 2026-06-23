@@ -70,7 +70,7 @@ export default function TermsAndConditions() {
                     <h3 className="text-2xl font-bold text-foreground mt-12">Contact Us</h3>
                     <p>For any questions or concerns regarding these terms:</p>
                     <ul className="list-none pl-0 space-y-2">
-                        <li><strong>Email:</strong> <a href="mailto:info@wondersofrome.com" className="text-emerald-700 font-bold hover:underline">info@wondersofrome.com</a></li>
+                        <li><strong>Email:</strong> <a href="mailto:info@wondersofrome.com" className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</a></li>
                         <li><strong>Phone:</strong> <a href="tel:3514199425" className="text-emerald-700 font-bold hover:underline">351 419 9425</a></li>
                     </ul>
                 </div>

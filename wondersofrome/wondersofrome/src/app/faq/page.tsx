@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, Mail, Phone, Calendar, Shield, MapPin, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 import clsx from 'clsx';
@@ -147,20 +146,17 @@ export default function FAQPage() {
                                                 )}
                                             </button>
 
-                                            <AnimatePresence>
+                                            
                                                 {isOpen && (
-                                                    <motion.div
-                                                        initial={{ height: 0, opacity: 0 }}
-                                                        animate={{ height: "auto", opacity: 1 }}
-                                                        exit={{ height: 0, opacity: 0 }}
-                                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                                    <div
+                                                        className="overflow-hidden transition-all duration-200"
                                                     >
                                                         <div className="px-6 pb-6 text-muted-foreground leading-relaxed border-t border-gray-50">
                                                             {item.answer}
                                                         </div>
-                                                    </motion.div>
+                                                    </div>
                                                 )}
-                                            </AnimatePresence>
+                                            
                                         </div>
                                     );
                                 })}
@@ -182,7 +178,7 @@ export default function FAQPage() {
                         </a>
                         <a href="tel:+393898922088" className="flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1">
                             <Phone size={18} />
-                            +39 389 892 2088
+                            {process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 389 892 2088"}
                         </a>
                     </div>
                 </div>

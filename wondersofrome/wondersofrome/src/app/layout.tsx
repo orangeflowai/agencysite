@@ -4,13 +4,14 @@ import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { SiteProvider } from "@/components/SiteProvider";
 import GlobalThemeProvider from "@/components/GlobalThemeProvider";
-import GoogleTranslate from "@/components/GoogleTranslate";
+import AdminSafeTranslate from "@/components/AdminSafeTranslate";
 import { getSite, DEFAULT_SITE_ID } from "@/lib/dataAdapter";
 import { CartProvider } from "@/context/CartContext";
 import CurveTransition from "@/components/CurveTransition";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
 import CookieBanner from "@/components/CookieBanner";
+import RootLayoutContent from "@/components/RootLayoutContent";
 
 const radioCanada = Radio_Canada_Big({ 
   subsets: ["latin"], 
@@ -94,14 +95,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <GlobalThemeProvider>
             <LanguageProvider>
               <CartProvider>
-                <GoogleTranslate />
-                <CurveTransition>
-                    <SmoothScroll>
-                        <WhatsAppButton />
-                        <CookieBanner />
-                        {children}
-                    </SmoothScroll>
-                </CurveTransition>
+                <AdminSafeTranslate />
+                <RootLayoutContent>
+                  {children}
+                </RootLayoutContent>
               </CartProvider>
             </LanguageProvider>
           </GlobalThemeProvider>

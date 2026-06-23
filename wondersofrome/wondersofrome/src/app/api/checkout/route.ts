@@ -93,7 +93,7 @@ export async function POST(req: Request) {
 
         // 1. VALIDATE INVENTORY
         const { data: inventory, error: inventoryError } = await supabase
-            .from('inventory')
+            .from('tour_slots')
             .select('available_slots, id')
             .eq('tour_slug', tourSlug)
             .eq('date', date)

@@ -17,7 +17,7 @@ const languages = [
 /** Remove Google Translate cookies and restore original page language without a full reload */
 function restoreToEnglish() {
     const hostname = window.location.hostname;
-    // Clear googtrans cookie on all path/domain variants
+    // Clear googtrans cookie on all path/domain 
     ['/', ''].forEach(path => {
         [hostname, '.' + hostname, ''].forEach(domain => {
             const domainPart = domain ? `; domain=${domain}` : '';

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -30,15 +29,15 @@ export default function HighlightSection({
             <div className="container mx-auto px-6">
                 <div className={`flex flex-col ${flip ? 'lg:flex-row-reverse' : 'lg:flex-row'} min-h-[600px] rounded-[3rem] overflow-hidden shadow-3xl`}>
                     {/* Left: Text Block (Dark Purple) */}
-                    <motion.div
-                        initial={{ opacity: 0, x: flip ? 32 : -32 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                    <div
+                        }
+                        }
                         viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
+                        }
                         className="flex-1 flex flex-col justify-center p-12 lg:p-20 bg-secondary"
                     >
                         {eyebrow && (
-                            <p className="text-primary font-heading font-bold uppercase tracking-tight text-[10px] mb-6">
+                            <p className="text-primary font-heading font-bold uppercase tracking-tight text-[8px] mb-6">
                                 {eyebrow}
                             </p>
                         )}
@@ -50,18 +49,18 @@ export default function HighlightSection({
                         </p>
                         <Link
                             href={ctaHref}
-                            className="self-start inline-flex items-center gap-4 bg-primary text-secondary px-10 py-5 font-heading font-bold tracking-tight text-[10px] hover:bg-white transition-all rounded-full uppercase"
+                            className="self-start inline-flex items-center gap-4 bg-primary text-secondary px-10 py-5 font-heading font-bold tracking-tight text-[8px] hover:bg-white transition-all rounded-full uppercase"
                         >
                             {ctaText}
                         </Link>
-                    </motion.div>
+                    </div>
 
                     {/* Right: Image */}
-                    <motion.div
-                        initial={{ opacity: 0, x: flip ? -32 : 32 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                    <div
+                        }
+                        }
                         viewport={{ once: true }}
-                        transition={{ duration: 0.7, delay: 0.15 }}
+                        }
                         className="flex-1 relative min-h-[400px] lg:min-h-0"
                     >
                         <Image
@@ -76,9 +75,9 @@ export default function HighlightSection({
                         {/* Floating Badge */}
                         <div className="absolute bottom-12 right-12 bg-secondary/5 backdrop-blur-xl border border-primary/20 p-8 rounded-2xl shadow-2xl">
                              <p className="text-primary font-heading text-2xl md:text-3xl font-bold">24/7</p>
-                             <p className="text-secondary/60 font-heading text-[10px] font-bold tracking-tight uppercase mt-1">Concierge Support</p>
+                             <p className="text-secondary/60 font-heading text-[8px] font-bold tracking-tight uppercase mt-1">Concierge Support</p>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

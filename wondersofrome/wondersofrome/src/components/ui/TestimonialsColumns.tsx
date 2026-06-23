@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
+import Image from "next/image";
 
 // ── Rome-specific testimonials ────────────────────────────────────────────────
 export const romeTestimonials = [
@@ -82,9 +82,7 @@ export const TestimonialsColumn = ({
   className?: string;
 }) => (
   <div className={`overflow-hidden ${className}`}>
-    <motion.div
-      animate={{ translateY: '-50%' }}
-      transition={{ duration, repeat: Infinity, ease: 'linear', repeatType: 'loop' }}
+    <div
       className="flex flex-col gap-4 pb-4"
     >
       {[...Array(2)].fill(0).map((_, idx) => (
@@ -103,7 +101,7 @@ export const TestimonialsColumn = ({
               <p className="text-foreground text-sm leading-relaxed mb-4">{text}</p>
               <div className="flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image fill 
                   src={image}
                   alt={name}
                   width={40}
@@ -119,6 +117,6 @@ export const TestimonialsColumn = ({
           ))}
         </React.Fragment>
       ))}
-    </motion.div>
+    </div>
   </div>
 );

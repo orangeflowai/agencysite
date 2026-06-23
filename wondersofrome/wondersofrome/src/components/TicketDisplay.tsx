@@ -168,14 +168,14 @@ export default function TicketDisplay({ ticket }: TicketDisplayProps) {
         <div className="p-8 flex flex-col sm:flex-row gap-3">
           <button
             onClick={handleDownload}
-            className="flex-1 bg-primary text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-lg"
+            className="flex-1 bg-primary text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-90  shadow-lg"
           >
             <Download className="w-5 h-5" />
             Download Ticket
           </button>
           <button
             onClick={handleAddToCalendar}
-            className="flex-1 bg-secondary text-foreground py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-muted transition border-2 border-border"
+            className="flex-1 bg-secondary text-foreground py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-muted  border-2 border-border"
           >
             <Calendar className="w-5 h-5" />
             Add to Calendar

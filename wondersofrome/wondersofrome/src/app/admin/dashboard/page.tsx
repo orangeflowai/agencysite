@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
+import { useAdmin } from '@/context/AdminContext';
 import {
     Calendar, DollarSign, Users, TrendingUp, Clock,
     ArrowUpRight, ArrowDownRight, Package, Store, Settings,
@@ -33,6 +34,7 @@ interface RecentBooking {
 }
 
 export default function DashboardPage() {
+    const { selectedSiteId } = useAdmin();
     const [stats, setStats] = useState<DashboardStats | null>(null);
     const [recentBookings, setRecentBookings] = useState<RecentBooking[]>([]);
     const [weeklyData, setWeeklyData] = useState<{ day: string; revenue: number; count: number }[]>([]);
@@ -40,14 +42,17 @@ export default function DashboardPage() {
 
     useEffect(() => {
         loadDashboard();
-    }, []);
+    }, [selectedSiteId]);
 
     async function loadDashboard() {
         try {
-            // Fetch all bookings
+            const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome';
+
+            // Fetch bookings filtered by site
             const { data: bookings, error } = await supabase
                 .from('bookings')
                 .select('*')
+                .eq('site_id', siteId)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;
@@ -61,10 +66,20 @@ export default function DashboardPage() {
             const paid = all.filter(b => b.status === 'paid');
             const pending = all.filter(b => b.status === 'pending');
             const cancelled = all.filter(b => b.status === 'cancelled');
-            const todayBookings = all.filter(b => b.created_at?.startsWith(today));
-            const totalRevenue = paid.reduce((sum, b) => sum + (b.total_price || 0), 0);
-            const weekBookings = all.filter(b => new Date(b.created_at) >= weekAgo);
-            const thisWeekRevenue = weekBookings.filter(b => b.status === 'paid').reduce((sum, b) => sum + (b.total_price || 0), 0);
+            
+            // Safety checks for startsWith and Date conversion
+            const todayBookings = all.filter(b => b.created_at && typeof b.created_at === 'string' && b.created_at.startsWith(today));
+            const totalRevenue = paid.reduce((sum, b) => sum + (Number(b.total_price) || 0), 0);
+            
+            const weekBookings = all.filter(b => {
+                if (!b.created_at) return false;
+                const d = new Date(b.created_at);
+                return !isNaN(d.getTime()) && d >= weekAgo;
+            });
+            
+            const thisWeekRevenue = weekBookings
+                .filter(b => b.status === 'paid')
+                .reduce((sum, b) => sum + (Number(b.total_price) || 0), 0);
 
             setStats({
                 totalBookings: all.length,
@@ -85,8 +100,12 @@ export default function DashboardPage() {
             for (let i = 6; i >= 0; i--) {
                 const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
                 const dateStr = d.toISOString().split('T')[0];
-                const dayBookings = all.filter(b => b.created_at?.startsWith(dateStr));
-                const dayRevenue = dayBookings.filter(b => b.status === 'paid').reduce((sum, b) => sum + (b.total_price || 0), 0);
+                
+                const dayBookings = all.filter(b => b.created_at && typeof b.created_at === 'string' && b.created_at.startsWith(dateStr));
+                const dayRevenue = dayBookings
+                    .filter(b => b.status === 'paid')
+                    .reduce((sum, b) => sum + (Number(b.total_price) || 0), 0);
+                
                 days.push({
                     day: d.toLocaleDateString('en', { weekday: 'short' }),
                     revenue: dayRevenue,
@@ -181,7 +200,7 @@ export default function DashboardPage() {
                                 <div className="text-center">
                                     <span className="text-xs font-medium text-muted-foreground">{day.day}</span>
                                     {day.count > 0 && (
-                                        <p className="text-[10px] text-muted-foreground">{day.count} orders</p>
+                                        <p className="text-[8px] text-muted-foreground">{day.count} orders</p>
                                     )}
                                 </div>
                             </div>

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Shield, Award, Clock, ThumbsUp } from 'lucide-react';
 
 const features = [
@@ -36,12 +35,12 @@ export default function TrustBadges() {
             <div className="container mx-auto px-6 relative z-10">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
                     {features.map(({ Icon, title, description, accent }, index) => (
-                        <motion.div
+                        <div
                             key={title}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            }
+                            }
                             viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: index * 0.15 }}
+                            }
                             className="group relative flex flex-col items-center text-center p-8 rounded-[2.5rem] transition-all duration-500 hover:bg-white/40 border border-transparent hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5"
                         >
                             {/* Glass Icon Card with Layered Effect */}
@@ -68,31 +67,31 @@ export default function TrustBadges() {
                                 {title}
                             </h3>
 
-                            <p className="font-body text-xs leading-relaxed text-secondary/60 max-w-[220px]">
+                            <p className="font-body text-xs leading-relaxed text-secondary/60 max-w-[224px]">
                                 {description}
                             </p>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
                 {/* Platform trust strip - Refined */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
+                <div
+                    }
+                    }
                     viewport={{ once: true }}
-                    transition={{ delay: 0.8 }}
+                    }
                     className="flex flex-col items-center mt-20 pt-12 border-t border-primary/10"
                 >
-                    <p className="font-heading font-bold text-[10px] tracking-tight text-primary/30 mb-8 uppercase">Trusted by Global Travelers</p>
+                    <p className="font-heading font-bold text-[8px] tracking-tight text-primary/30 mb-8 uppercase">Trusted by Global Travelers</p>
                     <div className="flex items-center justify-center gap-12 lg:gap-20 flex-wrap opacity-40 hover:opacity-100 transition-opacity duration-700">
                         {[['TripAdvisor', '★★★★★'], ['Google', '★★★★★'], ['Viator', 'Elite'], ['GetYourGuide', 'Certified']].map(([name, stars]) => (
                             <div key={name} className="flex flex-col items-center gap-1 group cursor-default">
                                 <span className="font-heading text-lg md:text-xl font-bold text-secondary uppercase">{name}</span>
-                                {stars && <span className="font-heading text-[10px] font-bold tracking-tight text-primary/60 uppercase">{stars}</span>}
+                                {stars && <span className="font-heading text-[8px] font-bold tracking-tight text-primary/60 uppercase">{stars}</span>}
                             </div>
                         ))}
                     </div>
-                </motion.div>
+                </div>
             </div>
         </section>
     );

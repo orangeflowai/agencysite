@@ -38,7 +38,7 @@ export default function AutoScrollTourSection({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="text-primary font-bold tracking-[0.4em] text-[10px] mb-4 uppercase">
+            <p className="text-primary font-bold tracking-[0.4em] text-[8px] mb-4 uppercase">
               {labelColor}
             </p>
             <h2 className="text-4xl md:text-6xl font-serif font-bold tracking-tighter leading-none mb-4">
@@ -53,7 +53,7 @@ export default function AutoScrollTourSection({
           {link && (
             <Link 
               href={link} 
-              className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary/20 text-primary text-[10px] font-bold tracking-widest rounded-full hover:bg-primary hover:text-white transition-all shrink-0"
+              className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary/20 text-primary text-[8px] font-bold tracking-widest rounded-full hover:bg-primary hover:text-white transition-all shrink-0"
             >
               View All <ArrowRight size={14} />
             </Link>
@@ -134,13 +134,13 @@ export default function AutoScrollTourSection({
                           <span>{tour.duration}</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-6">
                         <div className="text-right">
-                          <span className="text-sm text-muted-foreground block">From</span>
-                          <span className="text-2xl font-semibold text-foreground">€{tour.price}</span>
+                          <span className="text-[10px] text-muted-foreground font-bold tracking-widest block uppercase mb-1">Starting from</span>
+                          <span className="text-3xl font-serif font-bold text-foreground">€{tour.price}</span>
                         </div>
-                        <span className="inline-flex items-center bg-primary text-primary-foreground px-6 py-3 rounded-full text-sm font-medium group-hover:bg-foreground transition-colors">
-                          Book Now →
+                        <span className="inline-flex items-center bg-primary text-white px-8 py-4 rounded-full text-[10px] font-bold tracking-widest uppercase group-hover:bg-foreground transition-all shadow-lg hover:scale-105 active:scale-95">
+                          Reserve Now <ArrowRight size={14} className="ml-2" />
                         </span>
                       </div>
                     </div>

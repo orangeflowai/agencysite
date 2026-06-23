@@ -1,13 +1,13 @@
 
 
-export const revalidate = 300; // Revalidate every 5 minutes
-
 import { notFound } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import TourCard from '@/components/TourCard';
 import { getTours } from '@/lib/dataAdapter';
 import CategoryHero from '@/components/CategoryHero';
+
+export const revalidate = 60;
 
 // Pre-generate all known category slugs at build time
 export async function generateStaticParams() {
@@ -82,31 +82,40 @@ export default async function CategoryPage({ params }: PageProps) {
 
     const allTours = await getTours();
 
-    // Filter tours by category - support multiple category names
+    // Filter tours by category
     const filteredTours = allTours.filter(t => {
         if (!t.category) return false;
         const tourCategory = t.category.toLowerCase().trim();
         if (normalizedSlug === 'city') {
-            return tourCategory === 'city' ||
-                   tourCategory === 'city-tours' ||
-                   tourCategory === 'city tours' ||
-                   tourCategory === 'rome-city' ||
-                   tourCategory === 'rome city' ||
-                   tourCategory.includes('city');
+            return tourCategory === 'city' || tourCategory === 'city-tours' ||
+                   tourCategory === 'city tours' || tourCategory.includes('city');
         }
         if (normalizedSlug === 'hidden-gems') {
-            return tourCategory === 'hidden-gems' ||
-                   tourCategory === 'hidden gems' ||
-                   tourCategory === 'hiddengems' ||
-                   tourCategory.includes('hidden');
+            return tourCategory === 'hidden-gems' || tourCategory === 'hidden gems' ||
+                   tourCategory === 'hiddengems' || tourCategory.includes('hidden');
         }
         return tourCategory === normalizedSlug ||
                tourCategory === normalizedSlug.replace('-', ' ') ||
                tourCategory === normalizedSlug.replace('-', '');
     });
 
+    // Fetch next available dates for all filtered tours in one request
+    let nextAvailableMap: Record<string, string | null> = {};
+    if (filteredTours.length > 0) {
+        try {
+            const slugList = filteredTours.map(t => t.slug.current).join(',');
+            const base = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3002';
+            const res = await fetch(`${base}/api/next-available?slugs=${slugList}`, {
+                next: { revalidate: 300 }
+            });
+            if (res.ok) nextAvailableMap = await res.json();
+        } catch {
+            // non-fatal — cards render without the badge
+        }
+    }
+
     return (
-        <main className="min-h-screen bg-[#FDFFF5]">
+        <main className="min-h-screen bg-card">
             <Navbar />
 
             {/* Immersive Hero Slider */}
@@ -130,7 +139,10 @@ export default async function CategoryPage({ params }: PageProps) {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                         {filteredTours.map(tour => (
                             <div key={tour._id} className="h-full">
-                                <TourCard tour={tour} />
+                                <TourCard
+                                    tour={tour}
+                                    nextAvailable={nextAvailableMap[tour.slug.current] ?? null}
+                                />
                             </div>
                         ))}
                     </div>

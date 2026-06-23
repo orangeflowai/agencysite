@@ -31,7 +31,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   const email  = site?.contactEmail  || 'info@goldenrometours.com';
-  const phone  = site?.contactPhone  || '+39 389 521 7315';
+  const phone  = site?.contactPhone  || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '';
   const name   = site?.title || 'Golden Rome Tour';
   const address = site?.officeAddress || 'Via Germanico, 28, Rome, Italy';
 
@@ -60,7 +60,7 @@ export default function Footer() {
                     <span className="font-heading text-3xl font-bold tracking-tighter leading-none italic uppercase">
                         Vaticano <span className="text-primary not-italic">+</span>
                     </span>
-                    <span className="font-heading text-primary/60 text-[7px] font-bold tracking-tight mt-1 uppercase">
+                    <span className="font-heading text-primary/60 text-[8px] font-bold tracking-tight mt-1 uppercase">
                         Sacred Luxury Editorial
                     </span>
                 </div>
@@ -94,7 +94,7 @@ export default function Footer() {
 
           {/* Explore */}
           <div>
-            <p className="text-[10px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Exploration</p>
+            <p className="text-[8px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Exploration</p>
             <ul className="space-y-4">
               {EXPLORE.map(({ label, href }) => (
                 <li key={href}>
@@ -111,7 +111,7 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <p className="text-[10px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Documentation</p>
+            <p className="text-[8px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Documentation</p>
             <ul className="space-y-4">
               {SUPPORT.map(({ label, href }) => (
                 <li key={href}>
@@ -128,7 +128,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="text-[10px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Correspondence</p>
+            <p className="text-[8px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Correspondence</p>
             <ul className="space-y-6">
               <li>
                 <a href={`mailto:${email}`} className="flex items-start gap-4 group">
@@ -152,7 +152,7 @@ export default function Footer() {
 
             {/* Payment logos */}
             <div className="mt-12 pt-8 border-t border-primary/10">
-              <p className="font-heading text-[9px] tracking-tight text-primary/40 mb-4 font-bold uppercase">Secure Transfer Protocol</p>
+              <p className="font-heading text-[8px] tracking-tight text-primary/40 mb-4 font-bold uppercase">Secure Transfer Protocol</p>
               <div className="opacity-80 hover:opacity-100 transition-all grayscale hover:grayscale-0">
                 <PaymentLogos size="sm" />
               </div>
@@ -164,16 +164,16 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-primary/10 bg-background/50">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] text-black/30 font-heading font-bold tracking-tight uppercase">
+          <p className="text-[8px] text-black/30 font-heading font-bold tracking-tight uppercase">
             © {year} {name} // ARCHIVAL CONCIERGE STATUS: NOMINAL
           </p>
           <div className="flex flex-wrap justify-center gap-6">
             {site?.businessInfo?.vatNumber && (
-                <span className="text-[10px] text-black/30 font-heading font-bold tracking-tight uppercase">
+                <span className="text-[8px] text-black/30 font-heading font-bold tracking-tight uppercase">
                     P.IVA: {site.businessInfo.vatNumber}
                 </span>
             )}
-             <span className="text-[10px] text-black/20 font-heading font-bold tracking-tight uppercase">
+             <span className="text-[8px] text-black/20 font-heading font-bold tracking-tight uppercase">
                 System Version 1.0.4-GRT
             </span>
           </div>

@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
 import { Clock, Users, Star, ChevronDown } from "lucide-react"
 import Image from "next/image"
 import { urlFor } from "@/lib/dataAdapter"
@@ -55,7 +54,7 @@ export default function VaticanTourHeroFull({
   return (
     <section className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black">
       {/* Background Image with Parallax and Scale - Optimized with Next Image */}
-      <motion.div 
+      <div 
         className="absolute inset-0 z-0"
         style={{ scale }}
       >
@@ -69,20 +68,20 @@ export default function VaticanTourHeroFull({
           className="object-cover opacity-70"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background" />
-      </motion.div>
+      </div>
 
       {/* Content Container */}
-      <motion.div 
+      <div 
         className="relative z-10 max-w-5xl mx-auto px-4 text-center"
         style={{ opacity }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <div
+          }
+          }
+          }
           className="space-y-6"
         >
-          <span className="inline-block px-4 py-1.5 bg-accent/20 backdrop-blur-md border border-accent/30 text-accent text-[10px] font-bold uppercase tracking-[0.3em] rounded-full">
+          <span className="inline-block px-4 py-1.5 bg-accent/20 backdrop-blur-md border border-accent/30 text-accent text-[8px] font-bold uppercase tracking-[0.3em] rounded-full">
             {category || "Vatican Archives"}
           </span>
           
@@ -94,7 +93,7 @@ export default function VaticanTourHeroFull({
             ))}
           </h1>
 
-          <div className="flex flex-wrap items-center justify-center gap-8 text-white/80 font-sans font-semibold uppercase tracking-widest text-[10px] pt-4">
+          <div className="flex flex-wrap items-center justify-center gap-8 text-white/80 font-sans font-semibold uppercase tracking-widest text-[8px] pt-4">
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-accent" />
               <span>{duration} Duration</span>
@@ -108,29 +107,29 @@ export default function VaticanTourHeroFull({
               <span>{rating || '5.0'} / {reviewCount || 100} Reviews</span>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
+      <div 
+        }
+        }
+        }
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 text-white/50 flex flex-col items-center gap-2"
         style={{ opacity }}
       >
-        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Explore Dossier</span>
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+        <span className="text-[8px] font-bold uppercase tracking-[0.2em]">Explore Dossier</span>
+        <div
+          }
+          }
         >
           <ChevronDown className="w-6 h-6" />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Side Label */}
       <div className="absolute left-10 bottom-20 hidden lg:block overflow-hidden h-32">
-        <div className="rotate-90 origin-left text-[10px] font-bold uppercase tracking-[0.5em] text-white/20 whitespace-nowrap">
+        <div className="rotate-90 origin-left text-[8px] font-bold uppercase tracking-[0.5em] text-white/20 whitespace-nowrap">
           Official Vatican Partner • 2024 Protocol
         </div>
       </div>

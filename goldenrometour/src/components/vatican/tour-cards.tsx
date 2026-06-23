@@ -3,7 +3,6 @@
 import { Clock, Users, Star, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { motion } from "framer-motion"
 
 interface Tour {
   _id: string
@@ -56,12 +55,12 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
     <section id="tours" className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <motion.div 
+        <div 
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          }
+          }
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          }
         >
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 rounded-full mb-6 border border-accent/20">
             <Star className="w-4 h-4 fill-accent text-accent" />
@@ -75,14 +74,14 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
             Two exclusive experiences curated for the discerning traveler. Skip-the-line access and expert guidance to the world's most sacred art collection.
           </p>
-        </motion.div>
+        </div>
 
         {/* Tour Grid - Only 2 Tours */}
-        <motion.div 
+        <div 
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          
+          
+          
           viewport={{ once: true, margin: "-100px" }}
         >
           {displayTours.map((tour) => {
@@ -102,12 +101,12 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
               : ["Skip the Line Access", "Expert Guide", "Small Group"];
             
             return (
-              <motion.div 
+              <div 
                 key={tour._id}
-                variants={cardVariants}
+                
                 className="group bg-card rounded-[2rem] overflow-hidden border-2 border-border hover:border-accent/50 transition-all hover:shadow-2xl shadow-lg"
-                whileHover={{ y: -12, scale: 1.02 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                }
+                }
               >
                 {/* Image */}
                 <div className="relative h-72 md:h-80 overflow-hidden bg-muted">
@@ -194,10 +193,10 @@ export default function TourCards({ tours }: { tours: Tour[] }) {
                     </Link>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* No "View All" link - only 2 tours available */}
       </div>

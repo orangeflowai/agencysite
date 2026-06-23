@@ -1,3 +1,4 @@
+
 // ── Viator/GetYourGuide-style confirmation email ──────────────────────────────
 
 export function generateCustomerEmail(
@@ -6,6 +7,7 @@ export function generateCustomerEmail(
     name: string; tourTitle: string; date: string; time: string;
     guests: string; adults: string; students: string; youths: string;
     orderId: string; pin: string; totalAmount: number; metadata: any;
+    participantListHtml?: string;
   }
 ) {
   const isWonders   = siteId === 'wondersofrome';
@@ -13,7 +15,7 @@ export function generateCustomerEmail(
   const brandName   = isWonders ? 'Wonders of Rome' : 'Tickets in Rome';
   const brandDomain = isWonders ? 'wondersofrome.com' : 'ticketsinrome.com';
   const logoUrl     = `https://${brandDomain}/logo.png`;
-  const supportPhone  = process.env.NEXT_PUBLIC_SUPPORT_PHONE  || '+39 351 419 9425';
+  const supportPhone  = process.env.NEXT_PUBLIC_SUPPORT_PHONE  || '';
   const providerPhone = process.env.NEXT_PUBLIC_PROVIDER_PHONE || supportPhone;
   const bookingRef  = data.orderId.slice(-8).toUpperCase();
   
@@ -67,7 +69,7 @@ export function generateCustomerEmail(
 <tr><td align="center" style="padding:32px 16px;">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
   <tr><td style="padding:0 0 20px;text-align:center;">
-    <img src="${logoUrl}" alt="${brandName}" style="height:36px;width:auto;" />
+    <img  src="${logoUrl}" alt="${brandName}" style="height:36px;width:auto;" />
   </td></tr>
   <tr><td style="background:${brandColor};border-radius:16px 16px 0 0;padding:32px 40px;text-align:center;">
     <div style="width:56px;height:56px;background:rgba(255,255,255,0.15);border-radius:50%;margin:0 auto 16px;line-height:56px;font-size:28px;text-align:center;">&#10003;</div>
@@ -124,11 +126,19 @@ export function generateCustomerEmail(
       </td></tr>
     </table>
   </td></tr>
+  ${data.participantListHtml ? `<tr><td style="background:#fff;padding:0 40px 24px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;">
+      <tr><td style="padding:14px 20px;background:#f8fafc;border-bottom:1px solid #e5e7eb;">
+        <p style="margin:0;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#6b7280;">&#128101; Registered Participants</p>
+        <p style="margin:4px 0 0;font-size:12px;color:#9ca3af;">These names have been registered for site entry</p>
+      </td></tr>
+      <tr><td style="padding:0 20px 8px;">${data.participantListHtml}</td></tr>
+    </table>
+  </td></tr>` : ''}
   <tr><td style="background:#fff;padding:0 40px 24px;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background:#f0fdf4;border-radius:12px;">
       <tr><td style="padding:16px 20px;">
-        <p style="margin:0 0 10px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#166534;">&#10003; What to Bring</p>
-        <table cellpadding="0" cellspacing="0">
+        <p style="margin:0 0 10px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#166534;">&#10003; What to Bring</p>        <table cellpadding="0" cellspacing="0">
           <tr><td style="padding:3px 0;font-size:13px;color:#166534;">&#8226; Passport or ID (mandatory for security)</td></tr>
           <tr><td style="padding:3px 0;font-size:13px;color:#166534;">&#8226; Comfortable walking shoes</td></tr>
           <tr><td style="padding:3px 0;font-size:13px;color:#166534;">&#8226; Shoulders &amp; knees covered (Vatican dress code)</td></tr>
@@ -175,7 +185,7 @@ export function generateCustomerEmail(
     </table>
   </td></tr>
   <tr><td style="background:#1f2937;border-radius:0 0 16px 16px;padding:24px 40px;text-align:center;">
-    <img src="${logoUrl}" alt="${brandName}" style="height:28px;width:auto;opacity:0.7;margin-bottom:12px;" />
+    <img  src="${logoUrl}" alt="${brandName}" style="height:28px;width:auto;opacity:0.7;margin-bottom:12px;" />
     <p style="margin:0;font-size:12px;color:#9ca3af;">&#169; ${new Date().getFullYear()} ${brandName}. All rights reserved.</p>
     <p style="margin:6px 0 0;font-size:11px;color:#6b7280;">You received this because you booked on ${brandDomain}</p>
   </td></tr>
@@ -196,6 +206,8 @@ export function generateAdminEmail(
     date: string; time: string; guests: string;
     adults: string; students: string;
     orderId: string; pin: string; totalAmount: number; metadata: any;
+    participantListHtml?: string;
+    participantListText?: string;
   }
 ) {
   const brandName = siteId === 'wondersofrome' ? 'Wonders of Rome' : 'Tickets in Rome';
@@ -263,9 +275,13 @@ export function generateAdminEmail(
     </table>
   </div>
 
+  ${data.participantListHtml ? `<div class="section">
+    <h2>&#128101; Participants (Site Entry Registration)</h2>
+    ${data.participantListHtml}
+  </div>` : ''}
+
   <div class="section">
-    <h2>Actions</h2>
-    <table>
+    <h2>Actions</h2>    <table>
       <tr><td style="color:#22c55e;">&#10003;</td><td>Booking created in Payload CMS</td></tr>
       <tr><td style="color:#22c55e;">&#10003;</td><td>Confirmation email sent to customer</td></tr>
       <tr><td style="color:#22c55e;">&#10003;</td><td>Inventory slot decremented</td></tr>

@@ -95,7 +95,7 @@ export default function ExperienceShowcase({
         </div>
 
         {/* Main showcase card — image left, text right (like image 2) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-2xl min-h-[420px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-2xl min-h-[416px]">
 
           {/* Left — large photo */}
           <div className="relative h-72 lg:h-auto overflow-hidden">
@@ -156,7 +156,7 @@ export default function ExperienceShowcase({
               <ul className="space-y-2">
                 {highlights.map((h, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span className={`mt-0.5 w-4 h-4 rounded-full ${accentBg} text-white flex items-center justify-center shrink-0 text-[10px] font-bold`}>✓</span>
+                    <span className={`mt-0.5 w-4 h-4 rounded-full ${accentBg} text-white flex items-center justify-center shrink-0 text-[8px] font-bold`}>✓</span>
                     {h}
                   </li>
                 ))}

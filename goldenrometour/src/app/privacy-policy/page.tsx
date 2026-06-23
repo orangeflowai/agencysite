@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
                 <p className="text-sm text-muted-foreground mb-8 ">Last Updated: February 20, 2026</p>
 
                 <div className="prose prose-lg prose-emerald text-muted-foreground max-w-none space-y-8">
-                    <p className="lead text-xl text-gray-800 font-medium">
+                    <p className="lead text-xl text-black font-medium">
                         At {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, we care about the privacy of your data and are committed to protecting it. We will not use or share your information with anyone except as described in this Privacy Policy.
                     </p>
 

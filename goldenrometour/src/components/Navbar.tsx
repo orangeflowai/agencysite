@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Menu, X, Search, Calendar, Users, Minus, Plus, ShoppingBag } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { useRouter, usePathname } from 'next/navigation';
 import SmartCalendar from './ui/SmartCalendar';
@@ -91,19 +90,19 @@ export default function Navbar() {
         <>
             {/* 5K ROLLING MARQUEE */}
             <div className="fixed top-0 left-0 right-0 z-[10002] bg-background py-2 overflow-hidden border-b border-primary/10 pointer-events-none">
-                <motion.div
-                    animate={{ x: [0, -1000] }}
-                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                <div
+                    }
+                    }
                     className="flex whitespace-nowrap gap-12 items-center"
                 >
                     {[...Array(10)].map((_, i) => (
                         <div key={i} className="flex items-center gap-12">
-                            <span className="font-heading font-bold text-[10px] tracking-tight text-secondary uppercase">✦ Official Vatican Partner</span>
-                            <span className="font-heading font-bold text-[10px] tracking-tight text-secondary uppercase">✦ Skip the Line Priority Access</span>
-                            <span className="font-heading font-bold text-[10px] tracking-tight text-secondary uppercase">✦ Curator-Led Historian Routes</span>
+                            <span className="font-heading font-bold text-[8px] tracking-tight text-secondary uppercase">✦ Official Vatican Partner</span>
+                            <span className="font-heading font-bold text-[8px] tracking-tight text-secondary uppercase">✦ Skip the Line Priority Access</span>
+                            <span className="font-heading font-bold text-[8px] tracking-tight text-secondary uppercase">✦ Curator-Led Historian Routes</span>
                         </div>
                     ))}
-                </motion.div>
+                </div>
             </div>
 
             <nav
@@ -137,7 +136,7 @@ export default function Navbar() {
                                     )}>
                                         Vaticano <span className="text-primary not-italic">+</span>
                                     </span>
-                                    <span className="font-heading text-primary/40 text-[10px] font-bold tracking-tight mt-1 uppercase">
+                                    <span className="font-heading text-primary/40 text-[8px] font-bold tracking-tight mt-1 uppercase">
                                         Sacred Luxury Editorial
                                     </span>
                                 </div>
@@ -153,7 +152,7 @@ export default function Navbar() {
                                         key={link.href}
                                         href={link.href}
                                         className={clsx(
-                                            'text-[10px] font-heading font-bold tracking-tight transition-all duration-300 whitespace-nowrap relative pb-1 uppercase group/link',
+                                            'text-[8px] font-heading font-bold tracking-tight transition-all duration-300 whitespace-nowrap relative pb-1 uppercase group/link',
                                             isActive ? 'text-primary' : (scrolled ? 'text-white/80 hover:text-primary' : 'text-white/90 hover:text-primary')
                                         )}
                                     >
@@ -183,13 +182,13 @@ export default function Navbar() {
             </nav>
 
             {/* Mobile Menu Overlay */}
-            <AnimatePresence>
+            
                 {isMobileMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100%' }}
-                        transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+                    <div
+                        }
+                        }
+                        }
+                        }
                         className="fixed inset-0 z-[10003] bg-secondary lg:hidden flex flex-col"
                     >
                         <div className="p-6 flex justify-between items-center border-b border-primary/10">
@@ -212,7 +211,7 @@ export default function Navbar() {
                             ))}
                             
                             <div className="pt-12 border-t border-primary/10 space-y-6">
-                                <Link href="/search" onClick={() => setIsMobileMenuOpen(false)} className="block bg-primary text-secondary py-4 rounded-full font-heading font-bold tracking-tight text-[10px] uppercase">
+                                <Link href="/search" onClick={() => setIsMobileMenuOpen(false)} className="block bg-primary text-secondary py-4 rounded-full font-heading font-bold tracking-tight text-[8px] uppercase">
                                     Explore Archive
                                 </Link>
                                 <div className="flex justify-center gap-6">
@@ -223,11 +222,11 @@ export default function Navbar() {
                         </div>
 
                         <div className="p-8 border-t border-primary/10 bg-secondary/20">
-                            <p className="font-body text-[10px] font-bold tracking-tight text-secondary/40 uppercase text-center">✦ sacred luxury editorial ✦</p>
+                            <p className="font-body text-[8px] font-bold tracking-tight text-secondary/40 uppercase text-center">✦ sacred luxury editorial ✦</p>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
-            </AnimatePresence>
+            
         </>
     );
 }

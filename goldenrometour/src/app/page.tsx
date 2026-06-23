@@ -19,11 +19,12 @@ export default async function Home() {
     description: typeof t.description === 'string' ? t.description : '',
     price: t.price,
     duration: t.duration,
-    image: t.mainImage?.asset?.url || t.mainImage || '',
-    slug: t.slug?.current || t.slug || '',
+    image: t.mainImage?.asset?.url || (t.mainImage as any) || '',
+    slug: t.slug?.current || (t.slug as any) || '',
     category: t.category,
     rating: t.rating ? String(t.rating) : '4.9',
     reviews: t.reviewCount ? String(t.reviewCount) : '0',
+    badge: (t as any).badge,
   }));
 
   return (

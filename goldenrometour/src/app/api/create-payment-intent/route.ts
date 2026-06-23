@@ -14,16 +14,7 @@ export async function POST(req: Request) {
 
   const body = await req.json()
 
-  // Vatican-only validation for goldenrometour
-  if (tenant === 'goldenrometour') {
-    const tourCategory = body.tourCategory || body.category
-    if (tourCategory && tourCategory !== 'vatican') {
-      return NextResponse.json(
-        { error: 'Only Vatican tours are available on this platform' },
-        { status: 400 }
-      )
-    }
-  }
+  // All tour categories are valid for goldenrometour
 
   if (payloadUrl && apiKey) {
     const res = await fetch(`${payloadUrl}/api/create-payment-intent`, {

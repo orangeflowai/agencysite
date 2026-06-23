@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, User, Mail, CreditCard, CheckCircle } from 'lucide-react';
 
 interface BookingModalProps {
@@ -51,20 +50,13 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
     if (!isOpen) return null;
 
     return (
-        <AnimatePresence>
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+        <div data-lenis-prevent className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                <div
                     onClick={onClose}
                     className="absolute inset-0 bg-background/60 backdrop-blur-sm"
                 />
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                <div
                     className="relative bg-card w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
                 >
                     {/* Header */}
@@ -180,8 +172,8 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
                             </div>
                         )}
                     </div>
-                </motion.div>
+                </div>
             </div>
-        </AnimatePresence>
+        
     );
 }

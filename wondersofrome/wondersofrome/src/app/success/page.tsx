@@ -187,7 +187,7 @@ function SuccessContent() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
-          <div className="animate-spin rounded-full h-12 w-12 border-2 border-[#d4af37] border-t-transparent mx-auto" />
+          <div className="animate-spin rounded-full h-12 w-12 border-2 border-border border-t-transparent mx-auto" />
           <p className="text-muted-foreground font-medium">Confirming your booking...</p>
           <p className="text-muted-foreground text-sm">This may take a few seconds</p>
         </div>
@@ -289,7 +289,7 @@ function SuccessContent() {
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <Link
                 href="/"
-                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold text-sm rounded-xl hover:bg-[#1e293b] transition-colors"
+                className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white font-semibold text-sm rounded-xl hover:bg-card transition-colors"
               >
                 <Home size={16} /> Back to Home
               </Link>
@@ -297,10 +297,10 @@ function SuccessContent() {
                 <button
                   onClick={downloadPDF}
                   disabled={pdfLoading}
-                  className="flex items-center justify-center gap-2 px-6 py-3 bg-accent text-primary font-bold text-sm rounded-xl hover:bg-[#c9a227] transition-colors disabled:opacity-60"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-accent text-primary font-bold text-sm rounded-xl hover:bg-card transition-colors disabled:opacity-60"
                 >
                   {pdfLoading ? (
-                    <div className="w-4 h-4 border-2 border-[#0f172a] border-t-transparent rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-border border-t-transparent rounded-full animate-spin" />
                   ) : (
                     <Download size={16} />
                   )}
@@ -328,7 +328,7 @@ export default function SuccessPage() {
       <Navbar />
       <Suspense fallback={
         <div className="min-h-screen bg-background flex items-center justify-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-[#d4af37] border-t-transparent" />
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-border border-t-transparent" />
         </div>
       }>
         <SuccessContent />

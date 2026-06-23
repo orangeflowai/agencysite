@@ -17,7 +17,7 @@ export default function CancellationPolicy() {
 
             <div className="container mx-auto px-4 py-32 max-w-4xl">
                 <h1 className="text-5xl md:text-7xl font-heading text-center mb-4 text-foreground">Cancellation & Refund Policy</h1>
-                <p className="text-center text-muted-foreground mb-16 font-mono text-[10px]  tracking-[0.4em]">Last Updated: February 20, 2026 // REF: POL-772-B</p>
+                <p className="text-center text-muted-foreground mb-16 font-mono text-[8px]  tracking-[0.4em]">Last Updated: February 20, 2026 // REF: POL-772-B</p>
 
                 <div className="prose prose-lg mx-auto text-foreground/80 font-medium leading-relaxed space-y-12">
                     <p className="lead text-xl text-foreground font-serif  border-l-4 border-primary pl-6">
@@ -36,7 +36,7 @@ export default function CancellationPolicy() {
                     <section className="space-y-6">
                         <h3 className="text-2xl font-serif font-bold   tracking-tight text-primary">2. General Cancellation Rules</h3>
                         <p>
-                            All cancellation requests must be submitted in writing via the terminal at <a href="mailto:info@wondersofrome.com" className="text-primary font-bold hover:underline">info@wondersofrome.com</a> or by contacting our operations center at <a href="tel:3514199425" className="text-primary font-bold hover:underline">+39 351 419 9425</a>. The timing is calculated in Rome local time (CET/CEST).
+                            All cancellation requests must be submitted in writing via the terminal at <a href="mailto:info@wondersofrome.com" className="text-primary font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</a> or by contacting our operations center at <a href="tel:3514199425" className="text-primary font-bold hover:underline">+39 351 419 9425</a>. The timing is calculated in Rome local time (CET/CEST).
                         </p>
                     </section>
 
@@ -46,7 +46,7 @@ export default function CancellationPolicy() {
 
                         <div className="overflow-hidden my-8 border border-border rounded-[2rem] shadow-sm bg-card">
                             <table className="min-w-full text-left text-sm md:text-base">
-                                <thead className="bg-foreground text-background font-mono text-[10px]  tracking-widest">
+                                <thead className="bg-foreground text-background font-mono text-[8px]  tracking-widest">
                                     <tr>
                                         <th className="py-5 px-8 font-bold w-1/2">Time of Cancellation</th>
                                         <th className="py-5 px-8 font-bold w-1/2">Refund Amount</th>

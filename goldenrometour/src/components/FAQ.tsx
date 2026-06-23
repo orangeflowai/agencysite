@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus, HelpCircle } from 'lucide-react'; // Changed to Plus/Minus for cleaner look
 import clsx from 'clsx';
 
@@ -48,13 +47,13 @@ export default function FAQ() {
 
             <div className="container mx-auto px-4 max-w-4xl relative z-10">
                 <div className="text-center mb-16">
-                    <span className="font-body text-[10px] font-bold  tracking-tight text-secondary/40 mb-4 block">
+                    <span className="font-body text-[8px] font-bold  tracking-tight text-secondary/40 mb-4 block">
                         Editorial Support
                     </span>
                     <h2 className="font-heading text-4xl md:text-5xl font-bold text-secondary mb-8 ">
                         The Rome Compendium
                     </h2>
-                    <p className="font-body text-[11px] md:text-xs font-bold  tracking-tight text-secondary/60 max-w-xl mx-auto leading-loose opacity-60">
+                    <p className="font-body text-[12px] md:text-xs font-bold  tracking-tight text-secondary/60 max-w-xl mx-auto leading-loose opacity-60">
                         Essential insights for your curated exploration of the Eternal City.
                     </p>
                 </div>
@@ -64,11 +63,7 @@ export default function FAQ() {
                         const isOpen = activeIndex === index;
 
                         return (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
+                            <div
                                 key={index}
                                 className={clsx(
                                     "border transition-all duration-300 overflow-hidden",
@@ -104,24 +99,17 @@ export default function FAQ() {
                                     </div>
                                 </button>
 
-                                <AnimatePresence>
-                                    {isOpen && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: "auto", opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                                        >
+                                {isOpen && (
+                                        <div>
                                             <div className="px-6 md:px-10 pb-10 pt-0 pl-6 md:pl-[6.5rem]">
                                                 <p className="font-body text-xs md:text-sm font-bold  tracking-tight text-secondary/60 mb-4 opacity-30">Our Guidance:</p>
-                                                <p className="font-body text-[11px] md:text-sm leading-[2] text-secondary/70 font-medium">
+                                                <p className="font-body text-[12px] md:text-sm leading-[2] text-secondary/70 font-medium">
                                                     {faq.answer}
                                                 </p>
                                             </div>
-                                        </motion.div>
+                                        </div>
                                     )}
-                                </AnimatePresence>
-                            </motion.div>
+                            </div>
                         );
                     })}
                 </div>

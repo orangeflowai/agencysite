@@ -61,7 +61,7 @@ export default async function CategoryPage({ params }: PageProps) {
     const filteredTours = tours.filter((t: any) => t.category === slug);
 
     return (
-        <main className="min-h-screen bg-[#FDFFF5]">
+        <main className="min-h-screen bg-card">
             <Navbar />
 
             {/* Immersive Hero Slider */}
@@ -74,8 +74,8 @@ export default async function CategoryPage({ params }: PageProps) {
             {/* Content Section */}
             <div className="container mx-auto px-6 md:px-12 py-24">
                 <div className="text-center mb-16">
-                    <p className="font-inter text-[10px] tracking-[0.4em] uppercase font-bold mb-4 text-[#C9A84C]">✦ CURATED EXPERIENCES ✦</p>
-                    <h2 className="font-inter font-bold text-4xl text-[#1A1210] tracking-tight">
+                    <p className="font-inter text-[8px] tracking-[0.4em] uppercase font-bold mb-4 text-foreground">✦ CURATED EXPERIENCES ✦</p>
+                    <h2 className="font-inter font-bold text-4xl text-foreground tracking-tight">
                         Our {categoryInfo.title}
                     </h2>
                 </div>
@@ -91,7 +91,7 @@ export default async function CategoryPage({ params }: PageProps) {
                 ) : (
                     <div className="text-center py-32 bg-white rounded-[3rem] border border-gray-100 shadow-sm">
                         <h2 className="font-inter text-3xl font-bold text-gray-300 mb-4">Coming Soon</h2>
-                        <p className="text-gray-400 font-medium tracking-wide uppercase text-[10px]">We are curating more experiences</p>
+                        <p className="text-gray-400 font-medium tracking-wide uppercase text-[8px]">We are curating more experiences</p>
                     </div>
                 )}
             </div>

@@ -176,7 +176,7 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
 
   if (success) {
     return (
-      <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+      <div data-lenis-prevent className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
         <div className="bg-card rounded-2xl p-10 max-w-sm w-full text-center shadow-2xl">
           <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-10 h-10 text-primary" />
@@ -239,7 +239,7 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
         </div>
 
         {/* Body */}
-        <div className="flex flex-col md:flex-row overflow-y-auto flex-1 min-h-0">
+        <div data-lenis-prevent className="flex flex-col md:flex-row overflow-y-auto flex-1 min-h-0">
 
           {/* Left: Form */}
           <div className="flex-1 p-6 space-y-5 bg-card">
@@ -336,8 +336,18 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
           <div className="md:w-64 lg:w-72 bg-muted border-t md:border-t-0 md:border-l border-border p-5 shrink-0">
             {bookingData.tour.mainImage && (
               <div className="relative w-full h-36 rounded-xl overflow-hidden mb-4">
-                <Image src={urlFor(bookingData.tour.mainImage).width(400).height(200).url()}
-                  alt={bookingData.tour.title} fill className="object-cover" />
+                <Image
+                  src={
+                    typeof bookingData.tour.mainImage === 'string'
+                      ? bookingData.tour.mainImage
+                      : bookingData.tour.mainImage?.asset?._ref
+                      ? urlFor(bookingData.tour.mainImage).width(400).height(200).url()
+                      : bookingData.tour.mainImage?.asset?.url || ''
+                  }
+                  alt={bookingData.tour.title}
+                  fill
+                  className="object-cover"
+                />
               </div>
             )}
 

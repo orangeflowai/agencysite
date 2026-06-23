@@ -79,7 +79,7 @@ cd "$DEPLOY_DIR"
 tar -xzf "$PACKAGE_NAME" --overwrite
 
 echo "   → Installing dependencies..."
-npm install --production
+npm install --production --legacy-peer-deps
 
 echo "   → Restarting PM2..."
 pm2 restart wondersofrome

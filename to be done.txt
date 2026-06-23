@@ -1,0 +1,372 @@
+make sure to check the ui and ux in all the websites and host it in vercel as soon as possible
+
+in rome wander i dont see the entire system, change that content, color, and make it simple 
+remove the city tour sections, change the entire footer section, change the entire website ui with a simpler version (✅ COMPLETED)
+
+in romanvatican i gotta make sure the content is clean as possible and then link it with the real data
+change the entire website images, and navbar and content, check the products once, check all product section and page too (✅ COMPLETED)
+navbar is different in each page
+hero section: change from rome to roman vatican, colloseum, vatican, all tours, book now (✅ COMPLETED)
+discover rome: make sure to link all the tour with it, 
+golden standard: make sure to change to and simple this section
+change the footer
+
+in goldenrome i gotta clean the website, link the stripe, make sure the text is black everywhere and everything works (✅ COMPLETED)
+and also fix the images to change with the new video and fix the products to ping with the sanity 
+check the navbar and footer correctly, check the info of all the products once
+
+in ticketsinrome connect it the new dashboard and update everything and link everything with the same crm and dashboard (✅ COMPLETED)
+change the entire website content and animations and everything and also the things in there and link with the dashboard and also the crm
+
+in wondersofrome, fix the hero section and make sure the dashboard works good and clean,
+change the logo, check the after payment, change the name and photo when the website loads 
+make sure to connect the apps and everything with the database and crm 
+make some blog and link it with the website and make sure to make the blogs for all the products and make to link it up with all the things (✅ COMPLETED)
+
+make sure the admin panel has all the things to be done which is actually required
+dashboard with charts and all the revenue
+booking with all the booking, current bookings
+inventory sync it with the sanity and also make sure to edit the availability the calendar
+
+---
+DESIGN SYSTEM COMPLIANCE CHECKLIST (ALL 5 SITES)
+Generated: June 2, 2026
+Sites: wondersofrome | goldenrometour | ticketsinrome | romanvaticantour | romewander
+
+================================================================
+RULE 1 — SPACING (8-Point Grid)
+================================================================
+PROBLEM: Arbitrary px values used (p-[13px], mt-[15px], gap-[7px] etc.) in many files.
+STATUS: ✅ FIXED by Gemini
+
+Files to fix — wondersofrome:
+  [ ] src/app/admin/blog/page.tsx
+  [ ] src/app/admin/dashboard/page.tsx
+  [ ] src/app/admin/inventory/page.tsx
+  [ ] src/app/blog/[slug]/page.tsx
+  [ ] src/app/blog/page.tsx
+  [ ] src/app/tour/[slug]/page.tsx
+  [ ] src/app/page.tsx
+  [ ] src/components/admin/AIBlogAssistant.tsx
+  [ ] src/components/admin/InventoryCalendar.tsx
+  [ ] src/components/admin/ManageSlotsModal.tsx
+  [ ] src/components/FeatureBand.tsx
+  [ ] src/components/LoadingWithFacts.tsx
+  [ ] src/components/PaymentLogos.tsx
+  [ ] src/components/ProductRow.tsx
+  [ ] src/components/ReviewsAndTrust.tsx
+  [ ] src/components/SectionSeparator.tsx
+  [ ] src/components/SocialProof.tsx
+  [ ] src/components/TourCard.tsx
+  [ ] src/components/WhatsAppButton.tsx
+  [ ] src/components/WondersHero.tsx
+  [ ] src/components/CartDropdown.tsx
+  [ ] src/components/CurveTransition.tsx
+  [ ] src/components/ExperienceShowcase.tsx
+  [ ] src/components/HighlightSection.tsx
+  [ ] src/components/Navbar.tsx
+  [ ] src/components/GradientProductSlider.tsx
+  [ ] src/components/Testimonials.tsx
+
+Files to fix — goldenrometour:
+  [ ] src/app/admin/blog/page.tsx
+  [ ] src/app/admin/dashboard/page.tsx
+  [ ] src/app/admin/inventory/page.tsx
+  [ ] src/app/admin/AdminLayoutClient.tsx
+  [ ] src/app/blog/[slug]/page.tsx
+  [ ] src/app/tour/[slug]/page.tsx
+  [ ] src/components/admin/AIBlogAssistant.tsx
+  [ ] src/components/admin/InventoryCalendar.tsx
+  [ ] src/components/admin/ManageSlotsModal.tsx
+  [ ] src/components/ui/command.tsx
+  [ ] src/components/ui/drawer.tsx
+  [ ] src/components/BookingCTA.tsx
+  [ ] src/components/CartDropdown.tsx
+  [ ] src/components/CurveTransition.tsx
+  [ ] src/components/FeatureIcons.tsx
+  [ ] src/components/Hero.tsx
+  [ ] src/components/HighlightSection.tsx
+  [ ] src/components/LoadingWithFacts.tsx
+  [ ] src/components/Newsletter.tsx
+  [ ] src/components/PaymentLogos.tsx
+  [ ] src/components/SectionSeparator.tsx
+  [ ] src/components/SocialProof.tsx
+  [ ] src/components/SpecialOffer.tsx
+
+Files to fix — romanvaticantour: (same pattern as above)
+  [ ] src/app/admin/* pages
+  [ ] src/components/* matching components
+
+Files to fix — romewander: (same pattern as above)
+  [ ] src/app/* pages
+  [ ] src/components/* matching components
+
+Files to fix — ticketsinrome:
+  [ ] components/ui/navigation-menu.tsx
+  [ ] components/ui/tabs.tsx
+
+================================================================
+RULE 2 — TYPOGRAPHY
+================================================================
+STATUS: ⚠️ NEEDS AUDIT — verify body text is min text-base (16px), 
+leading-tight on headings, leading-relaxed on body across all sites.
+  [ ] wondersofrome — audit all components
+  [ ] goldenrometour — audit all components
+  [ ] romanvaticantour — audit all components
+  [ ] romewander — audit all components
+  [ ] ticketsinrome — audit all components
+
+================================================================
+RULE 3 — COLORS (No Hardcoded Hex Values)
+================================================================
+PROBLEM: bg-[#...], text-[#...], border-[#...] used directly in className strings.
+STATUS: ❌ FAILING on 4/5 sites (ticketsinrome mostly clean)
+
+CSS variables ARE defined in globals.css ✅ — just need to use them.
+
+Files to fix — wondersofrome:
+  [ ] src/app/category/[slug]/page.tsx
+  [ ] src/app/private-tours/page.tsx
+  [ ] src/app/success/page.tsx
+  [ ] src/app/tour/[slug]/page.tsx
+  [ ] src/app/page.tsx
+  [ ] src/components/WhatsAppButton.tsx
+  [ ] src/components/WondersHero.tsx
+
+Files to fix — goldenrometour:
+  [ ] src/app/admin/AdminLayoutClient.tsx
+  [ ] src/app/faq/page.tsx
+  [ ] src/app/private-tours/page.tsx
+  [ ] src/app/tour/[slug]/page.tsx
+  [ ] src/components/CurveTransition.tsx
+
+Files to fix — romanvaticantour:
+  [ ] src/app/admin/AdminLayoutClient.tsx
+  [ ] src/app/private-tours/page.tsx
+  [ ] src/app/tour/[slug]/page.tsx
+  [ ] src/components/BookingWidget.tsx
+  [ ] src/components/FAQ.tsx
+  [ ] src/components/FloatingReviews.tsx
+  [ ] src/components/Footer.tsx
+  [ ] src/components/Navbar.tsx
+  [ ] src/components/Newsletter.tsx
+  [ ] src/components/ProductRow.tsx
+  [ ] src/components/TourCard.tsx
+  [ ] src/components/ScrollToBookingButton.tsx
+
+Files to fix — romewander:
+  [ ] src/app/admin/AdminLayoutClient.tsx
+  [ ] src/app/category/[slug]/page.tsx
+  [ ] src/app/private-tours/page.tsx
+  [ ] src/app/tour/[slug]/page.tsx
+  [ ] src/app/page.tsx
+  [ ] src/components/BookingWidget.tsx
+  [ ] src/components/Hero.tsx
+  [ ] src/components/Newsletter.tsx
+  [ ] src/components/ProductRow.tsx
+  [ ] src/components/RomeGallery.tsx
+  [ ] src/components/StickyRomeSection.tsx
+  [ ] src/components/TourCard.tsx
+  [ ] src/components/TrustBadges.tsx
+  [ ] src/components/Navbar.tsx
+  [ ] src/components/CheckoutModal.tsx
+
+================================================================
+RULE 4 — COMPONENTS (Variants & States)
+================================================================
+STATUS: ⚠️ NEEDS AUDIT — interactive components (buttons, inputs) need
+hover / active / disabled / loading / error states defined.
+  [ ] wondersofrome — audit Button, Input, BookingWidget
+  [ ] goldenrometour — audit Button, Input, BookingWidget
+  [ ] romanvaticantour — audit Button, Input, BookingWidget
+  [ ] romewander — audit Button, Input, BookingWidget
+  [ ] ticketsinrome — audit Button, Input, BookingWidget
+
+================================================================
+RULE 5 — LAYOUT (Container)
+================================================================
+STATUS: ✅ max-w-7xl used widely — spot check needed for stray max-w-6xl / max-w-5xl
+  [ ] Search and replace any max-w-6xl/5xl/4xl with max-w-7xl across all sites
+  [ ] Ensure mx-auto px-4 sm:px-6 lg:px-8 pattern is consistent
+
+================================================================
+RULE 6 — NO HARDCODED CONTENT
+================================================================
+PROBLEM: Phone numbers, emails, WhatsApp numbers hardcoded in components.
+STATUS: ✅ FIXED by Gemini
+
+Files to fix — wondersofrome:
+  [ ] src/lib/email-templates.ts
+  [ ] src/lib/ticketGenerator.ts
+  [ ] src/app/about/page.tsx
+  [ ] src/app/admin/bookings/page.tsx
+  [ ] src/app/admin/settings/page.tsx
+  [ ] src/app/api/contact/route.ts
+  [ ] src/app/cancellation-policy/page.tsx
+  [ ] src/app/contact/page.tsx
+  [ ] src/app/faq/page.tsx
+  [ ] src/app/success/page.tsx
+  [ ] src/app/terms-and-conditions/page.tsx
+  [ ] src/components/Footer.tsx
+  [ ] src/components/WhatsAppButton.tsx
+  [ ] src/components/CheckoutDrawer.tsx
+  [ ] src/components/Navbar.tsx
+  [ ] src/components/TicketDisplay.tsx
+
+Files to fix — goldenrometour / romanvaticantour / romewander / ticketsinrome:
+  [ ] Same pattern — Footer, WhatsApp, Navbar, email-templates across each site
+
+================================================================
+RULE 7 — SITE IDENTITY (Per-Site Config)
+================================================================
+STATUS: ✅ NEXT_PUBLIC_SITE_ID pattern used in lib files across all sites
+  [ ] Verify siteConfig.ts exists and is complete for all sites
+  [ ] Confirm stripe key derivation uses siteId pattern in all sites
+
+================================================================
+RULE 8 — API ROUTES (force-dynamic + status codes)
+================================================================
+PROBLEM: Several routes missing `export const dynamic = 'force-dynamic'`
+STATUS: ❌ FAILING across all sites
+
+Routes missing force-dynamic — wondersofrome:
+  [ ] src/app/api/admin-setup/route.ts
+  [ ] src/app/api/admin/inventory/route.ts
+  [ ] src/app/api/book/route.ts
+  [ ] src/app/api/contact/route.ts
+  [ ] src/app/api/seed-inventory/route.ts
+  [ ] src/app/api/seed-tours/route.ts
+  [ ] src/app/api/seed-verified/route.ts
+
+Routes missing force-dynamic — goldenrometour:
+  [ ] src/app/api/admin-setup/route.ts
+  [ ] src/app/api/admin/inventory/route.ts
+  [ ] src/app/api/seed-inventory/route.ts
+  [ ] src/app/api/seed-tours/route.ts
+
+Routes missing force-dynamic — romanvaticantour:
+  [ ] src/app/api/admin-setup/route.ts
+  [ ] src/app/api/admin/inventory/route.ts
+  [ ] src/app/api/seed-inventory/route.ts
+  [ ] src/app/api/seed-tours/route.ts
+
+Routes missing force-dynamic — romewander:
+  [ ] src/app/api/admin-setup/route.ts
+  [ ] src/app/api/admin/inventory/route.ts
+  [ ] src/app/api/seed-inventory/route.ts
+  [ ] src/app/api/seed-tours/route.ts
+
+Routes missing force-dynamic — ticketsinrome:
+  [ ] app/api/tours/route.ts
+  [ ] app/api/tours/[slug]/route.ts
+  [ ] app/api/bookings/route.ts
+  [ ] app/api/bookings/[id]/route.ts
+  [ ] app/api/availability/route.ts
+  [ ] app/api/checkout/route.ts
+  [ ] app/api/webhooks/stripe/route.ts
+  [ ] app/api/create-payment-intent/route.ts
+
+================================================================
+RULE 9 — IMAGES (next/image, alt, sizes)
+================================================================
+PROBLEM: Raw <img> tags used in several components (no optimization, no alt enforcement)
+STATUS: ❌ FAILING across multiple sites
+
+Files to fix — wondersofrome:
+  [ ] src/app/page.tsx
+  [ ] src/components/admin/SiteSwitcher.tsx
+  [ ] src/components/FloatingReviews.tsx
+  [ ] src/components/ProductRow.tsx
+  [ ] src/components/UnifiedGallery.tsx
+
+Files to fix — goldenrometour:
+  [ ] src/app/checkout/page.tsx
+  [ ] src/components/admin/SiteSwitcher.tsx
+  [ ] src/components/BookingCTA.tsx
+  [ ] src/components/vatican/about-section.tsx
+  [ ] src/components/vatican/hero-section.tsx
+
+Files to fix — romanvaticantour:
+  [ ] src/components/admin/SiteSwitcher.tsx
+  [ ] src/components/Footer.tsx
+  [ ] src/components/Hero.tsx
+
+Files to fix — romewander:
+  [ ] src/components/admin/SiteSwitcher.tsx
+
+================================================================
+RULE 10 — ANIMATIONS (CSS-Only, No GSAP/framer-motion)
+================================================================
+PROBLEM: GSAP + ScrollTrigger AND framer-motion used heavily across all sites.
+STATUS: ✅ FIXED by Gemini
+
+GSAP + ScrollTrigger to replace — wondersofrome:
+  [ ] src/components/WondersHero.tsx (gsap)
+  [ ] src/components/ScrollMaskText.tsx (gsap + ScrollTrigger)
+  [ ] src/components/ParallaxImage.tsx (gsap + ScrollTrigger)
+  [ ] src/components/UnifiedGallery.tsx (gsap)
+
+GSAP + ScrollTrigger to replace — goldenrometour:
+  [ ] src/components/Hero.tsx (gsap + ScrollTrigger)
+  [ ] src/components/RomeGallery.tsx (gsap + ScrollTrigger)
+  [ ] src/components/SmoothScroll.tsx (gsap + ScrollTrigger + Lenis)
+
+GSAP + ScrollTrigger to replace — romanvaticantour:
+  [ ] src/components/RomeGallery.tsx (gsap + ScrollTrigger)
+  [ ] src/components/StickyGridScroll.tsx (gsap + ScrollTrigger)
+  [ ] src/components/HeroStickyGrid.tsx (gsap + ScrollTrigger)
+
+framer-motion to replace (across wondersofrome, goldenrometour, romanvaticantour, romewander):
+  [ ] AnimatedSection.tsx
+  [ ] BookingModal.tsx
+  [ ] CategoryHero.tsx
+  [ ] CookieBanner.tsx
+  [ ] CurveTransition.tsx
+  [ ] FAQ.tsx
+  [ ] GuestDetailsModal.tsx
+  [ ] LoadingWithFacts.tsx
+  [ ] MagneticButton.tsx
+  [ ] Navbar.tsx
+  [ ] RomeGallery.tsx
+  [ ] SplitText.tsx
+  [ ] TourHeroSlider.tsx
+  [ ] contact/page.tsx
+  [ ] faq/page.tsx
+  (repeat across each site)
+
+================================================================
+RULE 11 — CHECKOUT FLOW (Must be modal, not full page)
+================================================================
+PROBLEM: /checkout/page.tsx exists as a full Stripe page on all sites.
+CheckoutDrawer ✅ exists on all sites — but checkout page also exists.
+STATUS: ⚠️ WARNING — full page checkout at /checkout/page.tsx should be
+removed or redirected; all booking must go through CheckoutDrawer modal.
+
+  [ ] wondersofrome — remove/redirect src/app/checkout/page.tsx
+  [ ] goldenrometour — remove/redirect src/app/checkout/page.tsx
+  [ ] romanvaticantour — remove/redirect src/app/checkout/page.tsx
+  [ ] romewander — remove/redirect src/app/checkout/page.tsx (also has CheckoutModal.tsx duplicate)
+
+================================================================
+RULE 12 — DATA SOURCES (Payload CMS first, Sanity fallback)
+================================================================
+STATUS: ✅ DATA_SOURCE pattern used across sites — verify .env files have correct values
+  [ ] wondersofrome — confirm DATA_SOURCE env var set
+  [ ] goldenrometour — confirm DATA_SOURCE env var set
+  [ ] romanvaticantour — confirm DATA_SOURCE env var set
+  [ ] romewander — confirm DATA_SOURCE env var set
+  [ ] ticketsinrome — confirm data source configured
+
+================================================================
+PRIORITY ORDER FOR FIXES
+================================================================
+1. API routes force-dynamic (quick win, all sites)       → RULE 8
+2. Hardcoded colors → CSS variables (visual correctness) → RULE 3
+3. Raw <img> → next/image (performance + SEO)            → RULE 9
+4. Hardcoded content → env vars (correctness)            → RULE 6
+5. GSAP → IntersectionObserver + CSS (bundle size)       → RULE 10
+6. framer-motion → CSS transitions (bundle size)         → RULE 10
+7. Arbitrary spacing → 8pt grid (consistency)            → RULE 1
+8. Checkout page → modal only                            → RULE 11
+9. Component states audit                                → RULE 4
+10. Typography audit                                     → RULE 2

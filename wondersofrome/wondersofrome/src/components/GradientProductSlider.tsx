@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Clock, Star, Users } from 'lucide-react';
 import Image from 'next/image';
@@ -140,7 +139,7 @@ export default function GradientProductSlider({ title, subtitle, tours, link }: 
       <div className="container mx-auto px-6 mb-16 relative z-10">
         <div className="flex flex-col md:flex-row items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="text-primary font-bold tracking-[0.4em] text-[10px] mb-4 uppercase">Curated Collection</p>
+            <p className="text-primary font-bold tracking-[0.4em] text-[8px] mb-4 uppercase">Curated Collection</p>
             <h2 className="text-4xl md:text-6xl font-serif font-bold tracking-tighter leading-none mb-6">
               {title}
             </h2>
@@ -151,7 +150,7 @@ export default function GradientProductSlider({ title, subtitle, tours, link }: 
             )}
           </div>
           {link && (
-            <Link href={link} className="group flex items-center gap-3 font-bold tracking-[0.2em] text-[10px] text-foreground hover:text-primary transition-colors">
+            <Link href={link} className="group flex items-center gap-3 font-bold tracking-[0.2em] text-[8px] text-foreground hover:text-primary transition-colors">
               <span>View Directory</span>
               <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all">
                 <ArrowRight size={16} />
@@ -176,17 +175,9 @@ export default function GradientProductSlider({ title, subtitle, tours, link }: 
           const isActive = index === activeIndex;
           
           return (
-            <motion.div
+            <div
               key={tour._id}
-              initial={false}
-              animate={{
-                scale: isActive ? 1.05 : 0.9,
-                opacity: isActive ? 1 : 0.7,
-                rotateY: isActive ? 0 : (index < activeIndex ? 15 : -15),
-                z: isActive ? 100 : 0
-              }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="flex-shrink-0 w-[300px] md:w-[380px] scroll-snap-align-center perspective-1000"
+              className="flex-shrink-0 w-[304px] md:w-[384px] scroll-snap-align-center perspective-1000"
               style={{ scrollSnapAlign: 'center' }}
             >
               <Link href={`/tour/${tour.slug?.current || '#'}`} className="block">
@@ -208,7 +199,7 @@ export default function GradientProductSlider({ title, subtitle, tours, link }: 
                         {tour.title}
                       </h3>
                       
-                      <div className="flex items-center gap-4 text-[10px] font-bold tracking-widest opacity-90 pt-2">
+                      <div className="flex items-center gap-4 text-[8px] font-bold tracking-widest opacity-90 pt-2">
                         <div className="flex items-center gap-1.5"><Clock size={12} className="text-primary" /> {tour.duration}</div>
                         <div className="flex items-center gap-1.5"><Star size={12} className="text-primary fill-primary" /> {tour.rating || '5.0'}</div>
                       </div>
@@ -226,7 +217,7 @@ export default function GradientProductSlider({ title, subtitle, tours, link }: 
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           );
         })}
       </div>

@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import {
     Settings, Globe, CreditCard, Bell, Database,
     Palette, Check, RefreshCw, Sparkles, Building2,
-    Shield, Mail, Phone, MapPin, ExternalLink, Save,
+    Shield, Mail, Phone, MapPin, Save,
     Calendar
 } from 'lucide-react';
 import { useAdmin } from '@/context/AdminContext';
 import { useTheme, PRESET_THEMES } from '@/context/ThemeContext';
 import CalendarDiagnostic from '@/components/admin/CalendarDiagnostic';
+import { saveSettings } from '@/app/actions/settingsActions';
 
 export default function SettingsPage() {
     const { currentSite, sites } = useAdmin();
@@ -17,6 +18,7 @@ export default function SettingsPage() {
     const [activeTab, setActiveTab] = useState<'general' | 'business' | 'contact' | 'appearance' | 'gdpr' | 'calendar' | 'system'>('general');
     const [mounted, setMounted] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [saveMsg, setSaveMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
     // Form state for editable fields
     const [businessForm, setBusinessForm] = useState({
@@ -88,12 +90,21 @@ export default function SettingsPage() {
     };
 
     const handleSave = async () => {
+        if (!currentSite?._id) return;
         setSaving(true);
-        // In a real implementation, this would save to Sanity
-        // For now, we'll just simulate a save
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        setSaveMsg(null);
+        const result = await saveSettings({
+            siteId: currentSite.slug.current,
+            business: businessForm,
+            contact: contactForm,
+            gdpr: gdprForm,
+        });
         setSaving(false);
-        alert('Settings saved! (Note: In production, this would save to Sanity CMS)');
+        setSaveMsg(result.success
+            ? { ok: true, text: 'Settings saved successfully' }
+            : { ok: false, text: result.error || 'Save failed' }
+        );
+        setTimeout(() => setSaveMsg(null), 4000);
     };
 
     if (!mounted) {
@@ -107,6 +118,12 @@ export default function SettingsPage() {
                     <h1 className="text-2xl font-bold text-foreground">Settings</h1>
                     <p className="text-muted-foreground mt-1">Configure your website and booking system</p>
                 </div>
+            <div className="flex items-center gap-3">
+                {saveMsg && (
+                    <span className={`text-sm font-medium ${saveMsg.ok ? 'text-green-600' : 'text-red-600'}`}>
+                        {saveMsg.text}
+                    </span>
+                )}
                 <button
                     onClick={handleSave}
                     disabled={saving}
@@ -118,6 +135,7 @@ export default function SettingsPage() {
                         <><Save className="w-4 h-4" /> Save Changes</>
                     )}
                 </button>
+            </div>
             </div>
 
             {/* Tabs */}
@@ -400,31 +418,7 @@ export default function SettingsPage() {
                         </div>
                     </div>
 
-                    {/* Social Links */}
-                    <div className="bg-card rounded-2xl shadow-sm border border-border p-6">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-2 bg-pink-50 rounded-lg">
-                                <ExternalLink className="w-5 h-5 text-pink-600" />
-                            </div>
-                            <div>
-                                <h2 className="font-semibold text-foreground">Social Media</h2>
-                                <p className="text-sm text-muted-foreground">Links to your social profiles</p>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {['Facebook', 'Instagram', 'Twitter', 'TripAdvisor', 'YouTube', 'LinkedIn'].map((platform) => (
-                                <div key={platform} className="space-y-2">
-                                    <label className="block text-sm font-medium text-foreground">{platform}</label>
-                                    <input
-                                        type="url"
-                                        placeholder={`https://${platform.toLowerCase()}.com/...`}
-                                        className="w-full px-4 py-2.5 border border-border rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all"
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    {/* Social Links removed — manage via Sanity Studio */}
                 </div>
             )}
 

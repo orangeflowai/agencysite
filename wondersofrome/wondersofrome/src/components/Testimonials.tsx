@@ -1,7 +1,6 @@
 'use client';
 
 import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
-import { motion } from "framer-motion";
 
 const testimonials = [
   {
@@ -66,7 +65,7 @@ const thirdColumn = testimonials.slice(6, 9);
 
 export default function Testimonials() {
   return (
-    <div className="flex justify-center gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] max-h-[700px] overflow-hidden">
+    <div className="flex justify-center gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] max-h-[704px] overflow-hidden">
       <TestimonialsColumn testimonials={firstColumn} duration={25} />
       <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={35} />
       <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={30} />

@@ -1,0 +1,2095 @@
+[34m
+╔════════════════════════════════════════════════════════════════════╗
+║                                                                    ║
+║           COMPLETE TOUR & IMAGE AUDIT - ALL WEBSITES              ║
+║                                                                    ║
+╚════════════════════════════════════════════════════════════════════╝
+[0m
+
+[36m======================================================================[0m
+[36mWONDERS OF ROME (wondersofrome)[0m
+[36m======================================================================[0m
+
+[34m→ Fetching tours from Payload...[0m
+[32m✓ Found 100 tours[0m
+
+[34m→ Auditing tour 1/100: Vatican Museums and Sistine Chapel Skip-the-Line Ticket Art History Masterclass...[0m[34m→ Auditing tour 2/100: Vatican Museums and Sistine Chapel Skip-the-Line Ticket Skip-the-Line Tour...[0m[34m→ Auditing tour 3/100: Vatican Museums and Sistine Chapel Skip-the-Line Ticket Exclusive VIP Experience...[0m[34m→ Auditing tour 4/100: St.Peter's Basilica Skip-the-Line Ticket Only Art History Masterclass...[0m[34m→ Auditing tour 5/100: St.Peter's Basilica Skip-the-Line Ticket Only Skip-the-Line Tour...[0m[34m→ Auditing tour 6/100: St.Peter's Basilica Skip-the-Line Ticket Only Exclusive VIP Experience...[0m[34m→ Auditing tour 7/100: Vatican Museums & Sistine Chapel Skip-the-Line Tour Art History Masterclass...[0m[34m→ Auditing tour 8/100: Vatican Museums & Sistine Chapel Skip-the-Line Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 9/100: Vatican Museums & Sistine Chapel Skip-the-Line Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 10/100: St.Peter's Basilica & Dome & Papal Tomb with Private Guide Art History Masterclass...[0m[34m→ Auditing tour 11/100: St.Peter's Basilica & Dome & Papal Tomb with Private Guide Skip-the-Line Tour...[0m[34m→ Auditing tour 12/100: St.Peter's Basilica & Dome & Papal Tomb with Private Guide Exclusive VIP Experience...[0m[34m→ Auditing tour 13/100: Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour Art History Masterclass...[0m[34m→ Auditing tour 14/100: Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 15/100: Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 16/100: Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour Art History Masterclass...[0m[34m→ Auditing tour 17/100: Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 18/100: Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 19/100: Vatican Museums & Sistine Chapel Guided Tour Art History Masterclass...[0m[34m→ Auditing tour 20/100: Vatican Museums & Sistine Chapel Guided Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 21/100: Vatican Museums & Sistine Chapel Guided Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 22/100: Vatican Museums Art History Masterclass...[0m[34m→ Auditing tour 23/100: Vatican Museums Skip-the-Line Tour...[0m[34m→ Auditing tour 24/100: Vatican Museums Exclusive VIP Experience...[0m[34m→ Auditing tour 25/100: Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets Art History Masterclass...[0m[34m→ Auditing tour 26/100: Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets Skip-the-Line Tour...[0m[34m→ Auditing tour 27/100: Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets Exclusive VIP Experience...[0m[34m→ Auditing tour 28/100: St.Peter's Basilica: Guided Tour, Underground Tomb & Dome Art History Masterclass...[0m[34m→ Auditing tour 29/100: St.Peter's Basilica: Guided Tour, Underground Tomb & Dome Skip-the-Line Tour...[0m[34m→ Auditing tour 30/100: St.Peter's Basilica: Guided Tour, Underground Tomb & Dome Exclusive VIP Experience...[0m[34m→ Auditing tour 31/100: Vatican & Castel Sant'Angelo Combo Tour Art History Masterclass...[0m[34m→ Auditing tour 32/100: Vatican & Castel Sant'Angelo Combo Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 33/100: Vatican & Castel Sant'Angelo Combo Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 34/100: Vatican Gardens Open Bus Experience Art History Masterclass...[0m[34m→ Auditing tour 35/100: Vatican Gardens Open Bus Experience Skip-the-Line Tour...[0m[34m→ Auditing tour 36/100: Vatican Gardens Open Bus Experience Exclusive VIP Experience...[0m[34m→ Auditing tour 37/100: Vatican Gardens VIP Guided Tour Art History Masterclass...[0m[34m→ Auditing tour 38/100: Vatican Gardens VIP Guided Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 39/100: Vatican Gardens VIP Guided Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 40/100: Vatican Evening Tour Art History Masterclass...[0m[34m→ Auditing tour 41/100: Vatican Evening Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 42/100: Vatican Evening Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 43/100: Vatican Museums — Before the Crowds Art History Masterclass...[0m[34m→ Auditing tour 44/100: Vatican Museums — Before the Crowds Skip-the-Line Tour...[0m[34m→ Auditing tour 45/100: Vatican Museums — Before the Crowds Exclusive VIP Experience...[0m[34m→ Auditing tour 46/100: Vatican Museums & Sistine Chapel Skip-the-Line Tour Art History Masterclass...[0m[34m→ Auditing tour 47/100: Vatican Museums & Sistine Chapel Skip-the-Line Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 48/100: Vatican Museums & Sistine Chapel Skip-the-Line Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 49/100: Vatican Gardens Private Walking Tour Exclusive VIP Experience Art History Masterclass...[0m[34m→ Auditing tour 50/100: Vatican Gardens Private Walking Tour Exclusive VIP Experience Skip-the-Line Tour...[0m[34m→ Auditing tour 51/100: Vatican Gardens Private Walking Tour Exclusive VIP Experience Exclusive VIP Experience...[0m[34m→ Auditing tour 52/100: Vatican Gardens Private Walking Tour Skip-the-Line Tour Art History Masterclass...[0m[34m→ Auditing tour 53/100: Vatican Gardens Private Walking Tour Skip-the-Line Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 54/100: Vatican Gardens Private Walking Tour Skip-the-Line Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 55/100: Vatican Gardens Private Walking Tour Art History Masterclass Art History Masterclass...[0m[34m→ Auditing tour 56/100: Vatican Gardens Private Walking Tour Art History Masterclass Skip-the-Line Tour...[0m[34m→ Auditing tour 57/100: Vatican Gardens Private Walking Tour Art History Masterclass Exclusive VIP Experience...[0m[34m→ Auditing tour 58/100: St. Peter's Basilica Dome Climb & Crypt Exclusive VIP Experience Art History Masterclass...[0m[34m→ Auditing tour 59/100: St. Peter's Basilica Dome Climb & Crypt Exclusive VIP Experience Skip-the-Line Tour...[0m[34m→ Auditing tour 60/100: St. Peter's Basilica Dome Climb & Crypt Exclusive VIP Experience Exclusive VIP Experience...[0m[34m→ Auditing tour 61/100: St. Peter's Basilica Dome Climb & Crypt Skip-the-Line Tour Art History Masterclass...[0m[34m→ Auditing tour 62/100: St. Peter's Basilica Dome Climb & Crypt Skip-the-Line Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 63/100: St. Peter's Basilica Dome Climb & Crypt Skip-the-Line Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 64/100: St. Peter's Basilica Dome Climb & Crypt Art History Masterclass Art History Masterclass...[0m[34m→ Auditing tour 65/100: St. Peter's Basilica Dome Climb & Crypt Art History Masterclass Skip-the-Line Tour...[0m[34m→ Auditing tour 66/100: St. Peter's Basilica Dome Climb & Crypt Art History Masterclass Exclusive VIP Experience...[0m[34m→ Auditing tour 67/100: Vatican Museums Skip-the-Line + Audio Guide Exclusive VIP Experience Art History Masterclass...[0m[34m→ Auditing tour 68/100: Vatican Museums Skip-the-Line + Audio Guide Exclusive VIP Experience Skip-the-Line Tour...[0m[34m→ Auditing tour 69/100: Vatican Museums Skip-the-Line + Audio Guide Exclusive VIP Experience Exclusive VIP Experience...[0m[34m→ Auditing tour 70/100: Vatican Museums Skip-the-Line + Audio Guide Skip-the-Line Tour Art History Masterclass...[0m[34m→ Auditing tour 71/100: Vatican Museums Skip-the-Line + Audio Guide Skip-the-Line Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 72/100: Vatican Museums Skip-the-Line + Audio Guide Skip-the-Line Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 73/100: Vatican Museums Skip-the-Line + Audio Guide Art History Masterclass Art History Masterclass...[0m[34m→ Auditing tour 74/100: Vatican Museums Skip-the-Line + Audio Guide Art History Masterclass Skip-the-Line Tour...[0m[34m→ Auditing tour 75/100: Vatican Museums Skip-the-Line + Audio Guide Art History Masterclass Exclusive VIP Experience...[0m[34m→ Auditing tour 76/100: Vatican Museums Skip-the-Line + Audio Guide Art History Masterclass...[0m[34m→ Auditing tour 77/100: Vatican Museums Skip-the-Line + Audio Guide Skip-the-Line Tour...[0m[34m→ Auditing tour 78/100: Vatican Museums Skip-the-Line + Audio Guide Exclusive VIP Experience...[0m[34m→ Auditing tour 79/100: St. Peter's Basilica Dome Climb & Crypt Art History Masterclass...[0m[34m→ Auditing tour 80/100: St. Peter's Basilica Dome Climb & Crypt Skip-the-Line Tour...[0m[34m→ Auditing tour 81/100: St. Peter's Basilica Dome Climb & Crypt Exclusive VIP Experience...[0m[34m→ Auditing tour 82/100: Vatican Gardens Private Walking Tour Art History Masterclass...[0m[34m→ Auditing tour 83/100: Vatican Gardens Private Walking Tour Skip-the-Line Tour...[0m[34m→ Auditing tour 84/100: Vatican Gardens Private Walking Tour Exclusive VIP Experience...[0m[34m→ Auditing tour 85/100: DEBUG Test 1 - Minimal Art History Masterclass...[0m[34m→ Auditing tour 86/100: DEBUG Test 1 - Minimal Skip-the-Line Tour...[0m[34m→ Auditing tour 87/100: DEBUG Test 1 - Minimal Exclusive VIP Experience...[0m[34m→ Auditing tour 88/100: Status Test: null Art History Masterclass...[0m[34m→ Auditing tour 89/100: Status Test: null Skip-the-Line Tour...[0m[34m→ Auditing tour 90/100: Status Test: null Exclusive VIP Experience...[0m[34m→ Auditing tour 91/100: Status Test: draft Art History Masterclass...[0m[34m→ Auditing tour 92/100: Status Test: draft Skip-the-Line Tour...[0m[34m→ Auditing tour 93/100: Status Test: draft Exclusive VIP Experience...[0m[34m→ Auditing tour 94/100: Status Test: draft...[0m[34m→ Auditing tour 95/100: Status Test: null...[0m[34m→ Auditing tour 96/100: DEBUG Test 1 - Minimal...[0m[34m→ Auditing tour 97/100: TEST Tour - Delete Me...[0m[34m→ Auditing tour 98/100: TEST Tour - Delete Me...[0m[34m→ Auditing tour 99/100: Pantheon Guided Tour with Priority Entry...[0m[34m→ Auditing tour 100/100: Colosseum, Roman Forum & Palatine Hill Tour...[0m
+
+[35mTOUR AUDIT RESULTS:[0m
+
+[32m✓ 1. Vatican Museums and Sistine Chapel Skip-the-Line Ticket Art History Masterclass[0m
+   Slug: vatican-museums-and-sistine-chapel-skip-the-line-ticket-only-educational | Status: draft | Price: €76
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 2. Vatican Museums and Sistine Chapel Skip-the-Line Ticket Skip-the-Line Tour[0m
+   Slug: vatican-museums-and-sistine-chapel-skip-the-line-ticket-only-value | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 3. Vatican Museums and Sistine Chapel Skip-the-Line Ticket Exclusive VIP Experience[0m
+   Slug: vatican-museums-and-sistine-chapel-skip-the-line-ticket-only-premium | Status: draft | Price: €90
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 4. St.Peter's Basilica Skip-the-Line Ticket Only Art History Masterclass[0m
+   Slug: st-peter-s-basilica-skip-the-line-ticket-only-educational | Status: draft | Price: €21
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 5. St.Peter's Basilica Skip-the-Line Ticket Only Skip-the-Line Tour[0m
+   Slug: st-peter-s-basilica-skip-the-line-ticket-only-value | Status: draft | Price: €15
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 6. St.Peter's Basilica Skip-the-Line Ticket Only Exclusive VIP Experience[0m
+   Slug: st-peter-s-basilica-skip-the-line-ticket-only-premium | Status: draft | Price: €25
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 7. Vatican Museums & Sistine Chapel Skip-the-Line Tour Art History Masterclass[0m
+   Slug: vatican-museums-sistine-chapel-skip-the-line-educational | Status: draft | Price: €54
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 8. Vatican Museums & Sistine Chapel Skip-the-Line Tour Skip-the-Line Tour[0m
+   Slug: vatican-museums-sistine-chapel-skip-the-line-value | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 9. Vatican Museums & Sistine Chapel Skip-the-Line Tour Exclusive VIP Experience[0m
+   Slug: vatican-museums-sistine-chapel-skip-the-line-premium | Status: draft | Price: €64
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 10. St.Peter's Basilica & Dome & Papal Tomb with Private Guide Art History Masterclass[0m
+   Slug: st-peter-s-basilica-and-dome-and-papal-tomb-with-private-guide-educational | Status: draft | Price: €219
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 11. St.Peter's Basilica & Dome & Papal Tomb with Private Guide Skip-the-Line Tour[0m
+   Slug: st-peter-s-basilica-and-dome-and-papal-tomb-with-private-guide-value | Status: draft | Price: €159
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 12. St.Peter's Basilica & Dome & Papal Tomb with Private Guide Exclusive VIP Experience[0m
+   Slug: st-peter-s-basilica-and-dome-and-papal-tomb-with-private-guide-premium | Status: draft | Price: €259
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 13. Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour Art History Masterclass[0m
+   Slug: vatican-museums-sistine-chapel-st-peters-basilica-educational | Status: draft | Price: €72
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 14. Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour Skip-the-Line Tour[0m
+   Slug: vatican-museums-sistine-chapel-st-peters-basilica-value | Status: draft | Price: €52
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 15. Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour Exclusive VIP Experience[0m
+   Slug: vatican-museums-sistine-chapel-st-peters-basilica-premium | Status: draft | Price: €85
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 16. Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour Art History Masterclass[0m
+   Slug: golden-vatican-complete-tour-educational | Status: draft | Price: €76
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 17. Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour Skip-the-Line Tour[0m
+   Slug: golden-vatican-complete-tour-value | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 18. Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour Exclusive VIP Experience[0m
+   Slug: golden-vatican-complete-tour-premium | Status: draft | Price: €90
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 19. Vatican Museums & Sistine Chapel Guided Tour Art History Masterclass[0m
+   Slug: vatican-museums-and-sistine-chapel-guided-tour-educational | Status: draft | Price: €72
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 20. Vatican Museums & Sistine Chapel Guided Tour Skip-the-Line Tour[0m
+   Slug: vatican-museums-and-sistine-chapel-guided-tour-value | Status: draft | Price: €52
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 21. Vatican Museums & Sistine Chapel Guided Tour Exclusive VIP Experience[0m
+   Slug: vatican-museums-and-sistine-chapel-guided-tour-premium | Status: draft | Price: €85
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 22. Vatican Museums Art History Masterclass[0m
+   Slug: early-morning-vatican-tour-with-sistine-chapel-and-direct-access-to-saint-peters-basilica-church-without-line-educational | Status: draft | Price: €109
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 23. Vatican Museums Skip-the-Line Tour[0m
+   Slug: early-morning-vatican-tour-with-sistine-chapel-and-direct-access-to-saint-peters-basilica-church-without-line-value | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 24. Vatican Museums Exclusive VIP Experience[0m
+   Slug: early-morning-vatican-tour-with-sistine-chapel-and-direct-access-to-saint-peters-basilica-church-without-line-premium | Status: draft | Price: €129
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 25. Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets Art History Masterclass[0m
+   Slug: fast-track-combo-vatican-museum-rome-sightseeing-hop-on-hop-off-bus-tickets-educational | Status: draft | Price: €87
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 26. Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets Skip-the-Line Tour[0m
+   Slug: fast-track-combo-vatican-museum-rome-sightseeing-hop-on-hop-off-bus-tickets-value | Status: draft | Price: €63
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 27. Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets Exclusive VIP Experience[0m
+   Slug: fast-track-combo-vatican-museum-rome-sightseeing-hop-on-hop-off-bus-tickets-premium | Status: draft | Price: €103
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 28. St.Peter's Basilica: Guided Tour, Underground Tomb & Dome Art History Masterclass[0m
+   Slug: st-peter-s-basilica-guided-tour-underground-tomb-and-dome-educational | Status: draft | Price: €59
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 29. St.Peter's Basilica: Guided Tour, Underground Tomb & Dome Skip-the-Line Tour[0m
+   Slug: st-peter-s-basilica-guided-tour-underground-tomb-and-dome-value | Status: draft | Price: €43
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 30. St.Peter's Basilica: Guided Tour, Underground Tomb & Dome Exclusive VIP Experience[0m
+   Slug: st-peter-s-basilica-guided-tour-underground-tomb-and-dome-premium | Status: draft | Price: €70
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 31. Vatican & Castel Sant'Angelo Combo Tour Art History Masterclass[0m
+   Slug: vatican-castel-santangelo-combo-educational | Status: draft | Price: €132
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 32. Vatican & Castel Sant'Angelo Combo Tour Skip-the-Line Tour[0m
+   Slug: vatican-castel-santangelo-combo-value | Status: draft | Price: €96
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 33. Vatican & Castel Sant'Angelo Combo Tour Exclusive VIP Experience[0m
+   Slug: vatican-castel-santangelo-combo-premium | Status: draft | Price: €156
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 34. Vatican Gardens Open Bus Experience Art History Masterclass[0m
+   Slug: vatican-gardens-open-bus-educational | Status: draft | Price: €83
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 35. Vatican Gardens Open Bus Experience Skip-the-Line Tour[0m
+   Slug: vatican-gardens-open-bus-value | Status: draft | Price: €60
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 36. Vatican Gardens Open Bus Experience Exclusive VIP Experience[0m
+   Slug: vatican-gardens-open-bus-premium | Status: draft | Price: €98
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 37. Vatican Gardens VIP Guided Tour Art History Masterclass[0m
+   Slug: vatican-gardens-vip-guided-educational | Status: draft | Price: €105
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 38. Vatican Gardens VIP Guided Tour Skip-the-Line Tour[0m
+   Slug: vatican-gardens-vip-guided-value | Status: draft | Price: €76
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 39. Vatican Gardens VIP Guided Tour Exclusive VIP Experience[0m
+   Slug: vatican-gardens-vip-guided-premium | Status: draft | Price: €124
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 40. Vatican Evening Tour Art History Masterclass[0m
+   Slug: vatican-evening-tour-educational | Status: draft | Price: €87
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 41. Vatican Evening Tour Skip-the-Line Tour[0m
+   Slug: vatican-evening-tour-value | Status: draft | Price: €63
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 42. Vatican Evening Tour Exclusive VIP Experience[0m
+   Slug: vatican-evening-tour-premium | Status: draft | Price: €103
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 43. Vatican Museums — Before the Crowds Art History Masterclass[0m
+   Slug: early-morning-vatican-tour-educational | Status: draft | Price: €87
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 44. Vatican Museums — Before the Crowds Skip-the-Line Tour[0m
+   Slug: early-morning-vatican-tour-value | Status: draft | Price: €63
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 45. Vatican Museums — Before the Crowds Exclusive VIP Experience[0m
+   Slug: early-morning-vatican-tour-premium | Status: draft | Price: €103
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 46. Vatican Museums & Sistine Chapel Skip-the-Line Tour Art History Masterclass[0m
+   Slug: golden-vatican-museums-sistine-chapel-educational | Status: draft | Price: €57
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 47. Vatican Museums & Sistine Chapel Skip-the-Line Tour Skip-the-Line Tour[0m
+   Slug: golden-vatican-museums-sistine-chapel-value | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 48. Vatican Museums & Sistine Chapel Skip-the-Line Tour Exclusive VIP Experience[0m
+   Slug: golden-vatican-museums-sistine-chapel-premium | Status: draft | Price: €68
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 49. Vatican Gardens Private Walking Tour Exclusive VIP Experience Art History Masterclass[0m
+   Slug: vatican-gardens-private-tour-premium-educational | Status: draft | Price: €128
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 50. Vatican Gardens Private Walking Tour Exclusive VIP Experience Skip-the-Line Tour[0m
+   Slug: vatican-gardens-private-tour-premium-value | Status: draft | Price: €93
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 51. Vatican Gardens Private Walking Tour Exclusive VIP Experience Exclusive VIP Experience[0m
+   Slug: vatican-gardens-private-tour-premium-premium | Status: draft | Price: €151
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 52. Vatican Gardens Private Walking Tour Skip-the-Line Tour Art History Masterclass[0m
+   Slug: vatican-gardens-private-tour-value-educational | Status: draft | Price: €78
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 53. Vatican Gardens Private Walking Tour Skip-the-Line Tour Skip-the-Line Tour[0m
+   Slug: vatican-gardens-private-tour-value-value | Status: draft | Price: €57
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 54. Vatican Gardens Private Walking Tour Skip-the-Line Tour Exclusive VIP Experience[0m
+   Slug: vatican-gardens-private-tour-value-premium | Status: draft | Price: €92
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 55. Vatican Gardens Private Walking Tour Art History Masterclass Art History Masterclass[0m
+   Slug: vatican-gardens-private-tour-educational-educational | Status: draft | Price: €108
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 56. Vatican Gardens Private Walking Tour Art History Masterclass Skip-the-Line Tour[0m
+   Slug: vatican-gardens-private-tour-educational-value | Status: draft | Price: €78
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 57. Vatican Gardens Private Walking Tour Art History Masterclass Exclusive VIP Experience[0m
+   Slug: vatican-gardens-private-tour-educational-premium | Status: draft | Price: €127
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 58. St. Peter's Basilica Dome Climb & Crypt Exclusive VIP Experience Art History Masterclass[0m
+   Slug: st-peters-basilica-dome-crypt-premium-educational | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 59. St. Peter's Basilica Dome Climb & Crypt Exclusive VIP Experience Skip-the-Line Tour[0m
+   Slug: st-peters-basilica-dome-crypt-premium-value | Status: draft | Price: €47
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 60. St. Peter's Basilica Dome Climb & Crypt Exclusive VIP Experience Exclusive VIP Experience[0m
+   Slug: st-peters-basilica-dome-crypt-premium-premium | Status: draft | Price: €77
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 61. St. Peter's Basilica Dome Climb & Crypt Skip-the-Line Tour Art History Masterclass[0m
+   Slug: st-peters-basilica-dome-crypt-value-educational | Status: draft | Price: €40
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 62. St. Peter's Basilica Dome Climb & Crypt Skip-the-Line Tour Skip-the-Line Tour[0m
+   Slug: st-peters-basilica-dome-crypt-value-value | Status: draft | Price: €29
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 63. St. Peter's Basilica Dome Climb & Crypt Skip-the-Line Tour Exclusive VIP Experience[0m
+   Slug: st-peters-basilica-dome-crypt-value-premium | Status: draft | Price: €47
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 64. St. Peter's Basilica Dome Climb & Crypt Art History Masterclass Art History Masterclass[0m
+   Slug: st-peters-basilica-dome-crypt-educational-educational | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 65. St. Peter's Basilica Dome Climb & Crypt Art History Masterclass Skip-the-Line Tour[0m
+   Slug: st-peters-basilica-dome-crypt-educational-value | Status: draft | Price: €40
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 66. St. Peter's Basilica Dome Climb & Crypt Art History Masterclass Exclusive VIP Experience[0m
+   Slug: st-peters-basilica-dome-crypt-educational-premium | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 67. Vatican Museums Skip-the-Line + Audio Guide Exclusive VIP Experience Art History Masterclass[0m
+   Slug: vatican-museums-skip-line-audio-guide-premium-educational | Status: draft | Price: €56
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 68. Vatican Museums Skip-the-Line + Audio Guide Exclusive VIP Experience Skip-the-Line Tour[0m
+   Slug: vatican-museums-skip-line-audio-guide-premium-value | Status: draft | Price: €41
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 69. Vatican Museums Skip-the-Line + Audio Guide Exclusive VIP Experience Exclusive VIP Experience[0m
+   Slug: vatican-museums-skip-line-audio-guide-premium-premium | Status: draft | Price: €66
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 70. Vatican Museums Skip-the-Line + Audio Guide Skip-the-Line Tour Art History Masterclass[0m
+   Slug: vatican-museums-skip-line-audio-guide-value-educational | Status: draft | Price: €34
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 71. Vatican Museums Skip-the-Line + Audio Guide Skip-the-Line Tour Skip-the-Line Tour[0m
+   Slug: vatican-museums-skip-line-audio-guide-value-value | Status: draft | Price: €25
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 72. Vatican Museums Skip-the-Line + Audio Guide Skip-the-Line Tour Exclusive VIP Experience[0m
+   Slug: vatican-museums-skip-line-audio-guide-value-premium | Status: draft | Price: €40
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 73. Vatican Museums Skip-the-Line + Audio Guide Art History Masterclass Art History Masterclass[0m
+   Slug: vatican-museums-skip-line-audio-guide-educational-educational | Status: draft | Price: €47
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 74. Vatican Museums Skip-the-Line + Audio Guide Art History Masterclass Skip-the-Line Tour[0m
+   Slug: vatican-museums-skip-line-audio-guide-educational-value | Status: draft | Price: €34
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 75. Vatican Museums Skip-the-Line + Audio Guide Art History Masterclass Exclusive VIP Experience[0m
+   Slug: vatican-museums-skip-line-audio-guide-educational-premium | Status: draft | Price: €56
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 76. Vatican Museums Skip-the-Line + Audio Guide Art History Masterclass[0m
+   Slug: vatican-museums-skip-line-audio-guide-educational | Status: draft | Price: €43
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 77. Vatican Museums Skip-the-Line + Audio Guide Skip-the-Line Tour[0m
+   Slug: vatican-museums-skip-line-audio-guide-value | Status: draft | Price: €31
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 78. Vatican Museums Skip-the-Line + Audio Guide Exclusive VIP Experience[0m
+   Slug: vatican-museums-skip-line-audio-guide-premium | Status: draft | Price: €51
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 79. St. Peter's Basilica Dome Climb & Crypt Art History Masterclass[0m
+   Slug: st-peters-basilica-dome-crypt-educational | Status: draft | Price: €50
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 80. St. Peter's Basilica Dome Climb & Crypt Skip-the-Line Tour[0m
+   Slug: st-peters-basilica-dome-crypt-value | Status: draft | Price: €36
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 81. St. Peter's Basilica Dome Climb & Crypt Exclusive VIP Experience[0m
+   Slug: st-peters-basilica-dome-crypt-premium | Status: draft | Price: €59
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 82. Vatican Gardens Private Walking Tour Art History Masterclass[0m
+   Slug: vatican-gardens-private-tour-educational | Status: draft | Price: €98
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 83. Vatican Gardens Private Walking Tour Skip-the-Line Tour[0m
+   Slug: vatican-gardens-private-tour-value | Status: draft | Price: €71
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 84. Vatican Gardens Private Walking Tour Exclusive VIP Experience[0m
+   Slug: vatican-gardens-private-tour-premium | Status: draft | Price: €116
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[31m✗ 85. DEBUG Test 1 - Minimal Art History Masterclass[0m
+   Slug: debug-test-1-1779052609062-educational | Status: draft | Price: €55
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 86. DEBUG Test 1 - Minimal Skip-the-Line Tour[0m
+   Slug: debug-test-1-1779052609062-value | Status: draft | Price: €40
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 87. DEBUG Test 1 - Minimal Exclusive VIP Experience[0m
+   Slug: debug-test-1-1779052609062-premium | Status: draft | Price: €65
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 88. Status Test: null Art History Masterclass[0m
+   Slug: status-test-1779052642962-54ber-educational | Status: draft | Price: €55
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 89. Status Test: null Skip-the-Line Tour[0m
+   Slug: status-test-1779052642962-54ber-value | Status: draft | Price: €40
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 90. Status Test: null Exclusive VIP Experience[0m
+   Slug: status-test-1779052642962-54ber-premium | Status: draft | Price: €65
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 91. Status Test: draft Art History Masterclass[0m
+   Slug: status-test-1779052644589-zvtvwf-educational | Status: draft | Price: €55
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 92. Status Test: draft Skip-the-Line Tour[0m
+   Slug: status-test-1779052644589-zvtvwf-value | Status: draft | Price: €40
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 93. Status Test: draft Exclusive VIP Experience[0m
+   Slug: status-test-1779052644589-zvtvwf-premium | Status: draft | Price: €65
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, Missing meeting point[0m
+
+[31m✗ 94. Status Test: draft[0m
+   Slug: status-test-1779052644589-zvtvwf | Status: draft | Price: €50
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights, Missing meeting point[0m
+
+[31m✗ 95. Status Test: null[0m
+   Slug: status-test-1779052642962-54ber | Status: draft | Price: €50
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights, Missing meeting point[0m
+
+[31m✗ 96. DEBUG Test 1 - Minimal[0m
+   Slug: debug-test-1-1779052609062 | Status: draft | Price: €50
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights, Missing meeting point[0m
+
+[31m✗ 97. TEST Tour - Delete Me[0m
+   Slug: test-tour-delete-me-1779052527649 | Status: draft | Price: €50
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights, Missing meeting point[0m
+
+[31m✗ 98. TEST Tour - Delete Me[0m
+   Slug: test-tour-delete-me-1779052359632 | Status: draft | Price: €50
+   Image: [31m✗ Not accessible[0m
+   [31mIssues: No main image (mainImage or imageUrl)[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights, Missing meeting point[0m
+
+[32m✓ 99. Pantheon Guided Tour with Priority Entry[0m
+   Slug: golden-pantheon-guided-tour | Status: draft | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 100. Colosseum, Roman Forum & Palatine Hill Tour[0m
+   Slug: golden-colosseum-roman-forum-tour | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[35mSUMMARY:[0m
+  Total tours: 100
+  [32m✓ Good: 86[0m
+  [33m⚠ OK: 0[0m
+  [31m✗ Needs Fix: 14[0m
+  Images accessible: 86/100
+
+[36m======================================================================[0m
+[36mTICKETS IN ROME (ticketsinrome)[0m
+[36m======================================================================[0m
+
+[34m→ Fetching tours from Payload...[0m
+[32m✓ Found 73 tours[0m
+
+[34m→ Auditing tour 1/73: Pantheon Guided Tour with Priority Entry...[0m[34m→ Auditing tour 2/73: Colosseum, Roman Forum & Palatine Hill Tour...[0m[34m→ Auditing tour 3/73: Vatican Museums & Sistine Chapel Skip-the-Line Tour...[0m[34m→ Auditing tour 4/73: Early Morning Vatican Tour — Before the Crowds...[0m[34m→ Auditing tour 5/73: Colosseum, Roman Forum & Palatine Hill Guided Tour...[0m[34m→ Auditing tour 6/73: Vatican Evening Tour...[0m[34m→ Auditing tour 7/73: Vatican Gardens VIP Guided Tour...[0m[34m→ Auditing tour 8/73: Vatican Gardens Open Bus Experience...[0m[34m→ Auditing tour 9/73: Vatican & Castel Sant'Angelo Combo Tour...[0m[34m→ Auditing tour 10/73: St.Peter's Basilica: Guided Tour, Underground Tomb & Dome...[0m[34m→ Auditing tour 11/73: Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets...[0m[34m→ Auditing tour 12/73: Early Morning Vatican Tour With Sistine Chapel And Direct Access To Saint Peters Basilica Church Without Line...[0m[34m→ Auditing tour 13/73: Vatican Museums & Sistine Chapel Guided Tour...[0m[34m→ Auditing tour 14/73: Vatican & Baroque Rome Golf Cart Tour...[0m[34m→ Auditing tour 15/73: Rome Highlights Golf Cart Tour...[0m[34m→ Auditing tour 16/73: Ancient Rome Golf Cart Tour...[0m[34m→ Auditing tour 17/73: Stadium of Domitian Underground Experience...[0m[34m→ Auditing tour 18/73: Santa Maria Maggiore Underground Experience...[0m[34m→ Auditing tour 19/73: Hidden Gems of Rome Walking Tour...[0m[34m→ Auditing tour 20/73: Hidden Churches of Rome Walking Tour...[0m[34m→ Auditing tour 21/73: Best POMPEII Tour From Rome In A Day With Professioinal Archeologist Guide....[0m[34m→ Auditing tour 22/73: Palatine Hill Private Sunrise Tour...[0m[34m→ Auditing tour 23/73: Domus Aurea (Nero's Golden House) Tour...[0m[34m→ Auditing tour 24/73: Colosseum Underground & Arena Private Tour...[0m[34m→ Auditing tour 25/73: Colosseum Arena & Roman Forum Tour...[0m[34m→ Auditing tour 26/73: Appian Way & Catacombs Tour...[0m[34m→ Auditing tour 27/73: Saint Peters Basilica Tours With Live Guide...[0m[34m→ Auditing tour 28/73: Rome City Walking Tour: Pantheon & Historic Squares...[0m[34m→ Auditing tour 29/73: Pantheon Guided Tour...[0m[34m→ Auditing tour 30/73: Castel Sant'Angelo Guided Tour...[0m[34m→ Auditing tour 31/73: Private Rome Highlights Tour by Car...[0m[34m→ Auditing tour 32/73: Borghese Gallery Skip-the-Line Tour...[0m[34m→ Auditing tour 33/73: Colosseum Underground & Arena Floor VIP Tour...[0m[34m→ Auditing tour 34/73: Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour...[0m[34m→ Auditing tour 35/73: Vatican & Colosseum Full Day Tour...[0m[34m→ Auditing tour 36/73: Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour...[0m[34m→ Auditing tour 37/73: Marmore Waterfalls Private Day Trip from Rome...[0m[34m→ Auditing tour 38/73: Rome 3-Hour Panoramic Hop-On Hop-Off Bus Tour...[0m[34m→ Auditing tour 39/73: Rome: Hop-On Hop-Off Bus & Tiber River Boat Tour...[0m[34m→ Auditing tour 40/73: Rome Discover: 24 Hours Hop-On Hop-Off Bus Tour...[0m[34m→ Auditing tour 41/73: Rome 1-Day Hop-On Hop-Off Panoramic Bus Tour...[0m[34m→ Auditing tour 42/73: Rome Airport Shuttle Bus: Fiumicino & Ciampino to Termini...[0m[34m→ Auditing tour 43/73: Rome Explore: 72-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato...[0m[34m→ Auditing tour 44/73: Rome: Pompeii & Amalfi Coast Scenic Day Trip with Free Time in Positano...[0m[34m→ Auditing tour 45/73: Pantheon Private Tour...[0m[34m→ Auditing tour 46/73: Rome: 48-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato...[0m[34m→ Auditing tour 47/73: Classic Rome Hop-On/Hop-Off + Colosseum...[0m[34m→ Auditing tour 48/73: Rome in a Day – Private Tour...[0m[34m→ Auditing tour 49/73: St.Peter's Basilica & Dome & Papal Tomb with Private Guide...[0m[34m→ Auditing tour 50/73: Rome in a Day: Vatican & Colosseum Combo Tour...[0m[34m→ Auditing tour 51/73: Vatican Museums & Sistine Chapel Skip-the-Line Tour...[0m[34m→ Auditing tour 52/73: Rome Highlights by Private Car (Half-Day)...[0m[34m→ Auditing tour 53/73: Monte Cassino Private Day Trip from Rome – Abbey & WWII History...[0m[34m→ Auditing tour 54/73: Rome by Night Private Car Tour – Colosseum, Trevi Fountain & St. Peter’s Square...[0m[34m→ Auditing tour 55/73: Rome: VIP Shopping Experience at Castel Romano Designer Outlet with Private Car...[0m[34m→ Auditing tour 56/73: Tivoli: Villa d’Este & Gardens Tour from Rome...[0m[34m→ Auditing tour 57/73: Classic Rome Hop-On/Hop-Off Bus + Vatican & Colosseum Skip-the-Line...[0m[34m→ Auditing tour 58/73: Rome Hidden Gems Private Car Tour – Secret Corners & Untold Stories...[0m[34m→ Auditing tour 59/73: Assisi Private Day Trip from Rome – Spiritual & Cultural Experience...[0m[34m→ Auditing tour 60/73: Orvieto & Civita di Bagnoregio Private Day Trip from Rome by Car...[0m[34m→ Auditing tour 61/73: Lake Bracciano Private Day Trip from Rome – Lakeside Views & Castles...[0m[34m→ Auditing tour 62/73: St.Peter's Basilica Skip-the-Line Ticket Only...[0m[34m→ Auditing tour 63/73: Vatican Museums and Sistine Chapel Skip-the-Line Ticket...[0m[34m→ Auditing tour 64/73: Pantheon & Piazzas Walking Tour...[0m[34m→ Auditing tour 65/73: Rome in a Day: Vatican + Colosseum Combo...[0m[34m→ Auditing tour 66/73: Colosseum Arena Floor + Underground Tour...[0m[34m→ Auditing tour 67/73: Vatican Gardens Private Walking Tour...[0m[34m→ Auditing tour 68/73: St. Peter's Basilica Dome Climb & Crypt...[0m[34m→ Auditing tour 69/73: Ostia Antica Day Trip from Rome...[0m[34m→ Auditing tour 70/73: Castel Sant'Angelo Skip-the-Line Tour...[0m[34m→ Auditing tour 71/73: Trastevere & Jewish Ghetto Food Tour...[0m[34m→ Auditing tour 72/73: Borghese Gallery Skip-the-Line Tour...[0m[34m→ Auditing tour 73/73: Vatican Museums Skip-the-Line + Audio Guide...[0m
+
+[35mTOUR AUDIT RESULTS:[0m
+
+[32m✓ 1. Pantheon Guided Tour with Priority Entry[0m
+   Slug: golden-pantheon-guided-tour-tir | Status: draft | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 2. Colosseum, Roman Forum & Palatine Hill Tour[0m
+   Slug: golden-colosseum-roman-forum-tour-tir | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 3. Vatican Museums & Sistine Chapel Skip-the-Line Tour[0m
+   Slug: golden-vatican-museums-sistine-chapel-tir | Status: draft | Price: €52
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 4. Early Morning Vatican Tour — Before the Crowds[0m
+   Slug: early-morning-vatican-tour-tir | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 5. Colosseum, Roman Forum & Palatine Hill Guided Tour[0m
+   Slug: colosseum-roman-forum-palatine-hill-tour-tir | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 6. Vatican Evening Tour[0m
+   Slug: vatican-evening-tour-tir | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 7. Vatican Gardens VIP Guided Tour[0m
+   Slug: vatican-gardens-vip-guided-tir | Status: draft | Price: €95
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 8. Vatican Gardens Open Bus Experience[0m
+   Slug: vatican-gardens-open-bus-tir | Status: draft | Price: €75
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 9. Vatican & Castel Sant'Angelo Combo Tour[0m
+   Slug: vatican-castel-santangelo-combo-tir | Status: draft | Price: €120
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 10. St.Peter's Basilica: Guided Tour, Underground Tomb & Dome[0m
+   Slug: st-peter-s-basilica-guided-tour-underground-tomb-and-dome-tir | Status: draft | Price: €54
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 11. Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets[0m
+   Slug: fast-track-combo-vatican-museum-rome-sightseeing-hop-on-hop-off-bus-tickets-tir | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 12. Early Morning Vatican Tour With Sistine Chapel And Direct Access To Saint Peters Basilica Church Without Line[0m
+   Slug: early-morning-vatican-tour-with-sistine-chapel-and-direct-access-to-saint-peters-basilica-church-without-line-tir | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 13. Vatican Museums & Sistine Chapel Guided Tour[0m
+   Slug: vatican-museums-and-sistine-chapel-guided-tour-tir | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 14. Vatican & Baroque Rome Golf Cart Tour[0m
+   Slug: vatican-baroque-golf-cart-tir | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 15. Rome Highlights Golf Cart Tour[0m
+   Slug: rome-highlights-golf-cart-tir | Status: draft | Price: €220
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 16. Ancient Rome Golf Cart Tour[0m
+   Slug: ancient-rome-golf-cart-tir | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 17. Stadium of Domitian Underground Experience[0m
+   Slug: stadium-domitian-underground-tir | Status: draft | Price: €1
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 18. Santa Maria Maggiore Underground Experience[0m
+   Slug: santa-maria-maggiore-underground-tir | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 19. Hidden Gems of Rome Walking Tour[0m
+   Slug: hidden-gems-rome-walking-tir | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 20. Hidden Churches of Rome Walking Tour[0m
+   Slug: hidden-churches-rome-walking-tir | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 21. Best POMPEII Tour From Rome In A Day With Professioinal Archeologist Guide.[0m
+   Slug: best-pompeii-tour-from-rome-in-a-day-with-professioinal-archeologist-guide-tir | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 22. Palatine Hill Private Sunrise Tour[0m
+   Slug: palatine-hill-sunrise-private-tir | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 23. Domus Aurea (Nero's Golden House) Tour[0m
+   Slug: domus-aurea-nero-golden-house-tir | Status: draft | Price: €70
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 24. Colosseum Underground & Arena Private Tour[0m
+   Slug: colosseum-underground-arena-private-tir | Status: draft | Price: €299
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 25. Colosseum Arena & Roman Forum Tour[0m
+   Slug: colosseum-arena-roman-forum-tir | Status: draft | Price: €85
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 26. Appian Way & Catacombs Tour[0m
+   Slug: appian-way-catacombs-tir | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 27. Saint Peters Basilica Tours With Live Guide[0m
+   Slug: saint-peters-basilica-tours-with-live-guide-tir | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 28. Rome City Walking Tour: Pantheon & Historic Squares[0m
+   Slug: rome-walking-tour-pantheon-squares-tir | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 29. Pantheon Guided Tour[0m
+   Slug: pantheon-guided-tour-tir | Status: draft | Price: €32
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 30. Castel Sant'Angelo Guided Tour[0m
+   Slug: castel-santangelo-guided-tour-tir | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 31. Private Rome Highlights Tour by Car[0m
+   Slug: golden-private-rome-car-tour-tir | Status: draft | Price: €320
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 32. Borghese Gallery Skip-the-Line Tour[0m
+   Slug: golden-borghese-gallery-tour-tir | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 33. Colosseum Underground & Arena Floor VIP Tour[0m
+   Slug: golden-colosseum-underground-vip-tir | Status: draft | Price: €89
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 34. Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour[0m
+   Slug: golden-vatican-complete-tour-tir | Status: draft | Price: €69
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 35. Vatican & Colosseum Full Day Tour[0m
+   Slug: vatican-colosseum-full-day-tour-tir | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 36. Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour[0m
+   Slug: vatican-museums-sistine-chapel-st-peters-basilica-tir | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 37. Marmore Waterfalls Private Day Trip from Rome[0m
+   Slug: marmore-waterfalls-private-day-trip-from-rome-tir | Status: draft | Price: €399
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 38. Rome 3-Hour Panoramic Hop-On Hop-Off Bus Tour[0m
+   Slug: rome-3-hour-panoramic-hop-on-hop-off-bus-tour-tir | Status: draft | Price: €28
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 39. Rome: Hop-On Hop-Off Bus & Tiber River Boat Tour[0m
+   Slug: rome-hop-on-hop-off-bus-and-tiber-river-boat-tour-tir | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 40. Rome Discover: 24 Hours Hop-On Hop-Off Bus Tour[0m
+   Slug: rome-discover-24-hours-hop-on-hop-off-bus-tour-tir | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 41. Rome 1-Day Hop-On Hop-Off Panoramic Bus Tour[0m
+   Slug: rome-1-day-hop-on-hop-off-panoramic-bus-tour-tir | Status: draft | Price: €34
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 42. Rome Airport Shuttle Bus: Fiumicino & Ciampino to Termini[0m
+   Slug: rome-airport-shuttle-bus-fiumicino-and-ciampino-to-termini-tir | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 43. Rome Explore: 72-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato[0m
+   Slug: rome-explore-72-hour-hop-on-hop-off-bus-tour-with-audio-guide-and-gelato-tir | Status: draft | Price: €56
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 44. Rome: Pompeii & Amalfi Coast Scenic Day Trip with Free Time in Positano[0m
+   Slug: rome-pompeii-and-amalfi-coast-scenic-day-trip-with-free-time-in-positano-tir | Status: draft | Price: €219
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 45. Pantheon Private Tour[0m
+   Slug: pantheon-private-tour-tir | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 46. Rome: 48-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato[0m
+   Slug: rome-48-hour-hop-on-hop-off-bus-tour-with-audio-guide-and-gelato-tir | Status: draft | Price: €50
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 47. Classic Rome Hop-On/Hop-Off + Colosseum[0m
+   Slug: classic-rome-hop-on-hop-off-colosseum-tir | Status: draft | Price: €96
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 48. Rome in a Day – Private Tour[0m
+   Slug: rome-in-a-day-private-tour-tir | Status: draft | Price: €379
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 49. St.Peter's Basilica & Dome & Papal Tomb with Private Guide[0m
+   Slug: st-peter-s-basilica-and-dome-and-papal-tomb-with-private-guide-tir | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 50. Rome in a Day: Vatican & Colosseum Combo Tour[0m
+   Slug: golden-rome-in-a-day-combo-tir | Status: draft | Price: €109
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 51. Vatican Museums & Sistine Chapel Skip-the-Line Tour[0m
+   Slug: vatican-museums-sistine-chapel-skip-the-line-tir | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 52. Rome Highlights by Private Car (Half-Day)[0m
+   Slug: rome-highlights-by-private-car-half-day-tir | Status: draft | Price: €299
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 53. Monte Cassino Private Day Trip from Rome – Abbey & WWII History[0m
+   Slug: monte-cassino-private-day-trip-from-rome-abbey-and-wwii-history-tir | Status: draft | Price: €400
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 54. Rome by Night Private Car Tour – Colosseum, Trevi Fountain & St. Peter’s Square[0m
+   Slug: rome-by-night-private-luxury-car-tour-colosseum-trevi-fountain-and-st-peter-s-square-tir | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 55. Rome: VIP Shopping Experience at Castel Romano Designer Outlet with Private Car[0m
+   Slug: rome-vip-shopping-experience-at-castel-romano-designer-outlet-with-private-car-tir | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 56. Tivoli: Villa d’Este & Gardens Tour from Rome[0m
+   Slug: tivoli-villa-d-este-and-gardens-tour-from-rome-tir | Status: draft | Price: €399
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 57. Classic Rome Hop-On/Hop-Off Bus + Vatican & Colosseum Skip-the-Line[0m
+   Slug: classic-rome-hop-on-hop-off-bus-vatican-and-colosseum-skip-the-line-tir | Status: draft | Price: €149
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 58. Rome Hidden Gems Private Car Tour – Secret Corners & Untold Stories[0m
+   Slug: rome-hidden-gems-private-car-tour-secret-corners-and-untold-stories-tir | Status: draft | Price: €139
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 59. Assisi Private Day Trip from Rome – Spiritual & Cultural Experience[0m
+   Slug: assisi-private-day-trip-from-rome-spiritual-and-cultural-experience-tir | Status: draft | Price: €400
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 60. Orvieto & Civita di Bagnoregio Private Day Trip from Rome by Car[0m
+   Slug: orvieto-and-civita-di-bagnoregio-private-day-trip-from-rome-by-car-tir | Status: draft | Price: €700
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 61. Lake Bracciano Private Day Trip from Rome – Lakeside Views & Castles[0m
+   Slug: lake-bracciano-private-day-trip-from-rome-lakeside-views-and-castles-tir | Status: draft | Price: €350
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 62. St.Peter's Basilica Skip-the-Line Ticket Only[0m
+   Slug: st-peter-s-basilica-skip-the-line-ticket-only-tir | Status: draft | Price: €19
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 63. Vatican Museums and Sistine Chapel Skip-the-Line Ticket[0m
+   Slug: vatican-museums-and-sistine-chapel-skip-the-line-ticket-only-tir | Status: draft | Price: €69
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[33m⚠ 64. Pantheon & Piazzas Walking Tour[0m
+   Slug: pantheon-piazzas-walking-tour-tir | Status: draft | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 65. Rome in a Day: Vatican + Colosseum Combo[0m
+   Slug: rome-in-a-day-vatican-colosseum-combo-tir | Status: draft | Price: €119
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 66. Colosseum Arena Floor + Underground Tour[0m
+   Slug: colosseum-arena-floor-underground-tir | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 67. Vatican Gardens Private Walking Tour[0m
+   Slug: vatican-gardens-private-tour-tir | Status: draft | Price: €89
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 68. St. Peter's Basilica Dome Climb & Crypt[0m
+   Slug: st-peters-basilica-dome-crypt-tir | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 69. Ostia Antica Day Trip from Rome[0m
+   Slug: ostia-antica-day-trip-tir | Status: draft | Price: €58
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 70. Castel Sant'Angelo Skip-the-Line Tour[0m
+   Slug: castel-santangelo-skip-line-tour-tir | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 71. Trastevere & Jewish Ghetto Food Tour[0m
+   Slug: trastevere-jewish-ghetto-food-tour-tir | Status: draft | Price: €75
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 72. Borghese Gallery Skip-the-Line Tour[0m
+   Slug: borghese-gallery-skip-line-tour-tir | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 73. Vatican Museums Skip-the-Line + Audio Guide[0m
+   Slug: vatican-museums-skip-line-audio-guide-tir | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[35mSUMMARY:[0m
+  Total tours: 73
+  [32m✓ Good: 63[0m
+  [33m⚠ OK: 10[0m
+  [31m✗ Needs Fix: 0[0m
+  Images accessible: 73/73
+
+[36m======================================================================[0m
+[36mGOLDEN ROME TOUR (goldenrometour)[0m
+[36m======================================================================[0m
+
+[34m→ Fetching tours from Payload...[0m
+[32m✓ Found 74 tours[0m
+
+[34m→ Auditing tour 1/74: Skip-The-Line Ticket Vatican Museum And Sistine Chapel Fast Pass...[0m[34m→ Auditing tour 2/74: Early Morning Vatican Tour — Before the Crowds...[0m[34m→ Auditing tour 3/74: Colosseum, Roman Forum & Palatine Hill Guided Tour...[0m[34m→ Auditing tour 4/74: Vatican Evening Tour...[0m[34m→ Auditing tour 5/74: Vatican Gardens VIP Guided Tour...[0m[34m→ Auditing tour 6/74: Vatican Gardens Open Bus Experience...[0m[34m→ Auditing tour 7/74: Vatican & Castel Sant'Angelo Combo Tour...[0m[34m→ Auditing tour 8/74: Pantheon Guided Tour with Priority Entry...[0m[34m→ Auditing tour 9/74: Colosseum, Roman Forum & Palatine Hill Tour...[0m[34m→ Auditing tour 10/74: Vatican Museums & Sistine Chapel Skip-the-Line Tour...[0m[34m→ Auditing tour 11/74: St.Peter's Basilica: Guided Tour, Underground Tomb & Dome...[0m[34m→ Auditing tour 12/74: Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets...[0m[34m→ Auditing tour 13/74: Early Morning Vatican Tour With Sistine Chapel And Direct Access To Saint Peters Basilica Church Without Line...[0m[34m→ Auditing tour 14/74: Vatican Museums & Sistine Chapel Guided Tour...[0m[34m→ Auditing tour 15/74: Vatican & Baroque Rome Golf Cart Tour...[0m[34m→ Auditing tour 16/74: Rome Highlights Golf Cart Tour...[0m[34m→ Auditing tour 17/74: Ancient Rome Golf Cart Tour...[0m[34m→ Auditing tour 18/74: Stadium of Domitian Underground Experience...[0m[34m→ Auditing tour 19/74: Santa Maria Maggiore Underground Experience...[0m[34m→ Auditing tour 20/74: Hidden Gems of Rome Walking Tour...[0m[34m→ Auditing tour 21/74: Hidden Churches of Rome Walking Tour...[0m[34m→ Auditing tour 22/74: Best POMPEII Tour From Rome In A Day With Professioinal Archeologist Guide....[0m[34m→ Auditing tour 23/74: Palatine Hill Private Sunrise Tour...[0m[34m→ Auditing tour 24/74: Domus Aurea (Nero's Golden House) Tour...[0m[34m→ Auditing tour 25/74: Colosseum Underground & Arena Private Tour...[0m[34m→ Auditing tour 26/74: Colosseum Arena & Roman Forum Tour...[0m[34m→ Auditing tour 27/74: Appian Way & Catacombs Tour...[0m[34m→ Auditing tour 28/74: Saint Peters Basilica Tours With Live Guide...[0m[34m→ Auditing tour 29/74: Rome City Walking Tour: Pantheon & Historic Squares...[0m[34m→ Auditing tour 30/74: Pantheon Guided Tour...[0m[34m→ Auditing tour 31/74: Castel Sant'Angelo Guided Tour...[0m[34m→ Auditing tour 32/74: Private Rome Highlights Tour by Car...[0m[34m→ Auditing tour 33/74: Borghese Gallery Skip-the-Line Tour...[0m[34m→ Auditing tour 34/74: Colosseum Underground & Arena Floor VIP Tour...[0m[34m→ Auditing tour 35/74: Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour...[0m[34m→ Auditing tour 36/74: Vatican & Colosseum Full Day Tour...[0m[34m→ Auditing tour 37/74: Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour...[0m[34m→ Auditing tour 38/74: Marmore Waterfalls Private Day Trip from Rome...[0m[34m→ Auditing tour 39/74: Rome 3-Hour Panoramic Hop-On Hop-Off Bus Tour...[0m[34m→ Auditing tour 40/74: Rome: Hop-On Hop-Off Bus & Tiber River Boat Tour...[0m[34m→ Auditing tour 41/74: Rome Discover: 24 Hours Hop-On Hop-Off Bus Tour...[0m[34m→ Auditing tour 42/74: Rome 1-Day Hop-On Hop-Off Panoramic Bus Tour...[0m[34m→ Auditing tour 43/74: Rome Airport Shuttle Bus: Fiumicino & Ciampino to Termini...[0m[34m→ Auditing tour 44/74: Rome Explore: 72-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato...[0m[34m→ Auditing tour 45/74: Rome: Pompeii & Amalfi Coast Scenic Day Trip with Free Time in Positano...[0m[34m→ Auditing tour 46/74: Pantheon Private Tour...[0m[34m→ Auditing tour 47/74: Rome: 48-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato...[0m[34m→ Auditing tour 48/74: Classic Rome Hop-On/Hop-Off + Colosseum...[0m[34m→ Auditing tour 49/74: Rome in a Day – Private Tour...[0m[34m→ Auditing tour 50/74: St.Peter's Basilica & Dome & Papal Tomb with Private Guide...[0m[34m→ Auditing tour 51/74: Rome in a Day: Vatican & Colosseum Combo Tour...[0m[34m→ Auditing tour 52/74: Vatican Museums & Sistine Chapel Skip-the-Line Tour...[0m[34m→ Auditing tour 53/74: Rome Highlights by Private Car (Half-Day)...[0m[34m→ Auditing tour 54/74: Monte Cassino Private Day Trip from Rome – Abbey & WWII History...[0m[34m→ Auditing tour 55/74: Rome by Night Private Car Tour – Colosseum, Trevi Fountain & St. Peter’s Square...[0m[34m→ Auditing tour 56/74: Rome: VIP Shopping Experience at Castel Romano Designer Outlet with Private Car...[0m[34m→ Auditing tour 57/74: Tivoli: Villa d’Este & Gardens Tour from Rome...[0m[34m→ Auditing tour 58/74: Classic Rome Hop-On/Hop-Off Bus + Vatican & Colosseum Skip-the-Line...[0m[34m→ Auditing tour 59/74: Rome Hidden Gems Private Car Tour – Secret Corners & Untold Stories...[0m[34m→ Auditing tour 60/74: Assisi Private Day Trip from Rome – Spiritual & Cultural Experience...[0m[34m→ Auditing tour 61/74: Orvieto & Civita di Bagnoregio Private Day Trip from Rome by Car...[0m[34m→ Auditing tour 62/74: Lake Bracciano Private Day Trip from Rome – Lakeside Views & Castles...[0m[34m→ Auditing tour 63/74: St.Peter's Basilica Skip-the-Line Ticket Only...[0m[34m→ Auditing tour 64/74: Vatican Museums and Sistine Chapel Skip-the-Line Ticket...[0m[34m→ Auditing tour 65/74: Pantheon & Piazzas Walking Tour...[0m[34m→ Auditing tour 66/74: Rome in a Day: Vatican + Colosseum Combo...[0m[34m→ Auditing tour 67/74: Colosseum Arena Floor + Underground Tour...[0m[34m→ Auditing tour 68/74: Vatican Gardens Private Walking Tour...[0m[34m→ Auditing tour 69/74: St. Peter's Basilica Dome Climb & Crypt...[0m[34m→ Auditing tour 70/74: Ostia Antica Day Trip from Rome...[0m[34m→ Auditing tour 71/74: Castel Sant'Angelo Skip-the-Line Tour...[0m[34m→ Auditing tour 72/74: Trastevere & Jewish Ghetto Food Tour...[0m[34m→ Auditing tour 73/74: Borghese Gallery Skip-the-Line Tour...[0m[34m→ Auditing tour 74/74: Vatican Museums Skip-the-Line + Audio Guide...[0m
+
+[35mTOUR AUDIT RESULTS:[0m
+
+[33m⚠ 1. Skip-The-Line Ticket Vatican Museum And Sistine Chapel Fast Pass[0m
+   Slug: skip-line-vatican-museum-sistine-chapel-fast-pass-grt | Status: draft | Price: €69
+   Image: [31m✗ Not accessible[0m
+   [33mWarnings: Status is 'draft' (not live), Legacy imageUrl not accessible: 404, No itinerary items, No highlights, Missing meeting point[0m
+
+[32m✓ 2. Early Morning Vatican Tour — Before the Crowds[0m
+   Slug: early-morning-vatican-tour-grt | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 3. Colosseum, Roman Forum & Palatine Hill Guided Tour[0m
+   Slug: colosseum-roman-forum-palatine-hill-tour-grt | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 4. Vatican Evening Tour[0m
+   Slug: vatican-evening-tour-grt | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 5. Vatican Gardens VIP Guided Tour[0m
+   Slug: vatican-gardens-vip-guided-grt | Status: draft | Price: €95
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 6. Vatican Gardens Open Bus Experience[0m
+   Slug: vatican-gardens-open-bus-grt | Status: draft | Price: €75
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 7. Vatican & Castel Sant'Angelo Combo Tour[0m
+   Slug: vatican-castel-santangelo-combo-grt | Status: draft | Price: €120
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 8. Pantheon Guided Tour with Priority Entry[0m
+   Slug: golden-pantheon-guided-tour-grt | Status: draft | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 9. Colosseum, Roman Forum & Palatine Hill Tour[0m
+   Slug: golden-colosseum-roman-forum-tour-grt | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 10. Vatican Museums & Sistine Chapel Skip-the-Line Tour[0m
+   Slug: golden-vatican-museums-sistine-chapel-grt | Status: draft | Price: €52
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 11. St.Peter's Basilica: Guided Tour, Underground Tomb & Dome[0m
+   Slug: st-peter-s-basilica-guided-tour-underground-tomb-and-dome-grt | Status: draft | Price: €54
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 12. Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets[0m
+   Slug: fast-track-combo-vatican-museum-rome-sightseeing-hop-on-hop-off-bus-tickets-grt | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 13. Early Morning Vatican Tour With Sistine Chapel And Direct Access To Saint Peters Basilica Church Without Line[0m
+   Slug: early-morning-vatican-tour-with-sistine-chapel-and-direct-access-to-saint-peters-basilica-church-without-line-grt | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 14. Vatican Museums & Sistine Chapel Guided Tour[0m
+   Slug: vatican-museums-and-sistine-chapel-guided-tour-grt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 15. Vatican & Baroque Rome Golf Cart Tour[0m
+   Slug: vatican-baroque-golf-cart-grt | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 16. Rome Highlights Golf Cart Tour[0m
+   Slug: rome-highlights-golf-cart-grt | Status: draft | Price: €220
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 17. Ancient Rome Golf Cart Tour[0m
+   Slug: ancient-rome-golf-cart-grt | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 18. Stadium of Domitian Underground Experience[0m
+   Slug: stadium-domitian-underground-grt | Status: draft | Price: €1
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 19. Santa Maria Maggiore Underground Experience[0m
+   Slug: santa-maria-maggiore-underground-grt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 20. Hidden Gems of Rome Walking Tour[0m
+   Slug: hidden-gems-rome-walking-grt | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 21. Hidden Churches of Rome Walking Tour[0m
+   Slug: hidden-churches-rome-walking-grt | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 22. Best POMPEII Tour From Rome In A Day With Professioinal Archeologist Guide.[0m
+   Slug: best-pompeii-tour-from-rome-in-a-day-with-professioinal-archeologist-guide-grt | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 23. Palatine Hill Private Sunrise Tour[0m
+   Slug: palatine-hill-sunrise-private-grt | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 24. Domus Aurea (Nero's Golden House) Tour[0m
+   Slug: domus-aurea-nero-golden-house-grt | Status: draft | Price: €70
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 25. Colosseum Underground & Arena Private Tour[0m
+   Slug: colosseum-underground-arena-private-grt | Status: draft | Price: €299
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 26. Colosseum Arena & Roman Forum Tour[0m
+   Slug: colosseum-arena-roman-forum-grt | Status: draft | Price: €85
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 27. Appian Way & Catacombs Tour[0m
+   Slug: appian-way-catacombs-grt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 28. Saint Peters Basilica Tours With Live Guide[0m
+   Slug: saint-peters-basilica-tours-with-live-guide-grt | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 29. Rome City Walking Tour: Pantheon & Historic Squares[0m
+   Slug: rome-walking-tour-pantheon-squares-grt | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 30. Pantheon Guided Tour[0m
+   Slug: pantheon-guided-tour-grt | Status: draft | Price: €32
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 31. Castel Sant'Angelo Guided Tour[0m
+   Slug: castel-santangelo-guided-tour-grt | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 32. Private Rome Highlights Tour by Car[0m
+   Slug: golden-private-rome-car-tour-grt | Status: draft | Price: €320
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 33. Borghese Gallery Skip-the-Line Tour[0m
+   Slug: golden-borghese-gallery-tour-grt | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 34. Colosseum Underground & Arena Floor VIP Tour[0m
+   Slug: golden-colosseum-underground-vip-grt | Status: draft | Price: €89
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 35. Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour[0m
+   Slug: golden-vatican-complete-tour-grt | Status: draft | Price: €69
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 36. Vatican & Colosseum Full Day Tour[0m
+   Slug: vatican-colosseum-full-day-tour-grt | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 37. Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour[0m
+   Slug: vatican-museums-sistine-chapel-st-peters-basilica-grt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 38. Marmore Waterfalls Private Day Trip from Rome[0m
+   Slug: marmore-waterfalls-private-day-trip-from-rome-grt | Status: draft | Price: €399
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 39. Rome 3-Hour Panoramic Hop-On Hop-Off Bus Tour[0m
+   Slug: rome-3-hour-panoramic-hop-on-hop-off-bus-tour-grt | Status: draft | Price: €28
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 40. Rome: Hop-On Hop-Off Bus & Tiber River Boat Tour[0m
+   Slug: rome-hop-on-hop-off-bus-and-tiber-river-boat-tour-grt | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 41. Rome Discover: 24 Hours Hop-On Hop-Off Bus Tour[0m
+   Slug: rome-discover-24-hours-hop-on-hop-off-bus-tour-grt | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 42. Rome 1-Day Hop-On Hop-Off Panoramic Bus Tour[0m
+   Slug: rome-1-day-hop-on-hop-off-panoramic-bus-tour-grt | Status: draft | Price: €34
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 43. Rome Airport Shuttle Bus: Fiumicino & Ciampino to Termini[0m
+   Slug: rome-airport-shuttle-bus-fiumicino-and-ciampino-to-termini-grt | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 44. Rome Explore: 72-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato[0m
+   Slug: rome-explore-72-hour-hop-on-hop-off-bus-tour-with-audio-guide-and-gelato-grt | Status: draft | Price: €56
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 45. Rome: Pompeii & Amalfi Coast Scenic Day Trip with Free Time in Positano[0m
+   Slug: rome-pompeii-and-amalfi-coast-scenic-day-trip-with-free-time-in-positano-grt | Status: draft | Price: €219
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 46. Pantheon Private Tour[0m
+   Slug: pantheon-private-tour-grt | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 47. Rome: 48-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato[0m
+   Slug: rome-48-hour-hop-on-hop-off-bus-tour-with-audio-guide-and-gelato-grt | Status: draft | Price: €50
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 48. Classic Rome Hop-On/Hop-Off + Colosseum[0m
+   Slug: classic-rome-hop-on-hop-off-colosseum-grt | Status: draft | Price: €96
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 49. Rome in a Day – Private Tour[0m
+   Slug: rome-in-a-day-private-tour-grt | Status: draft | Price: €379
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 50. St.Peter's Basilica & Dome & Papal Tomb with Private Guide[0m
+   Slug: st-peter-s-basilica-and-dome-and-papal-tomb-with-private-guide-grt | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 51. Rome in a Day: Vatican & Colosseum Combo Tour[0m
+   Slug: golden-rome-in-a-day-combo-grt | Status: draft | Price: €109
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 52. Vatican Museums & Sistine Chapel Skip-the-Line Tour[0m
+   Slug: vatican-museums-sistine-chapel-skip-the-line-grt | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 53. Rome Highlights by Private Car (Half-Day)[0m
+   Slug: rome-highlights-by-private-car-half-day-grt | Status: draft | Price: €299
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 54. Monte Cassino Private Day Trip from Rome – Abbey & WWII History[0m
+   Slug: monte-cassino-private-day-trip-from-rome-abbey-and-wwii-history-grt | Status: draft | Price: €400
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 55. Rome by Night Private Car Tour – Colosseum, Trevi Fountain & St. Peter’s Square[0m
+   Slug: rome-by-night-private-luxury-car-tour-colosseum-trevi-fountain-and-st-peter-s-square-grt | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 56. Rome: VIP Shopping Experience at Castel Romano Designer Outlet with Private Car[0m
+   Slug: rome-vip-shopping-experience-at-castel-romano-designer-outlet-with-private-car-grt | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 57. Tivoli: Villa d’Este & Gardens Tour from Rome[0m
+   Slug: tivoli-villa-d-este-and-gardens-tour-from-rome-grt | Status: draft | Price: €399
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 58. Classic Rome Hop-On/Hop-Off Bus + Vatican & Colosseum Skip-the-Line[0m
+   Slug: classic-rome-hop-on-hop-off-bus-vatican-and-colosseum-skip-the-line-grt | Status: draft | Price: €149
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 59. Rome Hidden Gems Private Car Tour – Secret Corners & Untold Stories[0m
+   Slug: rome-hidden-gems-private-car-tour-secret-corners-and-untold-stories-grt | Status: draft | Price: €139
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 60. Assisi Private Day Trip from Rome – Spiritual & Cultural Experience[0m
+   Slug: assisi-private-day-trip-from-rome-spiritual-and-cultural-experience-grt | Status: draft | Price: €400
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 61. Orvieto & Civita di Bagnoregio Private Day Trip from Rome by Car[0m
+   Slug: orvieto-and-civita-di-bagnoregio-private-day-trip-from-rome-by-car-grt | Status: draft | Price: €700
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 62. Lake Bracciano Private Day Trip from Rome – Lakeside Views & Castles[0m
+   Slug: lake-bracciano-private-day-trip-from-rome-lakeside-views-and-castles-grt | Status: draft | Price: €350
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 63. St.Peter's Basilica Skip-the-Line Ticket Only[0m
+   Slug: st-peter-s-basilica-skip-the-line-ticket-only-grt | Status: draft | Price: €19
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 64. Vatican Museums and Sistine Chapel Skip-the-Line Ticket[0m
+   Slug: vatican-museums-and-sistine-chapel-skip-the-line-ticket-only-grt | Status: draft | Price: €69
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[33m⚠ 65. Pantheon & Piazzas Walking Tour[0m
+   Slug: pantheon-piazzas-walking-tour-grt | Status: draft | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 66. Rome in a Day: Vatican + Colosseum Combo[0m
+   Slug: rome-in-a-day-vatican-colosseum-combo-grt | Status: draft | Price: €119
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 67. Colosseum Arena Floor + Underground Tour[0m
+   Slug: colosseum-arena-floor-underground-grt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 68. Vatican Gardens Private Walking Tour[0m
+   Slug: vatican-gardens-private-tour-grt | Status: draft | Price: €89
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 69. St. Peter's Basilica Dome Climb & Crypt[0m
+   Slug: st-peters-basilica-dome-crypt-grt | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 70. Ostia Antica Day Trip from Rome[0m
+   Slug: ostia-antica-day-trip-grt | Status: draft | Price: €58
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 71. Castel Sant'Angelo Skip-the-Line Tour[0m
+   Slug: castel-santangelo-skip-line-tour-grt | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 72. Trastevere & Jewish Ghetto Food Tour[0m
+   Slug: trastevere-jewish-ghetto-food-tour-grt | Status: draft | Price: €75
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 73. Borghese Gallery Skip-the-Line Tour[0m
+   Slug: borghese-gallery-skip-line-tour-grt | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 74. Vatican Museums Skip-the-Line + Audio Guide[0m
+   Slug: vatican-museums-skip-line-audio-guide-grt | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[35mSUMMARY:[0m
+  Total tours: 74
+  [32m✓ Good: 63[0m
+  [33m⚠ OK: 11[0m
+  [31m✗ Needs Fix: 0[0m
+  Images accessible: 73/74
+
+[36m======================================================================[0m
+[36mROMAN VATICAN TOUR (romanvaticantour)[0m
+[36m======================================================================[0m
+
+[34m→ Fetching tours from Payload...[0m
+[32m✓ Found 73 tours[0m
+
+[34m→ Auditing tour 1/73: Pantheon Guided Tour with Priority Entry...[0m[34m→ Auditing tour 2/73: Colosseum, Roman Forum & Palatine Hill Tour...[0m[34m→ Auditing tour 3/73: Vatican Museums & Sistine Chapel Skip-the-Line Tour...[0m[34m→ Auditing tour 4/73: Vatican Evening Tour...[0m[34m→ Auditing tour 5/73: Vatican Gardens VIP Guided Tour...[0m[34m→ Auditing tour 6/73: Vatican Gardens Open Bus Experience...[0m[34m→ Auditing tour 7/73: Vatican & Castel Sant'Angelo Combo Tour...[0m[34m→ Auditing tour 8/73: St.Peter's Basilica: Guided Tour, Underground Tomb & Dome...[0m[34m→ Auditing tour 9/73: Early Morning Vatican Tour — Before the Crowds...[0m[34m→ Auditing tour 10/73: Colosseum, Roman Forum & Palatine Hill Guided Tour...[0m[34m→ Auditing tour 11/73: Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets...[0m[34m→ Auditing tour 12/73: Early Morning Vatican Tour With Sistine Chapel And Direct Access To Saint Peters Basilica Church Without Line...[0m[34m→ Auditing tour 13/73: Vatican Museums & Sistine Chapel Guided Tour...[0m[34m→ Auditing tour 14/73: Vatican & Baroque Rome Golf Cart Tour...[0m[34m→ Auditing tour 15/73: Rome Highlights Golf Cart Tour...[0m[34m→ Auditing tour 16/73: Ancient Rome Golf Cart Tour...[0m[34m→ Auditing tour 17/73: Stadium of Domitian Underground Experience...[0m[34m→ Auditing tour 18/73: Santa Maria Maggiore Underground Experience...[0m[34m→ Auditing tour 19/73: Hidden Gems of Rome Walking Tour...[0m[34m→ Auditing tour 20/73: Hidden Churches of Rome Walking Tour...[0m[34m→ Auditing tour 21/73: Best POMPEII Tour From Rome In A Day With Professioinal Archeologist Guide....[0m[34m→ Auditing tour 22/73: Palatine Hill Private Sunrise Tour...[0m[34m→ Auditing tour 23/73: Domus Aurea (Nero's Golden House) Tour...[0m[34m→ Auditing tour 24/73: Colosseum Underground & Arena Private Tour...[0m[34m→ Auditing tour 25/73: Colosseum Arena & Roman Forum Tour...[0m[34m→ Auditing tour 26/73: Appian Way & Catacombs Tour...[0m[34m→ Auditing tour 27/73: Saint Peters Basilica Tours With Live Guide...[0m[34m→ Auditing tour 28/73: Rome City Walking Tour: Pantheon & Historic Squares...[0m[34m→ Auditing tour 29/73: Pantheon Guided Tour...[0m[34m→ Auditing tour 30/73: Castel Sant'Angelo Guided Tour...[0m[34m→ Auditing tour 31/73: Private Rome Highlights Tour by Car...[0m[34m→ Auditing tour 32/73: Borghese Gallery Skip-the-Line Tour...[0m[34m→ Auditing tour 33/73: Colosseum Underground & Arena Floor VIP Tour...[0m[34m→ Auditing tour 34/73: Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour...[0m[34m→ Auditing tour 35/73: Vatican & Colosseum Full Day Tour...[0m[34m→ Auditing tour 36/73: Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour...[0m[34m→ Auditing tour 37/73: Marmore Waterfalls Private Day Trip from Rome...[0m[34m→ Auditing tour 38/73: Rome 3-Hour Panoramic Hop-On Hop-Off Bus Tour...[0m[34m→ Auditing tour 39/73: Rome: Hop-On Hop-Off Bus & Tiber River Boat Tour...[0m[34m→ Auditing tour 40/73: Rome Discover: 24 Hours Hop-On Hop-Off Bus Tour...[0m[34m→ Auditing tour 41/73: Rome 1-Day Hop-On Hop-Off Panoramic Bus Tour...[0m[34m→ Auditing tour 42/73: Rome Airport Shuttle Bus: Fiumicino & Ciampino to Termini...[0m[34m→ Auditing tour 43/73: Rome Explore: 72-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato...[0m[34m→ Auditing tour 44/73: Rome: Pompeii & Amalfi Coast Scenic Day Trip with Free Time in Positano...[0m[34m→ Auditing tour 45/73: Pantheon Private Tour...[0m[34m→ Auditing tour 46/73: Rome: 48-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato...[0m[34m→ Auditing tour 47/73: Classic Rome Hop-On/Hop-Off + Colosseum...[0m[34m→ Auditing tour 48/73: Rome in a Day – Private Tour...[0m[34m→ Auditing tour 49/73: St.Peter's Basilica & Dome & Papal Tomb with Private Guide...[0m[34m→ Auditing tour 50/73: Rome in a Day: Vatican & Colosseum Combo Tour...[0m[34m→ Auditing tour 51/73: Vatican Museums & Sistine Chapel Skip-the-Line Tour...[0m[34m→ Auditing tour 52/73: Rome Highlights by Private Car (Half-Day)...[0m[34m→ Auditing tour 53/73: Monte Cassino Private Day Trip from Rome – Abbey & WWII History...[0m[34m→ Auditing tour 54/73: Rome by Night Private Car Tour – Colosseum, Trevi Fountain & St. Peter’s Square...[0m[34m→ Auditing tour 55/73: Rome: VIP Shopping Experience at Castel Romano Designer Outlet with Private Car...[0m[34m→ Auditing tour 56/73: Tivoli: Villa d’Este & Gardens Tour from Rome...[0m[34m→ Auditing tour 57/73: Classic Rome Hop-On/Hop-Off Bus + Vatican & Colosseum Skip-the-Line...[0m[34m→ Auditing tour 58/73: Rome Hidden Gems Private Car Tour – Secret Corners & Untold Stories...[0m[34m→ Auditing tour 59/73: Assisi Private Day Trip from Rome – Spiritual & Cultural Experience...[0m[34m→ Auditing tour 60/73: Orvieto & Civita di Bagnoregio Private Day Trip from Rome by Car...[0m[34m→ Auditing tour 61/73: Lake Bracciano Private Day Trip from Rome – Lakeside Views & Castles...[0m[34m→ Auditing tour 62/73: St.Peter's Basilica Skip-the-Line Ticket Only...[0m[34m→ Auditing tour 63/73: Vatican Museums and Sistine Chapel Skip-the-Line Ticket...[0m[34m→ Auditing tour 64/73: Pantheon & Piazzas Walking Tour...[0m[34m→ Auditing tour 65/73: Rome in a Day: Vatican + Colosseum Combo...[0m[34m→ Auditing tour 66/73: Colosseum Arena Floor + Underground Tour...[0m[34m→ Auditing tour 67/73: Vatican Gardens Private Walking Tour...[0m[34m→ Auditing tour 68/73: St. Peter's Basilica Dome Climb & Crypt...[0m[34m→ Auditing tour 69/73: Ostia Antica Day Trip from Rome...[0m[34m→ Auditing tour 70/73: Castel Sant'Angelo Skip-the-Line Tour...[0m[34m→ Auditing tour 71/73: Trastevere & Jewish Ghetto Food Tour...[0m[34m→ Auditing tour 72/73: Borghese Gallery Skip-the-Line Tour...[0m[34m→ Auditing tour 73/73: Vatican Museums Skip-the-Line + Audio Guide...[0m
+
+[35mTOUR AUDIT RESULTS:[0m
+
+[32m✓ 1. Pantheon Guided Tour with Priority Entry[0m
+   Slug: golden-pantheon-guided-tour-rvt | Status: draft | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 2. Colosseum, Roman Forum & Palatine Hill Tour[0m
+   Slug: golden-colosseum-roman-forum-tour-rvt | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 3. Vatican Museums & Sistine Chapel Skip-the-Line Tour[0m
+   Slug: golden-vatican-museums-sistine-chapel-rvt | Status: draft | Price: €52
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 4. Vatican Evening Tour[0m
+   Slug: vatican-evening-tour-rvt | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 5. Vatican Gardens VIP Guided Tour[0m
+   Slug: vatican-gardens-vip-guided-rvt | Status: draft | Price: €95
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 6. Vatican Gardens Open Bus Experience[0m
+   Slug: vatican-gardens-open-bus-rvt | Status: draft | Price: €75
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 7. Vatican & Castel Sant'Angelo Combo Tour[0m
+   Slug: vatican-castel-santangelo-combo-rvt | Status: draft | Price: €120
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 8. St.Peter's Basilica: Guided Tour, Underground Tomb & Dome[0m
+   Slug: st-peter-s-basilica-guided-tour-underground-tomb-and-dome-rvt | Status: draft | Price: €54
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 9. Early Morning Vatican Tour — Before the Crowds[0m
+   Slug: early-morning-vatican-tour-rvt | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 10. Colosseum, Roman Forum & Palatine Hill Guided Tour[0m
+   Slug: colosseum-roman-forum-palatine-hill-tour-rvt | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 11. Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets[0m
+   Slug: fast-track-combo-vatican-museum-rome-sightseeing-hop-on-hop-off-bus-tickets-rvt | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 12. Early Morning Vatican Tour With Sistine Chapel And Direct Access To Saint Peters Basilica Church Without Line[0m
+   Slug: early-morning-vatican-tour-with-sistine-chapel-and-direct-access-to-saint-peters-basilica-church-without-line-rvt | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 13. Vatican Museums & Sistine Chapel Guided Tour[0m
+   Slug: vatican-museums-and-sistine-chapel-guided-tour-rvt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 14. Vatican & Baroque Rome Golf Cart Tour[0m
+   Slug: vatican-baroque-golf-cart-rvt | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 15. Rome Highlights Golf Cart Tour[0m
+   Slug: rome-highlights-golf-cart-rvt | Status: draft | Price: €220
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 16. Ancient Rome Golf Cart Tour[0m
+   Slug: ancient-rome-golf-cart-rvt | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 17. Stadium of Domitian Underground Experience[0m
+   Slug: stadium-domitian-underground-rvt | Status: draft | Price: €1
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 18. Santa Maria Maggiore Underground Experience[0m
+   Slug: santa-maria-maggiore-underground-rvt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 19. Hidden Gems of Rome Walking Tour[0m
+   Slug: hidden-gems-rome-walking-rvt | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 20. Hidden Churches of Rome Walking Tour[0m
+   Slug: hidden-churches-rome-walking-rvt | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 21. Best POMPEII Tour From Rome In A Day With Professioinal Archeologist Guide.[0m
+   Slug: best-pompeii-tour-from-rome-in-a-day-with-professioinal-archeologist-guide-rvt | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 22. Palatine Hill Private Sunrise Tour[0m
+   Slug: palatine-hill-sunrise-private-rvt | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 23. Domus Aurea (Nero's Golden House) Tour[0m
+   Slug: domus-aurea-nero-golden-house-rvt | Status: draft | Price: €70
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 24. Colosseum Underground & Arena Private Tour[0m
+   Slug: colosseum-underground-arena-private-rvt | Status: draft | Price: €299
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 25. Colosseum Arena & Roman Forum Tour[0m
+   Slug: colosseum-arena-roman-forum-rvt | Status: draft | Price: €85
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 26. Appian Way & Catacombs Tour[0m
+   Slug: appian-way-catacombs-rvt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 27. Saint Peters Basilica Tours With Live Guide[0m
+   Slug: saint-peters-basilica-tours-with-live-guide-rvt | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 28. Rome City Walking Tour: Pantheon & Historic Squares[0m
+   Slug: rome-walking-tour-pantheon-squares-rvt | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 29. Pantheon Guided Tour[0m
+   Slug: pantheon-guided-tour-rvt | Status: draft | Price: €32
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 30. Castel Sant'Angelo Guided Tour[0m
+   Slug: castel-santangelo-guided-tour-rvt | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 31. Private Rome Highlights Tour by Car[0m
+   Slug: golden-private-rome-car-tour-rvt | Status: draft | Price: €320
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 32. Borghese Gallery Skip-the-Line Tour[0m
+   Slug: golden-borghese-gallery-tour-rvt | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 33. Colosseum Underground & Arena Floor VIP Tour[0m
+   Slug: golden-colosseum-underground-vip-rvt | Status: draft | Price: €89
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 34. Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour[0m
+   Slug: golden-vatican-complete-tour-rvt | Status: draft | Price: €69
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 35. Vatican & Colosseum Full Day Tour[0m
+   Slug: vatican-colosseum-full-day-tour-rvt | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 36. Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour[0m
+   Slug: vatican-museums-sistine-chapel-st-peters-basilica-rvt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 37. Marmore Waterfalls Private Day Trip from Rome[0m
+   Slug: marmore-waterfalls-private-day-trip-from-rome-rvt | Status: draft | Price: €399
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 38. Rome 3-Hour Panoramic Hop-On Hop-Off Bus Tour[0m
+   Slug: rome-3-hour-panoramic-hop-on-hop-off-bus-tour-rvt | Status: draft | Price: €28
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 39. Rome: Hop-On Hop-Off Bus & Tiber River Boat Tour[0m
+   Slug: rome-hop-on-hop-off-bus-and-tiber-river-boat-tour-rvt | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 40. Rome Discover: 24 Hours Hop-On Hop-Off Bus Tour[0m
+   Slug: rome-discover-24-hours-hop-on-hop-off-bus-tour-rvt | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 41. Rome 1-Day Hop-On Hop-Off Panoramic Bus Tour[0m
+   Slug: rome-1-day-hop-on-hop-off-panoramic-bus-tour-rvt | Status: draft | Price: €34
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 42. Rome Airport Shuttle Bus: Fiumicino & Ciampino to Termini[0m
+   Slug: rome-airport-shuttle-bus-fiumicino-and-ciampino-to-termini-rvt | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 43. Rome Explore: 72-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato[0m
+   Slug: rome-explore-72-hour-hop-on-hop-off-bus-tour-with-audio-guide-and-gelato-rvt | Status: draft | Price: €56
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 44. Rome: Pompeii & Amalfi Coast Scenic Day Trip with Free Time in Positano[0m
+   Slug: rome-pompeii-and-amalfi-coast-scenic-day-trip-with-free-time-in-positano-rvt | Status: draft | Price: €219
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 45. Pantheon Private Tour[0m
+   Slug: pantheon-private-tour-rvt | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 46. Rome: 48-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato[0m
+   Slug: rome-48-hour-hop-on-hop-off-bus-tour-with-audio-guide-and-gelato-rvt | Status: draft | Price: €50
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 47. Classic Rome Hop-On/Hop-Off + Colosseum[0m
+   Slug: classic-rome-hop-on-hop-off-colosseum-rvt | Status: draft | Price: €96
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 48. Rome in a Day – Private Tour[0m
+   Slug: rome-in-a-day-private-tour-rvt | Status: draft | Price: €379
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 49. St.Peter's Basilica & Dome & Papal Tomb with Private Guide[0m
+   Slug: st-peter-s-basilica-and-dome-and-papal-tomb-with-private-guide-rvt | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 50. Rome in a Day: Vatican & Colosseum Combo Tour[0m
+   Slug: golden-rome-in-a-day-combo-rvt | Status: draft | Price: €109
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 51. Vatican Museums & Sistine Chapel Skip-the-Line Tour[0m
+   Slug: vatican-museums-sistine-chapel-skip-the-line-rvt | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 52. Rome Highlights by Private Car (Half-Day)[0m
+   Slug: rome-highlights-by-private-car-half-day-rvt | Status: draft | Price: €299
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 53. Monte Cassino Private Day Trip from Rome – Abbey & WWII History[0m
+   Slug: monte-cassino-private-day-trip-from-rome-abbey-and-wwii-history-rvt | Status: draft | Price: €400
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 54. Rome by Night Private Car Tour – Colosseum, Trevi Fountain & St. Peter’s Square[0m
+   Slug: rome-by-night-private-luxury-car-tour-colosseum-trevi-fountain-and-st-peter-s-square-rvt | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 55. Rome: VIP Shopping Experience at Castel Romano Designer Outlet with Private Car[0m
+   Slug: rome-vip-shopping-experience-at-castel-romano-designer-outlet-with-private-car-rvt | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 56. Tivoli: Villa d’Este & Gardens Tour from Rome[0m
+   Slug: tivoli-villa-d-este-and-gardens-tour-from-rome-rvt | Status: draft | Price: €399
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 57. Classic Rome Hop-On/Hop-Off Bus + Vatican & Colosseum Skip-the-Line[0m
+   Slug: classic-rome-hop-on-hop-off-bus-vatican-and-colosseum-skip-the-line-rvt | Status: draft | Price: €149
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 58. Rome Hidden Gems Private Car Tour – Secret Corners & Untold Stories[0m
+   Slug: rome-hidden-gems-private-car-tour-secret-corners-and-untold-stories-rvt | Status: draft | Price: €139
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 59. Assisi Private Day Trip from Rome – Spiritual & Cultural Experience[0m
+   Slug: assisi-private-day-trip-from-rome-spiritual-and-cultural-experience-rvt | Status: draft | Price: €400
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 60. Orvieto & Civita di Bagnoregio Private Day Trip from Rome by Car[0m
+   Slug: orvieto-and-civita-di-bagnoregio-private-day-trip-from-rome-by-car-rvt | Status: draft | Price: €700
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 61. Lake Bracciano Private Day Trip from Rome – Lakeside Views & Castles[0m
+   Slug: lake-bracciano-private-day-trip-from-rome-lakeside-views-and-castles-rvt | Status: draft | Price: €350
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 62. St.Peter's Basilica Skip-the-Line Ticket Only[0m
+   Slug: st-peter-s-basilica-skip-the-line-ticket-only-rvt | Status: draft | Price: €19
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 63. Vatican Museums and Sistine Chapel Skip-the-Line Ticket[0m
+   Slug: vatican-museums-and-sistine-chapel-skip-the-line-ticket-only-rvt | Status: draft | Price: €69
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[33m⚠ 64. Pantheon & Piazzas Walking Tour[0m
+   Slug: pantheon-piazzas-walking-tour-rvt | Status: draft | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 65. Rome in a Day: Vatican + Colosseum Combo[0m
+   Slug: rome-in-a-day-vatican-colosseum-combo-rvt | Status: draft | Price: €119
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 66. Colosseum Arena Floor + Underground Tour[0m
+   Slug: colosseum-arena-floor-underground-rvt | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 67. Vatican Gardens Private Walking Tour[0m
+   Slug: vatican-gardens-private-tour-rvt | Status: draft | Price: €89
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 68. St. Peter's Basilica Dome Climb & Crypt[0m
+   Slug: st-peters-basilica-dome-crypt-rvt | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 69. Ostia Antica Day Trip from Rome[0m
+   Slug: ostia-antica-day-trip-rvt | Status: draft | Price: €58
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 70. Castel Sant'Angelo Skip-the-Line Tour[0m
+   Slug: castel-santangelo-skip-line-tour-rvt | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 71. Trastevere & Jewish Ghetto Food Tour[0m
+   Slug: trastevere-jewish-ghetto-food-tour-rvt | Status: draft | Price: €75
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 72. Borghese Gallery Skip-the-Line Tour[0m
+   Slug: borghese-gallery-skip-line-tour-rvt | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 73. Vatican Museums Skip-the-Line + Audio Guide[0m
+   Slug: vatican-museums-skip-line-audio-guide-rvt | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[35mSUMMARY:[0m
+  Total tours: 73
+  [32m✓ Good: 63[0m
+  [33m⚠ OK: 10[0m
+  [31m✗ Needs Fix: 0[0m
+  Images accessible: 73/73
+
+[36m======================================================================[0m
+[36mROME WANDER (romewander)[0m
+[36m======================================================================[0m
+
+[34m→ Fetching tours from Payload...[0m
+[32m✓ Found 73 tours[0m
+
+[34m→ Auditing tour 1/73: Pantheon Guided Tour with Priority Entry...[0m[34m→ Auditing tour 2/73: Colosseum, Roman Forum & Palatine Hill Tour...[0m[34m→ Auditing tour 3/73: Vatican Museums & Sistine Chapel Skip-the-Line Tour...[0m[34m→ Auditing tour 4/73: Early Morning Vatican Tour — Before the Crowds...[0m[34m→ Auditing tour 5/73: Colosseum, Roman Forum & Palatine Hill Guided Tour...[0m[34m→ Auditing tour 6/73: Vatican Evening Tour...[0m[34m→ Auditing tour 7/73: Vatican Gardens VIP Guided Tour...[0m[34m→ Auditing tour 8/73: Vatican Gardens Open Bus Experience...[0m[34m→ Auditing tour 9/73: Vatican & Castel Sant'Angelo Combo Tour...[0m[34m→ Auditing tour 10/73: St.Peter's Basilica: Guided Tour, Underground Tomb & Dome...[0m[34m→ Auditing tour 11/73: Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets...[0m[34m→ Auditing tour 12/73: Early Morning Vatican Tour With Sistine Chapel And Direct Access To Saint Peters Basilica Church Without Line...[0m[34m→ Auditing tour 13/73: Vatican Museums & Sistine Chapel Guided Tour...[0m[34m→ Auditing tour 14/73: Vatican & Baroque Rome Golf Cart Tour...[0m[34m→ Auditing tour 15/73: Rome Highlights Golf Cart Tour...[0m[34m→ Auditing tour 16/73: Ancient Rome Golf Cart Tour...[0m[34m→ Auditing tour 17/73: Stadium of Domitian Underground Experience...[0m[34m→ Auditing tour 18/73: Santa Maria Maggiore Underground Experience...[0m[34m→ Auditing tour 19/73: Hidden Gems of Rome Walking Tour...[0m[34m→ Auditing tour 20/73: Hidden Churches of Rome Walking Tour...[0m[34m→ Auditing tour 21/73: Best POMPEII Tour From Rome In A Day With Professioinal Archeologist Guide....[0m[34m→ Auditing tour 22/73: Palatine Hill Private Sunrise Tour...[0m[34m→ Auditing tour 23/73: Domus Aurea (Nero's Golden House) Tour...[0m[34m→ Auditing tour 24/73: Colosseum Underground & Arena Private Tour...[0m[34m→ Auditing tour 25/73: Colosseum Arena & Roman Forum Tour...[0m[34m→ Auditing tour 26/73: Appian Way & Catacombs Tour...[0m[34m→ Auditing tour 27/73: Saint Peters Basilica Tours With Live Guide...[0m[34m→ Auditing tour 28/73: Rome City Walking Tour: Pantheon & Historic Squares...[0m[34m→ Auditing tour 29/73: Pantheon Guided Tour...[0m[34m→ Auditing tour 30/73: Castel Sant'Angelo Guided Tour...[0m[34m→ Auditing tour 31/73: Private Rome Highlights Tour by Car...[0m[34m→ Auditing tour 32/73: Borghese Gallery Skip-the-Line Tour...[0m[34m→ Auditing tour 33/73: Colosseum Underground & Arena Floor VIP Tour...[0m[34m→ Auditing tour 34/73: Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour...[0m[34m→ Auditing tour 35/73: Vatican & Colosseum Full Day Tour...[0m[34m→ Auditing tour 36/73: Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour...[0m[34m→ Auditing tour 37/73: Marmore Waterfalls Private Day Trip from Rome...[0m[34m→ Auditing tour 38/73: Rome 3-Hour Panoramic Hop-On Hop-Off Bus Tour...[0m[34m→ Auditing tour 39/73: Rome: Hop-On Hop-Off Bus & Tiber River Boat Tour...[0m[34m→ Auditing tour 40/73: Rome Discover: 24 Hours Hop-On Hop-Off Bus Tour...[0m[34m→ Auditing tour 41/73: Rome 1-Day Hop-On Hop-Off Panoramic Bus Tour...[0m[34m→ Auditing tour 42/73: Rome Airport Shuttle Bus: Fiumicino & Ciampino to Termini...[0m[34m→ Auditing tour 43/73: Rome Explore: 72-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato...[0m[34m→ Auditing tour 44/73: Rome: Pompeii & Amalfi Coast Scenic Day Trip with Free Time in Positano...[0m[34m→ Auditing tour 45/73: Pantheon Private Tour...[0m[34m→ Auditing tour 46/73: Rome: 48-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato...[0m[34m→ Auditing tour 47/73: Classic Rome Hop-On/Hop-Off + Colosseum...[0m[34m→ Auditing tour 48/73: Rome in a Day – Private Tour...[0m[34m→ Auditing tour 49/73: St.Peter's Basilica & Dome & Papal Tomb with Private Guide...[0m[34m→ Auditing tour 50/73: Rome in a Day: Vatican & Colosseum Combo Tour...[0m[34m→ Auditing tour 51/73: Vatican Museums & Sistine Chapel Skip-the-Line Tour...[0m[34m→ Auditing tour 52/73: Rome Highlights by Private Car (Half-Day)...[0m[34m→ Auditing tour 53/73: Monte Cassino Private Day Trip from Rome – Abbey & WWII History...[0m[34m→ Auditing tour 54/73: Rome by Night Private Car Tour – Colosseum, Trevi Fountain & St. Peter’s Square...[0m[34m→ Auditing tour 55/73: Rome: VIP Shopping Experience at Castel Romano Designer Outlet with Private Car...[0m[34m→ Auditing tour 56/73: Tivoli: Villa d’Este & Gardens Tour from Rome...[0m[34m→ Auditing tour 57/73: Classic Rome Hop-On/Hop-Off Bus + Vatican & Colosseum Skip-the-Line...[0m[34m→ Auditing tour 58/73: Rome Hidden Gems Private Car Tour – Secret Corners & Untold Stories...[0m[34m→ Auditing tour 59/73: Assisi Private Day Trip from Rome – Spiritual & Cultural Experience...[0m[34m→ Auditing tour 60/73: Orvieto & Civita di Bagnoregio Private Day Trip from Rome by Car...[0m[34m→ Auditing tour 61/73: Lake Bracciano Private Day Trip from Rome – Lakeside Views & Castles...[0m[34m→ Auditing tour 62/73: St.Peter's Basilica Skip-the-Line Ticket Only...[0m[34m→ Auditing tour 63/73: Vatican Museums and Sistine Chapel Skip-the-Line Ticket...[0m[34m→ Auditing tour 64/73: Pantheon & Piazzas Walking Tour...[0m[34m→ Auditing tour 65/73: Rome in a Day: Vatican + Colosseum Combo...[0m[34m→ Auditing tour 66/73: Colosseum Arena Floor + Underground Tour...[0m[34m→ Auditing tour 67/73: Vatican Gardens Private Walking Tour...[0m[34m→ Auditing tour 68/73: St. Peter's Basilica Dome Climb & Crypt...[0m[34m→ Auditing tour 69/73: Ostia Antica Day Trip from Rome...[0m[34m→ Auditing tour 70/73: Castel Sant'Angelo Skip-the-Line Tour...[0m[34m→ Auditing tour 71/73: Trastevere & Jewish Ghetto Food Tour...[0m[34m→ Auditing tour 72/73: Borghese Gallery Skip-the-Line Tour...[0m[34m→ Auditing tour 73/73: Vatican Museums Skip-the-Line + Audio Guide...[0m
+
+[35mTOUR AUDIT RESULTS:[0m
+
+[32m✓ 1. Pantheon Guided Tour with Priority Entry[0m
+   Slug: golden-pantheon-guided-tour-rwd | Status: live | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: No itinerary items[0m
+
+[32m✓ 2. Colosseum, Roman Forum & Palatine Hill Tour[0m
+   Slug: golden-colosseum-roman-forum-tour-rwd | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 3. Vatican Museums & Sistine Chapel Skip-the-Line Tour[0m
+   Slug: golden-vatican-museums-sistine-chapel-rwd | Status: live | Price: €52
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: No itinerary items[0m
+
+[32m✓ 4. Early Morning Vatican Tour — Before the Crowds[0m
+   Slug: early-morning-vatican-tour-rwd | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 5. Colosseum, Roman Forum & Palatine Hill Guided Tour[0m
+   Slug: colosseum-roman-forum-palatine-hill-tour-rwd | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 6. Vatican Evening Tour[0m
+   Slug: vatican-evening-tour-rwd | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 7. Vatican Gardens VIP Guided Tour[0m
+   Slug: vatican-gardens-vip-guided-rwd | Status: draft | Price: €95
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 8. Vatican Gardens Open Bus Experience[0m
+   Slug: vatican-gardens-open-bus-rwd | Status: draft | Price: €75
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 9. Vatican & Castel Sant'Angelo Combo Tour[0m
+   Slug: vatican-castel-santangelo-combo-rwd | Status: draft | Price: €120
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 10. St.Peter's Basilica: Guided Tour, Underground Tomb & Dome[0m
+   Slug: st-peter-s-basilica-guided-tour-underground-tomb-and-dome-rwd | Status: draft | Price: €54
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 11. Fast-Track Combo Vatican Museum & Rome Sightseeing Hop-On Hop-Off Bus Tickets[0m
+   Slug: fast-track-combo-vatican-museum-rome-sightseeing-hop-on-hop-off-bus-tickets-rwd | Status: draft | Price: €79
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 12. Early Morning Vatican Tour With Sistine Chapel And Direct Access To Saint Peters Basilica Church Without Line[0m
+   Slug: early-morning-vatican-tour-with-sistine-chapel-and-direct-access-to-saint-peters-basilica-church-without-line-rwd | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 13. Vatican Museums & Sistine Chapel Guided Tour[0m
+   Slug: vatican-museums-and-sistine-chapel-guided-tour-rwd | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 14. Vatican & Baroque Rome Golf Cart Tour[0m
+   Slug: vatican-baroque-golf-cart-rwd | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 15. Rome Highlights Golf Cart Tour[0m
+   Slug: rome-highlights-golf-cart-rwd | Status: draft | Price: €220
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 16. Ancient Rome Golf Cart Tour[0m
+   Slug: ancient-rome-golf-cart-rwd | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 17. Stadium of Domitian Underground Experience[0m
+   Slug: stadium-domitian-underground-rwd | Status: draft | Price: €1
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 18. Santa Maria Maggiore Underground Experience[0m
+   Slug: santa-maria-maggiore-underground-rwd | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 19. Hidden Gems of Rome Walking Tour[0m
+   Slug: hidden-gems-rome-walking-rwd | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 20. Hidden Churches of Rome Walking Tour[0m
+   Slug: hidden-churches-rome-walking-rwd | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 21. Best POMPEII Tour From Rome In A Day With Professioinal Archeologist Guide.[0m
+   Slug: best-pompeii-tour-from-rome-in-a-day-with-professioinal-archeologist-guide-rwd | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 22. Palatine Hill Private Sunrise Tour[0m
+   Slug: palatine-hill-sunrise-private-rwd | Status: draft | Price: €260
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 23. Domus Aurea (Nero's Golden House) Tour[0m
+   Slug: domus-aurea-nero-golden-house-rwd | Status: draft | Price: €70
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 24. Colosseum Underground & Arena Private Tour[0m
+   Slug: colosseum-underground-arena-private-rwd | Status: draft | Price: €299
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 25. Colosseum Arena & Roman Forum Tour[0m
+   Slug: colosseum-arena-roman-forum-rwd | Status: draft | Price: €85
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 26. Appian Way & Catacombs Tour[0m
+   Slug: appian-way-catacombs-rwd | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 27. Saint Peters Basilica Tours With Live Guide[0m
+   Slug: saint-peters-basilica-tours-with-live-guide-rwd | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 28. Rome City Walking Tour: Pantheon & Historic Squares[0m
+   Slug: rome-walking-tour-pantheon-squares-rwd | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 29. Pantheon Guided Tour[0m
+   Slug: pantheon-guided-tour-rwd | Status: draft | Price: €32
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 30. Castel Sant'Angelo Guided Tour[0m
+   Slug: castel-santangelo-guided-tour-rwd | Status: draft | Price: €48
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 31. Private Rome Highlights Tour by Car[0m
+   Slug: golden-private-rome-car-tour-rwd | Status: draft | Price: €320
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 32. Borghese Gallery Skip-the-Line Tour[0m
+   Slug: golden-borghese-gallery-tour-rwd | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 33. Colosseum Underground & Arena Floor VIP Tour[0m
+   Slug: golden-colosseum-underground-vip-rwd | Status: draft | Price: €89
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 34. Vatican Museums, Sistine Chapel & St. Peter's Basilica Complete Tour[0m
+   Slug: golden-vatican-complete-tour-rwd | Status: draft | Price: €69
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 35. Vatican & Colosseum Full Day Tour[0m
+   Slug: vatican-colosseum-full-day-tour-rwd | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 36. Vatican Museums, Sistine Chapel & St. Peter's Basilica Tour[0m
+   Slug: vatican-museums-sistine-chapel-st-peters-basilica-rwd | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[33m⚠ 37. Marmore Waterfalls Private Day Trip from Rome[0m
+   Slug: marmore-waterfalls-private-day-trip-from-rome-rwd | Status: draft | Price: €399
+   Image: [31m✗ Not accessible[0m
+   [33mWarnings: Status is 'draft' (not live), Legacy imageUrl not accessible: Timeout, No itinerary items[0m
+
+[32m✓ 38. Rome 3-Hour Panoramic Hop-On Hop-Off Bus Tour[0m
+   Slug: rome-3-hour-panoramic-hop-on-hop-off-bus-tour-rwd | Status: draft | Price: €28
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 39. Rome: Hop-On Hop-Off Bus & Tiber River Boat Tour[0m
+   Slug: rome-hop-on-hop-off-bus-and-tiber-river-boat-tour-rwd | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 40. Rome Discover: 24 Hours Hop-On Hop-Off Bus Tour[0m
+   Slug: rome-discover-24-hours-hop-on-hop-off-bus-tour-rwd | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 41. Rome 1-Day Hop-On Hop-Off Panoramic Bus Tour[0m
+   Slug: rome-1-day-hop-on-hop-off-panoramic-bus-tour-rwd | Status: draft | Price: €34
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 42. Rome Airport Shuttle Bus: Fiumicino & Ciampino to Termini[0m
+   Slug: rome-airport-shuttle-bus-fiumicino-and-ciampino-to-termini-rwd | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 43. Rome Explore: 72-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato[0m
+   Slug: rome-explore-72-hour-hop-on-hop-off-bus-tour-with-audio-guide-and-gelato-rwd | Status: draft | Price: €56
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 44. Rome: Pompeii & Amalfi Coast Scenic Day Trip with Free Time in Positano[0m
+   Slug: rome-pompeii-and-amalfi-coast-scenic-day-trip-with-free-time-in-positano-rwd | Status: draft | Price: €219
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 45. Pantheon Private Tour[0m
+   Slug: pantheon-private-tour-rwd | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 46. Rome: 48-Hour Hop-On Hop-Off Bus Tour with Audio Guide & Gelato[0m
+   Slug: rome-48-hour-hop-on-hop-off-bus-tour-with-audio-guide-and-gelato-rwd | Status: draft | Price: €50
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 47. Classic Rome Hop-On/Hop-Off + Colosseum[0m
+   Slug: classic-rome-hop-on-hop-off-colosseum-rwd | Status: draft | Price: €96
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 48. Rome in a Day – Private Tour[0m
+   Slug: rome-in-a-day-private-tour-rwd | Status: draft | Price: €379
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 49. St.Peter's Basilica & Dome & Papal Tomb with Private Guide[0m
+   Slug: st-peter-s-basilica-and-dome-and-papal-tomb-with-private-guide-rwd | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 50. Rome in a Day: Vatican & Colosseum Combo Tour[0m
+   Slug: golden-rome-in-a-day-combo-rwd | Status: draft | Price: €109
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 51. Vatican Museums & Sistine Chapel Skip-the-Line Tour[0m
+   Slug: vatican-museums-sistine-chapel-skip-the-line-rwd | Status: draft | Price: €49
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 52. Rome Highlights by Private Car (Half-Day)[0m
+   Slug: rome-highlights-by-private-car-half-day-rwd | Status: draft | Price: €299
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 53. Monte Cassino Private Day Trip from Rome – Abbey & WWII History[0m
+   Slug: monte-cassino-private-day-trip-from-rome-abbey-and-wwii-history-rwd | Status: draft | Price: €400
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 54. Rome by Night Private Car Tour – Colosseum, Trevi Fountain & St. Peter’s Square[0m
+   Slug: rome-by-night-private-luxury-car-tour-colosseum-trevi-fountain-and-st-peter-s-square-rwd | Status: draft | Price: €199
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 55. Rome: VIP Shopping Experience at Castel Romano Designer Outlet with Private Car[0m
+   Slug: rome-vip-shopping-experience-at-castel-romano-designer-outlet-with-private-car-rwd | Status: draft | Price: €99
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 56. Tivoli: Villa d’Este & Gardens Tour from Rome[0m
+   Slug: tivoli-villa-d-este-and-gardens-tour-from-rome-rwd | Status: draft | Price: €399
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 57. Classic Rome Hop-On/Hop-Off Bus + Vatican & Colosseum Skip-the-Line[0m
+   Slug: classic-rome-hop-on-hop-off-bus-vatican-and-colosseum-skip-the-line-rwd | Status: draft | Price: €149
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 58. Rome Hidden Gems Private Car Tour – Secret Corners & Untold Stories[0m
+   Slug: rome-hidden-gems-private-car-tour-secret-corners-and-untold-stories-rwd | Status: draft | Price: €139
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 59. Assisi Private Day Trip from Rome – Spiritual & Cultural Experience[0m
+   Slug: assisi-private-day-trip-from-rome-spiritual-and-cultural-experience-rwd | Status: draft | Price: €400
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 60. Orvieto & Civita di Bagnoregio Private Day Trip from Rome by Car[0m
+   Slug: orvieto-and-civita-di-bagnoregio-private-day-trip-from-rome-by-car-rwd | Status: draft | Price: €700
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 61. Lake Bracciano Private Day Trip from Rome – Lakeside Views & Castles[0m
+   Slug: lake-bracciano-private-day-trip-from-rome-lakeside-views-and-castles-rwd | Status: draft | Price: €350
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 62. St.Peter's Basilica Skip-the-Line Ticket Only[0m
+   Slug: st-peter-s-basilica-skip-the-line-ticket-only-rwd | Status: draft | Price: €19
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[32m✓ 63. Vatican Museums and Sistine Chapel Skip-the-Line Ticket[0m
+   Slug: vatican-museums-and-sistine-chapel-skip-the-line-ticket-only-rwd | Status: draft | Price: €69
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items[0m
+
+[33m⚠ 64. Pantheon & Piazzas Walking Tour[0m
+   Slug: pantheon-piazzas-walking-tour-rwd | Status: draft | Price: €35
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 65. Rome in a Day: Vatican + Colosseum Combo[0m
+   Slug: rome-in-a-day-vatican-colosseum-combo-rwd | Status: draft | Price: €119
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 66. Colosseum Arena Floor + Underground Tour[0m
+   Slug: colosseum-arena-floor-underground-rwd | Status: draft | Price: €65
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 67. Vatican Gardens Private Walking Tour[0m
+   Slug: vatican-gardens-private-tour-rwd | Status: draft | Price: €89
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 68. St. Peter's Basilica Dome Climb & Crypt[0m
+   Slug: st-peters-basilica-dome-crypt-rwd | Status: draft | Price: €45
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 69. Ostia Antica Day Trip from Rome[0m
+   Slug: ostia-antica-day-trip-rwd | Status: draft | Price: €58
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 70. Castel Sant'Angelo Skip-the-Line Tour[0m
+   Slug: castel-santangelo-skip-line-tour-rwd | Status: draft | Price: €42
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 71. Trastevere & Jewish Ghetto Food Tour[0m
+   Slug: trastevere-jewish-ghetto-food-tour-rwd | Status: draft | Price: €75
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 72. Borghese Gallery Skip-the-Line Tour[0m
+   Slug: borghese-gallery-skip-line-tour-rwd | Status: draft | Price: €55
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[33m⚠ 73. Vatican Museums Skip-the-Line + Audio Guide[0m
+   Slug: vatican-museums-skip-line-audio-guide-rwd | Status: draft | Price: €39
+   Image: [32m✓ Accessible[0m
+   [33mWarnings: Status is 'draft' (not live), No itinerary items, No highlights[0m
+
+[35mSUMMARY:[0m
+  Total tours: 73
+  [32m✓ Good: 62[0m
+  [33m⚠ OK: 11[0m
+  [31m✗ Needs Fix: 0[0m
+  Images accessible: 72/73
+
+[34m======================================================================[0m
+[34mOVERALL SUMMARY - ALL WEBSITES[0m
+[34m======================================================================[0m
+
+[35mAll Websites Combined:[0m
+  Total tours across all sites: 393
+  [32m✓ Good: 337[0m
+  [33m⚠ OK: 42[0m
+  [31m✗ Needs Fix: 14[0m
+  Images accessible: 377/393
+
+[32mOverall Health Score: 86%[0m
+
+[36mRECOMMENDATIONS:[0m
+  [31m• Fix 14 tours with critical issues[0m
+  [33m• Fix 16 inaccessible images[0m
+  [33m• Improve 42 tours with warnings[0m
+

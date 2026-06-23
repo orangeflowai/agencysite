@@ -38,6 +38,30 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/vatican-tours',
+        destination: '/category/vatican',
+        permanent: true,
+      },
+      {
+        source: '/colosseum-tours',
+        destination: '/category/colosseum',
+        permanent: true,
+      },
+      {
+        source: '/vatican',
+        destination: '/category/vatican',
+        permanent: true,
+      },
+      {
+        source: '/colosseum',
+        destination: '/category/colosseum',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

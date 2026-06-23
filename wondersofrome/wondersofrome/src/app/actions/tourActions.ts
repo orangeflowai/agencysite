@@ -1,4 +1,3 @@
-
 'use server';
 
 import { createClient } from "next-sanity";
@@ -33,13 +32,12 @@ export async function updateTour(formData: FormData) {
             price: Number(formData.get('price')),
             duration: formData.get('duration'),
             groupSize: formData.get('groupSize'),
-            category: formData.get('category'), // New
-            badge: formData.get('badge'), // New
-            rating: Number(formData.get('rating')), // New
-            reviewCount: Number(formData.get('reviewCount')), // New
+            category: formData.get('category'),
+            badge: formData.get('badge'),
+            rating: Number(formData.get('rating')),
+            reviewCount: Number(formData.get('reviewCount')),
             meetingPoint: formData.get('meetingPoint') || undefined,
             maxParticipants: Number(formData.get('maxParticipants')) || undefined,
-            // sites: formData.getAll('sites') // Don't overwrite sites unless explicitly creating/managing them
         };
 
         // Handle Guest Types (Participants)
@@ -54,7 +52,11 @@ export async function updateTour(formData: FormData) {
 
         // Handle Array Fields (Split by newline or comma)
         const highlights = formData.get('highlights') as string;
-        if (highlights) patch.highlights = highlights.split('\n').filter(Boolean);
+        if (highlights) {
+            const list = highlights.split('\n').filter(Boolean);
+            patch.highlights = list;
+            // NOTE: 'features' is a GROQ alias for 'highlights' on read — do NOT write it back
+        }
 
         const includes = formData.get('includes') as string;
         if (includes) patch.includes = includes.split('\n').filter(Boolean);
@@ -125,13 +127,28 @@ export async function updateTour(formData: FormData) {
 
         await transaction.commit();
 
+        // On-demand revalidation to ensure changes show up instantly
         revalidatePath('/admin/products');
+        revalidatePath('/'); // Update homepage
+        
         const slug = formData.get('slug') as string;
-        if (slug) revalidatePath(`/tour/${slug}`);
+        if (slug) {
+            revalidatePath(`/tour/${slug}`);
+        }
+        
+        const category = formData.get('category') as string;
+        if (category) {
+            const catSlug = category.toLowerCase().replace(/ /g, '-');
+            revalidatePath(`/category/${catSlug}`);
+        }
 
         return { success: true };
-    } catch (error) {
+    } catch (error: any) {
         console.error("Update Tour Error:", error);
-        return { success: false, error: "Failed to update tour" };
+        // Surface the actual Sanity error message so the admin can diagnose it
+        const message = error?.response?.body?.message
+            || error?.message
+            || "Failed to update tour";
+        return { success: false, error: message };
     }
 }

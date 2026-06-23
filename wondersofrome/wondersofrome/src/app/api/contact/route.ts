@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
@@ -15,7 +16,7 @@ export async function POST(request: Request) {
 
         const data = await resend.emails.send({
             from: 'Contact Form <onboarding@resend.dev>',
-            to: ['wondersoffrome@gmail.com'],
+            to: [process.env.ADMIN_EMAIL || process.env.EMAIL_FROM || ''],
             subject: `New Contact Message from ${firstName} ${lastName || ''}`,
             replyTo: email,
             html: `

@@ -77,7 +77,7 @@ export default function FeaturedItineraries() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-4">
-                <span className="inline-block text-[10px] font-bold  tracking-widest text-white/70 mb-1">
+                <span className="inline-block text-[8px] font-bold  tracking-widest text-white/70 mb-1">
                   {item.tag}
                 </span>
                 <p className="text-white text-xs font-bold  tracking-wide leading-tight">

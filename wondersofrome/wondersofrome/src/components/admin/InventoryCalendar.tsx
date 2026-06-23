@@ -13,7 +13,6 @@ import {
     startOfWeek,
     endOfWeek
 } from 'date-fns';
-import { supabase } from '@/lib/supabase';
 import { Tour } from '@/lib/sanityService';
 import { ChevronLeft, ChevronRight, Filter, Loader2 } from 'lucide-react';
 import ManageSlotsModal, { InventorySlot } from './ManageSlotsModal';
@@ -47,13 +46,9 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
         const end = format(endOfMonth(currentMonth), 'yyyy-MM-dd');
 
         try {
-            const { data, error } = await supabase
-                .from('inventory')
-                .select('*')
-                .gte('date', start)
-                .lte('date', end);
-
-            if (error) throw error;
+            const res = await fetch(`/api/admin/inventory?start=${start}&end=${end}`);
+            if (!res.ok) throw new Error('Failed to fetch inventory');
+            const data = await res.json();
             setInventory(data || []);
         } catch (error) {
             console.error("Error fetching month inventory:", error);
@@ -87,7 +82,8 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                 date: s.date,
                 time: s.time,
                 available_slots: s.available_slots,
-                price_override: s.price_override
+                price_override: s.price_override,
+                is_paused: s.is_paused ?? false,
             })).sort((a, b) => a.time.localeCompare(b.time))
         });
     };
@@ -142,14 +138,10 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                     const isCurrentMonth = isSameMonth(day, currentMonth);
                     const isToday = isSameDay(day, new Date());
 
-                    // Filter inventory for this day
-                    // We only want to show summaries?
-                    // "0/12", "0/20"
-
                     return (
                         <div
                             key={day.toString()}
-                            className={`min-h-[140px] bg-card p-2 relative group flex flex-col gap-1 transition-colors
+                            className={`min-h-[144px] bg-card p-2 relative group flex flex-col gap-1 transition-colors
                                 ${!isCurrentMonth ? 'bg-muted/50 text-muted-foreground' : ''}
                                 ${isToday ? 'bg-secondary/30' : ''}
                             `}
@@ -163,35 +155,45 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                                 {toursToDisplay.map(tour => {
                                     // Get slots for this tour/day
                                     const slots = inventory.filter(s => s.tour_slug === tour.slug.current && s.date === dateStr);
-                                    const totalSpots = slots.reduce((acc, s) => acc + s.available_slots, 0);
+                                    const activeSlots = slots.filter(s => !s.is_paused);
+                                    const totalSpots = activeSlots.reduce((acc, s) => acc + s.available_slots, 0);
                                     const hasSlots = slots.length > 0;
-                                    const isSoldOut = hasSlots && totalSpots === 0;
+                                    const allPaused = hasSlots && slots.every(s => s.is_paused);
+                                    const isSoldOut = hasSlots && !allPaused && totalSpots === 0;
+                                    // Find the lowest price override across active slots
+                                    const priceOverrides = activeSlots
+                                        .map(s => s.price_override)
+                                        .filter((p): p is number => p != null && p > 0);
+                                    const minOverride = priceOverrides.length > 0
+                                        ? Math.min(...priceOverrides)
+                                        : null;
 
-                                    // If no slots, show distinct "Not Configured" state? 
-                                    // Or just show grey "0 slots"?
-                                    // User ref shows "0/30".
-                                    // Calculating "Total Capacity" is hard if we don't know the max.
-                                    // We only know current `available_slots`.
-                                    // We can just show available sum.
-
-                                    // Design: Pill with Tour Name (truncated) and Availability
                                     return (
                                         <button
                                             key={tour._id}
                                             onClick={() => handleProductClick(tour, dateStr)}
-                                            className={`w-full text-left px-2 py-1.5 rounded text-[10px] font-medium border flex items-center justify-between gap-2 transition-all hover:scale-[1.02]
+                                            className={`w-full text-left px-2 py-1.5 rounded text-[8px] font-medium border flex items-center justify-between gap-2 transition-all hover:scale-[1.02]
                                                 ${!hasSlots
                                                     ? 'bg-muted border-transparent text-muted-foreground hover:bg-gray-100 hover:border-border'
-                                                    : isSoldOut
-                                                        ? 'bg-red-50 border-red-100 text-red-600 hover:border-red-300'
-                                                        : 'bg-secondary border-emerald-100 text-emerald-700 hover:border-emerald-300'
+                                                    : allPaused
+                                                        ? 'bg-amber-50 border-amber-200 text-amber-700 hover:border-amber-400'
+                                                        : isSoldOut
+                                                            ? 'bg-red-50 border-red-100 text-red-600 hover:border-red-300'
+                                                            : 'bg-secondary border-emerald-100 text-emerald-700 hover:border-emerald-300'
                                                 }
                                             `}
                                         >
                                             <span className="truncate">{tour.title}</span>
-                                            <span className="shrink-0 font-bold bg-card/50 px-1 rounded">
-                                                {hasSlots ? totalSpots : '-'}
-                                            </span>
+                                            <div className="flex items-center gap-1 shrink-0">
+                                                {minOverride && (
+                                                    <span className="font-bold bg-amber-100 text-amber-700 px-1 rounded text-[7px]">
+                                                        €{minOverride}
+                                                    </span>
+                                                )}
+                                                <span className="font-bold bg-card/50 px-1 rounded">
+                                                    {!hasSlots ? '-' : allPaused ? '⏸' : totalSpots}
+                                                </span>
+                                            </div>
                                         </button>
                                     );
                                 })}
@@ -216,7 +218,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                     initialSlots={activeSlotData.currentSlots}
                     onClose={() => {
                         setActiveSlotData(null);
-                        fetchMonthData(); // Turn off local update optimization for safety
+                        fetchMonthData(); 
                     }}
                 />
             )}

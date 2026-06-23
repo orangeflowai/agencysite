@@ -209,7 +209,7 @@ export async function generateTicketPDF(data: TicketData): Promise<Uint8Array> {
     doc.setFont('helvetica', 'bold');
     doc.text('Emergency:', margin, y);
     doc.setFont('helvetica', 'normal');
-    doc.text(data.emergencyContact || '+39 351 419 9425 (WhatsApp)', margin + 30, y);
+    doc.text(data.emergencyContact || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '', margin + 30, y);
     y += 6;
 
     // Footer

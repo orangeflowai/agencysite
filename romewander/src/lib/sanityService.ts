@@ -139,7 +139,7 @@ export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'romewander';
 // Hardcoded site info for small agency (rarely changes)
 export const HARDCODED_SITE_INFO = {
   title: 'Rome Wander',
-  contactEmail: 'info@romewander.com',
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com",
   contactPhone: '+39 351 419 9425',
   whatsappNumber: '3514199425',
   logoText: 'Rome',

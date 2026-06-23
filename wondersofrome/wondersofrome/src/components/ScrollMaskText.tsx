@@ -1,12 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 interface ScrollMaskTextProps {
   children: string;
@@ -22,32 +16,36 @@ export default function ScrollMaskText({
   delay = 0,
 }: ScrollMaskTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<any>(null);
+  const textRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
+    const container = containerRef.current;
+    const text = textRef.current;
+    if (!container || !text) return;
 
-    gsap.fromTo(
-      textRef.current,
-      { yPercent: 100 },
-      {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'expo.out',
-        delay: delay,
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      }
+    // Initial hidden state
+    text.style.transform = 'translateY(100%)';
+    text.style.transition = `transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s`;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            text.style.transform = 'translateY(0)';
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
     );
+
+    observer.observe(container);
+    return () => observer.disconnect();
   }, [delay]);
 
   return (
-    <div ref={containerRef} className={`mask-reveal ${className}`}>
-      <Tag ref={textRef} className="mask-reveal-inner block">
+    <div ref={containerRef} className={`overflow-hidden ${className}`}>
+      <Tag ref={textRef as React.Ref<any>} className="block will-change-transform">
         {children}
       </Tag>
     </div>

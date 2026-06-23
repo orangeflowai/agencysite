@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Calendar, User, Mail, CreditCard, CheckCircle } from 'lucide-react';
 
 interface BookingModalProps {
@@ -11,7 +11,7 @@ interface BookingModalProps {
     price: number;
 }
 
-export default function BookingModal({ isOpen, onClose, tourTitle, price }: BookingModalProps) {
+function BookingModalContent({ isOpen, onClose, tourTitle, price }: BookingModalProps) {
     const [step, setStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
@@ -48,24 +48,16 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
         }
     };
 
-    if (!isOpen) return null;
-
     return (
-        <AnimatePresence>
-            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+        
+            <div data-lenis-prevent className="fixed inset-0 z-[10005] flex items-start justify-center p-4 pt-[110px]">
+                <div
                     onClick={onClose}
                     className="absolute inset-0 bg-background/60 backdrop-blur-sm"
                 />
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                    className="relative bg-card w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
+                <div
+                    className="relative bg-card w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden max-h-[calc(100vh-130px)]"
                 >
                     {/* Header */}
                     <div className="px-6 py-4 border-b border-border flex items-center justify-between bg-cream/50">
@@ -180,8 +172,24 @@ export default function BookingModal({ isOpen, onClose, tourTitle, price }: Book
                             </div>
                         )}
                     </div>
-                </motion.div>
+                </div>
             </div>
-        </AnimatePresence>
+        
+    );
+}
+
+export default function BookingModal(props: BookingModalProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        return () => setMounted(false);
+    }, []);
+
+    if (!mounted || !props.isOpen) return null;
+
+    return createPortal(
+        <BookingModalContent {...props} />,
+        document.body
     );
 }

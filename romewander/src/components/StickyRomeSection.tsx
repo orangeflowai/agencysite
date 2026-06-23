@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
 import { useRef } from 'react';
-import { useScroll, useTransform, motion } from 'framer-motion';
 import Image from 'next/image';
 
 export default function StickyRomeSection() {
@@ -21,9 +20,9 @@ export default function StickyRomeSection() {
 
             {/* STICKY BACKGROUND */}
             <div className="sticky top-0 h-screen overflow-hidden">
-                <motion.div style={{ scale }} className="relative h-full w-full">
+                <div style={{ scale }} className="relative h-full w-full">
                     {/* Layer 1: Chaotic Crowd — fades OUT */}
-                    <motion.div style={{ opacity: text1Opacity }} className="absolute inset-0 z-10">
+                    <div style={{ opacity: text1Opacity }} className="absolute inset-0 z-10">
                         <Image
                             src="https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?q=80&w=2000&auto=format&fit=crop"
                             alt="Crowded Rome"
@@ -31,7 +30,7 @@ export default function StickyRomeSection() {
                             className="object-cover"
                         />
                         <div className="absolute inset-0 bg-black/50" />
-                    </motion.div>
+                    </div>
 
                     {/* Layer 2: Serene Vatican — revealed behind */}
                     <div className="absolute inset-0 z-0">
@@ -41,9 +40,9 @@ export default function StickyRomeSection() {
                             fill
                             className="object-cover"
                         />
-                        <div className="absolute inset-0 bg-[#1A1210]/60" />
+                        <div className="absolute inset-0 bg-card/60" />
                     </div>
-                </motion.div>
+                </div>
             </div>
 
             {/* SCROLLING FOREGROUND TEXT */}
@@ -51,9 +50,9 @@ export default function StickyRomeSection() {
 
                 {/* Scene 1 */}
                 <div className="h-screen flex items-center justify-center sticky top-0">
-                    <motion.div style={{ opacity: text1Opacity }} className="text-center z-20 px-6 max-w-4xl">
+                    <div style={{ opacity: text1Opacity }} className="text-center z-20 px-6 max-w-4xl">
                         <p
-                            className="font-inter text-[11px] tracking-[0.4em] uppercase mb-6"
+                            className="font-inter text-[12px] tracking-[0.4em] uppercase mb-6"
                             style={{ color: '#C9A84C' }}
                         >
                             ✦ THE PROBLEM ✦
@@ -67,14 +66,14 @@ export default function StickyRomeSection() {
                         <p className="text-xl md:text-2xl text-white/70 font-inter font-light tracking-widest uppercase">
                             Your pilgrimage shouldn&apos;t be.
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Scene 2 */}
                 <div className="h-screen flex items-center justify-center sticky top-0">
-                    <motion.div style={{ opacity: text2Opacity, y: text2Y }} className="max-w-4xl text-center z-20 px-6">
+                    <div style={{ opacity: text2Opacity, y: text2Y }} className="max-w-4xl text-center z-20 px-6">
                         <p
-                            className="font-inter text-[11px] tracking-[0.4em] uppercase mb-6"
+                            className="font-inter text-[12px] tracking-[0.4em] uppercase mb-6"
                             style={{ color: '#C9A84C' }}
                         >
                             ✦ THE SOLUTION ✦
@@ -104,7 +103,7 @@ export default function StickyRomeSection() {
                                 View Private Tours
                             </Link>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
 
             </div>

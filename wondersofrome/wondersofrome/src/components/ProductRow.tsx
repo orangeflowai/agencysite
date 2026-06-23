@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import TourCard from './TourCard';
 import { ArrowRight } from 'lucide-react';
 
@@ -30,7 +31,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link })
       <div className="container mx-auto px-6 mb-16">
         <div className="flex flex-col md:flex-row items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="text-primary font-bold  tracking-[0.4em] text-[10px] mb-4">Site_Sector_Archive</p>
+            <p className="text-primary font-bold  tracking-[0.4em] text-[8px] mb-4">Site_Sector_Archive</p>
             <h2 className="text-4xl md:text-6xl font-serif font-bold tracking-tighter   leading-none mb-6">
               {title}
             </h2>
@@ -41,7 +42,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link })
             )}
           </div>
           {link && (
-            <Link href={link} className="group flex items-center gap-3 font-bold  tracking-[0.2em] text-[10px] text-foreground hover:text-primary transition-colors">
+            <Link href={link} className="group flex items-center gap-3 font-bold  tracking-[0.2em] text-[8px] text-foreground hover:text-primary transition-colors">
               <span>View Directory</span>
               <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary group-hover:text-white transition-all">
                 <ArrowRight size={16} />
@@ -56,9 +57,11 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link })
           
           {/* Hero Side Card (Bromo Style) */}
           <div className="hidden lg:block lg:col-span-5 relative group rounded-[var(--radius)] overflow-hidden border border-border shadow-2xl min-h-[600px]">
-            <img 
+            <Image 
               src={heroImage} 
               alt={title} 
+              fill
+              sizes="(max-width: 1024px) 100vw, 42vw"
               className="absolute inset-0 w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" 
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />

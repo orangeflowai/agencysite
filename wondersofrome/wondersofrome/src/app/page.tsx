@@ -1,13 +1,14 @@
 import Navbar from "@/components/Navbar";
+import Image from "next/image";
 import WondersHero from "@/components/WondersHero";
 import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { getTours, getSettings, getPosts } from "@/lib/dataAdapter";
+import { getToursWithLivePrices, getSettings, getPosts } from "@/lib/sanityService";
 import { getPexelsImages, ROME_QUERIES } from "@/lib/pexels";
 import { tours as fallbackTours } from "@/lib/toursData";
 import dynamic from 'next/dynamic';
-import { ArrowRight, Clock, Users, Star } from 'lucide-react';
+import { ArrowRight, Clock, Users, Star, CheckCircle } from 'lucide-react';
 import Link from "next/link";
 import ScrollMaskText from "@/components/ScrollMaskText";
 import ParallaxImage from "@/components/ParallaxImage";
@@ -16,12 +17,11 @@ import AutoScrollTourSection from "@/components/AutoScrollTourSection";
 import { PhilosophySection } from "@/components/PhilosophySection";
 import { TechnologySection } from "@/components/TechnologySection";
 
-export const revalidate = 300; // Revalidate every 5 minutes
+export const revalidate = 60;
 
 const FAQ = dynamic(() => import('@/components/FAQ'));
 
 const SEO_KEYWORDS = ["Vatican", "Colosseum", "Rome", "AR audio guide", "Skip-the-line", "Wonders of Rome", "Ancient Power"];
-const R2 = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
 const GALLERY_IMAGES = [
   'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/extend_this_image_202604281706.jpeg',
   'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/section_images/extend_this_image_202604281703.jpeg',
@@ -34,14 +34,17 @@ const GALLERY_IMAGES = [
 
 export default async function Home() {
   const [toursData, settings, posts, pexelsVatican, pexelsColosseum] = await Promise.all([
-    getTours(),
+    getToursWithLivePrices(),
     getSettings(),
     getPosts(),
     getPexelsImages(ROME_QUERIES.vatican, 20),
     getPexelsImages(ROME_QUERIES.colosseum, 20)
   ]);
 
-  let tours = toursData;
+  // Safety filter: Only include tours and posts with valid slugs
+  let tours = (toursData || []).filter((t: any) => t?.slug?.current);
+  const safePosts = (posts || []).filter((p: any) => p?.slug?.current);
+
   if (!tours || tours.length === 0) {
     tours = fallbackTours.map((t: any) => ({
       ...t, _id: t.id, slug: { current: t.slug }, mainImage: t.imageUrl,
@@ -56,31 +59,19 @@ export default async function Home() {
 
   const vaticanTours    = tours.filter((t: any) => t.category === 'vatican');
   const colosseumTours  = tours.filter((t: any) => t.category === 'colosseum');
-  const cityTours       = tours.filter((t: any) => t.category === 'city');
-
-  // Fill GALLERY_IMAGES to at least 9 using Pexels Vatican images
-  const finalGalleryImages = [...GALLERY_IMAGES];
-  if (finalGalleryImages.length < 9) {
-    const missingCount = 9 - finalGalleryImages.length;
-    for (let i = 0; i < missingCount; i++) {
-      if (pexelsVatican[i]) {
-        finalGalleryImages.push(pexelsVatican[i].url);
-      }
-    }
-  }
 
   return (
     <main className="min-h-screen bg-background selection:bg-primary selection:text-white font-sans">
       <Navbar />
       <WondersHero settings={settings} />
 
-      {/* Philosophy Section - Scroll-animated tour cards */}
+      {/* Philosophy Section */}
       <PhilosophySection />
 
-      {/* Technology Section - Multi-image reveal */}
+      {/* Technology Section */}
       <TechnologySection />
 
-      {/* Vatican Tours Section - Auto Scroll */}
+      {/* Vatican Tours Section */}
       <AutoScrollTourSection
         title="Vatican Museums & Sistine Chapel"
         subtitle="Skip the line to the Sistine Chapel, Vatican Museums, Gardens, and St. Peter's Basilica."
@@ -89,7 +80,7 @@ export default async function Home() {
         category="vatican"
       />
 
-      {/* Colosseum Tours Section - Auto Scroll */}
+      {/* Colosseum Tours Section */}
       <AutoScrollTourSection
         title="Colosseum & Ancient Rome"
         subtitle="Walk in the footsteps of Gladiators. Arena Floor, Underground, and Roman Forum."
@@ -98,26 +89,61 @@ export default async function Home() {
         category="colosseum"
       />
 
-      {/* Social Proof Bar */}
-      <div className="border-b border-border bg-card py-16 md:py-24">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 className="text-[#8A8A8A] font-bold tracking-widest text-[10px] mb-8">Authenticated by 50,000+ Verified Logs</h3>
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-40 hover:opacity-100 transition-all duration-500">
-               <span className="font-serif font-bold text-xl text-foreground">TripAdvisor</span>
-               <span className="font-serif font-bold text-xl text-foreground">Google</span>
-               <span className="font-serif font-bold text-xl text-foreground">Viator Elite</span>
-               <span className="font-serif font-bold text-xl text-foreground">GetYourGuide</span>
+      {/* Trust & Social Proof Bar */}
+      <section className="border-y border-border bg-card/50 backdrop-blur-sm py-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <p className="text-primary font-bold tracking-[0.4em] text-[10px] uppercase mb-4">Official Verification</p>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-foreground">Trusted by 50,000+ Global Travelers</h3>
+            </div>
+            
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-20">
+               <div className="flex flex-col items-center gap-3 group">
+                  <span className="font-serif font-bold text-2xl text-foreground/40 group-hover:text-foreground transition-colors">TripAdvisor</span>
+                  <div className="flex gap-1 text-amber-400">
+                    {[1,2,3,4,5].map(i => <Star key={i} size={12} fill="currentColor" />)}
+                  </div>
+               </div>
+               <div className="flex flex-col items-center gap-3 group">
+                  <span className="font-serif font-bold text-2xl text-foreground/40 group-hover:text-foreground transition-colors">Google</span>
+                  <div className="flex gap-1 text-sky-500">
+                    {[1,2,3,4,5].map(i => <Star key={i} size={12} fill="currentColor" />)}
+                  </div>
+               </div>
+               <div className="flex flex-col items-center gap-3 group">
+                  <span className="font-serif font-bold text-2xl text-foreground/40 group-hover:text-foreground transition-colors">Viator Elite</span>
+                  <span className="text-[10px] font-bold text-primary tracking-widest">LICENSED PARTNER</span>
+               </div>
+               <div className="flex flex-col items-center gap-3 group">
+                  <span className="font-serif font-bold text-2xl text-foreground/40 group-hover:text-foreground transition-colors">GetYourGuide</span>
+                  <span className="text-[10px] font-bold text-accent tracking-widest">TOP RATED 2026</span>
+               </div>
+            </div>
+
+            {/* Trust Badges */}
+            <div className="mt-16 flex flex-wrap justify-center gap-8 md:gap-16 pt-12 border-t border-border/50">
+               <div className="flex items-center gap-3 px-6 py-3 bg-background rounded-full border border-border">
+                  <CheckCircle className="text-primary w-5 h-5" />
+                  <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Instant Confirmation</span>
+               </div>
+               <div className="flex items-center gap-3 px-6 py-3 bg-background rounded-full border border-border">
+                  <CheckCircle className="text-primary w-5 h-5" />
+                  <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Expert Historian Guides</span>
+               </div>
+               <div className="flex items-center gap-3 px-6 py-3 bg-background rounded-full border border-border">
+                  <CheckCircle className="text-primary w-5 h-5" />
+                  <span className="text-[10px] font-bold tracking-widest text-muted-foreground uppercase">Secure SSL Payment</span>
+               </div>
             </div>
           </div>
-      </div>
+      </section>
 
-      {/* Tour Guide App Section - Full Screen Cinematic */}
+      {/* Tour Guide App Section */}
       <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-black text-white py-24 md:py-32">
-           {/* Background Image Layer */}
            <div className="absolute inset-0 z-0">
               <ParallaxImage 
                 src="/replace_the_screen_of_the_202605041559.jpeg" 
-                alt="Wonders of Rome proprietary AR guide engine - Augmented Reality experience in Rome" 
+                alt="Wonders of Rome proprietary AR guide engine" 
                 className="w-full h-full object-cover opacity-60"
                 aspectRatio="h-full"
               />
@@ -127,7 +153,7 @@ export default async function Home() {
            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
               <div className="max-w-4xl mx-auto space-y-12">
                  <div className="space-y-6">
-                    <span className="inline-block px-6 py-2 bg-primary/20 border border-primary/30 text-primary text-[10px] font-bold tracking-[0.4em] rounded-full backdrop-blur-md">
+                    <span className="inline-block px-6 py-2 bg-primary/20 border border-primary/30 text-primary text-[8px] font-bold tracking-[0.4em] rounded-full backdrop-blur-md">
                       Next Gen Hardware Integration
                     </span>
                     <ScrollMaskText className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold leading-[0.85] text-white justify-center" as="h2">
@@ -142,14 +168,10 @@ export default async function Home() {
                  </p>
 
                  <div className="flex flex-wrap justify-center gap-8 pt-8">
-                    <img src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/logod/applestore.png" alt="Download Wonders of Rome AR audio guide app on Apple App Store" className="h-16 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" />
-                    <img src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/logod/googleplay.png" alt="Download Wonders of Rome AR audio guide app on Google Play Store" className="h-16 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" />
+                    <Image src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/logod/applestore.png" alt="Download on Apple" width={160} height={64} className="h-16 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" />
+                    <Image src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/logod/googleplay.png" alt="Download on Google" width={160} height={64} className="h-16 w-auto object-contain cursor-pointer hover:scale-105 transition-transform" />
                  </div>
               </div>
-           </div>
-           
-           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-40">
-              <div className="w-[1px] h-20 bg-white" />
            </div>
         </section>
 
@@ -157,7 +179,7 @@ export default async function Home() {
       <div className="py-24 md:py-32 relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 md:mb-20">
-             <p className="text-primary font-bold tracking-[0.4em] text-[10px] mb-4">Verified Feedback</p>
+             <p className="text-primary font-bold tracking-[0.4em] text-[8px] mb-4">Verified Feedback</p>
              <ScrollMaskText className="text-5xl md:text-7xl font-serif font-bold tracking-tighter leading-none text-foreground justify-center" as="h2">
                Guest Reviews
              </ScrollMaskText>
@@ -166,39 +188,39 @@ export default async function Home() {
         </div>
       </div>
 
-              {/* Blog Section */}
+      {/* Blog Section */}
       <section className="py-24 md:py-32 bg-background border-b border-border">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-16 gap-6">
                   <div className="max-w-xl">
-                      <p className="text-primary font-bold tracking-[0.4em] text-[10px] mb-4">Travel Guides</p>
+                      <p className="text-primary font-bold tracking-[0.4em] text-[8px] mb-4">Travel Guides</p>
                       <ScrollMaskText className="text-5xl md:text-7xl font-serif font-bold tracking-tighter leading-none text-foreground" as="h2">
                         The Roman Journal
                       </ScrollMaskText>
                   </div>
-                  <Link href="/blog" className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary/20 text-primary text-[10px] font-bold tracking-widest rounded-full hover:bg-primary hover:text-white transition-all shrink-0 hover-underline">
+                  <Link href="/blog" className="inline-flex items-center gap-2 px-8 py-4 border-2 border-primary/20 text-primary text-[8px] font-bold tracking-widest rounded-full hover:bg-primary hover:text-white transition-all shrink-0 hover-underline">
                     View All Articles <ArrowRight size={14} />
                   </Link>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {posts?.slice(0, 3).map((post: any) => (
+                  {safePosts?.slice(0, 3).map((post: any) => (
                       <Link key={post._id} href={`/blog/${post.slug.current}`} className="group flex flex-col h-full bg-card rounded-[2.5rem] overflow-hidden border border-border hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                           <div className="relative aspect-[16/10] overflow-hidden">
                               <ParallaxImage 
                                 src={post.mainImage || pexelsVatican[1]?.url} 
-                                alt={`${post.title} - Rome travel guide by Wonders of Rome`} 
+                                alt={post.title} 
                                 aspectRatio="aspect-[16/10]"
                               />
                           </div>
                           <div className="p-8 md:p-10 flex flex-col flex-1">
-                              <span className="text-[10px] font-bold tracking-widest text-primary mb-4 block">Travel Guide</span>
+                              <span className="text-[8px] font-bold tracking-widest text-primary mb-4 block">Travel Guide</span>
                               <h3 className="text-2xl font-serif font-bold text-foreground mb-4 group-hover:text-primary transition-colors leading-tight">
                                 <WordHighlight keywords={SEO_KEYWORDS}>{post.title}</WordHighlight>
                               </h3>
                               <p className="text-sm text-muted-foreground line-clamp-3 mb-8 font-medium leading-relaxed">{post.excerpt}</p>
                               <div className="mt-auto flex items-center justify-between pt-6 border-t border-border/50">
-                                  <span className="text-[10px] font-bold tracking-[0.2em] text-primary">Read Article</span>
+                                  <span className="text-[8px] font-bold tracking-[0.2em] text-primary">Read Article</span>
                                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all"><ArrowRight size={14} /></div>
                               </div>
                           </div>
@@ -208,11 +230,10 @@ export default async function Home() {
           </div>
       </section>
 
-      <div id="faq" className="bg-background">
-        <div className="py-24 md:py-32 border-t border-border/50">
+      {/* FAQ Section */}
+      <section id="faq" className="bg-background py-24 md:py-32 border-t border-border/20">
           <FAQ />
-        </div>
-      </div>
+      </section>
 
       <Footer />
       <WhatsAppButton />

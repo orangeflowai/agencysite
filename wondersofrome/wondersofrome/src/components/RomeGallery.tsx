@@ -56,10 +56,7 @@ export default function RomeGallery({ vaticanTours }: RomeGalleryProps) {
         
         {/* The "Sink-In" Grid */}
         <motion.div 
-          style={{ 
-            scale: gridScale, 
-            opacity: gridOpacity,
-          }}
+          style={{ scale: gridScale, opacity: gridOpacity }}
           className="absolute inset-0 z-10 flex justify-center items-center gap-4 md:gap-8 px-4"
         >
           {/* Column 1 */}
@@ -92,7 +89,6 @@ export default function RomeGallery({ vaticanTours }: RomeGalleryProps) {
 
         {/* The Text that stays until zoom hits */}
         <motion.div 
-          initial={{ opacity: 1 }}
           style={{ opacity: useTransform(scrollYProgress, [0, 0.3], [1, 0]) }}
           className="absolute z-20 text-center pointer-events-none"
         >
@@ -104,11 +100,7 @@ export default function RomeGallery({ vaticanTours }: RomeGalleryProps) {
 
         {/* The revealed Product Slider */}
         <motion.div 
-          style={{ 
-            opacity: sliderOpacity,
-            scale: sliderScale,
-            y: sliderY
-          }}
+          style={{ opacity: sliderOpacity, scale: sliderScale, y: sliderY }}
           className="absolute inset-0 z-30 flex flex-col justify-center"
         >
           <GradientProductSlider 

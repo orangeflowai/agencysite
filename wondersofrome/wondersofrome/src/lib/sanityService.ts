@@ -1,5 +1,6 @@
 import { createClient } from 'next-sanity';
 import { createImageUrlBuilder } from '@sanity/image-url';
+import { supabaseAdmin } from './supabaseAdmin';
 
 // Define Interfaces
 export interface Site {
@@ -196,9 +197,59 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
             sites
         }`;
 
-        return await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
+        return await client.fetch(query, { siteRef }, { next: { revalidate: 0 } });
     } catch (error) {
         console.error('Failed to fetch tours:', error);
+        return [];
+    }
+}
+
+/**
+ * Get tours for a specific site with live "starting from" prices from Supabase
+ */
+export async function getToursWithLivePrices(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
+    try {
+        const tours = await getTours(siteId);
+        if (tours.length === 0) return [];
+
+        const slugs = tours.map(t => t.slug?.current).filter(Boolean);
+
+        // Fetch min price overrides from Supabase for future slots
+        const today = new Date().toISOString().split('T')[0];
+        const { data: slots, error } = await supabaseAdmin
+            .from('tour_slots')
+            .select('tour_slug, price_override')
+            .in('tour_slug', slugs)
+            .gte('date', today)
+            .gt('available_slots', 0)
+            .eq('is_paused', false);
+
+        if (error) {
+            console.error('Failed to fetch live prices from Supabase:', error);
+            return tours;
+        }
+
+        // Map min prices
+        const minPrices: Record<string, number> = {};
+        slots?.forEach(s => {
+            if (s.price_override) {
+                if (!minPrices[s.tour_slug] || s.price_override < minPrices[s.tour_slug]) {
+                    minPrices[s.tour_slug] = s.price_override;
+                }
+            }
+        });
+
+        // Update tour prices
+        return tours.map(tour => {
+            const livePrice = minPrices[tour.slug?.current || ''];
+            // Always use the inventory price_override when it is set
+            if (livePrice && livePrice > 0) {
+                return { ...tour, price: livePrice };
+            }
+            return tour;
+        });
+    } catch (error) {
+        console.error('Failed to fetch tours with live prices:', error);
         return [];
     }
 }
@@ -220,7 +271,7 @@ export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): P
             "features": highlights
         }`;
 
-        return await client.fetch(query, { slug, siteRef }, { next: { revalidate: 60 } });
+        return await client.fetch(query, { slug, siteRef }, { next: { revalidate: 0 } });
     } catch (error) {
         console.error('Failed to fetch tour:', error);
         return null;

@@ -38,6 +38,16 @@
   ],
   "exclude": [
     "node_modules",
-    "src/scripts"
+    "src/scripts",
+    "bulk_delete_wor.ts",
+    "check_indexed_delete.ts",
+    "delete_2026.ts",
+    "delete_all_wor_inventory_stable.ts",
+    "delete_all_wor_inventory.ts",
+    "delete_by_tour.ts",
+    "delete_small_batches.ts",
+    "final_cleanup.ts",
+    "list_tours.ts",
+    "scripts"
   ]
 }

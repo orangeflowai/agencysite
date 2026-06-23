@@ -5,7 +5,6 @@ import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import TourCard from './TourCard';
-import { motion } from 'framer-motion';
 
 interface ProductRowProps {
     title: string;
@@ -59,38 +58,27 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
             <div className="container mx-auto px-6 md:px-16 mb-12">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                     <div className="max-w-2xl">
-                        <motion.div 
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
+                        <div 
                             className="flex items-center gap-3 mb-4"
                         >
                             <div className="w-10 h-px" style={{ backgroundColor: accentColor }} />
-                            <p className="font-heading text-[10px] tracking-tight font-bold uppercase" style={{ color: accentColor }}>
+                            <p className="font-heading text-[8px] tracking-tight font-bold uppercase" style={{ color: accentColor }}>
                                 Essential Rome
                             </p>
-                        </motion.div>
-                        <motion.h2 
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
+                        </div>
+                        <h2 
                             className="font-heading font-bold leading-tight mb-4 uppercase" 
                             style={{ fontSize: 'clamp(32px, 5vw, 56px)', color: titleColor }}
                         >
                             {title}
-                        </motion.h2>
+                        </h2>
                         {subtitle && (
-                            <motion.p 
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.2 }}
+                            <p 
                                 className="font-body text-base md:text-lg max-w-lg leading-relaxed" 
                                 style={{ color: subtitleColor }}
                             >
                                 {subtitle}
-                            </motion.p>
+                            </p>
                         )}
                     </div>
 
@@ -162,7 +150,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ title, subtitle, tours, link, d
                 <div className="md:hidden text-center mt-12 px-6">
                     <Link
                         href={link}
-                        className="inline-flex items-center gap-3 text-[11px] font-bold  tracking-tight py-4 px-10 rounded-full transition-all active:scale-95"
+                        className="inline-flex items-center gap-3 text-[12px] font-bold  tracking-tight py-4 px-10 rounded-full transition-all active:scale-95"
                         style={{ backgroundColor: '#000000', color: '#F5F0E8' }}
                     >
                         View All Tours <ArrowUpRight size={14} />

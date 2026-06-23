@@ -13,9 +13,50 @@ export type { Tour, Post, Site, Settings } from './sanityService'
 
 const source = process.env.DATA_SOURCE || 'sanity'
 
-export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome'
+export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour'
 
-// Helper to load JSON tours (server-side only)
+// Load static tours from toursData.ts (always available, no network needed)
+function loadStaticTours() {
+  try {
+    // Dynamic import not needed — toursData is a plain module
+    const { tours } = require('./toursData') as { tours: any[] }
+    return tours.map((t: any) => ({
+      _id: t.id,
+      title: t.title,
+      slug: { current: t.slug },
+      mainImage: t.imageUrl ? { asset: { url: t.imageUrl } } : undefined,
+      price: t.price,
+      duration: t.duration,
+      description: t.description,
+      category: t.category,
+      features: t.highlights || [],
+      highlights: t.highlights || [],
+      badge: t.badge,
+      rating: t.rating,
+      reviewCount: t.reviews,
+      groupSize: t.groupSize,
+      tags: [],
+      includes: t.includes || [],
+      excludes: t.excludes || [],
+      importantInfo: t.importantInfo || [],
+      meetingPoint: t.meetingPoint || '',
+      itinerary: [],
+      guestTypes: [
+        { name: 'Adult', price: t.price, description: 'Age 18+' },
+        { name: 'Student', price: Math.round(t.price * 0.85), description: 'Valid ID required' },
+        { name: 'Youth', price: Math.round(t.price * 0.70), description: 'Age 12–17' },
+        { name: 'Child', price: Math.round(t.price * 0.50), description: 'Under 12' },
+      ],
+      maxParticipants: undefined,
+      location: t.meetingPoint || '',
+    }))
+  } catch (error) {
+    console.error('[dataAdapter] Error loading static tours:', error)
+    return []
+  }
+}
+
+// Helper to load JSON tours (server-side only, legacy fallback)
 async function loadJSONTours() {
   if (typeof window !== 'undefined') return []
   
@@ -23,7 +64,6 @@ async function loadJSONTours() {
     const { loadToursFromJSON } = await import('./jsonTours')
     const jsonTours = loadToursFromJSON()
     
-    // Map JSON tours to Tour type
     return jsonTours.map((t: any) => ({
       _id: t.productCode,
       title: t.title,
@@ -64,7 +104,6 @@ async function loadJSONTour(slug: string) {
     
     if (!jsonTour) return null
     
-    // Map JSON tour to Tour type
     return {
       _id: jsonTour.productCode,
       title: jsonTour.title,
@@ -126,8 +165,8 @@ async function withFallback<T>(
   return sanityFn()
 }
 
-// Vatican-only filter for goldenrometour
-const VATICAN_ONLY = process.env.NEXT_PUBLIC_SITE_ID === 'goldenrometour'
+// For goldenrometour we show all our tours (vatican + colosseum + city)
+const VATICAN_ONLY = false
 
 // Helper to merge Sanity tour content with Payload availability
 async function mergeTourWithAvailability(sanityTour: any, slug: string) {
@@ -161,30 +200,29 @@ export const getTours = async (siteId?: string) => {
   let tours
   
   if (source === 'hybrid') {
-    // Get tours from Sanity (content + images)
     tours = await sanity.getTours(siteId)
-    // Note: For list view, we don't merge availability (too many API calls)
-    // Availability will be fetched on-demand via API routes
   } else {
     tours = await withFallback(() => payload.getTours(siteId), () => sanity.getTours(siteId))
   }
   
-  // If no tours from CMS and this is goldenrometour, try JSON fallback
-  if ((!tours || tours.length === 0) && (siteId === 'goldenrometour' || DEFAULT_SITE_ID === 'goldenrometour')) {
-    console.log('[dataAdapter] No tours from CMS, trying JSON fallback...')
-    tours = await loadJSONTours()
+  // If no tours from CMS, use static toursData.ts as reliable fallback
+  if (!tours || tours.length === 0) {
+    console.log('[dataAdapter] No tours from CMS, using static toursData fallback...')
+    tours = loadStaticTours()
+    if (tours.length === 0) {
+      // Last resort: JSON files
+      tours = await loadJSONTours()
+    }
   }
   
-  return VATICAN_ONLY ? tours.filter(t => t.category === 'vatican') : tours
+  return VATICAN_ONLY ? tours.filter((t: any) => t.category === 'vatican') : tours
 }
 
 export const getTour = async (slug: string, siteId?: string) => {
   let tour
   
   if (source === 'hybrid') {
-    // Get tour content from Sanity
     tour = await sanity.getTour(slug, siteId)
-    // Merge with Payload availability
     if (tour) {
       tour = await mergeTourWithAvailability(tour, slug)
     }
@@ -192,20 +230,26 @@ export const getTour = async (slug: string, siteId?: string) => {
     tour = await withFallback(() => payload.getTour(slug, siteId), () => sanity.getTour(slug, siteId))
   }
   
-  // If no tour from CMS and this is goldenrometour, try JSON fallback
-  if (!tour && (siteId === 'goldenrometour' || DEFAULT_SITE_ID === 'goldenrometour')) {
-    console.log(`[dataAdapter] No tour "${slug}" from CMS, trying JSON fallback...`)
+  // If no tour from CMS, check static toursData.ts first
+  if (!tour) {
+    console.log(`[dataAdapter] No tour "${slug}" from CMS, checking static fallback...`)
+    const staticTours = loadStaticTours()
+    tour = staticTours.find((t: any) => t.slug?.current === slug) || null
+  }
+  
+  // Last resort: JSON files
+  if (!tour) {
+    console.log(`[dataAdapter] No tour "${slug}" in static data, trying JSON fallback...`)
     tour = await loadJSONTour(slug)
   }
   
-  // Log for debugging
   if (tour) {
     console.log(`[dataAdapter] Found tour: ${tour.title}, category: ${tour.category}, slug: ${tour.slug.current}`)
   } else {
-    console.warn(`[dataAdapter] Tour not found for slug: ${slug}, siteId: ${siteId || DEFAULT_SITE_ID}`)
+    console.warn(`[dataAdapter] Tour not found for slug: ${slug}`)
   }
   
-  // Vatican-only validation (only if tour exists and has category)
+  // Vatican-only validation
   if (VATICAN_ONLY && tour) {
     if (!tour.category) {
       console.warn(`[dataAdapter] Tour "${tour.title}" has no category, allowing it through`)

@@ -247,7 +247,7 @@ export default function PhoneInput({
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
-    // Parse initial value if provided
+    // Parse  value if provided
     useEffect(() => {
         if (value && !phoneNumber) {
             // Try to find matching country code

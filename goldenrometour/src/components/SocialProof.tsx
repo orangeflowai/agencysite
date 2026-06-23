@@ -1,7 +1,6 @@
 'use client';
 
 import { Star, Quote } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const reviews = [
     { name: "James H.",       location: "USA",       text: "We did the Rome in a Day tour with Sev and it was phenomenal. He was an encyclopedia of knowledge!", rating: 5 },
@@ -14,12 +13,12 @@ const reviews = [
 
 function ReviewCard({ review }: { review: typeof reviews[0] }) {
     return (
-        <div className="w-[340px] bg-background border border-primary/20 p-10 flex-shrink-0 relative rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+        <div className="w-[336px] bg-background border border-primary/20 p-10 flex-shrink-0 relative rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
             <Quote className="absolute top-6 right-6 text-primary/10" size={48} />
             <div className="flex items-center space-x-1 mb-6">
                 {[...Array(5)].map((_, i) => <Star key={i} size={14} className="fill-primary text-primary" />)}
             </div>
-            <p className="font-heading text-lg text-secondary leading-[1.4] mb-8 min-h-[60px] uppercase tracking-tight">
+            <p className="font-heading text-lg text-secondary leading-[1.4] mb-8 min-h-[64px] uppercase tracking-tight">
                 &ldquo;{review.text}&rdquo;
             </p>
             <div className="flex items-center gap-4 pt-6 border-t border-secondary/10">
@@ -27,7 +26,7 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                     {review.name.charAt(0)}
                 </div>
                 <div>
-                    <p className="font-heading text-[10px] font-bold text-secondary tracking-tight uppercase">{review.name}</p>
+                    <p className="font-heading text-[8px] font-bold text-secondary tracking-tight uppercase">{review.name}</p>
                     <p className="font-heading text-[8px] text-secondary/50 tracking-tight uppercase">{review.location}</p>
                 </div>
             </div>
@@ -41,29 +40,29 @@ export default function SocialProof() {
             {/* Editorial Header */}
             <div className="container mx-auto px-8 md:px-16 relative z-10 mb-20 text-center md:text-left">
                 <div className="max-w-3xl">
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
+                    <span
+                        }
+                        }
                         viewport={{ once: true }}
-                        className="font-heading text-[10px] font-bold tracking-tighter text-primary/60 uppercase"
+                        className="font-heading text-[8px] font-bold tracking-tighter text-primary/60 uppercase"
                     >
                         Client Testimonials
-                    </motion.span>
-                    <motion.h2 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                    </span>
+                    <h2 
+                        }
+                        }
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.1 }}
+                        }
                         className="font-heading text-5xl md:text-7xl font-bold mt-6 leading-none text-secondary uppercase"
                     >
                         Verified Path <br />
                         <span className="text-primary">Documentation.</span>
-                    </motion.h2>
+                    </h2>
                     <div className="flex items-center gap-6 mt-10 justify-center md:justify-start">
                         <div className="flex items-center space-x-1">
                             {[...Array(5)].map((_, i) => <Star key={i} size={20} className="fill-primary text-primary" />)}
                         </div>
-                        <span className="font-heading text-[10px] font-bold tracking-tight opacity-60 uppercase">Avg Rating 4.9/5</span>
+                        <span className="font-heading text-[8px] font-bold tracking-tight opacity-60 uppercase">Avg Rating 4.9/5</span>
                     </div>
                 </div>
             </div>

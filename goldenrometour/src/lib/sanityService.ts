@@ -194,9 +194,8 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
             tours = await client.fetch(query, {}, { next: { revalidate: 60 } });
         }
 
-        // For goldenrometour, we still might want to filter by vatican category if the user insists,
-        // but if they have a dedicated dashboard, they likely only put vatican tours there.
-        return siteId === 'goldenrometour' ? tours.filter((t: Tour) => t.category === 'vatican' || !t.category) : tours;
+        // goldenrometour shows ALL tour categories (vatican, colosseum, city, etc.)
+        return tours;
     } catch (error) {
         console.error('[sanityService] Failed to fetch tours:', error);
         return [];

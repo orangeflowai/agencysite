@@ -5,7 +5,7 @@ export const siteConfig = {
   id: siteId,
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'Rome Wander',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://romewander.com',
-  email: process.env.EMAIL_FROM || 'info@romewander.com',
+  email: process.env.EMAIL_FROM || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com",
   adminEmail: process.env.ADMIN_EMAIL || 'wondersoffrome@gmail.com',
   phone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 351 419 9425',
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '3514199425',

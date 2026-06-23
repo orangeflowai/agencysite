@@ -26,7 +26,7 @@ export default function AnimatedSection({
     const isFade = type === 'fade';
     el.style.opacity = '0';
     el.style.transform = isFade ? 'none' : 'translateY(30px)';
-    el.style. = `opacity 0.8s cubic-bezier(0.25,0.1,0.25,1) ${delay}s${isFade ? '' : `, transform 0.8s cubic-bezier(0.25,0.1,0.25,1) ${delay}s`}`;
+    el.style.transition = `opacity 0.8s cubic-bezier(0.25,0.1,0.25,1) ${delay}s${isFade ? '' : `, transform 0.8s cubic-bezier(0.25,0.1,0.25,1) ${delay}s`}`;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -71,7 +71,7 @@ function SplitWord({ word, delay }: { word: string; delay: number }) {
     const el = ref.current;
     if (!el) return;
     el.style.transform = 'translateY(100%)';
-    el.style. = `transform 0.8s cubic-bezier(0.33,1,0.68,1) ${delay}s`;
+    el.style.transition = `transform 0.8s cubic-bezier(0.33,1,0.68,1) ${delay}s`;
 
     const observer = new IntersectionObserver(
       (entries) => {

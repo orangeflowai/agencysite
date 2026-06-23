@@ -61,8 +61,8 @@ export function TestimonialsSection() {
       {/* About Image */}
       <div className="relative aspect-[16/9] w-full">
         <Image
-          src="/images/5.jpg"
-          alt="Vatican Museums interior"
+          src="https://images.pexels.com/photos/3874600/pexels-photo-3874600.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt="Vatican Museums interior — Sistine Chapel"
           fill
           className="object-cover"
         />

@@ -175,7 +175,13 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
             time: selectedTime,
             guestCounts: counts,
             price: totalPrice,
-            image: tour.mainImage ? urlFor(tour.mainImage).url() : undefined,
+            image: tour.mainImage
+                ? (typeof tour.mainImage === 'string'
+                    ? tour.mainImage
+                    : tour.mainImage?.asset?._ref
+                    ? urlFor(tour.mainImage).url()
+                    : tour.mainImage?.asset?.url || undefined)
+                : undefined,
         });
     };
 
@@ -242,17 +248,17 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                 {/* Header: Title */}
                 <div className="px-8 pt-8 pb-4">
                     <div className="flex items-center justify-between mb-4">
-                        <span className="text-[10px] font-heading font-bold tracking-tight text-primary bg-primary/5 px-4 py-1.5 rounded-full uppercase">Secure Archive Access</span>
+                        <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Official Access</span>
                         <div className="flex -space-x-2">
                             {[1, 2, 3].map(i => (
-                                <div key={i} className={`w-7 h-7 rounded-full border-2 border-white bg-background overflow-hidden grayscale contrast-[1.1]`}>
-                                    <Image src={`https://i.pravatar.cc/100?img=${i + 10}`} width={28} height={28} alt="User" />
+                                <div key={i} className={`w-7 h-7 rounded-full border-2 border-white bg-background overflow-hidden`}>
+                                    <Image src={`https://i.pravatar.cc/100?img=${i + 10}`} width={28} height={28} alt="Traveler" />
                                 </div>
                             ))}
                         </div>
                     </div>
-                    <h3 className="text-2xl font-heading font-bold text-secondary flex items-center gap-2 uppercase">
-                        Protocol Selection
+                    <h3 className="text-2xl font-heading font-bold text-foreground">
+                        Book Your Tour
                     </h3>
                 </div>
 
@@ -260,8 +266,8 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                 <div className="p-8 pt-4 space-y-8">
                     <div>
                         <div className="flex items-center justify-between mb-4">
-                            <span className="text-[10px] font-heading font-bold tracking-tight text-secondary/40 uppercase">1. Calendrical Alignment</span>
-                            {selectedDate && <span className="text-xs font-heading font-bold text-primary flex items-center gap-1 uppercase"><CheckCircle size={12} /> {format(new Date(selectedDate), 'MMM dd, yyyy')}</span>}
+                            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">1. Select Date</span>
+                            {selectedDate && <span className="text-xs font-semibold text-accent flex items-center gap-1"><CheckCircle size={12} /> {format(new Date(selectedDate), 'MMM dd, yyyy')}</span>}
                         </div>
                         <VaticanCalendar
                             slug={tour.slug.current}
@@ -274,14 +280,14 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     {selectedDate && (
                         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 pt-2">
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-[10px] font-heading font-bold tracking-tight text-secondary/40 uppercase">2. Slot Reservation</span>
-                                {selectedTime && <span className="text-xs font-heading font-bold text-primary flex items-center gap-1 uppercase"><CheckCircle size={12} /> {selectedTime}</span>}
+                                <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">2. Select Time</span>
+                                {selectedTime && <span className="text-xs font-semibold text-accent flex items-center gap-1"><CheckCircle size={12} /> {selectedTime}</span>}
                             </div>
 
                             {loadingAvailability ? (
                                 <div className="flex flex-col items-center justify-center py-10 bg-background/50 rounded-2xl border-2 border-dashed border-primary/20">
                                     <Loader2 className="w-8 h-8 animate-spin text-primary mb-3" />
-                                    <span className="text-[10px] text-secondary/40 font-heading font-bold tracking-tight uppercase">Scanning local records...</span>
+                                    <span className="text-xs text-muted-foreground">Checking availability...</span>
                                 </div>
                             ) : visibleSlots.length > 0 ? (
                                 <div className="grid grid-cols-3 gap-3">
@@ -291,7 +297,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                             onClick={() => setSelectedTime(slot.time)}
                                             disabled={slot.available_slots === 0}
                                             className={`
-                                                relative py-4 px-2 text-[11px] font-heading font-bold rounded-2xl border transition-all duration-300 text-center flex flex-col items-center justify-center gap-1 uppercase
+                                                relative py-4 px-2 text-[12px] font-heading font-bold rounded-2xl border transition-all duration-300 text-center flex flex-col items-center justify-center gap-1 uppercase
                                                 ${selectedTime === slot.time
                                                     ? 'bg-secondary text-white border-secondary shadow-xl scale-[1.05] z-10'
                                                     : 'bg-white text-secondary border-primary/10 hover:border-primary hover:bg-primary/5'
@@ -309,9 +315,9 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="text-[10px] text-accent font-heading font-bold py-8 px-4 bg-accent/5 rounded-2xl border border-accent/10 flex flex-col items-center justify-center gap-3 uppercase">
-                                    <AlertTriangle size={24} className="text-accent" />
-                                    <span className="tracking-tight">Archive Full for this Session</span>
+                                <div className="text-sm text-muted-foreground py-8 px-4 bg-muted rounded-2xl border border-border flex flex-col items-center justify-center gap-3">
+                                    <AlertTriangle size={24} className="text-muted-foreground" />
+                                    <span>No availability for this date</span>
                                 </div>
                             )}
                         </div>
@@ -319,26 +325,24 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                 </div>
 
                 {/* Participants Selection */}
-                <div className="px-8 py-8 bg-background/30 border-t border-primary/10">
+                <div className="px-8 py-8 bg-muted/30 border-t border-border">
                     <div className="flex items-center justify-between mb-6">
                         <div className="flex items-center gap-2">
-                            <Users size={16} className="text-primary" />
-                            <span className="text-[10px] font-heading font-bold tracking-tight text-secondary uppercase">3. Guest Registry</span>
+                            <Users size={16} className="text-accent" />
+                            <span className="text-xs font-semibold text-foreground uppercase tracking-wide">3. Number of Guests</span>
                         </div>
-                        <div className="flex items-center gap-1 bg-white px-3 py-1.5 rounded-xl border border-primary/10 shadow-sm">
-                            <span className="text-[10px] font-heading font-bold text-secondary uppercase">{totalGuests} Units</span>
+                        <div className="flex items-center gap-1 bg-card px-3 py-1.5 rounded-xl border border-border shadow-sm">
+                            <span className="text-xs font-semibold text-foreground">{totalGuests} {totalGuests === 1 ? 'guest' : 'guests'}</span>
                         </div>
                     </div>
 
                     <div className="grid gap-4">
                         {currentGuestTypes.map(gt => (
-                            <div key={gt.name} className="flex items-center justify-between p-5 bg-white rounded-2xl border border-primary/5 shadow-sm hover:shadow-md transition-all group">
+                            <div key={gt.name} className="flex items-center justify-between p-4 bg-card rounded-2xl border border-border hover:shadow-md transition-all group">
                                 <div className="flex flex-col">
-                                    <span className="text-xs font-heading font-bold text-secondary group-hover:text-primary transition-colors tracking-wide uppercase">{gt.name}</span>
-                                    {gt.description && <span className="text-[9px] font-heading font-bold text-secondary/40 mt-1 tracking-tight uppercase">{gt.description}</span>}
-                                    <span className="text-[10px] font-heading font-bold text-primary mt-2 flex items-center gap-1 uppercase">
-                                        €{gt.price} <span className="text-[8px] text-secondary/30">/ Unit</span>
-                                    </span>
+                                    <span className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors">{gt.name}</span>
+                                    {gt.description && <span className="text-xs text-muted-foreground mt-0.5">{gt.description}</span>}
+                                    <span className="text-sm font-bold text-accent mt-1">€{gt.price} / person</span>
                                 </div>
                                 <Stepper name={gt.name} value={counts[gt.name] || 0} min={gt.name === 'Adult' ? 1 : 0} />
                             </div>
@@ -346,22 +350,22 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     </div>
                 </div>
 
-                {/* Price Breakdown Preview */}
-                <div className="px-8 py-6 bg-secondary text-white border-t border-primary/10">
-                    <div className="flex justify-between items-center text-[9px] font-heading font-bold tracking-tight text-primary/60 uppercase mb-2">
-                        <span>Currency: EUR</span>
-                        <span>Official Evaluation</span>
+                {/* Price Summary */}
+                <div className="px-8 py-6 bg-foreground text-background border-t border-border">
+                    <div className="flex justify-between items-center text-xs font-medium text-background/60 uppercase tracking-wide mb-2">
+                        <span>Price per person from</span>
+                        <span>EUR</span>
                     </div>
                     <div className="flex justify-between items-center">
-                        <span className="text-2xl font-heading font-bold tracking-tighter uppercase">Evaluation</span>
-                        <span className="text-4xl font-heading font-bold text-primary tracking-tighter">€{totalPrice}</span>
+                        <span className="text-lg font-semibold">Total</span>
+                        <span className="text-4xl font-bold text-accent">€{totalPrice}</span>
                     </div>
                 </div>
 
                 <div className="p-8 pt-6">
                     {/* Inline validation error */}
                     {validationError && (
-                        <div className="mb-4 px-4 py-3 bg-accent/5 border border-accent/20 rounded-xl text-[10px] font-heading font-bold text-accent flex items-center gap-2 uppercase">
+                        <div className="mb-4 px-4 py-3 bg-destructive/5 border border-destructive/20 rounded-xl text-sm text-destructive flex items-center gap-2">
                             <AlertTriangle size={14} />
                             {validationError}
                         </div>
@@ -371,15 +375,15 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     <button
                         onClick={handleInitialClick}
                         disabled={checkingOut || !selectedDate || !selectedTime || totalGuests === 0}
-                        className={`w-full py-6 rounded-2xl font-heading font-bold text-[10px] tracking-tight shadow-2xl transition-all duration-500 transform active:scale-[0.97] flex items-center justify-center gap-4 uppercase ${checkingOut || !selectedDate || !selectedTime || totalGuests === 0
-                            ? 'bg-background text-secondary/30 cursor-not-allowed border border-secondary/5'
-                            : 'bg-primary text-secondary hover:bg-white hover:text-secondary shadow-primary/20'
+                        className={`w-full py-4 rounded-2xl font-bold text-sm shadow-lg transition-all duration-300 transform active:scale-[0.98] flex items-center justify-center gap-3 ${checkingOut || !selectedDate || !selectedTime || totalGuests === 0
+                            ? 'bg-muted text-muted-foreground cursor-not-allowed'
+                            : 'bg-accent text-foreground hover:bg-accent/90 shadow-accent/20'
                             }`}
                     >
-                        {checkingOut ? <Loader2 className="animate-spin" /> : (
+                        {checkingOut ? <Loader2 className="animate-spin" size={18} /> : (
                             <>
-                                <span>Validate Booking{totalPrice > 0 ? ` • €${totalPrice}` : ''}</span>
-                                <ChevronRight size={14} />
+                                <span>Book Now{totalPrice > 0 ? ` — €${totalPrice}` : ''}</span>
+                                <ChevronRight size={16} />
                             </>
                         )}
                     </button>
@@ -388,36 +392,32 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     <button
                         onClick={handleAddToCart}
                         disabled={!selectedDate || !selectedTime || totalGuests === 0}
-                        className="w-full mt-4 py-4 rounded-2xl font-heading font-bold text-[9px] tracking-tight transition-all duration-300 text-secondary/40 hover:text-primary disabled:opacity-20 flex items-center justify-center gap-2 uppercase"
+                        className="w-full mt-3 py-3 rounded-2xl font-semibold text-sm transition-all duration-300 text-muted-foreground hover:text-foreground disabled:opacity-30 flex items-center justify-center gap-2 border border-border hover:border-foreground/20"
                     >
-                        <ShoppingCart size={12} />
-                        Append to Folio
+                        <ShoppingCart size={14} />
+                        Add to Cart
                     </button>
 
-                    <div className="mt-8 pt-8 border-t border-secondary/5 flex items-center justify-between">
-                        <div className="flex items-center gap-4">
+                    <div className="mt-6 pt-6 border-t border-border flex items-center justify-between">
+                        <div className="flex items-center gap-3">
                             <div className="flex gap-0.5">
-                                {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-primary text-primary" />)}
+                                {[1, 2, 3, 4, 5].map(i => <Star key={i} size={10} className="fill-accent text-accent" />)}
                             </div>
-                            <span className="text-[8px] font-heading font-bold text-secondary/40 border-l border-secondary/10 pl-4 uppercase">5.0 / 5.0 Dossier Rating</span>
+                            <span className="text-xs text-muted-foreground">4.9 · 3,000+ reviews</span>
                         </div>
-                        <div className="flex items-center gap-2 opacity-20 grayscale">
-                            <div className="w-6 h-4 bg-secondary rounded-sm"></div>
-                            <div className="w-6 h-4 bg-secondary rounded-sm"></div>
-                            <div className="w-6 h-4 bg-secondary rounded-sm"></div>
-                        </div>
+                        <span className="text-xs text-muted-foreground">Secured by Stripe</span>
                     </div>
                 </div>
 
             </div>
 
-            <div className="bg-secondary text-white rounded-2xl p-6 border border-primary/10 flex items-center gap-5 group cursor-default shadow-xl">
-                <div className="w-12 h-12 rounded-xl bg-primary text-secondary flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <CheckCircle size={24} />
+            <div className="bg-muted rounded-2xl p-5 border border-border flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                    <CheckCircle size={20} className="text-accent" />
                 </div>
                 <div>
-                    <h4 className="text-[10px] font-heading font-bold tracking-tight uppercase">Revocation Protocol</h4>
-                    <p className="text-[9px] font-heading font-bold text-primary mt-1 tracking-tight uppercase">Full reimbursement within 24h</p>
+                    <h4 className="text-sm font-semibold text-foreground">Free cancellation</h4>
+                    <p className="text-xs text-muted-foreground mt-0.5">Full refund if cancelled more than 24 hours before</p>
                 </div>
             </div>
 

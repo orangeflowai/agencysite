@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import VaticanHeader from "@/components/vatican/header";
 import Footer from "@/components/Footer";
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, Mail, Phone, Shield, CreditCard, Clock, Camera, UserCheck } from 'lucide-react';
 import Link from 'next/link';
 import clsx from 'clsx';
@@ -11,7 +10,7 @@ import clsx from 'clsx';
 const faqCategories = [
     {
         title: "Vatican Tickets & Entry",
-        icon: <CreditCard className="w-6 h-6 text-[#C9A227]" />,
+        icon: <CreditCard className="w-6 h-6 text-foreground" />,
         items: [
             {
                 question: "Do I need to buy Vatican tickets in advance?",
@@ -29,7 +28,7 @@ const faqCategories = [
     },
     {
         title: "Tour Timing & Scheduling",
-        icon: <Clock className="w-6 h-6 text-[#C9A227]" />,
+        icon: <Clock className="w-6 h-6 text-foreground" />,
         items: [
             {
                 question: "What time should I arrive for my Vatican tour?",
@@ -47,7 +46,7 @@ const faqCategories = [
     },
     {
         title: "Photography & Restrictions",
-        icon: <Camera className="w-6 h-6 text-[#C9A227]" />,
+        icon: <Camera className="w-6 h-6 text-foreground" />,
         items: [
             {
                 question: "Can I take photos inside the Sistine Chapel?",
@@ -65,7 +64,7 @@ const faqCategories = [
     },
     {
         title: "Accessibility & Special Needs",
-        icon: <UserCheck className="w-6 h-6 text-[#C9A227]" />,
+        icon: <UserCheck className="w-6 h-6 text-foreground" />,
         items: [
             {
                 question: "Is the Vatican wheelchair accessible?",
@@ -87,13 +86,13 @@ export default function FAQPage() {
     };
 
     return (
-        <main className="min-h-screen bg-[#FAF9F6] font-body selection:bg-[#C9A227] selection:text-white">
+        <main className="min-h-screen bg-card font-body selection:bg-card selection:text-white">
             <VaticanHeader />
 
-            <div className="bg-[#0A1628] text-white py-24 text-center relative overflow-hidden border-b border-[#C9A227]/20">
+            <div className="bg-card text-white py-24 text-center relative overflow-hidden border-b border-border/20">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
                 <div className="container mx-auto px-4 relative z-10 pt-12">
-                    <p className="text-[#C9A227] font-bold  tracking-tight text-[10px] mb-4">Operations Team</p>
+                    <p className="text-foreground font-bold  tracking-tight text-[8px] mb-4">Operations Team</p>
                     <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4 tracking-tighter  ">Common Inquiries</h1>
                     <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto font-medium">
                         Essential info for your Vatican Museums & Sistine Chapel visit.
@@ -105,7 +104,7 @@ export default function FAQPage() {
                 <div className="space-y-12">
                     {faqCategories.map((category, catIndex) => (
                         <div key={catIndex}>
-                            <div className="flex items-center gap-3 mb-6 border-b border-[#E5E5E5] pb-4 sticky top-24 bg-[#FAF9F6]/90 backdrop-blur-md z-10">
+                            <div className="flex items-center gap-3 mb-6 border-b border-border pb-4 sticky top-24 bg-card/90 backdrop-blur-md z-10">
                                 {category.icon}
                                 <h2 className="text-2xl font-heading font-bold text-secondary   tracking-tight">{category.title}</h2>
                             </div>
@@ -120,7 +119,7 @@ export default function FAQPage() {
                                             key={index}
                                             className={clsx(
                                                 "bg-card rounded-lg border overflow-hidden shadow-sm transition-all duration-300",
-                                                isOpen ? "border-[#C9A227] border-l-4 shadow-md" : "border-[#E5E5E5] hover:border-[#C9A227]/50"
+                                                isOpen ? "border-border border-l-4 shadow-md" : "border-border hover:border-border/50"
                                             )}
                                         >
                                             <button
@@ -129,31 +128,24 @@ export default function FAQPage() {
                                             >
                                                 <span className={clsx(
                                                     "font-bold text-lg pr-8 transition-colors",
-                                                    isOpen ? "text-[#C9A227]" : "text-[#0A1628]"
+                                                    isOpen ? "text-foreground" : "text-foreground"
                                                 )}>
                                                     {item.question}
                                                 </span>
                                                 {isOpen ? (
-                                                    <ChevronUp className="text-[#C9A227] flex-shrink-0" />
+                                                    <ChevronUp className="text-foreground flex-shrink-0" />
                                                 ) : (
-                                                    <ChevronDown className="text-[#8A8A8A] flex-shrink-0" />
+                                                    <ChevronDown className="text-foreground flex-shrink-0" />
                                                 )}
                                             </button>
 
-                                            <AnimatePresence>
-                                                {isOpen && (
-                                                    <motion.div
-                                                        initial={{ height: 0, opacity: 0 }}
-                                                        animate={{ height: "auto", opacity: 1 }}
-                                                        exit={{ height: 0, opacity: 0 }}
-                                                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                                                    >
-                                                        <div className="px-6 pb-6 text-[#5A5A5A] leading-relaxed border-t border-[#E5E5E5]/50 pt-4">
+                                            {isOpen && (
+                                                    <div>
+                                                        <div className="px-6 pb-6 text-foreground leading-relaxed border-t border-border/50 pt-4">
                                                             {item.answer}
                                                         </div>
-                                                    </motion.div>
+                                                    </div>
                                                 )}
-                                            </AnimatePresence>
                                         </div>
                                     );
                                 })}
@@ -162,19 +154,19 @@ export default function FAQPage() {
                     ))}
                 </div>
 
-                <div className="mt-20 bg-card rounded-2xl p-8 md:p-12 text-center border border-[#E5E5E5] shadow-lg shadow-[#0A1628]/5">
+                <div className="mt-20 bg-card rounded-2xl p-8 md:p-12 text-center border border-border shadow-lg shadow-[#0A1628]/5">
                     <h3 className="text-2xl font-heading font-bold text-secondary mb-4   tracking-tight">Still have questions?</h3>
-                    <p className="text-[#5A5A5A] mb-8 max-w-lg mx-auto">
+                    <p className="text-foreground mb-8 max-w-lg mx-auto">
                         Our Vatican specialists are here to help! Available 8:00 AM – 7:00 PM (CET).
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href="mailto:vatican@goldenrometours.com" className="flex items-center gap-2 px-6 py-3 bg-[#FAF9F6] text-[#0A1628] font-bold rounded-full border border-[#E5E5E5] hover:border-[#C9A227] shadow-sm transition-all hover:-translate-y-1">
-                            <Mail size={18} className="text-[#C9A227]" />
+                        <a href="mailto:vatican@goldenrometours.com" className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full border border-border hover:border-border shadow-sm transition-all hover:-translate-y-1">
+                            <Mail size={18} className="text-foreground" />
                             vatican@goldenrometours.com
                         </a>
-                        <a href="tel:+393898922088" className="flex items-center gap-2 px-6 py-3 bg-[#C9A227] text-[#0A1628] font-bold rounded-full hover:bg-[#E8D5A3] shadow-lg shadow-[#C9A227]/20 transition-all hover:-translate-y-1">
+                        <a href="tel:+393898922088" className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full hover:bg-card shadow-lg shadow-[#C9A227]/20 transition-all hover:-translate-y-1">
                             <Phone size={18} />
-                            +39 389 892 2088
+                            {process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 389 892 2088"}
                         </a>
                     </div>
                 </div>

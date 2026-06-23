@@ -71,19 +71,19 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                     <div className="flex flex-col items-center -mt-0.5">
                         {data.spots > 0 ? (
                             <>
-                                <span className={`text-[10px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
+                                <span className={`text-[8px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
                                 {data.spots < 10 && (
-                                    <span className="text-[9px] font-extrabold text-white bg-amber-500 px-1 rounded-sm mt-0.5">
+                                    <span className="text-[8px] font-extrabold text-white bg-amber-500 px-1 rounded-sm mt-0.5">
                                         {data.spots} left
                                     </span>
                                 )}
                             </>
                         ) : (
-                            <span className="text-[9px] font-bold text-rose-400 uppercase tracking-tighter">Sold out</span>
+                            <span className="text-[8px] font-bold text-rose-400 uppercase tracking-tighter">Sold out</span>
                         )}
                     </div>
                 ) : (
-                    <span className="text-[10px] text-gray-300 font-medium">-</span>
+                    <span className="text-[8px] text-gray-300 font-medium">-</span>
                 )}
             </div>
         );
@@ -121,9 +121,9 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
             />
             {/* Legend */}
             <div className="flex items-center gap-3 mt-3 pt-3 border-t border-gray-100 justify-center">
-                <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-700"><span className="w-2.5 h-2.5 rounded-sm bg-emerald-100 inline-block" />Available</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold text-amber-700"><span className="w-2.5 h-2.5 rounded-sm bg-amber-100 inline-block" />Limited</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold text-rose-400"><span className="w-2.5 h-2.5 rounded-sm bg-rose-100 inline-block" />Sold out</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold text-emerald-700"><span className="w-2.5 h-2.5 rounded-sm bg-emerald-100 inline-block" />Available</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold text-amber-700"><span className="w-2.5 h-2.5 rounded-sm bg-amber-100 inline-block" />Limited</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold text-rose-400"><span className="w-2.5 h-2.5 rounded-sm bg-rose-100 inline-block" />Sold out</span>
             </div>
             <style jsx global>{`
                 .rdp { --rdp-cell-size: 58px; --rdp-accent-color: #0284c7; margin: 0; }

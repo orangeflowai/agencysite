@@ -2,7 +2,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 interface CategoryHeroProps {
@@ -29,15 +28,11 @@ export default function CategoryHero({ images, title, subtitle }: CategoryHeroPr
     return (
         <div className="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center overflow-hidden">
             {/* Background Slider */}
-            <AnimatePresence mode='wait'>
+            
                 {currentImage && (
-                    <motion.div
+                    <div
                         key={currentIndex}
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 1.5 }}
-                        className="absolute inset-0 z-0"
+                        className="absolute inset-0 z-0 transition-opacity duration-700"
                     >
                         <Image
                             src={currentImage}
@@ -48,37 +43,28 @@ export default function CategoryHero({ images, title, subtitle }: CategoryHeroPr
                             sizes="100vw"
                             quality={85}
                         />
-                    </motion.div>
+                    </div>
                 )}
-            </AnimatePresence>
+            
 
             {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black/40 z-1"></div>
 
             {/* Hero Content */}
             <div className="relative z-10 container mx-auto px-4 mt-16">
-                <motion.h1
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="text-4xl md:text-6xl font-bold text-white mb-6  tracking-tight drop-shadow-2xl"
+                <h1
+                    className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight drop-shadow-2xl animate-fade-in"
                 >
                     {title}
-                </motion.h1>
-                <motion.div
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.8 }}
-                    className="w-24 h-1 bg-secondary0 mx-auto mb-6"
-                ></motion.div>
-                <motion.p
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 1 }}
+                </h1>
+                <div
+                    className="w-24 h-1 bg-secondary mx-auto mb-6"
+                ></div>
+                <p
                     className="text-xl md:text-2xl text-white font-medium max-w-3xl mx-auto drop-shadow-md"
                 >
                     {subtitle}
-                </motion.p>
+                </p>
             </div>
         </div>
     );

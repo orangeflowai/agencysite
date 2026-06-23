@@ -1,7 +1,6 @@
 'use client';
 
 import { Star, Quote } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const reviews = [
     { name: 'James H.', location: 'USA', avatar: 'J', text: 'We did the Sistine Chapel after-hours tour and it was absolutely transcendent. Standing alone in that space was something I\'ll never forget.', rating: 5 },
@@ -15,7 +14,7 @@ const reviews = [
 function ReviewCard({ review }: { review: typeof reviews[0] }) {
     return (
         <div
-            className="w-[340px] shrink-0 relative p-7 shadow-xl"
+            className="w-[336px] shrink-0 relative p-7 shadow-xl"
             style={{
                 backgroundColor: '#ffffff',
                 border: '1px solid rgba(0,0,0,0.1)',
@@ -56,15 +55,15 @@ function ReviewCard({ review }: { review: typeof reviews[0] }) {
                     {review.avatar}
                 </div>
                 <div>
-                    <p className="font-body font-bold text-[10px] tracking-tight" style={{ color: '#000000' }}>
+                    <p className="font-body font-bold text-[8px] tracking-tight" style={{ color: '#000000' }}>
                         {review.name}
                     </p>
-                    <p className="font-body text-[10px] tracking-tight" style={{ color: '#000000', opacity: 0.5 }}>
+                    <p className="font-body text-[8px] tracking-tight" style={{ color: '#000000', opacity: 0.5 }}>
                         {review.location}
                     </p>
                 </div>
                 <div
-                    className="ml-auto font-body text-[10px] tracking-tight px-2 py-1"
+                    className="ml-auto font-body text-[8px] tracking-tight px-2 py-1"
                     style={{ backgroundColor: 'rgba(0,0,0,0.05)', color: '#000000', borderRadius: '999px' }}
                 >
                     Verified

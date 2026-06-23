@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { ShieldCheck, UserCheck, Heart, Calendar, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -37,12 +36,8 @@ export default function FeatureIcons() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
                     {features.map((feature, i) => (
-                        <motion.div
+                        <div
                             key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
                             className="flex flex-col items-center text-center space-y-4"
                         >
                             <div className="text-primary mb-2">
@@ -52,12 +47,12 @@ export default function FeatureIcons() {
                             <p className="font-body text-sm leading-relaxed text-secondary/60 max-w-[200px]">
                                 {feature.desc}
                             </p>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
 
                 <div className="mt-16 text-center">
-                    <Link href="/about" className="inline-flex items-center gap-2 bg-secondary text-white px-8 py-4 rounded-full font-heading font-bold tracking-tight text-[10px] uppercase hover:bg-primary hover:text-secondary transition-all">
+                    <Link href="/about" className="inline-flex items-center gap-2 bg-secondary text-white px-8 py-4 rounded-full font-heading font-bold tracking-tight text-[8px] uppercase hover:bg-primary hover:text-secondary transition-all">
                         Find Out More <ArrowRight size={14} />
                     </Link>
                 </div>

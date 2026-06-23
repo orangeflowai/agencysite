@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
     X, Check, ChevronRight, ChevronLeft, Shield, Lock, Star,
     Mail, User, Phone, Sparkles, AlertTriangle, Loader2,
@@ -93,7 +92,7 @@ function PaymentForm({ onSuccess, onBack, total }: { onSuccess: () => void; onBa
                 <button
                     type="submit"
                     disabled={!stripe || processing}
-                    className="flex-1 py-4 bg-[#1A1210] text-white font-black uppercase tracking-[0.2em] text-sm rounded-sm shadow-xl hover:bg-[#C9A84C] transition-colors duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="flex-1 py-4 bg-card text-white font-black uppercase tracking-[0.2em] text-sm rounded-sm shadow-xl hover:bg-card transition-colors duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
                 >
                     {processing ? <Loader2 className="animate-spin" size={18} /> : (
                         <><Lock size={16} /> Pay €{total}</>
@@ -262,29 +261,29 @@ export default function CheckoutModal({
     if (!isOpen) return null;
 
     return (
-        <AnimatePresence>
+        
             <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
                 {/* Backdrop */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                <div
+                    }
+                    }
+                    }
                     onClick={onClose}
                     className="absolute inset-0 bg-black/70 backdrop-blur-md"
                 />
 
                 {/* Modal */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: 24 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 24 }}
-                    transition={{ type: 'spring', damping: 28, stiffness: 380 }}
-                    className="relative bg-[#F5F0E8] w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+                <div
+                    }
+                    }
+                    }
+                    }
+                    className="relative bg-card w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
                 >
                     {/* ── Header ── */}
-                    <div className="shrink-0 flex items-center justify-between px-6 py-5 bg-[#1A1210] text-white">
+                    <div className="shrink-0 flex items-center justify-between px-6 py-5 bg-card text-white">
                         <div>
-                            <p className="text-[10px] uppercase tracking-[0.3em] text-[#C9A84C] font-bold">Secure Booking</p>
+                            <p className="text-[8px] uppercase tracking-[0.3em] text-foreground font-bold">Secure Booking</p>
                             <h2 className="text-lg font-inter font-bold leading-tight mt-0.5 line-clamp-1">{tour.title}</h2>
                         </div>
                         <button onClick={onClose}
@@ -295,18 +294,18 @@ export default function CheckoutModal({
 
                     {/* ── Progress ── */}
                     {step < 4 && (
-                        <div className="shrink-0 px-6 pt-5 pb-0 bg-[#F5F0E8]">
+                        <div className="shrink-0 px-6 pt-5 pb-0 bg-card">
                             <div className="flex items-center gap-0">
                                 {STEPS.map((s, i) => (
                                     <div key={s.num} className="flex items-center flex-1 last:flex-none">
-                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs shrink-0 transition-all ${step > s.num ? 'bg-[#C9A84C] text-white' : step === s.num ? 'bg-[#1A1210] text-white' : 'bg-gray-200 text-gray-400'}`}>
+                                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs shrink-0 transition-all ${step > s.num ? 'bg-card text-white' : step === s.num ? 'bg-card text-white' : 'bg-gray-200 text-gray-400'}`}>
                                             {step > s.num ? <Check size={14} /> : s.num}
                                         </div>
-                                        <span className={`ml-2 text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors ${step >= s.num ? 'text-[#1A1210]' : 'text-gray-400'}`}>
+                                        <span className={`ml-2 text-xs font-bold uppercase tracking-wide whitespace-nowrap transition-colors ${step >= s.num ? 'text-foreground' : 'text-gray-400'}`}>
                                             {s.label}
                                         </span>
                                         {i < STEPS.length - 1 && (
-                                            <div className={`flex-1 h-0.5 mx-3 transition-colors ${step > s.num ? 'bg-[#C9A84C]' : 'bg-gray-200'}`} />
+                                            <div className={`flex-1 h-0.5 mx-3 transition-colors ${step > s.num ? 'bg-card' : 'bg-gray-200'}`} />
                                         )}
                                     </div>
                                 ))}
@@ -335,26 +334,26 @@ export default function CheckoutModal({
                                 <p className="text-xs font-black text-gray-900 line-clamp-1">{tour.title}</p>
                                 <div className="flex items-center gap-3 mt-1 flex-wrap">
                                     {preSelectedDate && (
-                                        <span className="text-[11px] text-gray-500 flex items-center gap-1">
+                                        <span className="text-[12px] text-gray-500 flex items-center gap-1">
                                             <Calendar size={11} />
                                             {format(new Date(preSelectedDate), 'dd MMM yyyy')}
                                         </span>
                                     )}
                                     {preSelectedTime && (
-                                        <span className="text-[11px] text-gray-500 flex items-center gap-1">
+                                        <span className="text-[12px] text-gray-500 flex items-center gap-1">
                                             <Clock size={11} /> {preSelectedTime}
                                         </span>
                                     )}
                                     {totalGuests > 0 && (
-                                        <span className="text-[11px] text-gray-500 flex items-center gap-1">
+                                        <span className="text-[12px] text-gray-500 flex items-center gap-1">
                                             <Users size={11} /> {totalGuests} {totalGuests === 1 ? 'guest' : 'guests'}
                                         </span>
                                     )}
                                 </div>
                             </div>
                             <div className="shrink-0 text-right">
-                                <p className="text-[10px] text-gray-400 uppercase tracking-wide">Total</p>
-                                <p className="text-xl font-black text-[#1A1210]">€{baseTourTotal}</p>
+                                <p className="text-[8px] text-gray-400 uppercase tracking-wide">Total</p>
+                                <p className="text-xl font-black text-foreground">€{baseTourTotal}</p>
                             </div>
                         </div>
                     )}
@@ -366,21 +365,21 @@ export default function CheckoutModal({
                             <div className="space-y-5">
                                 {/* Lead Traveler */}
                                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                    <h3 className="font-inter font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
-                                        <User size={18} className="text-[#C9A84C]" /> Lead Traveler
+                                    <h3 className="font-inter font-bold text-lg text-foreground mb-4 flex items-center gap-2">
+                                        <User size={18} className="text-foreground" /> Lead Traveler
                                     </h3>
                                     <div className="grid grid-cols-2 gap-3">
                                         <div>
                                             <label className="block text-xs font-bold uppercase tracking-wide text-gray-500 mb-1">First Name *</label>
                                             <input type="text" required placeholder="As on ID"
-                                                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
+                                                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-border focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
                                                 value={leadTraveler.firstName}
                                                 onChange={e => setLeadTraveler({ ...leadTraveler, firstName: e.target.value })} />
                                         </div>
                                         <div>
                                             <label className="block text-xs font-bold uppercase tracking-wide text-gray-500 mb-1">Last Name *</label>
                                             <input type="text" required placeholder="As on ID"
-                                                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
+                                                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-border focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
                                                 value={leadTraveler.lastName}
                                                 onChange={e => setLeadTraveler({ ...leadTraveler, lastName: e.target.value })} />
                                         </div>
@@ -389,7 +388,7 @@ export default function CheckoutModal({
                                             <div className="relative">
                                                 <Mail size={15} className="absolute left-3 top-3 text-gray-400" />
                                                 <input type="email" required placeholder="your@email.com"
-                                                    className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
+                                                    className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-border focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
                                                     value={leadTraveler.email}
                                                     onChange={e => setLeadTraveler({ ...leadTraveler, email: e.target.value })} />
                                             </div>
@@ -399,7 +398,7 @@ export default function CheckoutModal({
                                             <div className="relative">
                                                 <Mail size={15} className="absolute left-3 top-3 text-gray-400" />
                                                 <input type="email" required placeholder="Repeat email"
-                                                    className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
+                                                    className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-border focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
                                                     value={leadTraveler.confirmEmail}
                                                     onChange={e => setLeadTraveler({ ...leadTraveler, confirmEmail: e.target.value })} />
                                             </div>
@@ -426,18 +425,18 @@ export default function CheckoutModal({
                                 {/* Guest Names */}
                                 {guests.length > 0 && (
                                     <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                        <h3 className="font-inter font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
-                                            <Users size={18} className="text-[#C9A84C]" /> Guest Names
+                                        <h3 className="font-inter font-bold text-lg text-foreground mb-4 flex items-center gap-2">
+                                            <Users size={18} className="text-foreground" /> Guest Names
                                         </h3>
                                         <div className="space-y-3">
                                             {guests.map((g, i) => (
                                                 <div key={i} className="flex items-center gap-3">
-                                                    <div className="w-7 h-7 rounded-full bg-[#F5F0E8] border border-[#C9A84C]/30 flex items-center justify-center text-xs font-black text-[#1A1210] shrink-0">
+                                                    <div className="w-7 h-7 rounded-full bg-card border border-border/30 flex items-center justify-center text-xs font-black text-foreground shrink-0">
                                                         {i + 1}
                                                     </div>
                                                     <input type="text" required
                                                         placeholder={`${g.type} name as on ID`}
-                                                        className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
+                                                        className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:border-border focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors"
                                                         value={g.name}
                                                         onChange={e => {
                                                             const ng = [...guests];
@@ -476,7 +475,7 @@ export default function CheckoutModal({
                             <div className="space-y-5">
                                 {/* Order Summary */}
                                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                    <h3 className="font-inter font-bold text-lg text-[#1A1210] mb-4">Order Summary</h3>
+                                    <h3 className="font-inter font-bold text-lg text-foreground mb-4">Order Summary</h3>
                                     <div className="space-y-2">
                                         {currentGuestTypes.filter(gt => (preGuestCounts[gt.name] || 0) > 0).map(gt => (
                                             <div key={gt.name} className="flex justify-between text-sm">
@@ -486,18 +485,18 @@ export default function CheckoutModal({
                                         ))}
                                         <div className="border-t border-gray-100 pt-3 mt-3 flex justify-between">
                                             <span className="font-black text-gray-900 uppercase tracking-wide text-sm">Total</span>
-                                            <span className="font-black text-2xl text-[#1A1210]">€{baseTourTotal}</span>
+                                            <span className="font-black text-2xl text-foreground">€{baseTourTotal}</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Special Requests */}
                                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                    <h3 className="font-inter font-bold text-base text-[#1A1210] mb-3">Special Requests (Optional)</h3>
+                                    <h3 className="font-inter font-bold text-base text-foreground mb-3">Special Requests (Optional)</h3>
                                     <textarea
                                         rows={3}
                                         placeholder="Any dietary requirements, accessibility needs, or special occasions?"
-                                        className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-[#C9A84C] focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors resize-none"
+                                        className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:border-border focus:ring-1 focus:ring-[#C9A84C] outline-none transition-colors resize-none"
                                         value={marketing.specialRequests}
                                         onChange={e => setMarketing({ ...marketing, specialRequests: e.target.value })}
                                     />
@@ -506,14 +505,14 @@ export default function CheckoutModal({
                                 {/* Related Tours Upsell */}
                                 {relatedTours.length > 0 && (
                                     <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                        <h3 className="font-inter font-bold text-base text-[#1A1210] mb-1 flex items-center gap-2">
-                                            <Sparkles size={16} className="text-[#C9A84C]" /> You Might Also Like
+                                        <h3 className="font-inter font-bold text-base text-foreground mb-1 flex items-center gap-2">
+                                            <Sparkles size={16} className="text-foreground" /> You Might Also Like
                                         </h3>
                                         <p className="text-xs text-gray-500 mb-4">Customers who booked this tour also loved:</p>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                             {relatedTours.slice(0, 2).map((t: any) => (
                                                 <Link key={t._id} href={`/tour/${t.slug.current}`} target="_blank"
-                                                    className="flex items-center gap-3 p-3 bg-[#F5F0E8] rounded-lg hover:bg-[#F5F0E8]/80 transition group">
+                                                    className="flex items-center gap-3 p-3 bg-card rounded-lg hover:bg-card/80  group">
                                                     {t.mainImage ? (
                                                         <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
                                                             <Image src={urlFor(t.mainImage).width(96).height(96).url()} alt={t.title}
@@ -523,8 +522,8 @@ export default function CheckoutModal({
                                                         <div className="w-12 h-12 rounded-lg bg-gray-100 shrink-0" />
                                                     )}
                                                     <div className="min-w-0">
-                                                        <p className="text-xs font-black text-[#1A1210] line-clamp-2 leading-tight">{t.title}</p>
-                                                        <p className="text-xs text-[#C9A84C] font-bold mt-1">From €{t.price}</p>
+                                                        <p className="text-xs font-black text-foreground line-clamp-2 leading-tight">{t.title}</p>
+                                                        <p className="text-xs text-foreground font-bold mt-1">From €{t.price}</p>
                                                     </div>
                                                 </Link>
                                             ))}
@@ -547,8 +546,8 @@ export default function CheckoutModal({
                         {step === 3 && (
                             <div className="space-y-5">
                                 <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
-                                    <h3 className="font-inter font-bold text-lg text-[#1A1210] mb-4 flex items-center gap-2">
-                                        <CreditCard size={18} className="text-[#C9A84C]" /> Payment Details
+                                    <h3 className="font-inter font-bold text-lg text-foreground mb-4 flex items-center gap-2">
+                                        <CreditCard size={18} className="text-foreground" /> Payment Details
                                     </h3>
                                     {clientSecret && stripePromise ? (
                                         <Elements stripe={stripePromise} options={{
@@ -570,7 +569,7 @@ export default function CheckoutModal({
                                         </Elements>
                                     ) : (
                                         <div className="flex flex-col items-center py-10 gap-3">
-                                            <Loader2 className="animate-spin text-[#C9A84C]" size={32} />
+                                            <Loader2 className="animate-spin text-foreground" size={32} />
                                             <p className="text-sm text-gray-500 font-bold uppercase tracking-widest">Initializing secure payment...</p>
                                         </div>
                                     )}
@@ -584,8 +583,8 @@ export default function CheckoutModal({
                                         { icon: Star, label: '4.9★ Rated' },
                                     ].map(({ icon: Icon, label }) => (
                                         <div key={label} className="bg-white rounded-xl p-3 flex flex-col items-center gap-1 border border-gray-100 shadow-sm">
-                                            <Icon size={16} className="text-[#C9A84C]" />
-                                            <p className="text-[10px] font-bold text-gray-600 text-center">{label}</p>
+                                            <Icon size={16} className="text-foreground" />
+                                            <p className="text-[8px] font-bold text-gray-600 text-center">{label}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -595,23 +594,23 @@ export default function CheckoutModal({
                         {/* ── Step 4: Success ── */}
                         {step === 4 && (
                             <div className="flex flex-col items-center py-10 text-center space-y-6">
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                                <div
+                                    }
+                                    }
+                                    }
                                     className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center"
                                 >
                                     <CheckCircle size={48} className="text-green-600" />
-                                </motion.div>
+                                </div>
                                 <div>
-                                    <h3 className="font-inter font-bold text-2xl text-[#1A1210] mb-2">Booking Confirmed!</h3>
+                                    <h3 className="font-inter font-bold text-2xl text-foreground mb-2">Booking Confirmed!</h3>
                                     <p className="text-gray-600 text-sm">
                                         Thank you, {leadTraveler.firstName}! A confirmation email has been sent to {leadTraveler.email}.
                                     </p>
                                 </div>
-                                <div className="bg-[#F5F0E8] rounded-xl p-5 w-full text-left space-y-2">
+                                <div className="bg-card rounded-xl p-5 w-full text-left space-y-2">
                                     <p className="text-xs font-black uppercase tracking-wide text-gray-400">Booking Summary</p>
-                                    <p className="font-bold text-[#1A1210]">{tour.title}</p>
+                                    <p className="font-bold text-foreground">{tour.title}</p>
                                     {preSelectedDate && <p className="text-sm text-gray-600">{format(new Date(preSelectedDate), 'EEEE, dd MMMM yyyy')} · {preSelectedTime}</p>}
                                     <p className="text-sm text-gray-600">{totalGuests} {totalGuests === 1 ? 'guest' : 'guests'} · €{baseTourTotal}</p>
                                 </div>
@@ -620,7 +619,7 @@ export default function CheckoutModal({
                                         className="flex-1 py-3 border border-gray-200 rounded-xl text-sm font-bold text-gray-700 hover:bg-gray-50 transition-colors">
                                         Close
                                     </button>
-                                    <Link href="/" className="flex-1 py-3 bg-[#1A1210] text-white rounded-xl text-sm font-bold text-center hover:bg-[#C9A84C] transition-colors">
+                                    <Link href="/" className="flex-1 py-3 bg-card text-white rounded-xl text-sm font-bold text-center hover:bg-card transition-colors">
                                         Browse More Tours
                                     </Link>
                                 </div>
@@ -648,7 +647,7 @@ export default function CheckoutModal({
                                 )}
                                 <button
                                     onClick={goToNext}
-                                    className="flex-1 py-4 bg-[#1A1210] text-white font-black uppercase tracking-[0.2em] text-sm rounded-xl shadow-lg hover:bg-[#C9A84C] transition-colors duration-300 flex items-center justify-center gap-2"
+                                    className="flex-1 py-4 bg-card text-white font-black uppercase tracking-[0.2em] text-sm rounded-xl shadow-lg hover:bg-card transition-colors duration-300 flex items-center justify-center gap-2"
                                 >
                                     {step === 1 ? 'Continue' : step === 2 ? <>Proceed to Payment · €{baseTourTotal}</> : null}
                                     <ChevronRight size={18} />
@@ -656,8 +655,8 @@ export default function CheckoutModal({
                             </div>
                         </div>
                     )}
-                </motion.div>
+                </div>
             </div>
-        </AnimatePresence>
+        
     );
 }

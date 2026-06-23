@@ -26,7 +26,7 @@ export default async function PrivateToursPage() {
     );
 
     return (
-        <main className="min-h-screen bg-[#FDFFF5]">
+        <main className="min-h-screen bg-card">
             <VaticanHeader />
 
             <CategoryHero
@@ -37,7 +37,7 @@ export default async function PrivateToursPage() {
 
             <div className="container mx-auto px-4 py-20">
                 <div className="mb-12 text-center">
-                    <h2 className="text-2xl font-bold text-gray-800">
+                    <h2 className="text-2xl font-bold text-black">
                         Exclusive Private Experiences
                     </h2>
                     <p className="text-muted-foreground mt-2">Customize your perfect day in Rome.</p>

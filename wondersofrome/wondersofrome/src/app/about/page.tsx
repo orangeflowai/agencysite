@@ -15,7 +15,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-primary/5 opacity-40" />
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto text-center">
-                        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold  tracking-[0.3em] mb-6">
+                        <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[8px] font-bold  tracking-[0.3em] mb-6">
                             Our Story
                         </span>
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading text-foreground mb-8">
@@ -118,13 +118,13 @@ export default function AboutPage() {
                             </Link>
                         </div>
 
-                        <div className="flex flex-wrap justify-center gap-8 text-background/40 font-mono text-[10px]  tracking-[0.2em] pt-8 border-t border-white/5 relative z-10">
+                        <div className="flex flex-wrap justify-center gap-8 text-background/40 font-mono text-[8px]  tracking-[0.2em] pt-8 border-t border-white/5 relative z-10">
                             <div className="flex items-center gap-2"><Phone size={12} /> +39 351 419 9425</div>
                             <div className="flex items-center gap-2"><Mail size={12} /> info@wondersofrome.com</div>
                         </div>
                     </div>
 
-                    <p className="mt-12 text-[10px] font-bold text-muted-foreground  tracking-[0.5em]">Wonders Of Rome // Official Archives.</p>
+                    <p className="mt-12 text-[8px] font-bold text-muted-foreground  tracking-[0.5em]">Wonders Of Rome // Official Archives.</p>
                 </div>
             </section>
 

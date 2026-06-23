@@ -56,8 +56,8 @@ const translations: Record<Language, Record<string, string>> = {
         'nav.search': 'Search',
 
         // Hero
-        'hero.title': 'Rome, Curated.',
-        'hero.subtitle': 'Experience the Eternal City with expert local guides.',
+        'hero.title': 'Wonders of Rome.<br />Experience Ancient Glory.',
+        'hero.subtitle': 'Expert-led journeys through the Vatican, Colosseum, and the hidden heart of the Eternal City. Skip the lines, unlock the stories.',
         'hero.cta': 'Explore Tours',
         'hero.trust': 'Trusted by 50,000+ travelers',
 

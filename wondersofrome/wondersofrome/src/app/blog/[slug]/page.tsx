@@ -18,7 +18,9 @@ interface PageProps {
 
 export async function generateStaticParams() {
     const posts = await getPosts();
-    return posts.map(p => ({ slug: p.slug.current }));
+    return posts
+        .filter((post) => post.slug?.current)
+        .map(p => ({ slug: p.slug.current }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -60,7 +62,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
             <article className="pb-20">
                 {/* Hero Header */}
-                <header className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+                <header className="relative h-[60vh] min-h-[496px] flex items-center justify-center overflow-hidden">
                     <Image
                         src={heroImage}
                         alt={post.title}

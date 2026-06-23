@@ -88,9 +88,9 @@ export default async function TourPage({ params }: PageProps) {
                 <div className="flex flex-col xl:flex-row gap-12 items-start">
                     
                     {/* Column 1: Booking Experience (The unique part) */}
-                    <div className="w-full xl:w-[450px] shrink-0 xl:sticky xl:top-32 order-2 xl:order-1">
+                    <div className="w-full xl:w-[448px] shrink-0 xl:sticky xl:top-32 order-2 xl:order-1">
                         <div className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-black/5 border border-olive/5">
-                            <h2 className="text-2xl font-inter font-bold text-[#1A1210] mb-8 tracking-tighter">Reserve Experience</h2>
+                            <h2 className="text-2xl font-inter font-bold text-foreground mb-8 tracking-tighter">Reserve Experience</h2>
                             <BookingWidget tour={tour} />
                         </div>
                     </div>
@@ -111,7 +111,7 @@ export default async function TourPage({ params }: PageProps) {
                                             <div className="w-10 h-10 rounded-full bg-olive/5 flex items-center justify-center group-hover:bg-olive group-hover:text-white transition-all">
                                                 <Check className="w-5 h-5" />
                                             </div>
-                                            <span className="text-[#1A1210] font-bold text-sm leading-tight tracking-tight">{feature}</span>
+                                            <span className="text-foreground font-bold text-sm leading-tight tracking-tight">{feature}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -124,7 +124,7 @@ export default async function TourPage({ params }: PageProps) {
                                 <div className="w-12 h-px bg-olive/20" />
                                 <h2 className="text-sm uppercase font-black tracking-[0.4em] text-olive m-0">The Story</h2>
                             </div>
-                            <div className="font-inter text-[#1A1210]/80 leading-[1.8] text-lg">
+                            <div className="font-inter text-foreground/80 leading-[1.8] text-lg">
                                 {typeof tour.description === 'string' ? (
                                     <p>{tour.description}</p>
                                 ) : (
@@ -142,10 +142,10 @@ export default async function TourPage({ params }: PageProps) {
                                 </div>
                                 <div className="flex flex-row overflow-x-auto gap-8 pb-8 no-scrollbar snap-x">
                                     {tour.itinerary.map((stop, index) => (
-                                        <div key={index} className="min-w-[300px] flex-shrink-0 bg-white p-10 rounded-[3rem] border border-olive/5 snap-center shadow-sm hover:shadow-xl transition-all">
-                                            <span className="text-[10px] font-black text-olive uppercase tracking-[0.3em] mb-4 block">Stop {index + 1}</span>
-                                            <h3 className="text-xl font-bold text-[#1A1210] mb-4 tracking-tight leading-tight">{stop.title}</h3>
-                                            <div className="flex items-center gap-2 text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-4">
+                                        <div key={index} className="min-w-[304px] flex-shrink-0 bg-white p-10 rounded-[3rem] border border-olive/5 snap-center shadow-sm hover:shadow-xl transition-all">
+                                            <span className="text-[8px] font-black text-olive uppercase tracking-[0.3em] mb-4 block">Stop {index + 1}</span>
+                                            <h3 className="text-xl font-bold text-foreground mb-4 tracking-tight leading-tight">{stop.title}</h3>
+                                            <div className="flex items-center gap-2 text-gray-400 text-[8px] font-bold uppercase tracking-widest mb-4">
                                                 <Clock size={12} /> {stop.duration}
                                             </div>
                                             <p className="text-sm text-gray-500 leading-relaxed">{stop.description}</p>
@@ -158,7 +158,7 @@ export default async function TourPage({ params }: PageProps) {
                         {/* Inclusions / Practical Info */}
                         <div className="grid md:grid-cols-2 gap-12">
                             <section className="bg-white p-10 rounded-[3rem] border border-olive/5 shadow-sm">
-                                <h3 className="text-lg font-bold text-[#1A1210] mb-6 flex items-center tracking-tight">
+                                <h3 className="text-lg font-bold text-foreground mb-6 flex items-center tracking-tight">
                                     <CheckCircle className="w-5 h-5 text-olive mr-3" /> Essentials
                                 </h3>
                                 <ul className="space-y-4">
@@ -171,7 +171,7 @@ export default async function TourPage({ params }: PageProps) {
                                 </ul>
                             </section>
 
-                            <section className="bg-[#1A1210] p-10 rounded-[3rem] shadow-xl text-white">
+                            <section className="bg-card p-10 rounded-[3rem] shadow-xl text-white">
                                 <h3 className="text-lg font-bold text-white mb-6 flex items-center tracking-tight">
                                     <MapPin className="w-5 h-5 text-olive mr-3" /> Rendezvous
                                 </h3>
@@ -180,7 +180,7 @@ export default async function TourPage({ params }: PageProps) {
                                     href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(tour.meetingPoint + ' Rome')}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 text-olive font-black text-[10px] uppercase tracking-[0.3em] hover:tracking-[0.4em] transition-all"
+                                    className="inline-flex items-center gap-2 text-olive font-black text-[8px] uppercase tracking-[0.3em] hover:tracking-[0.4em] transition-all"
                                 >
                                     Open Maps <ArrowRight size={14} />
                                 </a>

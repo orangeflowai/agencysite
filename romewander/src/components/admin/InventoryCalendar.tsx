@@ -149,7 +149,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                     return (
                         <div
                             key={day.toString()}
-                            className={`min-h-[140px] bg-white p-2 relative group flex flex-col gap-1 transition-colors
+                            className={`min-h-[144px] bg-white p-2 relative group flex flex-col gap-1 transition-colors
                                 ${!isCurrentMonth ? 'bg-gray-50/50 text-gray-400' : ''}
                                 ${isToday ? 'bg-background/30' : ''}
                             `}
@@ -179,7 +179,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                                         <button
                                             key={tour._id}
                                             onClick={() => handleProductClick(tour, dateStr)}
-                                            className={`w-full text-left px-2 py-1.5 rounded text-[10px] font-medium border flex items-center justify-between gap-2 transition-all hover:scale-[1.02]
+                                            className={`w-full text-left px-2 py-1.5 rounded text-[8px] font-medium border flex items-center justify-between gap-2 transition-all hover:scale-[1.02]
                                                 ${!hasSlots
                                                     ? 'bg-gray-50 border-transparent text-gray-400 hover:bg-gray-100 hover:border-gray-200'
                                                     : isSoldOut

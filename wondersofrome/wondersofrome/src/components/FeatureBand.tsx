@@ -56,7 +56,7 @@ export default function FeatureBand() {
               <h3 className="text-sm font-bold text-primary  tracking-wide leading-tight">
                 {f.title}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed font-normal max-w-[220px]">
+              <p className="text-sm text-muted-foreground leading-relaxed font-normal max-w-[224px]">
                 {f.text}
               </p>
             </div>

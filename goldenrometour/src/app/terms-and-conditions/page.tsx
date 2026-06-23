@@ -19,7 +19,7 @@ export default function TermsAndConditions() {
                 <p className="text-center text-muted-foreground mb-12  text-sm">Last Updated: February 20, 2026</p>
 
                 <div className="prose prose-lg prose-emerald text-muted-foreground max-w-none space-y-8">
-                    <p className="lead text-xl text-gray-800 font-medium">
+                    <p className="lead text-xl text-black font-medium">
                         Please read these Terms and Conditions carefully before booking any services with {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}. By making a booking and payment, you agree to be bound by these terms. Contact us first if anything is unclear.
                     </p>
 

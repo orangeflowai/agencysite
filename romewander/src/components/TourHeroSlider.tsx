@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import { urlFor } from '@/lib/dataAdapter';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -59,13 +58,13 @@ export default function TourHeroSlider({
 
     return (
         <section className="relative h-[60vh] md:h-[70vh] w-full bg-black overflow-hidden group">
-            <AnimatePresence mode='wait'>
-                <motion.div
+            
+                <div
                     key={currentIndex}
-                    initial={{ opacity: 0, scale: 1.1 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1.2 }}
+                    }
+                    }
+                    }
+                    }
                     className="absolute inset-0"
                 >
                     <Image
@@ -77,8 +76,8 @@ export default function TourHeroSlider({
                     />
                     {/* Gradient Overlay for Text Readability */}
                     <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
-                </motion.div>
-            </AnimatePresence>
+                </div>
+            
 
             {/* Navigation Arrows */}
             {validImages.length > 1 && (

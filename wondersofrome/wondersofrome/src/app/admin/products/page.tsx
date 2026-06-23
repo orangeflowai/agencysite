@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Plus, Search, Edit, Eye, Trash2, Globe, Clock, Loader2 } from 'lucide-react';
+import { Plus, Search, Edit, Eye, Globe, Clock, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { useAdmin } from '@/context/AdminContext';
 import { urlFor } from '@/sanity/lib/image';
@@ -22,7 +22,6 @@ export default function AdminProductsPage() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [formData, setFormData] = useState<any>({});
     const [saving, setSaving] = useState(false);
-    const [imageFile, setImageFile] = useState<File | null>(null);
 
     useEffect(() => {
         if (!selectedSiteId) return;
@@ -73,7 +72,6 @@ export default function AdminProductsPage() {
             meetingPoint: tour.meetingPoint || '',
         });
         setActiveTab('general');
-        setImageFile(null);
     };
 
     const router = useRouter();
@@ -109,25 +107,13 @@ export default function AdminProductsPage() {
             data.append('excludes', formData.excludes || '');
             data.append('importantInfo', formData.importantInfo || '');
 
-            if (imageFile) {
-                data.append('image', imageFile);
-            }
-
             const result = await updateTour(data);
 
             if (result.success) {
                 alert("Tour updated successfully!");
                 setEditingTour(null);
                 setFormData({});
-                setImageFile(null);
-                // Refresh local data
-
-                // Optimized: Update local state instead of full reload if possible? 
-                // For now, full reload or just re-fetch is safer to see Server Side changes.
-                // We will trigger a re-fetch by flipping a toggle or calling router.refresh()
                 router.refresh();
-
-                // Also trigger our local loadTours check
                 const { getTours } = await import('@/lib/sanityService');
                 const newData = await getTours(selectedSiteId);
                 setTours(newData);
@@ -259,18 +245,18 @@ export default function AdminProductsPage() {
 
             {/* Edit Modal */}
             {editingTour && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-card rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh]">
-                        <div className="p-6 border-b border-border flex justify-between items-center bg-card sticky top-0 z-10">
-                            <h3 className="font-bold text-lg">Edit Tour: {editingTour.title}</h3>
-                            <button onClick={() => setEditingTour(null)} className="text-muted-foreground hover:text-muted-foreground">
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[99999] p-4">
+                    <div className="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh] border border-zinc-200 dark:border-zinc-700">
+                        <div className="p-6 border-b border-zinc-200 dark:border-zinc-700 flex justify-between items-center bg-white dark:bg-zinc-900 sticky top-0 z-10">
+                            <h3 className="font-bold text-lg text-zinc-900 dark:text-white">Edit Tour: {editingTour.title}</h3>
+                            <button onClick={() => setEditingTour(null)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200">
                                 <span className="sr-only">Close</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </button>
                         </div>
 
                         {/* Tabs */}
-                        <div className="flex border-b border-border px-6 overflow-x-auto">
+                        <div className="flex border-b border-zinc-200 dark:border-zinc-700 px-6 overflow-x-auto bg-white dark:bg-zinc-900">
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('general')}
@@ -301,7 +287,7 @@ export default function AdminProductsPage() {
                             </button>
                         </div>
 
-                        <form id="edit-tour-form" onSubmit={handleSave} className="overflow-y-auto p-6 space-y-6">
+                        <form id="edit-tour-form" onSubmit={handleSave} className="overflow-y-auto p-6 space-y-6 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
 
                             {activeTab === 'general' && (
                                 <div className="space-y-4">
@@ -353,21 +339,24 @@ export default function AdminProductsPage() {
                                                 className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-emerald-500 font-medium"
                                             >
                                                 <option value="">Select Category</option>
-                                                <option value="Colosseum Tours">Colosseum Tours</option>
-                                                <option value="Vatican Tours">Vatican Tours</option>
-                                                <option value="Rome City Tours">Rome City Tours</option>
-                                                <option value="Hidden Gems">Hidden Gems</option>
+                                                <option value="colosseum">Colosseum Tours</option>
+                                                <option value="vatican">Vatican Tours</option>
+                                                <option value="city">Rome City Tours</option>
+                                                <option value="hidden-gems">Hidden Gems</option>
                                             </select>
                                         </div>
                                         <div>
                                             <label className="block text-xs font-bold text-muted-foreground  mb-1">Badge</label>
-                                            <input
-                                                type="text"
+                                            <select
                                                 value={formData.badge}
                                                 onChange={e => setFormData({ ...formData, badge: e.target.value })}
-                                                placeholder="e.g. Bestseller"
                                                 className="w-full p-3 bg-muted border border-border rounded-xl outline-none focus:border-emerald-500 font-medium"
-                                            />
+                                            >
+                                                <option value="">No Badge</option>
+                                                <option value="Bestseller">Bestseller</option>
+                                                <option value="Likely to Sell Out">Likely to Sell Out</option>
+                                                <option value="Skip the Line">Skip the Line</option>
+                                            </select>
                                         </div>
                                         <div>
                                             <label className="block text-xs font-bold text-muted-foreground  mb-1">Rating</label>
@@ -392,66 +381,20 @@ export default function AdminProductsPage() {
                                     </div>
 
                                     {/* Image Upload UI */}
-                                    <div className="bg-muted p-4 rounded-xl border border-border">
-                                        <label className="block text-xs font-bold text-muted-foreground  mb-2">Main Image</label>
-                                        <div className="flex items-center gap-4">
-                                            {/* Preview current image if available */}
-                                            {editingTour.mainImage && (
-                                                <div className="w-20 h-20 rounded-lg bg-gray-200 overflow-hidden shrink-0">
-                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img
-                                                        src={urlFor(editingTour.mainImage).width(200).url()}
-                                                        alt="Current"
-                                                        className="w-full h-full object-cover"
-                                                    />
-                                                </div>
-                                            )}
-
-                                            <div className="flex-1">
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-                                                    className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-secondary file:text-emerald-700 hover:file:bg-emerald-100 text-sm text-muted-foreground"
-                                                />
-                                            </div>
+                                    <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl text-sm text-blue-700 flex items-start gap-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                                        <div>
+                                            <p className="font-semibold">Images are managed in Sanity Studio</p>
+                                            <p className="text-xs mt-0.5 text-blue-600">To change the main image or gallery, open the tour in Sanity Studio using the link below.</p>
+                                            <a
+                                                href={`/studio/structure/tour;${editingTour._id}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-1.5 mt-2 text-xs font-bold text-blue-700 hover:underline"
+                                            >
+                                                Open in Sanity Studio →
+                                            </a>
                                         </div>
-                                        <p className="text-xs text-muted-foreground mt-2">Upload a new image to replace the current one.</p>
-                                    </div>
-
-                                    {/* Gallery UI */}
-                                    <div className="bg-muted p-4 rounded-xl border border-border">
-                                        <label className="block text-xs font-bold text-muted-foreground  mb-2">Image Gallery</label>
-
-                                        {/* Existing Gallery Grid */}
-                                        {editingTour.gallery && editingTour.gallery.length > 0 && (
-                                            <div className="grid grid-cols-4 gap-2 mb-4">
-                                                {editingTour.gallery.map((img: any, idx: number) => (
-                                                    <div key={idx} className="aspect-square rounded-lg bg-gray-200 overflow-hidden relative group">
-                                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                        <img
-                                                            src={urlFor(img).width(200).url()}
-                                                            alt={`Gallery ${idx}`}
-                                                            className="w-full h-full object-cover"
-                                                        />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-
-                                        <div className="flex-1">
-                                            <input
-                                                type="file"
-                                                multiple
-                                                accept="image/*"
-                                                // We need to handle this in state properly if we want preview, 
-                                                // but for direct upload to Server Action we can just capture the files in the form submit via name="gallery"
-                                                // However checking e.target.files is better for React Control
-                                                name="gallery"
-                                                className="file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 text-sm text-muted-foreground w-full"
-                                            />
-                                        </div>
-                                        <p className="text-xs text-muted-foreground mt-2">Select multiple images to append to the gallery.</p>
                                     </div>
 
                                     {/* Marketing Tags */}
@@ -619,12 +562,12 @@ export default function AdminProductsPage() {
                             )}
                         </form>
 
-                        <div className="p-6 border-t border-border bg-muted">
+                        <div className="p-6 border-t border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 shrink-0">
                             <div className="flex gap-3">
                                 <button
                                     type="button"
                                     onClick={() => setEditingTour(null)}
-                                    className="flex-1 py-3 font-bold text-muted-foreground bg-card border border-border hover:bg-muted rounded-xl transition-colors"
+                                    className="flex-1 py-3 font-bold text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-600 rounded-xl transition-colors"
                                 >
                                     Cancel
                                 </button>

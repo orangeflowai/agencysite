@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Star, ExternalLink } from 'lucide-react';
 
 // Real Google reviews for Wonders of Rome
@@ -77,7 +78,7 @@ export default function FloatingReviews() {
         </div>
         <div className="hidden sm:block w-px h-16 bg-background/20" />
         <div className="flex items-center gap-3">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-8 h-8" />
+          <Image src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width={32} height={32} className="w-8 h-8" />
           <div>
             <p className="text-background font-bold text-sm">Google Reviews</p>
             <p className="text-background/60 text-xs">Verified customer feedback</p>
@@ -100,10 +101,10 @@ export default function FloatingReviews() {
                 </div>
                 <div>
                   <p className="text-background font-bold text-sm">{review.name}</p>
-                  <p className="text-background/50 text-[10px]  tracking-widest">{review.date}</p>
+                  <p className="text-background/50 text-[8px]  tracking-widest">{review.date}</p>
                 </div>
               </div>
-              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" className="w-5 h-5 opacity-50" />
+              <Image src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width={20} height={20} className="w-5 h-5 opacity-50" />
             </div>
 
             {/* Stars */}
@@ -117,7 +118,7 @@ export default function FloatingReviews() {
             </p>
 
             {/* Tour tag */}
-            <span className="text-[10px] font-bold  tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
+            <span className="text-[8px] font-bold  tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
               {review.tour}
             </span>
           </div>

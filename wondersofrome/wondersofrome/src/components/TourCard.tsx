@@ -3,19 +3,20 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Clock, Star, MapPin, Users, Heart, Tag } from 'lucide-react';
+import { Clock, Star, MapPin, Users, Heart, Tag, ArrowRight } from 'lucide-react';
 import { urlFor } from '@/lib/dataAdapter';
 import type { Tour } from '@/lib/dataAdapter';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface TourCardProps {
   tour: Tour;
+  nextAvailable?: string | null; // YYYY-MM-DD from /api/next-available
 }
 
 const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
 const FALLBACK_IMAGE = `${R2_BASE}/pexels-alex-250137-757239.jpg`;
 
-export default function TourCard({ tour }: TourCardProps) {
+export default function TourCard({ tour, nextAvailable }: TourCardProps) {
   const [imgError, setImgError] = useState(false);
   const { translateTour, t } = useLanguage();
   
@@ -49,7 +50,7 @@ export default function TourCard({ tour }: TourCardProps) {
   return (
     <Link
       href={`/tour/${translatedTour.slug?.current || '#'}`}
-      className="group relative bg-card flex flex-col h-full rounded-[var(--radius)] overflow-hidden border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl min-h-[440px] lg:min-h-[500px] font-sans"
+      className="group relative bg-card flex flex-col h-full rounded-[var(--radius)] overflow-hidden border border-border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl min-h-[440px] lg:min-h-[496px] font-sans"
     >
       {/* Image */}
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -69,14 +70,14 @@ export default function TourCard({ tour }: TourCardProps) {
         </div>
 
         {/* Top badge */}
-        <div className="absolute top-3 left-3 bg-primary text-white text-[9px] font-bold px-2 py-1 tracking-[0.2em] rounded-sm shadow-md border border-white/20">
+        <div className="absolute top-3 left-3 bg-primary text-white text-[8px] font-bold px-2 py-1 tracking-[0.2em] rounded-sm shadow-md border border-white/20">
           {topBadgeText}
         </div>
       </div>
 
       {/* Middle bar */}
       <div className="w-full py-1.5 bg-foreground text-center relative z-10 -mt-1 group-hover:bg-primary transition-colors">
-        <span className="text-background text-[9px] font-bold tracking-[0.3em]">
+        <span className="text-background text-[8px] font-bold tracking-[0.3em]">
           {middleBarText}
         </span>
       </div>
@@ -94,7 +95,7 @@ export default function TourCard({ tour }: TourCardProps) {
           <span className="line-clamp-1">{translatedTour.location || 'Rome, Italy'}</span>
         </div>
 
-        <div className="flex items-center space-x-3 text-[10px] font-bold tracking-widest text-muted-foreground">
+        <div className="flex items-center space-x-3 text-[8px] font-bold tracking-widest text-muted-foreground">
           <div className="flex items-center bg-background px-2.5 py-1.5 rounded-sm border border-border group-hover:border-primary/30 transition-colors">
             <Users size={14} className="mr-1.5 text-primary" />
             <span>{translatedTour.groupSize || '25'}</span>
@@ -111,20 +112,35 @@ export default function TourCard({ tour }: TourCardProps) {
             <Star size={12} className="fill-primary text-primary" />
             <span className="text-xs font-bold text-foreground">{translatedTour.rating || '5.0'}</span>
           </div>
-          <span className="text-[9px] text-muted-foreground font-bold tracking-widest opacity-60">
+          <span className="text-[8px] text-muted-foreground font-bold tracking-widest opacity-60">
             {translatedTour.reviewCount || 120} {t('tour.reviews')}
           </span>
         </div>
+
+        {/* Next available date */}
+        {nextAvailable !== undefined && (
+          <div className={`mt-3 flex items-center gap-1.5 text-[9px] font-bold tracking-wider rounded-lg px-2 py-1.5 w-fit ${
+            nextAvailable
+              ? 'bg-emerald-50 text-emerald-700 border border-emerald-100'
+              : 'bg-muted text-muted-foreground border border-border'
+          }`}>
+            <span className={`w-1.5 h-1.5 rounded-full ${nextAvailable ? 'bg-emerald-500' : 'bg-muted-foreground/40'}`} />
+            {nextAvailable
+              ? `Next: ${new Date(nextAvailable + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}`
+              : 'Contact us for dates'
+            }
+          </div>
+        )}
       </div>
 
       {/* Footer: Price & Book */}
-      <div className="flex h-16 mt-auto border-t border-border">
-        <div className="w-[60%] bg-card text-foreground flex flex-col justify-center px-6 relative overflow-hidden group-hover:bg-primary group-hover:text-white transition-colors">
-          <span className="text-[8px] opacity-80 font-bold tracking-widest mb-0.5 uppercase">{t('tour.from')}</span>
-          <span className="text-2xl font-serif font-bold tracking-tighter">€{displayPrice}</span>
+      <div className="flex h-20 mt-auto border-t border-border overflow-hidden">
+        <div className="w-[55%] bg-card text-foreground flex flex-col justify-center px-6 relative overflow-hidden group-hover:bg-primary/5 transition-colors">
+          <span className="text-[9px] text-muted-foreground font-bold tracking-[0.2em] mb-0.5 uppercase">{t('tour.from')}</span>
+          <span className="text-3xl font-serif font-bold tracking-tighter text-foreground group-hover:text-primary transition-colors">€{displayPrice}</span>
         </div>
-        <div className="w-[40%] bg-primary text-white flex items-center justify-center font-bold text-[10px] tracking-[0.2em] hover:brightness-110 group-hover:bg-accent group-hover:text-foreground transition-all cursor-pointer text-center px-4 leading-tight">
-          {t('tour.book_now').toUpperCase()}
+        <div className="w-[45%] bg-primary text-white flex items-center justify-center font-bold text-[10px] tracking-[0.2em] hover:bg-foreground group-hover:bg-primary transition-all cursor-pointer text-center px-4 leading-tight uppercase shadow-[inset_10px_0_20px_rgba(0,0,0,0.1)]">
+          {t('tour.book_now')} <ArrowRight size={14} className="ml-2" />
         </div>
       </div>
     </Link>

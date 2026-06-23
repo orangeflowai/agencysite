@@ -46,7 +46,7 @@ export default function CartDropdown() {
       >
         <ShoppingBag className="w-5 h-5 transition-transform group-hover:scale-110" />
         {totalItems > 0 && (
-          <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-gradient-to-br from-emerald-400 to-emerald-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center px-1 shadow-lg shadow-emerald-500/40 animate-pulse-gold">
+          <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-[16px] bg-gradient-to-br from-emerald-400 to-emerald-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 shadow-lg shadow-emerald-500/40 animate-pulse-gold">
             {totalItems}
           </span>
         )}
@@ -54,12 +54,12 @@ export default function CartDropdown() {
 
       {/* Backdrop */}
       {isCartOpen && (
-        <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px]" onClick={() => setIsCartOpen(false)} />
+        <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[0px]" onClick={() => setIsCartOpen(false)} />
       )}
 
       {/* Dropdown panel */}
       {isCartOpen && (
-        <div className="absolute right-0 top-full mt-3 w-[420px] z-50 rounded-2xl overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.18)] border border-white/60 animate-fade-up">
+        <div className="absolute right-0 top-full mt-3 w-[416px] z-50 rounded-2xl overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.18)] border border-white/60 animate-fade-up">
 
           {/* Header — emerald gradient */}
           <div className="relative bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 px-5 py-4 flex items-center justify-between overflow-hidden">
@@ -102,7 +102,7 @@ export default function CartDropdown() {
             ) : (
               <>
                 {/* Items list */}
-                <div className="max-h-[340px] overflow-y-auto divide-y divide-slate-100">
+                <div className="max-h-[336px] overflow-y-auto divide-y divide-slate-100">
                   {items.map((item) => (
                     <div key={item.id} className="px-5 py-4 hover:bg-slate-50/60 transition-colors group">
                       <div className="flex gap-3">

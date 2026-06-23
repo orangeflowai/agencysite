@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Map, Ticket, Plane } from 'lucide-react';
 
 const steps = [
@@ -26,7 +25,7 @@ export default function Steps() {
         <section className="py-24 md:py-32 bg-background relative overflow-hidden border-b border-primary/10">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-16 md:mb-20 max-w-2xl mx-auto">
-                    <p className="text-[10px] font-heading font-bold uppercase tracking-tight text-primary mb-4">✦ Operational Protocol ✦</p>
+                    <p className="text-[8px] font-heading font-bold uppercase tracking-tight text-primary mb-4">✦ Operational Protocol ✦</p>
                     <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tighter text-secondary uppercase">
                         Your Sacred Journey <br /> in <span className="font-vibes text-primary lowercase">3 Easy Steps.</span>
                     </h2>
@@ -37,12 +36,12 @@ export default function Steps() {
                     <div className="hidden md:block absolute top-1/4 left-[10%] right-[10%] h-px bg-primary/20 -z-0"></div>
 
                     {steps.map((step, i) => (
-                        <motion.div
+                        <div
                             key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            }
+                            }
                             viewport={{ once: true }}
-                            transition={{ delay: i * 0.2 }}
+                            }
                             className="flex flex-col items-center text-center space-y-8 relative z-10"
                         >
                             <div className="w-24 h-24 rounded-full bg-background flex items-center justify-center text-primary border border-primary/10 shadow-xl group hover:bg-primary hover:text-white transition-all duration-500">
@@ -57,7 +56,7 @@ export default function Steps() {
                                     {step.desc}
                                 </p>
                             </div>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -1,7 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { useRef, useEffect, ReactNode } from 'react';
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -18,57 +17,80 @@ export default function AnimatedSection({
   id,
   type = 'slide-up',
 }: AnimatedSectionProps) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const isFade = type === 'fade';
+    el.style.opacity = '0';
+    el.style.transform = isFade ? 'none' : 'translateY(30px)';
+    el.style. = `opacity 0.8s cubic-bezier(0.25,0.1,0.25,1) ${delay}s${isFade ? '' : `, transform 0.8s cubic-bezier(0.25,0.1,0.25,1) ${delay}s`}`;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '-50px' }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay, type]);
+
+  // split-text variant
   if (type === 'split-text' && typeof children === 'string') {
-    const words = children.split(' ');
-    
+    const words = (children as string).split(' ');
     return (
       <div id={id} className={`flex flex-wrap ${className}`}>
         {words.map((word, i) => (
-          <div key={i} className="overflow-hidden mr-[0.25em]">
-            <motion.span
-              initial={{ y: '100%' }}
-              whileInView={{ y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.8,
-                delay: delay + (i * 0.05),
-                ease: [0.33, 1, 0.68, 1],
-              }}
-              className="inline-block"
-            >
-              {word}
-            </motion.span>
-          </div>
+          <SplitWord key={i} word={word} delay={delay + i * 0.05} />
         ))}
       </div>
     );
   }
 
-  const variants = {
-    fade: {
-      initial: { opacity: 0 },
-      animate: { opacity: 1 },
-    },
-    'slide-up': {
-      initial: { opacity: 0, y: 30 },
-      animate: { opacity: 1, y: 0 },
-    },
-  };
+  return (
+    <div ref={ref} id={id} className={className}>
+      {children}
+    </div>
+  );
+}
+
+function SplitWord({ word, delay }: { word: string; delay: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transform = 'translateY(100%)';
+    el.style. = `transform 0.8s cubic-bezier(0.33,1,0.68,1) ${delay}s`;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            el.style.transform = 'translateY(0)';
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay]);
 
   return (
-    <motion.div
-      id={id}
-      initial={variants[type === 'fade' ? 'fade' : 'slide-up'].initial}
-      whileInView={variants[type === 'fade' ? 'fade' : 'slide-up'].animate}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{
-        duration: 0.8,
-        delay,
-        ease: [0.25, 0.1, 0.25, 1],
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <div className="overflow-hidden mr-[0.25em]">
+      <span ref={ref} className="inline-block will-change-transform">{word}</span>
+    </div>
   );
 }

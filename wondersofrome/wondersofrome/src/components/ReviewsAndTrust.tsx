@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Shield, Award, CheckCircle, Clock, ThumbsUp } from 'lucide-react';
 import {
   TestimonialsColumn,
@@ -25,11 +24,7 @@ export default function ReviewsAndTrust() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
+        <div
           className="flex flex-col items-center text-center max-w-xl mx-auto mb-12"
         >
           <span className="inline-block border border-border text-muted-foreground text-xs font-semibold  tracking-widest px-4 py-1.5 rounded-full mb-4">
@@ -55,7 +50,7 @@ export default function ReviewsAndTrust() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Testimonial columns — fade mask top/bottom */}
         <div className="flex justify-center gap-5 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] max-h-[680px] overflow-hidden">

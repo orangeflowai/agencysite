@@ -38,7 +38,7 @@ export default function RomeGallery() {
     cards.forEach((card, i) => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(40px)';
-      card.style. = `opacity 0.8s ease ${i * 0.1}s, transform 0.8s ease ${i * 0.1}s`;
+      card.style.transition = `opacity 0.8s ease ${i * 0.1}s, transform 0.8s ease ${i * 0.1}s`;
       observer.observe(card);
     });
 

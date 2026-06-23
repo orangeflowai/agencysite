@@ -64,7 +64,7 @@ export default function TourCard({ tour }: TourCardProps) {
                     {/* Category Badge */}
                     <div className="absolute top-6 left-6 z-10">
                         <span
-                            className="px-4 py-2 text-[9px] uppercase tracking-[0.25em] font-black text-white rounded-full"
+                            className="px-4 py-2 text-[8px] uppercase tracking-[0.25em] font-black text-white rounded-full"
                             style={{
                                 background: 'rgba(26,18,16,0.75)',
                                 backdropFilter: 'blur(12px)',
@@ -108,8 +108,8 @@ export default function TourCard({ tour }: TourCardProps) {
                                 boxShadow: '0 12px 24px rgba(201,168,76,0.3)',
                             }}
                         >
-                            <span className="font-inter text-[8px] uppercase tracking-wider block leading-none text-[#1A1210]/60 mb-0.5">From</span>
-                            <span className="font-inter font-bold text-xl leading-tight italic text-[#1A1210]">€{tour.price}</span>
+                            <span className="font-inter text-[8px] uppercase tracking-wider block leading-none text-foreground/60 mb-0.5">From</span>
+                            <span className="font-inter font-bold text-xl leading-tight italic text-foreground">€{tour.price}</span>
                         </div>
                     </div>
                 </div>
@@ -118,26 +118,26 @@ export default function TourCard({ tour }: TourCardProps) {
                 <div className="p-8 flex flex-col grow">
                     {/* Rating & Duration */}
                     <div className="flex items-center gap-5 mb-4">
-                        <div className="flex items-center gap-1.5 text-[#C9A84C]">
+                        <div className="flex items-center gap-1.5 text-foreground">
                             <Star size={14} fill="currentColor" />
-                            <span className="font-inter text-xs font-bold text-[#1A1210]">4.9</span>
+                            <span className="font-inter text-xs font-bold text-foreground">4.9</span>
                         </div>
                         <div className="flex items-center gap-2 text-black/40">
                             <Clock size={14} />
-                            <span className="font-inter text-[10px] uppercase tracking-[0.15em] font-bold">{tour.duration || '3h'}</span>
+                            <span className="font-inter text-[8px] uppercase tracking-[0.15em] font-bold">{tour.duration || '3h'}</span>
                         </div>
                     </div>
 
-                    <h3 className="font-inter text-2xl font-bold leading-tight mb-5 text-[#1A1210] group-hover:text-[#C9A84C] transition-colors duration-300 line-clamp-2 tracking-tighter">
+                    <h3 className="font-inter text-2xl font-bold leading-tight mb-5 text-foreground group-hover:text-foreground transition-colors duration-300 line-clamp-2 tracking-tighter">
                         {tour.title}
                     </h3>
 
                     {/* Features */}
                     <div className="space-y-3 mb-8">
                         {['Skip the Line Entrance', 'Expert Local Guide'].map((feat) => (
-                            <div key={feat} className="flex items-center gap-3 text-[#6B5C45]/80">
-                                <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0" />
-                                <span className="font-inter text-[10px] uppercase tracking-widest font-medium">{feat}</span>
+                            <div key={feat} className="flex items-center gap-3 text-foreground/80">
+                                <div className="w-1.5 h-1.5 rounded-full bg-card shrink-0" />
+                                <span className="font-inter text-[8px] uppercase tracking-widest font-medium">{feat}</span>
                             </div>
                         ))}
                     </div>
@@ -147,7 +147,7 @@ export default function TourCard({ tour }: TourCardProps) {
                         className="mt-auto pt-6 flex items-center justify-between"
                         style={{ borderTop: '1px solid rgba(26,18,16,0.05)' }}
                     >
-                        <span className="font-inter text-[11px] uppercase tracking-[0.25em] font-black text-[#C9A84C] group-hover:text-[#A07830] transition-colors">
+                        <span className="font-inter text-[12px] uppercase tracking-[0.25em] font-black text-foreground group-hover:text-foreground transition-colors">
                             Book Experience
                         </span>
                         <div

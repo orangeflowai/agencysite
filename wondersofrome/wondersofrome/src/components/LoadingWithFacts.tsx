@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const romeFacts = [
   'The Colosseum could hold up to 50,000 spectators',
@@ -30,7 +29,7 @@ export default function LoadingWithFacts() {
   const [fact, setFact] = useState('');
 
   useEffect(() => {
-    // Set initial random fact
+    // Set  random fact
     setFact(romeFacts[Math.floor(Math.random() * romeFacts.length)]);
 
     // Change fact every 4 seconds
@@ -44,26 +43,20 @@ export default function LoadingWithFacts() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[200px] p-8">
       {/* Animated spinner */}
-      <motion.div
+      <div
         className="w-16 h-16 border-4 border-border border-t-sky-600 rounded-full mb-6"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
       />
 
       {/* Fact display */}
-      <AnimatePresence mode="wait">
-        <motion.div
+      
+        <div
           key={fact}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.5 }}
           className="text-center max-w-md"
         >
           <p className="text-sm text-muted-foreground mb-2">Did you know?</p>
           <p className="text-base text-gray-800 font-medium">{fact}</p>
-        </motion.div>
-      </AnimatePresence>
+        </div>
+      
     </div>
   );
 }

@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { tours } from '@/lib/toursData';
@@ -52,7 +53,7 @@ export async function GET() {
 
             // Batch insert for this tour
             const { error } = await supabaseAdmin
-                .from('inventory')
+                .from('tour_slots')
                 .upsert(rows, { onConflict: 'tour_slug, date, time' });
 
             if (error) {

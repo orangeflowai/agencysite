@@ -76,19 +76,19 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
                     <div className="flex flex-col items-center -mt-0.5">
                         {data.spots > 0 ? (
                             <>
-                                <span className={`text-[10px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
+                                <span className={`text-[8px] font-bold ${textClass}`}>€{data.price || basePrice}</span>
                                 {data.spots < 10 && (
-                                    <span className={`text-[9px] font-extrabold px-1 rounded-sm mt-0.5 ${badgeClass}`}>
+                                    <span className={`text-[8px] font-extrabold px-1 rounded-sm mt-0.5 ${badgeClass}`}>
                                         {data.spots} left
                                     </span>
                                 )}
                             </>
                         ) : (
-                            <span className="text-[9px] font-bold text-destructive tracking-tighter">Sold out</span>
+                            <span className="text-[8px] font-bold text-destructive tracking-tighter">Sold out</span>
                         )}
                     </div>
                 ) : (
-                    <span className="text-[10px] text-muted-foreground font-medium">-</span>
+                    <span className="text-[8px] text-muted-foreground font-medium">-</span>
                 )}
             </div>
         );
@@ -126,9 +126,9 @@ export default function SmartCalendar({ slug, selectedDate, onSelect, basePrice 
             />
             {/* Legend */}
             <div className="flex items-center gap-3 mt-3 pt-3 border-t border-border justify-center">
-                <span className="flex items-center gap-1 text-[10px] font-bold text-foreground"><span className="w-2.5 h-2.5 rounded-sm bg-muted inline-block" />Available</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold text-accent"><span className="w-2.5 h-2.5 rounded-sm bg-accent/10 inline-block" />Limited</span>
-                <span className="flex items-center gap-1 text-[10px] font-bold text-destructive"><span className="w-2.5 h-2.5 rounded-sm bg-destructive/10 inline-block" />Sold out</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold text-foreground"><span className="w-2.5 h-2.5 rounded-sm bg-muted inline-block" />Available</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold text-accent"><span className="w-2.5 h-2.5 rounded-sm bg-accent/10 inline-block" />Limited</span>
+                <span className="flex items-center gap-1 text-[8px] font-bold text-destructive"><span className="w-2.5 h-2.5 rounded-sm bg-destructive/10 inline-block" />Sold out</span>
             </div>
             <style jsx global>{`
                 .rdp { --rdp-cell-size: 58px; --rdp-accent-color: var(--accent); margin: 0; }

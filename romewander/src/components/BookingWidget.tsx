@@ -177,7 +177,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     setCounts(prev => ({ ...prev, [name]: (prev[name] || 0) + 1 }));
                 }}
                 disabled={isFinite(maxSelectable) && Object.values(counts || {}).reduce((s, c) => s + (c || 0), 0) >= maxSelectable}
-                className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center text-[#C9A84C] hover:bg-[#C9A84C]/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95"
+                className="w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center text-foreground hover:bg-card/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95"
             >
                 <Plus size={14} />
             </button>
@@ -190,19 +190,19 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                 <div className="bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-gray-100 overflow-hidden">
 
                     {/* Header */}
-                    <div className="px-6 pt-6 pb-4 bg-[#1A1210]">
+                    <div className="px-6 pt-6 pb-4 bg-card">
                         <div className="flex items-center justify-between mb-3">
-                            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#C9A84C]">✦ Secure Booking ✦</span>
+                            <span className="text-[8px] font-black uppercase tracking-[0.25em] text-foreground">✦ Secure Booking ✦</span>
                             <div className="flex -space-x-1.5">
                                 {[1, 2, 3].map(i => (
-                                    <div key={i} className="w-5 h-5 rounded-full border-2 border-[#1A1210] overflow-hidden">
+                                    <div key={i} className="w-5 h-5 rounded-full border-2 border-border overflow-hidden">
                                         <Image src={`https://i.pravatar.cc/100?img=${i + 10}`} width={20} height={20} alt="Guest" />
                                     </div>
                                 ))}
                             </div>
                         </div>
                         <h3 className="text-xl font-inter font-bold text-white">Book Your Experience</h3>
-                        <p className="text-[#C9A84C]/80 text-xs mt-1">From <span className="text-[#C9A84C] font-black text-lg">€{tour.price}</span> per person</p>
+                        <p className="text-foreground/80 text-xs mt-1">From <span className="text-foreground font-black text-lg">€{tour.price}</span> per person</p>
                     </div>
 
                     {/* Date Selection */}
@@ -210,10 +210,10 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                         <div>
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-xs font-black uppercase tracking-widest text-gray-500 flex items-center gap-1.5">
-                                    <Calendar size={12} className="text-[#C9A84C]" /> 1. Select Date
+                                    <Calendar size={12} className="text-foreground" /> 1. Select Date
                                 </span>
                                 {selectedDate && (
-                                    <span className="text-xs font-bold text-[#C9A84C] flex items-center gap-1">
+                                    <span className="text-xs font-bold text-foreground flex items-center gap-1">
                                         <CheckCircle size={11} /> {format(new Date(selectedDate), 'MMM dd, yyyy')}
                                     </span>
                                 )}
@@ -231,10 +231,10 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                             <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
                                 <div className="flex items-center justify-between mb-3">
                                     <span className="text-xs font-black uppercase tracking-widest text-gray-500 flex items-center gap-1.5">
-                                        <Clock size={12} className="text-[#C9A84C]" /> 2. Select Time
+                                        <Clock size={12} className="text-foreground" /> 2. Select Time
                                     </span>
                                     {selectedTime && (
-                                        <span className="text-xs font-bold text-[#C9A84C] flex items-center gap-1">
+                                        <span className="text-xs font-bold text-foreground flex items-center gap-1">
                                             <CheckCircle size={11} /> {selectedTime}
                                         </span>
                                     )}
@@ -242,7 +242,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
 
                                 {loadingAvailability ? (
                                     <div className="flex flex-col items-center justify-center py-8 bg-gray-50 rounded-xl border-2 border-dashed border-gray-100">
-                                        <Loader2 className="w-6 h-6 animate-spin text-[#C9A84C] mb-2" />
+                                        <Loader2 className="w-6 h-6 animate-spin text-foreground mb-2" />
                                         <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">Checking availability...</span>
                                     </div>
                                 ) : visibleSlots.length > 0 ? (
@@ -253,13 +253,13 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                                 onClick={() => setSelectedTime(slot.time)}
                                                 disabled={slot.available_slots === 0}
                                                 className={`relative py-3 px-2 text-sm font-black rounded-lg border-2 transition-all duration-200 text-center flex flex-col items-center justify-center gap-0.5 ${selectedTime === slot.time
-                                                    ? 'bg-[#C9A84C] text-white border-[#C9A84C] shadow-lg shadow-[#C9A84C]/20 scale-[1.03]'
-                                                    : 'bg-white text-gray-900 border-gray-100 hover:border-[#C9A84C] hover:bg-[#C9A84C]/5'
+                                                    ? 'bg-card text-white border-border shadow-lg shadow-[#C9A84C]/20 scale-[1.03]'
+                                                    : 'bg-white text-gray-900 border-gray-100 hover:border-border hover:bg-card/5'
                                                     } ${slot.available_slots === 0 ? 'opacity-30 cursor-not-allowed' : ''}`}
                                             >
                                                 <span className="text-sm">{slot.time}</span>
                                                 {slot.available_slots < 5 && slot.available_slots > 0 && (
-                                                    <span className={`text-[9px] font-bold uppercase ${selectedTime === slot.time ? 'text-white/80' : 'text-rose-500'}`}>
+                                                    <span className={`text-[8px] font-bold uppercase ${selectedTime === slot.time ? 'text-white/80' : 'text-rose-500'}`}>
                                                         {slot.available_slots} left
                                                     </span>
                                                 )}
@@ -280,7 +280,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     <div className="px-6 py-5 bg-gray-50/50 border-t border-gray-100">
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-xs font-black uppercase tracking-widest text-gray-500 flex items-center gap-1.5">
-                                <Users size={12} className="text-[#C9A84C]" /> 3. Participants
+                                <Users size={12} className="text-foreground" /> 3. Participants
                             </span>
                             <div className="text-xs font-black text-gray-900 bg-white px-2 py-1 rounded-lg border border-gray-100">
                                 {totalGuests} Total
@@ -288,11 +288,11 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                         </div>
                         <div className="space-y-3">
                             {currentGuestTypes.map(gt => (
-                                <div key={gt.name} className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100 hover:border-[#C9A84C]/30 transition-colors group">
+                                <div key={gt.name} className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100 hover:border-border/30 transition-colors group">
                                     <div>
-                                        <p className="text-xs font-black text-gray-900 uppercase tracking-wide group-hover:text-[#C9A84C] transition-colors">{gt.name}</p>
-                                        {gt.description && <p className="text-[10px] text-gray-400 uppercase">{gt.description}</p>}
-                                        <p className="text-xs font-black text-[#C9A84C] mt-0.5">€{gt.price}</p>
+                                        <p className="text-xs font-black text-gray-900 uppercase tracking-wide group-hover:text-foreground transition-colors">{gt.name}</p>
+                                        {gt.description && <p className="text-[8px] text-gray-400 uppercase">{gt.description}</p>}
+                                        <p className="text-xs font-black text-foreground mt-0.5">€{gt.price}</p>
                                     </div>
                                     <Stepper name={gt.name} value={counts[gt.name] || 0} min={gt.name === 'Adult' ? 1 : 0} />
                                 </div>
@@ -305,7 +305,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                         {/* Price */}
                         <div className="flex justify-between items-center mb-4 py-3 border-t border-gray-100">
                             <span className="text-xs font-black uppercase tracking-widest text-gray-400">Total (EUR)</span>
-                            <span className="text-2xl font-black text-[#1A1210]">€{totalPrice}</span>
+                            <span className="text-2xl font-black text-foreground">€{totalPrice}</span>
                         </div>
 
                         {/* Validation Error */}
@@ -323,7 +323,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                             className={`w-full py-4 rounded-xl font-black text-sm uppercase tracking-[0.25em] shadow-xl transition-all duration-300 flex items-center justify-center gap-2 ${
                                 !selectedDate || !selectedTime || totalGuests === 0
                                     ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                                    : 'bg-[#1A1210] text-white hover:bg-[#C9A84C] shadow-[#1A1210]/20 hover:shadow-[#C9A84C]/30 active:scale-[0.97]'
+                                    : 'bg-card text-white hover:bg-card shadow-[#1A1210]/20 hover:shadow-[#C9A84C]/30 active:scale-[0.97]'
                             }`}
                         >
                             <span>Book Now{totalPrice > 0 ? ` — €${totalPrice}` : ''}</span>
@@ -334,7 +334,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                         <button
                             onClick={handleAddToCart}
                             disabled={!selectedDate || !selectedTime || totalGuests === 0}
-                            className="w-full mt-2.5 py-3 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 text-gray-400 hover:text-[#C9A84C] disabled:opacity-30 flex items-center justify-center gap-2"
+                            className="w-full mt-2.5 py-3 rounded-xl font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 text-gray-400 hover:text-foreground disabled:opacity-30 flex items-center justify-center gap-2"
                         >
                             <ShoppingCart size={13} />
                             Add to cart instead
@@ -346,9 +346,9 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                 <div className="flex gap-0.5">
                                     {[1,2,3,4,5].map(i => <Star key={i} size={10} className="fill-amber-400 text-amber-400" />)}
                                 </div>
-                                <span className="text-[10px] font-black text-gray-700 border-l border-gray-200 pl-2">4.9 / 5.0</span>
+                                <span className="text-[8px] font-black text-gray-700 border-l border-gray-200 pl-2">4.9 / 5.0</span>
                             </div>
-                            <span className="text-[10px] font-bold text-gray-400">Free Cancellation</span>
+                            <span className="text-[8px] font-bold text-gray-400">Free Cancellation</span>
                         </div>
                     </div>
                 </div>

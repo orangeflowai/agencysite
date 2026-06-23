@@ -1,8 +1,8 @@
 'use client';
 
-import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import type { Variants } from 'framer-motion';
 
 export default function CurveTransition({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -24,11 +24,11 @@ export default function CurveTransition({ children }: { children: React.ReactNod
         <div className="page curve">
             <div style={{ opacity: dimensions.width > 0 ? 0 : 1 }} className="fixed inset-0 z-[99999] bg-background pointer-events-none transition-opacity duration-300" />
             <SVG {...dimensions} />
-            <AnimatePresence mode="wait">
-                <motion.div key={pathname}>
+            
+                <div key={pathname}>
                     {children}
-                </motion.div>
-            </AnimatePresence>
+                </div>
+            
         </div>
     );
 }
@@ -63,19 +63,19 @@ const SVG = ({ height, width }: { width: number, height: number }) => {
     });
 
     return (
-        <motion.svg 
-            initial="initial"
-            animate="enter"
-            exit="exit"
-            variants={translate}
+        <svg 
+            
+            
+            
+            
             className="fixed h-[calc(100vh+600px)] w-full pointer-events-none left-0 top-[-300px] z-[100000] fill-primary"
         >
-            <motion.path 
-                variants={curveAnim(initialPath, targetPath)}
-                initial="initial"
-                animate="enter"
-                exit="exit"
+            <path 
+                
+                
+                
+                
             />
-        </motion.svg>
+        </svg>
     );
 };

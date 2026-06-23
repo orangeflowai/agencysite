@@ -76,8 +76,8 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
 
     useEffect(() => {
         const initialCounts: Record<string, number> = {};
-        currentGuestTypes.forEach((gt, idx) => {
-            initialCounts[gt.name] = idx === 0 ? 1 : 0;
+        currentGuestTypes.forEach((gt) => {
+            initialCounts[gt.name] = 0;
         });
         setCounts(initialCounts);
     }, [currentGuestTypes]);
@@ -87,6 +87,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
 
     const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
     const [loadingAvailability, setLoadingAvailability] = useState(false);
+    const [nextAvailableDates, setNextAvailableDates] = useState<string[]>([]);
 
     // Checkout State
     const [checkingOut, setCheckingOut] = useState(false);
@@ -97,14 +98,45 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
     // Derived State
     const totalGuests = Object.values(counts || {}).reduce((sum, count) => sum + (count || 0), 0);
 
-    const totalPrice = useMemo(() => {
-        return currentGuestTypes.reduce((sum, gt) => sum + (counts[gt.name] || 0) * gt.price, 0);
-    }, [counts, currentGuestTypes]);
-
     const activeSlot = timeSlots.find(s => s.time === selectedTime);
 
+    // Apply price override if exists
+    const currentPriceBase = (activeSlot as any)?.price || tour.price;
+
+    const adjustedGuestTypes = useMemo(() => {
+        // If we have an override, we need to recalculate guest prices relative to it
+        // unless they are explicitly defined in Sanity (in which case overrides might not apply cleanly)
+        if (tour.guestTypes && tour.guestTypes.length > 0) {
+            // If we have an override, scale the guest prices proportionally
+            if ((activeSlot as any)?.price) {
+                const scale = (activeSlot as any).price / tour.price;
+                return tour.guestTypes.map(gt => ({
+                    ...gt,
+                    price: Math.round(gt.price * scale)
+                }));
+            }
+            return tour.guestTypes;
+        }
+
+        // Default guest types using the current base (potentially overridden)
+        return [
+            { name: 'Adult', price: currentPriceBase, description: 'Age 18+' },
+            { name: 'Student', price: Math.round(currentPriceBase * 0.85), description: 'ID Required' },
+            { name: 'Youth', price: Math.round(currentPriceBase * 0.70), description: 'Under 18' },
+            { name: 'Child', price: Math.round(currentPriceBase * 0.50), description: 'Under 8' },
+        ];
+    }, [tour, currentPriceBase, activeSlot]);
+
+    const totalPrice = useMemo(() => {
+        return adjustedGuestTypes.reduce((sum, gt) => sum + (counts[gt.name] || 0) * gt.price, 0);
+    }, [counts, adjustedGuestTypes]);
+
     // Stable random viewer count — initialized once
-    const viewerCount = useMemo(() => Math.floor(Math.random() * 8) + 5, []);
+    const [viewerCount, setViewerCount] = useState(0);
+
+    useEffect(() => {
+        setViewerCount(Math.floor(Math.random() * 8) + 5);
+    }, []);
 
     const maxSelectable = useMemo(() => {
         const byParticipants = typeof tour?.['maxParticipants'] === 'number' ? tour['maxParticipants'] as number : Number.POSITIVE_INFINITY;
@@ -136,10 +168,20 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
             setLoadingAvailability(true);
             setTimeSlots([]);
             setSelectedTime('');
+            setNextAvailableDates([]);
             try {
                 const res = await fetch(`/api/availability?slug=${tour.slug?.current || ''}&date=${selectedDate}`);
                 const data = await res.json();
                 setTimeSlots(data.slots || []);
+
+                // If no slots, fetch next available dates
+                if (!data.slots || data.slots.length === 0) {
+                    const nextRes = await fetch(`/api/availability?slug=${tour.slug?.current || ''}&mode=next&date=${selectedDate}`);
+                    const nextData = await nextRes.json();
+                    if (nextData.dates) {
+                        setNextAvailableDates(nextData.dates);
+                    }
+                }
             } catch (error) {
                 console.error("Availability check failed", error);
             } finally {
@@ -183,7 +225,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
         const data = {
             tour: {
                 _id: tour._id, title: tour.title, slug: tour.slug,
-                price: tour.price, guestTypes: tour.guestTypes,
+                price: tour.price, guestTypes: adjustedGuestTypes,
                 mainImage: tour.mainImage, category: tour.category,
                 meetingPoint: tour['meetingPoint'],
             },
@@ -287,7 +329,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                         >
                                             <span className="text-base">{slot.time}</span>
                                             {slot.available_slots < 5 && slot.available_slots > 0 &&
-                                                <span className={`text-[9px] font-bold  ${selectedTime === slot.time ? 'text-accent' : 'text-rose-600'}`}>
+                                                <span className={`text-[10px] font-bold  ${selectedTime === slot.time ? 'text-accent' : 'text-rose-600'}`}>
                                                     {slot.available_slots} Left
                                                 </span>
                                             }
@@ -295,11 +337,45 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="text-sm text-destructive font-bold py-6 px-4 bg-destructive/10 rounded-2xl border-2 border-destructive/20 flex flex-col items-center justify-center gap-3">
-                                    <div className="w-12 h-12 bg-destructive/20 rounded-full flex items-center justify-center">
-                                        <AlertTriangle size={24} className="text-destructive" />
+                                <div className="text-sm text-destructive font-bold py-6 px-4 bg-destructive/10 rounded-2xl border-2 border-destructive/20 flex flex-col items-center justify-center gap-4">
+                                    <div className="flex flex-col items-center gap-2">
+                                        <div className="w-12 h-12 bg-destructive/20 rounded-full flex items-center justify-center">
+                                            <AlertTriangle size={24} className="text-destructive" />
+                                        </div>
+                                        <span className=" tracking-widest text-[10px]">Fully booked for this date</span>
                                     </div>
-                                    <span className=" tracking-widest text-[10px]">Fully booked for this date</span>
+
+                                    {/* Next Available Suggestion */}
+                                    <div className="w-full pt-4 border-t border-destructive/20">
+                                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest mb-3 text-center">Next Available Dates</p>
+                                        <div className="flex flex-wrap justify-center gap-2">
+                                            {nextAvailableDates.length > 0 ? (
+                                                nextAvailableDates.map(date => (
+                                                    <button 
+                                                        key={date}
+                                                        onClick={() => setSelectedDate(date)}
+                                                        className="px-3 py-2 bg-card border border-border rounded-xl text-foreground hover:border-accent hover:text-accent transition-all text-[10px] font-bold"
+                                                    >
+                                                        {format(new Date(date), 'MMM dd')}
+                                                    </button>
+                                                ))
+                                            ) : (
+                                                <div className="flex flex-col items-center gap-2">
+                                                    <button 
+                                                        onClick={() => {
+                                                            const nextDay = new Date(selectedDate);
+                                                            nextDay.setDate(nextDay.getDate() + 1);
+                                                            setSelectedDate(format(nextDay, 'yyyy-MM-dd'));
+                                                        }}
+                                                        className="px-4 py-2 bg-card border border-border rounded-xl text-foreground hover:border-accent hover:text-accent transition-all text-xs"
+                                                    >
+                                                        Check tomorrow
+                                                    </button>
+                                                    <p className="text-[9px] font-medium text-muted-foreground">Select another date on the calendar above</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -319,13 +395,13 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
                     </div>
 
                     <div className="grid gap-4">
-                        {currentGuestTypes.map(gt => (
+                        {adjustedGuestTypes.map(gt => (
                             <div key={gt.name} className="flex items-center justify-between p-4 bg-card rounded-2xl border border-border shadow-sm hover:shadow-md transition-all group">
                                 <div className="flex flex-col">
                                     <span className="text-sm font-bold text-foreground group-hover:text-accent transition-colors  tracking-wide">{gt.name}</span>
                                     {gt.description && <span className="text-[10px] font-bold text-muted-foreground mt-1  tracking-tight">{gt.description}</span>}
                                     <span className="text-xs font-bold text-accent mt-1.5 flex items-center gap-1">
-                                        €{gt.price} <span className="text-[9px] text-muted-foreground font-bold ">/ Person</span>
+                                        €{gt.price} <span className="text-[10px] text-muted-foreground font-bold ">/ Person</span>
                                     </span>
                                 </div>
                                 <Stepper name={gt.name} value={counts[gt.name] || 0} min={gt.name === 'Adult' ? 1 : 0} />

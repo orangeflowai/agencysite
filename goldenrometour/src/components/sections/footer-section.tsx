@@ -4,10 +4,11 @@ import Link from "next/link";
 
 const footerLinks = {
   tours: [
-    { label: "Vatican Tours", href: "/category/vatican" },
-    { label: "Colosseum Tours", href: "/category/colosseum" },
-    { label: "City Walking Tours", href: "/category/city-tours" },
-    { label: "Food & Wine", href: "/category/food-and-wine" },
+    { label: "Vatican Museums & Sistine Chapel", href: "/tour/vatican-museums-and-sistine-chapel-guided-tour" },
+    { label: "Skip-the-Line Vatican Ticket", href: "/tour/vatican-museums-sistine-chapel-skip-the-line" },
+    { label: "Vatican + St. Peter's Tour", href: "/tour/vatican-museums-sistine-chapel-st-peters-guided-tour" },
+    { label: "Colosseum & Roman Forum", href: "/tour/colosseum-forum-palatine-guided-tour" },
+    { label: "Rome Walking Tour", href: "/tour/rome-highlights-walking-tour" },
   ],
   support: [
     { label: "FAQ", href: "/faq" },
@@ -42,29 +43,29 @@ export function FooterSection() {
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                  <span className="text-[10px] font-bold">IT</span>
+                  <span className="text-[8px] font-bold">IT</span>
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-foreground">Our Roman Office</p>
-                  <p className="text-[10px]">Via Tunisi 43, 00192 Roma</p>
+                  <p className="text-[8px]">Via Tunisi 43, 00192 Roma</p>
                 </div>
               </div>
               <a href="mailto:info@goldenrometour.com" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                  <span className="text-[10px] font-bold">@</span>
+                  <span className="text-[8px] font-bold">@</span>
                 </div>
-                <p className="text-xs font-semibold">info@goldenrometour.com</p>
+                <p className="text-xs font-semibold">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</p>
               </a>
-              <a href="tel:+393514199425" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39351419942'}`} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-                  <span className="text-[10px] font-bold">TEL</span>
+                  <span className="text-[8px] font-bold">TEL</span>
                 </div>
-                <p className="text-xs font-semibold">+39 351 419 9425</p>
+                <p className="text-xs font-semibold">{process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 351 419 9425'}</p>
               </a>
             </div>
 
             <div className="mt-6 flex items-center gap-4">
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+              <div className="flex items-center gap-2 text-[8px] font-bold uppercase tracking-widest text-muted-foreground">
                 <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                 WhatsApp active
               </div>

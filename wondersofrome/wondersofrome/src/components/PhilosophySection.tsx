@@ -115,18 +115,6 @@ export function PhilosophySection() {
         </div>
       </div>
 
-      {/* Description */}
-      <div className="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-36 lg:pb-14">
-        <div className="text-center">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            Official Entry Protocols
-          </p>
-          <p className="mt-8 leading-relaxed text-muted-foreground text-3xl text-center">
-            Bypass 2-3 hour queues with authenticated priority vouchers. 
-            Small group experiences led by accredited art historians vetted by the Italian Ministry of Culture.
-          </p>
-        </div>
-      </div>
     </section>
   );
 }

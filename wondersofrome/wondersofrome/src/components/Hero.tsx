@@ -94,7 +94,7 @@ export default function Hero({ settings }: HeroProps) {
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/70 animate-bounce">
         <div className="w-px h-16 bg-gradient-to-b from-transparent to-white/50 mx-auto mb-2" />
-        <span className="text-[10px]  tracking-widest">Scroll</span>
+        <span className="text-[8px]  tracking-widest">Scroll</span>
       </div>
     </section>
   );

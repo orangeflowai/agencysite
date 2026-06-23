@@ -1,8 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
 import { Star, Shield, Clock, Users } from "lucide-react"
-import { motion, useScroll, useTransform } from "framer-motion"
 
 interface HeroProps {
   title?: string
@@ -10,157 +10,126 @@ interface HeroProps {
   heroImage?: string
 }
 
-export default function VaticanHeroSection({ title, subtitle, heroImage }: HeroProps) {
+const marqueeItems = [
+  "✦ Official Vatican Partner",
+  "✦ Skip-the-Line Access",
+  "✦ Licensed Art Historians",
+  "✦ 50,000+ Travelers",
+  "✦ Free Cancellation",
+  "✦ Instant Confirmation",
+]
+
+export default function VaticanHeroSection({
+  title = "Vatican Museums & Sistine Chapel",
+  subtitle = "Skip the queue. Experience the masterpieces.",
+  heroImage,
+}: HeroProps) {
   const marqueeRef = useRef<HTMLDivElement>(null)
-  const heroRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  })
-  
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0])
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    const marquee = marqueeRef.current
-    if (!marquee) return
-
-    const animate = () => {
-      if (marquee.scrollLeft >= marquee.scrollWidth / 2) {
-        marquee.scrollLeft = 0
-      } else {
-        marquee.scrollLeft += 0.5
-      }
-    }
-
-    const interval = setInterval(animate, 20)
-    return () => clearInterval(interval)
+    setIsLoaded(true)
+    // Seamless CSS marquee using animation
+    const el = marqueeRef.current
+    if (!el) return
+    // nothing needed — pure CSS animation handles it
   }, [])
 
+  const trustItems = [
+    { icon: Star, label: "4.9 Rating", sublabel: "3,000+ reviews" },
+    { icon: Shield, label: "Free Cancellation", sublabel: "Up to 24h before" },
+    { icon: Clock, label: "Skip the Line", sublabel: "Priority access" },
+    { icon: Users, label: "Small Groups", sublabel: "Max 24 per guide" },
+  ]
+
   return (
-    <section ref={heroRef} className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* Trust Banner - Marquee */}
-      <div className="bg-primary text-primary-foreground py-2.5 overflow-hidden">
-        <div 
-          ref={marqueeRef}
-          className="flex gap-8 whitespace-nowrap overflow-hidden"
-          style={{ scrollBehavior: 'auto' }}
+    <section className="relative min-h-screen flex flex-col">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={heroImage || "https://images.pexels.com/photos/3874600/pexels-photo-3874600.jpeg?auto=compress&cs=tinysrgb&w=1920"}
+          alt="Vatican Museums — Sistine Chapel"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center flex-1 px-4 sm:px-6 lg:px-8 pt-32 pb-24 text-center">
+        <div
+          className="transition-all duration-700"
+          style={{ opacity: isLoaded ? 1 : 0, transform: isLoaded ? 'translateY(0)' : 'translateY(24px)' }}
         >
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="flex gap-8 items-center">
-              <span className="flex items-center gap-2 text-sm">
-                <Star className="w-4 h-4 fill-current" />
-                Official Vatican Partner
-              </span>
-              <span className="flex items-center gap-2 text-sm">
-                <Shield className="w-4 h-4" />
-                Skip the Line Priority Access
-              </span>
-              <span className="flex items-center gap-2 text-sm">
-                <Users className="w-4 h-4" />
-                Curator-Led Historian Routes
-              </span>
-              <span className="text-sm opacity-60">✦</span>
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-accent mb-6">
+            Official Vatican Access Partner
+          </p>
+
+          <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-[0.95] tracking-tight mb-8 max-w-5xl mx-auto">
+            {title}
+          </h1>
+
+          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed">
+            {subtitle}
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/#tours"
+              className="px-8 py-4 bg-accent text-foreground font-bold rounded-full text-sm uppercase tracking-widest hover:bg-accent/90 transition-colors shadow-xl shadow-accent/20"
+            >
+              Book Skip-the-Line
+            </a>
+            <a
+              href="/tour/vatican-museums-and-sistine-chapel-guided-tour"
+              className="px-8 py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-full text-sm uppercase tracking-widest hover:bg-white/20 transition-colors border border-white/20"
+            >
+              View Guided Tours
+            </a>
+          </div>
+        </div>
+
+        {/* Trust Items */}
+        <div
+          className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl w-full transition-all duration-700 delay-300"
+          style={{ opacity: isLoaded ? 1 : 0, transform: isLoaded ? 'translateY(0)' : 'translateY(16px)' }}
+        >
+          {trustItems.map(({ icon: Icon, label, sublabel }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center gap-2 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10"
+            >
+              <Icon className="w-5 h-5 text-accent" />
+              <span className="text-white font-bold text-sm">{label}</span>
+              <span className="text-white/60 text-xs">{sublabel}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Main Hero Content */}
-      <div className="flex-1 relative pt-24 md:pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        {/* Background Video with Parallax */}
-        <motion.div 
-          className="absolute inset-0 z-0"
-          style={{ y }}
+      {/* Marquee */}
+      <div className="relative z-10 border-t border-white/10 bg-black/40 backdrop-blur-md py-3 overflow-hidden">
+        <div
+          ref={marqueeRef}
+          className="flex gap-12 whitespace-nowrap"
+          style={{ animation: 'marqueeScroll 30s linear infinite' }}
         >
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source src="/POV_Walking_Video_Generation.mp4" type="video/mp4" />
-            {/* Fallback image if video doesn't load */}
-            <img 
-              src={heroImage || "/vatican-sistine-chapel.jpg"} 
-              alt="Vatican Museums"
-              className="w-full h-full object-cover"
-            />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-background/95" />
-        </motion.div>
-
-        <motion.div 
-          className="relative z-10 max-w-7xl mx-auto"
-          style={{ opacity }}
-        >
-          {/* Badge */}
-          <motion.div 
-            className="flex justify-center mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/30 shadow-sm">
-              <div className="flex items-center -space-x-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                ))}
-              </div>
-              <span className="text-sm font-medium text-white">50,000+ Verified Reviews</span>
-            </div>
-          </motion.div>
-
-          {/* Headline */}
-          <div className="text-center max-w-4xl mx-auto">
-            <motion.p 
-              className="text-sm uppercase tracking-widest text-white/80 mb-4 font-medium"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              Official Vatican Partner
-            </motion.p>
-            <motion.h1 
-              className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-[1.1] mb-6"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              {title || "Rome's Greatest Archives, Reopened."}
-            </motion.h1>
-            <motion.p 
-              className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-10 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              {subtitle || "Bypass the 3-hour queues with confirmed priority entry. Curated small group experiences led by accredited art historians."}
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            >
-              <a 
-                href="#tours" 
-                className="w-full sm:w-auto px-8 py-4 bg-primary text-primary-foreground font-medium rounded-full hover:bg-white hover:text-foreground transition-all shadow-lg hover:shadow-xl"
-              >
-                Explore the Archive
-              </a>
-              <a 
-                href="/tour/vip-vatican-museum-sistine-chapel-st-basilica" 
-                className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-medium rounded-full border border-white/30 hover:bg-white hover:text-foreground transition-all"
-              >
-                VIP Tour
-              </a>
-            </motion.div>
-          </div>
-        </motion.div>
+          {[...Array(3)].flatMap(() =>
+            marqueeItems.map((item, i) => (
+              <span key={`${item}-${i}`} className="text-xs font-bold uppercase tracking-widest text-white/60">
+                {item}
+              </span>
+            ))
+          )}
+        </div>
+        <style>{`
+          @keyframes marqueeScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-33.333%); }
+          }
+        `}</style>
       </div>
     </section>
   )

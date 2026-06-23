@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Clock } from 'lucide-react';
@@ -23,16 +22,16 @@ export default function SpecialOffer() {
 
     return (
         <section className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-background border-b border-primary/10">
-            <motion.div 
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+            <div 
+                }
+                }
                 viewport={{ once: true }}
-                className="relative w-full bg-secondary rounded-[2rem] overflow-hidden shadow-2xl min-h-[500px] flex flex-col lg:flex-row items-stretch"
+                className="relative w-full bg-secondary rounded-[2rem] overflow-hidden shadow-2xl min-h-[496px] flex flex-col lg:flex-row items-stretch"
             >
                 {/* Left Content */}
                 <div className="flex-1 p-8 sm:p-12 md:p-16 lg:p-20 flex flex-col justify-center space-y-8 z-10">
                     <div>
-                        <p className="text-primary font-heading font-bold uppercase tracking-tight text-[10px] mb-4">✦ Limited Protocol Offer ✦</p>
+                        <p className="text-primary font-heading font-bold uppercase tracking-tight text-[8px] mb-4">✦ Limited Protocol Offer ✦</p>
                         <h2 className="text-white font-heading text-7xl md:text-9xl leading-tight font-bold tracking-tighter">
                             30% <span className="text-primary">OFF</span>
                         </h2>
@@ -59,7 +58,7 @@ export default function SpecialOffer() {
                 </div>
 
                 {/* Right Image */}
-                <div className="flex-1 relative min-h-[300px] lg:min-h-0">
+                <div className="flex-1 relative min-h-[304px] lg:min-h-0">
                     <Image 
                         src="https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos/pexels-m-venter-1659437-13358908.jpg"
                         alt="Vatican Panorama"
@@ -77,7 +76,7 @@ export default function SpecialOffer() {
 
                 {/* Background Textures */}
                 <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')]"></div>
-            </motion.div>
+            </div>
         </section>
     );
 }

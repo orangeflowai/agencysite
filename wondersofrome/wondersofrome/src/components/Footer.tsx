@@ -13,9 +13,9 @@ export default function Footer() {
   const { t } = useLanguage();
   const year = new Date().getFullYear();
 
-  const email  = site?.contactEmail  || process.env.NEXT_PUBLIC_CONTACT_EMAIL  || 'info@wondersofrome.com';
-  const phone  = site?.contactPhone  || process.env.NEXT_PUBLIC_SUPPORT_PHONE  || '+39 351 419 9425';
-  const wa     = site?.whatsappNumber || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '3514199425';
+  const email  = site?.contactEmail  || process.env.NEXT_PUBLIC_CONTACT_EMAIL  || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com";
+  const phone  = site?.contactPhone  || process.env.NEXT_PUBLIC_SUPPORT_PHONE  || '';
+  const wa     = site?.whatsappNumber || process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '';
   const name   = site?.title || 'Wonders of Rome';
 
   const EXPLORE = [
@@ -69,13 +69,13 @@ export default function Footer() {
             {/* Social */}
             <div className="flex items-center gap-3">
               {[
-                { href: site?.socialLinks?.instagram || 'https://instagram.com', Icon: Instagram, label: 'Instagram' },
-                { href: site?.socialLinks?.facebook  || 'https://facebook.com',  Icon: Facebook,  label: 'Facebook' },
-                { href: site?.socialLinks?.twitter   || 'https://twitter.com',   Icon: Twitter,   label: 'Twitter' },
-              ].map(({ href, Icon, label }) => (
+                { href: 'https://www.instagram.com/wondersofrome', Icon: Instagram, label: 'Instagram' },
+                { href: site?.socialLinks?.facebook || null, Icon: Facebook, label: 'Facebook' },
+                { href: site?.socialLinks?.twitter  || null, Icon: Twitter,   label: 'Twitter' },
+              ].filter(s => s.href).map(({ href, Icon, label }) => (
                 <a
                   key={label}
-                  href={href}
+                  href={href!}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
@@ -85,11 +85,36 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
+            {/* Platform trust logos */}
+            <div className="pt-2">
+              <p className="text-[8px] font-bold tracking-[0.3em] text-muted-foreground mb-3">FIND US ON</p>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://www.getyourguide.com/wonders-of-rome-srls-s597221/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GetYourGuide"
+                  className="px-3 py-1.5 bg-background border border-border rounded-md text-[9px] font-bold text-muted-foreground hover:text-[#FF5533] hover:border-[#FF5533]/40 transition-all"
+                >
+                  GetYourGuide
+                </a>
+                <a
+                  href="https://www.tripadvisor.es/Attraction_Review-g187791-d33136099-Reviews-Wonders_of_Rome-Rome_Lazio.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TripAdvisor"
+                  className="px-3 py-1.5 bg-background border border-border rounded-md text-[9px] font-bold text-muted-foreground hover:text-[#34E0A1] hover:border-[#34E0A1]/40 transition-all"
+                >
+                  TripAdvisor
+                </a>
+              </div>
+            </div>
           </div>
 
           {/* Explore */}
           <div>
-            <p className="text-[10px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.explore')}</p>
+            <p className="text-[8px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.explore')}</p>
             <ul className="space-y-4">
               {EXPLORE.map(({ label, href }) => (
                 <li key={href}>
@@ -106,7 +131,7 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <p className="text-[10px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.support')}</p>
+            <p className="text-[8px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.support')}</p>
             <ul className="space-y-4">
               {SUPPORT.map(({ label, href }) => (
                 <li key={href}>
@@ -123,7 +148,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="text-[10px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.contact')}</p>
+            <p className="text-[8px] font-bold tracking-[0.3em] text-primary mb-6">{t('footer.contact')}</p>
             <ul className="space-y-5">
               <li>
                 <a href={`mailto:${email}`} className="flex items-start gap-3 group">
@@ -147,7 +172,7 @@ export default function Footer() {
 
             {/* Payment logos */}
             <div className="mt-8 pt-8 border-t border-border">
-              <p className="font-mono text-[10px]  tracking-widest text-muted-foreground mb-4 font-bold">Secure Transfer</p>
+              <p className="font-mono text-[8px]  tracking-widest text-muted-foreground mb-4 font-bold">Secure Transfer</p>
               <div className="opacity-90 hover:grayscale hover:opacity-100 transition-all">
                 <PaymentLogos size="sm" />
               </div>
@@ -159,11 +184,11 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-border bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-[10px] text-muted-foreground font-mono tracking-widest font-bold">
+          <p className="text-[8px] text-muted-foreground font-mono tracking-widest font-bold">
             © {year} {name} — {t('footer.rights')}
           </p>
           {site?.businessInfo?.vatNumber && (
-            <p className="text-[10px] text-muted-foreground font-mono ">
+            <p className="text-[8px] text-muted-foreground font-mono ">
               REG: {site.businessInfo.vatNumber}
             </p>
           )}
