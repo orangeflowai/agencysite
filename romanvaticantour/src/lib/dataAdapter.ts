@@ -7,8 +7,8 @@ import * as payload from './payloadService'
 
 export type { Tour, Post, Site, Settings } from './sanityService'
 
-const source = process.env.DATA_SOURCE || 'payload'
-export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome'
+const source = process.env.DATA_SOURCE || 'sanity'
+export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour'
 
 const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev/rome%20photos';
 const FALLBACKS = {
@@ -61,7 +61,7 @@ export function urlFor(source: any) {
 
   // If no URL, pick a site-specific fallback
   if (!url) {
-      const siteId = (process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome') as keyof typeof FALLBACKS;
+      const siteId = (process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour') as keyof typeof FALLBACKS;
       const images = FALLBACKS[siteId] || FALLBACKS.wondersofrome;
       url = images[0]; 
   }

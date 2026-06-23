@@ -26,7 +26,7 @@ async function fixSite() {
       if (tours.length > 0) {
         await client.patch(site._id)
           .set({
-            tours: tours.map(t => ({ _type: 'reference', _ref: t._id, _key: t._id }))
+            tours: tours.map((t: any) => ({ _type: 'reference', _ref: t._id, _key: t._id }))
           })
           .commit()
         console.log(`  ✅ Linked ${tours.length} tours to the site document`)
