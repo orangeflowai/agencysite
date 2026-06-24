@@ -6,6 +6,7 @@ import * as sanity  from './sanityService'
 import * as payload from './payloadService'
 
 export type { Tour, Post, Site, Settings } from './sanityService'
+export { extractPortableText, filterRealTours } from './sanityService'
 
 const source = process.env.DATA_SOURCE || 'sanity'
 export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour'

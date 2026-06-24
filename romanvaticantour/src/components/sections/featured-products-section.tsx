@@ -13,6 +13,9 @@ interface Tour {
   category?: string;
   rating?: string;
   reviews?: string;
+  groupSize?: string;
+  features?: string[];
+  includes?: string[];
 }
 
 interface FeaturedProductsSectionProps {
@@ -101,11 +104,33 @@ export function FeaturedProductsSection({ tours }: FeaturedProductsSectionProps)
                   </span>
                 </div>
               )}
-              <h3 className="text-foreground text-xl font-semibold">
+              <h3 className="text-foreground text-xl font-semibold leading-tight">
                 {tour.title}
               </h3>
+              {tour.description && (
+                <p className="mt-2 text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                  {tour.description}
+                </p>
+              )}
+              {tour.features && tour.features.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {tour.features.slice(0, 3).map((f, i) => (
+                    <span key={i} className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                      {f}
+                    </span>
+                  ))}
+                  {tour.features.length > 3 && (
+                    <span className="text-[10px] text-muted-foreground">+{tour.features.length - 3} more</span>
+                  )}
+                </div>
+              )}
               <div className="flex items-center justify-between mt-3">
-                <span className="text-sm text-muted-foreground">{tour.duration}</span>
+                <div>
+                  <span className="text-sm text-muted-foreground">{tour.duration}</span>
+                  {tour.groupSize && (
+                    <span className="text-xs text-muted-foreground block">{tour.groupSize}</span>
+                  )}
+                </div>
                 <span className="text-lg font-medium">From €{tour.price}</span>
               </div>
             </div>

@@ -124,6 +124,38 @@ export const client = createClient({
     useCdn: true, // Enable CDN for better performance and higher rate limits
 });
 
+/** Extract plain text from Portable Text blocks */
+export function extractPortableText(blocks: any): string {
+  if (!blocks) return '';
+  if (typeof blocks === 'string') return blocks;
+  if (Array.isArray(blocks)) {
+    return blocks
+      .map((block: any) => {
+        if (block._type !== 'block' || !block.children) return '';
+        return block.children
+          .map((child: any) => (child.text || ''))
+          .join('');
+      })
+      .join(' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  return '';
+}
+
+/** Filter out test/debug/draft tours */
+export function filterRealTours(tours: Tour[]): Tour[] {
+  return tours.filter((t) => {
+    const title = (t.title || '').toLowerCase();
+    if (title.includes('status test')) return false;
+    if (title.includes('debug test')) return false;
+    if (title.startsWith('test')) return false;
+    // Skip tours with no rating AND no reviews (likely drafts/tests)
+    if (t.rating == null && t.reviewCount == null && t.price === 0) return false;
+    return true;
+  });
+}
+
 // Helper for image URLs
 const builder = createImageUrlBuilder(client);
 
@@ -183,7 +215,7 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
             tours = await client.fetch(query, {}, { next: { revalidate: 60 } });
         }
 
-        return tours;
+        return filterRealTours(tours);
     } catch (error) {
         console.error('Failed to fetch tours:', error);
         return [];

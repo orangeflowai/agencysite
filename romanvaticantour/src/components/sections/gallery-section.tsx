@@ -17,7 +17,7 @@ export function GallerySection({ tours = [] }: GallerySectionProps) {
 
   // Use provided tours or fallback to some meaningful ones if empty
   const displayTours = tours.length > 0 ? tours.slice(0, 8) : [];
-  
+
   // If no tours, we'll keep the static ones as fallback but realistically we should have tours now
   const staticFallback = [
     { src: "/images/rome-hero.jpg",         alt: "Colosseum at sunset",      title: "Colosseum",      href: "/category/colosseum" },
@@ -25,6 +25,14 @@ export function GallerySection({ tours = [] }: GallerySectionProps) {
     { src: "/images/trevi-fountain.jpg",    alt: "Trevi Fountain at dusk",   title: "Trevi Fountain", href: "/category/city" },
     { src: "/images/pantheon.jpg",          alt: "Pantheon interior",        title: "Pantheon",       href: "/category/city" },
   ];
+
+  // Build the items to display, ensuring each has valid image/src
+  const allItems = (displayTours.length > 0 ? displayTours : staticFallback).map((item: any) => ({
+    href: item.href || `/tour/${item.slug}`,
+    src: item.image || item.src,
+    title: item.title,
+    alt: item.alt || item.title,
+  }));
 
   useEffect(() => {
     const calculateHeight = () => {
@@ -109,36 +117,30 @@ export function GallerySection({ tours = [] }: GallerySectionProps) {
               touchAction: 'pan-y',
             }}
           >
-            {(displayTours.length > 0 ? displayTours : staticFallback).map((item: any, index: number) => {
-              const href = item.href || `/tour/${item.slug}`;
-              const image = item.image || item.src;
-              const title = item.title;
-              const alt = item.alt || item.title;
-
-              return (
-                <Link
-                  key={index}
-                  href={href}
-                  className="group relative h-[70vh] w-[85vw] flex-shrink-0 overflow-hidden rounded-2xl md:w-[60vw] lg:w-[45vw] block"
-                  style={{ transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
-                >
-                  <Image
-                    src={image}
-                    alt={alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    priority={index < 3}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent" />
-                  <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
-                    <span className="text-white text-2xl font-medium">{title}</span>
-                    <span className="text-white/80 text-sm font-medium bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                      View Tour →
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
+            {allItems.map((item: any, index: number) => (
+              <Link
+                key={index}
+                href={item.href}
+                className="group relative h-[70vh] w-[85vw] flex-shrink-0 overflow-hidden rounded-2xl md:w-[60vw] lg:w-[45vw] block"
+                style={{ transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)' }}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  priority={index < 3}
+                  sizes="(max-width: 768px) 85vw, (max-width: 1024px) 60vw, 45vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent" />
+                <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between">
+                  <span className="text-white text-2xl font-medium">{item.title}</span>
+                  <span className="text-white/80 text-sm font-medium bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                    View Tour →
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

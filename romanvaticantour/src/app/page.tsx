@@ -8,7 +8,7 @@ import { CollectionSection } from "@/components/sections/collection-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
 import Footer from '@/components/Footer';
-import { getTours } from "@/lib/dataAdapter";
+import { getTours, extractPortableText } from "@/lib/dataAdapter";
 
 export const revalidate = 300;
 
@@ -19,7 +19,7 @@ export default async function Home() {
   const mappedTours = tours.map((t) => ({
     id: t._id,
     title: t.title,
-    description: typeof t.description === 'string' ? t.description : '',
+    description: extractPortableText(t.description),
     price: t.price,
     duration: t.duration,
     image: t.mainImage?.asset?.url || t.mainImage || '',
@@ -27,6 +27,9 @@ export default async function Home() {
     category: t.category,
     rating: t.rating ? String(t.rating) : '4.9',
     reviews: t.reviewCount ? String(t.reviewCount) : '0',
+    groupSize: t.groupSize || '',
+    features: t.features || t.highlights || [],
+    includes: t.includes || [],
   }));
 
   return (

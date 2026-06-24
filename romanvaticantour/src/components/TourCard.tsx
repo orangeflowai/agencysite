@@ -2,8 +2,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Clock, Star, Users, ArrowRight, MapPin, Zap } from 'lucide-react'
-import { urlFor } from '@/lib/dataAdapter'
+import { Clock, Star, Users, ArrowRight, Zap } from 'lucide-react'
+import { urlFor, extractPortableText } from '@/lib/dataAdapter'
 import type { Tour } from '@/lib/dataAdapter'
 
 const FALLBACK = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80'
@@ -25,6 +25,9 @@ export default function TourCard({ tour, dark = false }: TourCardProps) {
   const rating = tour.rating ?? 4.9
   const reviews = (tour as any).reviewCount ?? 0
   const badge = (tour as any).badge as string | undefined
+  const description = extractPortableText(tour.description)
+  const features = tour.features || (tour as any).highlights || []
+  const displayFeatures = features.slice(0, 3)
 
   const slug = typeof tour.slug === 'string' ? tour.slug : tour.slug?.current;
 
@@ -99,13 +102,20 @@ export default function TourCard({ tour, dark = false }: TourCardProps) {
           {tour.title}
         </h3>
 
-        <div className="flex flex-wrap gap-1.5">
-          {['Skip the Line', 'Expert Guide', 'Small Group'].map(tag => (
-            <span key={tag} className={["text-[8px] px-2 py-0.5 rounded-full font-sans font-bold  tracking-widest", dark ? "bg-card/10 text-white/60" : "bg-muted text-muted-foreground"].join(" ")}>
-              {tag}
-            </span>
-          ))}
-        </div>
+        {description && (
+          <p className={["text-xs leading-relaxed line-clamp-2 font-sans", dark ? "text-white/50" : "text-muted-foreground"].join(" ")}>
+            {description}
+          </p>
+        )}
+        {displayFeatures.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {displayFeatures.map((tag: string, i: number) => (
+              <span key={i} className={["text-[8px] px-2 py-0.5 rounded-full font-sans font-bold tracking-widest", dark ? "bg-card/10 text-white/60" : "bg-muted text-muted-foreground"].join(" ")}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         <div className={["mt-auto pt-3 border-t flex items-center justify-between", dark ? "border-white/10" : "border-border"].join(" ")}>
           <span className="text-[8px] font-sans font-bold text-primary  tracking-[0.2em]">Book Now</span>
