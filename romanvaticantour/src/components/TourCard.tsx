@@ -82,8 +82,8 @@ export default function TourCard({ tour, dark = false }: TourCardProps) {
       </div>
 
       {/* Content */}
-      <div className="flex flex-col flex-1 p-5 gap-3">
-        <div className="flex items-center gap-3 text-muted-foreground font-sans">
+      <div className="flex flex-col flex-1 p-5 gap-2.5">
+        <div className="flex items-center gap-3 text-muted-foreground font-sans min-h-[1.25rem]">
           {tour.duration && (
             <span className={["flex items-center gap-1 text-xs font-medium", dark ? "text-white/50" : ""].join(" ")}>
               <Clock className="w-3.5 h-3.5 shrink-0 text-primary" />{tour.duration}
@@ -96,27 +96,28 @@ export default function TourCard({ tour, dark = false }: TourCardProps) {
           )}
         </div>
 
-        <h3 className={["font-serif font-bold text-lg leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200 ", dark ? "text-white" : "text-foreground"].join(" ")}>
+        <h3 className={["font-serif font-bold text-lg leading-snug line-clamp-2 group-hover:text-primary transition-colors duration-200 min-h-[2.75rem]", dark ? "text-white" : "text-foreground"].join(" ")}>
           {tour.title}
         </h3>
 
-        {description && (
-          <p className={["text-xs leading-relaxed line-clamp-2 font-sans", dark ? "text-white/50" : "text-muted-foreground"].join(" ")}>
-            {description}
-          </p>
-        )}
-        {displayFeatures.length > 0 && (
-          <div className="flex flex-wrap gap-1.5">
-            {displayFeatures.map((tag: string, i: number) => (
-              <span key={i} className={["text-[8px] px-2 py-0.5 rounded-full font-sans font-bold tracking-widest", dark ? "bg-card/10 text-white/60" : "bg-muted text-muted-foreground"].join(" ")}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
+        <p className={["text-xs leading-relaxed line-clamp-2 font-sans min-h-[2.25rem]", dark ? "text-white/50" : "text-muted-foreground"].join(" ")}>
+          {description || 'Skip-the-line priority access with expert guide'}
+        </p>
+
+        <div className="flex flex-wrap gap-1.5 min-h-[1.5rem]">
+          {displayFeatures.length > 0 ? displayFeatures.map((tag: string, i: number) => (
+            <span key={i} className={["text-[8px] px-2 py-0.5 rounded-full font-sans font-bold tracking-widest", dark ? "bg-card/10 text-white/60" : "bg-muted text-muted-foreground"].join(" ")}>
+              {tag}
+            </span>
+          )) : (
+            <span className={["text-[8px] px-2 py-0.5 rounded-full font-sans font-bold tracking-widest", dark ? "bg-card/10 text-white/60" : "bg-muted text-muted-foreground"].join(" ")}>
+              Skip the Line
+            </span>
+          )}
+        </div>
 
         <div className={["mt-auto pt-3 border-t flex items-center justify-between", dark ? "border-white/10" : "border-border"].join(" ")}>
-          <span className="text-[8px] font-sans font-bold text-primary  tracking-[0.2em]">Book Now</span>
+          <span className="text-[8px] font-sans font-bold text-primary tracking-[0.2em]">Book Now</span>
           <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-200 shrink-0">
             <ArrowRight className="w-4 h-4 text-primary group-hover:text-white transition-colors duration-200" />
           </div>

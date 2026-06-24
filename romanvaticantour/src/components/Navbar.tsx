@@ -31,7 +31,6 @@ export default function Navbar() {
         { name: 'Colosseum', href: '/category/colosseum' },
         { name: 'Private Tours', href: '/private-tours' },
         { name: 'All Tours', href: '/search' },
-        { name: 'About', href: '/about' },
         { name: 'Contact', href: '/contact' },
     ];
 
