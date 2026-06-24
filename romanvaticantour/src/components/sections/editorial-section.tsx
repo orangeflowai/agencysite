@@ -15,17 +15,17 @@ const articles = [
   {
     title: "Best Time to Visit Rome: A Month-by-Month Guide",
     category: "Travel Tips",
-    image: "/images/rome-hero.jpg",
+    image: "https://images.unsplash.com/photo-1529260830199-42c24126f198?w=800&q=80",
   },
   {
     title: "Vatican Museums: Everything You Need to Know",
     category: "Vatican Series",
-    image: "/images/vatican-sistine.jpg",
+    image: "https://images.unsplash.com/photo-1541185933-710f50b90c28?w=800&q=80",
   },
   {
     title: "Top 5 Must-See Attractions in Rome",
     category: "City Guide",
-    image: "/images/trevi-fountain.jpg",
+    image: "https://images.unsplash.com/photo-1555992820-dee20445e674?w=800&q=80",
   },
 ];
 
@@ -79,10 +79,11 @@ export function EditorialSection() {
       {/* Full-width Image */}
       <div className="relative aspect-[16/9] w-full md:aspect-[21/9]">
         <Image
-          src="/images/colosseum-night.jpg"
+          src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1600&q=80"
           alt="Colosseum at night"
           fill
           className="object-cover"
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-foreground/30 flex items-center justify-center">
           <div className="text-center text-white">

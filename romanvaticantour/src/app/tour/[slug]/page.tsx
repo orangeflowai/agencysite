@@ -338,7 +338,7 @@ export default async function TourPage({ params }: PageProps) {
             <Footer />
 
             {/* Mobile Sticky Booking Bar */}
-            <ScrollToBookingButton price={tour.price} />
+            <ScrollToBookingButton price={tour.price} slug={tour.slug?.current || slug} />
         </main>
     );
 }

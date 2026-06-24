@@ -8,7 +8,7 @@ import { CollectionSection } from "@/components/sections/collection-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
 import Footer from '@/components/Footer';
-import { getTours, extractPortableText } from "@/lib/dataAdapter";
+import { getTours, extractPortableText, getTourImage } from "@/lib/dataAdapter";
 
 export const revalidate = 300;
 
@@ -22,7 +22,7 @@ export default async function Home() {
     description: extractPortableText(t.description),
     price: t.price,
     duration: t.duration,
-    image: t.mainImage?.asset?.url || t.mainImage || '',
+    image: getTourImage(t._id, t.mainImage?.asset?.url),
     slug: typeof t.slug === 'string' ? t.slug : (t.slug?.current || ''),
     category: t.category,
     rating: t.rating ? String(t.rating) : '4.9',

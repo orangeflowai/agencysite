@@ -60,10 +60,11 @@ export function TestimonialsSection() {
       {/* About Image */}
       <div className="relative aspect-[16/9] w-full">
         <Image
-          src="/images/roman-forum.jpg"
+          src="https://images.unsplash.com/photo-1525874683057-6e1cef3d3e85?w=1600&q=80"
           alt="Roman Forum at sunset"
           fill
           className="object-cover"
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
       </div>

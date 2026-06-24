@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Clock, Star, Users, ArrowRight, Zap } from 'lucide-react'
-import { urlFor, extractPortableText } from '@/lib/dataAdapter'
+import { urlFor, extractPortableText, getTourImage } from '@/lib/dataAdapter'
 import type { Tour } from '@/lib/dataAdapter'
 
 const FALLBACK = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80'
@@ -16,11 +16,9 @@ interface TourCardProps {
 export default function TourCard({ tour, dark = false }: TourCardProps) {
   const [imgErr, setImgErr] = useState(false)
 
-  const img = imgErr ? FALLBACK
-    : tour.mainImage?.asset?.url ? tour.mainImage.asset.url
-    : typeof tour.mainImage === 'string' ? tour.mainImage
-    : tour.mainImage ? urlFor(tour.mainImage).width(800).height(560).url()
-    : FALLBACK
+  const img = imgErr
+    ? FALLBACK
+    : getTourImage(tour._id, tour.mainImage?.asset?.url || (typeof tour.mainImage === 'string' ? tour.mainImage : undefined))
 
   const rating = tour.rating ?? 4.9
   const reviews = (tour as any).reviewCount ?? 0

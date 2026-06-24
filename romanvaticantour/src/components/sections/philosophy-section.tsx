@@ -76,10 +76,11 @@ export function PhilosophySection() {
                 }}
               >
                 <Image
-                  src="/images/st-peters.jpg"
+                  src="https://images.unsplash.com/photo-1596117015567-0aeaf697a728?w=1200&q=80"
                   alt="St. Peter's Basilica Vatican"
                   fill
                   className="object-cover"
+                  sizes="50vw"
                 />
                 <div className="absolute bottom-6 left-6 right-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
@@ -100,10 +101,11 @@ export function PhilosophySection() {
                 }}
               >
                 <Image
-                  src="/images/colosseum-night.jpg"
+                  src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1200&q=80"
                   alt="Colosseum illuminated at night"
                   fill
                   className="object-cover"
+                  sizes="50vw"
                 />
                 <div className="absolute bottom-6 left-6 right-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
