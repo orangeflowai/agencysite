@@ -59,25 +59,25 @@ function ScrollRevealText({ text }: { text: string }) {
 
 const sideImages = [
   {
-    src: "https://images.unsplash.com/photo-1541185933-710f50b90c28?w=800&q=80",
+    src: "/images/vatican-sistine.jpg",
     alt: "Sistine Chapel",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1555992820-dee20445e674?w=800&q=80",
+    src: "/images/trevi-fountain.jpg",
     alt: "Trevi Fountain",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80",
+    src: "/images/colosseum-night.jpg",
     alt: "Roman streets",
     position: "right",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1529154035288-f51b9c319e7b?w=800&q=80",
+    src: "/images/pantheon.jpg",
     alt: "Pantheon interior",
     position: "right",
     span: 1,

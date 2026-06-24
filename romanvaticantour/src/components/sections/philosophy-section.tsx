@@ -76,7 +76,7 @@ export function PhilosophySection() {
                 }}
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1596117015567-0aeaf697a728?w=1200&q=80"
+                  src="/images/st-peters.jpg"
                   alt="St. Peter's Basilica Vatican"
                   fill
                   className="object-cover"
@@ -101,7 +101,7 @@ export function PhilosophySection() {
                 }}
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1200&q=80"
+                  src="/images/colosseum-night.jpg"
                   alt="Colosseum illuminated at night"
                   fill
                   className="object-cover"

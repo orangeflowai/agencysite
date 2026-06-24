@@ -8,25 +8,25 @@ const words = ["ROMAN", "VATICAN", "COLOSSEUM", "TOURS"];
 
 const sideImages = [
   {
-    src: "https://images.unsplash.com/photo-1541185933-710f50b90c28?w=800&q=80",
+    src: "/images/vatican-sistine.jpg",
     alt: "Sistine Chapel",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80",
+    src: "/images/st-peters.jpg",
     alt: "St. Peter's Dome",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80",
+    src: "/images/colosseum-night.jpg",
     alt: "Colosseum Underground",
     position: "right",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1509024644558-2f56ce76c490?w=800&q=80",
+    src: "/images/rome-hero.jpg",
     alt: "Arena Floor",
     position: "right",
     span: 1,
@@ -124,7 +124,7 @@ export function HeroSection() {
               }}
             >
               <Image
-                src="https://images.unsplash.com/photo-1529260830199-42c24126f198?w=1600&q=80"
+                src="/images/rome-hero.jpg"
                 alt="The Vatican at Night"
                 fill
                 className="object-cover"

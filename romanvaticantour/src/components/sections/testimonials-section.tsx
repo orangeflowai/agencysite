@@ -60,7 +60,7 @@ export function TestimonialsSection() {
       {/* About Image */}
       <div className="relative aspect-[16/9] w-full">
         <Image
-          src="https://images.unsplash.com/photo-1525874683057-6e1cef3d3e85?w=1600&q=80"
+          src="/images/roman-forum.jpg"
           alt="Roman Forum at sunset"
           fill
           className="object-cover"

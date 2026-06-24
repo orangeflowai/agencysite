@@ -4,35 +4,35 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Roman Vatican Tour - Royal Purple & Sacred Gold Palette */
-  --background: #F5F3F8;
-  --foreground: #2D1B3D;
+  /* Roman Vatican Tour - Black text on light background */
+  --background: #FFFFFF;
+  --foreground: #000000;
   --card: #FFFFFF;
-  --card-foreground: #2D1B3D;
+  --card-foreground: #000000;
   --popover: #FFFFFF;
-  --popover-foreground: #2D1B3D;
-  --primary: #5B2C6F;
+  --popover-foreground: #000000;
+  --primary: #8B1A1A;
   --primary-foreground: #FFFFFF;
-  --secondary: #E8E4ED;
-  --secondary-foreground: #2D1B3D;
-  --muted: #DDD6E8;
-  --muted-foreground: #6B5B7A;
-  --accent: #8B6AA8;
+  --secondary: #F5F5F5;
+  --secondary-foreground: #000000;
+  --muted: #E5E5E5;
+  --muted-foreground: #444444;
+  --accent: #8B1A1A;
   --accent-foreground: #FFFFFF;
   --destructive: #DC2626;
   --destructive-foreground: #FFFFFF;
-  --border: #C8B8D8;
-  --input: #E8E4ED;
-  --ring: #8B6AA8;
-  --chart-1: #8B6AA8;
-  --chart-2: #6B5B7A;
-  --chart-3: #5B2C6F;
-  --chart-4: #A88BC4;
-  --chart-5: #9B7DB8;
+  --border: #D4D4D4;
+  --input: #E5E5E5;
+  --ring: #8B1A1A;
+  --chart-1: #8B1A1A;
+  --chart-2: #666666;
+  --chart-3: #444444;
+  --chart-4: #999999;
+  --chart-5: #333333;
   --radius: 0.5rem;
-  
-  /* Vatican purple accent */
-  --vatican-purple: #5B2C6F;
+
+  /* Vatican red accent */
+  --vatican-purple: #8B1A1A;
   --vatican-gold: #D4AF37;
   --cream: #FDFBF7;
   --olive: #5B6B4D;
@@ -40,30 +40,30 @@
 }
 
 .dark {
-  --background: #1A0F24;
-  --foreground: #F5F3F8;
-  --card: #1A0F24;
-  --card-foreground: #F5F3F8;
-  --popover: #1A0F24;
-  --popover-foreground: #F5F3F8;
-  --primary: #F5F3F8;
-  --primary-foreground: #1A0F24;
-  --secondary: #2D1B3D;
-  --secondary-foreground: #F5F3F8;
-  --muted: #3D2B4D;
-  --muted-foreground: #B8B3BE;
-  --accent: #8B6AA8;
-  --accent-foreground: #1A0F24;
+  --background: #0A0A0A;
+  --foreground: #000000;
+  --card: #111111;
+  --card-foreground: #000000;
+  --popover: #111111;
+  --popover-foreground: #000000;
+  --primary: #8B1A1A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #1A1A1A;
+  --secondary-foreground: #000000;
+  --muted: #222222;
+  --muted-foreground: #555555;
+  --accent: #8B1A1A;
+  --accent-foreground: #FFFFFF;
   --destructive: #DC2626;
   --destructive-foreground: #FFFFFF;
-  --border: #3D2B4D;
-  --input: #2D1B3D;
-  --ring: #8B6AA8;
-  --chart-1: #8B6AA8;
-  --chart-2: #B8B3BE;
-  --chart-3: #6B5B7A;
-  --chart-4: #5B2C6F;
-  --chart-5: #3D2B4D;
+  --border: #333333;
+  --input: #222222;
+  --ring: #8B1A1A;
+  --chart-1: #8B1A1A;
+  --chart-2: #666666;
+  --chart-3: #444444;
+  --chart-4: #555555;
+  --chart-5: #333333;
 }
 
 @theme inline {
