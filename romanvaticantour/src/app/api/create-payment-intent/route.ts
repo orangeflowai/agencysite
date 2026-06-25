@@ -4,52 +4,19 @@ import { headers } from 'next/headers'
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: Request) {
-  const payloadUrl = process.env.PAYLOAD_API_URL
-  const tenant = process.env.PAYLOAD_TENANT || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour'
-  const apiKey = process.env.PAYLOAD_API_KEY
   const body = await req.json()
-
-  if (payloadUrl && apiKey) {
-    const res = await fetch(`${payloadUrl}/api/create-payment-intent`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-tenant-id': tenant, Authorization: `Bearer ${apiKey}` },
-      body: JSON.stringify({ ...body, tenant }),
-    })
-    return NextResponse.json(await res.json(), { status: res.status })
-  }
+  const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour'
 
   try {
     const headersList = await headers()
-    const siteId = headersList.get('x-site-id') || tenant
+    const reqSiteId = headersList.get('x-site-id') || siteId
     const { amount, tourTitle, tourSlug, meetingPoint, date, time, guests, guestCounts = {}, bookingDetails, addOns = [] } = body
 
-    // Server-side inventory check — prevent double-booking
-    if (payloadUrl && tourSlug && date && time) {
-      try {
-        const availRes = await fetch(
-          `${payloadUrl}/api/availability?slug=${encodeURIComponent(tourSlug)}&date=${encodeURIComponent(date)}`,
-          { headers: { 'x-tenant-id': tenant }, cache: 'no-store' }
-        );
-        if (availRes.ok) {
-          const availData = await availRes.json();
-          const slot = (availData.slots || []).find((s: any) => s.time === time);
-          if (slot && (slot.available_slots || 0) < guests) {
-            return NextResponse.json({ error: `Only ${slot.available_slots} spots remaining for ${time}. Please choose another time.` }, { status: 409 });
-          }
-          if (!slot) {
-            return NextResponse.json({ error: 'This time slot is no longer available. Please select another.' }, { status: 409 });
-          }
-        }
-      } catch (e) {
-        console.warn('[create-payment-intent] Inventory check failed, proceeding:', e);
-      }
-    }
-
     const { getStripe } = await import('@/lib/stripe')
-    const stripe = getStripe(siteId)
-    const legacyAdults = guestCounts.Adult || guestCounts.Adults || body.adults || 0
-    const legacyStudents = guestCounts.Student || guestCounts.Students || body.students || 0
-    const legacyYouths = guestCounts.Youth || guestCounts.Youths || body.youths || 0
+    const stripe = getStripe(reqSiteId)
+    const adults = guestCounts.Adult || guestCounts.Adults || body.adults || 0
+    const students = guestCounts.Student || guestCounts.Students || body.students || 0
+    const youths = guestCounts.Youth || guestCounts.Youths || body.youths || 0
     const addOnsTotal = addOns.reduce((s: number, a: any) => s + a.price * a.quantity, 0)
     const safeJson = (v: any, max = 490) => { const s = JSON.stringify(v); return s.length > max ? s.slice(0, max) : s }
     const pi = await stripe.paymentIntents.create({
@@ -58,9 +25,9 @@ export async function POST(req: Request) {
       metadata: {
         tourSlug: (tourSlug || '').slice(0, 490), tourTitle: (tourTitle || '').slice(0, 490),
         date: (date || '').slice(0, 100), time: (time || '').slice(0, 100),
-        guests: guests.toString(), adults: legacyAdults.toString(),
-        students: legacyStudents.toString(), youths: legacyYouths.toString(),
-        guestCounts: safeJson(guestCounts), siteId,
+        guests: guests.toString(), adults: adults.toString(),
+        students: students.toString(), youths: youths.toString(),
+        guestCounts: safeJson(guestCounts), siteId: reqSiteId,
         leadEmail: (bookingDetails?.leadTraveler?.email || '').slice(0, 490),
         leadName: (bookingDetails?.leadTraveler ? `${bookingDetails.leadTraveler.firstName} ${bookingDetails.leadTraveler.lastName}` : '').slice(0, 490),
         leadPhone: (bookingDetails?.leadTraveler?.phone || '').slice(0, 100),

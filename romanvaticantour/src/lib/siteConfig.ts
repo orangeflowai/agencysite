@@ -10,5 +10,4 @@ export const siteConfig = {
     instagram: 'https://instagram.com/romanvaticantour',
     twitter: 'https://twitter.com/romanvaticantour',
   },
-  payloadUrl: process.env.NEXT_PUBLIC_PAYLOAD_URL || 'https://admin.wondersofrome.com',
 };
