@@ -90,6 +90,7 @@ export interface Tour {
     maxParticipants?: number;
     sites?: Array<{ _ref: string; _type: 'reference' }>;
     gallery?: any[];
+    slots?: Array<{ time: string; available_slots: number }>;
 }
 
 export interface Post {
@@ -197,7 +198,7 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
                 price, duration, description,
                 category, "features": highlights, highlights, badge, rating, reviewCount,
                 tags, guestTypes, includes, excludes, importantInfo, itinerary, meetingPoint,
-                groupSize, location, gallery, sites
+                groupSize, location, gallery, sites, slots, maxParticipants
             }`;
             tours = await client.fetch(query, { siteRef }, { next: { revalidate: 60 } });
         }
@@ -210,7 +211,7 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
                 price, duration, description,
                 category, "features": highlights, highlights, badge, rating, reviewCount,
                 tags, guestTypes, includes, excludes, importantInfo, itinerary, meetingPoint,
-                groupSize, location, gallery
+                groupSize, location, gallery, slots, maxParticipants
             }`;
             tours = await client.fetch(query, {}, { next: { revalidate: 60 } });
         }
@@ -240,7 +241,9 @@ export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): P
                 excludes,
                 importantInfo,
                 itinerary,
-                meetingPoint
+                meetingPoint,
+                slots,
+                maxParticipants
             }`;
             tour = await client.fetch(query, { slug, siteRef }, { next: { revalidate: 60 } });
         }
@@ -255,7 +258,9 @@ export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): P
                 excludes,
                 importantInfo,
                 itinerary,
-                meetingPoint
+                meetingPoint,
+                slots,
+                maxParticipants
             }`;
             tour = await client.fetch(query, { slug }, { next: { revalidate: 60 } });
         }

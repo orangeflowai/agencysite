@@ -248,6 +248,26 @@ const tourType = defineType({
             group: 'logistics',
         }),
         defineField({
+            name: 'slots',
+            title: 'Available Time Slots',
+            type: 'array',
+            group: 'logistics',
+            of: [{
+                type: 'object',
+                fields: [
+                    { name: 'time', type: 'string', title: 'Time (e.g. 09:00)', validation: rule => rule.required() },
+                    { name: 'available_slots', type: 'number', title: 'Available Slots', validation: rule => rule.required().min(0) },
+                ],
+                preview: {
+                    select: { time: 'time', slots: 'available_slots' },
+                    prepare({ time, slots }: any) {
+                        return { title: `${time} — ${slots} spots` }
+                    }
+                }
+            }],
+            description: 'Customize available time slots for this tour. Leave empty to use default slots (9:00-16:00).',
+        }),
+        defineField({
             name: 'maxParticipants',
             title: 'Max Participants (per booking)',
             type: 'number',

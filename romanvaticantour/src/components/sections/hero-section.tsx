@@ -186,7 +186,7 @@ export function HeroSection() {
           Official priority access to the Vatican and Colosseum.
         </p>
         <div className="mt-12">
-            <Link href="#tours" className="px-12 py-5 bg-primary text-primary-foreground font-bold rounded-full text-lg hover:scale-105 transition-transform inline-block">
+            <Link href="/search" className="px-12 py-5 bg-primary text-primary-foreground font-bold rounded-full text-lg hover:scale-105 transition-transform inline-block">
                 Book Now
             </Link>
         </div>
