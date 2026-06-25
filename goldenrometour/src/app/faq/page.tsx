@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import VaticanHeader from "@/components/vatican/header";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ChevronDown, ChevronUp, Mail, Phone, Shield, CreditCard, Clock, Camera, UserCheck } from 'lucide-react';
 import Link from 'next/link';
@@ -87,7 +87,7 @@ export default function FAQPage() {
 
     return (
         <main className="min-h-screen bg-card font-body selection:bg-card selection:text-white">
-            <VaticanHeader />
+            <Header />
 
             <div className="bg-card text-white py-24 text-center relative overflow-hidden border-b border-border/20">
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
@@ -160,13 +160,13 @@ export default function FAQPage() {
                         Our Vatican specialists are here to help! Available 8:00 AM – 7:00 PM (CET).
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href="mailto:vatican@goldenrometours.com" className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full border border-border hover:border-border shadow-sm transition-all hover:-translate-y-1">
+                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@goldenrometour.com'}`} className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full border border-border hover:border-border shadow-sm transition-all hover:-translate-y-1">
                             <Mail size={18} className="text-foreground" />
-                            vatican@goldenrometours.com
+                            {process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@goldenrometour.com'}
                         </a>
-                        <a href="tel:+393898922088" className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full hover:bg-card shadow-lg shadow-[#C9A227]/20 transition-all hover:-translate-y-1">
+                        <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+393514199425'}`} className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full hover:bg-card shadow-lg shadow-[#C9A227]/20 transition-all hover:-translate-y-1">
                             <Phone size={18} />
-                            {process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 389 892 2088"}
+                            {process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 351 419 9425"}
                         </a>
                     </div>
                 </div>

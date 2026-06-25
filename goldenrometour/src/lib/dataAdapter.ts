@@ -1,16 +1,18 @@
 /**
  * dataAdapter.ts — Unified data layer
- * DATA_SOURCE=payload  → Payload CMS only (default for all sites now)
- * DATA_SOURCE=sanity   → Sanity only
+ * DATA_SOURCE=sanity   → Sanity CMS only (default for goldenrometour)
+ * DATA_SOURCE=payload  → Payload CMS only
  * DATA_SOURCE=dual     → Payload first, Sanity fallback
  * DATA_SOURCE=hybrid   → Sanity for content/images, Payload for availability
  */
 
 import * as sanity  from './sanityService'
 import * as payload from './payloadService'
+import { tours as staticTours } from './toursData'
 
 export type { Tour, Post, Site, Settings } from './sanityService'
 
+// Fix comment: default to 'sanity' as primary data source
 const source = process.env.DATA_SOURCE || 'sanity'
 
 export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour'
@@ -18,8 +20,7 @@ export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometou
 // Load static tours from toursData.ts (always available, no network needed)
 function loadStaticTours() {
   try {
-    // Dynamic import not needed — toursData is a plain module
-    const { tours } = require('./toursData') as { tours: any[] }
+    const tours = staticTours
     return tours.map((t: any) => ({
       _id: t.id,
       title: t.title,
@@ -282,9 +283,14 @@ export const getSettings  = (siteId?: string)              => withFallback(() =>
 export const getSite      = (siteId?: string)              => withFallback(() => payload.getSite(siteId),           () => sanity.getSite(siteId))
 export const getAllSites   = ()                             => withFallback(() => payload.getAllSites(),              () => sanity.getAllSites())
 
-// urlFor — Payload uses direct URLs; Sanity uses image builder
-// This shim works for both and supports chaining
+// urlFor — delegates to Sanity image builder for Sanity images,
+// falls back to direct URL for Payload/static images
 export function urlFor(source: any) {
+  // If source has a Sanity _ref, use the real Sanity image builder
+  if (source?.asset?._ref) {
+    return sanity.urlFor(source)
+  }
+
   const url = typeof source === 'string'
     ? source
     : source?.asset?.url || source?.url || ''

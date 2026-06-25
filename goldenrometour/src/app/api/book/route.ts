@@ -20,17 +20,7 @@ export async function POST(request: Request) {
             }
         }
 
-        console.log("------------------------------------------------");
-        console.log("📧 NEW BOOKING RECEIVED");
-        console.log("------------------------------------------------");
-        console.log("Product:", body.tourTitle);
-        console.log("Date:", body.date);
-        console.log("Guests:", body.guests);
-        console.log("Name:", body.name);
-        console.log("Email:", body.email);
-        console.log("Total:", body.price);
-        console.log("RESEND_API_KEY present:", !!process.env.RESEND_API_KEY);
-        console.log("------------------------------------------------");
+        console.log(`[book] Booking received: ${body.tourTitle} | ${body.date} | ${body.guests} guests | €${body.price}`);
 
         let emailSent = false;
         let emailError = null;
@@ -61,10 +51,10 @@ export async function POST(request: Request) {
                                 
                                 <p style="color: #666;">Please arrive 15 minutes before your scheduled time. Remember to bring a valid ID and dress appropriately (shoulders and knees covered).</p>
                                 
-                                <p>Questions? Contact us at <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a></p>
+                                <p>Questions? Contact us at <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@goldenrometour.com"}">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@goldenrometour.com"}</a></p>
                             </div>
                             <div style="background: #333; padding: 20px; text-align: center; color: #999; font-size: 12px;">
-                                © 2026 ${process.env.NEXT_PUBLIC_SITE_URL || ""}. All rights reserved.
+                                © ${new Date().getFullYear()} ${process.env.NEXT_PUBLIC_SITE_URL || "goldenrometour.com"}. All rights reserved.
                             </div>
                         </div>
                     `
@@ -81,11 +71,43 @@ export async function POST(request: Request) {
             emailError = "Email service not configured";
         }
 
+        // Attempt to persist booking to database for audit/recovery
+        let bookingId: string | null = null;
+        try {
+            const { supabaseAdmin } = await import('@/lib/supabaseAdmin');
+            const { data: booking, error: dbError } = await supabaseAdmin
+                .from('bookings')
+                .insert({
+                    tour_title: body.tourTitle,
+                    tour_slug: body.tourSlug || '',
+                    date: body.date,
+                    time: body.time || '',
+                    guests: body.guests || 0,
+                    guest_counts: body.guestCounts || {},
+                    price: body.price || 0,
+                    customer_name: body.name,
+                    customer_email: body.email,
+                    customer_phone: body.phone || '',
+                    payment_intent_id: body.paymentIntentId || null,
+                    status: 'confirmed',
+                    metadata: body.metadata || {},
+                })
+                .select('id')
+                .single();
+            if (dbError) {
+                console.error('[book] Failed to persist booking:', dbError.message);
+            } else {
+                bookingId = booking?.id || null;
+            }
+        } catch (dbErr: unknown) {
+            console.error('[book] Database error:', dbErr instanceof Error ? dbErr.message : String(dbErr));
+        }
+
         return NextResponse.json({
             success: true,
             message: "Booking confirmed",
             emailSent,
-            emailError
+            bookingId,
         });
     } catch (error) {
         console.error("Booking error:", error);

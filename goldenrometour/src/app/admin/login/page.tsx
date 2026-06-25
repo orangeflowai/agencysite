@@ -1,99 +1,61 @@
-
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
-import { Lock, Mail, Loader2 } from 'lucide-react';
+import { Shield } from 'lucide-react';
 
-export default function AdminLogin() {
-    const supabase = createClient();
-    const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+export default function AdminLoginPage() {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-    const handleLogin = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-        try {
-            const { error: authError } = await supabase.auth.signInWithPassword({
-                email,
-                password,
-            });
+    // Set cookie and redirect
+    document.cookie = `grt_admin_token=${password}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
+    router.push('/admin/inventory');
+    router.refresh();
+    setLoading(false);
+  };
 
-            if (authError) throw authError;
-
-            router.refresh(); // Refresh to update middleware state
-            router.push('/admin/dashboard');
-        } catch (err: unknown) {
-            const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
-            setError(errorMessage);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <div className="min-h-screen bg-cream flex items-center justify-center p-4">
-            <div className="bg-card max-w-md w-full rounded-2xl shadow-xl overflow-hidden border border-border">
-                <div className="bg-emerald-900 p-8 text-center">
-                    <div className="mx-auto bg-emerald-800 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                        <Lock className="text-emerald-100 w-8 h-8" />
-                    </div>
-                    <h1 className="text-2xl font-bold text-white">Admin Access</h1>
-                    <p className="text-emerald-200 text-sm mt-2">Sign in to manage tours & inventory</p>
-                </div>
-
-                <form onSubmit={handleLogin} className="p-8 space-y-6">
-                    {error && (
-                        <div className="bg-red-50 text-red-600 text-sm p-4 rounded-lg border border-red-100">
-                            {error}
-                        </div>
-                    )}
-
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold text-foreground  tracking-wider">Email Address</label>
-                        <div className="relative">
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
-                                placeholder="admin@example.com"
-                                required
-                            />
-                            <Mail className="w-5 h-5 text-muted-foreground absolute left-3 top-3.5" />
-                        </div>
-                    </div>
-
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold text-foreground  tracking-wider">Password</label>
-                        <div className="relative">
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 border border-border rounded-xl focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
-                                placeholder="••••••••"
-                                required
-                            />
-                            <Lock className="w-5 h-5 text-muted-foreground absolute left-3 top-3.5" />
-                        </div>
-                    </div>
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full bg-primary hover:opacity-90 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-70 flex items-center justify-center"
-                    >
-                        {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Sign In Dashboard'}
-                    </button>
-                </form>
-            </div>
+  return (
+    <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-2xl mb-4">
+            <Shield className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-2xl font-bold text-white">Admin Access</h1>
+          <p className="text-zinc-500 text-sm mt-2">Golden Rome Tour</p>
         </div>
-    );
+
+        <form onSubmit={handleLogin} className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">
+          <div>
+            <label className="block text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-2">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+              placeholder="Enter admin password"
+              autoFocus
+              required
+            />
+          </div>
+          {error && <p className="text-red-400 text-sm">{error}</p>}
+          <button
+            type="submit"
+            disabled={loading || !password}
+            className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg font-semibold transition-colors disabled:opacity-50"
+          >
+            {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }

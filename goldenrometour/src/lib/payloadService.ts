@@ -48,7 +48,15 @@ export interface Settings {
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
 
-const ADMIN_BYPASS_KEY = process.env.PAYLOAD_API_KEY || 'g3UDzJOPpj-_EOLcFzyy2mhVp75H62zHwNrJL5Kb-hU'
+const ADMIN_BYPASS_KEY = process.env.PAYLOAD_API_KEY || '';
+
+// Helper to ensure API key is available
+function getApiKey(): string {
+  if (!ADMIN_BYPASS_KEY) {
+    console.warn('[payloadService] PAYLOAD_API_KEY not configured — Payload API calls will fail');
+  }
+  return ADMIN_BYPASS_KEY;
+}
 
 // ── Fetch helper ──────────────────────────────────────────────────────────────
 

@@ -1,181 +1,115 @@
-'use client';
-
 import Link from 'next/link';
-import Image from 'next/image';
-import { Mail, Phone, MapPin, Instagram, Facebook, Twitter } from 'lucide-react';
-import { useSite } from '@/components/SiteProvider';
-import { urlFor } from '@/lib/dataAdapter';
-import PaymentLogos from './PaymentLogos';
-import Newsletter from './Newsletter';
+import { Mail, Phone, MapPin } from 'lucide-react';
 
-const EXPLORE = [
-  { label: 'Skip The Line Tickets', href: '/tour/vatican-museum-sistine-chapel-skip-line-tickets' },
-  { label: 'VIP Guided Tour',      href: '/tour/vip-vatican-museum-sistine-chapel-st-basilica' },
-  { label: 'About Us',             href: '/about' },
-  { label: 'Contact',              href: '/contact' },
-  { label: 'FAQ',                  href: '/faq' },
-  { label: 'The Dispatch (Blog)',  href: '/blog' },
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@goldenrometour.com';
+const contactPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 351 419 9425';
+const address = 'Via Germanico, 40, 00192 Roma, RM, Italy';
+
+const tourLinks = [
+  { name: 'Guided Vatican Tour', href: '/tour/vatican-museums-and-sistine-chapel-guided-tour' },
+  { name: 'Skip-the-Line Ticket', href: '/tour/vatican-museums-sistine-chapel-skip-the-line' },
 ];
 
-const SUPPORT = [
-  { label: 'Contact Us',          href: '/contact' },
-  { label: 'FAQ',                  href: '/faq' },
-  { label: 'Cancellation Policy', href: '/cancellation-policy' },
-  { label: 'Terms & Conditions',  href: '/terms-and-conditions' },
-  { label: 'Privacy Policy',      href: '/privacy-policy' },
-  { label: 'Become a Partner',    href: '/become-a-partner' },
+const pageLinks = [
+  { name: 'FAQ', href: '/faq' },
+  { name: 'Contact', href: '/contact' },
+];
+
+const legalLinks = [
+  { name: 'Terms & Conditions', href: '/terms-and-conditions' },
+  { name: 'Privacy Policy', href: '/privacy-policy' },
+  { name: 'Cancellation Policy', href: '/cancellation-policy' },
+  { name: 'Disclaimer', href: '/disclaimer' },
 ];
 
 export default function Footer() {
-  const site = useSite();
-  const year = new Date().getFullYear();
-
-  const email  = site?.contactEmail  || 'info@goldenrometours.com';
-  const phone  = site?.contactPhone  || process.env.NEXT_PUBLIC_SUPPORT_PHONE || '';
-  const name   = site?.title || 'Golden Rome Tour';
-  const address = site?.officeAddress || 'Via Germanico, 28, Rome, Italy';
-
   return (
-    <footer className="bg-background text-black border-t border-primary/10 selection:bg-primary selection:text-white font-body">
-      <Newsletter />
-      
-      {/* Main grid */}
-      <div className="max-w-7xl mx-auto px-6 py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+    <footer className="bg-foreground text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
 
           {/* Brand */}
-          <div className="lg:col-span-1 space-y-8">
-            <Link href="/" className="inline-block group">
-              {site?.logo ? (
-                <Image
-                  src={urlFor(site.logo).url()}
-                  alt={name}
-                  width={140}
-                  height={40}
-                  className="h-10 w-auto object-contain transition-transform group-hover:scale-105"
-                  priority
-                />
-              ) : (
-                <div className="flex flex-col items-start justify-center transition-transform group-hover:scale-105 duration-300">
-                    <span className="font-heading text-3xl font-bold tracking-tighter leading-none italic uppercase">
-                        Vaticano <span className="text-primary not-italic">+</span>
-                    </span>
-                    <span className="font-heading text-primary/60 text-[8px] font-bold tracking-tight mt-1 uppercase">
-                        Sacred Luxury Editorial
-                    </span>
-                </div>
-              )}
+          <div className="md:col-span-1">
+            <Link href="/" className="font-heading text-2xl font-bold tracking-tight">
+              Golden Rome<span className="text-accent"> Tour</span>
             </Link>
-
-            <p className="text-black/50 text-xs leading-relaxed max-w-xs uppercase tracking-tight">
-              ARCHIVAL CONCIERGE SERVICES FOR THE DISCERNING TRAVELER. CURATING THE RARE, THE HISTORICAL, AND THE GENUINELY SACRED WITHIN THE ETERNAL CITY.
+            <p className="mt-4 text-white/60 text-sm leading-relaxed">
+              Official Vatican Museum partner. Skip-the-line access with accredited art historian guides.
             </p>
-
-            {/* Social */}
-            <div className="flex items-center gap-3">
-              {[
-                { href: site?.socialLinks?.instagram || 'https://instagram.com/goldenrometours', Icon: Instagram, label: 'Instagram' },
-                { href: site?.socialLinks?.facebook  || 'https://facebook.com/goldenrometours',  Icon: Facebook,  label: 'Facebook' },
-                { href: site?.socialLinks?.twitter   || 'https://twitter.com/goldenrometours',   Icon: Twitter,   label: 'Twitter' },
-              ].map(({ href, Icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center text-primary/40 hover:text-primary hover:border-primary transition-all duration-500 shadow-sm"
-                >
-                  <Icon size={16} />
-                </a>
-              ))}
-            </div>
           </div>
 
-          {/* Explore */}
+          {/* Tours */}
           <div>
-            <p className="text-[8px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Exploration</p>
-            <ul className="space-y-4">
-              {EXPLORE.map(({ label, href }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-xs text-black/60 hover:text-primary transition-colors font-heading font-bold tracking-tight uppercase"
-                  >
-                    {label}
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white/50">Tours</h4>
+            <ul className="space-y-3">
+              {tourLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/75 hover:text-accent transition-colors text-sm">
+                    {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Pages */}
           <div>
-            <p className="text-[8px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Documentation</p>
-            <ul className="space-y-4">
-              {SUPPORT.map(({ label, href }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-xs text-black/60 hover:text-primary transition-colors font-heading font-bold tracking-tight uppercase"
-                  >
-                    {label}
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white/50">Support</h4>
+            <ul className="space-y-3">
+              {pageLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/75 hover:text-accent transition-colors text-sm">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+              <li className="flex items-start gap-2 pt-2">
+                <Mail className="w-4 h-4 text-white/40 shrink-0 mt-0.5" />
+                <a href={`mailto:${contactEmail}`} className="text-white/75 hover:text-accent transition-colors text-sm break-all">
+                  {contactEmail}
+                </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <Phone className="w-4 h-4 text-white/40 shrink-0 mt-0.5" />
+                <a href={`tel:${contactPhone}`} className="text-white/75 hover:text-accent transition-colors text-sm">
+                  {contactPhone}
+                </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-white/40 shrink-0 mt-0.5" />
+                <span className="text-white/60 text-sm">{address}</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4 text-white/50">Legal</h4>
+            <ul className="space-y-3">
+              {legalLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/60 hover:text-accent transition-colors text-sm">
+                    {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <p className="text-[8px] font-heading font-bold tracking-tight text-primary mb-8 uppercase">Correspondence</p>
-            <ul className="space-y-6">
-              <li>
-                <a href={`mailto:${email}`} className="flex items-start gap-4 group">
-                  <Mail size={18} className="text-primary mt-0.5 shrink-0" />
-                  <span className="text-xs text-black/60 group-hover:text-primary transition-colors font-body uppercase tracking-tight">{email}</span>
-                </a>
-              </li>
-              <li>
-                <a href={`tel:${phone.replace(/\s/g, '')}`} className="flex items-center gap-4 group">
-                  <Phone size={18} className="text-primary shrink-0" />
-                  <span className="text-xs text-black/60 group-hover:text-primary transition-colors font-body uppercase tracking-tight">{phone}</span>
-                </a>
-              </li>
-              <li>
-                <div className="flex items-start gap-4">
-                  <MapPin size={18} className="text-primary mt-0.5 shrink-0" />
-                  <span className="text-xs text-black/60 font-body uppercase tracking-tight">{address}</span>
-                </div>
-              </li>
-            </ul>
-
-            {/* Payment logos */}
-            <div className="mt-12 pt-8 border-t border-primary/10">
-              <p className="font-heading text-[8px] tracking-tight text-primary/40 mb-4 font-bold uppercase">Secure Transfer Protocol</p>
-              <div className="opacity-80 hover:opacity-100 transition-all grayscale hover:grayscale-0">
-                <PaymentLogos size="sm" />
-              </div>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-primary/10 bg-background/50">
-        <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <p className="text-[8px] text-black/30 font-heading font-bold tracking-tight uppercase">
-            © {year} {name} // ARCHIVAL CONCIERGE STATUS: NOMINAL
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-white/40 text-xs">
+            &copy; {new Date().getFullYear()} Golden Rome Tour. All rights reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            {site?.businessInfo?.vatNumber && (
-                <span className="text-[8px] text-black/30 font-heading font-bold tracking-tight uppercase">
-                    P.IVA: {site.businessInfo.vatNumber}
-                </span>
-            )}
-             <span className="text-[8px] text-black/20 font-heading font-bold tracking-tight uppercase">
-                System Version 1.0.4-GRT
-            </span>
+          <div className="flex items-center gap-4 text-white/40 text-xs">
+            <span>Secure Booking</span>
+            <span>&middot;</span>
+            <span>Licensed Guides</span>
+            <span>&middot;</span>
+            <span>Official Partner</span>
           </div>
         </div>
       </div>

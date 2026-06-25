@@ -62,7 +62,8 @@ export async function POST(req: Request) {
       receipt_email: bookingDetails?.leadTraveler?.email || undefined,
     })
     return NextResponse.json({ clientSecret: pi.client_secret, paymentIntentId: pi.id })
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 })
+  } catch (err: unknown) {
+    console.error('[create-payment-intent] Error:', err instanceof Error ? err.message : String(err));
+    return NextResponse.json({ error: 'Payment processing failed. Please try again.' }, { status: 500 })
   }
 }

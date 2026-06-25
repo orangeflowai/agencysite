@@ -5,22 +5,20 @@ import { getTours, Tour } from '@/lib/sanityService';
 import { Loader2 } from 'lucide-react';
 import InventoryCalendar from '@/components/admin/InventoryCalendar';
 
-import { useAdmin } from '@/context/AdminContext';
+const SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 
 export default function InventoryPage() {
-    const { selectedSiteId } = useAdmin();
     const [tours, setTours] = useState<Tour[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!selectedSiteId) return;
 
         async function loadTours() {
             setLoading(true);
             try {
                 // Import dynamically to avoid build check issues if any, or just standard import
                 const { getTours } = await import('@/lib/sanityService');
-                const data = await getTours(selectedSiteId);
+                const data = await getTours(SITE_ID);
                 setTours(data);
             } catch (error) {
                 console.error("Failed to load tours", error);
@@ -29,7 +27,7 @@ export default function InventoryPage() {
             }
         }
         loadTours();
-    }, [selectedSiteId]);
+    }, [SITE_ID]);
 
     if (loading) return <div className="h-96 flex items-center justify-center"><Loader2 className="animate-spin text-primary w-8 h-8" /></div>;
 

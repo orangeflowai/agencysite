@@ -1,6 +1,6 @@
 // Helper functions for handling multilingual content
 
-import { Language } from '@/context/LanguageContext';
+type Language = 'en' | 'it' | 'es' | 'fr' | 'de' | 'pt' | 'ru';
 
 // Supported languages
 export const SUPPORTED_LANGUAGES: Language[] = ['en', 'it', 'es', 'fr', 'de', 'pt', 'ru'];

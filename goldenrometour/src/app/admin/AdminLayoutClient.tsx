@@ -22,7 +22,6 @@ import {
     Search
 } from 'lucide-react';
 import Image from 'next/image';
-import SiteSwitcher from '@/components/admin/SiteSwitcher';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -87,45 +86,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
 
             {/* Desktop Branding / Switcher */}
             <div className="hidden lg:block p-6">
-                <SiteSwitcher />
             </div>
 
             <nav className="flex-1 px-4 py-2 space-y-8 overflow-y-auto scrollbar-none">
-                <div className="lg:hidden mb-6">
-                    <SiteSwitcher />
-                </div>
-
                 <div>
-                    <div className="text-[8px] font-bold text-zinc-500  tracking-tight px-3 mb-4">Management</div>
+                    <div className="text-xs font-bold text-zinc-500 tracking-tight px-3 mb-4">TOUR MANAGEMENT</div>
                     <div className="space-y-1">
-                        <NavLink href="/admin" icon={LayoutDashboard} onClick={onClose}>Overview</NavLink>
-                        <NavLink href="/admin/bookings" icon={Calendar} onClick={onClose}>Reservations</NavLink>
-                    </div>
-                </div>
-
-                <div>
-                    <div className="text-[8px] font-bold text-zinc-500  tracking-tight px-3 mb-4">Inventory</div>
-                    <div className="space-y-1">
-                        <NavLink href="/admin/products" icon={Package} onClick={onClose}>Tours & Products</NavLink>
-                        <NavLink href="/admin/addons" icon={Store} onClick={onClose}>Add-ons & Extras</NavLink>
                         <NavLink href="/admin/inventory" icon={Calendar} onClick={onClose}>Inventory Control</NavLink>
-                        <NavLink href="/admin/blog" icon={PenTool} onClick={onClose}>Editorial</NavLink>
-                    </div>
-                </div>
-
-                <div>
-                    <div className="text-[8px] font-bold text-zinc-500  tracking-tight px-3 mb-4">Finance & CMS</div>
-                    <div className="space-y-1">
-                        <NavLink href="/admin/payments" icon={Wallet} onClick={onClose}>Revenue Hub</NavLink>
-                        <NavLink href="/studio" icon={ExternalLink} external onClick={onClose}>Content Studio</NavLink>
-                    </div>
-                </div>
-
-                <div>
-                    <div className="text-[8px] font-bold text-zinc-500  tracking-tight px-3 mb-4">Configuration</div>
-                    <div className="space-y-1">
-                        <NavLink href="/admin/users" icon={Users} onClick={onClose}>Team Directory</NavLink>
-                        <NavLink href="/admin/settings" icon={Settings} onClick={onClose}>Global Settings</NavLink>
+                        <NavLink href="/studio" icon={ExternalLink} external onClick={onClose}>Content Studio (Sanity)</NavLink>
                     </div>
                 </div>
             </nav>

@@ -1,250 +1,142 @@
 'use client';
 
-import Link from 'next/link';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { CheckCircle, Home, Calendar, Users, Clock, Mail, Download, MapPin, Sparkles, ArrowRight } from 'lucide-react';
-import { Suspense, useEffect, useState, useRef } from 'react';
-import { supabase } from '@/lib/supabase';
-
-interface BookingDetails {
-    id: string;
-    tour_title: string;
-    date: string;
-    time: string;
-    guests: number;
-    adults: number;
-    students: number;
-    youths: number;
-    total_price: number;
-    customer_name: string;
-    customer_email: string;
-    status: string;
-    stripe_payment_intent_id?: string;
-}
+import Link from 'next/link';
+import { ShieldCheck, Calendar, Clock, MapPin, Printer, ArrowRight, Loader2 } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 function SuccessContent() {
-    const searchParams = useSearchParams();
-    const sessionId = searchParams.get('session_id');
-    const paymentIntentId = searchParams.get('payment_intent');
-    const [booking, setBooking] = useState<BookingDetails | null>(null);
-    const [loading, setLoading] = useState(true);
-    const pollCount = useRef(0);
+  const searchParams = useSearchParams();
+  const paymentIntentId = searchParams.get('payment_intent');
+  const [booking, setBooking] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const id = sessionId || paymentIntentId;
-        if (id) {
-            fetchBookingDetails(id);
-        } else {
-            setLoading(false);
-        }
-    }, [sessionId, paymentIntentId]);
-
-    async function fetchBookingDetails(id: string) {
-        try {
-            let query = supabase.from('bookings').select('*');
-            if (sessionId) query = query.eq('stripe_session_id', id);
-            else query = query.eq('stripe_payment_intent_id', id);
-
-            const { data, error } = await query.single();
-
-            if (error && error.code === 'PGRST116' && pollCount.current < 10) {
-                pollCount.current++;
-                setTimeout(() => fetchBookingDetails(id), 2000);
-                return;
-            }
-
-            if (error) throw error;
-            setBooking(data);
-        } catch (err) {
-            console.error('Failed to fetch booking:', err);
-        } finally {
-            setLoading(false);
-        }
+  useEffect(() => {
+    if (paymentIntentId) {
+      fetch(`/api/tickets/${paymentIntentId}`)
+        .then((r) => r.json())
+        .then((data) => data?.booking && setBooking(data.booking))
+        .catch(() => {})
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
     }
+  }, [paymentIntentId]);
 
-    const bookingRef = booking?.id?.slice(-8).toUpperCase()
-        || paymentIntentId?.slice(-8).toUpperCase()
-        || sessionId?.slice(-8).toUpperCase()
-        || 'OFFICIAL';
-
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-background flex flex-col items-center justify-center font-sans">
-                <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4" />
-                <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Validating Authorization...</p>
-            </div>
-        );
-    }
-
-    return (
-        <div className="min-h-screen bg-background py-20 px-4 font-sans">
-            <div className="max-w-3xl mx-auto">
-                <div className="bg-card rounded-3xl shadow-2xl border border-border overflow-hidden mb-8 relative">
-                    {/* Decorative Background */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-32 -mt-32 blur-3xl" />
-                    
-                    <div className="bg-primary py-12 px-8 text-center relative overflow-hidden">
-                        <div className="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
-                            <Sparkles className="w-64 h-64 text-white" />
-                        </div>
-                        <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center mx-auto mb-6 border border-white/30">
-                            <CheckCircle className="w-10 h-10 text-white" />
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-2">Protocol <span className="italic">Confirmed</span></h1>
-                        <p className="text-primary-foreground/80 font-bold uppercase tracking-[0.2em] text-[8px]">Your Archive Access is Secured</p>
-                    </div>
-
-                    <div className="p-8 md:p-12">
-                        {booking ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                                <div className="space-y-8">
-                                    <div>
-                                        <p className="text-[8px] font-bold uppercase tracking-widest text-muted-foreground mb-1">Access Reference</p>
-                                        <p className="text-3xl font-serif font-bold text-foreground tracking-tight">#{bookingRef}</p>
-                                    </div>
-
-                                    <div className="space-y-4">
-                                        <h3 className="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-2">
-                                            <Calendar className="w-4 h-4" /> Schedule Details
-                                        </h3>
-                                        <div className="space-y-3">
-                                            <div className="flex flex-col">
-                                                <span className="text-[8px] font-bold text-muted-foreground uppercase">Experience</span>
-                                                <span className="font-bold text-foreground line-clamp-1">{booking.tour_title}</span>
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <span className="text-[8px] font-bold text-muted-foreground uppercase">Protocol Date</span>
-                                                <span className="font-bold text-foreground">
-                                                    {new Date(booking.date).toLocaleDateString('en-US', {
-                                                        weekday: 'long',
-                                                        month: 'long',
-                                                        day: 'numeric',
-                                                        year: 'numeric'
-                                                    })}
-                                                </span>
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <span className="text-[8px] font-bold text-muted-foreground uppercase">Confirmed Time</span>
-                                                <span className="font-bold text-foreground">{booking.time}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-8">
-                                    <div className="bg-secondary/30 rounded-2xl p-6 border border-border">
-                                        <h3 className="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-2 mb-4">
-                                            <Users className="w-4 h-4" /> Guest Manifest
-                                        </h3>
-                                        <div className="space-y-2 mb-4">
-                                            {(booking as any).guest_details?.guestCounts ? (
-                                                Object.entries((booking as any).guest_details.guestCounts).map(([type, count]: [string, any]) => (
-                                                    (count as number) > 0 && (
-                                                        <div key={type} className="flex justify-between text-xs font-bold uppercase tracking-widest">
-                                                            <span className="text-muted-foreground">{count as number} × {type}</span>
-                                                            <span className="text-foreground">Secured</span>
-                                                        </div>
-                                                    )
-                                                ))
-                                            ) : (
-                                                <div className="text-xs font-bold uppercase tracking-widest text-foreground">
-                                                    {booking.guests} Total Participants
-                                                </div>
-                                            )}
-                                        </div>
-                                        <div className="pt-4 border-t border-border flex justify-between items-end">
-                                            <span className="text-[8px] font-bold text-muted-foreground uppercase">Total Contribution</span>
-                                            <span className="text-2xl font-serif font-bold text-primary">€{booking.total_price.toFixed(2)}</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <h3 className="text-xs font-bold uppercase tracking-widest text-primary flex items-center gap-2">
-                                            <Mail className="w-4 h-4" /> Dispatch info
-                                        </h3>
-                                        <p className="text-sm text-muted-foreground leading-relaxed">
-                                            A digital ticket and preparation guide have been dispatched to:
-                                            <br />
-                                            <span className="font-bold text-foreground">{booking.customer_email}</span>
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="md:col-span-2 p-6 bg-accent/5 rounded-2xl border border-accent/20">
-                                    <h4 className="text-xs font-bold uppercase tracking-widest text-accent mb-3 flex items-center gap-2">
-                                        <Clock className="w-4 h-4" /> Preparation Protocol
-                                    </h4>
-                                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2 text-[8px] font-bold uppercase tracking-widest text-muted-foreground">
-                                        <li className="flex items-center gap-2">
-                                            <div className="w-1 h-1 rounded-full bg-accent" />
-                                            Arrive 20m before schedule
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <div className="w-1 h-1 rounded-full bg-accent" />
-                                            Gov Issued ID Mandatory
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <div className="w-1 h-1 rounded-full bg-accent" />
-                                            Shoulders & Knees Covered
-                                        </li>
-                                        <li className="flex items-center gap-2">
-                                            <div className="w-1 h-1 rounded-full bg-accent" />
-                                            Mobile Archive Access OK
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className="text-center py-12">
-                                <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
-                                <p className="text-xl font-serif font-bold text-foreground">Your request has been processed.</p>
-                                <p className="text-sm text-muted-foreground mt-2">Please check your digital correspondence for further instructions.</p>
-                            </div>
-                        )}
-
-                        <div className="mt-12 flex flex-col sm:flex-row gap-4">
-                            <Link
-                                href="/"
-                                className="flex-1 flex items-center justify-center gap-3 px-8 py-5 bg-primary text-primary-foreground font-bold uppercase tracking-widest text-[8px] rounded-full shadow-xl shadow-primary/20 hover:opacity-90 transition-all"
-                            >
-                                <Home size={14} />
-                                Return to Gallery
-                                <ArrowRight size={14} />
-                            </Link>
-                            <button
-                                onClick={() => window.print()}
-                                className="flex items-center justify-center gap-3 px-8 py-5 bg-card border border-border text-foreground font-bold uppercase tracking-widest text-[8px] rounded-full hover:bg-secondary transition-all"
-                            >
-                                <Download size={14} />
-                                Print Certificate
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex justify-center gap-8 text-[8px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">
-                    <span className="flex items-center gap-2">
-                        <CheckCircle className="w-3 h-3 text-primary" />
-                        Verified Archive
-                    </span>
-                    <span className="flex items-center gap-2">
-                        <MapPin className="w-3 h-3 text-primary" />
-                        Rome HQ Support
-                    </span>
-                </div>
-            </div>
+  return (
+    <>
+      {loading ? (
+        <div className="bg-card rounded-2xl border border-border p-8 animate-pulse">
+          <div className="h-4 bg-muted rounded w-3/4 mx-auto mb-4" />
+          <div className="h-4 bg-muted rounded w-1/2 mx-auto" />
         </div>
-    );
+      ) : booking ? (
+        <div className="bg-card rounded-2xl border border-border p-8 shadow-sm text-left space-y-4">
+          <div className="flex items-center justify-between pb-4 border-b border-border">
+            <h2 className="font-heading text-xl font-bold text-foreground">{booking.tour_title || 'Vatican Tour'}</h2>
+            <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full uppercase">
+              {booking.status || 'Confirmed'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex items-center gap-3">
+              <Calendar className="w-5 h-5 text-primary shrink-0" />
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider">Date</p>
+                <p className="font-semibold text-foreground">{booking.date || '-'}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-primary shrink-0" />
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider">Time</p>
+                <p className="font-semibold text-foreground">{booking.time || '-'}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-primary shrink-0" />
+              <div>
+                <p className="text-xs text-muted-foreground uppercase tracking-wider">Meeting Point</p>
+                <p className="font-semibold text-foreground text-sm">Via Germanico, 40, 00192 Roma</p>
+              </div>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Booking Ref</p>
+              <p className="font-mono text-sm font-semibold text-foreground">
+                {booking.id ? booking.id.slice(0, 8).toUpperCase() : (booking.payment_intent_id?.slice(0, 8) || 'N/A')}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-card rounded-2xl border border-border p-8 shadow-sm">
+          <p className="text-muted-foreground">
+            Your booking is being processed. You&apos;ll receive a confirmation email shortly.
+          </p>
+        </div>
+      )}
+    </>
+  );
 }
 
 export default function SuccessPage() {
-    return (
-        <Suspense fallback={
-            <div className="min-h-screen bg-background flex flex-col items-center justify-center">
-                <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+  return (
+    <main className="min-h-screen bg-background">
+      <Header />
+
+      <section className="pt-32 pb-20">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <ShieldCheck className="w-10 h-10 text-green-600" />
+          </div>
+
+          <h1 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Booking Confirmed!
+          </h1>
+          <p className="text-muted-foreground text-lg mb-8">
+            Your tour is booked and a confirmation email is on its way.
+          </p>
+
+          <Suspense fallback={
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
             </div>
-        }>
+          }>
             <SuccessContent />
-        </Suspense>
-    );
+          </Suspense>
+
+          <div className="mt-8 bg-secondary rounded-xl p-6 text-left max-w-md mx-auto">
+            <h3 className="font-semibold text-foreground mb-3">Important Reminders</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>✓ Arrive 25 minutes before your scheduled time</li>
+              <li>✓ Bring a valid ID or passport</li>
+              <li>✓ Shoulders and knees must be covered</li>
+              <li>✓ Large bags and sharp objects are not allowed</li>
+              <li>✓ Photography is prohibited inside the Sistine Chapel</li>
+            </ul>
+          </div>
+
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              onClick={() => window.print()}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-border rounded-lg font-medium text-foreground hover:bg-muted transition-colors"
+            >
+              <Printer className="w-4 h-4" /> Print Confirmation
+            </button>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            >
+              Back to Home <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  );
 }

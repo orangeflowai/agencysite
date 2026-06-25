@@ -2,47 +2,24 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
-import { Home, RefreshCw } from 'lucide-react';
 
-export default function Error({
-    error,
-    reset,
-}: {
-    error: Error & { digest?: string };
-    reset: () => void;
-}) {
-    useEffect(() => {
-        console.error(error);
-    }, [error]);
+export default function ErrorPage({ error, reset }: { error: Error; reset: () => void }) {
+  useEffect(() => { console.error('Page error:', error); }, [error]);
 
-    return (
-        <div className="min-h-screen bg-background flex items-center justify-center px-4">
-            <div className="max-w-lg w-full text-center space-y-8">
-                <div className="space-y-4">
-                    <p className="text-8xl font-bold text-destructive opacity-20 leading-none">500</p>
-                    <h1 className="text-3xl font-bold text-foreground">Something went wrong</h1>
-                    <p className="text-base text-muted-foreground leading-relaxed">
-                        An unexpected error occurred. Please try again or return to the homepage.
-                    </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button
-                        onClick={reset}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-xl hover:opacity-90 transition-opacity"
-                    >
-                        <RefreshCw className="w-4 h-4" />
-                        Try Again
-                    </button>
-                    <Link
-                        href="/"
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-border text-foreground font-semibold rounded-xl hover:bg-muted transition-colors"
-                    >
-                        <Home className="w-4 h-4" />
-                        Back to Home
-                    </Link>
-                </div>
-            </div>
+  return (
+    <main className="min-h-screen bg-background flex items-center justify-center">
+      <div className="text-center px-4">
+        <h1 className="font-heading text-4xl font-bold text-foreground mb-4">Something went wrong</h1>
+        <p className="text-muted-foreground mb-8">Please try again or return to the homepage.</p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button onClick={reset} className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            Try Again
+          </button>
+          <Link href="/" className="inline-flex items-center gap-2 border border-border px-6 py-3 rounded-lg font-medium hover:bg-muted transition-colors">
+            Go Home
+          </Link>
         </div>
-    );
+      </div>
+    </main>
+  );
 }

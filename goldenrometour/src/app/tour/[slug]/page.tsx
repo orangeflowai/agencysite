@@ -1,320 +1,219 @@
-
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
-import { Clock, Users, Calendar, Check, Star, MapPin, Map as MapIcon, Info, XCircle, CheckCircle } from 'lucide-react';
-import VaticanHeader from '@/components/vatican/header';
-import VaticanFooter from '@/components/vatican/footer';
-import BookingWidget from '@/components/BookingWidget';
-import TourHeroSlider from '@/components/TourHeroSlider';
-import MobileStickyBar from '@/components/MobileStickyBar';
-import { getTour, getTours, urlFor } from '@/lib/dataAdapter';
-import { PortableText } from '@portabletext/react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import BookingPanel from '@/components/BookingPanel';
+import TourCardCompact from '@/components/TourCardCompact';
+import { getTour, getTours } from '@/lib/dataAdapter';
+import { Clock, Users, Star, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
 
-// Revalidate every 5 minutes for faster updates
 export const revalidate = 300;
 
-interface PageProps {
-    params: Promise<{ slug: string }>;
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { slug } = await params;
-    const tour = await getTour(slug);
-
-    if (!tour) return { title: 'Tour Not Found' };
-
-    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Vatican Archives';
-    const title = `${tour.title} | ${siteName}`;
-    const description = tour.description 
-        ? (typeof tour.description === 'string' ? tour.description.slice(0, 160) : 'Book your exclusive Vatican skip-the-line tour with art historians.')
-        : `Experience ${tour.title} with expert Vatican guides.`;
-
-    const imageUrl = tour.mainImage ? urlFor(tour.mainImage).width(1200).height(630).url() : '';
-
-    return {
-        title,
-        description,
-        openGraph: {
-            title,
-            description,
-            images: imageUrl ? [{ url: imageUrl, width: 1200, height: 630, alt: tour.title }] : [],
-            type: 'website',
-        },
-        twitter: {
-            card: 'summary_large_image',
-            title,
-            description,
-            images: imageUrl ? [imageUrl] : [],
-        },
-    };
-}
-
-// Pre-build all tour pages at deploy time
 export async function generateStaticParams() {
-    const tours = await getTours();
-    return tours
-        .filter((tour) => tour.slug?.current) // Only include tours with valid slugs
-        .map((tour) => ({ slug: tour.slug.current }));
+  const tours = await getTours();
+  return tours.map((t: any) => ({ slug: t.slug?.current || '' })).filter((x: any) => x.slug);
 }
 
-export default async function TourPage({ params }: PageProps) {
-    const { slug } = await params;
-    const tour = await getTour(slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const tour = await getTour(slug);
+  if (!tour) return { title: 'Tour Not Found' };
+  const title = tour.title || 'Vatican Tour';
+  const desc = typeof tour.description === 'string' ? tour.description : '';
+  return {
+    title: `${title} | Golden Rome Tour`,
+    description: desc.slice(0, 160),
+    openGraph: {
+      title,
+      description: desc.slice(0, 160),
+      images: tour.mainImage?.asset?.url ? [{ url: tour.mainImage.asset.url }] : [],
+    },
+  };
+}
 
-    if (!tour) {
-        notFound();
-    }
+export default async function TourPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const tour = await getTour(slug);
+  if (!tour) notFound();
 
-    // Combine main image and gallery for the slider
-    const sliderImages = [tour.mainImage].concat(tour.gallery || []).filter(Boolean);
+  const allTours = await getTours();
+  const otherTour = allTours.find((t: any) => t._id !== tour._id);
 
-    // If no images at all, fallback to a Pexels image based on category
-    const categoryFallbacks: Record<string, string> = {
-      vatican: 'https://images.pexels.com/photos/3874600/pexels-photo-3874600.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      colosseum: 'https://images.pexels.com/photos/532263/pexels-photo-532263.jpeg?auto=compress&cs=tinysrgb&w=1600',
-      city: 'https://images.pexels.com/photos/1797158/pexels-photo-1797158.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    };
-    const fallbackImage = categoryFallbacks[tour.category || ''] || 'https://images.pexels.com/photos/1174136/pexels-photo-1174136.jpeg?auto=compress&cs=tinysrgb&w=1600';
-    if (sliderImages.length === 0) {
-        sliderImages.push(fallbackImage);
-    }
+  const description = typeof tour.description === 'string'
+    ? tour.description
+    : tour.description?.[0]?.children?.[0]?.text || '';
 
-    // JSON-LD Schema for SEO
-    const jsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'TouristTrip',
-        'name': tour.title,
-        'description': typeof tour.description === 'string' ? tour.description : 'Expert guided tour in Rome',
-        'image': sliderImages.map(img => urlFor(img).url()),
-        'provider': {
-            '@type': 'Organization',
-            'name': process.env.NEXT_PUBLIC_SITE_NAME || 'Wonders of Rome',
-            'url': process.env.NEXT_PUBLIC_SITE_URL
-        },
-        'offers': {
-            '@type': 'Offer',
-            'price': tour.price,
-            'priceCurrency': 'EUR',
-            'availability': 'https://schema.org/InStock'
-        },
-        'aggregateRating': {
-            '@type': 'AggregateRating',
-            'ratingValue': tour.rating || '5.0',
-            'reviewCount': tour.reviewCount || '100'
-        }
-    };
+  const imageUrl = tour.mainImage?.asset?.url || '/vatican-museums.jpg';
+  const highlights: string[] = tour.highlights || [];
+  const includes: string[] = tour.includes || [];
+  const excludes: string[] = (tour as any).excludes || [];
+  const importantInfo: string[] = (tour as any).importantInfo || [];
+  const guestTypes = (tour as any).guestTypes || [
+    { name: 'Adult', price: tour.price || 65, description: 'Age 18+' },
+    { name: 'Child', price: Math.round((tour.price || 65) * 0.7), description: 'Age 6–17' },
+  ];
 
-    return (
-        <main className="min-h-screen bg-background">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+  return (
+    <main className="min-h-screen bg-background">
+      <Header />
+
+      {/* Hero Image */}
+      <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
+        <img
+          src={imageUrl}
+          alt={tour.title || ''}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+      </div>
+
+      {/* Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-10">
+        {/* Title bar */}
+        <div className="bg-card rounded-2xl shadow-lg border border-border p-6 md:p-8 mb-8">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            {(tour as any).badge && (
+              <span className="bg-accent/20 text-foreground text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                {(tour as any).badge}
+              </span>
+            )}
+            <span className="text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1 rounded-full">
+              {tour.category || 'Vatican'}
+            </span>
+          </div>
+          <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            {tour.title}
+          </h1>
+          <div className="flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
+            <span className="flex items-center gap-1.5 font-medium text-foreground">
+              <Clock className="w-4 h-4 text-primary" /> {tour.duration}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Users className="w-4 h-4 text-primary" /> {tour.groupSize || 'Small Group'}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Star className="w-4 h-4 fill-accent text-accent" />
+              {tour.rating || '4.9'} ({tour.reviewCount || 0} reviews)
+            </span>
+            <span className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-primary" />
+              {(tour as any).meetingPoint || 'Via Germanico, 40, 00192 Roma'}
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          {/* Left: Description + Details */}
+          <div className="lg:col-span-2 space-y-10">
+            {/* Description */}
+            <section>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Tour Overview</h2>
+              <div className="prose prose-lg prose-p:text-muted-foreground prose-p:leading-relaxed max-w-none">
+                <p>{description}</p>
+              </div>
+            </section>
+
+            {/* Highlights */}
+            {highlights.length > 0 && (
+              <section>
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Highlights</h2>
+                <ul className="space-y-3">
+                  {highlights.map((h, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* What's Included */}
+            {includes.length > 0 && (
+              <section>
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4">What&apos;s Included</h2>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {includes.map((item, i) => (
+                    <li key={i} className="flex items-center gap-3">
+                      <CheckCircle className="w-4 h-4 text-green-600 shrink-0" />
+                      <span className="text-muted-foreground text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* What's Excluded */}
+            {excludes.length > 0 && (
+              <section>
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Not Included</h2>
+                <ul className="space-y-2">
+                  {excludes.map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-muted-foreground text-sm">
+                      <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Important Info */}
+            {importantInfo.length > 0 && (
+              <section>
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Important Information</h2>
+                <div className="bg-secondary rounded-xl p-5 space-y-2">
+                  {importantInfo.map((info, i) => (
+                    <p key={i} className="flex items-start gap-3 text-sm text-muted-foreground">
+                      <AlertCircle className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      {info}
+                    </p>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Meeting Point */}
+            {(tour as any).meetingPoint && (
+              <section>
+                <h2 className="font-heading text-2xl font-bold text-foreground mb-4">Meeting Point</h2>
+                <div className="bg-card border border-border rounded-xl p-5 flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-foreground">{(tour as any).meetingPoint}</p>
+                    <p className="text-sm text-muted-foreground mt-1">Please arrive 25 minutes before your scheduled start time.</p>
+                  </div>
+                </div>
+              </section>
+            )}
+          </div>
+
+          {/* Right: Booking Panel */}
+          <div className="lg:col-span-1">
+            <BookingPanel
+              tourId={tour._id}
+              tourTitle={tour.title}
+              tourSlug={slug}
+              basePrice={tour.price || 65}
+              guestTypes={guestTypes}
             />
-            <VaticanHeader />
+          </div>
+        </div>
 
-            {/* Tour Hero Slider */}
-            <div className="relative">
-                <TourHeroSlider
-                    images={sliderImages}
-                    title={tour.title}
-                    category={tour.category}
-                    duration={tour.duration}
-                    groupSize={tour.groupSize}
-                    rating={tour.rating}
-                    reviewCount={tour.reviewCount}
-                />
-
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
-                    <div className="max-w-4xl space-y-4 pointer-events-auto">
-                        <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[8px] font-bold  tracking-[0.4em] font-mono">
-                            {tour.category}
-                        </span>
-                        <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl text-white drop-shadow-2xl">
-                            {tour.title}
-                        </h1>
-                        <div className="flex flex-wrap items-center gap-6 text-white/80 text-[8px] font-bold  tracking-[0.2em] font-mono">
-                            <div className="flex items-center"><Clock className="w-4 h-4 mr-2 text-primary" /> {tour.duration}</div>
-                            <div className="flex items-center"><Users className="w-4 h-4 mr-2 text-primary" /> {tour.groupSize || 'Small Group'}</div>
-                            <div className="flex items-center text-primary">
-                                <Star className="w-4 h-4 mr-1 fill-current" />
-                                {tour.rating || '5.0'} ({tour.reviewCount || 100} VERIFIED LOGS)
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        {/* Other Tour */}
+        {otherTour && (
+          <section className="pb-16 md:pb-24">
+            <h2 className="font-heading text-2xl font-bold text-foreground text-center mb-8">
+              Also Available
+            </h2>
+            <div className="max-w-md mx-auto">
+              <TourCardCompact tour={otherTour} />
             </div>
+          </section>
+        )}
+      </div>
 
-            <div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
-                {/* Main Content */}
-                <div className="lg:col-span-2 space-y-12">
-
-                    {/* Overview / Description */}
-                    <section className="prose prose-lg prose-headings:font-serif prose-headings:font-bold prose-headings: prose-headings: prose-headings:tracking-tight prose-headings:text-foreground prose-p:text-muted-foreground prose-p:leading-loose prose-li:text-muted-foreground max-w-none">
-                        <h2 className="text-3xl font-serif font-bold   tracking-tight text-foreground mb-8">Tour Overview</h2>
-                        {typeof tour.description === 'string' ? (
-                            <p className="mb-6">{tour.description}</p>
-                        ) : (
-                            <PortableText
-                                value={tour.description}
-                                components={{
-                                    types: {
-                                        image: ({ value }) => {
-                                            if (!value?.asset?._ref) return null;
-                                            return (
-                                                <div className="my-8 relative w-full aspect-video rounded-xl overflow-hidden shadow-lg">
-                                                    <Image
-                                                        src={urlFor(value).width(800).fit('max').url()}
-                                                        alt={value.alt || 'Tour image'}
-                                                        fill
-                                                        className="object-cover"
-                                                    />
-                                                </div>
-                                            );
-                                        }
-                                    },
-                                    block: {
-                                        normal: ({ children }) => <p className="mb-6">{children}</p>,
-                                        h2: ({ children }) => <h2 className="text-2xl font-bold mt-8 mb-4">{children}</h2>,
-                                        h3: ({ children }) => <h3 className="text-xl font-bold mt-6 mb-3">{children}</h3>,
-                                    },
-                                    marks: {
-                                        strong: ({ children }) => <strong className="font-bold text-primary">{children}</strong>,
-                                        link: ({ value, children }) => {
-                                            const target = (value?.href || '').startsWith('http') ? '_blank' : undefined
-                                            return (
-                                                <a href={value?.href} target={target} rel={target === '_blank' ? 'noindex nofollow' : undefined} className="text-accent underline decoration-accent/30 hover:decoration-accent transition-all font-medium">
-                                                    {children}
-                                                </a>
-                                            )
-                                        }
-                                    },
-                                    list: {
-                                        bullet: ({ children }) => <ul className="list-disc pl-6 mb-6 space-y-2">{children}</ul>,
-                                        number: ({ children }) => <ol className="list-decimal pl-6 mb-6 space-y-2">{children}</ol>,
-                                    }
-                                }}
-                            />
-                        )}
-                    </section>
-
-                    {/* Highlights */}
-                    {tour.highlights && tour.highlights.length > 0 && (
-                        <section>
-                            <h2 className="font-heading text-2xl font-bold text-primary mb-6">Highlights</h2>
-                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                {tour.highlights.map((feature: any, i: number) => (
-                                    <li key={i} className="flex items-start space-x-3 p-4 bg-card rounded-xl border border-border">
-                                        <Check className="w-5 h-5 text-accent shrink-0 mt-0.5" />
-                                        <span className="text-muted-foreground font-body">{typeof feature === 'object' ? feature.item : feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </section>
-                    )}
-
-                    {/* Itinerary */}
-                    {tour.itinerary && tour.itinerary.length > 0 && (
-                        <section>
-                            <h2 className="font-heading text-2xl font-bold text-primary mb-6">Itinerary</h2>
-                            <div className="pl-4 border-l-2 border-border/20 space-y-8">
-                                {tour.itinerary.map((stop: any, index: number) => (
-                                    <div key={index} className="relative">
-                                        <div className="absolute -left-[24px] top-0 w-4 h-4 bg-accent rounded-full border-2 border-border" />
-                                        <h3 className="font-heading text-base font-semibold text-primary">{stop.title}</h3>
-                                        <p className="font-mono text-xs text-muted-foreground mb-2  tracking-wide">{stop.duration}</p>
-                                        <p className="font-body text-sm text-muted-foreground leading-relaxed">{stop.description}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
-
-                    {/* Inclusions & Exclusions */}
-                    <section className="grid md:grid-cols-2 gap-8">
-                        {tour.includes && Array.isArray(tour.includes) && tour.includes.length > 0 && (
-                            <div>
-                                <h3 className="font-heading text-lg font-semibold text-primary mb-4 flex items-center">
-                                    <CheckCircle className="w-5 h-5 text-accent mr-2" /> What&apos;s Included
-                                </h3>
-                                <ul className="space-y-3">
-                                    {tour.includes.map((item: any, i: number) => (
-                                        <li key={i} className="flex items-start font-body text-sm text-muted-foreground">
-                                            <Check className="w-4 h-4 text-accent mr-2 mt-0.5 shrink-0" />
-                                            {typeof item === 'object' ? item.item : item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                        {tour.excludes && Array.isArray(tour.excludes) && tour.excludes.length > 0 && (
-                            <div>
-                                <h3 className="font-heading text-lg font-semibold text-primary mb-4 flex items-center">
-                                    <XCircle className="w-5 h-5 text-red-500 mr-2" /> What&apos;s Not Included
-                                </h3>
-                                <ul className="space-y-3">
-                                    {tour.excludes.map((item: any, i: number) => (
-                                        <li key={i} className="flex items-start font-body text-sm text-muted-foreground">
-                                            <XCircle className="w-4 h-4 text-red-400 mr-2 mt-0.5 shrink-0" />
-                                            {typeof item === 'object' ? item.item : item}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </section>
-
-                    {/* Meeting Point & Important Info */}
-                    <section className="bg-card rounded-2xl p-8 border border-border space-y-6">
-                        {tour.meetingPoint && (
-                            <div>
-                                <h3 className="font-heading text-base font-semibold text-primary mb-2 flex items-center">
-                                    <MapPin className="w-5 h-5 text-accent mr-2" /> Meeting Point
-                                </h3>
-                                <p className="font-body text-sm text-muted-foreground">{tour.meetingPoint}</p>
-                                <a
-                                    href={tour.mapAddress?.startsWith('http') ? tour.mapAddress : tour.location?.startsWith('http') ? tour.location
-                                        : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((tour.mapAddress || tour.location || tour.meetingPoint?.split(/(?:\n|\. )/)[0] || '') + ' Rome')}`
-                                    }
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center mt-3 font-mono text-xs text-accent hover:underline  tracking-wide"
-                                >
-                                    <MapIcon className="w-4 h-4 mr-1" /> View on Map
-                                </a>
-                            </div>
-                        )}
-
-                        {tour.importantInfo && tour.importantInfo.length > 0 && (
-                            <div>
-                                <h3 className="font-heading text-base font-semibold text-primary mb-2 flex items-center">
-                                    <Info className="w-5 h-5 text-accent mr-2" /> Important Information
-                                </h3>
-                                <ul className="space-y-1 font-body text-sm text-muted-foreground">
-                                    {tour.importantInfo.map((info: any, i: number) => (
-                                        <li key={i} className="flex items-start gap-2">
-                                            <span className="text-accent mt-1">•</span>
-                                            {typeof info === 'object' ? info.item : info}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                    </section>
-                </div>
-
-                {/* Sidebar Booking Widget */}
-                <div className="lg:col-span-1">
-                    <div className="sticky top-24" id="booking-widget">
-                        <BookingWidget tour={tour} />
-                    </div>
-                </div>
-            </div>
-
-            <VaticanFooter />
-
-            {/* Mobile Sticky Booking Bar */}
-            <MobileStickyBar price={tour.price} />
-        </main>
-    );
+      <Footer />
+    </main>
+  );
 }

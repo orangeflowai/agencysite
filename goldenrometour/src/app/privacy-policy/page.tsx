@@ -1,6 +1,6 @@
 
 import React from 'react';
-import VaticanHeader from "@/components/vatican/header";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import type { Metadata } from 'next';
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function PrivacyPolicy() {
     return (
         <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
-            <VaticanHeader />
+            <Header />
 
             <div className="container mx-auto px-4 py-24 max-w-4xl">
                 <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8 tracking-tight">Privacy Policy</h1>

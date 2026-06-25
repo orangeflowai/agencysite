@@ -1,14 +1,11 @@
 'use client';
 
-import VaticanHeader from '@/components/vatican/header';
-import VaticanFooter from '@/components/vatican/footer';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useState } from 'react';
-import PhoneInput from '@/components/PhoneInput';
-import { useSite } from '@/components/SiteProvider';
 
 export default function ContactPage() {
-    const site = useSite();
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -17,16 +14,12 @@ export default function ContactPage() {
         message: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const fadeInUp = {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.6 }
-    };
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setSubmitStatus('idle');
 
         try {
             const res = await fetch('/api/contact', {
@@ -36,25 +29,25 @@ export default function ContactPage() {
             });
 
             if (res.ok) {
-                alert('Message Sent Successfully!');
+                setSubmitStatus('success');
                 setFormData({ firstName: '', lastName: '', email: '', phone: '', message: '' });
             } else {
-                alert('Failed to send message. Please try again.');
+                setSubmitStatus('error');
             }
-        } catch (error) {
-            alert('Error sending message.');
+        } catch {
+            setSubmitStatus('error');
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    const contactEmail = site?.contactEmail || process.env.NEXT_PUBLIC_CONTACT_EMAIL || process.env.EMAIL_FROM || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com";
-    const contactPhone = site?.contactPhone || process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 351 419 9425";
-    const address = site?.officeAddress || "Viale Vaticano, 00165 Roma RM, Italy";
+    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@goldenrometour.com";
+    const contactPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 351 419 9425";
+    const address = "Via Germanico, 40, 00192 Roma, RM, Italy";
 
     return (
         <main className="min-h-screen bg-background text-foreground">
-            <VaticanHeader />
+            <Header />
 
             {/* Header */}
             <div className="bg-primary pt-32 pb-20 text-center text-primary-foreground relative overflow-hidden">
@@ -133,6 +126,7 @@ export default function ContactPage() {
                                     <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Last Name</label>
                                     <input
                                         name="lastName"
+                                        required
                                         type="text"
                                         className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-primary/20 rounded-xl focus:bg-background focus:ring-4 focus:ring-primary/10 outline-none transition-all font-medium text-foreground"
                                         placeholder="Doe"
@@ -154,12 +148,14 @@ export default function ContactPage() {
                                 />
                             </div>
                             <div>
-                                <PhoneInput
-                                    label="Phone Number"
+                                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Phone Number</label>
+                                <input
+                                    name="phone"
+                                    type="tel"
+                                    className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-primary/20 rounded-xl focus:bg-background focus:ring-4 focus:ring-primary/10 outline-none transition-all font-medium text-foreground"
+                                    placeholder="+39 351 419 9425"
                                     value={formData.phone}
-                                    onChange={(value) => setFormData({ ...formData, phone: value })}
-                                    placeholder="234 567 890"
-                                    className="w-full"
+                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                 />
                             </div>
                             <div>
@@ -181,11 +177,21 @@ export default function ContactPage() {
                             >
                                 {isSubmitting ? 'Sending...' : 'Send Message'}
                             </button>
+                            {submitStatus === 'success' && (
+                                <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm font-medium text-center">
+                                    ✓ Message sent successfully! We'll get back to you within 24 hours.
+                                </div>
+                            )}
+                            {submitStatus === 'error' && (
+                                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm font-medium text-center">
+                                    Failed to send message. Please try again or email us at {contactEmail}.
+                                </div>
+                            )}
                         </form>
                     </div>
                 </div>
             </div>
-            <VaticanFooter />
+            <Footer />
         </main>
     );
 }
