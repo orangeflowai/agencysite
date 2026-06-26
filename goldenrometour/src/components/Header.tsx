@@ -50,7 +50,7 @@ export default function Header() {
             {/* Logo */}
             <Link href="/" className="shrink-0 flex items-center gap-3">
               <img
-                src="/logo.png"
+                src="/logo.svg"
                 alt="Golden Rome Tour"
                 className="h-8 md:h-10 w-auto"
               />
