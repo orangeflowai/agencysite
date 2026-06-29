@@ -5,12 +5,12 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const tourSlug = searchParams.get('slug');
+  const tourSlug = searchParams.get('slug') || searchParams.get('tourId');
   const date = searchParams.get('date');
   const mode = searchParams.get('mode'); // 'day' or 'month'
 
   if (!tourSlug || !date) {
-    return NextResponse.json({ error: 'Missing slug or date' }, { status: 400 });
+    return NextResponse.json({ error: 'Missing slug or tourId and date' }, { status: 400 });
   }
 
   try {
