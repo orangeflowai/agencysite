@@ -17,13 +17,21 @@ interface BookingDetails {
   adults: number;
   students: number;
   youths: number;
-  total_price: number;
-  customer_name: string;
-  customer_email: string;
+  total_amount: number;
+  lead_first_name: string;
+  lead_last_name: string;
+  lead_email: string;
+  lead_phone?: string;
   customer_phone?: string;
   status: string;
   stripe_payment_intent_id?: string;
+  stripe_session_id?: string;
   guest_details?: any;
+  booking_ref?: string;
+  meeting_point?: string;
+  currency?: string;
+  tour_slug?: string;
+  created_at?: string;
 }
 
 function SuccessContent() {
@@ -41,12 +49,33 @@ function SuccessContent() {
     else setLoading(false);
   }, [sessionId, paymentIntentId]);
 
+  function getCustomerName(b: BookingDetails): string {
+    return `${b.lead_first_name || ''} ${b.lead_last_name || ''}`.trim();
+  }
+
   async function fetchBookingDetails(id: string) {
     try {
       let query = supabase.from('bookings').select('*');
       if (sessionId) query = query.eq('stripe_session_id', id);
-      else query = query.eq('stripe_payment_intent_id', id);
+      else if (paymentIntentId) query = query.eq('stripe_payment_intent_id', id);
+      // If sessionId lookup fails, also try payment_intent
       const { data, error } = await query.single();
+      if (error && error.code === 'PGRST116' && sessionId && pollCount.current % 2 === 0) {
+        // Retry with payment_intent_id if session_id lookup returned nothing
+        const { data: retryData, error: retryError } = await supabase
+          .from('bookings')
+          .select('*')
+          .eq('stripe_payment_intent_id', id)
+          .single();
+        if (!retryError && retryData) {
+          setBooking(retryData);
+          setLoading(false);
+          return;
+        }
+        pollCount.current++;
+        setTimeout(() => fetchBookingDetails(id), 2500);
+        return;
+      }
       if (error && error.code === 'PGRST116' && pollCount.current < 12) {
         pollCount.current++;
         setTimeout(() => fetchBookingDetails(id), 2500);
@@ -122,10 +151,10 @@ function SuccessContent() {
         ['📅 Date', new Date(booking.date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })],
         ['🕐 Time', booking.time],
         ['👥 Guests', `${booking.guests} person${booking.guests !== 1 ? 's' : ''}`],
-        ['💶 Total Paid', `€${booking.total_price.toFixed(2)}`],
-        ['👤 Name', booking.customer_name],
-        ['📧 Email', booking.customer_email],
-        ...(booking.customer_phone ? [['📱 Phone', booking.customer_phone]] : []),
+        ['💶 Total Paid', `€${booking.total_amount.toFixed(2)}`],
+        ['👤 Name', getCustomerName(booking)],
+        ['📧 Email', booking.lead_email],
+        ...(booking.lead_phone ? [['📱 Phone', booking.lead_phone]] : []),
       ];
 
       doc.setFontSize(10);
@@ -244,7 +273,7 @@ function SuccessContent() {
                     </div>
                     <div className="flex justify-between border-t border-border pt-2 mt-2">
                       <span className="font-semibold text-primary">Total Paid</span>
-                      <span className="font-bold text-accent text-lg">€{booking.total_price.toFixed(2)}</span>
+                      <span className="font-bold text-accent text-lg">€{booking.total_amount.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
@@ -257,11 +286,11 @@ function SuccessContent() {
                   <div className="text-sm space-y-1">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Name</span>
-                      <span className="font-medium text-primary">{booking.customer_name}</span>
+                      <span className="font-medium text-primary">{getCustomerName(booking)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Email</span>
-                      <span className="font-medium text-primary">{booking.customer_email}</span>
+                      <span className="font-medium text-primary">{booking.lead_email}</span>
                     </div>
                   </div>
                 </div>
@@ -275,7 +304,7 @@ function SuccessContent() {
                     <li>• Arrive 20 minutes before your scheduled time</li>
                     <li>• Bring a valid ID or passport</li>
                     <li>• Dress code: Shoulders and knees covered (Vatican)</li>
-                    <li>• Confirmation email sent to {booking.customer_email}</li>
+                    <li>• Confirmation email sent to {booking.lead_email}</li>
                   </ul>
                 </div>
               </>
