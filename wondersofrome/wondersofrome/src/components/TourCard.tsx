@@ -90,6 +90,12 @@ export default function TourCard({ tour, nextAvailable }: TourCardProps) {
           </h3>
         </div>
 
+        {translatedTour.tourType && (
+          <span className="inline-block w-fit text-[9px] font-bold tracking-[0.2em] text-primary bg-primary/5 border border-primary/20 px-2.5 py-1 rounded-sm uppercase">
+            {translatedTour.tourType}
+          </span>
+        )}
+
         <div className="flex items-center text-muted-foreground text-xs font-bold tracking-widest h-5">
           <MapPin size={14} className="text-primary mr-1.5 shrink-0" />
           <span className="line-clamp-1">{translatedTour.location || 'Rome, Italy'}</span>

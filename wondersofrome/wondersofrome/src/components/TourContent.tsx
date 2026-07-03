@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Clock, Users, MapPin, Check, Star, XCircle, CheckCircle } from 'lucide-react';
+import { Clock, Users, MapPin, Check, Star, XCircle, CheckCircle, HelpCircle, ChevronDown, Tag } from 'lucide-react';
 import BookingWidget from '@/components/BookingWidget';
 import TourHeroSlider from '@/components/TourHeroSlider';
 import { urlFor } from '@/sanity/lib/image';
@@ -45,9 +45,21 @@ export default function TourContent({ tour }: TourContentProps) {
                 {/* Overlay Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
                     <div className="max-w-4xl space-y-4 pointer-events-auto">
-                        <span className="bg-olive text-white px-4 py-1.5 rounded-full text-sm font-semibold  tracking-wide">
-                            {translatedTour.category}
-                        </span>
+                        {translatedTour.badge && (
+                            <span className="inline-block bg-accent text-white text-xs font-bold px-3 py-1 tracking-[0.3em] rounded-sm mb-1">
+                                {translatedTour.badge.toUpperCase()}
+                            </span>
+                        )}
+                        <div className="flex flex-wrap items-center gap-3">
+                            <span className="bg-olive text-white px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide">
+                                {translatedTour.category}
+                            </span>
+                            {translatedTour.tourType && (
+                                <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-sm font-semibold tracking-wide border border-white/30">
+                                    {translatedTour.tourType}
+                                </span>
+                            )}
+                        </div>
                         <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg">
                             {translatedTour.title}
                         </h1>
@@ -93,7 +105,25 @@ export default function TourContent({ tour }: TourContentProps) {
                                     <span>{translatedTour.location}</span>
                                 </div>
                             )}
+                            {translatedTour.tourType && (
+                                <div className="flex items-center gap-2 text-foreground">
+                                    <Tag className="w-5 h-5 text-primary" />
+                                    <span>{translatedTour.tourType}</span>
+                                </div>
+                            )}
                         </div>
+
+                        {/* Tags */}
+                        {translatedTour.tags && translatedTour.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                                {translatedTour.tags.map((tag: any, i: number) => (
+                                    <span key={i} className="inline-flex items-center gap-1 px-3 py-1.5 bg-muted border border-border rounded-full text-[10px] font-bold text-muted-foreground tracking-wider">
+                                        <Tag className="w-3 h-3 text-primary" />
+                                        {typeof tag === 'string' ? tag : tag?.label || tag?.name || String(tag)}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
 
                         {/* Description */}
                         {translatedTour.description && (
@@ -197,6 +227,31 @@ export default function TourContent({ tour }: TourContentProps) {
                                         </li>
                                     ))}
                                 </ul>
+                            </section>
+                        )}
+
+                        {/* FAQs */}
+                        {translatedTour.faqs && translatedTour.faqs.length > 0 && (
+                            <section>
+                                <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                                    <HelpCircle className="w-6 h-6 text-primary" />
+                                    Frequently Asked Questions
+                                </h2>
+                                <div className="space-y-3">
+                                    {translatedTour.faqs.map((faq, i) => (
+                                        <details key={i} className="group bg-card rounded-2xl border border-border overflow-hidden transition-all duration-300">
+                                            <summary className="w-full flex items-center justify-between p-6 cursor-pointer list-none">
+                                                <span className="text-sm font-bold text-foreground pr-8">{faq.question}</span>
+                                                <span className="shrink-0 ml-2 transition-transform duration-300 group-open:rotate-180">
+                                                    <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                                                </span>
+                                            </summary>
+                                            <div className="px-6 pb-6 pt-0">
+                                                <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
+                                            </div>
+                                        </details>
+                                    ))}
+                                </div>
                             </section>
                         )}
 

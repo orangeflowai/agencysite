@@ -33,6 +33,10 @@ export interface Tour {
   itinerary?: Array<{ title: string; duration: string; description: string }>
   meetingPoint?: string; mapAddress?: string; maxParticipants?: number; gallery?: any[]
   guestTypes?: Array<{ name: string; price: number; description?: string; _key?: string }>
+  tourType?: string
+  faqs?: Array<{ question: string; answer: string; _key?: string }>
+  seoTitle?: string; seoDescription?: string; keywords?: string[]
+  translations?: Record<string, any>
 }
 
 export interface Post {

@@ -93,6 +93,23 @@ export interface Tour {
     sites?: Array<{ _ref: string; _type: 'reference' }>;
     gallery?: any[];
     guestTypes?: Array<{ name: string; price: number; description?: string; _key?: string }>;
+    // Newly surfaced fields
+    tourType?: string;
+    faqs?: Array<{ question: string; answer: string; _key?: string }>;
+    seoTitle?: string;
+    seoDescription?: string;
+    keywords?: string[];
+    translations?: Record<string, {
+        title?: string;
+        description?: any;
+        highlights?: string[];
+        includes?: string[];
+        excludes?: string[];
+        meetingPoint?: string;
+        importantInfo?: string[];
+        seoTitle?: string;
+        seoDescription?: string;
+    }>;
 }
 
 export interface Post {
@@ -194,7 +211,15 @@ export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]
             meetingPoint,
             mapAddress,
             maxParticipants,
-            sites
+            sites,
+            location,
+            tourType,
+            faqs,
+            seoTitle,
+            seoDescription,
+            keywords,
+            translations,
+            itinerary
         }`;
 
         return await client.fetch(query, { siteRef }, { next: { revalidate: 0 } });
@@ -300,7 +325,15 @@ export async function getAllTours(): Promise<Tour[]> {
             reviewCount,
             tags,
             guestTypes,
-            sites[]->{ _id, title, slug }
+            sites[]->{ _id, title, slug },
+            location,
+            tourType,
+            faqs,
+            seoTitle,
+            seoDescription,
+            keywords,
+            translations,
+            itinerary
         }`;
 
         return await client.fetch(query, {}, { next: { revalidate: 0 } });

@@ -1,7 +1,8 @@
 
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Clock, Users, Calendar, Check, Star, MapPin, Map as MapIcon, Info, XCircle, CheckCircle } from 'lucide-react';
+import { Clock, Users, Calendar, Check, Star, MapPin, Map as MapIcon, Info, XCircle, CheckCircle, HelpCircle, ChevronDown, Tag } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BookingWidget from '@/components/BookingWidget';
@@ -23,6 +24,24 @@ export async function generateStaticParams() {
     return tours
         .filter((tour) => tour.slug?.current) // Only include tours with valid slugs
         .map((tour) => ({ slug: tour.slug.current }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug } = await params;
+    const tour = await getTour(slug);
+    if (!tour) return { title: 'Tour Not Found' };
+
+    const title = tour.seoTitle || tour.title;
+    const description = tour.seoDescription || (typeof tour.description === 'string' ? tour.description : undefined);
+    const images = tour.mainImage ? [urlFor(tour.mainImage).width(1200).height(630).url()] : undefined;
+
+    return {
+        title: `${title} | ${process.env.NEXT_PUBLIC_SITE_NAME || 'Wonders of Rome'}`,
+        description,
+        keywords: tour.keywords,
+        openGraph: { title, description, images },
+        twitter: { card: 'summary_large_image', title, description, images },
+    };
 }
 
 export default async function TourPage({ params }: PageProps) {
@@ -89,15 +108,30 @@ export default async function TourPage({ params }: PageProps) {
 
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 container mx-auto pointer-events-none z-10">
                     <div className="max-w-4xl space-y-4 pointer-events-auto">
-                        <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[8px] font-bold  tracking-[0.4em] font-mono">
-                            {tour.category}
-                        </span>
+                        {tour.badge && (
+                            <span className="inline-block bg-accent text-white text-[8px] font-bold px-3 py-1 tracking-[0.3em] rounded-sm mb-1">
+                                {tour.badge.toUpperCase()}
+                            </span>
+                        )}
+                        <div className="flex flex-wrap items-center gap-3">
+                            <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[8px] font-bold tracking-[0.4em] font-mono">
+                                {tour.category}
+                            </span>
+                            {tour.tourType && (
+                                <span className="bg-white/20 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-[8px] font-bold tracking-[0.3em] border border-white/30">
+                                    {tour.tourType.toUpperCase()}
+                                </span>
+                            )}
+                        </div>
                         <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl text-white drop-shadow-2xl">
                             {tour.title}
                         </h1>
-                        <div className="flex flex-wrap items-center gap-6 text-white/80 text-[8px] font-bold  tracking-[0.2em] font-mono">
+                        <div className="flex flex-wrap items-center gap-6 text-white/80 text-[8px] font-bold tracking-[0.2em] font-mono">
                             <div className="flex items-center"><Clock className="w-4 h-4 mr-2 text-primary" /> {tour.duration}</div>
                             <div className="flex items-center"><Users className="w-4 h-4 mr-2 text-primary" /> {tour.groupSize || 'Small Group'}</div>
+                            {tour.location && (
+                                <div className="flex items-center"><MapPin className="w-4 h-4 mr-2 text-primary" /> {tour.location}</div>
+                            )}
                             <div className="flex items-center text-primary">
                                 <Star className="w-4 h-4 mr-1 fill-current" />
                                 {tour.rating || '5.0'} ({tour.reviewCount || 100} VERIFIED LOGS)
@@ -159,6 +193,18 @@ export default async function TourPage({ params }: PageProps) {
                             />
                         )}
                     </section>
+
+                    {/* Tags */}
+                    {tour.tags && tour.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                            {tour.tags.map((tag, i) => (
+                                <span key={i} className="inline-flex items-center gap-1 px-3 py-1.5 bg-muted border border-border rounded-full text-[10px] font-bold text-muted-foreground tracking-wider">
+                                    <Tag className="w-3 h-3 text-primary" />
+                                    {typeof tag === 'string' ? tag : (tag as any)?.label || (tag as any)?.name || String(tag)}
+                                </span>
+                            ))}
+                        </div>
+                    )}
 
                     {/* Highlights */}
                     {tour.highlights && tour.highlights.length > 0 && (
@@ -263,6 +309,31 @@ export default async function TourPage({ params }: PageProps) {
                             </div>
                         )}
                     </section>
+
+                    {/* FAQs */}
+                    {tour.faqs && tour.faqs.length > 0 && (
+                        <section>
+                            <h2 className="font-heading text-2xl font-bold text-primary mb-6 flex items-center gap-2">
+                                <HelpCircle className="w-6 h-6 text-accent" />
+                                Frequently Asked Questions
+                            </h2>
+                            <div className="space-y-3">
+                                {tour.faqs.map((faq, i) => (
+                                    <details key={i} className="group bg-card rounded-2xl border border-border overflow-hidden transition-all duration-300">
+                                        <summary className="w-full flex items-center justify-between p-6 cursor-pointer list-none">
+                                            <span className="text-sm font-bold text-foreground pr-8">{faq.question}</span>
+                                            <span className="shrink-0 ml-2 transition-transform duration-300 group-open:rotate-180">
+                                                <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                                            </span>
+                                        </summary>
+                                        <div className="px-6 pb-6 pt-0">
+                                            <p className="text-sm text-muted-foreground leading-relaxed">{faq.answer}</p>
+                                        </div>
+                                    </details>
+                                ))}
+                            </div>
+                        </section>
+                    )}
                 </div>
 
                 {/* Sidebar Booking Widget */}

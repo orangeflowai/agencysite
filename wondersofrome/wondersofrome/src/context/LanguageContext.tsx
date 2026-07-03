@@ -29,6 +29,7 @@ export interface TranslatedTour {
     price: number;
     duration: string;
     category: string;
+    tourType?: string;
     badge?: string;
     rating?: number;
     reviewCount?: number;
