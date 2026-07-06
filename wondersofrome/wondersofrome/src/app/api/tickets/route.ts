@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
+const API_KEY = process.env.MOBILE_API_KEY || process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome';
+
 export async function GET(request: NextRequest) {
   try {
+    // Basic shared-secret auth — prevents open email-based scraping
+    const authHeader = request.headers.get('authorization') || '';
+    const token = authHeader.replace(/^Bearer\s+/i, '');
+    const apiKey = request.headers.get('x-api-key') || token;
+    if (API_KEY && apiKey !== API_KEY) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('email');
 
@@ -60,7 +70,7 @@ export async function OPTIONS() {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-API-Key',
     },
   });
 }

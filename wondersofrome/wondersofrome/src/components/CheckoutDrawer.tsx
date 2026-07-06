@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements, ExpressCheckoutElement } from '@stripe/react-stripe-js'
@@ -118,6 +118,14 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
 
   const [lead, setLead] = useState({ firstName: '', lastName: '', dob: '', email: '', phone: '', notes: '' })
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [emailVerified, setEmailVerified] = useState(false)
+  const [sendingOtp, setSendingOtp] = useState(false)
+  const [verifyingOtp, setVerifyingOtp] = useState(false)
+  const [otpCode, setOtpCode] = useState('')
+  const [otpSent, setOtpSent] = useState(false)
+  const [otpError, setOtpError] = useState('')
+  const [otpCountdown, setOtpCountdown] = useState(0)
+  const otpInputRefs = useRef<(HTMLInputElement | null)[]>([])
 
   // Per-participant details (index 0 = lead, already covered by lead form)
   // Built from guestCounts: e.g. 2 Adults + 1 Child = 3 entries
@@ -184,6 +192,21 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
     };
   }, [])
 
+  // Countdown timer for OTP resend
+  useEffect(() => {
+    if (otpCountdown <= 0) return
+    const timer = setInterval(() => {
+      setOtpCountdown(prev => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [otpCountdown])
+
   const validate = () => {
     const e: Record<string, string> = {}
     if (!lead.firstName.trim()) e.firstName = 'Required'
@@ -202,6 +225,34 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
 
     setErrors(e)
     return Object.keys(e).length === 0
+  }
+
+  const handleVerifyOtp = async (code: string) => {
+    if (code.length !== 6) return
+    setVerifyingOtp(true)
+    setOtpError('')
+    try {
+      const res = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: lead.email, token: code }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setOtpError(data.error || 'Invalid code. Please try again.')
+        setOtpCode('')
+        otpInputRefs.current[0]?.focus()
+        return
+      }
+      setEmailVerified(true)
+      setOtpCode('')
+      setOtpSent(false)
+      setOtpCountdown(0)
+    } catch {
+      setOtpError('Verification failed. Please try again.')
+    } finally {
+      setVerifyingOtp(false)
+    }
   }
 
   const goToPayment = async () => {
@@ -256,7 +307,7 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
     return (
       <div data-lenis-prevent className="fixed inset-0 z-[10005] flex items-start justify-center px-4 pt-[108px] pb-4 checkout-modal-backdrop">
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-        <div className="relative bg-white rounded-2xl p-10 max-w-sm w-full text-center shadow-2xl checkout-modal-panel">
+        <div className="relative bg-[#F3F3E7] rounded-2xl p-10 max-w-sm w-full text-center shadow-2xl checkout-modal-panel">
           <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
             <Check className="w-10 h-10 text-primary" />
           </div>
@@ -279,7 +330,7 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal panel — sits below the navbar, scrolls internally */}
-      <div className="relative w-full max-w-3xl max-h-[calc(100vh-120px)] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden checkout-modal-panel">
+      <div className="relative w-full max-w-3xl max-h-[calc(100vh-120px)] bg-[#F3F3E7] rounded-2xl shadow-2xl flex flex-col overflow-hidden checkout-modal-panel">
 
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-card shrink-0 z-10 relative">
@@ -364,13 +415,213 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
                           <input
                             type="email"
                             value={lead.email}
-                            onChange={e => setLead(p => ({ ...p, email: e.target.value }))}
+                            onChange={e => {
+                              setLead(p => ({ ...p, email: e.target.value }))
+                              // Reset OTP state when email changes
+                              if (emailVerified) {
+                                setEmailVerified(false)
+                                setOtpSent(false)
+                                setOtpCode('')
+                                setOtpError('')
+                                setOtpCountdown(0)
+                              }
+                            }}
                             placeholder="john@example.com"
-                            className={`w-full pl-10 pr-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none transition-all ${errors.email ? 'border-red-400 bg-red-50' : 'border-border'}`}
+                            disabled={emailVerified}
+                            className={`w-full pl-10 pr-4 py-3 border rounded-xl text-sm focus:ring-2 focus:ring-primary outline-none transition-all ${errors.email ? 'border-red-400 bg-red-50' : emailVerified ? 'border-green-300 bg-green-50' : 'border-border'}`}
                           />
+                          {emailVerified && (
+                            <Check className="absolute right-3 top-3.5 w-4 h-4 text-green-600" />
+                          )}
                         </div>
                         {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
                       </div>
+
+                      {/* ── OTP Email Verification ── */}
+                      <div className="col-span-2">
+                        {!emailVerified && (
+                          <div className="bg-muted/50 border border-border rounded-xl p-4 space-y-3">
+                            <div className="flex items-center gap-2">
+                              <Mail className="w-4 h-4 text-primary" />
+                              <span className="text-xs font-bold text-foreground tracking-wider">EMAIL VERIFICATION</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                              Verify your email address to continue with the booking.
+                            </p>
+
+                            {!otpSent ? (
+                              <button
+                                onClick={async () => {
+                                  if (!lead.email.trim() || !/\S+@\S+\.\S+/.test(lead.email)) {
+                                    setErrors(prev => ({ ...prev, email: 'Enter a valid email first' }))
+                                    return
+                                  }
+                                  setSendingOtp(true)
+                                  setOtpError('')
+                                  try {
+                                    const res = await fetch('/api/auth/send-otp', {
+                                      method: 'POST',
+                                      headers: { 'Content-Type': 'application/json' },
+                                      body: JSON.stringify({ email: lead.email }),
+                                    })
+                                    const data = await res.json()
+                                    if (!res.ok) {
+                                      if (res.status === 429) {
+                                        setOtpError('Too many attempts. Please wait and try again.')
+                                      } else {
+                                        setOtpError(data.error || 'Failed to send code')
+                                      }
+                                      return
+                                    }
+                                    setOtpSent(true)
+                                    setOtpCountdown(30)
+                                    setTimeout(() => otpInputRefs.current[0]?.focus(), 100)
+                                  } catch {
+                                    setOtpError('Network error. Please try again.')
+                                  } finally {
+                                    setSendingOtp(false)
+                                  }
+                                }}
+                                disabled={sendingOtp || !lead.email.trim()}
+                                className="w-full py-2.5 bg-primary hover:opacity-90 text-white font-semibold text-sm rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {sendingOtp ? (
+                                  <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</>
+                                ) : (
+                                  <><Mail className="w-4 h-4" /> Send Verification Code</>
+                                )}
+                              </button>
+                            ) : (
+                              <div className="space-y-3">
+                                <div>
+                                  <label className="block text-xs font-semibold text-foreground mb-2">
+                                    Enter 6-digit code
+                                  </label>
+                                  <div className="flex gap-2 justify-center">
+                                    {[0, 1, 2, 3, 4, 5].map(i => (
+                                      <input
+                                        key={i}
+                                        ref={el => { otpInputRefs.current[i] = el }}
+                                        type="text"
+                                        inputMode="numeric"
+                                        maxLength={1}
+                                        value={otpCode[i] || ''}
+                                        onChange={e => {
+                                          const val = e.target.value.replace(/[^0-9]/g, '')
+                                          if (!val && e.target.value !== '') return
+                                          const newCode = otpCode.split('')
+                                          newCode[i] = val
+                                          const joined = newCode.join('').slice(0, 6)
+                                          setOtpCode(joined)
+                                          setOtpError('')
+                                          // Auto-advance to next input
+                                          if (val && i < 5) {
+                                            otpInputRefs.current[i + 1]?.focus()
+                                          }
+                                          // Auto-submit when all 6 digits entered
+                                          if (joined.length === 6) {
+                                            handleVerifyOtp(joined)
+                                          }
+                                        }}
+                                        onKeyDown={e => {
+                                          if (e.key === 'Backspace' && !otpCode[i] && i > 0) {
+                                            otpInputRefs.current[i - 1]?.focus()
+                                          }
+                                        }}
+                                        onPaste={e => {
+                                          e.preventDefault()
+                                          const pasted = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6)
+                                          if (pasted) {
+                                            setOtpCode(pasted)
+                                            setOtpError('')
+                                            if (pasted.length === 6) {
+                                              handleVerifyOtp(pasted)
+                                            } else {
+                                              otpInputRefs.current[pasted.length]?.focus()
+                                            }
+                                          }
+                                        }}
+                                        className={`w-10 h-12 text-center text-lg font-bold border-2 rounded-xl outline-none transition-all ${
+                                          otpError ? 'border-red-400 bg-red-50' : 'border-border focus:border-primary focus:ring-2 focus:ring-primary/20'
+                                        }`}
+                                      />
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {otpError && (
+                                  <p className="text-xs text-red-500 text-center flex items-center justify-center gap-1">
+                                    <AlertTriangle className="w-3 h-3" /> {otpError}
+                                  </p>
+                                )}
+
+                                <div className="flex items-center justify-between">
+                                  {otpCountdown > 0 ? (
+                                    <span className="text-xs text-muted-foreground">
+                                      Resend in {otpCountdown}s
+                                    </span>
+                                  ) : (
+                                    <button
+                                      onClick={async () => {
+                                        setOtpError('')
+                                        setOtpCode('')
+                                        setSendingOtp(true)
+                                        try {
+                                          const res = await fetch('/api/auth/send-otp', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({ email: lead.email }),
+                                          })
+                                          const data = await res.json()
+                                          if (!res.ok) {
+                                            setOtpError(data.error || 'Failed to resend code')
+                                            return
+                                          }
+                                          setOtpCountdown(30)
+                                          setOtpCode('')
+                                          otpInputRefs.current[0]?.focus()
+                                        } catch {
+                                          setOtpError('Network error. Please try again.')
+                                        } finally {
+                                          setSendingOtp(false)
+                                        }
+                                      }}
+                                      disabled={sendingOtp}
+                                      className="text-xs font-semibold text-primary hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                      Resend code
+                                    </button>
+                                  )}
+                                  <button
+                                    onClick={() => handleVerifyOtp(otpCode)}
+                                    disabled={otpCode.length !== 6 || verifyingOtp}
+                                    className="py-1.5 px-4 bg-primary text-white text-xs font-semibold rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                                  >
+                                    {verifyingOtp ? (
+                                      <><Loader2 className="w-3 h-3 animate-spin" /> Verifying</>
+                                    ) : (
+                                      'Verify Code'
+                                    )}
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {emailVerified && (
+                          <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center gap-3">
+                            <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center shrink-0">
+                              <Check className="w-4 h-4 text-green-700" />
+                            </div>
+                            <div>
+                              <p className="text-sm font-semibold text-green-800">Email verified</p>
+                              <p className="text-xs text-green-600">{lead.email}</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
                       <div className="col-span-2">
                         <PhoneInput
                           value={lead.phone}
@@ -490,11 +741,11 @@ function CheckoutDrawerContent({ bookingData, onClose }: CheckoutDrawerProps) {
 
                   <button
                     onClick={goToPayment}
-                    disabled={creatingIntent}
+                    disabled={creatingIntent || !emailVerified}
                     className="w-full py-4 bg-primary hover:opacity-90 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-60"
                   >
                     {creatingIntent ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
-                    {creatingIntent ? 'Preparing payment...' : 'Continue to Payment →'}
+                    {creatingIntent ? 'Preparing payment...' : !emailVerified ? 'Verify email to continue' : 'Continue to Payment →'}
                   </button>
                 </>
               )}

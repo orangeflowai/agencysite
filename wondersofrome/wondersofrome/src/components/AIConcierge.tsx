@@ -99,7 +99,7 @@ export default function AIConcierge() {
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="mb-3 w-[92vw] max-w-[380px] bg-white border border-gray-200 shadow-2xl rounded-2xl overflow-hidden flex flex-col pointer-events-auto"
+                <div className="mb-3 w-[92vw] max-w-[380px] bg-[#F3F3E7] border border-gray-200 shadow-2xl rounded-2xl overflow-hidden flex flex-col pointer-events-auto"
                     style={{ height: 'min(520px, 65vh)' }}
                 >
                     {/* Header */}
@@ -134,7 +134,7 @@ export default function AIConcierge() {
                                     <div className={`px-3 py-2.5 rounded-2xl text-sm leading-relaxed ${
                                         msg.role === 'user'
                                             ? 'bg-primary text-white rounded-tr-none'
-                                            : 'bg-white border border-gray-200 text-gray-800 rounded-tl-none shadow-sm'
+                                            : 'bg-[#F3F3E7] border border-gray-200 text-gray-800 rounded-tl-none shadow-sm'
                                     }`}>
                                         {msg.content}
                                     </div>
@@ -148,7 +148,7 @@ export default function AIConcierge() {
                                     <div className="w-6 h-6 rounded-full bg-primary/15 flex items-center justify-center mt-1">
                                         <Sparkles size={12} className="text-primary" />
                                     </div>
-                                    <div className="bg-white border border-gray-200 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm">
+                                    <div className="bg-[#F3F3E7] border border-gray-200 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm">
                                         <div className="flex gap-1 items-center">
                                             {[0, 150, 300].map(delay => (
                                                 <span key={delay} className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"
@@ -168,7 +168,7 @@ export default function AIConcierge() {
                                 <button
                                     key={q}
                                     onClick={() => sendMessage(q)}
-                                    className="text-[11px] font-medium px-2.5 py-1 bg-white border border-gray-200 rounded-full text-gray-700 hover:border-primary hover:text-primary transition-colors"
+                                    className="text-[11px] font-medium px-2.5 py-1 bg-[#F3F3E7] border border-gray-200 rounded-full text-gray-700 hover:border-primary hover:text-primary transition-colors"
                                 >
                                     {q}
                                 </button>

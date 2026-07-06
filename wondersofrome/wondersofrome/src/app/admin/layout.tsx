@@ -18,11 +18,11 @@ export default function AdminLayout({
                     style={{
                         // Hard-code CSS vars so the admin panel never renders transparent
                         // regardless of ThemeProvider's mounted state
-                        '--background': '#f1f5f9',
-                        '--card': '#ffffff',
+                        '--background': '#F3F3E7',
+                        '--card': '#F8F8F1',
                         '--card-foreground': '#0f172a',
                         '--foreground': '#0f172a',
-                        '--muted': '#f1f5f9',
+                        '--muted': '#EBEBDF',
                         '--muted-foreground': '#64748b',
                         '--border': '#e2e8f0',
                         '--primary': '#064034',
@@ -30,7 +30,7 @@ export default function AdminLayout({
                         '--secondary': '#f0fdf4',
                         '--accent': '#d1fae5',
                         '--ring': '#064034',
-                        backgroundColor: '#f1f5f9',
+                        backgroundColor: '#F3F3E7',
                     } as React.CSSProperties}
                     suppressHydrationWarning
                 >

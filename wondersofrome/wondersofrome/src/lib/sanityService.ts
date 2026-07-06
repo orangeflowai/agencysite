@@ -112,6 +112,42 @@ export interface Tour {
     }>;
 }
 
+export interface Sight {
+    _id: string;
+    name: string;
+    name_it?: string;
+    slug: { current: string };
+    category: string;
+    pack: string;
+    thumbnail?: any;
+    description: string;
+    lat: number;
+    lng: number;
+    radius: number;
+    tips?: string[];
+    kidsMyth?: string;
+    linkedTour?: { _ref: string; _type: 'reference' };
+    // Per-language audio tracks
+    audio_en?: AudioTracks;
+    audio_it?: AudioTracks;
+    audio_es?: AudioTracks;
+    audio_fr?: AudioTracks;
+    audio_de?: AudioTracks;
+    audio_zh?: AudioTracks;
+    audio_ja?: AudioTracks;
+    audio_pt?: AudioTracks;
+    audio_pl?: AudioTracks;
+    audio_ru?: AudioTracks;
+    audio_ar?: AudioTracks;
+    audio_ko?: AudioTracks;
+}
+
+export interface AudioTracks {
+    audioQuick?: { url?: string; duration?: number; size?: number };
+    audioDeep?: { url?: string; duration?: number; size?: number };
+    audioKids?: { url?: string; duration?: number; size?: number };
+}
+
 export interface Post {
     _id: string;
     title: string;
@@ -443,6 +479,49 @@ export async function getSite(siteId: string = DEFAULT_SITE_ID): Promise<Site | 
     } catch (error) {
         console.error('Failed to fetch site:', error);
         return null;
+    }
+}
+
+/**
+ * Get audio guide sights
+ */
+export async function getSights(): Promise<Sight[]> {
+    try {
+        const query = `*[_type == "sight"] | order(category asc, name asc) {
+            _id,
+            name,
+            name_it,
+            slug,
+            category,
+            pack,
+            thumbnail {
+                asset -> { _id, url }
+            },
+            description,
+            lat,
+            lng,
+            radius,
+            tips,
+            kidsMyth,
+            linkedTour,
+            audio_en,
+            audio_it,
+            audio_es,
+            audio_fr,
+            audio_de,
+            audio_zh,
+            audio_ja,
+            audio_pt,
+            audio_pl,
+            audio_ru,
+            audio_ar,
+            audio_ko
+        }`;
+
+        return await client.fetch(query, {}, { next: { revalidate: 60 } });
+    } catch (error) {
+        console.error('Failed to fetch sights:', error);
+        return [];
     }
 }
 

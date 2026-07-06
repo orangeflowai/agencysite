@@ -50,6 +50,7 @@ async function writeToSupabase(siteId: string, data: {
   date: string; time: string; guestCount: number;
   name: string; email: string; phone: string;
   totalAmount: number; stripePaymentIntentId: string;
+  meetingPoint: string;
 }) {
   try {
     // Avoid duplicates
@@ -64,6 +65,7 @@ async function writeToSupabase(siteId: string, data: {
       booking_ref:              data.bookingRef,
       tenant:                   siteId,
       tour_title:               data.tourTitle,
+      tour_slug:                data.tourSlug,
       date:                     data.date,
       time:                     data.time,
       guests:                   data.guestCount,
@@ -76,6 +78,7 @@ async function writeToSupabase(siteId: string, data: {
       lead_email:               data.email,
       lead_phone:               data.phone,
       source:                   'website',
+      meeting_point:            data.meetingPoint,
     });
   } catch (err) {
     console.warn('[webhook] Supabase booking write failed:', err);
@@ -185,7 +188,7 @@ export async function POST(request: Request) {
     const meta = pi.metadata || {};
     if (!meta.tourSlug) return NextResponse.json({ received: true });
 
-    const { tourTitle, tourSlug, date, time, guests } = meta;
+    const { tourTitle, tourSlug, date, time, guests, meetingPoint } = meta;
     const guestCount = parseInt(guests) || 1;
     const name = meta.leadName || 'Guest';
     const email = meta.leadEmail || pi.receipt_email || '';
@@ -200,6 +203,7 @@ export async function POST(request: Request) {
       bookingRef, tourTitle, tourSlug, date, time, guestCount,
       name, email, phone: meta.leadPhone || '',
       totalAmount, stripePaymentIntentId: pi.id,
+      meetingPoint: meetingPoint || '',
     }).catch(err => console.warn('[webhook] Supabase write failed:', err));
 
     // 3. Decrement Supabase inventory (primary, non-blocking)
@@ -212,7 +216,7 @@ export async function POST(request: Request) {
     const meta = session.metadata || {};
     if (!meta.tourSlug) return NextResponse.json({ received: true });
 
-    const { tourTitle, tourSlug, date, time, guests } = meta;
+    const { tourTitle, tourSlug, date, time, guests, meetingPoint } = meta;
     const guestCount = parseInt(guests) || 1;
     const name = meta.leadName || 'Guest';
     const email = meta.leadEmail || session.customer_email || '';
@@ -228,6 +232,7 @@ export async function POST(request: Request) {
       bookingRef, tourTitle, tourSlug, date, time, guestCount,
       name, email, phone: meta.leadPhone || '',
       totalAmount, stripePaymentIntentId: piId,
+      meetingPoint: meetingPoint || '',
     }).catch(err => console.warn('[webhook] Supabase write failed:', err));
 
     // 3. Decrement Supabase inventory (primary, non-blocking)

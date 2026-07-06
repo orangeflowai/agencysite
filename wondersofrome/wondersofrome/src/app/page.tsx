@@ -4,7 +4,7 @@ import WondersHero from "@/components/WondersHero";
 import Footer from "@/components/Footer";
 import Testimonials from "@/components/Testimonials";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { getToursWithLivePrices, getSettings, getPosts } from "@/lib/sanityService";
+import { getToursWithLivePrices, getSettings, getPosts, getSights } from "@/lib/sanityService";
 import { getPexelsImages, ROME_QUERIES } from "@/lib/pexels";
 import { tours as fallbackTours } from "@/lib/toursData";
 import dynamic from 'next/dynamic';
@@ -16,6 +16,7 @@ import WordHighlight from "@/components/WordHighlight";
 import AutoScrollTourSection from "@/components/AutoScrollTourSection";
 import { PhilosophySection } from "@/components/PhilosophySection";
 import { TechnologySection } from "@/components/TechnologySection";
+import AudioGuideSection from "@/components/AudioGuideSection";
 
 export const revalidate = 60;
 
@@ -33,10 +34,11 @@ const GALLERY_IMAGES = [
 ];
 
 export default async function Home() {
-  const [toursData, settings, posts, pexelsVatican, pexelsColosseum] = await Promise.all([
+  const [toursData, settings, posts, sights, pexelsVatican, pexelsColosseum] = await Promise.all([
     getToursWithLivePrices(),
     getSettings(),
     getPosts(),
+    getSights(),
     getPexelsImages(ROME_QUERIES.vatican, 20),
     getPexelsImages(ROME_QUERIES.colosseum, 20)
   ]);
@@ -70,6 +72,9 @@ export default async function Home() {
 
       {/* Technology Section */}
       <TechnologySection />
+
+      {/* Audio Guide Sights Section */}
+      <AudioGuideSection sights={sights} />
 
       {/* Vatican Tours Section */}
       <AutoScrollTourSection

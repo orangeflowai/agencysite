@@ -69,13 +69,13 @@
 
 :root {
   /* Core Canvas */
-  --background: #F3EDD8;
+  --background: #F3F3E7;
   --foreground: #393B0B;
 
   /* Cards & Surfaces */
-  --card: #F7F2E4;
+  --card: #F8F8F1;
   --card-foreground: #393B0B;
-  --popover: #F7F2E4;
+  --popover: #F8F8F1;
   --popover-foreground: #393B0B;
 
   /* Primary Action: Deep Teal */

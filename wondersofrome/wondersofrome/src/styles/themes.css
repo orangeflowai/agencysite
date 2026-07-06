@@ -34,16 +34,16 @@
   --color-text-inverse: #ffffff;
   
   /* Background Colors */
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f9fafb;
+  --color-bg-primary: #F3F3E7;
+  --color-bg-secondary: #F8F8F1;
   --color-bg-dark: #111827;
-  
+
   /* Semantic Colors */
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-error: #ef4444;
   --color-info: #3b82f6;
-  
+
   /* Shadows */
   --shadow-primary: 0 4px 14px 0 rgba(15, 76, 58, 0.39);
 }
@@ -79,8 +79,8 @@
   --color-text-inverse: #ffffff;
   
   /* Background Colors */
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #fefce8;
+  --color-bg-primary: #F3F3E7;
+  --color-bg-secondary: #F8F8F1;
   --color-bg-dark: #1e1b4b;
   
   /* Semantic Colors */

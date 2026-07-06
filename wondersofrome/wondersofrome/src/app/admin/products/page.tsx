@@ -246,8 +246,8 @@ export default function AdminProductsPage() {
             {/* Edit Modal */}
             {editingTour && (
                 <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[99999] p-4">
-                    <div className="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh] border border-zinc-200 dark:border-zinc-700">
-                        <div className="p-6 border-b border-zinc-200 dark:border-zinc-700 flex justify-between items-center bg-white dark:bg-zinc-900 sticky top-0 z-10">
+                    <div className="bg-[#F3F3E7] dark:bg-zinc-900 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[90vh] border border-zinc-200 dark:border-zinc-700">
+                        <div className="p-6 border-b border-zinc-200 dark:border-zinc-700 flex justify-between items-center bg-[#F3F3E7] dark:bg-zinc-900 sticky top-0 z-10">
                             <h3 className="font-bold text-lg text-zinc-900 dark:text-white">Edit Tour: {editingTour.title}</h3>
                             <button onClick={() => setEditingTour(null)} className="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200">
                                 <span className="sr-only">Close</span>
@@ -256,7 +256,7 @@ export default function AdminProductsPage() {
                         </div>
 
                         {/* Tabs */}
-                        <div className="flex border-b border-zinc-200 dark:border-zinc-700 px-6 overflow-x-auto bg-white dark:bg-zinc-900">
+                        <div className="flex border-b border-zinc-200 dark:border-zinc-700 px-6 overflow-x-auto bg-[#F3F3E7] dark:bg-zinc-900">
                             <button
                                 type="button"
                                 onClick={() => setActiveTab('general')}
@@ -287,7 +287,7 @@ export default function AdminProductsPage() {
                             </button>
                         </div>
 
-                        <form id="edit-tour-form" onSubmit={handleSave} className="overflow-y-auto p-6 space-y-6 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
+                        <form id="edit-tour-form" onSubmit={handleSave} className="overflow-y-auto p-6 space-y-6 bg-[#F3F3E7] dark:bg-zinc-900 text-zinc-900 dark:text-white">
 
                             {activeTab === 'general' && (
                                 <div className="space-y-4">
@@ -567,7 +567,7 @@ export default function AdminProductsPage() {
                                 <button
                                     type="button"
                                     onClick={() => setEditingTour(null)}
-                                    className="flex-1 py-3 font-bold text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-600 rounded-xl transition-colors"
+                                    className="flex-1 py-3 font-bold text-zinc-600 dark:text-zinc-300 bg-[#F3F3E7] dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-600 rounded-xl transition-colors"
                                 >
                                     Cancel
                                 </button>

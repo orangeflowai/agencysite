@@ -72,7 +72,7 @@ export default function TicketDisplay({ ticket }: TicketDisplayProps) {
       )}
 
       {/* Ticket Card */}
-      <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-primary/20">
+      <div className="bg-[#F3F3E7] rounded-3xl shadow-2xl overflow-hidden border-2 border-primary/20">
         {/* Header */}
         <div className="bg-gradient-to-r from-primary to-primary/80 text-white p-8">
           <div className="flex items-center justify-between">
@@ -130,7 +130,7 @@ export default function TicketDisplay({ ticket }: TicketDisplayProps) {
         {ticket.qrCode && (
           <div className="p-8 bg-muted/30 text-center border-b border-border">
             <p className="text-sm text-muted-foreground mb-4 font-bold uppercase tracking-wider">Scan this code at the meeting point</p>
-            <div className="inline-block p-6 bg-white rounded-2xl shadow-lg">
+            <div className="inline-block p-6 bg-[#F3F3E7] rounded-2xl shadow-lg">
               <Image 
                 src={ticket.qrCode} 
                 alt="Ticket QR Code" 
