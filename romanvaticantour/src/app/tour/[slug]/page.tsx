@@ -84,7 +84,7 @@ export default async function TourPage({ params }: PageProps) {
 
     const sliderImages = [tour.mainImage, ...(tour.gallery || [])].filter(Boolean);
     if (sliderImages.length === 0) {
-        sliderImages.push('https://images.unsplash.com/photo-1531572753322-ad063cecc140?auto=format&fit=crop&q=80');
+        sliderImages.push('/placeholder.jpg');
     }
 
     return (

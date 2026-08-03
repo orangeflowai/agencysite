@@ -62,6 +62,7 @@ export function EditorialSection() {
                   src={article.image}
                   alt={article.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover group-hover:scale-105"
                 />
               </div>
@@ -90,7 +91,7 @@ export function EditorialSection() {
             <h3 className="text-4xl md:text-6xl font-medium mb-4">Ready to Explore?</h3>
             <p className="text-lg text-white/80 mb-8">Book your unforgettable Roman adventure today</p>
             <a
-              href="#tours"
+              href="/search"
               className="inline-block bg-white text-foreground px-8 py-4 rounded-full font-medium hover:bg-white/90 transition-colors"
             >
               View All Tours

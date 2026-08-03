@@ -1,10 +1,13 @@
 import { NextResponse } from 'next/server';
 import { client } from '@/sanity/lib/client';
+import { requireAdmin } from '@/lib/apiAuth';
 
 export const dynamic = 'force-dynamic';
 
 // GET /api/admin/addons?site=siteId
 export async function GET(req: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     try {
         const { searchParams } = new URL(req.url);
         const siteId = searchParams.get('site') || process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
@@ -77,6 +80,8 @@ export async function GET(req: Request) {
 
 // POST /api/admin/addons
 export async function POST(req: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     try {
         const body = await req.json();
         const { sites, id, ...addOnData } = body;

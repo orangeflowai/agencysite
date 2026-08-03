@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { generateTicketPDF } from '@/lib/ticketGenerator';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { requireAdmin } from '@/lib/apiAuth';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,6 +9,8 @@ export async function GET(
     req: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     try {
         const { id } = await params;
 

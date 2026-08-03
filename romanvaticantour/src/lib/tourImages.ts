@@ -14,7 +14,7 @@ const VATICAN_MUSEUMS = [
   IMG('204cee22-9e85-49e8-9303-1d309af626b0.png'),
   IMG('3d4046a0-b072-4b07-941f-9141ee3ed4a7.png'),
   IMG('62dea0ec-8351-4835-ab51-22b52bc96165.png'),
-  IMG('704f6810-09a3-409a-80a1-140a13041c83.png'),
+  IMG('vatican-sistine.jpg'), // fallback — 704f6810 image was removed
 ];
 
 const ST_PETERS = [

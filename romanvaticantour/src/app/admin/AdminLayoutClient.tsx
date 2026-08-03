@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { createClient } from '@/utils/supabase/client';
 import {
     LayoutDashboard,
     Package,
@@ -136,7 +137,13 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
             </nav>
 
             <div className="p-4 border-t border-white/5 bg-card/[0.02]">
-                <button className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-zinc-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all duration-200 group">
+                <button
+                    onClick={async () => {
+                      const supabase = createClient();
+                      await supabase.auth.signOut();
+                      window.location.href = '/admin/login';
+                    }}
+                    className="flex items-center gap-3 w-full px-3 py-2.5 text-sm font-medium text-zinc-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all duration-200 group">
                     <LogOut size={18} className="group-hover:translate-x-0.5 transition-transform" />
                     Sign Out
                 </button>

@@ -108,14 +108,15 @@ export default function FAQPage() {
     };
 
     return (
-        <main className="min-h-screen bg-cream selection:bg-olive selection:text-white">
+        <main className="min-h-screen bg-background selection:bg-primary selection:text-white">
             <Navbar />
 
-            <div className="bg-emerald-900 text-white py-20 text-center relative overflow-hidden">
-                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
+            {/* Hero — pt accounts for announcement bar + navbar */}
+            <div className="bg-foreground text-background pt-[130px] pb-20 text-center relative overflow-hidden">
+                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(var(--background) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
                 <div className="container mx-auto px-4 relative z-10">
-                    <h1 className="text-4xl md:text-6xl font-bold mb-4 tracking-tight mt-10">Rome Tour FAQs</h1>
-                    <p className="text-emerald-100 text-lg md:text-xl max-w-2xl mx-auto font-medium">
+                    <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 tracking-tight">Rome Tour FAQs</h1>
+                    <p className="text-background/70 text-lg md:text-xl max-w-2xl mx-auto font-medium">
                         From the Vatican to the Colosseum — answers for every Roman adventure.
                     </p>
                 </div>
@@ -142,18 +143,18 @@ export default function FAQPage() {
                                         >
                                             <button
                                                 onClick={() => toggle(id)}
-                                                className="w-full flex items-center justify-between p-6 text-left focus:outline-none bg-card"
+                                                className="w-full flex items-center justify-between p-6 text-left focus:outline-none focus:ring-2 focus:ring-ring bg-card"
                                             >
                                                 <span className={clsx(
                                                     "font-bold text-lg pr-8 transition-colors",
-                                                    isOpen ? "text-emerald-700" : "text-gray-800"
+                                                    isOpen ? "text-primary" : "text-foreground"
                                                 )}>
                                                     {item.question}
                                                 </span>
                                                 {isOpen ? (
-                                                    <ChevronUp className="text-primary flex-shrink-0" />
+                                                    <ChevronUp className="text-primary shrink-0" />
                                                 ) : (
-                                                    <ChevronDown className="text-muted-foreground flex-shrink-0" />
+                                                    <ChevronDown className="text-muted-foreground shrink-0" />
                                                 )}
                                             </button>
 
@@ -165,7 +166,7 @@ export default function FAQPage() {
                                                         exit={{ height: 0, opacity: 0 }}
                                                         transition={{ duration: 0.3, ease: "easeInOut" }}
                                                     >
-                                                        <div className="px-6 pb-6 text-muted-foreground leading-relaxed border-t border-gray-50">
+                                                        <div className="px-6 pb-6 text-muted-foreground leading-relaxed border-t border-border">
                                                             {item.answer}
                                                         </div>
                                                     </motion.div>
@@ -179,19 +180,26 @@ export default function FAQPage() {
                     ))}
                 </div>
 
-                <div className="mt-20 bg-secondary rounded-2xl p-8 md:p-12 text-center border border-emerald-100">
-                    <h3 className="text-2xl font-bold text-foreground mb-4">Can't find what you're looking for?</h3>
+                {/* CTA Block */}
+                <div className="mt-20 bg-muted rounded-2xl p-8 md:p-12 text-center border border-border">
+                    <h3 className="text-2xl font-bold text-foreground mb-4">Can&apos;t find what you&apos;re looking for?</h3>
                     <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
                         Our Rome team is on standby from 8:00 AM to 7:00 PM, seven days a week.
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href="mailto:info@romanvaticantour.com" className="flex items-center gap-2 px-6 py-3 bg-card text-emerald-800 font-bold rounded-lg border border-emerald-200 hover:border-emerald-400 shadow-sm transition-all hover:-translate-y-1">
+                        <a
+                            href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@romanvaticantour.com'}`}
+                            className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-lg border border-border hover:border-primary hover:text-primary shadow-sm transition-all hover:-translate-y-1"
+                        >
                             <Mail size={18} />
-                            info@romanvaticantour.com
+                            {process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@romanvaticantour.com'}
                         </a>
-                        <a href="tel:+393895217315" className="flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-lg hover:opacity-90 shadow-lg shadow-emerald-200 transition-all hover:-translate-y-1">
+                        <a
+                            href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ''}`}
+                            className="flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-bold rounded-lg hover:bg-primary/90 shadow-lg transition-all hover:-translate-y-1"
+                        >
                             <Phone size={18} />
-                            +39 389 521 7315
+                            {process.env.NEXT_PUBLIC_SUPPORT_PHONE || 'Call Us'}
                         </a>
                     </div>
                 </div>

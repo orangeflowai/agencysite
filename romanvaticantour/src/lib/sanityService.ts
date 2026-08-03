@@ -91,6 +91,7 @@ export interface Tour {
     sites?: Array<{ _ref: string; _type: 'reference' }>;
     gallery?: any[];
     slots?: Array<{ time: string; available_slots: number }>;
+    guestTypes?: Array<{ name: string; price: number; description?: string }>;
 }
 
 export interface Post {
@@ -144,15 +145,17 @@ export function extractPortableText(blocks: any): string {
   return '';
 }
 
-/** Filter out test/debug/draft tours */
+/** Filter out test/debug/draft tours. Also restricts to only the 4 official Vatican tour products. */
 export function filterRealTours(tours: Tour[]): Tour[] {
+  const officialSlugs = [
+    'vatican-museums-sistine-chapel-guided-tour',
+    'fast-pass-vatican-museums-sistine-chapel',
+    'skip-the-line-vatican-museum-sistine-chapel',
+    'vatican-museum-sistine-chapel-st-basilica',
+  ];
   return tours.filter((t) => {
-    const title = (t.title || '').toLowerCase();
-    if (title.includes('status test')) return false;
-    if (title.includes('debug test')) return false;
-    if (title.startsWith('test')) return false;
-    // Skip tours with no rating AND no reviews (likely drafts/tests)
-    if (t.rating == null && t.reviewCount == null && t.price === 0) return false;
+    const slug = typeof t.slug === 'string' ? t.slug : t.slug?.current || '';
+    if (!officialSlugs.includes(slug)) return false;
     return true;
   });
 }

@@ -4,6 +4,7 @@
 import { createClient } from "next-sanity";
 import { apiVersion, dataset, projectId } from "@/sanity/env";
 import { revalidatePath } from "next/cache";
+import { requireAdminAction } from "@/lib/apiAuth";
 
 const client = createClient({
     projectId,
@@ -22,6 +23,7 @@ interface CreatePostData {
 }
 
 export async function createBlogPost(data: CreatePostData) {
+    await requireAdminAction();
     if (!process.env.SANITY_API_TOKEN) {
         throw new Error("Missing SANITY_API_TOKEN. Cannot publish.");
     }
@@ -168,6 +170,7 @@ export async function createBlogPost(data: CreatePostData) {
 }
 
 export async function getAllTours(siteId?: string) {
+    await requireAdminAction();
     try {
         const targetSite = siteId || process.env.NEXT_PUBLIC_SITE_ID || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
         // Fetch minimal data needed for context - FILTERED BY SITE

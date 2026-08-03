@@ -72,7 +72,7 @@ export default function VaticanHeader() {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
              <button 
               className="p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}

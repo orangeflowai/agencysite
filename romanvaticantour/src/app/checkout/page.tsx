@@ -9,16 +9,18 @@ import { useCart } from '@/context/CartContext';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items } = useCart();
+  const { items, isLoaded } = useCart();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // Wait for cart to hydrate from localStorage before checking
+    if (!isLoaded) return;
     if (items.length === 0) {
       router.replace('/search');
       return;
     }
     setReady(true);
-  }, [items, router]);
+  }, [items, router, isLoaded]);
 
   if (!ready) {
     return (

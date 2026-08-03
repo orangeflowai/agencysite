@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from 'next-sanity';
 import { apiVersion, dataset, projectId, useCdn } from '@/sanity/env';
 import { tours } from '@/lib/toursData';
+import { requireAdmin } from '@/lib/apiAuth';
 
 const writeClient = createClient({
     projectId,
@@ -29,6 +30,9 @@ async function uploadImageToSanity(imageUrl: string) {
 }
 
 export async function GET() {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
+
     try {
         if (!process.env.SANITY_API_TOKEN) {
             return NextResponse.json(

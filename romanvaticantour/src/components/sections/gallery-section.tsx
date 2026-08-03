@@ -29,7 +29,7 @@ export function GallerySection({ tours = [] }: GallerySectionProps) {
   // Build the items to display, ensuring each has valid image/src
   const allItems = (displayTours.length > 0 ? displayTours : staticFallback).map((item: any) => ({
     href: item.href || `/tour/${item.slug}`,
-    src: item.image || item.src,
+    src: item.image || item.src || '/placeholder.jpg',
     title: item.title,
     alt: item.alt || item.title,
   }));

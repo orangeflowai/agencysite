@@ -2,6 +2,7 @@ export const revalidate = 3600;
 
 import { notFound } from 'next/navigation';
 import Navbar from '@/components/Navbar';
+import NavbarSpacer from '@/components/NavbarSpacer';
 import Footer from '@/components/Footer';
 import TourCard from '@/components/TourCard';
 import { getTours } from '@/lib/dataAdapter';
@@ -9,20 +10,20 @@ import CategoryHero from '@/components/CategoryHero';
 
 const FALLBACK_IMAGES: Record<string, string[]> = {
     'vatican': [
-        'https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=1280&q=80',
-        'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=1280&q=80',
+        '/images/vatican-sistine.jpg',
+        '/images/st-peters.jpg',
     ],
     'colosseum': [
-        'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1280&q=80',
-        'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=1280&q=80',
+        '/images/colosseum-night.jpg',
+        '/images/roman-forum.jpg',
     ],
     'city': [
-        'https://images.unsplash.com/photo-1529260830199-42c24126f198?w=1280&q=80',
-        'https://images.unsplash.com/photo-1568797629192-789acf8e4df3?w=1280&q=80',
+        '/images/trevi-fountain.jpg',
+        '/images/pantheon.jpg',
     ],
     'hidden-gems': [
-        'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=1280&q=80',
-        'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1280&q=80',
+        '/images/trastevere.jpg',
+        '/images/rome-hero.jpg',
     ],
 };
 

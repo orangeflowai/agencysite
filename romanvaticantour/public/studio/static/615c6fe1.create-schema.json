@@ -1,0 +1,4692 @@
+[
+  {
+    "fields": [
+      {
+        "name": "h",
+        "type": "number",
+        "title": "Hue"
+      },
+      {
+        "name": "s",
+        "type": "number",
+        "title": "Saturation"
+      },
+      {
+        "name": "l",
+        "type": "number",
+        "title": "Lightness"
+      },
+      {
+        "name": "a",
+        "type": "number",
+        "title": "Alpha"
+      }
+    ],
+    "name": "hslaColor",
+    "type": "object",
+    "title": "Hue Saturation Lightness"
+  },
+  {
+    "fields": [
+      {
+        "name": "h",
+        "type": "number",
+        "title": "Hue"
+      },
+      {
+        "name": "s",
+        "type": "number",
+        "title": "Saturation"
+      },
+      {
+        "name": "v",
+        "type": "number",
+        "title": "Value"
+      },
+      {
+        "name": "a",
+        "type": "number",
+        "title": "Alpha"
+      }
+    ],
+    "name": "hsvaColor",
+    "type": "object",
+    "title": "Hue Saturation Value"
+  },
+  {
+    "fields": [
+      {
+        "name": "r",
+        "type": "number",
+        "title": "Red"
+      },
+      {
+        "name": "g",
+        "type": "number",
+        "title": "Green"
+      },
+      {
+        "name": "b",
+        "type": "number",
+        "title": "Blue"
+      },
+      {
+        "name": "a",
+        "type": "number",
+        "title": "Alpha"
+      }
+    ],
+    "name": "rgbaColor",
+    "type": "object",
+    "title": "Red Green Blue (rgb)"
+  },
+  {
+    "fields": [
+      {
+        "name": "hex",
+        "type": "string"
+      },
+      {
+        "name": "alpha",
+        "type": "number"
+      },
+      {
+        "name": "hsl",
+        "type": "hslaColor",
+        "title": "Hue Saturation Lightness"
+      },
+      {
+        "name": "hsv",
+        "type": "hsvaColor",
+        "title": "Hue Saturation Value"
+      },
+      {
+        "name": "rgb",
+        "type": "rgbaColor",
+        "title": "Red Green Blue (rgb)"
+      }
+    ],
+    "name": "color",
+    "type": "object"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Display name of the website (e.g., \"Roman Vatican Tour\")",
+        "name": "title",
+        "type": "string",
+        "title": "Site Name"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Unique identifier for this site (e.g., \"rome-tour-tickets\" or \"wondersofrome\")",
+        "name": "slug",
+        "type": "slug",
+        "title": "Site ID"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Production domain (e.g., https://rome-tour-tickets.com)",
+        "name": "domain",
+        "type": "url",
+        "title": "Domain URL"
+      },
+      {
+        "initialValue": true,
+        "description": "Whether this site is currently active",
+        "name": "isActive",
+        "type": "boolean",
+        "title": "Active"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Site logo image (transparent PNG recommended)",
+        "name": "logo",
+        "type": "image"
+      },
+      {
+        "description": "Text logo if no image logo (e.g., \"Roman Vatican Tour\")",
+        "name": "logoText",
+        "type": "string"
+      },
+      {
+        "description": "Accent part of logo (e.g., \"Rome\" in \"Roman Vatican Tour\")",
+        "name": "logoTextAccent",
+        "type": "string",
+        "title": "Logo Accent Text"
+      },
+      {
+        "description": "Site favicon",
+        "name": "favicon",
+        "type": "image"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "colorList": [
+                {
+                  "hex": "#0f4c3a"
+                },
+                {
+                  "hex": "#1e40af"
+                },
+                {
+                  "hex": "#7c3aed"
+                },
+                {
+                  "hex": "#dc2626"
+                },
+                {
+                  "hex": "#ea580c"
+                },
+                {
+                  "hex": "#059669"
+                },
+                {
+                  "hex": "#0891b2"
+                },
+                {
+                  "hex": "#be185d"
+                },
+                {
+                  "hex": "#4338ca"
+                }
+              ]
+            },
+            "name": "primary",
+            "type": "color",
+            "title": "Primary Color"
+          },
+          {
+            "options": {
+              "colorList": [
+                {
+                  "hex": "#f5f5dc"
+                },
+                {
+                  "hex": "#fef3c7"
+                },
+                {
+                  "hex": "#dbeafe"
+                },
+                {
+                  "hex": "#fce7f3"
+                },
+                {
+                  "hex": "#d1fae5"
+                },
+                {
+                  "hex": "#fef9c3"
+                },
+                {
+                  "hex": "#ede9fe"
+                },
+                {
+                  "hex": "#ffedd5"
+                },
+                {
+                  "hex": "#f3f4f6"
+                }
+              ]
+            },
+            "name": "secondary",
+            "type": "color",
+            "title": "Secondary Color"
+          },
+          {
+            "options": {
+              "colorList": [
+                {
+                  "hex": "#f59e0b"
+                },
+                {
+                  "hex": "#10b981"
+                },
+                {
+                  "hex": "#3b82f6"
+                },
+                {
+                  "hex": "#ef4444"
+                },
+                {
+                  "hex": "#8b5cf6"
+                },
+                {
+                  "hex": "#ec4899"
+                },
+                {
+                  "hex": "#14b8a6"
+                },
+                {
+                  "hex": "#f97316"
+                },
+                {
+                  "hex": "#6366f1"
+                }
+              ]
+            },
+            "name": "accent",
+            "type": "color",
+            "title": "Accent Color"
+          }
+        ],
+        "name": "brandColors",
+        "type": "object"
+      },
+      {
+        "description": "Legal business details shown in footer",
+        "fields": [
+          {
+            "description": "e.g., \"Roman Vatican Tour S.r.l.\"",
+            "name": "companyName",
+            "type": "string"
+          },
+          {
+            "description": "e.g., \"03188940591\"",
+            "name": "vatNumber",
+            "type": "string",
+            "title": "VAT Number (P.IVA)"
+          },
+          {
+            "description": "e.g., \"319122\"",
+            "name": "reaNumber",
+            "type": "string",
+            "title": "REA Number"
+          },
+          {
+            "description": "e.g., \"Via Nettunense 188, Aprilia (LT) 04011\"",
+            "name": "registeredAddress",
+            "type": "string",
+            "title": "Registered Address (Sede Legale)"
+          },
+          {
+            "description": "Legal certified email address",
+            "name": "pecEmail",
+            "type": "string",
+            "title": "PEC Email"
+          },
+          {
+            "description": "For electronic invoicing",
+            "name": "sdiCode",
+            "type": "string",
+            "title": "SDI Code (Codice Destinatario)"
+          },
+          {
+            "description": "e.g., \"Capitale Sociale: €10.000 i.v.\"",
+            "name": "shareCapital",
+            "type": "string"
+          }
+        ],
+        "name": "businessInfo",
+        "type": "object",
+        "title": "Business Information"
+      },
+      {
+        "name": "contactEmail",
+        "type": "string"
+      },
+      {
+        "description": "Phone number shown in checkout \"Need Help\" box and footer",
+        "name": "contactPhone",
+        "type": "string"
+      },
+      {
+        "description": "WhatsApp number for the floating button (digits only, e.g., +39 389 521 7315)",
+        "name": "whatsappNumber",
+        "type": "string",
+        "title": "WhatsApp Number"
+      },
+      {
+        "rows": 2,
+        "name": "officeAddress",
+        "type": "text"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "facebook",
+            "type": "url"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "instagram",
+            "type": "url"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "twitter",
+            "type": "url",
+            "title": "Twitter/X"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "tripadvisor",
+            "type": "url",
+            "title": "TripAdvisor"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "youtube",
+            "type": "url",
+            "title": "YouTube"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "linkedin",
+            "type": "url",
+            "title": "LinkedIn"
+          }
+        ],
+        "name": "socialLinks",
+        "type": "object",
+        "title": "Social Media Links"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "We respect your privacy",
+            "name": "cookieBannerTitle",
+            "type": "string"
+          },
+          {
+            "rows": 3,
+            "initialValue": "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking \"Accept All\", you consent to our use of cookies.",
+            "name": "cookieBannerText",
+            "type": "text"
+          },
+          {
+            "initialValue": "Accept All",
+            "name": "acceptButtonText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Decline",
+            "name": "declineButtonText",
+            "type": "string"
+          },
+          {
+            "initialValue": "/privacy-policy",
+            "name": "privacyPolicyLink",
+            "type": "string"
+          },
+          {
+            "initialValue": "Read our Privacy Policy",
+            "name": "privacyPolicyText",
+            "type": "string",
+            "title": "Privacy Policy Link Text"
+          },
+          {
+            "initialValue": true,
+            "name": "showCookieBanner",
+            "type": "boolean"
+          },
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "EU (Full GDPR)",
+                  "value": "eu"
+                },
+                {
+                  "title": "Italy Only",
+                  "value": "italy"
+                },
+                {
+                  "title": "US (CCPA)",
+                  "value": "us"
+                },
+                {
+                  "title": "UK",
+                  "value": "uk"
+                }
+              ]
+            },
+            "initialValue": "eu",
+            "name": "gdprComplianceRegion",
+            "type": "string",
+            "title": "GDPR Compliance Region"
+          }
+        ],
+        "name": "gdprSettings",
+        "type": "object",
+        "title": "GDPR Settings"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "privacyPolicy",
+            "type": "url",
+            "title": "Privacy Policy URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "termsAndConditions",
+            "type": "url",
+            "title": "Terms & Conditions URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "cookiePolicy",
+            "type": "url",
+            "title": "Cookie Policy URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "cancellationPolicy",
+            "type": "url",
+            "title": "Cancellation Policy URL"
+          }
+        ],
+        "name": "legalLinks",
+        "type": "object",
+        "title": "Legal Pages"
+      },
+      {
+        "fields": [
+          {
+            "description": "Default title for pages without specific SEO",
+            "name": "metaTitle",
+            "type": "string",
+            "title": "Default Meta Title"
+          },
+          {
+            "rows": 3,
+            "description": "Default description for pages",
+            "name": "metaDescription",
+            "type": "text",
+            "title": "Default Meta Description"
+          },
+          {
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "keywords",
+            "type": "array",
+            "title": "Default Keywords"
+          },
+          {
+            "description": "Default Open Graph image for social sharing",
+            "name": "ogImage",
+            "type": "image",
+            "title": "Default Social Image"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "Default SEO Settings"
+      }
+    ],
+    "name": "site",
+    "type": "document",
+    "title": "Website"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Which websites should display this tour? Select one or both sites.",
+        "of": [
+          {
+            "options": {
+              "filter": "isActive == true"
+            },
+            "to": [
+              {
+                "type": "site"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to website"
+          }
+        ],
+        "name": "sites",
+        "type": "array",
+        "title": "Websites (Select one or more)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Tour Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Slug (URL)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "mainImage",
+        "type": "image"
+      },
+      {
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "gallery",
+        "type": "array",
+        "title": "Image Gallery"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "price",
+        "type": "number",
+        "title": "Base Price (€)"
+      },
+      {
+        "description": "Define participant categories and their specific prices. If empty, the base price will be used for Adults.",
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "name",
+                "type": "string",
+                "title": "Category Name"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "min",
+                        "constraint": 0
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "price",
+                "type": "number",
+                "title": "Price (€)"
+              },
+              {
+                "name": "description",
+                "type": "string",
+                "title": "Help Text (e.g. \"Age 65+\")"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "guestTypes",
+        "type": "array",
+        "title": "Guest Types & Pricing"
+      },
+      {
+        "name": "duration",
+        "type": "string",
+        "title": "Duration (e.g., \"2.5 hours\")"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Colosseum Tours",
+              "value": "colosseum"
+            },
+            {
+              "title": "Vatican Tours",
+              "value": "vatican"
+            },
+            {
+              "title": "City Tours",
+              "value": "city"
+            },
+            {
+              "title": "Italy Hidden Gems",
+              "value": "hidden-gems"
+            }
+          ]
+        },
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Guided Tour",
+              "value": "Guided Tour"
+            },
+            {
+              "title": "Private Tour",
+              "value": "Private"
+            },
+            {
+              "title": "Skip-the-Line",
+              "value": "Skip-the-Line"
+            },
+            {
+              "title": "Golf Cart",
+              "value": "Golf Cart"
+            },
+            {
+              "title": "Food Tour",
+              "value": "Food Tour"
+            },
+            {
+              "title": "Day Trip",
+              "value": "Day Trip"
+            }
+          ]
+        },
+        "name": "tourType",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Bestseller",
+              "value": "Bestseller"
+            },
+            {
+              "title": "Likely to Sell Out",
+              "value": "Likely to Sell Out"
+            },
+            {
+              "title": "Skip the Line",
+              "value": "Skip the Line"
+            }
+          ]
+        },
+        "description": "Optional badge to display on the tour card",
+        "name": "badge",
+        "type": "string",
+        "title": "Product Badge"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 0
+              },
+              {
+                "flag": "max",
+                "constraint": 5
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Rating out of 5 (e.g. 4.8)",
+        "name": "rating",
+        "type": "number",
+        "title": "Rating (0-5)"
+      },
+      {
+        "name": "reviewCount",
+        "type": "number"
+      },
+      {
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "type": "image"
+          }
+        ],
+        "name": "description",
+        "type": "array",
+        "title": "Full Description"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "highlights",
+        "type": "array"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "includes",
+        "type": "array",
+        "title": "What's Included"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "excludes",
+        "type": "array",
+        "title": "What's Not Included"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "question",
+                "type": "string"
+              },
+              {
+                "name": "answer",
+                "type": "text"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "faqs",
+        "type": "array",
+        "title": "FAQs"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "text"
+              },
+              {
+                "name": "duration",
+                "type": "string"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "itinerary",
+        "type": "array"
+      },
+      {
+        "name": "meetingPoint",
+        "type": "text"
+      },
+      {
+        "description": "Dress code, ID requirements, etc.",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "importantInfo",
+        "type": "array",
+        "title": "Important Information"
+      },
+      {
+        "name": "groupSize",
+        "type": "string"
+      },
+      {
+        "description": "Customize available time slots for this tour. Leave empty to use default slots (9:00-16:00).",
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "time",
+                "type": "string",
+                "title": "Time (e.g. 09:00)"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      },
+                      {
+                        "flag": "min",
+                        "constraint": 0
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "available_slots",
+                "type": "number"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "slots",
+        "type": "array",
+        "title": "Available Time Slots"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "warning",
+            "message": "Must be at least 1"
+          }
+        ],
+        "description": "Caps the number of participants selectable in checkout",
+        "name": "maxParticipants",
+        "type": "number",
+        "title": "Max Participants (per booking)"
+      },
+      {
+        "name": "location",
+        "type": "string"
+      },
+      {
+        "description": "Tags like \"Featured\", \"10% OFF\", \"Selling Fast\"",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "tags",
+        "type": "array",
+        "title": "Marketing Tags"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 60
+              }
+            ],
+            "level": "warning",
+            "message": "Should be under 60 characters"
+          }
+        ],
+        "name": "seoTitle",
+        "type": "string",
+        "title": "SEO Title"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 160
+              }
+            ],
+            "level": "warning",
+            "message": "Should be under 160 characters"
+          }
+        ],
+        "name": "seoDescription",
+        "type": "text",
+        "title": "SEO Description"
+      },
+      {
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "keywords",
+        "type": "array"
+      },
+      {
+        "description": "Add translations for this tour in different languages",
+        "fields": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Tour Title"
+              },
+              {
+                "of": [
+                  {
+                    "marks": {
+                      "annotations": [
+                        {
+                          "i18nTitleKey": "inputs.portable-text.annotation.link",
+                          "options": {
+                            "modal": {
+                              "type": "popover"
+                            }
+                          },
+                          "fields": [
+                            {
+                              "validation": [
+                                {
+                                  "rules": [
+                                    {
+                                      "flag": "uri",
+                                      "constraint": {
+                                        "options": {
+                                          "scheme": [
+                                            "/^http$/",
+                                            "/^https$/",
+                                            "/^tel$/",
+                                            "/^mailto$/"
+                                          ],
+                                          "allowRelative": true,
+                                          "relativeOnly": false,
+                                          "allowCredentials": false
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "level": "error"
+                                }
+                              ],
+                              "description": "A valid web, email, phone, or relative link.",
+                              "name": "href",
+                              "type": "url",
+                              "title": "Link"
+                            }
+                          ],
+                          "name": "link",
+                          "type": "object"
+                        }
+                      ],
+                      "decorators": [
+                        {
+                          "value": "strong",
+                          "title": "Strong"
+                        },
+                        {
+                          "value": "em",
+                          "title": "Italic"
+                        },
+                        {
+                          "value": "code",
+                          "title": "Code"
+                        },
+                        {
+                          "value": "underline",
+                          "title": "Underline"
+                        },
+                        {
+                          "value": "strike-through",
+                          "title": "Strike"
+                        }
+                      ]
+                    },
+                    "lists": [
+                      {
+                        "value": "bullet",
+                        "title": "Bulleted list"
+                      },
+                      {
+                        "value": "number",
+                        "title": "Numbered list"
+                      }
+                    ],
+                    "styles": [
+                      {
+                        "value": "normal",
+                        "title": "Normal"
+                      },
+                      {
+                        "value": "h1",
+                        "title": "Heading 1"
+                      },
+                      {
+                        "value": "h2",
+                        "title": "Heading 2"
+                      },
+                      {
+                        "value": "h3",
+                        "title": "Heading 3"
+                      },
+                      {
+                        "value": "h4",
+                        "title": "Heading 4"
+                      },
+                      {
+                        "value": "h5",
+                        "title": "Heading 5"
+                      },
+                      {
+                        "value": "h6",
+                        "title": "Heading 6"
+                      },
+                      {
+                        "value": "blockquote",
+                        "title": "Quote"
+                      }
+                    ],
+                    "of": [],
+                    "type": "block"
+                  }
+                ],
+                "name": "description",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "highlights",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "includes",
+                "type": "array",
+                "title": "What's Included"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "excludes",
+                "type": "array",
+                "title": "What's Not Included"
+              },
+              {
+                "name": "meetingPoint",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "importantInfo",
+                "type": "array",
+                "title": "Important Information"
+              },
+              {
+                "name": "seoTitle",
+                "type": "string",
+                "title": "SEO Title"
+              },
+              {
+                "rows": 2,
+                "name": "seoDescription",
+                "type": "text",
+                "title": "SEO Description"
+              }
+            ],
+            "name": "it",
+            "type": "object",
+            "title": "Italian (Italiano)"
+          },
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Tour Title"
+              },
+              {
+                "of": [
+                  {
+                    "marks": {
+                      "annotations": [
+                        {
+                          "i18nTitleKey": "inputs.portable-text.annotation.link",
+                          "options": {
+                            "modal": {
+                              "type": "popover"
+                            }
+                          },
+                          "fields": [
+                            {
+                              "validation": [
+                                {
+                                  "rules": [
+                                    {
+                                      "flag": "uri",
+                                      "constraint": {
+                                        "options": {
+                                          "scheme": [
+                                            "/^http$/",
+                                            "/^https$/",
+                                            "/^tel$/",
+                                            "/^mailto$/"
+                                          ],
+                                          "allowRelative": true,
+                                          "relativeOnly": false,
+                                          "allowCredentials": false
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "level": "error"
+                                }
+                              ],
+                              "description": "A valid web, email, phone, or relative link.",
+                              "name": "href",
+                              "type": "url",
+                              "title": "Link"
+                            }
+                          ],
+                          "name": "link",
+                          "type": "object"
+                        }
+                      ],
+                      "decorators": [
+                        {
+                          "value": "strong",
+                          "title": "Strong"
+                        },
+                        {
+                          "value": "em",
+                          "title": "Italic"
+                        },
+                        {
+                          "value": "code",
+                          "title": "Code"
+                        },
+                        {
+                          "value": "underline",
+                          "title": "Underline"
+                        },
+                        {
+                          "value": "strike-through",
+                          "title": "Strike"
+                        }
+                      ]
+                    },
+                    "lists": [
+                      {
+                        "value": "bullet",
+                        "title": "Bulleted list"
+                      },
+                      {
+                        "value": "number",
+                        "title": "Numbered list"
+                      }
+                    ],
+                    "styles": [
+                      {
+                        "value": "normal",
+                        "title": "Normal"
+                      },
+                      {
+                        "value": "h1",
+                        "title": "Heading 1"
+                      },
+                      {
+                        "value": "h2",
+                        "title": "Heading 2"
+                      },
+                      {
+                        "value": "h3",
+                        "title": "Heading 3"
+                      },
+                      {
+                        "value": "h4",
+                        "title": "Heading 4"
+                      },
+                      {
+                        "value": "h5",
+                        "title": "Heading 5"
+                      },
+                      {
+                        "value": "h6",
+                        "title": "Heading 6"
+                      },
+                      {
+                        "value": "blockquote",
+                        "title": "Quote"
+                      }
+                    ],
+                    "of": [],
+                    "type": "block"
+                  }
+                ],
+                "name": "description",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "highlights",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "includes",
+                "type": "array",
+                "title": "What's Included"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "excludes",
+                "type": "array",
+                "title": "What's Not Included"
+              },
+              {
+                "name": "meetingPoint",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "importantInfo",
+                "type": "array",
+                "title": "Important Information"
+              },
+              {
+                "name": "seoTitle",
+                "type": "string",
+                "title": "SEO Title"
+              },
+              {
+                "rows": 2,
+                "name": "seoDescription",
+                "type": "text",
+                "title": "SEO Description"
+              }
+            ],
+            "name": "es",
+            "type": "object",
+            "title": "Spanish (Español)"
+          },
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Tour Title"
+              },
+              {
+                "of": [
+                  {
+                    "marks": {
+                      "annotations": [
+                        {
+                          "i18nTitleKey": "inputs.portable-text.annotation.link",
+                          "options": {
+                            "modal": {
+                              "type": "popover"
+                            }
+                          },
+                          "fields": [
+                            {
+                              "validation": [
+                                {
+                                  "rules": [
+                                    {
+                                      "flag": "uri",
+                                      "constraint": {
+                                        "options": {
+                                          "scheme": [
+                                            "/^http$/",
+                                            "/^https$/",
+                                            "/^tel$/",
+                                            "/^mailto$/"
+                                          ],
+                                          "allowRelative": true,
+                                          "relativeOnly": false,
+                                          "allowCredentials": false
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "level": "error"
+                                }
+                              ],
+                              "description": "A valid web, email, phone, or relative link.",
+                              "name": "href",
+                              "type": "url",
+                              "title": "Link"
+                            }
+                          ],
+                          "name": "link",
+                          "type": "object"
+                        }
+                      ],
+                      "decorators": [
+                        {
+                          "value": "strong",
+                          "title": "Strong"
+                        },
+                        {
+                          "value": "em",
+                          "title": "Italic"
+                        },
+                        {
+                          "value": "code",
+                          "title": "Code"
+                        },
+                        {
+                          "value": "underline",
+                          "title": "Underline"
+                        },
+                        {
+                          "value": "strike-through",
+                          "title": "Strike"
+                        }
+                      ]
+                    },
+                    "lists": [
+                      {
+                        "value": "bullet",
+                        "title": "Bulleted list"
+                      },
+                      {
+                        "value": "number",
+                        "title": "Numbered list"
+                      }
+                    ],
+                    "styles": [
+                      {
+                        "value": "normal",
+                        "title": "Normal"
+                      },
+                      {
+                        "value": "h1",
+                        "title": "Heading 1"
+                      },
+                      {
+                        "value": "h2",
+                        "title": "Heading 2"
+                      },
+                      {
+                        "value": "h3",
+                        "title": "Heading 3"
+                      },
+                      {
+                        "value": "h4",
+                        "title": "Heading 4"
+                      },
+                      {
+                        "value": "h5",
+                        "title": "Heading 5"
+                      },
+                      {
+                        "value": "h6",
+                        "title": "Heading 6"
+                      },
+                      {
+                        "value": "blockquote",
+                        "title": "Quote"
+                      }
+                    ],
+                    "of": [],
+                    "type": "block"
+                  }
+                ],
+                "name": "description",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "highlights",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "includes",
+                "type": "array",
+                "title": "What's Included"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "excludes",
+                "type": "array",
+                "title": "What's Not Included"
+              },
+              {
+                "name": "meetingPoint",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "importantInfo",
+                "type": "array",
+                "title": "Important Information"
+              },
+              {
+                "name": "seoTitle",
+                "type": "string",
+                "title": "SEO Title"
+              },
+              {
+                "rows": 2,
+                "name": "seoDescription",
+                "type": "text",
+                "title": "SEO Description"
+              }
+            ],
+            "name": "fr",
+            "type": "object",
+            "title": "French (Français)"
+          },
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Tour Title"
+              },
+              {
+                "of": [
+                  {
+                    "marks": {
+                      "annotations": [
+                        {
+                          "i18nTitleKey": "inputs.portable-text.annotation.link",
+                          "options": {
+                            "modal": {
+                              "type": "popover"
+                            }
+                          },
+                          "fields": [
+                            {
+                              "validation": [
+                                {
+                                  "rules": [
+                                    {
+                                      "flag": "uri",
+                                      "constraint": {
+                                        "options": {
+                                          "scheme": [
+                                            "/^http$/",
+                                            "/^https$/",
+                                            "/^tel$/",
+                                            "/^mailto$/"
+                                          ],
+                                          "allowRelative": true,
+                                          "relativeOnly": false,
+                                          "allowCredentials": false
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "level": "error"
+                                }
+                              ],
+                              "description": "A valid web, email, phone, or relative link.",
+                              "name": "href",
+                              "type": "url",
+                              "title": "Link"
+                            }
+                          ],
+                          "name": "link",
+                          "type": "object"
+                        }
+                      ],
+                      "decorators": [
+                        {
+                          "value": "strong",
+                          "title": "Strong"
+                        },
+                        {
+                          "value": "em",
+                          "title": "Italic"
+                        },
+                        {
+                          "value": "code",
+                          "title": "Code"
+                        },
+                        {
+                          "value": "underline",
+                          "title": "Underline"
+                        },
+                        {
+                          "value": "strike-through",
+                          "title": "Strike"
+                        }
+                      ]
+                    },
+                    "lists": [
+                      {
+                        "value": "bullet",
+                        "title": "Bulleted list"
+                      },
+                      {
+                        "value": "number",
+                        "title": "Numbered list"
+                      }
+                    ],
+                    "styles": [
+                      {
+                        "value": "normal",
+                        "title": "Normal"
+                      },
+                      {
+                        "value": "h1",
+                        "title": "Heading 1"
+                      },
+                      {
+                        "value": "h2",
+                        "title": "Heading 2"
+                      },
+                      {
+                        "value": "h3",
+                        "title": "Heading 3"
+                      },
+                      {
+                        "value": "h4",
+                        "title": "Heading 4"
+                      },
+                      {
+                        "value": "h5",
+                        "title": "Heading 5"
+                      },
+                      {
+                        "value": "h6",
+                        "title": "Heading 6"
+                      },
+                      {
+                        "value": "blockquote",
+                        "title": "Quote"
+                      }
+                    ],
+                    "of": [],
+                    "type": "block"
+                  }
+                ],
+                "name": "description",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "highlights",
+                "type": "array"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "includes",
+                "type": "array",
+                "title": "What's Included"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "excludes",
+                "type": "array",
+                "title": "What's Not Included"
+              },
+              {
+                "name": "meetingPoint",
+                "type": "text"
+              },
+              {
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "importantInfo",
+                "type": "array",
+                "title": "Important Information"
+              },
+              {
+                "name": "seoTitle",
+                "type": "string",
+                "title": "SEO Title"
+              },
+              {
+                "rows": 2,
+                "name": "seoDescription",
+                "type": "text",
+                "title": "SEO Description"
+              }
+            ],
+            "name": "de",
+            "type": "object",
+            "title": "German (Deutsch)"
+          }
+        ],
+        "name": "translations",
+        "type": "object"
+      }
+    ],
+    "name": "tour",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Name (English)"
+      },
+      {
+        "name": "name_it",
+        "type": "string",
+        "title": "Name (Italian)"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Unique ID used in the app — e.g. \"colosseum\"",
+        "name": "slug",
+        "type": "slug",
+        "title": "Slug (App ID)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Ancient / Archaeological",
+              "value": "ancient"
+            },
+            {
+              "title": "Religious",
+              "value": "religious"
+            },
+            {
+              "title": "Museum",
+              "value": "museum"
+            },
+            {
+              "title": "Piazza / Square",
+              "value": "piazza"
+            },
+            {
+              "title": "Other",
+              "value": "other"
+            }
+          ]
+        },
+        "initialValue": "other",
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Essential (free, shown first)",
+              "value": "essential"
+            },
+            {
+              "title": "Full (premium)",
+              "value": "full"
+            }
+          ]
+        },
+        "initialValue": "full",
+        "name": "pack",
+        "type": "string",
+        "title": "Download Pack"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "thumbnail",
+        "type": "image",
+        "title": "Thumbnail Image"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": -90
+              },
+              {
+                "flag": "max",
+                "constraint": 90
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "e.g. 41.8902 for the Colosseum",
+        "name": "lat",
+        "type": "number",
+        "title": "Latitude"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": -180
+              },
+              {
+                "flag": "max",
+                "constraint": 180
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "e.g. 12.4922 for the Colosseum",
+        "name": "lng",
+        "type": "number",
+        "title": "Longitude"
+      },
+      {
+        "initialValue": 20,
+        "description": "Audio auto-plays when user enters this radius.",
+        "name": "radius",
+        "type": "number",
+        "title": "Geofence Radius (meters)"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in English",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_en",
+        "type": "object",
+        "title": "🇬🇧 English Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Italian",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_it",
+        "type": "object",
+        "title": "🇮🇹 Italian Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Spanish",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_es",
+        "type": "object",
+        "title": "🇪🇸 Spanish Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in French",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_fr",
+        "type": "object",
+        "title": "🇫🇷 French Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in German",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_de",
+        "type": "object",
+        "title": "🇩🇪 German Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Mandarin",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_zh",
+        "type": "object",
+        "title": "🇨🇳 Mandarin Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Japanese",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_ja",
+        "type": "object",
+        "title": "🇯🇵 Japanese Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Portuguese",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_pt",
+        "type": "object",
+        "title": "🇧🇷 Portuguese Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Polish",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_pl",
+        "type": "object",
+        "title": "🇵🇱 Polish Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Russian",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_ru",
+        "type": "object",
+        "title": "🇷🇺 Russian Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Arabic",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_ar",
+        "type": "object",
+        "title": "🇸🇦 Arabic Audio"
+      },
+      {
+        "description": "Upload Quick, Deep, and Kids audio files in Korean",
+        "fields": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioQuick",
+            "type": "object",
+            "title": "Quick (~2 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioDeep",
+            "type": "object",
+            "title": "Deep (~10 min)"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "Audio URL (.m4a / .mp3)"
+              },
+              {
+                "name": "duration",
+                "type": "number",
+                "title": "Duration (seconds)"
+              },
+              {
+                "name": "size",
+                "type": "number",
+                "title": "File size (bytes)"
+              }
+            ],
+            "name": "audioKids",
+            "type": "object",
+            "title": "Kids (myths)"
+          }
+        ],
+        "name": "audio_ko",
+        "type": "object",
+        "title": "🇰🇷 Korean Audio"
+      },
+      {
+        "description": "Insider tips shown as text pop-ups near this sight",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "tips",
+        "type": "array",
+        "title": "Agency Secret Tips"
+      },
+      {
+        "rows": 3,
+        "name": "kidsMyth",
+        "type": "text",
+        "title": "Kids Story / Myth"
+      },
+      {
+        "description": "Shows a \"Book Now\" button in the app.",
+        "to": [
+          {
+            "type": "tour"
+          }
+        ],
+        "name": "linkedTour",
+        "type": "reference",
+        "title": "Linked Bookable Tour"
+      }
+    ],
+    "name": "sight",
+    "type": "document",
+    "title": "Audio Guide Sight"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Product Name"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "Slug (App ID)"
+      },
+      {
+        "rows": 3,
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Souvenir",
+              "value": "souvenir"
+            },
+            {
+              "title": "Book / Guide",
+              "value": "book"
+            },
+            {
+              "title": "Food & Drink",
+              "value": "food"
+            },
+            {
+              "title": "Apparel",
+              "value": "apparel"
+            },
+            {
+              "title": "Other",
+              "value": "other"
+            }
+          ]
+        },
+        "initialValue": "souvenir",
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 1
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "images",
+        "type": "array",
+        "title": "Product Images"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "price",
+        "type": "number",
+        "title": "Price (€)"
+      },
+      {
+        "initialValue": true,
+        "name": "inStock",
+        "type": "boolean"
+      },
+      {
+        "description": "Leave empty for unlimited",
+        "name": "stockCount",
+        "type": "number"
+      },
+      {
+        "description": "Used for shipping calculation",
+        "name": "weight",
+        "type": "number",
+        "title": "Weight (grams)"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "id",
+                "type": "string",
+                "title": "Variant ID (e.g. \"red-m\")"
+              },
+              {
+                "name": "label",
+                "type": "string",
+                "title": "Label (e.g. \"Red / M\")"
+              },
+              {
+                "name": "price",
+                "type": "number",
+                "title": "Price override (€) — leave empty to use base price"
+              },
+              {
+                "initialValue": true,
+                "name": "inStock",
+                "type": "boolean"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "variants",
+        "type": "array",
+        "title": "Variants (size, colour, etc.)"
+      }
+    ],
+    "name": "product",
+    "type": "document",
+    "title": "Shop Product"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Which website this post belongs to",
+        "to": [
+          {
+            "type": "site"
+          }
+        ],
+        "name": "site",
+        "type": "reference",
+        "title": "Website"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative text"
+          }
+        ],
+        "name": "mainImage",
+        "type": "image"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime"
+      },
+      {
+        "rows": 3,
+        "description": "Short summary for the blog card (150-200 chars)",
+        "name": "excerpt",
+        "type": "text"
+      },
+      {
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          },
+          {
+            "type": "image"
+          }
+        ],
+        "name": "body",
+        "type": "array"
+      },
+      {
+        "options": {
+          "layout": "tags"
+        },
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "keywords",
+        "type": "array",
+        "title": "SEO Keywords"
+      }
+    ],
+    "name": "post",
+    "type": "document",
+    "title": "Blog Post"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Which website these settings apply to",
+        "to": [
+          {
+            "type": "site"
+          }
+        ],
+        "name": "site",
+        "type": "reference",
+        "title": "Website"
+      },
+      {
+        "description": "Main heading on the homepage (e.g., THE ETERNAL CITY, UNLOCKED)",
+        "name": "heroTitle",
+        "type": "string"
+      },
+      {
+        "description": "Subtitle text below the main heading",
+        "name": "heroSubtitle",
+        "type": "string"
+      },
+      {
+        "options": {
+          "accept": "video/mp4"
+        },
+        "description": "Upload an MP4 video for the background (max 10MB recommended)",
+        "name": "heroVideo",
+        "type": "file"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Shown on mobile or if video fails to load",
+        "name": "heroImage",
+        "type": "image",
+        "title": "Hero Fallback Image"
+      }
+    ],
+    "name": "settings",
+    "type": "document",
+    "title": "Site Settings"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "name",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "id",
+        "type": "slug",
+        "title": "Unique ID (Slug)"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "max",
+                "constraint": 150
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text",
+        "title": "Short Description"
+      },
+      {
+        "rows": 4,
+        "name": "longDescription",
+        "type": "text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 0
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "price",
+        "type": "number",
+        "title": "Price (€)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Per Person",
+              "value": "perPerson"
+            },
+            {
+              "title": "Per Booking",
+              "value": "perBooking"
+            },
+            {
+              "title": "Per Hour",
+              "value": "perHour"
+            }
+          ]
+        },
+        "initialValue": "perBooking",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "perPerson",
+                  "perBooking",
+                  "perHour"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "pricingType",
+        "type": "string"
+      },
+      {
+        "hidden": "conditional",
+        "name": "minHours",
+        "type": "number",
+        "title": "Min Hours (for Per Hour)"
+      },
+      {
+        "hidden": "conditional",
+        "name": "maxHours",
+        "type": "number",
+        "title": "Max Hours (for Per Hour)"
+      },
+      {
+        "description": "Lucide icon name (e.g., Sparkles, MapPin, Briefcase)",
+        "name": "icon",
+        "type": "string",
+        "title": "Icon Name"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Transportation",
+              "value": "transport"
+            },
+            {
+              "title": "Services",
+              "value": "services"
+            },
+            {
+              "title": "Food & Drink",
+              "value": "food"
+            },
+            {
+              "title": "Experience",
+              "value": "experience"
+            },
+            {
+              "title": "Insurance",
+              "value": "insurance"
+            }
+          ]
+        },
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "initialValue": false,
+        "name": "popular",
+        "type": "boolean",
+        "title": "Mark as Popular"
+      },
+      {
+        "initialValue": true,
+        "name": "available",
+        "type": "boolean"
+      },
+      {
+        "initialValue": 0,
+        "name": "sortOrder",
+        "type": "number"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "site"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to website"
+          }
+        ],
+        "name": "sites",
+        "type": "array",
+        "title": "Websites"
+      }
+    ],
+    "name": "addon",
+    "type": "document",
+    "title": "Add-on"
+  }
+]

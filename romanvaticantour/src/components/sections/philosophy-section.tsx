@@ -83,7 +83,7 @@ export function PhilosophySection() {
                   sizes="50vw"
                 />
                 <div className="absolute bottom-6 left-6 right-6">
-                  <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
+                  <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-white/20 text-white">
                     Vatican Tours — Explore Now →
                   </span>
                 </div>
@@ -108,7 +108,7 @@ export function PhilosophySection() {
                   sizes="50vw"
                 />
                 <div className="absolute bottom-6 left-6 right-6">
-                  <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
+                  <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-white/20 text-white">
                     Colosseum Tours — Explore Now →
                   </span>
                 </div>

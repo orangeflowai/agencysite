@@ -2,12 +2,18 @@ export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { escapeHtml } from '@/lib/utils';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
     try {
         const body = await request.json();
+
+        const safeName = escapeHtml(String(body.name ?? ''));
+        const safeTourTitle = escapeHtml(String(body.tourTitle ?? ''));
+        const safeDate = escapeHtml(String(body.date ?? ''));
+        const safeGuests = escapeHtml(String(body.guests ?? ''));
 
         console.log("------------------------------------------------");
         console.log("📧 NEW BOOKING RECEIVED");
@@ -30,21 +36,21 @@ export async function POST(request: Request) {
                 const result = await resend.emails.send({
                     from: `${process.env.NEXT_PUBLIC_SITE_NAME || 'Bookings'} <${process.env.EMAIL_FROM || 'onboarding@resend.dev'}>`,
                     to: body.email,
-                    subject: `Booking Confirmed: ${body.tourTitle}`,
+                    subject: `Booking Confirmed: ${safeTourTitle}`,
                     html: `
                         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                             <div style="background: ${process.env.NEXT_PUBLIC_BRAND_COLOR || "#4a5d4a"}; padding: 30px; text-align: center;">
                                 <h1 style="color: white; margin: 0;">Booking Confirmed!</h1>
                             </div>
                             <div style="padding: 30px; background: #f9f9f7;">
-                                <p>Dear <strong>${body.name}</strong>,</p>
+                                <p>Dear <strong>${safeName}</strong>,</p>
                                 <p>Thank you for your booking! Your reservation has been confirmed.</p>
-                                
+
                                 <div style="background: white; border-radius: 8px; padding: 20px; margin: 20px 0; border: 1px solid #e5e5e5;">
                                     <h3 style="margin-top: 0; color: ${process.env.NEXT_PUBLIC_BRAND_COLOR || "#4a5d4a"};">Booking Details</h3>
-                                    <p><strong>Tour:</strong> ${body.tourTitle}</p>
-                                    <p><strong>Date:</strong> ${body.date}</p>
-                                    <p><strong>Guests:</strong> ${body.guests}</p>
+                                    <p><strong>Tour:</strong> ${safeTourTitle}</p>
+                                    <p><strong>Date:</strong> ${safeDate}</p>
+                                    <p><strong>Guests:</strong> ${safeGuests}</p>
                                     <p><strong>Total:</strong> €${body.price}</p>
                                 </div>
                                 

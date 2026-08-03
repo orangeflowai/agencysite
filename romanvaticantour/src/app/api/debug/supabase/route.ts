@@ -1,10 +1,14 @@
 
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { requireAdmin } from '@/lib/apiAuth';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
+
     try {
         const { data, error } = await supabase
             .from('inventory')

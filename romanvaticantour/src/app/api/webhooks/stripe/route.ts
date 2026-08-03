@@ -9,18 +9,44 @@ import { generateCustomerEmail, generateAdminEmail } from '@/lib/email-templates
 
 export const dynamic = 'force-dynamic';
 
-const resend = new Resend(process.env.RESEND_API_KEY as string);
+function getResend() {
+  if (!process.env.RESEND_API_KEY) return null;
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 function determineSiteFromEvent(event: any): string {
   if (event.data?.object?.metadata?.siteId) return event.data.object.metadata.siteId;
-  return process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
+  return process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
+}
+
+// Reconstruct addOns from flattened metadata keys (addOn_0_name, addOn_0_price, addOn_0_qty, ...)
+function parseAddOns(meta: any): any[] {
+  const addOns: any[] = [];
+  for (let i = 0; meta[`addOn_${i}_name`]; i++) {
+    addOns.push({
+      name: meta[`addOn_${i}_name`],
+      price: parseInt(meta[`addOn_${i}_price`] || '0', 10),
+      quantity: parseInt(meta[`addOn_${i}_qty`] || '0', 10),
+    });
+  }
+  return addOns;
+}
+
+// Reconstruct guestCounts from flat gc_ keys
+function parseGuestCounts(meta: any): Record<string, number> {
+  return {
+    Adult: parseInt(meta.gc_adults || meta.adults || '0', 10),
+    Student: parseInt(meta.gc_students || meta.students || '0', 10),
+    Youth: parseInt(meta.gc_youths || meta.youths || '0', 10),
+  };
 }
 
 async function sendEmails(siteId: string, email: string, name: string, tourTitle: string, date: string, time: string, guests: string, totalAmount: number, orderId: string, metadata: any) {
-  if (!process.env.RESEND_API_KEY) return;
+  const resend = getResend();
+  if (!resend) return;
   const senderName = process.env.NEXT_PUBLIC_SITE_NAME || siteId;
   const senderEmail = process.env.EMAIL_FROM || 'bookings@yourdomain.com';
-  const adminEmails = (process.env.ADMIN_EMAIL || senderEmail).split(',').map(e => e.trim());
+  const adminEmails = (process.env.ADMIN_EMAIL || senderEmail).split(',').map((e: string) => e.trim());
   const pin = orderId.slice(-6).toUpperCase();
 
   if (email) {
@@ -61,21 +87,26 @@ export async function POST(request: Request) {
     const adults = parseInt(meta.adults || '0');
     const students = parseInt(meta.students || '0');
     const youths = parseInt(meta.youths || '0');
-    const addOns = meta.addOns ? JSON.parse(meta.addOns) : [];
+    const addOns = parseAddOns(meta);
+    const guestCounts = parseGuestCounts(meta);
     const totalAmount = pi.amount / 100;
 
     try {
       const { data: existing } = await supabaseAdmin.from('bookings').select('id').eq('stripe_payment_intent_id', pi.id).single();
       if (existing) return NextResponse.json({ received: true });
 
-      try { await reserveInventory(tourSlug, date, time, guestCount); } catch {}
+      const reservation = await reserveInventory(tourSlug, date, time, guestCount);
+      if (!reservation.success) {
+        console.error('Inventory reservation failed:', reservation.error);
+        return NextResponse.json({ error: 'Inventory reservation failed' }, { status: 500 });
+      }
 
       const { data: booking, error: bookingError } = await supabaseAdmin.from('bookings').insert({
         tour_title: tourTitle, tour_slug: tourSlug, date, time, guests: guestCount,
         total_price: totalAmount, customer_name: name, customer_email: email,
         customer_phone: meta.leadPhone || null, status: 'paid',
         stripe_payment_intent_id: pi.id, adults, students, youths,
-        guest_details: { hotel: meta.hotelName, pickup: meta.pickupRequired, luggage: meta.luggageDeposit, addOns, guestCounts: meta.guestCounts ? JSON.parse(meta.guestCounts) : {} },
+        guest_details: { hotel: meta.hotelName, pickup: meta.pickupRequired, luggage: meta.luggageDeposit, addOns, guestCounts },
         site_id: siteId,
       }).select().single();
 
@@ -105,14 +136,19 @@ export async function POST(request: Request) {
     const adults = parseInt(meta.adults || '0');
     const students = parseInt(meta.students || '0');
     const youths = parseInt(meta.youths || '0');
-    const addOns = meta.addOns ? JSON.parse(meta.addOns) : [];
+    const addOns = parseAddOns(meta);
+    const guestCounts = parseGuestCounts(meta);
     const totalAmount = (session.amount_total || 0) / 100;
 
     try {
       const { data: existing } = await supabaseAdmin.from('bookings').select('id').eq('stripe_session_id', session.id).single();
       if (existing) return NextResponse.json({ received: true });
 
-      try { await reserveInventory(tourSlug, date, time, guestCount); } catch {}
+      const reservation = await reserveInventory(tourSlug, date, time, guestCount);
+      if (!reservation.success) {
+        console.error('Inventory reservation failed:', reservation.error);
+        return NextResponse.json({ error: 'Inventory reservation failed' }, { status: 500 });
+      }
 
       const { data: booking, error: bookingError } = await supabaseAdmin.from('bookings').insert({
         tour_title: tourTitle, tour_slug: tourSlug, date, time, guests: guestCount,
@@ -120,7 +156,7 @@ export async function POST(request: Request) {
         customer_phone: meta.leadPhone, status: 'paid',
         stripe_session_id: session.id, stripe_payment_intent_id: session.payment_intent,
         adults, students, youths,
-        guest_details: { hotel: meta.hotelName, pickup: meta.pickupRequired, luggage: meta.luggageDeposit, addOns, guestCounts: meta.guestCounts ? JSON.parse(meta.guestCounts) : {} },
+        guest_details: { hotel: meta.hotelName, pickup: meta.pickupRequired, luggage: meta.luggageDeposit, addOns, guestCounts },
         site_id: siteId,
       }).select().single();
 

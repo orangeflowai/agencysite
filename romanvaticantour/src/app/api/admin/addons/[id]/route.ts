@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { client } from '@/sanity/lib/client';
+import { requireAdmin } from '@/lib/apiAuth';
 
 export const dynamic = 'force-dynamic';
 
@@ -8,6 +9,8 @@ export async function PUT(
     req: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     try {
         const { id } = await params;
 
@@ -54,6 +57,8 @@ export async function DELETE(
     req: Request,
     { params }: { params: Promise<{ id: string }> }
 ) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     try {
         const { id } = await params;
 

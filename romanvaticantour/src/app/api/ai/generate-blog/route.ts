@@ -1,5 +1,6 @@
 
 import { NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/apiAuth';
 
 export const dynamic = 'force-dynamic';
 
@@ -70,6 +71,8 @@ const AI_PROVIDERS = {
 };
 
 export async function POST(req: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     try {
         const body = await req.json();
         const { topic, keywords, tone, length, provider = 'groq', model = 'balanced' } = body;

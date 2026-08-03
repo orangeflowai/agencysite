@@ -3,10 +3,12 @@
 import { revalidatePath } from 'next/cache'
 import { createClient } from 'next-sanity'
 import { apiVersion, dataset, projectId } from '@/sanity/env'
+import { requireAdminAction } from '@/lib/apiAuth'
 
 const token = process.env.SANITY_API_TOKEN
 
 export async function updateTour(formData: FormData) {
+  await requireAdminAction();
   const _id = formData.get('_id') as string
   const slug = formData.get('slug') as string
   if (!_id && !slug) return { success: false, error: 'Missing tour ID or slug' }

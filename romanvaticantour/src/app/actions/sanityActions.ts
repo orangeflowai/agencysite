@@ -3,6 +3,7 @@
 import { createClient } from 'next-sanity';
 import { apiVersion, dataset, projectId } from '@/sanity/env';
 import { revalidatePath } from 'next/cache';
+import { requireAdminAction } from '@/lib/apiAuth';
 
 const adminClient = createClient({
     projectId,
@@ -29,6 +30,7 @@ export async function updateTour(
     data: TourUpdateData,
     slug: string
 ) {
+    await requireAdminAction();
     try {
         console.log(`Updating tour ${tourId} (or slug ${slug})`, data);
 
@@ -80,6 +82,7 @@ export async function updateTour(
 
 // New Action: Upload Image
 export async function uploadImageToSanity(formData: FormData) {
+    await requireAdminAction();
     try {
         const file = formData.get('file') as File;
         if (!file) throw new Error('No file provided');

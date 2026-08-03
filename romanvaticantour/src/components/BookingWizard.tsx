@@ -84,23 +84,64 @@ function StarRating({ rating, count }: { rating: number; count: number }) {
   );
 }
 
-function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSuccess: (id: string) => void }) {
+function PaymentForm({ totalAmount, clientSecret, onSuccess }: { totalAmount: number; clientSecret: string; onSuccess: (id: string) => void }) {
   const stripe = useStripe();
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
   const [error, setError] = useState('');
+
+  const pollIntent = async (secret: string, attempts = 0) => {
+    if (!stripe) return;
+    if (attempts >= 20) {
+      setStatusMessage(''); setProcessing(false);
+      setError('Payment is taking longer than expected. Please check your email or contact support.');
+      return;
+    }
+    const res = await stripe.retrievePaymentIntent(secret);
+    const pi = res.paymentIntent;
+    if (res.error) { setStatusMessage(''); setProcessing(false); setError(res.error.message || 'Payment verification failed'); return; }
+    if (pi?.status === 'succeeded') { onSuccess(pi.id); return; }
+    if (pi?.status === 'requires_payment_method') { setStatusMessage(''); setProcessing(false); setError('Payment could not be completed. Please try again.'); return; }
+    setTimeout(() => pollIntent(secret, attempts + 1), 2000);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!stripe || !elements) return;
-    setProcessing(true); setError('');
+    setProcessing(true); setError(''); setStatusMessage('');
     const { error: stripeError, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: { return_url: window.location.origin + '/success' },
       redirect: 'if_required',
     });
-    if (stripeError) { setError(stripeError.message || 'Payment failed'); setProcessing(false); }
-    else if (paymentIntent?.status === 'succeeded') onSuccess(paymentIntent.id);
+    if (stripeError) { setError(stripeError.message || 'Payment failed'); setProcessing(false); return; }
+    if (!paymentIntent) { setError('Payment failed'); setProcessing(false); return; }
+
+    switch (paymentIntent.status) {
+      case 'succeeded':
+        onSuccess(paymentIntent.id);
+        break;
+      case 'requires_action':
+        setStatusMessage('Verifying payment...');
+        try {
+          const { error: actionError, paymentIntent: piAfter } = await stripe.handleNextAction({ clientSecret });
+          if (actionError) { setError(actionError.message || 'Payment verification failed'); setStatusMessage(''); setProcessing(false); return; }
+          if (piAfter?.status === 'succeeded') { onSuccess(piAfter.id); return; }
+          if (piAfter?.status === 'processing') { setStatusMessage('Processing...'); pollIntent(clientSecret); return; }
+          setError('Payment could not be completed. Please try again.'); setStatusMessage(''); setProcessing(false);
+        } catch {
+          setError('Payment could not be completed. Please try again.'); setStatusMessage(''); setProcessing(false);
+        }
+        break;
+      case 'processing':
+        setStatusMessage('Processing...');
+        pollIntent(clientSecret);
+        break;
+      default:
+        setError('Payment could not be completed. Please try again.');
+        setProcessing(false);
+    }
   };
 
   return (
@@ -109,12 +150,13 @@ function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSucces
       {error && (
         <div className="flex items-center gap-2 p-4 bg-destructive/5 border border-destructive/20 rounded-xl text-sm text-destructive">
           <AlertTriangle className="w-4 h-4 shrink-0" /> {error}
+          <button type="button" onClick={() => setError('')} className="ml-auto text-xs font-bold underline">Try Again</button>
         </div>
       )}
       <button type="submit" disabled={!stripe || processing}
         className="w-full py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg shadow-primary/20 text-sm">
-        {processing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
-        {processing ? 'Processing...' : `Pay €${totalAmount.toFixed(2)}`}
+        {statusMessage || processing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
+        {statusMessage || (processing ? 'Processing...' : `Pay €${totalAmount.toFixed(2)}`)}
       </button>
       <p className="text-center text-[10px] text-muted-foreground flex items-center justify-center gap-1 font-bold tracking-widest">
         <Shield className="w-3 h-3" /> SECURED BY STRIPE · 256-BIT SSL
@@ -516,7 +558,7 @@ export default function BookingWizard({
                   </div>
                 ) : (
                   <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe', variables: { colorPrimary: '#8B1A1A' } } }}>
-                    <PaymentForm totalAmount={totalPrice} onSuccess={(piId) => router.push(`/success?payment_intent=${piId}`)} />
+                    <PaymentForm totalAmount={totalPrice} clientSecret={clientSecret} onSuccess={(piId) => router.push(`/success?payment_intent=${piId}`)} />
                   </Elements>
                 )}
               </div>

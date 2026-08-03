@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { client } from '@/lib/sanityService';
+import { requireAdmin } from '@/lib/apiAuth';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,6 +12,8 @@ interface KeywordResult {
 }
 
 export async function GET(req: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     try {
         const { searchParams } = new URL(req.url);
         const topic = searchParams.get('topic') || '';

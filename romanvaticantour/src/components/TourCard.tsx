@@ -6,7 +6,7 @@ import { Clock, Star, Users, ArrowRight, Zap } from 'lucide-react'
 import { urlFor, extractPortableText, getTourImage } from '@/lib/dataAdapter'
 import type { Tour } from '@/lib/dataAdapter'
 
-const FALLBACK = 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800&q=80'
+const FALLBACK = '/placeholder.jpg'
 
 interface TourCardProps {
   tour: Tour

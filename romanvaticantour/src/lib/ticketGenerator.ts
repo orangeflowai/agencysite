@@ -217,7 +217,7 @@ export async function generateTicketPDF(data: TicketData): Promise<Uint8Array> {
     doc.setTextColor(secondaryColor);
     doc.setFontSize(9);
     doc.text('This is your official booking voucher. Please present it at the meeting point.', margin, 290);
-    doc.text(`Booked via {process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '') || 'yourdomain.com'}`, margin, 295);
+    doc.text(`Booked via ${process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '') || 'yourdomain.com'}`, margin, 295);
 
     return new Uint8Array(doc.output('arraybuffer'));
 }

@@ -65,8 +65,27 @@ export async function checkAvailability(
 }
 
 /**
- * Reserve inventory slots atomically
- * Uses database-level locking to prevent overbooking
+ * Reserve inventory slots atomically.
+ * Uses the `reserve_inventory_slots` Postgres RPC to prevent overbooking.
+ *
+ * REQUIRED — create this Postgres function on the Supabase database:
+ *
+ * CREATE OR REPLACE FUNCTION reserve_inventory_slots(
+ *   p_tour_slug text, p_date text, p_time text, p_guest_count int
+ * ) RETURNS int AS $$
+ * DECLARE new_slots int;
+ * BEGIN
+ *   UPDATE inventory
+ *   SET available_slots = available_slots - p_guest_count,
+ *       updated_at = now()
+ *   WHERE tour_slug = p_tour_slug AND date = p_date AND time = p_time
+ *     AND available_slots >= p_guest_count
+ *   RETURNING available_slots INTO new_slots;
+ *
+ *   IF NOT FOUND THEN RETURN -1; END IF;
+ *   RETURN new_slots;
+ * END;
+ * $$ LANGUAGE plpgsql;
  */
 export async function reserveInventory(
   tourSlug: string,
@@ -75,90 +94,24 @@ export async function reserveInventory(
   guestCount: number
 ): Promise<BookingReservation> {
   try {
-    // Try to decrement using a transaction-like approach
-    // First, check and get current value
-    const { data: slot, error: fetchError } = await supabaseAdmin
-      .from('inventory')
-      .select('*')
-      .eq('tour_slug', tourSlug)
-      .eq('date', date)
-      .eq('time', time)
-      .single();
+    const { data, error } = await supabaseAdmin.rpc('reserve_inventory_slots', {
+      p_tour_slug: tourSlug,
+      p_date: date,
+      p_time: time,
+      p_guest_count: guestCount,
+    });
 
-    if (fetchError && fetchError.code !== 'PGRST116') {
-      console.error('Error fetching inventory:', fetchError);
-      return { success: false, error: 'Database error' };
-    }
-
-    const currentSlots = slot?.available_slots ?? 20;
-    const totalSlots = slot?.total_slots ?? 20;
-
-    // Check if enough slots available
-    if (currentSlots < guestCount) {
-      return {
-        success: false,
-        availableSlots: currentSlots,
-        error: `Not enough spots available. Only ${currentSlots} left.`
-      };
-    }
-
-    const newSlots = currentSlots - guestCount;
-
-    // Upsert the inventory with new value
-    // Using upsert with onConflict ensures atomicity
-    const { error: upsertError } = await supabaseAdmin
-      .from('inventory')
-      .upsert({
-        tour_slug: tourSlug,
-        date: date,
-        time: time,
-        available_slots: newSlots,
-        total_slots: totalSlots,
-        updated_at: new Date().toISOString()
-      }, {
-        onConflict: 'tour_slug,date,time'
-      });
-
-    if (upsertError) {
-      console.error('Error updating inventory:', upsertError);
+    if (error) {
+      console.error('Error reserving inventory:', error);
       return { success: false, error: 'Failed to reserve spots' };
     }
 
-    // Verify the update worked (prevent race conditions)
-    const { data: verifySlot, error: verifyError } = await supabaseAdmin
-      .from('inventory')
-      .select('available_slots')
-      .eq('tour_slug', tourSlug)
-      .eq('date', date)
-      .eq('time', time)
-      .single();
-
-    if (verifyError || !verifySlot) {
-      console.error('Error verifying inventory update:', verifyError);
-      return { success: false, error: 'Verification failed' };
+    // RPC returns -1 when no row matched the atomic UPDATE (insufficient slots)
+    if (data === -1) {
+      return { success: false, error: 'Not enough spots available' };
     }
 
-    // If verification shows we overbooked, this is a critical error
-    if (verifySlot.available_slots < 0) {
-      // Attempt to restore
-      console.error('CRITICAL: Overbooking detected!', {
-        tourSlug, date, time, guestCount, newSlots: verifySlot.available_slots
-      });
-      
-      // Log this incident
-      await supabaseAdmin.from('inventory_errors').insert({
-        tour_slug: tourSlug,
-        date,
-        time,
-        guest_count: guestCount,
-        error_type: 'overbooking_detected',
-        created_at: new Date().toISOString()
-      });
-
-      return { success: false, error: 'Inventory error - please contact support' };
-    }
-
-    return { success: true, availableSlots: verifySlot.available_slots };
+    return { success: true, availableSlots: data ?? 0 };
   } catch (error) {
     console.error('Error in reserveInventory:', error);
     return { success: false, error: 'System error' };

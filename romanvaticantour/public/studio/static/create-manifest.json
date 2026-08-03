@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "createdAt": "2026-08-03T16:41:15.788Z",
+  "workspaces": [
+    {
+      "name": "default",
+      "title": "Default",
+      "basePath": "/studio",
+      "projectId": "etutpkdi",
+      "dataset": "production",
+      "icon": null,
+      "mediaLibrary": {
+        "enabled": false
+      },
+      "schema": "615c6fe1.create-schema.json",
+      "tools": "d8640c31.create-tools.json"
+    }
+  ],
+  "studioVersion": "5.7.0"
+}

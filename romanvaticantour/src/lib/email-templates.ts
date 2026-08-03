@@ -1,4 +1,6 @@
 
+import { escapeHtml } from '@/lib/utils';
+
 export function generateCustomerEmail(
   siteId: string,
   data: {
@@ -17,7 +19,7 @@ export function generateCustomerEmail(
   }
 ) {
   // All brand values come from env or metadata — no hardcoded agency names
-  const brandName = process.env.NEXT_PUBLIC_SITE_NAME || data.metadata?.siteName || siteId;
+  const brandName = escapeHtml(process.env.NEXT_PUBLIC_SITE_NAME || data.metadata?.siteName || siteId);
   const brandDomain = process.env.NEXT_PUBLIC_SITE_URL?.replace('https://', '').replace('http://', '') || 'yourdomain.com';
   const brandColor = data.metadata?.brandColor || '#047857';
   const brandLight = data.metadata?.brandLight || '#d1fae5';
@@ -28,15 +30,29 @@ export function generateCustomerEmail(
 
   // Extract meeting point and create map URL
   // Priority: tour meetingPoint from Sanity → metadata → env fallback
-  const meetingPoint = data.metadata.meetingPoint && data.metadata.meetingPoint !== 'See booking confirmation for details'
-    ? data.metadata.meetingPoint
+  const meetingPoint = data.metadata?.meetingPoint && data.metadata?.meetingPoint !== 'See booking confirmation for details'
+    ? data.metadata?.meetingPoint
     : (process.env.NEXT_PUBLIC_DEFAULT_MEETING_POINT || 'See booking confirmation for details');
-  const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY || '';
+  const googleMapsApiKey = '';
   const encodedAddress = encodeURIComponent(meetingPoint);
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
   const staticMapUrl = googleMapsApiKey
     ? `https://maps.googleapis.com/maps/api/staticmap?center=${encodedAddress}&zoom=15&size=600x200&markers=color:red%7C${encodedAddress}&key=${googleMapsApiKey}`
     : '';
+
+  const safeFirstName = escapeHtml(data.name.split(' ')[0]);
+  const safeTourTitle = escapeHtml(data.tourTitle);
+  const safeDate = escapeHtml(data.date);
+  const safeTime = escapeHtml(data.time);
+  const safeGuests = escapeHtml(data.guests);
+  const safeMeetingPoint = escapeHtml(meetingPoint);
+  const safeBookingRef = escapeHtml(bookingRef);
+  const safePin = escapeHtml(data.pin);
+  const safeSupportPhone = escapeHtml(supportPhone);
+  const safeProviderPhone = escapeHtml(providerPhone);
+  const safeBrandDomain = escapeHtml(brandDomain);
+  const safeGoogleMapsUrl = escapeHtml(googleMapsUrl);
+  const safeTotalAmount = Number(data.totalAmount || 0).toFixed(2);
 
   // Parse add-ons
   let addOnsHtml = '';
@@ -47,7 +63,7 @@ export function generateCustomerEmail(
         : data.metadata.addOns;
       if (Array.isArray(addOns) && addOns.length > 0) {
         addOnsHtml = addOns.map((a: any) =>
-          `<tr><td style="padding:6px 0;color:#374151;border-bottom:1px solid #f3f4f6;">${a.name}</td><td style="padding:6px 0;text-align:right;color:#374151;border-bottom:1px solid #f3f4f6;">€${(a.price || 0).toFixed(2)}</td></tr>`
+          `<tr><td style="padding:6px 0;color:#374151;border-bottom:1px solid #f3f4f6;">${escapeHtml(a.name || '')}</td><td style="padding:6px 0;text-align:right;color:#374151;border-bottom:1px solid #f3f4f6;">€${Number(a.price || 0).toFixed(2)}</td></tr>`
         ).join('');
       }
     }
@@ -60,8 +76,8 @@ export function generateCustomerEmail(
     { label: 'Adults', count: data.adults },
     { label: 'Students', count: data.students },
     { label: 'Youths', count: data.youths },
-  ].filter(g => parseInt(g.count) > 0)
-    .map(g => `<span style="display:inline-block;margin-right:16px;color:#374151;">${g.label}: <strong>${g.count}</strong></span>`)
+  ].filter(g => parseInt(String(g.count)) > 0)
+    .map(g => `<span style="display:inline-block;margin-right:16px;color:#374151;">${escapeHtml(g.label)}: <strong>${escapeHtml(String(g.count))}</strong></span>`)
     .join('');
 
   return `
@@ -89,7 +105,7 @@ export function generateCustomerEmail(
               <tr>
                 <td style="padding:32px 40px 16px;text-align:center;">
                   <div style="display:inline-block;background:${brandLight};border-radius:50%;width:64px;height:64px;line-height:64px;font-size:28px;text-align:center;">&#10003;</div>
-                  <h2 style="margin:16px 0 4px;font-size:22px;color:#111827;">Thanks for your order, ${data.name.split(' ')[0]}!</h2>
+                  <h2 style="margin:16px 0 4px;font-size:22px;color:#111827;">Thanks for your order, ${safeFirstName}!</h2>
                   <p style="margin:0;color:#6b7280;font-size:14px;">Your booking is confirmed. Here are the details.</p>
                 </td>
               </tr>
@@ -101,7 +117,7 @@ export function generateCustomerEmail(
                     <tr>
                       <td style="background:#f9fafb;border-radius:8px;padding:12px;text-align:center;">
                         <span style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#9ca3af;">Booking Reference</span><br>
-                        <span style="font-size:24px;font-weight:700;font-family:monospace;color:#111827;">#${bookingRef}</span>
+                        <span style="font-size:24px;font-weight:700;font-family:monospace;color:#111827;">#${safeBookingRef}</span>
                       </td>
                     </tr>
                   </table>
@@ -119,15 +135,15 @@ export function generateCustomerEmail(
                     </tr>
                     <tr>
                       <td style="padding:16px;">
-                        <h3 style="margin:0 0 12px;font-size:18px;color:#111827;">${data.tourTitle}</h3>
+                        <h3 style="margin:0 0 12px;font-size:18px;color:#111827;">${safeTourTitle}</h3>
                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                           <tr>
                             <td style="padding:6px 0;color:#6b7280;width:100px;vertical-align:top;font-size:14px;">Date</td>
-                            <td style="padding:6px 0;color:#111827;font-weight:600;font-size:14px;">${data.date}</td>
+                            <td style="padding:6px 0;color:#111827;font-weight:600;font-size:14px;">${safeDate}</td>
                           </tr>
                           <tr>
                             <td style="padding:6px 0;color:#6b7280;width:100px;vertical-align:top;font-size:14px;">Time</td>
-                            <td style="padding:6px 0;color:#111827;font-weight:600;font-size:14px;">${data.time}</td>
+                            <td style="padding:6px 0;color:#111827;font-weight:600;font-size:14px;">${safeTime}</td>
                           </tr>
                           <tr>
                             <td style="padding:6px 0;color:#6b7280;width:100px;vertical-align:top;font-size:14px;">Guests</td>
@@ -171,17 +187,17 @@ export function generateCustomerEmail(
                     </tr>
                     <tr>
                       <td style="padding:0;">
-                        <a href="${googleMapsUrl}" target="_blank" style="display:block;">
+                        <a href="${safeGoogleMapsUrl}" target="_blank" style="display:block;">
                           ${staticMapUrl ? `<img  src="${staticMapUrl}" alt="Meeting Point Map" style="width:100%;height:auto;display:block;border:none;" />` : ''}
                         </a>
                       </td>
                     </tr>
                     <tr>
                       <td style="padding:16px;">
-                        <p style="margin:0 0 8px;color:#111827;font-weight:600;font-size:14px;">${meetingPoint}</p>
+                        <p style="margin:0 0 8px;color:#111827;font-weight:600;font-size:14px;">${safeMeetingPoint}</p>
                         <p style="margin:0 0 8px;color:#6b7280;font-size:13px;">Look for staff holding a <strong>WHITE FLAG</strong> saying <strong>"${brandName.toUpperCase()}"</strong></p>
                         <p style="margin:0 0 12px;color:#6b7280;font-size:13px;">Arrive at least <strong>15 minutes</strong> before start time</p>
-                        <a href="${googleMapsUrl}" style="display:inline-block;background:${brandColor};color:white;padding:8px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;">View on Google Maps</a>
+                        <a href="${safeGoogleMapsUrl}" style="display:inline-block;background:${brandColor};color:white;padding:8px 20px;border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;">View on Google Maps</a>
                       </td>
                     </tr>
                   </table>
@@ -220,13 +236,13 @@ export function generateCustomerEmail(
                       <td style="padding:16px;">
                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                           <tr>
-                            <td style="padding:6px 0;color:#374151;border-bottom:1px solid #f3f4f6;">${data.tourTitle}</td>
-                            <td style="padding:6px 0;text-align:right;color:#374151;border-bottom:1px solid #f3f4f6;">${data.guests} guests</td>
+                            <td style="padding:6px 0;color:#374151;border-bottom:1px solid #f3f4f6;">${safeTourTitle}</td>
+                            <td style="padding:6px 0;text-align:right;color:#374151;border-bottom:1px solid #f3f4f6;">${safeGuests} guests</td>
                           </tr>
                           ${addOnsHtml}
                           <tr>
                             <td style="padding:12px 0 0;font-weight:700;font-size:16px;color:#111827;">Total Paid</td>
-                            <td style="padding:12px 0 0;text-align:right;font-weight:700;font-size:18px;color:${brandColor};">&#8364;${data.totalAmount.toFixed(2)}</td>
+                            <td style="padding:12px 0 0;text-align:right;font-weight:700;font-size:18px;color:${brandColor};">&#8364;${safeTotalAmount}</td>
                           </tr>
                         </table>
                       </td>
@@ -259,9 +275,9 @@ export function generateCustomerEmail(
                       <td style="padding:16px;text-align:center;">
                         <strong style="font-size:13px;color:#374151;">Need Help?</strong>
                         <p style="margin:6px 0 0;font-size:13px;color:#6b7280;">
-                          Tour questions: <strong>${providerPhone}</strong><br>
-                          Payment support: <strong>${supportPhone}</strong><br>
-                          Reference: <strong>#${bookingRef}</strong> | PIN: <strong>${data.pin}</strong>
+                          Tour questions: <strong>${safeProviderPhone}</strong><br>
+                          Payment support: <strong>${safeSupportPhone}</strong><br>
+                          Reference: <strong>#${safeBookingRef}</strong> | PIN: <strong>${safePin}</strong>
                         </p>
                       </td>
                     </tr>
@@ -277,7 +293,7 @@ export function generateCustomerEmail(
                     &copy; ${new Date().getFullYear()} ${brandName}. All rights reserved.
                   </p>
                   <p style="margin:8px 0 0;font-size:11px;color:#d1d5db;">
-                    You received this email because you made a booking on ${brandDomain}
+                    You received this email because you made a booking on ${safeBrandDomain}
                   </p>
                 </td>
               </tr>
@@ -323,11 +339,11 @@ export function generateAdminEmail(
         ? JSON.parse(data.metadata.addOns)
         : data.metadata.addOns;
       if (Array.isArray(addOns) && addOns.length > 0) {
-        addOnsDisplay = addOns.map((a: any) => `${a.name} (€${a.total || a.price})`).join(', ');
+        addOnsDisplay = addOns.map((a: any) => `${escapeHtml(a.name || '')} (€${escapeHtml(String(a.total || a.price || ''))})`).join(', ');
       }
     }
   } catch (e) {
-    addOnsDisplay = data.metadata?.addOns || '';
+    addOnsDisplay = typeof data.metadata?.addOns === 'string' ? escapeHtml(data.metadata.addOns) : '';
   }
 
   return `
@@ -354,27 +370,27 @@ export function generateAdminEmail(
         <div class="section">
           <h2>A. Booking Overview</h2>
           <p><strong>Status:</strong> <span class="tag tag-green">[CONFIRMED - PAID]</span></p>
-          <p><strong>Booking Ref:</strong> ${data.orderId}</p>
-          <p><strong>Internal PIN:</strong> <span style="background: #ffeb3b; padding: 0 5px;">${data.pin}</span> (Verify if customer calls)</p>
+          <p><strong>Booking Ref:</strong> ${escapeHtml(data.orderId)}</p>
+          <p><strong>Internal PIN:</strong> <span style="background: #ffeb3b; padding: 0 5px;">${escapeHtml(data.pin)}</span> (Verify if customer calls)</p>
         </div>
 
         <!-- B. Supplier Manifest -->
         <div class="section">
           <h2>B. Supplier Manifest Data</h2>
-          <p><strong>Product:</strong> ${data.tourTitle} (Slug: ${data.tourSlug})</p>
+          <p><strong>Product:</strong> ${escapeHtml(data.tourTitle)} (Slug: ${escapeHtml(data.tourSlug)})</p>
           <p><strong>Supplier:</strong> Tours About (Default)</p>
-          <p><strong>Site Origin:</strong> ${siteId}</p>
+          <p><strong>Site Origin:</strong> ${escapeHtml(siteId)}</p>
           <p><strong>Voucher Status:</strong> <span class="tag tag-green">Sent to Customer ✅</span></p>
         </div>
 
         <!-- C. Customer Details -->
         <div class="section">
           <h2>C. Customer Details</h2>
-          <p><strong>Name:</strong> ${data.name}</p>
-          <p><strong>Contact:</strong> ${data.email} | ${data.phone}</p>
-          <p><strong>Pax:</strong> ${data.guests} Total (${data.adults} Adults, ${data.students} Students)</p>
+          <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
+          <p><strong>Contact:</strong> ${escapeHtml(data.email)} | ${escapeHtml(data.phone)}</p>
+          <p><strong>Pax:</strong> ${escapeHtml(data.guests)} Total (${escapeHtml(data.adults)} Adults, ${escapeHtml(data.students)} Students)</p>
           ${addOnsDisplay ? `<p><strong>Extras:</strong> ${addOnsDisplay}</p>` : ''}
-          ${data.metadata?.pickupRequired === 'yes' ? `<p><strong>Pickup:</strong> Required at ${data.metadata.hotelName}</p>` : ''}
+          ${data.metadata?.pickupRequired === 'yes' ? `<p><strong>Pickup:</strong> Required at ${escapeHtml(data.metadata.hotelName)}</p>` : ''}
           ${data.metadata?.luggageDeposit === 'yes' ? `<p><strong>Luggage Storage:</strong> Yes</p>` : ''}
         </div>
 
@@ -390,7 +406,7 @@ export function generateAdminEmail(
             <tr>
               <td>Total Charge</td>
               <td>€${totalCharge.toFixed(2)}</td>
-              <td>Stripe ID: ${data.orderId}</td>
+              <td>Stripe ID: ${escapeHtml(data.orderId)}</td>
             </tr>
             <tr>
               <td>Supplier Net Rate</td>

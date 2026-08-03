@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { tours } from '@/lib/toursData';
 import { addDays, format } from 'date-fns';
+import { requireAdmin } from '@/lib/apiAuth';
 
 // Create Admin Client with Service Role Key
 const supabaseAdmin = createClient(
@@ -11,6 +12,9 @@ const supabaseAdmin = createClient(
 );
 
 export async function GET() {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
+
     try {
         console.log('Starting inventory seeding...');
         const today = new Date();

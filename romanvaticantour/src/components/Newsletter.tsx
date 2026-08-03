@@ -38,11 +38,7 @@ export default function Newsletter() {
                 setStatus('error');
             }
         } catch {
-            // Fallback: simulate success for demo
-            setTimeout(() => {
-                setStatus('success');
-                setEmail('');
-            }, 1200);
+            setStatus('error');
         }
     };
 

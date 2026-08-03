@@ -1,6 +1,5 @@
 "use client";
 
-import { FadeImage } from "@/components/fade-image";
 import { Clock, Users, Shield, Award, Headphones, CreditCard } from "lucide-react";
 
 const features = [

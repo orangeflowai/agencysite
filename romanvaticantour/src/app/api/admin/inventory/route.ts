@@ -1,9 +1,12 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { requireAdmin } from '@/lib/apiAuth';
 
 // GET - fetch slots for a tour/date
 export async function GET(request: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     const { searchParams } = new URL(request.url);
     const tourSlug = searchParams.get('tourSlug');
     const date = searchParams.get('date');
@@ -25,6 +28,8 @@ export async function GET(request: Request) {
 
 // POST - add a new slot
 export async function POST(request: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     const body = await request.json();
     const { tour_slug, date, time, available_slots, price_override } = body;
 
@@ -47,6 +52,8 @@ export async function POST(request: Request) {
 
 // PATCH - update a slot (available_slots, price_override)
 export async function PATCH(request: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     const body = await request.json();
     const { id, available_slots, price_override } = body;
 
@@ -69,6 +76,8 @@ export async function PATCH(request: Request) {
 
 // DELETE - delete one slot or all slots for a tour/date
 export async function DELETE(request: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
     const body = await request.json();
     const { id, tour_slug, date } = body;
 

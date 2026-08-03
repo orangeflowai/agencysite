@@ -27,7 +27,7 @@ export default function CategoryHero({ images, title, subtitle }: CategoryHeroPr
     const currentImage = images && images.length > 0 ? images[currentIndex] : '';
 
     return (
-        <div className="relative h-[60vh] md:h-[70vh] flex items-center justify-center text-center overflow-hidden">
+        <div className="relative h-[60vh] md:h-[70vh] flex items-end justify-center text-center overflow-hidden pt-[98px]">
             {/* Background Slider */}
             <AnimatePresence mode='wait'>
                 {currentImage && (
@@ -56,7 +56,7 @@ export default function CategoryHero({ images, title, subtitle }: CategoryHeroPr
             <div className="absolute inset-0 bg-black/40 z-1"></div>
 
             {/* Hero Content */}
-            <div className="relative z-10 container mx-auto px-4 mt-16">
+            <div className="relative z-10 container mx-auto px-4 pb-12 md:pb-16">
                 <motion.h1
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -69,7 +69,7 @@ export default function CategoryHero({ images, title, subtitle }: CategoryHeroPr
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ delay: 0.8 }}
-                    className="w-24 h-1 bg-sky-500 mx-auto mb-6"
+                    className="w-24 h-1 bg-primary mx-auto mb-6"
                 ></motion.div>
                 <motion.p
                     initial={{ y: 20, opacity: 0 }}

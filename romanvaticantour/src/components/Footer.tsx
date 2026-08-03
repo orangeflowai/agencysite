@@ -72,7 +72,7 @@ export default function Footer() {
     const hasSocialLinks = socialLinks && (socialLinks.facebook || socialLinks.instagram || socialLinks.twitter);
 
     return (
-        <footer className="bg-foreground/90 text-stone-300 selection:bg-primary selection:text-white">
+        <footer className="bg-[#111111] text-stone-300 selection:bg-primary selection:text-white">
             <Newsletter />
 
             {/* Main Footer */}

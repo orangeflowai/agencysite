@@ -46,7 +46,7 @@ function ScrollRevealText({ text }: { text: string }) {
             key={index}
             className="transition-colors duration-150"
             style={{
-              color: isRevealed ? "var(--foreground)" : "#e4e4e7",
+              color: isRevealed ? "var(--foreground)" : "var(--muted)",
             }}
           >
             {word}{index < words.length - 1 ? " " : ""}

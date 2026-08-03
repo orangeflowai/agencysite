@@ -47,44 +47,86 @@ function CountdownTimer({ onExpired }: { onExpired: () => void }) {
   const m = Math.floor(seconds / 60)
   const s = seconds % 60
   return (
-    <div className={`flex items-center gap-1.5 text-sm font-bold ${seconds < 120 ? 'text-red-600 animate-pulse' : 'text-orange-600'}`}>
+    <div className={`flex items-center gap-1.5 text-sm font-bold ${seconds < 120 ? 'text-destructive animate-pulse' : 'text-amber-600'}`}>
       <Timer className="w-4 h-4" />
       <span>{String(m).padStart(2, '0')}:{String(s).padStart(2, '0')}</span>
     </div>
   )
 }
 
-function PaymentForm({ totalAmount, onSuccess }: { totalAmount: number; onSuccess: (id: string) => void }) {
+function PaymentForm({ totalAmount, clientSecret, onSuccess }: { totalAmount: number; clientSecret: string; onSuccess: (id: string) => void }) {
   const stripe = useStripe()
   const elements = useElements()
   const [processing, setProcessing] = useState(false)
+  const [statusMessage, setStatusMessage] = useState('')
   const [error, setError] = useState('')
+
+  const pollIntent = async (secret: string, attempts = 0) => {
+    if (!stripe) return
+    if (attempts >= 20) {
+      setStatusMessage(''); setProcessing(false)
+      setError('Payment is taking longer than expected. Please check your email or contact support.')
+      return
+    }
+    const res = await stripe.retrievePaymentIntent(secret)
+    const pi = res.paymentIntent
+    if (res.error) { setStatusMessage(''); setProcessing(false); setError(res.error.message || 'Payment verification failed'); return }
+    if (pi?.status === 'succeeded') { onSuccess(pi.id); return }
+    if (pi?.status === 'requires_payment_method') { setStatusMessage(''); setProcessing(false); setError('Payment could not be completed. Please try again.'); return }
+    setTimeout(() => pollIntent(secret, attempts + 1), 2000)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!stripe || !elements) return
-    setProcessing(true); setError('')
+    setProcessing(true); setError(''); setStatusMessage('')
     const { error: stripeError, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: { return_url: window.location.origin + "/success" },
       redirect: 'if_required',
     })
-    if (stripeError) { setError(stripeError.message || 'Payment failed'); setProcessing(false) }
-    else if (paymentIntent?.status === 'succeeded') onSuccess(paymentIntent.id)
+    if (stripeError) { setError(stripeError.message || 'Payment failed'); setProcessing(false); return }
+    if (!paymentIntent) { setError('Payment failed'); setProcessing(false); return }
+
+    switch (paymentIntent.status) {
+      case 'succeeded':
+        onSuccess(paymentIntent.id)
+        break
+      case 'requires_action':
+        setStatusMessage('Verifying payment...')
+        try {
+          const { error: actionError, paymentIntent: piAfter } = await stripe.handleNextAction({ clientSecret })
+          if (actionError) { setError(actionError.message || 'Payment verification failed'); setStatusMessage(''); setProcessing(false); return }
+          if (piAfter?.status === 'succeeded') { onSuccess(piAfter.id); return }
+          if (piAfter?.status === 'processing') { setStatusMessage('Processing...'); pollIntent(clientSecret); return }
+          setError('Payment could not be completed. Please try again.'); setStatusMessage(''); setProcessing(false)
+        } catch {
+          setError('Payment could not be completed. Please try again.'); setStatusMessage(''); setProcessing(false)
+        }
+        break
+      case 'processing':
+        setStatusMessage('Processing...')
+        pollIntent(clientSecret)
+        break
+      default:
+        setError('Payment could not be completed. Please try again.')
+        setProcessing(false)
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <PaymentElement options={{ layout: 'tabs' }} />
       {error && (
-        <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+        <div className="flex items-center gap-2 p-3 bg-destructive/5 border border-destructive/20 rounded-lg text-sm text-destructive">
           <AlertTriangle className="w-4 h-4 shrink-0" /> {error}
+          <button type="button" onClick={() => setError('')} className="ml-auto text-xs font-bold underline">Try Again</button>
         </div>
       )}
       <button type="submit" disabled={!stripe || processing}
         className="w-full py-4 bg-primary hover:bg-primary text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-lg text-sm">
-        {processing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
-        {processing ? 'Processing...' : "Pay €" + totalAmount.toFixed(2)}
+        {statusMessage || processing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
+        {statusMessage || (processing ? 'Processing...' : "Pay €" + totalAmount.toFixed(2))}
       </button>
       <p className="text-center text-xs text-muted-foreground flex items-center justify-center gap-1">
         <Shield className="w-3 h-3" /> Secured by Stripe · 256-bit SSL
@@ -179,7 +221,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
         <div className="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
           <div className="flex items-center gap-3">
             {step === 2 && (
-              <button onClick={() => setStep(1)} className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
+              <button onClick={() => setStep(1)} className="p-1.5 hover:bg-muted rounded-lg transition-colors">
                 <ArrowLeft className="w-5 h-5 text-muted-foreground" />
               </button>
             )}
@@ -192,13 +234,13 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
           </div>
           <div className="flex items-center gap-4">
             <CountdownTimer onExpired={() => { setErrors({ submit: 'Your session expired. Please restart your booking.' }) }} />
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button onClick={onClose} className="p-2 hover:bg-muted rounded-lg transition-colors">
               <X className="w-5 h-5 text-muted-foreground" />
             </button>
           </div>
         </div>
 
-        <div className="h-0.5 bg-gray-100 shrink-0">
+        <div className="h-0.5 bg-muted shrink-0">
           <div className="h-full bg-primary transition-all duration-500" style={{ width: step === 1 ? '50%' : '100%' }} />
         </div>
 
@@ -213,16 +255,16 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                     <input type="text" value={lead.firstName}
                       onChange={e => setLead(p => ({ ...p, firstName: e.target.value }))}
                       placeholder="John"
-                      className={"w-full px-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 outline-none " + (errors.firstName ? 'border-red-400 bg-red-50' : 'border-border')} />
-                    {errors.firstName && <p className="text-xs text-red-500 mt-1">{errors.firstName}</p>}
+                      className={"w-full px-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-ring outline-none " + (errors.firstName ? 'border-destructive bg-destructive/5' : 'border-border')} />
+                    {errors.firstName && <p className="text-xs text-destructive mt-1">{errors.firstName}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-foreground mb-1.5">Last name *</label>
                     <input type="text" value={lead.lastName}
                       onChange={e => setLead(p => ({ ...p, lastName: e.target.value }))}
                       placeholder="Doe"
-                      className={"w-full px-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 outline-none " + (errors.lastName ? 'border-red-400 bg-red-50' : 'border-border')} />
-                    {errors.lastName && <p className="text-xs text-red-500 mt-1">{errors.lastName}</p>}
+                      className={"w-full px-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-ring outline-none " + (errors.lastName ? 'border-destructive bg-destructive/5' : 'border-border')} />
+                    {errors.lastName && <p className="text-xs text-destructive mt-1">{errors.lastName}</p>}
                   </div>
                   <div className="col-span-2">
                     <label className="block text-sm font-semibold text-foreground mb-1.5">Email *</label>
@@ -231,9 +273,9 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                       <input type="email" value={lead.email}
                         onChange={e => setLead(p => ({ ...p, email: e.target.value }))}
                         placeholder="john@example.com"
-                        className={"w-full pl-9 pr-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 outline-none " + (errors.email ? 'border-red-400 bg-red-50' : 'border-border')} />
+                        className={"w-full pl-9 pr-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-ring outline-none " + (errors.email ? 'border-destructive bg-destructive/5' : 'border-border')} />
                     </div>
-                    {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email}</p>}
+                    {errors.email && <p className="text-xs text-destructive mt-1">{errors.email}</p>}
                   </div>
                   <div className="col-span-2">
                     <label className="block text-sm font-semibold text-foreground mb-1.5">Mobile phone *</label>
@@ -242,21 +284,21 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                       <input type="tel" value={lead.phone}
                         onChange={e => setLead(p => ({ ...p, phone: e.target.value }))}
                         placeholder="+39 123 456 7890"
-                        className={"w-full pl-9 pr-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 outline-none " + (errors.phone ? 'border-red-400 bg-red-50' : 'border-border')} />
+                        className={"w-full pl-9 pr-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-ring outline-none " + (errors.phone ? 'border-destructive bg-destructive/5' : 'border-border')} />
                     </div>
-                    {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone}</p>}
+                    {errors.phone && <p className="text-xs text-destructive mt-1">{errors.phone}</p>}
                   </div>
                   <div className="col-span-2">
                     <label className="block text-sm font-semibold text-foreground mb-1.5">Notes (optional)</label>
                     <textarea rows={2} value={lead.notes}
                       onChange={e => setLead(p => ({ ...p, notes: e.target.value }))}
                       placeholder="Special requests, accessibility needs..."
-                      className="w-full px-3 py-2.5 border border-border rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 outline-none resize-none" />
+                      className="w-full px-3 py-2.5 border border-border rounded-lg text-sm focus:ring-2 focus:ring-ring outline-none resize-none" />
                   </div>
                 </div>
 
                 {errors.submit && (
-                  <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                  <div className="flex items-center gap-2 p-3 bg-destructive/5 border border-destructive/20 rounded-lg text-sm text-destructive">
                     <AlertTriangle className="w-4 h-4 shrink-0" /> {errors.submit}
                   </div>
                 )}
@@ -277,7 +319,7 @@ export default function CheckoutDrawer({ bookingData, onClose }: CheckoutDrawerP
                   </div>
                 ) : (
                   <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe', variables: { colorPrimary: '#A8362F' } } }}>
-              <PaymentForm totalAmount={bookingData.totalPrice} onSuccess={(piId) => window.location.href = `/success?payment_intent=${piId}`} />
+              <PaymentForm totalAmount={bookingData.totalPrice} clientSecret={clientSecret} onSuccess={(piId) => window.location.href = `/success?payment_intent=${piId}`} />
                   </Elements>
                 )}
               </>
