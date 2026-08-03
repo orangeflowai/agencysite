@@ -4,10 +4,9 @@ import Link from "next/link";
 
 const footerLinks = {
   tours: [
-    { label: "Vatican Tours", href: "/category/vatican" },
+    { label: "Tours", href: "/" },
     { label: "Colosseum Tours", href: "/category/colosseum" },
     { label: "City Walking Tours", href: "/category/city" },
-    { label: "Food & Wine", href: "/search" },
   ],
   support: [
     { label: "FAQ", href: "/faq" },
@@ -32,34 +31,34 @@ export function FooterSection() {
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 lg:col-span-2">
             <Link href="/" className="text-lg font-bold text-foreground tracking-tighter">
-              GOLDEN ROME TOUR
+              ROMAN VATICAN TOUR
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Official skip-the-line entry to Vatican, Colosseum & Rome attractions. 
+              Official skip-the-line entry to Vatican, Colosseum & Rome attractions.
               Curated experiences by licensed art historians.
             </p>
-            
+
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
                   <span className="text-[8px] font-bold">IT</span>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-foreground">Our Roman Office</p>
-                  <p className="text-[8px]">Via Tunisi 43, 00192 Roma</p>
+                  <p className="text-xs font-semibold text-foreground">Our Rome Office</p>
+                  <p className="text-[8px]">Via Germanico, 28, 00192 Roma</p>
                 </div>
               </div>
-              <a href="mailto:info@goldenrometour.com" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="mailto:info@romanvaticantour.com" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
                   <span className="text-[8px] font-bold">@</span>
                 </div>
-                <p className="text-xs font-semibold">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com"}</p>
+                <p className="text-xs font-semibold">info@romanvaticantour.com</p>
               </a>
-              <a href="tel:+393514199425" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="tel:+393895217315" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
                   <span className="text-[8px] font-bold">TEL</span>
                 </div>
-                <p className="text-xs font-semibold">+39 351 419 9425</p>
+                <p className="text-xs font-semibold">+39 389 521 7315</p>
               </a>
             </div>
 
@@ -128,7 +127,7 @@ export function FooterSection() {
       <div className="border-t border-border px-6 py-6 md:px-12 lg:px-20">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-xs text-muted-foreground">
-            2026 Golden Rome Tour. All rights reserved.
+            2026 Roman Vatican Tour S.R.L.S. All rights reserved.
           </p>
 
           {/* Trust Badges */}
@@ -141,7 +140,7 @@ export function FooterSection() {
           {/* Social Links */}
           <div className="flex items-center gap-6">
             <a
-              href="https://instagram.com/goldenrometour"
+              href="https://instagram.com/romanvaticantour"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-muted-foreground transition-colors hover:text-foreground"
@@ -149,7 +148,7 @@ export function FooterSection() {
               Instagram
             </a>
             <a
-              href="https://facebook.com/goldenrometour"
+              href="https://facebook.com/romanvaticantour"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-muted-foreground transition-colors hover:text-foreground"

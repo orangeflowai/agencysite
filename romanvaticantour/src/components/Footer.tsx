@@ -15,7 +15,7 @@ const categoryLinks = [
     {
         id: 'vatican',
         href: '/category/vatican',
-        label: 'Vatican Tours'
+        label: 'Tours'
     },
     {
         id: 'colosseum',
@@ -26,11 +26,6 @@ const categoryLinks = [
         id: 'city',
         href: '/category/city',
         label: 'City Sights'
-    },
-    {
-        id: 'private',
-        href: '/search?type=Private',
-        label: 'Private Tours'
     },
 ];
 
@@ -49,14 +44,14 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     // Get site settings with fallbacks
-    const siteTitle = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Your Agency';
+    const siteTitle = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Roman Vatican Tour';
     const logoText = site?.logoText || 'Wonders of';
     const logoTextAccent = site?.logoTextAccent || 'Rome';
     const logo = site?.logo?.asset?.url;
 
     // Business info — only show if set in Sanity, never show placeholder data
     const businessInfo = site?.businessInfo;
-    const companyName = businessInfo?.companyName || site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Your Agency';
+    const companyName = businessInfo?.companyName || site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Roman Vatican Tour S.R.L.S.';
     const vatNumber = businessInfo?.vatNumber || '';
     const reaNumber = businessInfo?.reaNumber || '';
     const registeredAddress = businessInfo?.registeredAddress || '';
@@ -203,7 +198,7 @@ export default function Footer() {
                             <div className="flex items-center gap-6 pt-6 border-t border-stone-800/50">
                                 <Image src={`${SUPABASE_BUCKET_URL}/tripAdvisor.png`} alt="TripAdvisor" width={80} height={32} className="h-8 w-auto opacity-50 hover:opacity-100 transition-all duration-300" />
                                 <div className="h-8 w-px bg-stone-800" />
-                                <p className="text-[10px] text-stone-500 tracking-widest font-bold font-sans">Powered by RomanVatican Engine</p>
+                                <p className="text-[10px] text-stone-500 tracking-widest font-bold font-sans">Powered by Roman Vatican Tour</p>
                             </div>
 
                             {/* Payment logos */}

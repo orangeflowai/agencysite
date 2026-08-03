@@ -27,7 +27,7 @@ export default function BecomeAPartner() {
                         Join our network of travel agencies, influencers, and affiliates. Offer your clients exclusive skip-the-line access to Rome's wonders.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="px-8 py-4 bg-card text-emerald-900 font-bold rounded-lg hover:bg-secondary transition-all transform hover:-translate-y-1 shadow-lg shadow-primary/50 flex items-center gap-2">
+                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romanvaticantour.com"}`} className="px-8 py-4 bg-card text-emerald-900 font-bold rounded-lg hover:bg-secondary transition-all transform hover:-translate-y-1 shadow-lg shadow-primary/50 flex items-center gap-2">
                             <Mail size={20} />
                             Contact Partnership Team
                         </a>

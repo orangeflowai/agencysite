@@ -27,8 +27,7 @@ export default function Navbar() {
     }, []);
 
     const navLinks = [
-        { name: 'Vatican Tours', href: '/search' },
-        { name: 'Private Tours', href: '/private-tours' },
+        { name: 'Tours', href: '/' },
         { name: 'Contact', href: '/contact' },
     ];
 
@@ -111,8 +110,8 @@ export default function Navbar() {
 
                         {/* Right Actions */}
                         <div className="hidden lg:flex items-center gap-3 shrink-0 ml-4">
-                            <Link 
-                                href="/search"
+                            <Link
+                                href="/"
                                 className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full text-xs font-bold tracking-widest transition-all shadow-md active:scale-95"
                             >
                                 BOOK NOW
@@ -151,7 +150,7 @@ export default function Navbar() {
                                 ))}
                                 <div className="pt-4 px-3">
                                     <Link
-                                        href="/search"
+                                        href="/"
                                         className="block w-full bg-primary text-white text-center py-4 rounded-xl font-bold tracking-widest text-xs"
                                         onClick={() => setIsMobileMenuOpen(false)}
                                     >

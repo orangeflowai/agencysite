@@ -87,7 +87,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg text-foreground mb-1">Email Us</h3>
-                                    <p className="text-muted-foreground font-medium hover:text-olive transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</p>
+                                    <p className="text-muted-foreground font-medium hover:text-olive transition-colors cursor-pointer">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romanvaticantour.com"}</p>
                                     <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">24/7 Support</p>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg text-foreground mb-1">Call Us</h3>
-                                    <p className="text-muted-foreground font-medium">351 419 9425</p>
+                                    <p className="text-muted-foreground font-medium">{process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 389 521 7315"}</p>
                                     <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">Mon-Sun, 9am - 6pm</p>
                                 </div>
                             </div>
@@ -109,8 +109,8 @@ export default function ContactPage() {
                                 </div>
                                 <div>
                                     <h3 className="font-bold text-lg text-foreground mb-1">Visit Our Office</h3>
-                                    <p className="text-muted-foreground leading-relaxed">Via Tunisi 43,<br />Rome, Italy</p>
-                                    <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">Near St. Peter&apos;s Square</p>
+                                    <p className="text-muted-foreground leading-relaxed">Via Germanico, 28,<br />00192 Rome, Italy</p>
+                                    <p className="text-muted-foreground text-xs mt-1  tracking-wider font-bold">Near Vatican Museums entrance</p>
                                 </div>
                             </div>
                         </div>

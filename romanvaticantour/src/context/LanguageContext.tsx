@@ -45,7 +45,7 @@ const translations: Record<Language, Record<string, string>> = {
     en: {
         // Navigation
         'nav.colosseum': 'Colosseum Tours',
-        'nav.vatican': 'Vatican Tours',
+        'nav.vatican': 'Tours',
         'nav.city': 'City Tours',
         'nav.hidden': 'Hidden Gems',
         'nav.about': 'About Us',
@@ -88,7 +88,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.cancellation': 'Cancellation Policy',
         'footer.disclaimer': 'Disclaimer',
         'footer.partner': 'Become a Partner',
-        'footer.address': 'Via Tunisi 43, Rome, Italy',
+        'footer.address': 'Via Germanico, 28, 00192 Rome, Italy',
         'footer.rights': 'All rights reserved.',
 
         // Contact Page
@@ -186,7 +186,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.cancellation': 'Politica di Cancellazione',
         'footer.disclaimer': 'Disclaimer',
         'footer.partner': 'Diventa Partner',
-        'footer.address': 'Via Tunisi 43, Roma, Italia',
+        'footer.address': 'Via Germanico, 28, 00192 Roma, Italia',
         'footer.rights': 'Tutti i diritti riservati.',
 
         // Contact Page
@@ -284,7 +284,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.cancellation': 'Política de Cancelación',
         'footer.disclaimer': 'Aviso Legal',
         'footer.partner': 'Conviértete en Partner',
-        'footer.address': 'Via Tunisi 43, Roma, Italia',
+        'footer.address': 'Via Germanico, 28, 00192 Roma, Italia',
         'footer.rights': 'Todos los derechos reservados.',
 
         // Contact Page
@@ -382,7 +382,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.cancellation': 'Politique d\'Annulation',
         'footer.disclaimer': 'Mentions Légales',
         'footer.partner': 'Devenir Partenaire',
-        'footer.address': 'Via Tunisi 43, Rome, Italie',
+        'footer.address': 'Via Germanico, 28, 00192 Rome, Italie',
         'footer.rights': 'Tous droits réservés.',
 
         // Contact Page
@@ -480,7 +480,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.cancellation': 'Stornierungsbedingungen',
         'footer.disclaimer': 'Impressum',
         'footer.partner': 'Partner Werden',
-        'footer.address': 'Via Tunisi 43, Rom, Italien',
+        'footer.address': 'Via Germanico, 28, 00192 Rom, Italien',
         'footer.rights': 'Alle Rechte vorbehalten.',
 
         // Contact Page
@@ -578,7 +578,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.cancellation': 'Política de Cancelamento',
         'footer.disclaimer': 'Aviso Legal',
         'footer.partner': 'Torne-se um Parceiro',
-        'footer.address': 'Via Tunisi 43, Roma, Itália',
+        'footer.address': 'Via Germanico, 28, 00192 Roma, Itália',
         'footer.rights': 'Todos os direitos reservados.',
 
         // Contact Page
@@ -676,7 +676,7 @@ const translations: Record<Language, Record<string, string>> = {
         'footer.cancellation': 'Условия отмены',
         'footer.disclaimer': 'Отказ от ответственности',
         'footer.partner': 'Стать партнером',
-        'footer.address': 'Via Tunisi 43, Рим, Италия',
+        'footer.address': 'Via Germanico, 28, 00192 Рим, Италия',
         'footer.rights': 'Все права защищены.',
 
         // Contact Page

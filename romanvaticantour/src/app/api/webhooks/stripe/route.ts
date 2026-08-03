@@ -45,7 +45,7 @@ async function sendEmails(siteId: string, email: string, name: string, tourTitle
   const resend = getResend();
   if (!resend) return;
   const senderName = process.env.NEXT_PUBLIC_SITE_NAME || siteId;
-  const senderEmail = process.env.EMAIL_FROM || 'bookings@yourdomain.com';
+  const senderEmail = process.env.EMAIL_FROM || 'bookings@romanvaticantour.com';
   const adminEmails = (process.env.ADMIN_EMAIL || senderEmail).split(',').map((e: string) => e.trim());
   const pin = orderId.slice(-6).toUpperCase();
 

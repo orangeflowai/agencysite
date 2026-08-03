@@ -24,7 +24,7 @@ export function generateCustomerEmail(
   const brandColor = data.metadata?.brandColor || '#047857';
   const brandLight = data.metadata?.brandLight || '#d1fae5';
   const logoUrl = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com'}/logo.png`;
-  const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 329 929 4414';
+  const supportPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 389 521 7315';
   const providerPhone = process.env.NEXT_PUBLIC_PROVIDER_PHONE || supportPhone;
   const bookingRef = data.orderId.slice(-8).toUpperCase();
 

@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
         const data = await resend.emails.send({
             from: `Contact Form <${process.env.EMAIL_FROM || 'onboarding@resend.dev'}>`,
-            to: [process.env.ADMIN_EMAIL || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@yourdomain.com'],
+            to: [process.env.ADMIN_EMAIL || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@romanvaticantour.com'],
             subject: `New Contact Message from ${safeFirstName} ${safeLastName || ''}`,
             replyTo: email,
             html: `
