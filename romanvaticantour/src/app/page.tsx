@@ -10,7 +10,7 @@ import { EditorialSection } from "@/components/sections/editorial-section";
 import Footer from '@/components/Footer';
 import { getTours, extractPortableText, getTourImage } from "@/lib/dataAdapter";
 
-export const revalidate = 300;
+export const revalidate = 60;
 
 export default async function Home() {
   const tours = await getTours();

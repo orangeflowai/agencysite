@@ -12,9 +12,7 @@ export default function VaticanHeader() {
   const site = useSite()
 
   const navLinks = [
-    { label: "Skip The Line", href: "/tour/vatican-museum-sistine-chapel-skip-line-tickets", key: "skipline" },
-    { label: "VIP Tour", href: "/tour/vip-vatican-museum-sistine-chapel-st-basilica", key: "vip" },
-    { label: "About", href: "/about", key: "about" },
+    { label: "Tours", href: "/search", key: "tours" },
     { label: "Contact", href: "/contact", key: "contact" },
   ]
 

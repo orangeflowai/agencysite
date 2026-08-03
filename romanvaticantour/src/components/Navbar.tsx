@@ -27,10 +27,8 @@ export default function Navbar() {
     }, []);
 
     const navLinks = [
-        { name: 'Vatican', href: '/category/vatican' },
-        { name: 'Colosseum', href: '/category/colosseum' },
+        { name: 'Vatican Tours', href: '/search' },
         { name: 'Private Tours', href: '/private-tours' },
-        { name: 'All Tours', href: '/search' },
         { name: 'Contact', href: '/contact' },
     ];
 
@@ -45,7 +43,7 @@ export default function Navbar() {
                     transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
                     className="flex whitespace-nowrap gap-12 items-center"
                 >
-                    {[...Array(10)].map((_, i) => (
+                    {[...Array(3)].map((_, i) => (
                         <div key={i} className="flex items-center gap-12 text-white/90 font-bold tracking-[0.2em] text-[11px] font-sans">
                             <span>✦ EXCLUSIVE VATICAN ACCESS ✦</span>
                             <span>✦ SECURE YOUR ENTRY TICKETS NOW ✦</span>

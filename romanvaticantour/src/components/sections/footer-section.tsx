@@ -6,8 +6,8 @@ const footerLinks = {
   tours: [
     { label: "Vatican Tours", href: "/category/vatican" },
     { label: "Colosseum Tours", href: "/category/colosseum" },
-    { label: "City Walking Tours", href: "/category/city-tours" },
-    { label: "Food & Wine", href: "/category/food-and-wine" },
+    { label: "City Walking Tours", href: "/category/city" },
+    { label: "Food & Wine", href: "/search" },
   ],
   support: [
     { label: "FAQ", href: "/faq" },
@@ -16,8 +16,8 @@ const footerLinks = {
     { label: "Cancellation Policy", href: "/cancellation-policy" },
   ],
   company: [
-    { label: "About Us", href: "/about" },
-    { label: "Our Guides", href: "/about" },
+    { label: "About Us", href: "/contact" },
+    { label: "Our Guides", href: "/contact" },
     { label: "Press", href: "/contact" },
     { label: "Careers", href: "/contact" },
   ],
