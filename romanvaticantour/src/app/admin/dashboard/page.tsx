@@ -23,10 +23,11 @@ interface DashboardStats {
 interface RecentBooking {
     id: string;
     tour_title: string;
-    customer_name: string;
-    customer_email: string;
+    lead_first_name: string;
+    lead_last_name: string;
+    lead_email: string;
     date: string;
-    total_price: number;
+    total_amount: number;
     status: string;
     guests: number;
     created_at: string;
@@ -44,14 +45,14 @@ export default function DashboardPage() {
 
     async function loadDashboard() {
         try {
-            // Fetch all bookings
+            // Fetch all bookings for this tenant
             const siteId = process.env.NEXT_PUBLIC_SITE_ID || '';
             const baseQuery = supabase
                 .from('bookings')
                 .select('*')
                 .order('created_at', { ascending: false });
             const { data: bookings, error } = siteId
-                ? await baseQuery.eq('site_id', siteId)
+                ? await baseQuery.eq('tenant', siteId)
                 : await baseQuery;
 
             if (error) throw error;
@@ -62,13 +63,13 @@ export default function DashboardPage() {
             const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
             // Calculate stats
-            const paid = all.filter(b => b.status === 'paid');
+            const paid = all.filter(b => b.status === 'confirmed');
             const pending = all.filter(b => b.status === 'pending');
             const cancelled = all.filter(b => b.status === 'cancelled');
             const todayBookings = all.filter(b => b.created_at?.startsWith(today));
-            const totalRevenue = paid.reduce((sum, b) => sum + (b.total_price || 0), 0);
+            const totalRevenue = paid.reduce((sum, b) => sum + (b.total_amount || 0), 0);
             const weekBookings = all.filter(b => new Date(b.created_at) >= weekAgo);
-            const thisWeekRevenue = weekBookings.filter(b => b.status === 'paid').reduce((sum, b) => sum + (b.total_price || 0), 0);
+            const thisWeekRevenue = weekBookings.filter(b => b.status === 'confirmed').reduce((sum, b) => sum + (b.total_amount || 0), 0);
 
             setStats({
                 totalBookings: all.length,
@@ -90,7 +91,7 @@ export default function DashboardPage() {
                 const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
                 const dateStr = d.toISOString().split('T')[0];
                 const dayBookings = all.filter(b => b.created_at?.startsWith(dateStr));
-                const dayRevenue = dayBookings.filter(b => b.status === 'paid').reduce((sum, b) => sum + (b.total_price || 0), 0);
+                const dayRevenue = dayBookings.filter(b => b.status === 'confirmed').reduce((sum, b) => sum + (b.total_amount || 0), 0);
                 days.push({
                     day: d.toLocaleDateString('en', { weekday: 'short' }),
                     revenue: dayRevenue,
@@ -225,20 +226,20 @@ export default function DashboardPage() {
                         {recentBookings.map(booking => (
                             <div key={booking.id} className="px-6 py-4 flex items-center justify-between hover:bg-muted/50 transition-colors">
                                 <div className="flex items-center gap-4">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${booking.status === 'paid' ? 'bg-emerald-100' :
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${booking.status === 'confirmed' ? 'bg-emerald-100' :
                                             booking.status === 'cancelled' ? 'bg-red-100' : 'bg-amber-100'
                                         }`}>
-                                        {booking.status === 'paid' ? <CheckCircle className="w-5 h-5 text-primary" /> :
+                                        {booking.status === 'confirmed' ? <CheckCircle className="w-5 h-5 text-primary" /> :
                                             booking.status === 'cancelled' ? <XCircle className="w-5 h-5 text-red-600" /> :
                                                 <Clock className="w-5 h-5 text-amber-600" />}
                                     </div>
                                     <div>
                                         <p className="font-medium text-foreground">{booking.tour_title}</p>
-                                        <p className="text-sm text-muted-foreground">{booking.customer_name} · {booking.date}</p>
+                                        <p className="text-sm text-muted-foreground">{booking.lead_first_name} {booking.lead_last_name} · {booking.date}</p>
                                     </div>
                                 </div>
                                 <div className="text-right">
-                                    <p className="font-bold text-foreground">€{booking.total_price}</p>
+                                    <p className="font-bold text-foreground">€{booking.total_amount}</p>
                                     <p className="text-xs text-muted-foreground">{booking.guests} guests</p>
                                 </div>
                             </div>

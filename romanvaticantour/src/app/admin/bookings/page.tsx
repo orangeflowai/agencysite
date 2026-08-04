@@ -35,7 +35,7 @@ export default function BookingsPage() {
                 .order('created_at', { ascending: false });
             // Filter by site_id so each admin only sees their own bookings
             const { data, error } = siteId
-                ? await query.eq('site_id', siteId)
+                ? await query.eq('tenant', siteId)
                 : await query;
 
             if (error) throw error;
@@ -64,10 +64,10 @@ export default function BookingsPage() {
         if (searchTerm.trim()) {
             const term = searchTerm.toLowerCase();
             result = result.filter(b =>
-                (b.customer_name || '').toLowerCase().includes(term) ||
-                (b.customer_email || '').toLowerCase().includes(term) ||
+                (b.lead_first_name || '').toLowerCase().includes(term) ||
+                (b.lead_email || '').toLowerCase().includes(term) ||
                 (b.tour_title || '').toLowerCase().includes(term) ||
-                (b.stripe_session_id || '').toLowerCase().includes(term)
+                (b.stripe_payment_intent_id || '').toLowerCase().includes(term)
             );
         }
 
@@ -88,10 +88,10 @@ export default function BookingsPage() {
 
     // Stats
     const stats = useMemo(() => {
-        const paid = bookings.filter(b => b.status === 'paid');
+        const paid = bookings.filter(b => b.status === 'confirmed');
         const pending = bookings.filter(b => b.status === 'pending');
         const cancelled = bookings.filter(b => b.status === 'cancelled');
-        const revenue = paid.reduce((sum, b) => sum + (b.total_price || 0), 0);
+        const revenue = paid.reduce((sum, b) => sum + (b.total_amount || 0), 0);
         return { total: bookings.length, paid: paid.length, pending: pending.length, cancelled: cancelled.length, revenue };
     }, [bookings]);
 
@@ -106,10 +106,10 @@ export default function BookingsPage() {
 
     // CSV Export
     const exportCSV = () => {
-        const headers = ['Tour', 'Customer', 'Email', 'Date', 'Guests', 'Total', 'Status', 'Created'];
+        const headers = ['Tour', 'First Name', 'Last Name', 'Email', 'Date', 'Guests', 'Total', 'Status', 'Created'];
         const rows = filtered.map(b => [
-            b.tour_title, b.customer_name, b.customer_email,
-            b.date, b.guests, b.total_price, b.status,
+            b.tour_title, b.lead_first_name, b.lead_last_name, b.lead_email,
+            b.date, b.guests, b.total_amount, b.status,
             new Date(b.created_at).toLocaleDateString()
         ]);
         const csv = [headers, ...rows].map(r => r.map((v: any) => `"${v}"`).join(',')).join('\n');
@@ -122,13 +122,13 @@ export default function BookingsPage() {
     };
 
     const statusColors: Record<string, string> = {
-        paid: 'bg-emerald-100 text-foreground',
+        confirmed: 'bg-emerald-100 text-foreground',
         pending: 'bg-amber-100 text-amber-700',
         cancelled: 'bg-red-100 text-red-700',
     };
 
     const statusIcons: Record<string, any> = {
-        paid: CheckCircle,
+        confirmed: CheckCircle,
         pending: Clock,
         cancelled: XCircle,
     };
@@ -164,7 +164,7 @@ export default function BookingsPage() {
             <div className="flex flex-wrap gap-2">
                 {[
                     { key: 'all', label: 'All', count: stats.total },
-                    { key: 'paid', label: 'Paid', count: stats.paid },
+                    { key: 'confirmed', label: 'Confirmed', count: stats.paid },
                     { key: 'pending', label: 'Pending', count: stats.pending },
                     { key: 'cancelled', label: 'Cancelled', count: stats.cancelled },
                 ].map(tab => (
@@ -202,14 +202,14 @@ export default function BookingsPage() {
                     <div className="col-span-4 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('tour_title')}>
                         Tour <ArrowUpDown className="w-3 h-3" />
                     </div>
-                    <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('customer_name')}>
+                    <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('lead_first_name')}>
                         Customer <ArrowUpDown className="w-3 h-3" />
                     </div>
                     <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('date')}>
                         Date <ArrowUpDown className="w-3 h-3" />
                     </div>
                     <div className="col-span-1">Guests</div>
-                    <div className="col-span-1 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('total_price')}>
+                    <div className="col-span-1 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('total_amount')}>
                         Price <ArrowUpDown className="w-3 h-3" />
                     </div>
                     <div className="col-span-1">Status</div>
@@ -243,8 +243,8 @@ export default function BookingsPage() {
                                                 </span>
                                             </div>
                                             <div className="flex items-center justify-between text-sm text-muted-foreground">
-                                                <span>{booking.customer_name}</span>
-                                                <span className="font-bold text-foreground">€{booking.total_price}</span>
+                                                <span>{booking.lead_first_name}</span>
+                                                <span className="font-bold text-foreground">€{booking.total_amount}</span>
                                             </div>
                                             <div className="flex items-center gap-3 text-xs text-muted-foreground">
                                                 <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {booking.date}</span>
@@ -259,8 +259,8 @@ export default function BookingsPage() {
                                                 <p className="text-xs text-muted-foreground mt-0.5">{booking.time || ''}</p>
                                             </div>
                                             <div className="col-span-2">
-                                                <p className="text-sm text-foreground">{booking.customer_name}</p>
-                                                <p className="text-xs text-muted-foreground">{booking.customer_email}</p>
+                                                <p className="text-sm text-foreground">{booking.lead_first_name}</p>
+                                                <p className="text-xs text-muted-foreground">{booking.lead_email}</p>
                                             </div>
                                             <div className="col-span-2">
                                                 <p className="text-sm text-foreground">{booking.date}</p>
@@ -272,7 +272,7 @@ export default function BookingsPage() {
                                                 <span className="text-sm text-foreground">{booking.guests}</span>
                                             </div>
                                             <div className="col-span-1">
-                                                <span className="font-bold text-foreground">€{booking.total_price}</span>
+                                                <span className="font-bold text-foreground">€{booking.total_amount}</span>
                                             </div>
                                             <div className="col-span-1">
                                                 <span className={`text-xs font-bold  px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-muted-foreground'}`}>
@@ -297,16 +297,16 @@ export default function BookingsPage() {
                                                     <div className="space-y-2 text-sm text-muted-foreground">
                                                         <div className="flex items-center gap-2">
                                                             <User size={14} className="text-muted-foreground" />
-                                                            <span>{booking.customer_name || 'N/A'}</span>
+                                                            <span>{booking.lead_first_name || 'N/A'}</span>
                                                         </div>
                                                         <div className="flex items-center gap-2">
                                                             <Mail size={14} className="text-muted-foreground" />
-                                                            <span>{booking.customer_email || 'N/A'}</span>
+                                                            <span>{booking.lead_email || 'N/A'}</span>
                                                         </div>
-                                                        {booking.customer_phone && (
+                                                        {booking.lead_phone && (
                                                             <div className="flex items-center gap-2">
                                                                 <Phone size={14} className="text-muted-foreground" />
-                                                                <span>{booking.customer_phone}</span>
+                                                                <span>{booking.lead_phone}</span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -318,21 +318,22 @@ export default function BookingsPage() {
                                                         <Users size={12} /> Ticket Breakdown
                                                     </h4>
                                                     <div className="space-y-1.5 text-sm text-muted-foreground">
-                                                        <div className="flex justify-between">
-                                                            <span>Adults</span>
-                                                            <span className="font-medium">{booking.adults || 0}</span>
-                                                        </div>
-                                                        <div className="flex justify-between">
-                                                            <span>Students</span>
-                                                            <span className="font-medium">{booking.students || 0}</span>
-                                                        </div>
-                                                        <div className="flex justify-between">
-                                                            <span>Youths</span>
-                                                            <span className="font-medium">{booking.youths || 0}</span>
-                                                        </div>
+                                                        {booking.guest_counts && typeof booking.guest_counts === 'object' ? (
+                                                            Object.entries(booking.guest_counts as Record<string, number>).map(([key, val]) => (
+                                                                <div key={key} className="flex justify-between">
+                                                                    <span className="capitalize">{key}</span>
+                                                                    <span className="font-medium">{val}</span>
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <div className="flex justify-between">
+                                                                <span>Guests</span>
+                                                                <span className="font-medium">{booking.guests || 0}</span>
+                                                            </div>
+                                                        )}
                                                         <div className="flex justify-between border-t pt-1.5 font-bold text-foreground">
                                                             <span>Total</span>
-                                                            <span>€{booking.total_price}</span>
+                                                            <span>€{booking.total_amount}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -361,33 +362,23 @@ export default function BookingsPage() {
                                                 </div>
                                             </div>
 
-                                            {/* Logistics & Add-ons */}
-                                            {(booking.logistics || booking.addons) && (
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-4 border-t border-border">
-                                                    {booking.logistics && (
+                                            {/* Logistics & Notes */}
+                                            {(booking.pickup_location || booking.notes) && (
+                                                <div className="grid grid-cols-1 gap-6 mt-6 pt-4 border-t border-border">
+                                                    {booking.pickup_location && (
                                                         <div className="space-y-2">
                                                             <h4 className="font-bold text-foreground  text-xs flex items-center gap-1">
-                                                                <MapPin size={12} /> Logistics
+                                                                <MapPin size={12} /> Pickup Location
                                                             </h4>
-                                                            <div className="text-sm text-muted-foreground space-y-1">
-                                                                {booking.logistics.hotelName && <p>Hotel: {booking.logistics.hotelName}</p>}
-                                                                {booking.logistics.hotelAddress && <p>Address: {booking.logistics.hotelAddress}</p>}
-                                                                {booking.logistics.dietaryRestrictions && <p>Dietary: {booking.logistics.dietaryRestrictions}</p>}
-                                                                {booking.logistics.mobilityNeeds && <p>Mobility: {booking.logistics.mobilityNeeds}</p>}
-                                                            </div>
+                                                            <p className="text-sm text-muted-foreground">{booking.pickup_location}</p>
                                                         </div>
                                                     )}
-                                                    {booking.addons && Array.isArray(booking.addons) && booking.addons.length > 0 && (
+                                                    {booking.notes && (
                                                         <div className="space-y-2">
-                                                            <h4 className="font-bold text-foreground  text-xs">Add-ons</h4>
-                                                            <div className="space-y-1">
-                                                                {booking.addons.map((addon: any, idx: number) => (
-                                                                    <div key={idx} className="flex justify-between text-sm">
-                                                                        <span className="text-muted-foreground">{addon.name}</span>
-                                                                        <span className="font-medium">€{addon.price}</span>
-                                                                    </div>
-                                                                ))}
-                                                            </div>
+                                                            <h4 className="font-bold text-foreground  text-xs flex items-center gap-1">
+                                                                <FileText size={12} /> Notes
+                                                            </h4>
+                                                            <p className="text-sm text-muted-foreground">{booking.notes}</p>
                                                         </div>
                                                     )}
                                                 </div>
@@ -396,7 +387,7 @@ export default function BookingsPage() {
                                             {/* Footer info */}
                                             <div className="mt-4 pt-3 border-t border-border flex flex-wrap gap-4 text-xs text-muted-foreground font-mono">
                                                 <span>ID: {booking.id}</span>
-                                                {booking.stripe_session_id && <span>Stripe: {booking.stripe_session_id}</span>}
+                                                {booking.stripe_payment_intent_id && <span>Stripe: {booking.stripe_payment_intent_id}</span>}
                                                 {booking.created_at && <span>Created: {new Date(booking.created_at).toLocaleString()}</span>}
                                             </div>
                                         </div>
