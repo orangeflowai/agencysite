@@ -28,10 +28,12 @@ export default function BookingsPage() {
     async function fetchBookings() {
         setLoading(true);
         try {
-            // Fetch all bookings regardless of tenant
+            // Fetch bookings for THIS site only (multi-tenant isolation)
+            const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
             const { data, error } = await supabase
                 .from('bookings')
                 .select('*')
+                .eq('tenant', siteId)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;

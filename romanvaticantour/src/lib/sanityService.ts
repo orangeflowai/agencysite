@@ -147,15 +147,12 @@ export function extractPortableText(blocks: any): string {
 
 /** Filter out test/debug/draft tours. Also restricts to only the 4 official Vatican tour products. */
 export function filterRealTours(tours: Tour[]): Tour[] {
-  const officialSlugs = [
-    'vatican-museums-sistine-chapel-guided-tour',
-    'fast-pass-vatican-museums-sistine-chapel',
-    'skip-the-line-vatican-museum-sistine-chapel',
-    'vatican-museum-sistine-chapel-st-basilica',
-  ];
+  // Filter out tours without a valid slug (likely incomplete/invalid documents)
   return tours.filter((t) => {
     const slug = typeof t.slug === 'string' ? t.slug : t.slug?.current || '';
-    if (!officialSlugs.includes(slug)) return false;
+    if (!slug) return false;
+    // Exclude tours with test/draft slugs
+    if (slug.startsWith('test-') || slug.startsWith('draft-')) return false;
     return true;
   });
 }

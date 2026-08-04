@@ -45,11 +45,12 @@ export default function DashboardPage() {
 
     async function loadDashboard() {
         try {
-            // Fetch all bookings — show everything regardless of tenant
-            // (tenant filter removed so admin sees bookings from all sources)
+            // Fetch bookings for THIS site only (multi-tenant isolation)
+            const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
             const { data: bookings, error } = await supabase
                 .from('bookings')
                 .select('*')
+                .eq('tenant', siteId)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;
