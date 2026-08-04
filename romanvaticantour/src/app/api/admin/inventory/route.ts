@@ -48,7 +48,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ slots: data });
 }
 
-// POST - add a new slot
+// POST - add or update a slot (upsert by tour_slug + date + time)
 export async function POST(request: Request) {
     const auth = await requireAdmin();
     if (!auth.authorized) return auth.errorResponse;
@@ -64,9 +64,10 @@ export async function POST(request: Request) {
     const payload: any = { tour_slug, date, time, available_slots, total_slots, tenant };
     if (price_override != null && price_override !== '') payload.price_override = price_override;
 
+    // Upsert — update if slot already exists, insert if not
     const { data, error } = await supabaseAdmin
         .from('inventory')
-        .insert(payload)
+        .upsert(payload, { onConflict: 'tour_slug, date, time' })
         .select()
         .single();
 
