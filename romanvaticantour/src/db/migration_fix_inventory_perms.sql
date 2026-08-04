@@ -1,6 +1,9 @@
 -- ============================================================
 -- Fix inventory table permissions and connect booking flow
 -- Run in Supabase SQL Editor: https://supabase.com/dashboard
+--
+-- NOTE: Also run migration_fix_columns.sql if tour_slug column
+-- is missing from inventory table.
 -- ============================================================
 
 -- 1. GRANT proper permissions on inventory table

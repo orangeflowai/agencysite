@@ -232,7 +232,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
             {/* Main Content */}
             <div className="lg:ml-72 flex-1 flex flex-col min-w-0">
                 <TopBar onMenuClick={() => setMobileMenuOpen(true)} />
-                <main className="flex-1 p-4 lg:p-10 max-w-[1600px] mx-auto w-full">
+                <main className="flex-1 p-4 lg:p-10 w-full">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}

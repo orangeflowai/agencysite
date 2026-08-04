@@ -45,15 +45,12 @@ export default function DashboardPage() {
 
     async function loadDashboard() {
         try {
-            // Fetch all bookings for this tenant
-            const siteId = process.env.NEXT_PUBLIC_SITE_ID || '';
-            const baseQuery = supabase
+            // Fetch all bookings — show everything regardless of tenant
+            // (tenant filter removed so admin sees bookings from all sources)
+            const { data: bookings, error } = await supabase
                 .from('bookings')
                 .select('*')
                 .order('created_at', { ascending: false });
-            const { data: bookings, error } = siteId
-                ? await baseQuery.eq('tenant', siteId)
-                : await baseQuery;
 
             if (error) throw error;
 

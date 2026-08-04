@@ -28,15 +28,11 @@ export default function BookingsPage() {
     async function fetchBookings() {
         setLoading(true);
         try {
-            const siteId = process.env.NEXT_PUBLIC_SITE_ID || '';
-            const query = supabase
+            // Fetch all bookings regardless of tenant
+            const { data, error } = await supabase
                 .from('bookings')
                 .select('*')
                 .order('created_at', { ascending: false });
-            // Filter by site_id so each admin only sees their own bookings
-            const { data, error } = siteId
-                ? await query.eq('tenant', siteId)
-                : await query;
 
             if (error) throw error;
             setBookings(data || []);
