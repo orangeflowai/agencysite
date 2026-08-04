@@ -7,8 +7,6 @@ import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
   { label: 'Tours', href: '/#tours' },
-  { label: 'Vatican', href: '/category/vatican' },
-  { label: 'Colosseum', href: '/category/colosseum' },
 ];
 
 export function Header() {

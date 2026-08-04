@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 const sideImages = [
   {
@@ -27,13 +26,6 @@ const sideImages = [
 ];
 
 export function HeroSection() {
-  const handleBookNow = (e: React.MouseEvent) => {
-    if (window.location.pathname === '/') {
-      e.preventDefault();
-      document.getElementById('tours')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section className="relative bg-background">
       {/* Image Mosaic Grid */}
@@ -85,25 +77,6 @@ export function HeroSection() {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Tagline */}
-      <div className="px-6 pt-12 pb-28 md:pt-16 md:px-12 md:pb-36 lg:px-20 lg:pt-20 lg:pb-44 text-center">
-        <h2 className="text-4xl md:text-6xl font-bold mb-8 text-foreground">ROMAN VATICAN</h2>
-        <p className="mx-auto max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
-          Skip the line. Experience history.
-          <br />
-          Official priority access to the Vatican and Colosseum.
-        </p>
-        <div className="mt-12">
-          <Link
-            href="/#tours"
-            onClick={handleBookNow}
-            className="px-12 py-5 bg-primary text-primary-foreground font-bold rounded-full text-lg hover:scale-105 transition-transform inline-block"
-          >
-            Book Now
-          </Link>
         </div>
       </div>
     </section>
