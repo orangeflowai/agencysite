@@ -120,6 +120,12 @@ export async function POST(req: Request) {
         });
 
         // 3. Create Pending Booking in Supabase
+        const guestCounts = {
+            adults: adults || 0,
+            students: students || 0,
+            youths: youths || 0,
+        };
+
         const { error: bookingError } = await supabaseAdmin
             .from('bookings')
             .insert({
@@ -127,18 +133,19 @@ export async function POST(req: Request) {
                 tour_title: tourTitle,
                 date: date,
                 time: time,
-                customer_name: bookingDetails?.leadTraveler ? `${bookingDetails.leadTraveler.firstName} ${bookingDetails.leadTraveler.lastName}` : 'Pending Customer',
-                customer_email: bookingDetails?.leadTraveler?.email || 'pending@example.com',
-                customer_phone: bookingDetails?.leadTraveler?.phone || null,
+                lead_first_name: bookingDetails?.leadTraveler?.firstName || 'Pending',
+                lead_last_name: bookingDetails?.leadTraveler?.lastName || 'Customer',
+                lead_email: bookingDetails?.leadTraveler?.email || 'pending@example.com',
+                lead_phone: bookingDetails?.leadTraveler?.phone || null,
                 guests: guests,
-                total_price: totalAmount, // stored in euros to match webhook
-                status: 'pending_payment',
-                stripe_session_id: session.id,
-                adults: adults || 0,
-                students: students || 0,
-                youths: youths || 0,
-                guest_details: bookingDetails, // Store the full structured object
-                site_id: siteId,
+                total_amount: totalAmount,
+                currency: 'eur',
+                status: 'pending',
+                stripe_payment_intent_id: session.id,
+                guest_counts: guestCounts,
+                tenant: siteId,
+                notes: bookingDetails?.notes || null,
+                pickup_location: bookingDetails?.pickupLocation || null,
             });
 
         if (bookingError) {

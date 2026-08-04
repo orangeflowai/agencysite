@@ -8,14 +8,8 @@ import {
     LayoutDashboard,
     Package,
     Calendar,
-    Settings,
     LogOut,
-    Users,
-    PenTool,
-    ChevronRight,
-    Store,
     ExternalLink,
-    Wallet,
     LucideIcon,
     Menu,
     X,
@@ -113,25 +107,14 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                     <div className="text-[10px] font-bold text-zinc-500  tracking-[0.2em] px-3 mb-4">Inventory</div>
                     <div className="space-y-1">
                         <NavLink href="/admin/products" icon={Package} onClick={onClose}>Tours & Products</NavLink>
-                        <NavLink href="/admin/addons" icon={Store} onClick={onClose}>Add-ons & Extras</NavLink>
                         <NavLink href="/admin/inventory" icon={Calendar} onClick={onClose}>Inventory Control</NavLink>
-                        <NavLink href="/admin/blog" icon={PenTool} onClick={onClose}>Editorial</NavLink>
                     </div>
                 </div>
 
                 <div>
-                    <div className="text-[10px] font-bold text-zinc-500  tracking-[0.2em] px-3 mb-4">Finance & CMS</div>
+                    <div className="text-[10px] font-bold text-zinc-500  tracking-[0.2em] px-3 mb-4">CMS</div>
                     <div className="space-y-1">
-                        <NavLink href="/admin/payments" icon={Wallet} onClick={onClose}>Revenue Hub</NavLink>
                         <NavLink href="/studio" icon={ExternalLink} external onClick={onClose}>Content Studio</NavLink>
-                    </div>
-                </div>
-
-                <div>
-                    <div className="text-[10px] font-bold text-zinc-500  tracking-[0.2em] px-3 mb-4">Configuration</div>
-                    <div className="space-y-1">
-                        <NavLink href="/admin/users" icon={Users} onClick={onClose}>Team Directory</NavLink>
-                        <NavLink href="/admin/settings" icon={Settings} onClick={onClose}>Global Settings</NavLink>
                     </div>
                 </div>
             </nav>
