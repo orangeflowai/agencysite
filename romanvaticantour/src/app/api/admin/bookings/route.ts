@@ -127,3 +127,67 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: 'Internal server error', detail: error.message }, { status: 500 });
     }
 }
+
+// PATCH - cancel a booking (status → cancelled, release inventory slots)
+export async function PATCH(request: Request) {
+    const auth = await requireAdmin();
+    if (!auth.authorized) return auth.errorResponse;
+
+    try {
+        const body = await request.json();
+        const { id } = body;
+        if (!id) return NextResponse.json({ error: 'Missing booking id' }, { status: 400 });
+
+        const { data: booking, error: fetchErr } = await supabaseAdmin
+            .from('bookings')
+            .select('*')
+            .eq('id', id)
+            .single();
+
+        if (fetchErr || !booking) {
+            return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
+        }
+
+        if (booking.status === 'cancelled') {
+            return NextResponse.json({ error: 'Booking already cancelled' }, { status: 400 });
+        }
+
+        // Release inventory: increment available_slots for the booked slot
+        if (booking.date && booking.time && booking.guests && booking.tenant) {
+            const slug = booking.tour_slug || '';
+            if (slug) {
+                const { data: inv } = await supabaseAdmin
+                    .from('inventory')
+                    .select('id, available_slots')
+                    .eq('tour_slug', slug)
+                    .eq('date', booking.date)
+                    .eq('time', booking.time)
+                    .eq('tenant', booking.tenant)
+                    .maybeSingle();
+
+                if (inv) {
+                    await supabaseAdmin
+                        .from('inventory')
+                        .update({ available_slots: inv.available_slots + (booking.guests || 0) })
+                        .eq('id', inv.id);
+                }
+            }
+        }
+
+        const { data: updated, error: updateErr } = await supabaseAdmin
+            .from('bookings')
+            .update({ status: 'cancelled', updated_at: new Date().toISOString() })
+            .eq('id', id)
+            .select()
+            .single();
+
+        if (updateErr) {
+            return NextResponse.json({ error: updateErr.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ booking: updated, cancelled: true });
+    } catch (error: any) {
+        console.error('[admin/bookings] Cancel failed:', error.message);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}

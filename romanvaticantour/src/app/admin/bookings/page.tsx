@@ -5,7 +5,7 @@ import {
     Loader2, Mail, Calendar, User, ChevronDown, ChevronUp,
     FileText, Search, Download, Phone, Clock,
     MapPin, CheckCircle, XCircle, AlertCircle, Users,
-    ArrowUpDown, RefreshCw, CreditCard, ExternalLink
+    ArrowUpDown, RefreshCw, CreditCard, ExternalLink, Ban
 } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 25;
@@ -55,6 +55,28 @@ export default function BookingsPage() {
 
     const toggleExpand = (id: string) => {
         setExpandedMap(prev => ({ ...prev, [id]: !prev[id] }));
+    };
+
+    const [cancellingId, setCancellingId] = useState<string | null>(null);
+
+    const handleCancel = async (bookingId: string) => {
+        if (!confirm('Cancel this booking? Inventory slots will be released.')) return;
+        setCancellingId(bookingId);
+        try {
+            const res = await fetch('/api/admin/bookings', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: bookingId }),
+            });
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.error || 'Cancel failed');
+            // Update local state
+            setBookings(prev => prev.map(b => b.id === bookingId ? { ...b, status: 'cancelled' } : b));
+        } catch (err: any) {
+            alert('Failed to cancel: ' + err.message);
+        } finally {
+            setCancellingId(null);
+        }
     };
 
     // Filter & Search
@@ -293,11 +315,21 @@ export default function BookingsPage() {
                                                 <span className="font-bold text-foreground">€{booking.total_amount}</span>
                                             </div>
                                             <div className="col-span-1">
-                                                <span className={`text-xs font-bold  px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-muted-foreground'}`}>
+                                                <span className={`text-xs font-bold px-2 py-1 rounded-full ${statusColors[booking.status] || 'bg-gray-100 text-muted-foreground'}`}>
                                                     {booking.status}
                                                 </span>
                                             </div>
-                                            <div className="col-span-1 flex justify-end">
+                                            <div className="col-span-1 flex items-center justify-end gap-1">
+                                                {booking.status !== 'cancelled' && (
+                                                    <button
+                                                        onClick={(e) => { e.stopPropagation(); handleCancel(booking.id); }}
+                                                        disabled={cancellingId === booking.id}
+                                                        className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                                                        title="Cancel booking"
+                                                    >
+                                                        {cancellingId === booking.id ? <Loader2 size={14} className="animate-spin" /> : <Ban size={14} />}
+                                                    </button>
+                                                )}
                                                 {isExpanded ? <ChevronUp size={16} className="text-muted-foreground" /> : <ChevronDown size={16} className="text-muted-foreground" />}
                                             </div>
                                         </div>
@@ -403,10 +435,25 @@ export default function BookingsPage() {
                                             )}
 
                                             {/* Footer info */}
-                                            <div className="mt-4 pt-3 border-t border-border flex flex-wrap gap-4 text-xs text-muted-foreground font-mono">
+                                            <div className="mt-4 pt-3 border-t border-border flex flex-wrap items-center gap-4 text-xs text-muted-foreground font-mono">
                                                 <span>ID: {booking.id}</span>
                                                 {booking.stripe_payment_intent_id && <span>Stripe PI: {booking.stripe_payment_intent_id}</span>}
                                                 {booking.created_at && <span>Created: {new Date(booking.created_at).toLocaleString()}</span>}
+                                                <div className="flex-1" />
+                                                {booking.status !== 'cancelled' && (
+                                                    <button
+                                                        onClick={(e) => { e.stopPropagation(); handleCancel(booking.id); }}
+                                                        disabled={cancellingId === booking.id}
+                                                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-red-600 bg-red-50 hover:bg-red-100 border border-red-200 rounded-lg transition-colors disabled:opacity-50"
+                                                    >
+                                                        {cancellingId === booking.id ? (
+                                                            <Loader2 size={12} className="animate-spin" />
+                                                        ) : (
+                                                            <Ban size={12} />
+                                                        )}
+                                                        Cancel Booking
+                                                    </button>
+                                                )}
                                             </div>
 
                                             {/* Stripe Payment Details */}
