@@ -94,8 +94,7 @@ export default function AIConcierge() {
     };
 
     return (
-        // bottom-28 on mobile clears the WhatsApp button; bottom-6 on larger screens
-        <div className="fixed bottom-28 sm:bottom-24 right-4 sm:right-6 z-[9998] flex flex-col items-end pointer-events-none">
+        <div className="fixed z-[9998] flex flex-col items-end pointer-events-none" style={{ bottom: '24px', right: '24px' }} data-lenis-prevent>
 
             {/* Chat Window */}
             {isOpen && (

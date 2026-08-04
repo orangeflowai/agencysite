@@ -63,56 +63,38 @@ export async function reserveInventory(
   guestCount: number
 ): Promise<BookingReservation> {
   try {
-    const { data: slot, error: fetchError } = await supabaseAdmin
-      .from('tour_slots')
-      .select('id, tour_slug, date, time, available_slots, created_at, updated_at')
-      .eq('tour_slug', tourSlug)
-      .eq('date', date)
-      .eq('time', time)
-      .maybeSingle();
+    // Atomic UPDATE with guard — prevents oversell under concurrency.
+    // Decrements only if enough slots remain, returns new count.
+    const { data, error: updateError } = await supabaseAdmin
+      .rpc('reserve_slots', {
+        p_tour_slug: tourSlug,
+        p_date: date,
+        p_time: time,
+        p_guest_count: guestCount,
+        p_site_id: SITE_ID,
+      });
 
-    if (fetchError) {
-      console.error('Error fetching inventory:', fetchError);
+    if (updateError) {
+      console.error('Error reserving inventory:', updateError);
       return { success: false, error: 'Database error' };
     }
 
-    const currentSlots = slot?.available_slots ?? 0;
+    // data is the new available_slots count, or null if reservation failed
+    if (data === null || data === undefined) {
+      // Fetch current count for the error message
+      const { data: slot } = await supabaseAdmin
+        .from('tour_slots')
+        .select('available_slots')
+        .eq('tour_slug', tourSlug)
+        .eq('date', date)
+        .eq('time', time)
+        .maybeSingle();
 
-    if (currentSlots < guestCount) {
+      const currentSlots = slot?.available_slots ?? 0;
       return { success: false, availableSlots: currentSlots, error: `Not enough spots available. Only ${currentSlots} left.` };
     }
 
-    const newSlots = currentSlots - guestCount;
-
-    let updateResult;
-    if (slot?.id) {
-        // Update existing
-        updateResult = await supabaseAdmin
-            .from('tour_slots')
-            .update({
-                available_slots: newSlots,
-                updated_at: new Date().toISOString()
-            })
-            .eq('id', slot.id);
-    } else {
-        // Insert new (shouldn't happen often if defaulting to 0, but for safety)
-        updateResult = await supabaseAdmin
-            .from('tour_slots')
-            .insert({
-                tour_slug: tourSlug,
-                date: date,
-                time: time,
-                available_slots: newSlots,
-                site_id: SITE_ID
-            });
-    }
-
-    if (updateResult.error) {
-      console.error('Error updating inventory:', updateResult.error);
-      return { success: false, error: 'Failed to reserve spots' };
-    }
-
-    return { success: true, availableSlots: newSlots };
+    return { success: true, availableSlots: data };
   } catch (error) {
     console.error('Error in reserveInventory:', error);
     return { success: false, error: 'System error' };
@@ -126,46 +108,21 @@ export async function releaseInventory(
   guestCount: number
 ): Promise<BookingReservation> {
   try {
-    const { data: slot, error: fetchError } = await supabaseAdmin
-      .from('tour_slots')
-      .select('id, tour_slug, date, time, available_slots, created_at, updated_at')
-      .eq('tour_slug', tourSlug)
-      .eq('date', date)
-      .eq('time', time)
-      .maybeSingle();
+    const { data, error: updateError } = await supabaseAdmin
+      .rpc('release_slots', {
+        p_tour_slug: tourSlug,
+        p_date: date,
+        p_time: time,
+        p_guest_count: guestCount,
+        p_site_id: SITE_ID,
+      });
 
-    if (fetchError) {
-      console.error('Error fetching inventory for release:', fetchError);
+    if (updateError) {
+      console.error('Error releasing inventory:', updateError);
       return { success: false, error: 'Database error' };
     }
 
-    const currentSlots = slot?.available_slots ?? 0;
-    const newSlots = currentSlots + guestCount;
-
-    let result;
-    if (slot?.id) {
-        result = await supabaseAdmin
-            .from('tour_slots')
-            .update({ available_slots: newSlots, updated_at: new Date().toISOString() })
-            .eq('id', slot.id);
-    } else {
-        result = await supabaseAdmin
-            .from('tour_slots')
-            .insert({
-                tour_slug: tourSlug,
-                date: date,
-                time: time,
-                available_slots: newSlots,
-                site_id: SITE_ID
-            });
-    }
-
-    if (result.error) {
-      console.error('Error releasing inventory:', result.error);
-      return { success: false, error: 'Failed to release spots' };
-    }
-
-    return { success: true, availableSlots: newSlots };
+    return { success: true, availableSlots: data ?? 0 };
   } catch (error) {
     console.error('Error in releaseInventory:', error);
     return { success: false, error: 'System error' };

@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --font-sans: var(--font-radio), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-radio), ui-serif, Georgia, serif;
+  --font-mono: var(--font-radio), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --shadow-color: var(--shadow-color);
+  --shadow-opacity: var(--shadow-opacity);
+  --shadow-blur: var(--shadow-blur);
+  --shadow-spread: var(--shadow-spread);
+  --shadow-offset-x: var(--shadow-offset-x);
+  --shadow-offset-y: var(--shadow-offset-y);
+}
+
+@utility font-heading {
+  font-family: var(--font-radio);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  text-transform: none;
+  font-style: normal;
+}
+
+@utility font-body {
+  font-family: var(--font-radio);
+  font-weight: 400;
+}
+
+@utility font-mono {
+  font-family: var(--font-radio);
+  font-weight: 500;
+}
+
+@utility font-black {
+  font-weight: 600;
+}
+
+@utility font-bold {
+  font-weight: 600;
+}
+
+@utility font-extrabold {
+  font-weight: 600;
+}
+
+:root {
+  /* Core Canvas — Clean White */
+  --background: #FFFFFF;
+  --foreground: #111111;
+
+  /* Cards & Surfaces */
+  --card: #F8FAFC;
+  --card-foreground: #111111;
+  --popover: #FFFFFF;
+  --popover-foreground: #111111;
+
+  /* Primary Action: Blue */
+  --primary: #1e40af;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary: Light Blue */
+  --secondary: #EFF6FF;
+  --secondary-foreground: #111111;
+
+  /* Muted */
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+
+  /* Accent */
+  --accent: #3B82F6;
+  --accent-foreground: #FFFFFF;
+
+  /* Destructive */
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+
+  /* Borders & Inputs */
+  --border: #E2E8F0;
+  --input: #CBD5E1;
+  --ring: #1e40af;
+  --radius: 0.5rem;
+
+  /* Shadows */
+  --shadow-color: hsl(221 83% 40% / 0.08);
+  --shadow-opacity: 0.08;
+  --shadow-blur: 2px;
+  --shadow-spread: 0px;
+  --shadow-offset-x: 0px;
+  --shadow-offset-y: 2px;
+}
+
+/* === TICKETS IN ROME THEME — Blue + Black Professional === */
+[data-site="ticketsinrome"] {
+  --background: #FFFFFF;
+  --foreground: #111111;
+
+  --card: #F8FAFC;
+  --card-foreground: #111111;
+  --popover: #FFFFFF;
+  --popover-foreground: #111111;
+
+  --primary: #1e40af;
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #EFF6FF;
+  --secondary-foreground: #111111;
+
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+
+  --accent: #3B82F6;
+  --accent-foreground: #FFFFFF;
+
+  --destructive: #DC2626;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #E2E8F0;
+  --input: #CBD5E1;
+  --ring: #1e40af;
+
+  --radius: 0.5rem;
+  --shadow-color: hsl(221 83% 40% / 0.08);
+  --shadow-opacity: 0.08;
+}
+
+/* === GOLDEN ROME TOUR THEME — Dark Gold + Navy === */
+[data-site="goldenrometour"] {
+  --background: #0D1117;
+  --foreground: #F0E6D3;
+
+  --card: #161B22;
+  --card-foreground: #F0E6D3;
+  --popover: #161B22;
+  --popover-foreground: #F0E6D3;
+
+  --primary: #C9A84C;
+  --primary-foreground: #0D1117;
+
+  --secondary: #1A1A2E;
+  --secondary-foreground: #F0E6D3;
+
+  --muted: #21262D;
+  --muted-foreground: #8B949E;
+
+  --accent: #E8C96D;
+  --accent-foreground: #0D1117;
+
+  --destructive: #DA3633;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #30363D;
+  --input: #21262D;
+  --ring: #C9A84C;
+
+  --shadow-color: hsl(43 40% 54% / 0.1);
+  --shadow-opacity: 0.1;
+}
+
+/* === ROMAN VATICAN TOUR THEME — Burgundy + Gold === */
+[data-site="romanvaticantour"] {
+  --background: #FFFBF7;
+  --foreground: #1A0A0A;
+
+  --card: #FFFFFF;
+  --card-foreground: #1A0A0A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A0A0A;
+
+  --primary: #8B0000;
+  --primary-foreground: #FFFBF7;
+
+  --secondary: #FFF8F0;
+  --secondary-foreground: #1A0A0A;
+
+  --muted: #F5ECE0;
+  --muted-foreground: #7A5C4C;
+
+  --accent: #C9A84C;
+  --accent-foreground: #1A0A0A;
+
+  --destructive: #B22222;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #D4B896;
+  --input: #E8D5C0;
+  --ring: #8B0000;
+}
+
+.dark {
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+
+  --card: #1E293B;
+  --card-foreground: #F8FAFC;
+  --popover: #1E293B;
+  --popover-foreground: #F8FAFC;
+
+  --primary: #3B82F6;
+  --primary-foreground: #0F172A;
+
+  --secondary: #334155;
+  --secondary-foreground: #F8FAFC;
+
+  --muted: #1E293B;
+  --muted-foreground: #94A3B8;
+
+  --accent: #60A5FA;
+  --accent-foreground: #0F172A;
+
+  --destructive: #F87171;
+  --destructive-foreground: #0F172A;
+
+  --border: #334155;
+  --input: #334155;
+  --ring: #3B82F6;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Self-drawing underline on hover */
+.hover-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform-origin: bottom right;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Image Parallax Container */
+.parallax-img-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-img {
+  height: 120%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: -10%;
+  left: 0;
+  will-change: transform;
+}
+
+/* Mask Reveal */
+.mask-reveal {
+  overflow: hidden;
+  position: relative;
+}
+
+.mask-reveal-inner {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Animations */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}

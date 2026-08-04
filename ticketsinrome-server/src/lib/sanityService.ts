@@ -1,0 +1,548 @@
+import { createClient } from 'next-sanity';
+import { createImageUrlBuilder } from '@sanity/image-url';
+import { supabaseAdmin } from './supabaseAdmin';
+
+// Define Interfaces
+export interface Site {
+    _id: string;
+    title: string;
+    slug: { current: string };
+    domain?: string;
+    isActive: boolean;
+    logo?: { asset: { _id: string; url: string } };
+    favicon?: { asset: { _id: string; url: string } };
+    logoText?: string;
+    logoTextAccent?: string;
+    seo?: {
+        metaTitle?: string;
+        metaDescription?: string;
+        keywords?: string[];
+        ogImage?: { asset: { _id: string; url: string } };
+    }
+    brandColors?: {
+        primary?: { hex: string };
+        secondary?: { hex: string };
+        accent?: { hex: string };
+    }
+    contactEmail?: string;
+    contactPhone?: string;
+    whatsappNumber?: string;
+    officeAddress?: string;
+    mapLink?: string;
+    socialLinks?: {
+        facebook?: string;
+        instagram?: string;
+        twitter?: string;
+        tripadvisor?: string;
+        youtube?: string;
+        linkedin?: string;
+    }
+    businessInfo?: {
+        companyName?: string;
+        vatNumber?: string;
+        reaNumber?: string;
+        registeredAddress?: string;
+        pecEmail?: string;
+        sdiCode?: string;
+        shareCapital?: string;
+    }
+    gdprSettings?: {
+        cookieBannerTitle?: string;
+        cookieBannerText?: string;
+        acceptButtonText?: string;
+        declineButtonText?: string;
+        privacyPolicyLink?: string;
+        privacyPolicyText?: string;
+        showCookieBanner?: boolean;
+        gdprComplianceRegion?: string;
+    }
+    legalLinks?: {
+        privacyPolicy?: string;
+        termsAndConditions?: string;
+        cookiePolicy?: string;
+        cancellationPolicy?: string;
+    }
+}
+
+export interface Tour {
+    _id: string;
+    title: string;
+    slug: { current: string };
+    mainImage?: any;
+    price: number;
+    duration: string;
+    description: any; // Portable Text blocks
+    category: string;
+    features: string[];
+    highlights?: string[]; // Alias for features
+    badge?: string;
+    rating?: number;
+    reviewCount?: number;
+    groupSize?: string;
+    location?: string;
+    studentPrice?: number;
+    youthPrice?: number;
+    tags?: string[];
+    includes?: string[];
+    excludes?: string[];
+    importantInfo?: string[];
+    itinerary?: Array<{ title: string; duration: string; description: string }>;
+    meetingPoint?: string;
+    mapAddress?: string;
+    maxParticipants?: number;
+    sites?: Array<{ _ref: string; _type: 'reference' }>;
+    gallery?: any[];
+    guestTypes?: Array<{ name: string; price: number; description?: string; _key?: string }>;
+    // Newly surfaced fields
+    tourType?: string;
+    faqs?: Array<{ question: string; answer: string; _key?: string }>;
+    seoTitle?: string;
+    seoDescription?: string;
+    keywords?: string[];
+    translations?: Record<string, {
+        title?: string;
+        description?: any;
+        highlights?: string[];
+        includes?: string[];
+        excludes?: string[];
+        meetingPoint?: string;
+        importantInfo?: string[];
+        seoTitle?: string;
+        seoDescription?: string;
+    }>;
+}
+
+export interface Sight {
+    _id: string;
+    name: string;
+    name_it?: string;
+    slug: { current: string };
+    category: string;
+    pack: string;
+    thumbnail?: any;
+    description: string;
+    lat: number;
+    lng: number;
+    radius: number;
+    tips?: string[];
+    kidsMyth?: string;
+    linkedTour?: { _ref: string; _type: 'reference' };
+    // Per-language audio tracks
+    audio_en?: AudioTracks;
+    audio_it?: AudioTracks;
+    audio_es?: AudioTracks;
+    audio_fr?: AudioTracks;
+    audio_de?: AudioTracks;
+    audio_zh?: AudioTracks;
+    audio_ja?: AudioTracks;
+    audio_pt?: AudioTracks;
+    audio_pl?: AudioTracks;
+    audio_ru?: AudioTracks;
+    audio_ar?: AudioTracks;
+    audio_ko?: AudioTracks;
+}
+
+export interface AudioTracks {
+    audioQuick?: { url?: string; duration?: number; size?: number };
+    audioDeep?: { url?: string; duration?: number; size?: number };
+    audioKids?: { url?: string; duration?: number; size?: number };
+}
+
+export interface Post {
+    _id: string;
+    title: string;
+    slug: { current: string };
+    mainImage?: any;
+    publishedAt: string;
+    excerpt: string;
+    keywords?: string[];
+    body?: any;
+    site?: { _ref: string };
+}
+
+export interface Settings {
+    heroTitle?: string;
+    heroSubtitle?: string;
+    heroVideo?: { asset: { _id: string; url: string } };
+    heroImage?: { asset: { _id: string; url: string } };
+    site?: { _ref: string };
+}
+
+// Client Configuration
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
+const apiVersion = '2024-01-01';
+
+export const client = createClient({
+    projectId,
+    dataset,
+    apiVersion,
+    useCdn: false,   // Disable CDN so we always get fresh, published content
+    token: process.env.SANITY_API_TOKEN, // Use token to access all published content
+});
+
+// Helper for image URLs
+const builder = createImageUrlBuilder(client);
+
+export function urlFor(source: any) {
+    if (!source) return { width: () => ({ url: () => '' }), height: () => ({ url: () => '' }), url: () => '' };
+    return builder.image(source);
+}
+
+// Site Configuration
+export const DEFAULT_SITE_ID = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome';
+
+// Helper to get site reference from slug
+async function getSiteRefBySlug(slug: string): Promise<string | null> {
+    try {
+        const query = `*[_type == "site" && slug.current == $slug][0]{ _id }`;
+        const result = await client.fetch(query, { slug });
+        return result?._id || null;
+    } catch (error) {
+        console.error('Failed to get site ref:', error);
+        return null;
+    }
+}
+
+/**
+ * Get tours for a specific site
+ * Uses the sites array to filter tours that belong to the given site
+ */
+export async function getTours(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
+    try {
+        // First get the actual site document _id from the slug
+        const siteRef = await getSiteRefBySlug(siteId);
+
+        if (!siteRef) {
+            console.warn(`Site with slug "${siteId}" not found. Returning empty tours.`);
+            return [];
+        }
+
+        // Query tours where the sites array contains a reference to this site
+        const query = `*[_type == "tour" && $siteRef in sites[]._ref] | order(_createdAt asc) {
+            _id,
+            title,
+            slug,
+            mainImage {
+                asset -> {
+                    _id,
+                    url
+                }
+            },
+            price,
+            duration,
+            "description": pt::text(description),
+            category,
+            "features": highlights,
+            highlights,
+            badge,
+            rating,
+            reviewCount,
+            groupSize,
+            tags,
+            guestTypes,
+            includes,
+            excludes,
+            importantInfo,
+            meetingPoint,
+            mapAddress,
+            maxParticipants,
+            sites,
+            location,
+            tourType,
+            faqs,
+            seoTitle,
+            seoDescription,
+            keywords,
+            translations,
+            itinerary
+        }`;
+
+        return await client.fetch(query, { siteRef }, { next: { revalidate: 0 } });
+    } catch (error) {
+        console.error('Failed to fetch tours:', error);
+        return [];
+    }
+}
+
+/**
+ * Get tours for a specific site with live "starting from" prices from Supabase
+ */
+export async function getToursWithLivePrices(siteId: string = DEFAULT_SITE_ID): Promise<Tour[]> {
+    try {
+        const tours = await getTours(siteId);
+        if (tours.length === 0) return [];
+
+        const slugs = tours.map(t => t.slug?.current).filter(Boolean);
+
+        // Fetch min price overrides from Supabase for future slots
+        const today = new Date().toISOString().split('T')[0];
+        const { data: slots, error } = await supabaseAdmin
+            .from('tour_slots')
+            .select('tour_slug, price_override')
+            .in('tour_slug', slugs)
+            .gte('date', today)
+            .gt('available_slots', 0)
+            .eq('is_paused', false);
+
+        if (error) {
+            console.error('Failed to fetch live prices from Supabase:', error);
+            return tours;
+        }
+
+        // Map min prices
+        const minPrices: Record<string, number> = {};
+        slots?.forEach(s => {
+            if (s.price_override) {
+                if (!minPrices[s.tour_slug] || s.price_override < minPrices[s.tour_slug]) {
+                    minPrices[s.tour_slug] = s.price_override;
+                }
+            }
+        });
+
+        // Update tour prices
+        return tours.map(tour => {
+            const livePrice = minPrices[tour.slug?.current || ''];
+            // Always use the inventory price_override when it is set
+            if (livePrice && livePrice > 0) {
+                return { ...tour, price: livePrice };
+            }
+            return tour;
+        });
+    } catch (error) {
+        console.error('Failed to fetch tours with live prices:', error);
+        return [];
+    }
+}
+
+/**
+ * Get a single tour by slug
+ */
+export async function getTour(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Tour | null> {
+    try {
+        const siteRef = await getSiteRefBySlug(siteId);
+
+        if (!siteRef) {
+            console.warn(`Site with slug "${siteId}" not found.`);
+            return null;
+        }
+
+        const query = `*[_type == "tour" && slug.current == $slug && $siteRef in sites[]._ref][0]{
+            ...,
+            "features": highlights
+        }`;
+
+        return await client.fetch(query, { slug, siteRef }, { next: { revalidate: 0 } });
+    } catch (error) {
+        console.error('Failed to fetch tour:', error);
+        return null;
+    }
+}
+
+/**
+ * Get all tours (admin function - no site filtering)
+ */
+export async function getAllTours(): Promise<Tour[]> {
+    try {
+        const query = `*[_type == "tour"]{
+            _id,
+            title,
+            slug,
+            mainImage {
+                asset -> { _id, url }
+            },
+            price,
+            duration,
+            "description": pt::text(description),
+            category,
+            "features": highlights,
+            badge,
+            rating,
+            reviewCount,
+            tags,
+            guestTypes,
+            sites[]->{ _id, title, slug },
+            location,
+            tourType,
+            faqs,
+            seoTitle,
+            seoDescription,
+            keywords,
+            translations,
+            itinerary
+        }`;
+
+        return await client.fetch(query, {}, { next: { revalidate: 0 } });
+    } catch (error) {
+        console.error('Failed to fetch all tours:', error);
+        return [];
+    }
+}
+
+/**
+ * Get blog posts for a specific site
+ */
+export async function getPosts(siteId: string = DEFAULT_SITE_ID): Promise<Post[]> {
+    try {
+        const query = `*[_type == "post" && site->slug.current == $siteId] | order(publishedAt desc) {
+            _id,
+            title,
+            slug,
+            mainImage {
+                asset -> { _id, url }
+            },
+            publishedAt,
+            excerpt,
+            keywords,
+            "site": site->{ _id, title, slug }
+        }`;
+
+        return await client.fetch(query, { siteId });
+    } catch (error) {
+        console.error('Failed to fetch posts:', error);
+        return [];
+    }
+}
+
+/**
+ * Get a single blog post by slug
+ */
+export async function getPost(slug: string, siteId: string = DEFAULT_SITE_ID): Promise<Post | null> {
+    try {
+        const query = `*[_type == "post" && slug.current == $slug && site->slug.current == $siteId][0]{
+            ...,
+            mainImage { asset -> { _id, url } },
+            "site": site->{ _id, title, slug }
+        }`;
+
+        return await client.fetch(query, { slug, siteId });
+    } catch (error) {
+        console.error('Failed to fetch post:', error);
+        return null;
+    }
+}
+
+/**
+ * Get settings for a specific site
+ */
+export async function getSettings(siteId: string = DEFAULT_SITE_ID): Promise<Settings | null> {
+    try {
+        const query = `*[_type == "settings" && site->slug.current == $siteId][0]{
+            heroTitle,
+            heroSubtitle,
+            heroVideo { asset -> { _id, url } },
+            heroImage { asset -> { _id, url } },
+            "site": site->{ _id, title, slug }
+        }`;
+
+        return await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+    } catch (error) {
+        console.error('Failed to fetch settings:', error);
+        return null;
+    }
+}
+
+/**
+ * Get site information
+ */
+export async function getSite(siteId: string = DEFAULT_SITE_ID): Promise<Site | null> {
+    try {
+        const query = `*[_type == "site" && slug.current == $siteId && isActive == true][0]{
+            _id,
+            title,
+            slug,
+            domain,
+            isActive,
+            logo { asset -> { _id, url } },
+            favicon { asset -> { _id, url } },
+            logoText,
+            logoTextAccent,
+            seo {
+                metaTitle,
+                metaDescription,
+                keywords,
+                ogImage { asset -> { _id, url } }
+            },
+            brandColors,
+            contactEmail,
+            contactPhone,
+            whatsappNumber,
+            officeAddress,
+            mapLink,
+            socialLinks,
+            businessInfo,
+            gdprSettings,
+            legalLinks
+        }`;
+
+        return await client.fetch(query, { siteId }, { next: { revalidate: 60 } });
+    } catch (error) {
+        console.error('Failed to fetch site:', error);
+        return null;
+    }
+}
+
+/**
+ * Get audio guide sights
+ */
+export async function getSights(): Promise<Sight[]> {
+    try {
+        const query = `*[_type == "sight"] | order(category asc, name asc) {
+            _id,
+            name,
+            name_it,
+            slug,
+            category,
+            pack,
+            thumbnail {
+                asset -> { _id, url }
+            },
+            description,
+            lat,
+            lng,
+            radius,
+            tips,
+            kidsMyth,
+            linkedTour,
+            audio_en,
+            audio_it,
+            audio_es,
+            audio_fr,
+            audio_de,
+            audio_zh,
+            audio_ja,
+            audio_pt,
+            audio_pl,
+            audio_ru,
+            audio_ar,
+            audio_ko
+        }`;
+
+        return await client.fetch(query, {}, { next: { revalidate: 60 } });
+    } catch (error) {
+        console.error('Failed to fetch sights:', error);
+        return [];
+    }
+}
+
+/**
+ * Get all active sites
+ */
+export async function getAllSites(): Promise<Site[]> {
+    try {
+        const query = `*[_type == "site" && isActive == true]{
+            _id,
+            title,
+            slug,
+            domain,
+            isActive,
+            logo { asset -> { _id, url } },
+            brandColors
+        }`;
+
+        return await client.fetch(query);
+    } catch (error) {
+        console.error('Failed to fetch sites:', error);
+        return [];
+    }
+}

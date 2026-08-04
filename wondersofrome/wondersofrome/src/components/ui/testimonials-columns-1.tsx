@@ -15,18 +15,19 @@ export const TestimonialsColumn = (props: {
   duration?: number;
 }) => {
   return (
-    <div className={props.className}>
+    <div className={`flex-1 min-w-0 overflow-hidden ${props.className ?? ''}`}>
       <div
         style={{
           animationDuration: props.duration ? `${props.duration}s` : '15s',
+          willChange: 'transform',
         }}
-        className="flex flex-col gap-6 pb-6 animate-marquee"
+        className="flex flex-col gap-6 pb-6 animate-marquee-vertical"
       >
         {[
           ...new Array(2).fill(0).map((_, index) => (
             <React.Fragment key={index}>
               {props.testimonials.map(({ text, image, name, role }, i) => (
-                <div className="p-8 rounded-3xl border border-border bg-card shadow-lg shadow-primary/5 max-w-xs w-full" key={i}>
+                <div className="p-8 rounded-3xl border border-border bg-card shadow-lg shadow-primary/5 w-full" key={i}>
                   <div className="text-sm leading-relaxed text-muted-foreground italic font-serif">"{text}"</div>
                   <div className="flex items-center gap-3 mt-5">
                     <Image
@@ -34,7 +35,7 @@ export const TestimonialsColumn = (props: {
                       alt={name}
                       width={40}
                       height={40}
-                      className="h-10 w-10 rounded-full object-cover border border-primary/20"
+                      className="h-10 w-10 rounded-full object-cover border border-primary/20 flex-shrink-0"
                     />
                     <div className="flex flex-col">
                       <div className="font-bold tracking-tight leading-5 text-foreground text-sm">{name}</div>

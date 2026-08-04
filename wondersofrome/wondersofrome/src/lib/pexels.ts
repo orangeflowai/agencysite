@@ -2,7 +2,8 @@
  * pexels.ts — Pexels API integration for Wonders Of Rome
  */
 
-const PEXELS_KEY = '1cb5f7zhxpxYgMzje2lu1CZn284JWWzkthdl7WnnoM5E0grs7qdQsgVi';
+const PEXELS_KEY = process.env.PEXELS_API_KEY || '';
+// Hardcoded key removed — set PEXELS_API_KEY in environment variables.
 
 export async function getPexelsImages(query: string, perPage: number = 10) {
   try {

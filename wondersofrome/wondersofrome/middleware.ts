@@ -60,20 +60,34 @@ export async function middleware(request: NextRequest) {
 
     const { data: { session } } = await supabase.auth.getSession()
 
-    // Protect /admin routes
-    if (request.nextUrl.pathname.startsWith('/admin')) {
+    const isAdminPage = request.nextUrl.pathname.startsWith('/admin');
+    const isAdminApi = request.nextUrl.pathname.startsWith('/api/admin') ||
+                       request.nextUrl.pathname.startsWith('/api/admin-setup');
+
+    // Protect /admin page routes
+    if (isAdminPage) {
         // Allow access to login page
         if (request.nextUrl.pathname === '/admin/login') {
-            // If already logged in, redirect to dashboard
             if (session) {
                 return NextResponse.redirect(new URL('/admin/dashboard', request.url))
             }
             return response
         }
 
-        // Redirect unauthenticated users to login
         if (!session) {
             return NextResponse.redirect(new URL('/admin/login', request.url))
+        }
+    }
+
+    // Protect admin API routes
+    if (isAdminApi) {
+        if (!session) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        }
+
+        const isAdmin = session.user?.user_metadata?.role === 'admin'
+        if (!isAdmin) {
+            return NextResponse.json({ error: 'Admin role required' }, { status: 403 })
         }
     }
 
@@ -82,6 +96,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/((?!_next/static|_next/image|favicon.ico|api/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+        '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
     ],
 }

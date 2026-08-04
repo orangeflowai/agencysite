@@ -1,6 +1,14 @@
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { createClient } from 'next-sanity';
+
+// Block in production — seed routes are dev-only
+function guardDevOnly() {
+  if (process.env.NODE_ENV === 'production' && !process.env.ALLOW_SEED_IN_PRODUCTION) {
+    return NextResponse.json({ error: 'Seed routes disabled in production' }, { status: 403 });
+  }
+  return null;
+}
 import { apiVersion, dataset, projectId, useCdn } from '@/sanity/env';
 import { tours } from '@/lib/toursData';
 
@@ -29,6 +37,8 @@ async function uploadImageToSanity(imageUrl: string) {
 }
 
 export async function GET() {
+    const guard = guardDevOnly();
+    if (guard) return guard;
     try {
         if (!process.env.SANITY_API_TOKEN) {
             return NextResponse.json(

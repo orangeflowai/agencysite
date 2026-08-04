@@ -86,29 +86,29 @@ export default function TourContent({ tour }: TourContentProps) {
                     {/* Left Column - Tour Details */}
                     <div className="lg:col-span-2 space-y-8">
                         {/* Quick Info */}
-                        <div className="flex flex-wrap gap-4">
+                        <div className="flex flex-col gap-4">
                             {translatedTour.duration && (
-                                <div className="flex items-center gap-2 text-foreground">
-                                    <Clock className="w-5 h-5 text-primary" />
-                                    <span>{translatedTour.duration}</span>
+                                <div className="flex items-center gap-3 text-foreground">
+                                    <Clock className="w-5 h-5 text-primary shrink-0" />
+                                    <span className="text-sm font-medium tracking-wide">{translatedTour.duration}</span>
                                 </div>
                             )}
                             {translatedTour.groupSize && (
-                                <div className="flex items-center gap-2 text-foreground">
-                                    <Users className="w-5 h-5 text-primary" />
-                                    <span>{translatedTour.groupSize}</span>
+                                <div className="flex items-center gap-3 text-foreground">
+                                    <Users className="w-5 h-5 text-primary shrink-0" />
+                                    <span className="text-sm font-medium tracking-wide">{translatedTour.groupSize}</span>
                                 </div>
                             )}
                             {translatedTour.location && (
-                                <div className="flex items-center gap-2 text-foreground">
-                                    <MapPin className="w-5 h-5 text-primary" />
-                                    <span>{translatedTour.location}</span>
+                                <div className="flex items-center gap-3 text-foreground">
+                                    <MapPin className="w-5 h-5 text-primary shrink-0" />
+                                    <span className="text-sm font-medium tracking-wide">{translatedTour.location}</span>
                                 </div>
                             )}
                             {translatedTour.tourType && (
-                                <div className="flex items-center gap-2 text-foreground">
-                                    <Tag className="w-5 h-5 text-primary" />
-                                    <span>{translatedTour.tourType}</span>
+                                <div className="flex items-center gap-3 text-foreground">
+                                    <Tag className="w-5 h-5 text-primary shrink-0" />
+                                    <span className="text-sm font-medium tracking-wide">{translatedTour.tourType}</span>
                                 </div>
                             )}
                         </div>

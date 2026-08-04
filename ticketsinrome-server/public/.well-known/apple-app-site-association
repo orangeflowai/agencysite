@@ -1,0 +1,20 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "TEAM_ID.com.wondersofrome.app",
+        "paths": [
+          "/ticket/*",
+          "/booking/*",
+          "/tour/*"
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "TEAM_ID.com.wondersofrome.app"
+    ]
+  }
+}

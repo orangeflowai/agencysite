@@ -4,7 +4,13 @@ import { client } from "@/sanity/lib/client";
 import { NextResponse } from "next/server";
 import newTours from "@/lib/newToursData.json";
 
+const ALLOW_SEED_IN_PRODUCTION = process.env.ALLOW_SEED_IN_PRODUCTION === 'true';
+
 export async function GET() {
+    if (process.env.NODE_ENV === 'production' && !ALLOW_SEED_IN_PRODUCTION) {
+        return NextResponse.json({ error: 'Seed not available in production' }, { status: 403 });
+    }
+
     try {
         const existingTours = await client.fetch(`*[_type == "tour"]{title}`);
         const existingTitles = new Set(existingTours.map((t: any) => t.title));

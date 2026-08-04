@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev', pathname: '/**' },
       { protocol: 'https', hostname: 'admin.wondersofrome.com', pathname: '/**' },
       { protocol: 'https', hostname: 'images.pexels.com', pathname: '/**' },
+      { protocol: 'https', hostname: 'i.pinimg.com', pathname: '/**' },
     ],
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 86400,

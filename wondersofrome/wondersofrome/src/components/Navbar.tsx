@@ -16,7 +16,6 @@ const NAV_LINKS = [
   { labelKey: 'nav.colosseum',  label: 'Colosseum',   href: '/category/colosseum' },
   { labelKey: 'nav.city',       label: 'City Tours',  href: '/category/city-tours' },
   { labelKey: 'nav.hidden',     label: 'Hidden Gems', href: '/category/hidden-gems' },
-  { labelKey: 'nav.about',      label: 'About',       href: '/about' },
 ];
 
 export default function Navbar() {
@@ -103,7 +102,7 @@ export default function Navbar() {
             <Link href="/" className="shrink-0 flex items-center group">
               {site?.logo ? (
                 <Image
-                  src={urlFor(site.logo).url()}
+                  src={urlFor(site.logo).url() || '/logo.png'}
                   alt={site.title || 'Wonders of Rome'}
                   width={160}
                   height={48}

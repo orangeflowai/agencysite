@@ -4,9 +4,9 @@ import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useSearchParams } from 'next/navigation';
-import { CheckCircle, Home, Calendar, Users, Clock, Mail, Download, MapPin, Printer } from 'lucide-react';
+import { CheckCircle, Home, Calendar, Users, Clock, Mail, Download, MapPin } from 'lucide-react';
 import { Suspense, useEffect, useState, useRef, useCallback } from 'react';
-import { supabase } from '@/lib/supabase';
+import { getBookingByPaymentIntentOnly } from '@/app/actions/bookingActions';
 
 interface BookingDetails {
   id: string;
@@ -14,19 +14,12 @@ interface BookingDetails {
   date: string;
   time: string;
   guests: number;
-  adults: number;
-  students: number;
-  youths: number;
   total_amount: number;
   lead_first_name: string;
   lead_last_name: string;
   lead_email: string;
   lead_phone?: string;
-  customer_phone?: string;
   status: string;
-  stripe_payment_intent_id?: string;
-  stripe_session_id?: string;
-  guest_details?: any;
   booking_ref?: string;
   meeting_point?: string;
   currency?: string;
@@ -44,7 +37,7 @@ function SuccessContent() {
   const pollCount = useRef(0);
 
   useEffect(() => {
-    const id = sessionId || paymentIntentId;
+    const id = paymentIntentId || sessionId;
     if (id) fetchBookingDetails(id);
     else setLoading(false);
   }, [sessionId, paymentIntentId]);
@@ -55,35 +48,25 @@ function SuccessContent() {
 
   async function fetchBookingDetails(id: string) {
     try {
-      let query = supabase.from('bookings').select('*');
-      if (sessionId) query = query.eq('stripe_session_id', id);
-      else if (paymentIntentId) query = query.eq('stripe_payment_intent_id', id);
-      // If sessionId lookup fails, also try payment_intent
-      const { data, error } = await query.single();
-      if (error && error.code === 'PGRST116' && sessionId && pollCount.current % 2 === 0) {
-        // Retry with payment_intent_id if session_id lookup returned nothing
-        const { data: retryData, error: retryError } = await supabase
-          .from('bookings')
-          .select('*')
-          .eq('stripe_payment_intent_id', id)
-          .single();
-        if (!retryError && retryData) {
-          setBooking(retryData);
-          setLoading(false);
-          return;
-        }
+      // Use server action (service_role, no PII exposure on client)
+      const result = await getBookingByPaymentIntentOnly(id);
+
+      if (result) {
+        setBooking(result);
+        setLoading(false);
+        return;
+      }
+
+      // Webhook may not have fired yet — poll up to 12 times (30s total)
+      if (pollCount.current < 12) {
         pollCount.current++;
         setTimeout(() => fetchBookingDetails(id), 2500);
         return;
       }
-      if (error && error.code === 'PGRST116' && pollCount.current < 12) {
-        pollCount.current++;
-        setTimeout(() => fetchBookingDetails(id), 2500);
-        return;
-      }
-      if (!error) setBooking(data);
-    } catch {}
-    finally { setLoading(false); }
+    } catch (err) {
+      console.error('[success] Error fetching booking:', err);
+    }
+    setLoading(false);
   }
 
   const bookingRef = booking?.id?.slice(-8).toUpperCase()

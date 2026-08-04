@@ -23,8 +23,9 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      // bottom-24 on mobile (96px) clears sticky CTAs; bottom-6 on sm+
-      className="fixed bottom-24 sm:bottom-8 right-4 sm:right-6 z-50 flex items-center gap-3 group"
+      className="fixed z-[9997] flex items-center gap-3 group"
+      style={{ bottom: '80px', right: '24px' }}
+      data-lenis-prevent
     >
       {/* Tooltip — desktop only, hide when scrolled */}
       {!scrolled && (

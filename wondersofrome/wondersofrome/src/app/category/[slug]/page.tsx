@@ -25,6 +25,19 @@ function supabaseImg(url: string) {
     return `${url}?width=1280&quality=75&format=webp`;
 }
 
+// Per-category pinned tours — only applied when viewing the matching category
+const PINNED_BY_CATEGORY: Record<string, string> = {
+  vatican: 'vatican-museums-and-sistine-chapel-skip-the-line-ticket-only',
+};
+
+function sortPinnedFirst(a: any, b: any, category: string) {
+  const pinned = PINNED_BY_CATEGORY[category];
+  if (!pinned) return 0;
+  if (a.slug?.current === pinned) return -1;
+  if (b.slug?.current === pinned) return 1;
+  return 0;
+}
+
 // Define the categories mapping for titles/slugs/images
 const categoryMap: Record<string, { title: string; subtitle: string; images: string[] }> = {
     'vatican': {
@@ -83,7 +96,7 @@ export default async function CategoryPage({ params }: PageProps) {
     const allTours = await getTours();
 
     // Filter tours by category
-    const filteredTours = allTours.filter(t => {
+    let filteredTours = allTours.filter(t => {
         if (!t.category) return false;
         const tourCategory = t.category.toLowerCase().trim();
         if (normalizedSlug === 'city') {
@@ -98,6 +111,9 @@ export default async function CategoryPage({ params }: PageProps) {
                tourCategory === normalizedSlug.replace('-', ' ') ||
                tourCategory === normalizedSlug.replace('-', '');
     });
+
+    // Pin featured tour to top (category-scoped)
+    filteredTours = filteredTours.sort((a, b) => sortPinnedFirst(a, b, normalizedSlug));
 
     // Fetch next available dates for all filtered tours in one request
     let nextAvailableMap: Record<string, string | null> = {};

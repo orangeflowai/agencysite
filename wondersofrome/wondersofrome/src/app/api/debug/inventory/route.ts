@@ -5,6 +5,9 @@ import { supabase } from '@/lib/supabase';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    if (process.env.NODE_ENV === 'production') {
+        return NextResponse.json({ error: 'Debug routes disabled in production' }, { status: 403 });
+    }
     try {
         const { data, error, count } = await supabase
             .from('tour_slots')

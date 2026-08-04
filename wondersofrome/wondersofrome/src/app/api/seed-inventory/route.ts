@@ -10,7 +10,13 @@ const supabaseAdmin = createClient(
     process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+const ALLOW_SEED_IN_PRODUCTION = process.env.ALLOW_SEED_IN_PRODUCTION === 'true';
+
 export async function GET() {
+    if (process.env.NODE_ENV === 'production' && !ALLOW_SEED_IN_PRODUCTION) {
+        return NextResponse.json({ error: 'Seed not available in production' }, { status: 403 });
+    }
+
     try {
         console.log('Starting inventory seeding...');
         const today = new Date();

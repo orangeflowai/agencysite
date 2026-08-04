@@ -21,26 +21,47 @@ function determineSiteFromEvent(event: any): string {
   return process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome';
 }
 
-// ── Decrement inventory in Supabase tour_slots ───────────────────────────────
+// ── Decrement inventory in Supabase tour_slots (atomic) ──────────────────────
 async function decrementSupabaseInventory(tourSlug: string, date: string, time: string, guestCount: number) {
   try {
-    const { data: slot } = await supabaseAdmin
-      .from('tour_slots')
-      .select('id, available_slots')
-      .eq('tour_slug', tourSlug)
-      .eq('date', date)
-      .eq('time', time)
-      .single();
+    const { data: newSlots, error } = await supabaseAdmin
+      .rpc('reserve_slots', {
+        p_tour_slug: tourSlug,
+        p_date: date,
+        p_time: time,
+        p_guest_count: guestCount,
+        p_site_id: process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome',
+      });
 
-    if (!slot) return; // no slot configured — silently skip
-
-    const newSlots = Math.max(0, (slot.available_slots || 0) - guestCount);
-    await supabaseAdmin
-      .from('tour_slots')
-      .update({ available_slots: newSlots })
-      .eq('id', slot.id);
+    if (error) {
+      console.warn('[webhook] Inventory decrement failed (slot may not exist):', error.message);
+    }
+    // null means insufficient slots — non-fatal, just log
+    if (newSlots === null) {
+      console.warn(`[webhook] Inventory oversell prevented: ${tourSlug} ${date} ${time}, wanted ${guestCount}`);
+    }
   } catch (err) {
     console.warn('[webhook] Supabase inventory decrement failed:', err);
+  }
+}
+
+// ── Release inventory (refund handler) ────────────────────────────────────────
+async function releaseSupabaseInventory(tourSlug: string, date: string, time: string, guestCount: number) {
+  try {
+    const { error } = await supabaseAdmin
+      .rpc('release_slots', {
+        p_tour_slug: tourSlug,
+        p_date: date,
+        p_time: time,
+        p_guest_count: guestCount,
+        p_site_id: process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome',
+      });
+
+    if (error) {
+      console.warn('[webhook] Inventory release failed:', error.message);
+    }
+  } catch (err) {
+    console.warn('[webhook] Supabase inventory release failed:', err);
   }
 }
 
@@ -162,18 +183,24 @@ export async function POST(request: Request) {
   const headersList = await headers();
   const signature = headersList.get('stripe-signature') as string;
 
-  let unverifiedEvent: any;
-  try { unverifiedEvent = JSON.parse(body); }
+  if (!signature) {
+    return NextResponse.json({ error: 'Missing stripe-signature header' }, { status: 400 });
+  }
+
+  // Determine site BEFORE construction using raw body metadata (best-effort)
+  // This is only to select the correct webhook secret — final siteId comes from verified event
+  let rawEvent: any;
+  try { rawEvent = JSON.parse(body); }
   catch { return NextResponse.json({ error: 'Invalid payload' }, { status: 400 }); }
 
-  const siteId = determineSiteFromEvent(unverifiedEvent);
-  const webhookSecret = getWebhookSecret(siteId);
+  const tentativeSiteId = determineSiteFromEvent(rawEvent);
+  const webhookSecret = getWebhookSecret(tentativeSiteId);
   if (!webhookSecret) {
-    console.error('[webhook] No webhook secret for site:', siteId);
+    console.error('[webhook] No webhook secret for site:', tentativeSiteId);
     return NextResponse.json({ error: 'Webhook secret not configured' }, { status: 500 });
   }
 
-  const stripe = getStripe(siteId);
+  const stripe = getStripe(tentativeSiteId);
   let event: any;
   try { event = stripe.webhooks.constructEvent(body, signature, webhookSecret); }
   catch (err: any) {
@@ -181,6 +208,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Webhook signature invalid' }, { status: 400 });
   }
 
+  // Use siteId from VERIFIED event metadata, not raw body
+  const siteId = event.data?.object?.metadata?.siteId || tentativeSiteId;
   console.log('[webhook] Event received:', event.type, 'site:', siteId);
 
   if (event.type === 'payment_intent.succeeded') {
@@ -198,17 +227,26 @@ export async function POST(request: Request) {
     // 1. Send emails FIRST — most important, never block on DB
     await sendEmails(siteId, email, name, tourTitle, date, time, guests, totalAmount, pi.id, meta);
 
-    // 2. Write to Supabase (primary, non-blocking)
-    writeToSupabase(siteId, {
-      bookingRef, tourTitle, tourSlug, date, time, guestCount,
-      name, email, phone: meta.leadPhone || '',
-      totalAmount, stripePaymentIntentId: pi.id,
-      meetingPoint: meetingPoint || '',
-    }).catch(err => console.warn('[webhook] Supabase write failed:', err));
+    // 2. Write to Supabase — retry on failure
+    try {
+      await writeToSupabase(siteId, {
+        bookingRef, tourTitle, tourSlug, date, time, guestCount,
+        name, email, phone: meta.leadPhone || '',
+        totalAmount, stripePaymentIntentId: pi.id,
+        meetingPoint: meetingPoint || '',
+      });
+    } catch (err) {
+      console.error('[webhook] CRITICAL: Supabase booking write failed after retries:', err);
+      // Payment captured but booking NOT recorded — log for manual intervention
+      // TODO: Add dead-letter queue or admin alert for unreconciled payments
+    }
 
-    // 3. Decrement Supabase inventory (primary, non-blocking)
-    decrementSupabaseInventory(tourSlug, date, time, guestCount)
-      .catch(err => console.warn('[webhook] Supabase inventory failed:', err));
+    // 3. Decrement Supabase inventory — best-effort
+    try {
+      await decrementSupabaseInventory(tourSlug, date, time, guestCount);
+    } catch (err) {
+      console.error('[webhook] Inventory decrement failed:', err);
+    }
   }
 
   else if (event.type === 'checkout.session.completed') {
@@ -227,22 +265,95 @@ export async function POST(request: Request) {
     // 1. Send emails FIRST
     await sendEmails(siteId, email, name, tourTitle, date, time, guests, totalAmount, piId, meta);
 
-    // 2. Write to Supabase (primary, non-blocking)
-    writeToSupabase(siteId, {
-      bookingRef, tourTitle, tourSlug, date, time, guestCount,
-      name, email, phone: meta.leadPhone || '',
-      totalAmount, stripePaymentIntentId: piId,
-      meetingPoint: meetingPoint || '',
-    }).catch(err => console.warn('[webhook] Supabase write failed:', err));
+    // 2. Write to Supabase — retry on failure
+    try {
+      await writeToSupabase(siteId, {
+        bookingRef, tourTitle, tourSlug, date, time, guestCount,
+        name, email, phone: meta.leadPhone || '',
+        totalAmount, stripePaymentIntentId: piId,
+        meetingPoint: meetingPoint || '',
+      });
+    } catch (err) {
+      console.error('[webhook] CRITICAL: Supabase booking write failed after retries:', err);
+    }
 
-    // 3. Decrement Supabase inventory (primary, non-blocking)
-    decrementSupabaseInventory(tourSlug, date, time, guestCount)
-      .catch(err => console.warn('[webhook] Supabase inventory failed:', err));
+    // 3. Decrement Supabase inventory — best-effort
+    try {
+      await decrementSupabaseInventory(tourSlug, date, time, guestCount);
+    } catch (err) {
+      console.error('[webhook] Inventory decrement failed:', err);
+    }
   }
 
   else if (event.type === 'payment_intent.payment_failed') {
     const pi = event.data.object;
     console.log('[webhook] Payment failed:', pi.id, pi.last_payment_error?.message);
+  }
+
+  // ── Refund: release inventory + update booking status ──────────────────────
+  else if (event.type === 'charge.refunded') {
+    const charge = event.data.object;
+    const piId = charge.payment_intent;
+    console.log('[webhook] Refund received:', charge.id, 'PI:', piId);
+
+    if (piId) {
+      try {
+        // Update booking status to refunded
+        const { error: updateError } = await supabaseAdmin
+          .from('bookings')
+          .update({ status: 'refunded' })
+          .eq('stripe_payment_intent_id', piId);
+
+        if (updateError) {
+          console.error('[webhook] Failed to update booking status on refund:', updateError);
+        }
+
+        // Release inventory
+        const { data: booking } = await supabaseAdmin
+          .from('bookings')
+          .select('tour_slug, date, time, guests')
+          .eq('stripe_payment_intent_id', piId)
+          .maybeSingle();
+
+        if (booking) {
+          await releaseSupabaseInventory(booking.tour_slug, booking.date, booking.time, booking.guests || 1);
+          console.log('[webhook] Inventory released for refund:', booking.tour_slug);
+        }
+      } catch (err) {
+        console.error('[webhook] Refund handling error:', err);
+      }
+    }
+  }
+
+  // ── Dispute: alert admin ───────────────────────────────────────────────────
+  else if (event.type === 'charge.dispute.created') {
+    const dispute = event.data.object;
+    console.error('[webhook] DISPUTE CREATED:', dispute.id, dispute.reason, dispute.status);
+
+    const fromEmail = process.env.EMAIL_FROM || process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@wondersofrome.com';
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.NEXT_PUBLIC_CONTACT_EMAIL || fromEmail;
+    if (process.env.RESEND_API_KEY && adminEmail) {
+      try {
+        await resend.emails.send({
+          from: `System Alert <${fromEmail}>`,
+          to: adminEmail,
+          subject: `⚠️ Dispute Created: ${dispute.reason} — ${dispute.id}`,
+          html: `<p>Stripe dispute created:</p>
+                 <p><strong>ID:</strong> ${dispute.id}</p>
+                 <p><strong>Reason:</strong> ${dispute.reason}</p>
+                 <p><strong>Status:</strong> ${dispute.status}</p>
+                 <p><strong>Amount:</strong> €${(dispute.amount / 100).toFixed(2)}</p>`,
+        });
+      } catch (err) {
+        console.error('[webhook] Dispute alert email failed:', err);
+      }
+    }
+  }
+
+  // ── PaymentIntent canceled: log only (no inventory was reserved pre-payment) ─
+  else if (event.type === 'payment_intent.canceled') {
+    const pi = event.data.object;
+    console.log('[webhook] PaymentIntent canceled:', pi.id);
   }
 
   return NextResponse.json({ received: true, site: siteId });

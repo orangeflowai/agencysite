@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 const R2_BASE = 'https://pub-772bbb33a07f4026aa9652a0cfef4c2e.r2.dev';
-const R2_HERO_VIDEO = `${R2_BASE}/15442544_3840_2160_30fps.mp4`;
+const R2_HERO_VIDEO = `${R2_BASE}/hero-1080p.mp4`;
 const R2_HERO_POSTER = `${R2_BASE}/rome%20photos/hero-poster.jpg`;
 
 interface HeroProps {
@@ -79,7 +79,7 @@ export default function WondersHero({ settings }: HeroProps) {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           poster={posterUrl}
           className="w-full h-full object-cover opacity-70"
           style={{ willChange: 'auto', transform: 'translateZ(0)' }}
@@ -136,48 +136,18 @@ export default function WondersHero({ settings }: HeroProps) {
             className="w-full max-w-4xl space-y-6"
             style={{ opacity: 0, transform: 'translateY(30px)' }}
           >
-            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-2xl">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2 text-left">
-                  <label className="text-white/70 text-[10px] font-bold tracking-widest uppercase ml-1">Category</label>
-                  <select className="w-full bg-white/5 border border-white/20 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer hover:bg-white/10 transition-colors [&>option]:text-gray-900">
-                    <option value="">All Tours</option>
-                    <option value="vatican">Vatican Tours</option>
-                    <option value="colosseum">Colosseum Tours</option>
-                    <option value="city">City Tours</option>
-                    <option value="hidden-gems">Hidden Gems</option>
-                  </select>
-                </div>
-                <div className="space-y-2 text-left">
-                  <label className="text-white/70 text-[10px] font-bold tracking-widest uppercase ml-1">Date</label>
-                  <input
-                    type="date"
-                    className="w-full bg-white/5 border border-white/20 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer hover:bg-white/10 transition-colors [color-scheme:dark]"
-                  />
-                </div>
-                <div className="space-y-2 text-left">
-                  <label className="text-white/70 text-[10px] font-bold tracking-widest uppercase ml-1">Guests</label>
-                  <select className="w-full bg-white/5 border border-white/20 text-white rounded-xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-primary appearance-none cursor-pointer hover:bg-white/10 transition-colors [&>option]:text-gray-900">
-                    <option value="1">1 Guest</option>
-                    <option value="2">2 Guests</option>
-                    <option value="3">3 Guests</option>
-                    <option value="4">4 Guests</option>
-                    <option value="5+">5+ Guests</option>
-                  </select>
-                </div>
-              </div>
-              <Link
-                href="/search"
-                className="mt-6 w-full inline-flex items-center justify-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-10 py-4 rounded-xl tracking-widest text-sm transition-all shadow-xl hover:-translate-y-1 active:scale-95"
-              >
-                Search Tours <ArrowRight size={16} />
-              </Link>
-            </div>
+            <Link
+              href="/search"
+              className="inline-flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-10 py-4 rounded-xl tracking-widest text-sm transition-all shadow-xl hover:-translate-y-1 active:scale-95"
+            >
+              Book Your Tour <ArrowRight size={16} />
+            </Link>
 
             <div className="flex flex-wrap justify-center gap-3">
               {[
                 { href: '/category/vatican', label: 'Vatican Tours' },
                 { href: '/category/colosseum', label: 'Colosseum Tours' },
+                { href: '/category/city', label: 'City Tours' },
                 { href: '/search', label: 'All Tours' },
               ].map(({ href, label }) => (
                 <Link

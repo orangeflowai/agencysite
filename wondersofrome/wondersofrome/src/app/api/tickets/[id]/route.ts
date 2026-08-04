@@ -4,11 +4,24 @@ import { generateTicketPDF } from '@/lib/ticketGenerator';
 
 export const dynamic = 'force-dynamic';
 
+const API_KEY = process.env.MOBILE_API_KEY;
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Require same auth as the list endpoint
+    if (!API_KEY) {
+      return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+    }
+    const authHeader = request.headers.get('authorization') || '';
+    const token = authHeader.replace(/^Bearer\s+/i, '');
+    const apiKey = request.headers.get('x-api-key') || token;
+    if (!apiKey || apiKey !== API_KEY) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = await params;
 
     if (!id) {

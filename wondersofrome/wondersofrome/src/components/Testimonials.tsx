@@ -65,10 +65,17 @@ const thirdColumn = testimonials.slice(6, 9);
 
 export default function Testimonials() {
   return (
-    <div className="flex justify-center gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] max-h-[704px] overflow-hidden">
+    <div className="flex gap-4 md:gap-6 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] max-h-[704px] overflow-hidden w-full">
+      {/* Col 1 — always visible */}
       <TestimonialsColumn testimonials={firstColumn} duration={25} />
-      <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={35} />
-      <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={30} />
+      {/* Col 2 — tablet+ */}
+      <div className="hidden md:flex flex-1 min-w-0 overflow-hidden">
+        <TestimonialsColumn testimonials={secondColumn} duration={35} className="w-full" />
+      </div>
+      {/* Col 3 — desktop only */}
+      <div className="hidden lg:flex flex-1 min-w-0 overflow-hidden">
+        <TestimonialsColumn testimonials={thirdColumn} duration={30} className="w-full" />
+      </div>
     </div>
   );
 }

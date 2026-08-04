@@ -46,7 +46,7 @@ export default function Footer() {
             <Link href="/" className="inline-block group">
               {site?.logo ? (
                 <Image
-                  src={urlFor(site.logo).url()}
+                  src={urlFor(site.logo).url() || '/logo.png'}
                   alt={name}
                   width={140}
                   height={40}

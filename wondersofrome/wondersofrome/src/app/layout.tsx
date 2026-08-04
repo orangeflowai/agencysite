@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Radio_Canada_Big } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { SiteProvider } from "@/components/SiteProvider";
@@ -13,10 +13,10 @@ import SmoothScroll from "@/components/SmoothScroll";
 import CookieBanner from "@/components/CookieBanner";
 import RootLayoutContent from "@/components/RootLayoutContent";
 
-const radioCanada = Radio_Canada_Big({ 
-  subsets: ["latin"], 
-  variable: "--font-radio",
-  weight: ['400', '500', '600'], // Staying around the requested weights
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--font-open-sans",
+  weight: ['300', '400', '500', '600', '700', '800'],
   display: 'swap',
 });
 
@@ -90,7 +90,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         />
       </head>
-      <body className={`${radioCanada.variable} font-sans antialiased`} data-site={siteSlug}>
+      <body className={`${openSans.variable} font-sans antialiased`} data-site={siteSlug}>
         <SiteProvider site={site}>
           <GlobalThemeProvider>
             <LanguageProvider>

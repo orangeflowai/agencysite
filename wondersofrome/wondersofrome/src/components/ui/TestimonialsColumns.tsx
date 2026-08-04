@@ -81,16 +81,17 @@ export const TestimonialsColumn = ({
   duration?: number;
   className?: string;
 }) => (
-  <div className={`overflow-hidden ${className}`}>
+  <div className={`overflow-hidden flex-1 min-w-0 ${className}`}>
     <div
-      className="flex flex-col gap-4 pb-4"
+      className="flex flex-col gap-4 pb-4 animate-marquee-vertical"
+      style={{ animationDuration: `${duration}s` }}
     >
       {[...Array(2)].fill(0).map((_, idx) => (
         <React.Fragment key={idx}>
           {testimonials.map(({ text, image, name, role, rating }, i) => (
             <div
               key={i}
-              className="bg-card border border-border rounded-2xl p-6 shadow-sm max-w-xs w-full"
+              className="bg-card border border-border rounded-2xl p-6 shadow-sm w-full"
             >
               {/* Stars */}
               <div className="flex gap-0.5 mb-3">
@@ -100,13 +101,12 @@ export const TestimonialsColumn = ({
               </div>
               <p className="text-foreground text-sm leading-relaxed mb-4">{text}</p>
               <div className="flex items-center gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <Image fill 
+                <Image
                   src={image}
                   alt={name}
                   width={40}
                   height={40}
-                  className="w-10 h-10 rounded-full object-cover"
+                  className="w-10 h-10 rounded-full object-cover flex-shrink-0"
                 />
                 <div>
                   <p className="font-bold text-foreground text-sm leading-tight">{name}</p>

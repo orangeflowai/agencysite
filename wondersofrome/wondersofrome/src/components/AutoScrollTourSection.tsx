@@ -61,95 +61,92 @@ export default function AutoScrollTourSection({
         </div>
       </div>
 
-      {/* Dropdown/Stack Layout - Vertical Cards */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        {validTours.slice(0, 6).map((tour) => {
-          const tourSlug = tour.slug?.current || tour.slug;
-          const imageUrl = tour.mainImage 
-            ? (typeof tour.mainImage === 'string' ? tour.mainImage : urlFor(tour.mainImage).url())
-            : '/placeholder.jpg';
+      {/* Product Card Grid */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {validTours.slice(0, 6).map((tour) => {
+            const tourSlug = tour.slug?.current || tour.slug;
+            const imageUrl = tour.mainImage
+              ? (typeof tour.mainImage === 'string' ? tour.mainImage : (urlFor(tour.mainImage).url() || '/placeholder.jpg'))
+              : '/placeholder.jpg';
 
-          return (
-            <Link 
-              key={tour._id} 
-              href={`/tour/${tourSlug}`}
-              className="group block"
-            >
-              <div className="bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300">
-                <div className="grid md:grid-cols-5 gap-0">
-                  {/* Image - 2 columns */}
-                  <div className="relative aspect-[4/3] md:aspect-auto md:col-span-2 overflow-hidden">
-                    <Image
-                      src={imageUrl}
-                      alt={tour.title}
-                      fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                    {tour.category && (
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-primary text-primary-foreground px-4 py-2 text-xs font-medium rounded-full uppercase tracking-wide">
-                          {tour.category}
-                        </span>
-                      </div>
-                    )}
-                    {tour.badge && (
-                      <div className="absolute top-4 right-4">
-                        <span className="bg-accent text-accent-foreground px-3 py-1 text-xs font-medium rounded-full">
-                          {tour.badge}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+            return (
+              <Link
+                key={tour._id}
+                href={`/tour/${tourSlug}`}
+                className="group flex flex-col bg-card border border-border rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <Image
+                    src={imageUrl}
+                    alt={tour.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                  {tour.category && (
+                    <div className="absolute top-3 left-3">
+                      <span className="bg-primary/90 backdrop-blur-sm text-primary-foreground px-3 py-1.5 text-[8px] font-bold rounded-full uppercase tracking-widest">
+                        {tour.category}
+                      </span>
+                    </div>
+                  )}
+                  {tour.badge && (
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-accent text-accent-foreground px-3 py-1.5 text-[8px] font-bold rounded-full">
+                        {tour.badge}
+                      </span>
+                    </div>
+                  )}
+                </div>
 
-                  {/* Content - 3 columns */}
-                  <div className="md:col-span-3 p-6 md:p-8">
-                    {/* Rating */}
-                    {(tour.rating || tour.reviewCount) && (
-                      <div className="flex items-center gap-2 mb-3">
-                        <Star className="w-4 h-4 fill-primary text-primary" />
-                        <span className="text-sm font-medium">{tour.rating || "4.9"}</span>
-                        <span className="text-sm text-muted-foreground">
-                          ({tour.reviewCount || "0"} reviews)
-                        </span>
+                {/* Content */}
+                <div className="p-5 md:p-6 flex flex-col flex-1">
+                  {/* Rating */}
+                  {(tour.rating || tour.reviewCount) && (
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                      <span className="text-xs font-semibold">{tour.rating || "4.9"}</span>
+                      <span className="text-xs text-muted-foreground">
+                        ({tour.reviewCount || "0"})
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Title */}
+                  <h3 className="text-foreground text-base md:text-lg font-serif font-bold leading-tight group-hover:text-primary transition-colors mb-2">
+                    {tour.title}
+                  </h3>
+
+                  {/* Description */}
+                  {tour.description && (
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
+                      {typeof tour.description === 'string' ? tour.description : ''}
+                    </p>
+                  )}
+
+                  {/* Footer: Duration + Price + CTA */}
+                  <div className="mt-auto pt-4 border-t border-border space-y-3">
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>{tour.duration}</span>
+                    </div>
+                    <div className="flex items-end justify-between">
+                      <div>
+                        <span className="text-[8px] text-muted-foreground font-bold tracking-widest block uppercase mb-0.5">From</span>
+                        <span className="text-xl font-serif font-bold text-foreground">€{tour.price}</span>
                       </div>
-                    )}
-                    
-                    {/* Title */}
-                    <h3 className="text-foreground text-xl md:text-2xl font-semibold leading-tight group-hover:text-primary transition-colors mb-3">
-                      {tour.title}
-                    </h3>
-                    
-                    {/* Description */}
-                    {tour.description && (
-                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
-                        {typeof tour.description === 'string' ? tour.description : ''}
-                      </p>
-                    )}
-                    
-                    {/* Details & Price */}
-                    <div className="flex items-center justify-between pt-4 border-t border-border">
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{tour.duration}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-6">
-                        <div className="text-right">
-                          <span className="text-[10px] text-muted-foreground font-bold tracking-widest block uppercase mb-1">Starting from</span>
-                          <span className="text-3xl font-serif font-bold text-foreground">€{tour.price}</span>
-                        </div>
-                        <span className="inline-flex items-center bg-primary text-white px-8 py-4 rounded-full text-[10px] font-bold tracking-widest uppercase group-hover:bg-foreground transition-all shadow-lg hover:scale-105 active:scale-95">
-                          Reserve Now <ArrowRight size={14} className="ml-2" />
-                        </span>
-                      </div>
+                      <span className="inline-flex items-center gap-1.5 bg-primary text-white px-5 py-2.5 rounded-full text-[9px] font-bold tracking-widest uppercase group-hover:bg-foreground transition-all shadow-md group-hover:shadow-lg">
+                        Book Now <ArrowRight size={12} />
+                      </span>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          );
-        })}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

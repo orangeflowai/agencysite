@@ -24,9 +24,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
-  --font-sans: var(--font-radio), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-radio), ui-serif, Georgia, serif;
-  --font-mono: var(--font-radio), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-open-sans), ui-serif, Georgia, serif;
+  --font-mono: var(--font-open-sans), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --shadow-color: var(--shadow-color);
   --shadow-opacity: var(--shadow-opacity);
@@ -37,7 +37,7 @@
 }
 
 @utility font-heading {
-  font-family: var(--font-radio);
+  font-family: var(--font-open-sans);
   font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.1;
@@ -46,12 +46,12 @@
 }
 
 @utility font-body {
-  font-family: var(--font-radio);
+  font-family: var(--font-open-sans);
   font-weight: 400;
 }
 
 @utility font-mono {
-  font-family: var(--font-radio);
+  font-family: var(--font-open-sans);
   font-weight: 500;
 }
 
@@ -69,13 +69,13 @@
 
 :root {
   /* Core Canvas */
-  --background: #F3F3E7;
+  --background: #f2f0ea;
   --foreground: #393B0B;
 
   /* Cards & Surfaces */
-  --card: #F8F8F1;
+  --card: #f9f9f9;
   --card-foreground: #393B0B;
-  --popover: #F8F8F1;
+  --popover: #f9f9f9;
   --popover-foreground: #393B0B;
 
   /* Primary Action: Deep Teal */
@@ -239,4 +239,13 @@
 
 .animate-marquee {
   animation: marquee 40s linear infinite;
+}
+
+@keyframes marquee-vertical {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical linear infinite;
 }

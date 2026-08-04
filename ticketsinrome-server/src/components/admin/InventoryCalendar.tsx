@@ -1,0 +1,234 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import {
+    format,
+    startOfMonth,
+    endOfMonth,
+    eachDayOfInterval,
+    isSameMonth,
+    isSameDay,
+    addMonths,
+    subMonths,
+    startOfWeek,
+    endOfWeek
+} from 'date-fns';
+import { Tour } from '@/lib/sanityService';
+import { ChevronLeft, ChevronRight, Filter, Loader2 } from 'lucide-react';
+import ManageSlotsModal, { InventorySlot } from './ManageSlotsModal';
+
+interface InventoryCalendarProps {
+    tours: Tour[];
+}
+
+export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
+    const [currentMonth, setCurrentMonth] = useState(new Date());
+    const [inventory, setInventory] = useState<InventorySlot[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    // Filter
+    const [selectedTourSlug, setSelectedTourSlug] = useState<string>('all');
+
+    // Modal State
+    const [activeSlotData, setActiveSlotData] = useState<{
+        tour: Tour;
+        date: string;
+        currentSlots: InventorySlot[];
+    } | null>(null);
+
+    useEffect(() => {
+        fetchMonthData();
+    }, [currentMonth]);
+
+    async function fetchMonthData() {
+        setLoading(true);
+        const start = format(startOfMonth(currentMonth), 'yyyy-MM-dd');
+        const end = format(endOfMonth(currentMonth), 'yyyy-MM-dd');
+
+        try {
+            const res = await fetch(`/api/admin/inventory?start=${start}&end=${end}`);
+            if (!res.ok) throw new Error('Failed to fetch inventory');
+            const data = await res.json();
+            setInventory(data || []);
+        } catch (error) {
+            console.error("Error fetching month inventory:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const days = eachDayOfInterval({
+        start: startOfWeek(startOfMonth(currentMonth)),
+        end: endOfWeek(endOfMonth(currentMonth))
+    });
+
+    const toursToDisplay = selectedTourSlug === 'all'
+        ? tours
+        : tours.filter(t => t.slug.current === selectedTourSlug);
+
+    const handleProductClick = (tour: Tour, dateStr: string) => {
+        // Find existing slots for this tour/date
+        const relevantSlots = inventory.filter(s =>
+            s.tour_slug === tour.slug.current &&
+            s.date === dateStr // Database returns YYYY-MM-DD
+        );
+
+        setActiveSlotData({
+            tour,
+            date: dateStr,
+            currentSlots: relevantSlots.map(s => ({
+                id: s.id,
+                tour_slug: s.tour_slug,
+                date: s.date,
+                time: s.time,
+                available_slots: s.available_slots,
+                price_override: s.price_override,
+                is_paused: s.is_paused ?? false,
+            })).sort((a, b) => a.time.localeCompare(b.time))
+        });
+    };
+
+    return (
+        <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden flex flex-col h-[calc(100vh-140px)]">
+            {/* Header / Toolbar */}
+            <div className="p-4 border-b border-border flex items-center justify-between bg-card z-10">
+                <div className="flex items-center gap-4">
+                    <h2 className="text-xl font-bold text-gray-800 w-48">
+                        {format(currentMonth, 'MMMM yyyy')}
+                    </h2>
+                    <div className="flex bg-gray-100 rounded-lg p-1">
+                        <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))} className="p-1 hover:bg-card rounded-md transition-shadow shadow-sm hover:shadow">
+                            <ChevronLeft size={20} className="text-muted-foreground" />
+                        </button>
+                        <button onClick={() => setCurrentMonth(new Date())} className="px-3 text-xs font-bold text-muted-foreground hover:bg-card rounded-md transition-shadow">
+                            Today
+                        </button>
+                        <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))} className="p-1 hover:bg-card rounded-md transition-shadow shadow-sm hover:shadow">
+                            <ChevronRight size={20} className="text-muted-foreground" />
+                        </button>
+                    </div>
+                </div>
+
+                {/* Filters */}
+                <div className="flex items-center gap-2">
+                    <Filter size={16} className="text-muted-foreground" />
+                    <select
+                        className="bg-muted border border-border text-sm rounded-lg p-2 font-medium text-foreground outline-none focus:ring-2 focus:ring-blue-500"
+                        value={selectedTourSlug}
+                        onChange={(e) => setSelectedTourSlug(e.target.value)}
+                    >
+                        <option value="all">All Products</option>
+                        {tours.map(t => (
+                            <option key={t._id} value={t.slug.current}>{t.title}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+
+            {/* Calendar Grid */}
+            <div className="grid grid-cols-7 flex-1 overflow-auto bg-gray-100 gap-px border-l border-border">
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                    <div key={day} className="bg-muted p-2 text-center text-xs font-bold text-muted-foreground  tracking-wider sticky top-0 z-10 border-b border-border">
+                        {day}
+                    </div>
+                ))}
+
+                {days.map((day, dayIdx) => {
+                    const dateStr = format(day, 'yyyy-MM-dd');
+                    const isCurrentMonth = isSameMonth(day, currentMonth);
+                    const isToday = isSameDay(day, new Date());
+
+                    return (
+                        <div
+                            key={day.toString()}
+                            className={`min-h-[144px] bg-card p-2 relative group flex flex-col gap-1 transition-colors
+                                ${!isCurrentMonth ? 'bg-muted/50 text-muted-foreground' : ''}
+                                ${isToday ? 'bg-secondary/30' : ''}
+                            `}
+                        >
+                            <span className={`text-sm font-bold mb-2 ml-1 ${isToday ? 'text-primary' : 'text-foreground'}`}>
+                                {format(day, 'd')}
+                            </span>
+
+                            {/* Products List */}
+                            <div className="flex-1 overflow-y-auto space-y-1 custom-scrollbar">
+                                {toursToDisplay.map(tour => {
+                                    // Get slots for this tour/day
+                                    const slots = inventory.filter(s => s.tour_slug === tour.slug.current && s.date === dateStr);
+                                    const activeSlots = slots.filter(s => !s.is_paused);
+                                    const totalSpots = activeSlots.reduce((acc, s) => acc + s.available_slots, 0);
+                                    const hasSlots = slots.length > 0;
+                                    const allPaused = hasSlots && slots.every(s => s.is_paused);
+                                    const isSoldOut = hasSlots && !allPaused && totalSpots === 0;
+                                    // Find the lowest price override across active slots
+                                    const priceOverrides = activeSlots
+                                        .map(s => s.price_override)
+                                        .filter((p): p is number => p != null && p > 0);
+                                    const minOverride = priceOverrides.length > 0
+                                        ? Math.min(...priceOverrides)
+                                        : null;
+
+                                    return (
+                                        <button
+                                            key={tour._id}
+                                            onClick={() => handleProductClick(tour, dateStr)}
+                                            className={`w-full text-left px-2 py-1.5 rounded text-[8px] font-medium border flex items-center justify-between gap-2 transition-all hover:scale-[1.02]
+                                                ${!hasSlots
+                                                    ? 'bg-muted border-transparent text-muted-foreground hover:bg-gray-100 hover:border-border'
+                                                    : allPaused
+                                                        ? 'bg-amber-50 border-amber-200 text-amber-700 hover:border-amber-400'
+                                                        : isSoldOut
+                                                            ? 'bg-red-50 border-red-100 text-red-600 hover:border-red-300'
+                                                            : 'bg-secondary border-blue-100 text-blue-700 hover:border-blue-300'
+                                                }
+                                            `}
+                                        >
+                                            <span className="truncate">{tour.title}</span>
+                                            <div className="flex items-center gap-1 shrink-0">
+                                                {minOverride && (
+                                                    <span className="font-bold bg-amber-100 text-amber-700 px-1 rounded text-[7px]">
+                                                        €{minOverride}
+                                                    </span>
+                                                )}
+                                                <span className="font-bold bg-card/50 px-1 rounded">
+                                                    {!hasSlots ? '-' : allPaused ? '⏸' : totalSpots}
+                                                </span>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {loading && (
+                <div className="absolute inset-0 bg-card/50 flex items-center justify-center z-50">
+                    <Loader2 className="animate-spin text-primary" />
+                </div>
+            )}
+
+            {/* Modal */}
+            {activeSlotData && (
+                <ManageSlotsModal
+                    tourTitle={activeSlotData.tour.title}
+                    tourSlug={activeSlotData.tour.slug.current}
+                    date={activeSlotData.date}
+                    initialSlots={activeSlotData.currentSlots}
+                    onClose={() => {
+                        setActiveSlotData(null);
+                        fetchMonthData(); 
+                    }}
+                />
+            )}
+
+            <style jsx global>{`
+                .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+                .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+                .custom-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 4px; }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #d1d5db; }
+            `}</style>
+        </div>
+    );
+}

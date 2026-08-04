@@ -3,6 +3,8 @@ import { client } from '@/sanity/lib/client';
 
 export const dynamic = 'force-dynamic';
 
+const ALLOW_SEED_IN_PRODUCTION = process.env.ALLOW_SEED_IN_PRODUCTION === 'true';
+
 const DEFAULT_ADDONS = [
     {
         name: 'Hotel Pickup Service',
@@ -175,6 +177,10 @@ const DEFAULT_ADDONS = [
 ];
 
 export async function POST(req: Request) {
+    if (process.env.NODE_ENV === 'production' && !ALLOW_SEED_IN_PRODUCTION) {
+        return NextResponse.json({ error: 'Seed not available in production' }, { status: 403 });
+    }
+
     try {
         const { searchParams } = new URL(req.url);
         const siteId = searchParams.get('site') || 'wondersofrome';

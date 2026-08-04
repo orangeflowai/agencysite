@@ -1,0 +1,523 @@
+'use client';
+
+import { useState, useEffect, useMemo } from 'react';
+import { supabase } from '@/lib/supabase';
+import {
+    Loader2, Mail, Calendar, User, ChevronDown, ChevronUp,
+    FileText, Search, Filter, Download, Phone, Clock,
+    MapPin, CheckCircle, XCircle, AlertCircle, Users,
+    ArrowUpDown, RefreshCw
+} from 'lucide-react';
+
+const ITEMS_PER_PAGE = 25;
+
+// Normalize booking data — handles both old (customer_name) and new (lead_first_name) schemas
+function normalizeBooking(b: any) {
+    return {
+        ...b,
+        // Customer name: prefer new columns, fall back to old
+        _customerName: b.lead_first_name
+            ? `${b.lead_first_name || ''} ${b.lead_last_name || ''}`.trim()
+            : (b.customer_name || 'Unknown'),
+        _customerEmail: b.lead_email || b.customer_email || '',
+        _customerPhone: b.lead_phone || b.customer_phone || '',
+        // Price: prefer total_amount (euros from webhook), fall back to total_price
+        _totalPrice: b.total_amount ?? b.total_price ?? 0,
+        // Status: webhook writes 'confirmed', old flow writes 'paid'. Normalize both.
+        _status: b.status === 'confirmed' ? 'paid' : (b.status || 'pending'),
+        // DOB
+        _leadDob: b.lead_dob || b.booking_details?.leadTraveler?.dob || '',
+        // Meeting point
+        _meetingPoint: b.meeting_point || b.booking_details?.meetingPoint || '',
+    };
+}
+
+export default function BookingsPage() {
+    const [bookings, setBookings] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({});
+    const [searchTerm, setSearchTerm] = useState('');
+    const [statusFilter, setStatusFilter] = useState<string>('all');
+    const [sortField, setSortField] = useState<string>('created_at');
+    const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        fetchBookings();
+    }, []);
+
+    async function fetchBookings() {
+        setLoading(true);
+        try {
+            const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'wondersofrome';
+            const { data, error } = await supabase
+                .from('bookings')
+                .select('*')
+                .eq('site_id', siteId)
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+            setBookings((data || []).map(normalizeBooking));
+        } catch (err) {
+            console.error("Error fetching bookings:", err);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    const toggleExpand = (id: string) => {
+        setExpandedMap(prev => ({ ...prev, [id]: !prev[id] }));
+    };
+
+    // Filter & Search
+    const filtered = useMemo(() => {
+        let result = [...bookings];
+
+        // Status filter — use normalized _status
+        if (statusFilter !== 'all') {
+            result = result.filter(b => b._status === statusFilter);
+        }
+
+        // Search — include new column names
+        if (searchTerm.trim()) {
+            const term = searchTerm.toLowerCase();
+            result = result.filter(b =>
+                (b._customerName || '').toLowerCase().includes(term) ||
+                (b._customerEmail || '').toLowerCase().includes(term) ||
+                (b.tour_title || '').toLowerCase().includes(term) ||
+                (b.stripe_payment_intent_id || '').toLowerCase().includes(term) ||
+                (b.stripe_session_id || '').toLowerCase().includes(term) ||
+                (b.booking_ref || '').toLowerCase().includes(term)
+            );
+        }
+
+        // Sort
+        result.sort((a, b) => {
+            const aVal = a[sortField] || '';
+            const bVal = b[sortField] || '';
+            if (sortDir === 'asc') return aVal > bVal ? 1 : -1;
+            return aVal < bVal ? 1 : -1;
+        });
+
+        return result;
+    }, [bookings, statusFilter, searchTerm, sortField, sortDir]);
+
+    // Pagination
+    const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+    const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+    // Stats — use normalized fields
+    const stats = useMemo(() => {
+        const paid = bookings.filter(b => b._status === 'paid');
+        const pending = bookings.filter(b => b._status === 'pending');
+        const cancelled = bookings.filter(b => b._status === 'cancelled');
+        const revenue = paid.reduce((sum, b) => sum + b._totalPrice, 0);
+        return { total: bookings.length, paid: paid.length, pending: pending.length, cancelled: cancelled.length, revenue };
+    }, [bookings]);
+
+    const toggleSort = (field: string) => {
+        if (sortField === field) {
+            setSortDir(prev => prev === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortField(field);
+            setSortDir('desc');
+        }
+    };
+
+    // CSV Export — includes meeting point + booking ref
+    const exportCSV = () => {
+        const headers = ['Booking Ref', 'Tour', 'Customer', 'Email', 'Phone', 'Date', 'Time', 'Guests', 'Total', 'Status', 'Meeting Point', 'Created'];
+        const rows = filtered.map(b => [
+            b.booking_ref || '', b.tour_title, b._customerName, b._customerEmail,
+            b._customerPhone, b.date, b.time || '', b.guests, b._totalPrice.toFixed(2), b._status,
+            b._meetingPoint,
+            b.created_at ? new Date(b.created_at).toLocaleDateString() : ''
+        ]);
+        const csv = [headers, ...rows].map(r => r.map((v: any) => `"${v}"`).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `bookings-${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+    };
+
+    const statusColors: Record<string, string> = {
+        paid: 'bg-blue-100 text-blue-700',
+        pending: 'bg-amber-100 text-amber-700',
+        cancelled: 'bg-red-100 text-red-700',
+    };
+
+    const statusIcons: Record<string, any> = {
+        paid: CheckCircle,
+        pending: Clock,
+        cancelled: XCircle,
+    };
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center py-20">
+                <Loader2 className="animate-spin h-8 w-8 text-primary" />
+            </div>
+        );
+    }
+
+    return (
+        <div className="space-y-6">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl font-bold text-foreground">Bookings</h1>
+                    <p className="text-muted-foreground mt-1">{stats.total} total bookings · €{stats.revenue.toLocaleString('en', { minimumFractionDigits: 2 })} revenue</p>
+                </div>
+                <div className="flex items-center gap-2">
+                    <button onClick={fetchBookings} className="p-2 text-muted-foreground hover:text-muted-foreground hover:bg-gray-100 rounded-lg transition-colors" title="Refresh">
+                        <RefreshCw className="w-5 h-5" />
+                    </button>
+                    <button onClick={exportCSV} className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-foreground font-medium rounded-lg hover:bg-gray-200 transition-colors">
+                        <Download className="w-4 h-4" />
+                        Export CSV
+                    </button>
+                </div>
+            </div>
+
+            {/* Status Tabs */}
+            <div className="flex flex-wrap gap-2">
+                {[
+                    { key: 'all', label: 'All', count: stats.total },
+                    { key: 'paid', label: 'Paid', count: stats.paid },
+                    { key: 'pending', label: 'Pending', count: stats.pending },
+                    { key: 'cancelled', label: 'Cancelled', count: stats.cancelled },
+                ].map(tab => (
+                    <button
+                        key={tab.key}
+                        onClick={() => { setStatusFilter(tab.key); setCurrentPage(1); }}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${statusFilter === tab.key
+                                ? 'bg-primary text-white shadow-sm'
+                                : 'bg-card text-muted-foreground border border-border hover:bg-muted'
+                            }`}
+                    >
+                        {tab.label}
+                        <span className={`ml-2 px-1.5 py-0.5 rounded-full text-xs ${statusFilter === tab.key ? 'bg-card/20' : 'bg-gray-100'
+                            }`}>{tab.count}</span>
+                    </button>
+                ))}
+            </div>
+
+            {/* Search */}
+            <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                <input
+                    type="text"
+                    placeholder="Search by customer name, email, or tour title..."
+                    value={searchTerm}
+                    onChange={e => { setSearchTerm(e.target.value); setCurrentPage(1); }}
+                    className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none"
+                />
+            </div>
+
+            {/* Results */}
+            <div className="bg-card rounded-xl shadow-sm border border-border overflow-hidden">
+                {/* Table Header */}
+                <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 bg-muted border-b border-border text-xs font-bold text-muted-foreground  tracking-wider">
+                    <div className="col-span-4 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('tour_title')}>
+                        Tour <ArrowUpDown className="w-3 h-3" />
+                    </div>
+                    <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('customer_name')}>
+                        Customer <ArrowUpDown className="w-3 h-3" />
+                    </div>
+                    <div className="col-span-2 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('date')}>
+                        Date <ArrowUpDown className="w-3 h-3" />
+                    </div>
+                    <div className="col-span-1">Guests</div>
+                    <div className="col-span-1 flex items-center gap-1 cursor-pointer hover:text-foreground" onClick={() => toggleSort('total_price')}>
+                        Price <ArrowUpDown className="w-3 h-3" />
+                    </div>
+                    <div className="col-span-1">Status</div>
+                    <div className="col-span-1"></div>
+                </div>
+
+                {paginated.length === 0 ? (
+                    <div className="p-12 text-center text-muted-foreground">
+                        <AlertCircle className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
+                        <p className="font-medium">No bookings found</p>
+                        <p className="text-sm mt-1">Try adjusting your search or filters</p>
+                    </div>
+                ) : (
+                    <div className="divide-y divide-gray-50">
+                        {paginated.map((booking) => {
+                            const isExpanded = expandedMap[booking.id];
+                            const StatusIcon = statusIcons[booking.status] || AlertCircle;
+                            return (
+                                <div key={booking.id} className="flex flex-col hover:bg-muted/50 transition-colors">
+                                    {/* Main Row */}
+                                    <div
+                                        onClick={() => toggleExpand(booking.id)}
+                                        className="px-6 py-4 cursor-pointer"
+                                    >
+                                        {/* Mobile Layout */}
+                                        <div className="md:hidden space-y-2">
+                                            <div className="flex items-center justify-between">
+                                                <h3 className="font-bold text-foreground text-sm">{booking.tour_title}</h3>
+                                                <span className={`text-xs font-bold px-2 py-1 rounded-full ${statusColors[booking._status] || 'bg-gray-100 text-muted-foreground'}`}>
+                                                    {booking._status}
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center justify-between text-sm text-muted-foreground">
+                                                <span>{booking._customerName}</span>
+                                                <span className="font-bold text-foreground">€{booking._totalPrice.toFixed(2)}</span>
+                                            </div>
+                                            <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                                                <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {booking.date}</span>
+                                                <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {booking.guests}</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Desktop Layout */}
+                                        <div className="hidden md:grid grid-cols-12 gap-4 items-center">
+                                            <div className="col-span-4">
+                                                <h3 className="font-semibold text-foreground text-sm">{booking.tour_title}</h3>
+                                                <p className="text-xs text-muted-foreground mt-0.5">{booking.time || ''}</p>
+                                            </div>
+                                            <div className="col-span-2">
+                                                <p className="text-sm text-foreground">{booking._customerName}</p>
+                                                <p className="text-xs text-muted-foreground">{booking._customerEmail}</p>
+                                            </div>
+                                            <div className="col-span-2">
+                                                <p className="text-sm text-foreground">{booking.date}</p>
+                                                <p className="text-xs text-muted-foreground">
+                                                    {booking.created_at ? new Date(booking.created_at).toLocaleDateString('en', { month: 'short', day: 'numeric' }) : ''}
+                                                </p>
+                                            </div>
+                                            <div className="col-span-1">
+                                                <span className="text-sm text-foreground">{booking.guests}</span>
+                                            </div>
+                                            <div className="col-span-1">
+                                                <span className="font-bold text-foreground">€{booking._totalPrice.toFixed(2)}</span>
+                                            </div>
+                                            <div className="col-span-1">
+                                                <span className={`text-xs font-bold px-2 py-1 rounded-full ${statusColors[booking._status] || 'bg-gray-100 text-muted-foreground'}`}>
+                                                    {booking._status}
+                                                </span>
+                                            </div>
+                                            <div className="col-span-1 flex justify-end">
+                                                {isExpanded ? <ChevronUp size={16} className="text-muted-foreground" /> : <ChevronDown size={16} className="text-muted-foreground" />}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {isExpanded && (
+                                        <div className="px-6 pb-6 bg-muted/50 border-t border-border">
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                                                {/* Contact Info */}
+                                                <div className="space-y-3">
+                                                    <h4 className="font-bold text-foreground text-xs flex items-center gap-1">
+                                                        <User size={12} /> Lead Traveller
+                                                    </h4>
+                                                    <div className="space-y-2 text-sm text-muted-foreground">
+                                                        <div className="flex items-center gap-2">
+                                                            <User size={14} className="shrink-0" />
+                                                            <span>{booking._customerName || 'N/A'}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            <Mail size={14} className="shrink-0" />
+                                                            <a href={`mailto:${booking._customerEmail}`} className="text-primary hover:underline">{booking._customerEmail || 'N/A'}</a>
+                                                        </div>
+                                                        {booking._customerPhone && (
+                                                            <div className="flex items-center gap-2">
+                                                                <Phone size={14} className="shrink-0" />
+                                                                <a href={`tel:${booking._customerPhone}`} className="hover:underline">{booking._customerPhone}</a>
+                                                            </div>
+                                                        )}
+                                                        {booking._leadDob && (
+                                                            <div className="flex items-center gap-2">
+                                                                <Calendar size={14} className="shrink-0" />
+                                                                <span>DOB: {booking._leadDob}</span>
+                                                            </div>
+                                                        )}
+                                                        {booking.notes && (
+                                                            <div className="flex items-start gap-2 mt-1">
+                                                                <FileText size={14} className="shrink-0 mt-0.5" />
+                                                                <span className="italic">{booking.notes}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                {/* Ticket Breakdown */}
+                                                <div className="space-y-3">
+                                                    <h4 className="font-bold text-foreground text-xs flex items-center gap-1">
+                                                        <Users size={12} /> Ticket Breakdown
+                                                    </h4>
+                                                    <div className="space-y-1.5 text-sm text-muted-foreground">
+                                                        {booking.guest_counts && typeof booking.guest_counts === 'object'
+                                                            ? Object.entries(booking.guest_counts as Record<string, number>).map(([type, count]) => (
+                                                                <div key={type} className="flex justify-between">
+                                                                    <span>{type}</span>
+                                                                    <span className="font-medium">{count as number}</span>
+                                                                </div>
+                                                            ))
+                                                            : (
+                                                                <>
+                                                                    {booking.adults > 0 && <div className="flex justify-between"><span>Adults</span><span className="font-medium">{booking.adults}</span></div>}
+                                                                    {booking.students > 0 && <div className="flex justify-between"><span>Students</span><span className="font-medium">{booking.students}</span></div>}
+                                                                    {booking.youths > 0 && <div className="flex justify-between"><span>Youths</span><span className="font-medium">{booking.youths}</span></div>}
+                                                                </>
+                                                            )
+                                                        }
+                                                        <div className="flex justify-between border-t pt-1.5 font-bold text-foreground">
+                                                            <span>Total</span>
+                                                            <span>€{booking._totalPrice.toFixed(2)}</span>
+                                                        </div>
+                                                    </div>
+                                                    {booking.time && (
+                                                        <div className="flex items-center gap-2 text-sm text-muted-foreground pt-1">
+                                                            <Clock size={13} className="shrink-0" />
+                                                            <span>Time slot: <strong>{booking.time}</strong></span>
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                {/* All Participants */}
+                                                <div className="space-y-3">
+                                                    <h4 className="font-bold text-foreground text-xs flex items-center gap-1">
+                                                        <FileText size={12} /> All Participants
+                                                    </h4>
+                                                    {booking.booking_details?.participants && Array.isArray(booking.booking_details.participants) && booking.booking_details.participants.length > 0 ? (
+                                                        <div className="space-y-2">
+                                                            {booking.booking_details.participants.map((p: any, idx: number) => (
+                                                                <div key={idx} className="bg-card p-2.5 rounded-lg border border-border text-sm space-y-0.5">
+                                                                    <div className="flex items-center justify-between">
+                                                                        <span className="font-semibold text-foreground">{p.firstName} {p.lastName}</span>
+                                                                        <span className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded">{p.label}</span>
+                                                                    </div>
+                                                                    {p.dob && <p className="text-xs text-muted-foreground">DOB: {p.dob}</p>}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ) : booking.guest_details && Array.isArray(booking.guest_details) && booking.guest_details.length > 0 ? (
+                                                        <div className="space-y-1.5">
+                                                            {booking.guest_details.map((guest: any, idx: number) => (
+                                                                <div key={idx} className="bg-card p-2 rounded border border-border flex justify-between items-center text-sm">
+                                                                    <span className="font-medium text-foreground">{guest.name}</span>
+                                                                    {guest.passport && (
+                                                                        <span className="text-muted-foreground font-mono text-xs flex items-center gap-1">
+                                                                            <FileText size={12} /> {guest.passport}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ) : (
+                                                        <p className="text-muted-foreground text-sm">No participant details</p>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* Notes / special requests */}
+                                            {booking.booking_details?.marketing?.specialRequests && (
+                                                <div className="mt-4 p-3 bg-amber-50 border border-amber-100 rounded-xl">
+                                                    <p className="text-xs font-bold text-amber-700 mb-1">Special Requests</p>
+                                                    <p className="text-sm text-amber-800">{booking.booking_details.marketing.specialRequests}</p>
+                                                </div>
+                                            )}
+
+                                            {/* Logistics & Add-ons */}
+                                            {(booking.logistics || booking._meetingPoint || (booking.addons && booking.addons.length > 0)) && (
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 pt-4 border-t border-border">
+                                                    {/* Meeting Point — always show if available */}
+                                                    {booking._meetingPoint && (
+                                                        <div className="space-y-2">
+                                                            <h4 className="font-bold text-foreground text-xs flex items-center gap-1">
+                                                                <MapPin size={12} /> Meeting Point
+                                                            </h4>
+                                                            <p className="text-sm text-muted-foreground">{booking._meetingPoint}</p>
+                                                        </div>
+                                                    )}
+                                                    {booking.logistics && (
+                                                        <div className="space-y-2">
+                                                            <h4 className="font-bold text-foreground text-xs flex items-center gap-1">
+                                                                <MapPin size={12} /> Logistics
+                                                            </h4>
+                                                            <div className="text-sm text-muted-foreground space-y-1">
+                                                                {booking.logistics.hotelName && <p>Hotel: {booking.logistics.hotelName}</p>}
+                                                                {booking.logistics.hotelAddress && <p>Address: {booking.logistics.hotelAddress}</p>}
+                                                                {booking.logistics.dietaryRestrictions && <p>Dietary: {booking.logistics.dietaryRestrictions}</p>}
+                                                                {booking.logistics.mobilityNeeds && <p>Mobility: {booking.logistics.mobilityNeeds}</p>}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                    {booking.addons && booking.addons.length > 0 && (
+                                                        <div className="space-y-2">
+                                                            <h4 className="font-bold text-foreground text-xs">Add-ons</h4>
+                                                            <div className="space-y-1">
+                                                                {booking.addons.map((addon: any, idx: number) => (
+                                                                    <div key={idx} className="flex justify-between text-sm">
+                                                                        <span className="text-muted-foreground">{addon.name}</span>
+                                                                        <span className="font-medium">€{addon.price}</span>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+
+                                            {/* Footer */}
+                                            <div className="mt-4 pt-3 border-t border-border flex flex-wrap gap-4 text-xs text-muted-foreground font-mono">
+                                                <span>ID: {booking.id}</span>
+                                                {booking.stripe_payment_intent_id && <span>PI: {booking.stripe_payment_intent_id}</span>}
+                                                {booking.stripe_session_id && <span>Session: {booking.stripe_session_id}</span>}
+                                                {booking.created_at && <span>Created: {new Date(booking.created_at).toLocaleString()}</span>}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                    <div className="px-6 py-4 border-t border-border flex items-center justify-between">
+                        <p className="text-sm text-muted-foreground">
+                            Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1}-{Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length}
+                        </p>
+                        <div className="flex items-center gap-1">
+                            <button
+                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                disabled={currentPage === 1}
+                                className="px-3 py-1.5 text-sm rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Previous
+                            </button>
+                            {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+                                const page = i + 1;
+                                return (
+                                    <button
+                                        key={page}
+                                        onClick={() => setCurrentPage(page)}
+                                        className={`w-8 h-8 text-sm rounded-lg ${currentPage === page
+                                                ? 'bg-primary text-white'
+                                                : 'border border-border hover:bg-muted'
+                                            }`}
+                                    >
+                                        {page}
+                                    </button>
+                                );
+                            })}
+                            <button
+                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                disabled={currentPage === totalPages}
+                                className="px-3 py-1.5 text-sm rounded-lg border border-border hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
