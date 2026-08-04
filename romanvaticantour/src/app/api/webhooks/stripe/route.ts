@@ -90,9 +90,34 @@ export async function POST(request: Request) {
     const totalAmount = pi.amount / 100;
 
     try {
-      const { data: existing } = await supabaseAdmin.from('bookings').select('id').eq('stripe_payment_intent_id', pi.id).maybeSingle();
-      if (existing) return NextResponse.json({ received: true });
+      // Check if booking already exists (created by create-payment-intent)
+      const { data: existing } = await supabaseAdmin
+        .from('bookings')
+        .select('id, status')
+        .eq('stripe_payment_intent_id', pi.id)
+        .maybeSingle();
 
+      if (existing) {
+        // Update existing pending booking to confirmed
+        if (existing.status === 'pending') {
+          await supabaseAdmin
+            .from('bookings')
+            .update({ status: 'confirmed', total_amount: totalAmount })
+            .eq('id', existing.id);
+
+          // Reserve inventory for the existing booking
+          const reservation = await reserveInventory(tourSlug, date, time, guestCount);
+          if (!reservation.success) {
+            console.error('Inventory reservation failed for existing booking:', reservation.error);
+          }
+
+          await logAuditAction('system', 'stripe_webhook', 'booking_confirmed', 'booking', existing.id, { tour_title: tourTitle, lead_email: email, total_amount: totalAmount, tenant: siteId, payment_intent_id: pi.id });
+          await sendEmails(siteId, email, `${firstName} ${lastName}`, tourTitle, date, time, guests, totalAmount, pi.id, meta);
+        }
+        return NextResponse.json({ received: true, updated: existing.id });
+      }
+
+      // No existing booking — create one (legacy flow / checkout.session fallback)
       const reservation = await reserveInventory(tourSlug, date, time, guestCount);
       if (!reservation.success) {
         console.error('Inventory reservation failed:', reservation.error);
@@ -139,10 +164,33 @@ export async function POST(request: Request) {
     const email = meta.leadEmail || session.customer_email || '';
     const guestCounts = parseGuestCounts(meta);
     const totalAmount = (session.amount_total || 0) / 100;
+    const piId = session.payment_intent || session.id;
 
     try {
-      const { data: existing } = await supabaseAdmin.from('bookings').select('id').eq('stripe_payment_intent_id', session.payment_intent).maybeSingle();
-      if (existing) return NextResponse.json({ received: true });
+      // Check if booking already exists (created by checkout route)
+      const { data: existing } = await supabaseAdmin
+        .from('bookings')
+        .select('id, status')
+        .eq('stripe_payment_intent_id', piId)
+        .maybeSingle();
+
+      if (existing) {
+        if (existing.status === 'pending') {
+          await supabaseAdmin
+            .from('bookings')
+            .update({ status: 'confirmed', total_amount: totalAmount })
+            .eq('id', existing.id);
+
+          const reservation = await reserveInventory(tourSlug, date, time, guestCount);
+          if (!reservation.success) {
+            console.error('Inventory reservation failed for existing booking:', reservation.error);
+          }
+
+          await logAuditAction('system', 'stripe_webhook', 'booking_confirmed', 'booking', existing.id, { tour_title: tourTitle, lead_email: email, total_amount: totalAmount, tenant: siteId, session_id: session.id });
+          await sendEmails(siteId, email, `${firstName} ${lastName}`, tourTitle, date, time, guests, totalAmount, session.id, meta);
+        }
+        return NextResponse.json({ received: true, updated: existing.id });
+      }
 
       const reservation = await reserveInventory(tourSlug, date, time, guestCount);
       if (!reservation.success) {
@@ -156,7 +204,7 @@ export async function POST(request: Request) {
         lead_first_name: firstName, lead_last_name: lastName,
         lead_email: email, lead_phone: meta.leadPhone || null,
         status: 'confirmed',
-        stripe_payment_intent_id: session.payment_intent || session.id,
+        stripe_payment_intent_id: piId,
         guest_counts: guestCounts,
         tenant: siteId,
         notes: meta.notes || null,

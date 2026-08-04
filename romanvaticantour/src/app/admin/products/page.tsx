@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Plus, Search, Edit, Eye, Trash2, Globe, Clock, Loader2 } from 'lucide-react';
+import { Plus, Search, Edit, Eye, Trash2, Globe, Clock, Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import { useAdmin } from '@/context/AdminContext';
 import { urlFor } from '@/sanity/lib/image';
@@ -14,6 +14,7 @@ export default function AdminProductsPage() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [tours, setTours] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [search, setSearch] = useState('');
 
     // Edit Modal State
@@ -25,25 +26,28 @@ export default function AdminProductsPage() {
     const [saving, setSaving] = useState(false);
     const [imageFile, setImageFile] = useState<File | null>(null);
 
-    useEffect(() => {
+    const loadTours = async () => {
         if (!selectedSiteId) return;
-
-        const loadTours = async () => {
-            setLoading(true);
-            try {
-                // Dynamically import to ensure client-side execution if needed, 
-                // though usually we can just import at top if it's safe.
-                // Using the updated getTours with siteId
-                const { getTours } = await import('@/lib/dataAdapter');
-                const data = await getTours(selectedSiteId);
-                setTours(data);
-            } catch (error) {
-                console.error("Failed to load tours", error);
-            } finally {
-                setLoading(false);
+        setLoading(true);
+        setError(null);
+        try {
+            // Use server-side API to avoid browser CORS/CDN issues with Sanity client
+            const res = await fetch(`/api/admin/tours?siteId=${encodeURIComponent(selectedSiteId)}`);
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.detail || `HTTP ${res.status}`);
             }
-        };
+            const data = await res.json();
+            setTours(data.tours || []);
+        } catch (err: any) {
+            console.error("Failed to load tours", err);
+            setError(err.message || 'Failed to load tours');
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    useEffect(() => {
         loadTours();
     }, [selectedSiteId]);
 
@@ -121,17 +125,8 @@ export default function AdminProductsPage() {
                 setEditingTour(null);
                 setFormData({});
                 setImageFile(null);
-                // Refresh local data
-
-                // Optimized: Update local state instead of full reload if possible? 
-                // For now, full reload or just re-fetch is safer to see Server Side changes.
-                // We will trigger a re-fetch by flipping a toggle or calling router.refresh()
                 router.refresh();
-
-                // Also trigger our local loadTours check
-                const { getTours } = await import('@/lib/dataAdapter');
-                const newData = await getTours(selectedSiteId);
-                setTours(newData);
+                loadTours();
             } else {
                 alert(`Error: ${result.error}`);
             }
@@ -192,11 +187,31 @@ export default function AdminProductsPage() {
                         <tbody className="divide-y divide-gray-100">
                             {loading ? (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-8 text-center text-muted-foreground">Loading tours...</td>
+                                    <td colSpan={6} className="px-6 py-8 text-center text-muted-foreground">
+                                        <Loader2 className="animate-spin h-6 w-6 mx-auto mb-2" />
+                                        Loading tours...
+                                    </td>
+                                </tr>
+                            ) : error ? (
+                                <tr>
+                                    <td colSpan={6} className="px-6 py-8 text-center">
+                                        <AlertTriangle className="h-8 w-8 mx-auto mb-2 text-amber-500" />
+                                        <p className="text-red-600 font-medium mb-2">Failed to load tours</p>
+                                        <p className="text-xs text-muted-foreground mb-3">{error}</p>
+                                        <button
+                                            onClick={loadTours}
+                                            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+                                        >
+                                            <RefreshCw size={14} />
+                                            Retry
+                                        </button>
+                                    </td>
                                 </tr>
                             ) : filteredTours.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-8 text-center text-muted-foreground">No tours found matching "{search}"</td>
+                                    <td colSpan={6} className="px-6 py-8 text-center text-muted-foreground">
+                                        {search ? `No tours found matching "${search}"` : 'No tours found. Create your first tour in Sanity Studio.'}
+                                    </td>
                                 </tr>
                             ) : (
                                 filteredTours.map((tour) => (

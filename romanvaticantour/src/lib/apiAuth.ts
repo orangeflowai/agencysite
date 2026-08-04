@@ -15,6 +15,9 @@ export async function requireAdmin(): Promise<{ authorized: boolean; userId?: st
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
+        cookieOptions: {
+          name: 'wonders-auth-token',
+        },
         cookies: {
           get(name: string) {
             return cookieStore.get(name)?.value

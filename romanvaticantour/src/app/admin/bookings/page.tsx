@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { supabase } from '@/lib/supabase';
 import {
     Loader2, Mail, Calendar, User, ChevronDown, ChevronUp,
-    FileText, Search, Filter, Download, Phone, Clock,
+    FileText, Search, Download, Phone, Clock,
     MapPin, CheckCircle, XCircle, AlertCircle, Users,
-    ArrowUpDown, RefreshCw
+    ArrowUpDown, RefreshCw, CreditCard, ExternalLink
 } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 25;
@@ -14,36 +13,45 @@ const ITEMS_PER_PAGE = 25;
 export default function BookingsPage() {
     const [bookings, setBookings] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const [expandedMap, setExpandedMap] = useState<Record<string, boolean>>({});
     const [searchTerm, setSearchTerm] = useState('');
     const [statusFilter, setStatusFilter] = useState<string>('all');
     const [sortField, setSortField] = useState<string>('created_at');
     const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
     const [currentPage, setCurrentPage] = useState(1);
+    const [stats, setStats] = useState({ total: 0, confirmed: 0, pending: 0, cancelled: 0, revenue: 0 });
+
+    const siteId = useMemo(() => {
+        if (typeof window !== 'undefined') {
+            return process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
+        }
+        return 'romanvaticantour';
+    }, []);
+
+    const fetchBookings = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await fetch(`/api/admin/bookings?siteId=${encodeURIComponent(siteId)}`);
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.detail || `HTTP ${res.status}`);
+            }
+            const data = await res.json();
+            setBookings(data.bookings || []);
+            setStats(data.stats || { total: 0, confirmed: 0, pending: 0, cancelled: 0, revenue: 0 });
+        } catch (err: any) {
+            console.error("Error fetching bookings:", err);
+            setError(err.message || 'Failed to fetch bookings');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         fetchBookings();
     }, []);
-
-    async function fetchBookings() {
-        setLoading(true);
-        try {
-            // Fetch bookings for THIS site only (multi-tenant isolation)
-            const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
-            const { data, error } = await supabase
-                .from('bookings')
-                .select('*')
-                .eq('tenant', siteId)
-                .order('created_at', { ascending: false });
-
-            if (error) throw error;
-            setBookings(data || []);
-        } catch (err) {
-            console.error("Error fetching bookings:", err);
-        } finally {
-            setLoading(false);
-        }
-    }
 
     const toggleExpand = (id: string) => {
         setExpandedMap(prev => ({ ...prev, [id]: !prev[id] }));
@@ -84,14 +92,8 @@ export default function BookingsPage() {
     const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
     const paginated = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
-    // Stats
-    const stats = useMemo(() => {
-        const paid = bookings.filter(b => b.status === 'confirmed');
-        const pending = bookings.filter(b => b.status === 'pending');
-        const cancelled = bookings.filter(b => b.status === 'cancelled');
-        const revenue = paid.reduce((sum, b) => sum + (b.total_amount || 0), 0);
-        return { total: bookings.length, paid: paid.length, pending: pending.length, cancelled: cancelled.length, revenue };
-    }, [bookings]);
+    // Stats (now from API)
+    const displayStats = stats;
 
     const toggleSort = (field: string) => {
         if (sortField === field) {
@@ -135,6 +137,24 @@ export default function BookingsPage() {
         return (
             <div className="flex items-center justify-center py-20">
                 <Loader2 className="animate-spin h-8 w-8 text-primary" />
+                <span className="ml-3 text-muted-foreground">Loading bookings...</span>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex flex-col items-center justify-center py-20">
+                <AlertCircle className="h-10 w-10 text-red-500 mb-4" />
+                <p className="text-red-600 font-medium mb-2">Failed to load bookings</p>
+                <p className="text-xs text-muted-foreground mb-4">{error}</p>
+                <button
+                    onClick={fetchBookings}
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg hover:opacity-90"
+                >
+                    <RefreshCw size={14} />
+                    Retry
+                </button>
             </div>
         );
     }
@@ -145,7 +165,7 @@ export default function BookingsPage() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-foreground">Bookings</h1>
-                    <p className="text-muted-foreground mt-1">{stats.total} total bookings · €{stats.revenue.toLocaleString('en', { minimumFractionDigits: 2 })} revenue</p>
+                    <p className="text-muted-foreground mt-1">{displayStats.total} total bookings · €{(displayStats.revenue || 0).toLocaleString('en', { minimumFractionDigits: 2 })} revenue</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <button onClick={fetchBookings} className="p-2 text-muted-foreground hover:text-muted-foreground hover:bg-gray-100 rounded-lg transition-colors" title="Refresh">
@@ -161,10 +181,10 @@ export default function BookingsPage() {
             {/* Status Tabs */}
             <div className="flex flex-wrap gap-2">
                 {[
-                    { key: 'all', label: 'All', count: stats.total },
-                    { key: 'confirmed', label: 'Confirmed', count: stats.paid },
-                    { key: 'pending', label: 'Pending', count: stats.pending },
-                    { key: 'cancelled', label: 'Cancelled', count: stats.cancelled },
+                    { key: 'all', label: 'All', count: displayStats.total },
+                    { key: 'confirmed', label: 'Confirmed', count: displayStats.confirmed },
+                    { key: 'pending', label: 'Pending', count: displayStats.pending },
+                    { key: 'cancelled', label: 'Cancelled', count: displayStats.cancelled },
                 ].map(tab => (
                     <button
                         key={tab.key}
@@ -385,9 +405,65 @@ export default function BookingsPage() {
                                             {/* Footer info */}
                                             <div className="mt-4 pt-3 border-t border-border flex flex-wrap gap-4 text-xs text-muted-foreground font-mono">
                                                 <span>ID: {booking.id}</span>
-                                                {booking.stripe_payment_intent_id && <span>Stripe: {booking.stripe_payment_intent_id}</span>}
+                                                {booking.stripe_payment_intent_id && <span>Stripe PI: {booking.stripe_payment_intent_id}</span>}
                                                 {booking.created_at && <span>Created: {new Date(booking.created_at).toLocaleString()}</span>}
                                             </div>
+
+                                            {/* Stripe Payment Details */}
+                                            {booking.stripe_payment_intent_id && (
+                                                <div className="mt-4 pt-3 border-t border-border">
+                                                    <h4 className="font-bold text-foreground text-xs flex items-center gap-1 mb-3">
+                                                        <CreditCard size={12} /> Stripe Payment
+                                                    </h4>
+                                                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                                                        <div>
+                                                            <p className="text-xs text-muted-foreground mb-0.5">Payment Status</p>
+                                                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                                                                booking.stripe_payment_status === 'succeeded' ? 'bg-emerald-100 text-emerald-700' :
+                                                                booking.stripe_payment_status === 'requires_payment_method' ? 'bg-red-100 text-red-700' :
+                                                                booking.stripe_payment_status === 'stripe_lookup_failed' ? 'bg-amber-100 text-amber-700' :
+                                                                'bg-gray-100 text-gray-700'
+                                                            }`}>
+                                                                {booking.stripe_payment_status || 'N/A'}
+                                                            </span>
+                                                        </div>
+                                                        {booking.stripe_card_brand && (
+                                                            <div>
+                                                                <p className="text-xs text-muted-foreground mb-0.5">Card</p>
+                                                                <p className="font-medium text-foreground capitalize">
+                                                                    {booking.stripe_card_brand} •••• {booking.stripe_card_last4}
+                                                                </p>
+                                                            </div>
+                                                        )}
+                                                        {booking.stripe_customer_name && (
+                                                            <div>
+                                                                <p className="text-xs text-muted-foreground mb-0.5">Stripe Customer</p>
+                                                                <p className="font-medium text-foreground">{booking.stripe_customer_name}</p>
+                                                            </div>
+                                                        )}
+                                                        {booking.stripe_amount_received != null && (
+                                                            <div>
+                                                                <p className="text-xs text-muted-foreground mb-0.5">Amount Received</p>
+                                                                <p className="font-medium text-foreground">€{booking.stripe_amount_received}</p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    {booking.stripe_receipt_url && (
+                                                        <a
+                                                            href={booking.stripe_receipt_url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-1 mt-3 text-xs text-primary hover:underline"
+                                                        >
+                                                            <ExternalLink size={12} />
+                                                            View Stripe Receipt
+                                                        </a>
+                                                    )}
+                                                    {booking.stripe_failure_message && (
+                                                        <p className="mt-2 text-xs text-red-600">Stripe error: {booking.stripe_failure_message}</p>
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>

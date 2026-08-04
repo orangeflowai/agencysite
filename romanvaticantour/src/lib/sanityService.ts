@@ -126,6 +126,15 @@ export const client = createClient({
     useCdn: true, // Enable CDN for better performance and higher rate limits
 });
 
+// Admin client bypasses CDN — always returns fresh data for dashboard
+export const adminClient = createClient({
+    projectId,
+    dataset,
+    apiVersion,
+    useCdn: false,
+    token: process.env.SANITY_API_TOKEN,
+});
+
 /** Extract plain text from Portable Text blocks */
 export function extractPortableText(blocks: any): string {
   if (!blocks) return '';
@@ -294,10 +303,21 @@ export async function getAllTours(): Promise<Tour[]> {
             reviewCount,
             tags,
             guestTypes,
-            sites[]->{ _id, title, slug }
+            sites[]->{ _id, title, slug },
+            includes,
+            excludes,
+            importantInfo,
+            groupSize,
+            location,
+            meetingPoint,
+            maxParticipants,
+            gallery,
+            slots,
+            itinerary
         }`;
 
-        return await client.fetch(query, {}, { next: { revalidate: 0 } });
+        // Use admin client (no CDN) for dashboard freshness
+        return await adminClient.fetch(query);
     } catch (error) {
         console.error('Failed to fetch all tours:', error);
         return [];

@@ -1,7 +1,8 @@
 import { supabaseAdmin } from './supabaseAdmin';
 
-export type AuditAction = 
+export type AuditAction =
   | 'booking_created'
+  | 'booking_confirmed'
   | 'booking_updated'
   | 'booking_cancelled'
   | 'refund_issued'
