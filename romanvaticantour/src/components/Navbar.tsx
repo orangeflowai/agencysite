@@ -31,6 +31,16 @@ export default function Navbar() {
         { name: 'Contact', href: '/contact' },
     ];
 
+    const handleNavClick = (e: React.MouseEvent, href: string) => {
+        if (href.startsWith('/#')) {
+            const id = href.slice(2);
+            if (pathname === '/') {
+                e.preventDefault();
+                document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
     const scrolled = isScrolled || isMobileMenuOpen;
 
     return (
@@ -95,6 +105,7 @@ export default function Navbar() {
                                     <Link
                                         key={link.href}
                                         href={link.href}
+                                        onClick={(e) => handleNavClick(e, link.href)}
                                         className={clsx(
                                             'text-[10px] xl:text-xs font-serif font-bold  tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
                                             'after:absolute after:bottom-0 after:left-0 after:h-[1px] after:transition-all after:duration-500',
@@ -112,6 +123,7 @@ export default function Navbar() {
                         <div className="hidden lg:flex items-center gap-3 shrink-0 ml-4">
                             <Link
                                 href="/#tours"
+                                onClick={(e) => handleNavClick(e, '/#tours')}
                                 className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full text-xs font-bold tracking-widest transition-all shadow-md active:scale-95"
                             >
                                 BOOK NOW
@@ -143,7 +155,7 @@ export default function Navbar() {
                                         key={link.href}
                                         href={link.href}
                                         className="block px-3 py-4 text-sm font-serif font-bold text-foreground hover:text-primary border-b border-primary/10"
-                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        onClick={(e) => { handleNavClick(e, link.href); setIsMobileMenuOpen(false); }}
                                     >
                                         {link.name}
                                     </Link>
@@ -151,8 +163,8 @@ export default function Navbar() {
                                 <div className="pt-4 px-3">
                                     <Link
                                         href="/#tours"
+                                        onClick={(e) => { handleNavClick(e, '/#tours'); setIsMobileMenuOpen(false); }}
                                         className="block w-full bg-primary text-white text-center py-4 rounded-xl font-bold tracking-widest text-xs"
-                                        onClick={() => setIsMobileMenuOpen(false)}
                                     >
                                         BOOK NOW
                                     </Link>
