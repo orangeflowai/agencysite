@@ -60,7 +60,8 @@ export async function POST(request: Request) {
     }
 
     const tenant = body.tenant || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
-    const payload: any = { tour_slug, date, time, available_slots, tenant };
+    const total_slots = body.total_slots ?? available_slots;
+    const payload: any = { tour_slug, date, time, available_slots, total_slots, tenant };
     if (price_override != null && price_override !== '') payload.price_override = price_override;
 
     const { data, error } = await supabaseAdmin
