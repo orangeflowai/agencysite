@@ -18,10 +18,10 @@ export default function InventoryPage() {
         async function loadTours() {
             setLoading(true);
             try {
-                // Import dynamically to avoid build check issues if any, or just standard import
-                const { getTours } = await import('@/lib/dataAdapter');
-                const data = await getTours(selectedSiteId);
-                setTours(data);
+                const res = await fetch(`/api/admin/tours?siteId=${encodeURIComponent(selectedSiteId)}`);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+                setTours(data.tours || []);
             } catch (error) {
                 console.error("Failed to load tours", error);
             } finally {

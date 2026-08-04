@@ -3,16 +3,38 @@ import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { requireAdmin } from '@/lib/apiAuth';
 
-// GET - fetch slots for a tour/date
+// GET - fetch slots: by tour/date (single day) OR by date range with tenant
 export async function GET(request: Request) {
     const auth = await requireAdmin();
     if (!auth.authorized) return auth.errorResponse;
     const { searchParams } = new URL(request.url);
     const tourSlug = searchParams.get('tourSlug');
     const date = searchParams.get('date');
+    const start = searchParams.get('start');
+    const end = searchParams.get('end');
+    const tenant = searchParams.get('tenant') || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
 
+    // Month-range query (calendar view)
+    if (start && end) {
+        let query = supabaseAdmin
+            .from('inventory')
+            .select('*')
+            .gte('date', start)
+            .lte('date', end)
+            .eq('tenant', tenant);
+
+        if (tourSlug) {
+            query = query.eq('tour_slug', tourSlug);
+        }
+
+        const { data, error } = await query.order('date').order('time');
+        if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ slots: data });
+    }
+
+    // Single-day query (ManageSlotsModal)
     if (!tourSlug || !date) {
-        return NextResponse.json({ error: 'Missing tourSlug or date' }, { status: 400 });
+        return NextResponse.json({ error: 'Missing tourSlug or date (or start/end for range)' }, { status: 400 });
     }
 
     const { data, error } = await supabaseAdmin
@@ -37,7 +59,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const payload: any = { tour_slug, date, time, available_slots };
+    const tenant = body.tenant || process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour';
+    const payload: any = { tour_slug, date, time, available_slots, tenant };
     if (price_override != null && price_override !== '') payload.price_override = price_override;
 
     const { data, error } = await supabaseAdmin

@@ -129,7 +129,6 @@ export async function POST(req: Request) {
         const { error: bookingError } = await supabaseAdmin
             .from('bookings')
             .insert({
-                tour_slug: tourSlug,
                 tour_title: tourTitle,
                 date: date,
                 time: time,

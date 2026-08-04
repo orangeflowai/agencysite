@@ -125,7 +125,7 @@ export async function POST(request: Request) {
       }
 
       const { data: booking, error: bookingError } = await supabaseAdmin.from('bookings').insert({
-        tour_title: tourTitle, tour_slug: tourSlug, date, time, guests: guestCount,
+        tour_title: tourTitle, date, time, guests: guestCount,
         total_amount: totalAmount, currency: 'eur',
         lead_first_name: firstName, lead_last_name: lastName,
         lead_email: email, lead_phone: meta.leadPhone || null,
@@ -199,7 +199,7 @@ export async function POST(request: Request) {
       }
 
       const { data: booking, error: bookingError } = await supabaseAdmin.from('bookings').insert({
-        tour_title: tourTitle, tour_slug: tourSlug, date, time, guests: guestCount,
+        tour_title: tourTitle, date, time, guests: guestCount,
         total_amount: totalAmount, currency: 'eur',
         lead_first_name: firstName, lead_last_name: lastName,
         lead_email: email, lead_phone: meta.leadPhone || null,

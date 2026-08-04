@@ -76,7 +76,6 @@ export async function POST(req: Request) {
       const { data: booking, error: dbError } = await supabaseAdmin
         .from('bookings')
         .insert({
-          tour_slug: tourSlug,
           tour_title: tourTitle || tour.title,
           date,
           time: time || '09:00',

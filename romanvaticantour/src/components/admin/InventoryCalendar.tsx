@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
     format,
     startOfMonth,
@@ -13,7 +13,6 @@ import {
     startOfWeek,
     endOfWeek
 } from 'date-fns';
-import { supabase } from '@/lib/supabase';
 import { Tour } from '@/lib/dataAdapter';
 import { ChevronLeft, ChevronRight, Filter, Loader2 } from 'lucide-react';
 import ManageSlotsModal, { InventorySlot } from './ManageSlotsModal';
@@ -21,6 +20,10 @@ import ManageSlotsModal, { InventorySlot } from './ManageSlotsModal';
 interface InventoryCalendarProps {
     tours: Tour[];
 }
+
+const TENANT = typeof window !== 'undefined'
+    ? (process.env.NEXT_PUBLIC_SITE_ID || 'romanvaticantour')
+    : 'romanvaticantour';
 
 export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
     const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -39,7 +42,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
 
     useEffect(() => {
         fetchMonthData();
-    }, [currentMonth]);
+    }, [currentMonth, selectedTourSlug]);
 
     async function fetchMonthData() {
         setLoading(true);
@@ -47,14 +50,26 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
         const end = format(endOfMonth(currentMonth), 'yyyy-MM-dd');
 
         try {
-            const { data, error } = await supabase
-                .from('inventory')
-                .select('*')
-                .gte('date', start)
-                .lte('date', end);
-
-            if (error) throw error;
-            setInventory(data || []);
+            // Use the admin API endpoint instead of direct Supabase client
+            const params = new URLSearchParams({
+                start,
+                end,
+                tenant: TENANT,
+            });
+            if (selectedTourSlug !== 'all') {
+                params.set('tourSlug', selectedTourSlug);
+            }
+            const res = await fetch(`/api/admin/inventory?${params.toString()}`);
+            if (!res.ok) throw new Error('Failed to fetch inventory');
+            const json = await res.json();
+            setInventory((json.slots || []).map((s: any) => ({
+                id: s.id,
+                tour_slug: s.tour_slug,
+                date: s.date,
+                time: s.time,
+                available_slots: s.available_slots,
+                price_override: s.price_override,
+            })));
         } catch (error) {
             console.error("Error fetching month inventory:", error);
         } finally {
