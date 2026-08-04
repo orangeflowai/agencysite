@@ -128,7 +128,7 @@ export async function GET(request: Request) {
     }
 }
 
-// PATCH - cancel a booking (status → cancelled, release inventory slots)
+// PATCH - cancel a booking (status → cancelled, release inventory, refund via Stripe)
 export async function PATCH(request: Request) {
     const auth = await requireAdmin();
     if (!auth.authorized) return auth.errorResponse;
@@ -152,7 +152,47 @@ export async function PATCH(request: Request) {
             return NextResponse.json({ error: 'Booking already cancelled' }, { status: 400 });
         }
 
-        // Release inventory: increment available_slots for the booked slot
+        // ── 1. STRIPE REFUND ──
+        let refundId: string | null = null;
+        let refundError: string | null = null;
+        let refundedAmount: number | null = null;
+
+        if (booking.stripe_payment_intent_id && booking.tenant) {
+            try {
+                const { getStripe } = await import('@/lib/stripe');
+                const stripe = getStripe(booking.tenant);
+
+                const pi = await stripe.paymentIntents.retrieve(booking.stripe_payment_intent_id);
+                const chargeId = (pi as any).charges?.data?.[0]?.id;
+
+                if (chargeId && pi.status === 'succeeded') {
+                    const amountCents = Math.round((booking.total_amount || pi.amount / 100) * 100);
+                    const refund = await stripe.refunds.create({
+                        charge: chargeId,
+                        amount: amountCents,
+                        reason: 'requested_by_customer' as any,
+                        metadata: {
+                            booking_id: String(booking.id),
+                            cancelled_by: 'admin',
+                            tenant: booking.tenant,
+                        },
+                    });
+                    refundId = refund.id;
+                    refundedAmount = refund.amount / 100;
+                    console.log(`[admin/bookings] Refunded €${refundedAmount} for booking ${booking.id} — refund ${refundId}`);
+                } else if (pi.status === 'requires_payment_method' || pi.status === 'canceled') {
+                    // Payment never captured — no refund needed
+                    console.log(`[admin/bookings] Payment not captured (status: ${pi.status}), skipping refund for booking ${booking.id}`);
+                } else {
+                    refundError = `Stripe PI status: ${pi.status}. Manual refund may be needed.`;
+                }
+            } catch (stripeErr: any) {
+                console.error(`[admin/bookings] Stripe refund failed for booking ${booking.id}:`, stripeErr.message);
+                refundError = stripeErr.message;
+            }
+        }
+
+        // ── 2. RELEASE INVENTORY ──
         if (booking.date && booking.time && booking.guests && booking.tenant) {
             const slug = booking.tour_slug || '';
             if (slug) {
@@ -174,9 +214,15 @@ export async function PATCH(request: Request) {
             }
         }
 
+        // ── 3. UPDATE BOOKING STATUS ──
+        const updateData: any = {
+            status: 'cancelled',
+            updated_at: new Date().toISOString(),
+        };
+
         const { data: updated, error: updateErr } = await supabaseAdmin
             .from('bookings')
-            .update({ status: 'cancelled', updated_at: new Date().toISOString() })
+            .update(updateData)
             .eq('id', id)
             .select()
             .single();
@@ -185,7 +231,12 @@ export async function PATCH(request: Request) {
             return NextResponse.json({ error: updateErr.message }, { status: 500 });
         }
 
-        return NextResponse.json({ booking: updated, cancelled: true });
+        return NextResponse.json({
+            booking: updated,
+            cancelled: true,
+            refund: refundId ? { id: refundId, amount: refundedAmount } : null,
+            refundError,
+        });
     } catch (error: any) {
         console.error('[admin/bookings] Cancel failed:', error.message);
         return NextResponse.json({ error: error.message }, { status: 500 });

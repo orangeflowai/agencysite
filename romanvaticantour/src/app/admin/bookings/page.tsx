@@ -60,7 +60,12 @@ export default function BookingsPage() {
     const [cancellingId, setCancellingId] = useState<string | null>(null);
 
     const handleCancel = async (bookingId: string) => {
-        if (!confirm('Cancel this booking? Inventory slots will be released.')) return;
+        const booking = bookings.find(b => b.id === bookingId);
+        const hasStripe = !!booking?.stripe_payment_intent_id;
+        const confirmMsg = hasStripe
+            ? 'Cancel and refund this booking via Stripe? Inventory slots will be released.'
+            : 'Cancel this booking? No Stripe payment found — refund must be done manually.';
+        if (!confirm(confirmMsg)) return;
         setCancellingId(bookingId);
         try {
             const res = await fetch('/api/admin/bookings', {
@@ -72,6 +77,13 @@ export default function BookingsPage() {
             if (!res.ok) throw new Error(json.error || 'Cancel failed');
             // Update local state
             setBookings(prev => prev.map(b => b.id === bookingId ? { ...b, status: 'cancelled' } : b));
+            if (json.refund) {
+                alert(`Booking cancelled. €${json.refund.amount} refunded via Stripe (${json.refund.id}).`);
+            } else if (json.refundError) {
+                alert(`Booking cancelled but refund failed: ${json.refundError}. Process manually in Stripe dashboard.`);
+            } else {
+                alert('Booking cancelled. No refund processed (payment may not have been captured).');
+            }
         } catch (err: any) {
             alert('Failed to cancel: ' + err.message);
         } finally {
