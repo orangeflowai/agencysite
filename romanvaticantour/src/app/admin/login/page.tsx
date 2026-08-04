@@ -20,12 +20,22 @@ export default function AdminLogin() {
         setError(null);
 
         try {
-            const { error: authError } = await supabase.auth.signInWithPassword({
+            const { data, error: authError } = await supabase.auth.signInWithPassword({
                 email,
                 password,
             });
 
             if (authError) throw authError;
+
+            // Verify admin role before redirecting — middleware enforces this,
+            // but checking here gives the user a clear error instead of a redirect loop.
+            const role = data.user?.app_metadata?.role ?? data.user?.user_metadata?.role
+            if (role !== 'admin') {
+                await supabase.auth.signOut()
+                setError('Access denied. This account does not have admin privileges.')
+                setLoading(false)
+                return
+            }
 
             router.refresh(); // Refresh to update middleware state
             router.push('/admin/dashboard');

@@ -33,8 +33,10 @@ export async function requireAdmin(): Promise<{ authorized: boolean; userId?: st
       }
     }
 
-    // Check for admin role in user metadata
-    const role = user.user_metadata?.role || user.app_metadata?.role
+    // Check for admin role. app_metadata is checked first because it can only
+    // be set server-side with the service role key. user_metadata is settable
+    // by the user during signup and must not be trusted as the primary source.
+    const role = user.app_metadata?.role ?? user.user_metadata?.role
     if (role !== 'admin') {
       return {
         authorized: false,
@@ -76,7 +78,8 @@ export async function requireAdminAction(): Promise<string> {
     throw new Error('Unauthorized: Please log in as admin')
   }
 
-  const role = user.user_metadata?.role || user.app_metadata?.role
+  // app_metadata first — only settable via service role, not by the user
+  const role = user.app_metadata?.role ?? user.user_metadata?.role
   if (role !== 'admin') {
     throw new Error('Forbidden: Admin access required')
   }
