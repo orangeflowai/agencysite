@@ -83,7 +83,7 @@ export default function CartDropdown() {
                                 </div>
                                 <p className="text-foreground font-bold  tracking-tight text-sm">Your cart is empty</p>
                                 <Link
-                                    href="/search"
+                                    href="/#tours"
                                     onClick={() => setIsCartOpen(false)}
                                     className="text-sky-600 text-xs font-bold mt-3 inline-block  tracking-widest hover:text-sky-700 transition-colors"
                                 >

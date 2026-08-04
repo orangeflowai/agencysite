@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 const NAV_LINKS = [
-  { label: 'Tours', href: '/search' },
+  { label: 'Tours', href: '/#tours' },
   { label: 'Vatican', href: '/category/vatican' },
   { label: 'Colosseum', href: '/category/colosseum' },
 ];
@@ -60,7 +60,7 @@ export function Header() {
         {/* CTA */}
         <div className="hidden items-center gap-6 md:flex">
           <Link
-            href="/search"
+            href="/#tours"
             className={`px-4 py-2 text-sm font-medium transition-all rounded-full ${isScrolled ? "bg-foreground text-background hover:opacity-80" : "bg-white text-foreground hover:bg-white/90"}`}
           >
             Book Now
@@ -93,7 +93,7 @@ export function Header() {
               </Link>
             ))}
             <Link
-              href="/search"
+              href="/#tours"
               className="mt-4 bg-foreground px-5 py-3 text-center text-sm font-medium text-background rounded-full"
               onClick={() => setIsMenuOpen(false)}
             >

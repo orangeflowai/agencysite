@@ -12,7 +12,7 @@ export default function VaticanHeader() {
   const site = useSite()
 
   const navLinks = [
-    { label: "Tours", href: "/", key: "tours" },
+    { label: "Tours", href: "/#tours", key: "tours" },
     { label: "Contact", href: "/contact", key: "contact" },
   ]
 
@@ -62,7 +62,7 @@ export default function VaticanHeader() {
               Contact
             </Link>
             <Link 
-              href="/" 
+              href="/#tours"
               className="px-6 py-2.5 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity shadow-lg shadow-primary/20"
             >
               Book Now
@@ -107,8 +107,8 @@ export default function VaticanHeader() {
               >
                 Contact
               </Link>
-              <Link 
-                href="/" 
+              <Link
+                href="/#tours"
                 className="px-6 py-3 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest rounded-full text-center hover:opacity-90 transition-opacity"
                 onClick={() => setIsMenuOpen(false)}
               >

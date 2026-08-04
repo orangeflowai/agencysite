@@ -103,7 +103,7 @@ export default function SaaSBentoFeatures() {
                                 </div>
                                 <h4 className="text-3xl font-bold mb-4 tracking-tight">Instant Ticket Delivery</h4>
                                 <p className="text-sky-50/90 text-lg leading-relaxed mb-8">Book online and get mobile tickets sent directly to your phone. No printing required, just scan and go.</p>
-                                <Link href="/search" className="inline-flex items-center gap-3 bg-card text-theme-primary font-bold  tracking-widest text-xs px-8 py-4 rounded-2xl hover:bg-neutral-50 transition-all hover:scale-105 shadow-xl">
+                                <Link href="/#tours" className="inline-flex items-center gap-3 bg-card text-theme-primary font-bold  tracking-widest text-xs px-8 py-4 rounded-2xl hover:bg-neutral-50 transition-all hover:scale-105 shadow-xl">
                                     Find Tours <ArrowRight className="w-4 h-4" />
                                 </Link>
                             </div>

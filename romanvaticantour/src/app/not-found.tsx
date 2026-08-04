@@ -22,7 +22,7 @@ export default function NotFound() {
                         Back to Home
                     </Link>
                     <Link
-                        href="/search"
+                        href="/#tours"
                         className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-border text-foreground font-semibold rounded-xl hover:bg-muted transition-colors"
                     >
                         <Search className="w-4 h-4" />

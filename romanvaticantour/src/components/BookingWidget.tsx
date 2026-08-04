@@ -66,7 +66,7 @@ export default function BookingWidget({ tour }: BookingWidgetProps) {
   const [counts, setCounts] = useState<Record<string, number>>({});
   useEffect(() => {
     const initial: Record<string, number> = {};
-    currentGuestTypes.forEach((gt, i) => { initial[gt.name] = i === 0 ? 1 : 0; });
+    currentGuestTypes.forEach((gt) => { initial[gt.name] = 0; });
     setCounts(initial);
   }, [currentGuestTypes]);
 
