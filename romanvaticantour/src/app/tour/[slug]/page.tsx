@@ -131,9 +131,8 @@ export default async function TourPage({ params }: PageProps) {
             {/* Trust strip */}
             <div className="bg-muted/30 border-b border-border/20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         <TrustBadge icon={<Zap className="w-4 h-4" />} label="Skip the Line" sub="No waiting in queues" />
-                        <TrustBadge icon={<Shield className="w-4 h-4" />} label="Free Cancellation" sub="Up to 24h before" />
                         <TrustBadge icon={<Award className="w-4 h-4" />} label="Expert Guides" sub="Licensed & certified" />
                         <TrustBadge icon={<Calendar className="w-4 h-4" />} label="Instant Confirmation" sub="Booking confirmed now" />
                     </div>
