@@ -5,7 +5,6 @@ import Link from "next/link"
 import { Menu, X, ShoppingCart } from "lucide-react"
 import { useSite } from "@/components/SiteProvider"
 import Image from "next/image"
-import { urlFor } from "@/lib/dataAdapter"
 
 export default function VaticanHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -22,22 +21,13 @@ export default function VaticanHeader() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            {site?.logo ? (
-              <Image 
-                src={urlFor(site.logo).url()} 
-                alt={site.title} 
-                width={120} 
-                height={40} 
-                className="h-8 md:h-10 w-auto"
-              />
-            ) : (
-              <>
-                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-serif text-lg">R</span>
-                </div>
-                <span className="font-serif text-xl text-foreground hidden sm:block">Roman Vatican</span>
-              </>
-            )}
+            <Image
+              src="/logo.png"
+              alt={site?.title || 'Roman Vatican Tour'}
+              width={120}
+              height={40}
+              className="h-8 md:h-10 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}

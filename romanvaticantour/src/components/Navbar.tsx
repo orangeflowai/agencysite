@@ -10,7 +10,6 @@ import Image from 'next/image';
 
 import { useLanguage } from '@/context/LanguageContext';
 import { useSite } from '@/components/SiteProvider';
-import { urlFor } from '@/lib/dataAdapter';
 import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Navbar() {
@@ -76,22 +75,14 @@ export default function Navbar() {
 
                         {/* Logo */}
                         <Link href="/" className="z-50 shrink-0 group">
-                            {site?.logo ? (
-                                <Image
-                                    src={urlFor(site.logo).url()}
-                                    alt={site.title || 'Roman Vatican Tour'}
-                                    width={150}
-                                    height={48}
-                                    className="h-8 md:h-10 lg:h-12 w-auto object-contain drop-shadow-md transition-transform group-hover:scale-105 duration-300"
-                                    priority
-                                />
-                            ) : (
-                                <div className="flex flex-col items-start justify-center transition-transform group-hover:scale-105 duration-300">
-                                    <span className="font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none text-foreground drop-shadow-md">
-                                        ROMAN <span className=" text-primary">VATICAN</span>
-                                    </span>
-                                </div>
-                            )}
+                            <Image
+                                src="/logo.png"
+                                alt={site?.title || 'Roman Vatican Tour'}
+                                width={150}
+                                height={48}
+                                className="h-8 md:h-10 lg:h-12 w-auto object-contain drop-shadow-md transition-transform group-hover:scale-105 duration-300"
+                                priority
+                            />
                         </Link>
 
                         {/* Desktop Nav Links */}

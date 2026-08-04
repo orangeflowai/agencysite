@@ -26,17 +26,24 @@ export async function generateMetadata(): Promise<Metadata> {
     description: site?.seo?.metaDescription || "Vatican pilgrimage tours & Papal Audience tickets. Catholic-focused routes with prayer time. Skip-the-line Sistine Chapel access. Book Roman Vatican Tour.",
     applicationName: "Roman Vatican Tour",
     keywords: ["Vatican pilgrimage", "Papal Audience tickets", "Catholic Rome tours", "Vatican prayer tours", "Sistine Chapel tickets", "St Peter's Basilica tours"],
+    icons: {
+      icon: "/favicon.png",
+      shortcut: "/favicon.png",
+      apple: "/favicon.png",
+    },
     openGraph: {
       siteName: "Roman Vatican Tour",
       title: site?.seo?.metaTitle || "Vatican Pilgrimage Tours & Papal Audience Tickets",
       description: site?.seo?.metaDescription || "Vatican pilgrimage tours & Papal Audience tickets. Catholic-focused routes with prayer time.",
       url: process.env.NEXT_PUBLIC_SITE_URL || "https://romanvaticantour.com",
       type: "website",
+      images: ["/logo.png"],
     },
     twitter: {
       card: "summary_large_image",
       title: site?.seo?.metaTitle || "Vatican Pilgrimage Tours",
       description: site?.seo?.metaDescription || "Catholic-focused Vatican tours with prayer time",
+      images: ["/logo.png"],
     }
   };
 }

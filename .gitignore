@@ -101,3 +101,4 @@ contextrules.txt
 
 # Kiro internal
 .kiro/
+.vercel

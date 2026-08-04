@@ -5,7 +5,6 @@ import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, ArrowRight } from 'l
 import Newsletter from './Newsletter';
 import { useLanguage } from '@/context/LanguageContext';
 import { useSite } from '@/components/SiteProvider';
-import { urlFor } from '@/lib/dataAdapter';
 import Image from 'next/image';
 import { SUPABASE_BUCKET_URL } from '@/lib/constants';
 import PaymentLogos from './PaymentLogos';
@@ -45,9 +44,6 @@ export default function Footer() {
 
     // Get site settings with fallbacks
     const siteTitle = site?.title || process.env.NEXT_PUBLIC_SITE_NAME || 'Roman Vatican Tour';
-    const logoText = site?.logoText || 'Wonders of';
-    const logoTextAccent = site?.logoTextAccent || 'Rome';
-    const logo = site?.logo?.asset?.url;
 
     // Business info — only show if set in Sanity, never show placeholder data
     const businessInfo = site?.businessInfo;
@@ -78,13 +74,7 @@ export default function Footer() {
                         {/* Brand Column */}
                         <div className="space-y-8">
                             <Link href="/" className="inline-block group">
-                                {site?.logo ? (
-                                    <Image src={urlFor(site.logo).url()} alt={site.title || 'Roman Vatican Tour'} width={120} height={40} className="h-10 w-auto object-contain" />
-                                ) : (
-                                    <span className="text-2xl font-serif font-bold tracking-tight text-white uppercase">
-                                        ROMAN <span className="text-primary ">VATICAN</span>
-                                    </span>
-                                )}
+                                <Image src="/logo.png" alt={site?.title || 'Roman Vatican Tour'} width={120} height={40} className="h-10 w-auto object-contain" />
                             </Link>
                             <p className="text-stone-400 text-sm leading-relaxed max-w-xs font-sans italic">
                                 "{site?.seo?.metaDescription || 'Excellence in Roman hospitality. Skip-the-line Vatican & Colosseum tours with expert licensed guides.'}"

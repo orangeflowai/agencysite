@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import React from 'react';
 import { useAdmin } from '@/context/AdminContext';
-import { ChevronDown, Map, Check, Loader2 } from 'lucide-react';
+import { ChevronDown, Check, Loader2 } from 'lucide-react';
 import * as Popover from '@radix-ui/react-popover';
 
 export default function SiteSwitcher() {
@@ -26,12 +26,7 @@ export default function SiteSwitcher() {
             <Popover.Trigger asChild>
                 <button className="w-full p-6 border-b border-border flex items-center gap-3 hover:bg-muted transition-colors text-left outline-none group">
                     <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-emerald-200 shadow-sm group-hover:shadow-md transition-all">
-                        {currentSite?.logo ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <Image src={currentSite.logo.asset?.url || ""} alt="Logo" width={32} height={32} className="w-full h-full object-cover rounded-lg" />
-                        ) : (
-                            <Map className="text-white w-5 h-5" />
-                        )}
+                        <Image src="/logo.png" alt="Logo" width={32} height={32} className="w-full h-full object-cover rounded-lg" />
                     </div>
                     <div className="flex-1 min-w-0">
                         <span className="block font-bold text-foreground tracking-tight truncate">
