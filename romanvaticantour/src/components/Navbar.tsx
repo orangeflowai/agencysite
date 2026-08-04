@@ -68,7 +68,7 @@ export default function Navbar() {
                     'fixed left-0 right-0 z-[10001] transition-all duration-500 border-b',
                     scrolled
                         ? 'bg-background/90 backdrop-blur-2xl shadow-[0_8px_32px_rgba(91,44,111,0.12)] border-primary/20 py-2'
-                        : 'bg-transparent border-transparent py-3 md:py-4'
+                        : 'bg-background/60 backdrop-blur-sm border-transparent py-3 md:py-4'
                 )}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -87,10 +87,7 @@ export default function Navbar() {
                                 />
                             ) : (
                                 <div className="flex flex-col items-start justify-center transition-transform group-hover:scale-105 duration-300">
-                                    <span className={clsx(
-                                        'font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none transition-colors duration-300',
-                                        scrolled ? 'text-foreground' : 'text-white drop-shadow-md'
-                                    )}>
+                                    <span className="font-serif text-2xl md:text-3xl font-bold tracking-tighter leading-none text-foreground drop-shadow-md">
                                         ROMAN <span className=" text-primary">VATICAN</span>
                                     </span>
                                 </div>
@@ -110,7 +107,7 @@ export default function Navbar() {
                                             'text-[10px] xl:text-xs font-serif font-bold  tracking-wide transition-all duration-300 whitespace-nowrap relative pb-1',
                                             'after:absolute after:bottom-0 after:left-0 after:h-[1px] after:transition-all after:duration-500',
                                             isActive ? 'after:w-full after:bg-primary text-primary' : 'after:w-0 hover:after:w-full after:bg-primary',
-                                            scrolled ? (!isActive && 'text-foreground/70 hover:text-primary') : (!isActive && 'text-white/80 hover:text-white')
+                                            !isActive && 'text-foreground/70 hover:text-primary'
                                         )}
                                     >
                                         {link.name}
@@ -133,7 +130,7 @@ export default function Navbar() {
 
                         {/* Mobile Toggle */}
                         <div className="flex items-center gap-2 lg:hidden">
-                            <button className={clsx('p-2 rounded-full backdrop-blur-md active:scale-95', scrolled ? 'text-primary bg-primary/5' : 'text-white bg-white/20')} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                            <button className="p-2 rounded-full backdrop-blur-md active:scale-95 text-primary bg-primary/5" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                             </button>
                         </div>
