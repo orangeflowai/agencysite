@@ -16,9 +16,12 @@ DELETE FROM inventory WHERE tour_slug ~ '^[0-9]+$';
 -- 4. Add index on tenant for inventory queries
 CREATE INDEX IF NOT EXISTS idx_inventory_tenant ON inventory(tenant);
 
--- 5. Seed inventory for ALL 4 Roman Vatican Tour products (90 days, 7 slots/day)
--- Only inserts rows that don't already exist (ON CONFLICT DO NOTHING)
+-- 5. Add unique constraint for upsert-safe seeding
+ALTER TABLE inventory DROP CONSTRAINT IF EXISTS inventory_tour_slug_date_time_key;
+ALTER TABLE inventory ADD CONSTRAINT inventory_tour_slug_date_time_key UNIQUE (tour_slug, date, time);
 
+-- 6. Seed inventory for ALL 4 Roman Vatican Tour products (90 days, 7 slots/day)
+-- Uses ON CONFLICT to skip existing rows
 INSERT INTO inventory (tour_id, tour_slug, date, time, available_slots, total_slots, tenant)
 SELECT
   t.tour_id,
