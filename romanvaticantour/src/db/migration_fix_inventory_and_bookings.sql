@@ -13,14 +13,24 @@ ALTER TABLE inventory ALTER COLUMN tour_id DROP NOT NULL;
 -- 3. Delete bogus inventory rows (tour_slug = numeric strings from bad seed)
 DELETE FROM inventory WHERE tour_slug ~ '^[0-9]+$';
 
--- 4. Add index on tenant for inventory queries
+-- 4. Deduplicate: keep the row with the lowest id for each (tour_slug, date, time)
+DELETE FROM inventory
+WHERE id IN (
+  SELECT id FROM (
+    SELECT id, ROW_NUMBER() OVER (PARTITION BY tour_slug, date, time ORDER BY id) AS rn
+    FROM inventory
+    WHERE tenant = 'romanvaticantour'
+  ) sub WHERE rn > 1
+);
+
+-- 5. Add index on tenant for inventory queries
 CREATE INDEX IF NOT EXISTS idx_inventory_tenant ON inventory(tenant);
 
--- 5. Add unique constraint for upsert-safe seeding
+-- 6. Add unique constraint for upsert-safe seeding
 ALTER TABLE inventory DROP CONSTRAINT IF EXISTS inventory_tour_slug_date_time_key;
 ALTER TABLE inventory ADD CONSTRAINT inventory_tour_slug_date_time_key UNIQUE (tour_slug, date, time);
 
--- 6. Seed inventory for ALL 4 Roman Vatican Tour products (90 days, 7 slots/day)
+-- 7. Seed inventory for ALL 4 Roman Vatican Tour products (90 days, 7 slots/day)
 -- Uses ON CONFLICT to skip existing rows
 INSERT INTO inventory (tour_id, tour_slug, date, time, available_slots, total_slots, tenant)
 SELECT
