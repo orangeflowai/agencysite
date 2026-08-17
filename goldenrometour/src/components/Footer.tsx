@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
-const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@goldenrometour.com';
-const contactPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 351 419 9425';
-const address = 'Via Germanico, 40, 00192 Roma, RM, Italy';
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'goldenrometours@gmail.com';
+const contactPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 380 264 4344';
+const address = process.env.NEXT_PUBLIC_OFFICE_ADDRESS || 'Via Germanico 26, 00166 Roma RM, Italy';
 
 const tourLinks = [
   { name: 'Guided Vatican Tour', href: '/tour/vatican-museums-and-sistine-chapel-guided-tour' },
@@ -102,7 +102,9 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-xs">
-            &copy; {new Date().getFullYear()} Golden Rome Tour. All rights reserved.
+            &copy; {new Date().getFullYear()} Golden Rome Tours. All rights reserved.
+            <br />
+            <span className="text-white/30">Registered in the Italian Business Register, Italian Chambers of Commerce — Reg. No. 17958971008</span>
           </p>
           <div className="flex items-center gap-4 text-white/40 text-xs">
             <span>Secure Booking</span>

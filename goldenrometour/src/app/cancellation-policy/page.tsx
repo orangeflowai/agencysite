@@ -33,7 +33,7 @@ export default function CancellationPolicy() {
 
                     <h3 className="text-2xl font-bold text-foreground mt-12">2. General Cancellation Rules</h3>
                     <p>
-                        All cancellation requests must be submitted in writing via email to <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a> or by contacting our customer service at <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}`} className="text-emerald-700 font-bold hover:underline">351 419 9425</a>. The timing is calculated in Rome local time (CET/CEST).
+                        All cancellation requests must be submitted in writing via email to <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com"}</a> or by contacting our customer service at <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+393802644344"}`} className="text-emerald-700 font-bold hover:underline">+39 380 264 4344</a>. The timing is calculated in Rome local time (CET/CEST).
                     </p>
 
                     <h3 className="text-2xl font-bold text-foreground mt-12">3. Refund Eligibility Tiers</h3>
@@ -105,8 +105,12 @@ export default function CancellationPolicy() {
                     <h3 className="text-2xl font-bold text-foreground mt-12">11. Contact Us</h3>
                     <p>For any questions:</p>
                     <ul className="list-none pl-0 space-y-2">
-                        <li><strong>Email:</strong> <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@yourdomain.com"}</a></li>
-                        <li><strong>Phone/WhatsApp:</strong> <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || ""}`} className="text-emerald-700 font-bold hover:underline">351 419 9425</a></li>
+                        <li><strong>Business name:</strong> Golden Rome Tours</li>
+                        <li><strong>Registered in:</strong> Italian Business Register, Italian Chambers of Commerce</li>
+                        <li><strong>Registration number:</strong> 17958971008</li>
+                        <li><strong>Address:</strong> Via Germanico 26, 00166 Roma RM, Italy</li>
+                        <li><strong>Email:</strong> <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com"}`} className="text-emerald-700 font-bold hover:underline">{process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com"}</a></li>
+                        <li><strong>Phone/WhatsApp:</strong> <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+393802644344"}`} className="text-emerald-700 font-bold hover:underline">+39 380 264 4344</a></li>
                     </ul>
 
                     <p className="mt-12 text-center font-bold text-foreground">

@@ -160,13 +160,13 @@ export default function FAQPage() {
                         Our Vatican specialists are here to help! Available 8:00 AM – 7:00 PM (CET).
                     </p>
                     <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@goldenrometour.com'}`} className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full border border-border hover:border-border shadow-sm transition-all hover:-translate-y-1">
+                        <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'goldenrometours@gmail.com'}`} className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full border border-border hover:border-border shadow-sm transition-all hover:-translate-y-1">
                             <Mail size={18} className="text-foreground" />
-                            {process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@goldenrometour.com'}
+                            {process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'goldenrometours@gmail.com'}
                         </a>
-                        <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+393514199425'}`} className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full hover:bg-card shadow-lg shadow-[#C9A227]/20 transition-all hover:-translate-y-1">
+                        <a href={`tel:${process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+393802644344'}`} className="flex items-center gap-2 px-6 py-3 bg-card text-foreground font-bold rounded-full hover:bg-card shadow-lg shadow-[#C9A227]/20 transition-all hover:-translate-y-1">
                             <Phone size={18} />
-                            {process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 351 419 9425"}
+                            {process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 380 264 4344"}
                         </a>
                     </div>
                 </div>

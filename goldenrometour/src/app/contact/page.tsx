@@ -41,9 +41,9 @@ export default function ContactPage() {
         }
     };
 
-    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@goldenrometour.com";
-    const contactPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 351 419 9425";
-    const address = "Via Germanico, 40, 00192 Roma, RM, Italy";
+    const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com";
+    const contactPhone = process.env.NEXT_PUBLIC_SUPPORT_PHONE || "+39 380 264 4344";
+    const address = process.env.NEXT_PUBLIC_OFFICE_ADDRESS || "Via Germanico 26, 00166 Roma RM, Italy";
 
     return (
         <main className="min-h-screen bg-background text-foreground">
@@ -97,7 +97,7 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-bold text-lg text-foreground mb-1">Visit Our Office</h3>
                                     <p className="text-muted-foreground leading-relaxed">{address}</p>
-                                    <p className="text-muted-foreground text-xs mt-1 uppercase tracking-wider font-bold">Near Vatican Museums</p>
+                                    <p className="text-muted-foreground text-xs mt-1 uppercase tracking-wider font-bold">Golden Rome Tours · Reg. No. 17958971008</p>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,7 @@ export default function ContactPage() {
                                     name="phone"
                                     type="tel"
                                     className="w-full px-4 py-3 bg-muted border-2 border-transparent focus:border-primary/20 rounded-xl focus:bg-background focus:ring-4 focus:ring-primary/10 outline-none transition-all font-medium text-foreground"
-                                    placeholder="+39 351 419 9425"
+                                    placeholder="+39 380 264 4344"
                                     value={formData.phone}
                                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                 />

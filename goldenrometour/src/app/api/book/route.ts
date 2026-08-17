@@ -51,7 +51,7 @@ export async function POST(request: Request) {
                                 
                                 <p style="color: #666;">Please arrive 15 minutes before your scheduled time. Remember to bring a valid ID and dress appropriately (shoulders and knees covered).</p>
                                 
-                                <p>Questions? Contact us at <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@goldenrometour.com"}">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@goldenrometour.com"}</a></p>
+                                <p>Questions? Contact us at <a href="mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com"}">${process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com"}</a></p>
                             </div>
                             <div style="background: #333; padding: 20px; text-align: center; color: #999; font-size: 12px;">
                                 © ${new Date().getFullYear()} ${process.env.NEXT_PUBLIC_SITE_URL || "goldenrometour.com"}. All rights reserved.

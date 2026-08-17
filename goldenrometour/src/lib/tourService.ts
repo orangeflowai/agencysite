@@ -85,6 +85,12 @@ function rowToTour(row: any): Tour {
   }
 }
 
+// Only these two tours may ever be shown, regardless of DB contents.
+export const ALLOWED_SLUGS = [
+  'vatican-museums-and-sistine-chapel-guided-tour',
+  'vatican-museums-sistine-chapel-skip-the-line',
+]
+
 export async function getTours(): Promise<Tour[]> {
   try {
     const { data, error } = await supabaseAdmin
@@ -92,7 +98,10 @@ export async function getTours(): Promise<Tour[]> {
       .select('*')
       .eq('active', true)
       .order('sort_order')
-    if (!error && data && data.length > 0) return data.map(rowToTour)
+    if (!error && data && data.length > 0) {
+      const allowed = data.filter((r) => ALLOWED_SLUGS.includes(r.slug))
+      if (allowed.length > 0) return allowed.map(rowToTour)
+    }
   } catch (e) {
     console.error('[tourService] tours read failed, using static fallback', e)
   }
@@ -100,6 +109,8 @@ export async function getTours(): Promise<Tour[]> {
 }
 
 export async function getTour(slug: string): Promise<Tour | null> {
+  if (!ALLOWED_SLUGS.includes(slug)) return null
+
   try {
     const { data, error } = await supabaseAdmin
       .from('tours')

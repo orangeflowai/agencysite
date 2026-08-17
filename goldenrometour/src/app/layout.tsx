@@ -66,14 +66,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'TravelAgency',
-              name: 'Golden Rome Tour',
+              name: 'Golden Rome Tours',
               description:
                 'Official Vatican Museums & Sistine Chapel tours with accredited art historians. Skip-the-line access.',
               url: siteUrl,
               priceRange: '€45–€65',
               address: {
                 '@type': 'PostalAddress',
-                addressLocality: 'Rome',
+                streetAddress: 'Via Germanico 26',
+                addressLocality: 'Roma',
+                postalCode: '00166',
                 addressRegion: 'Lazio',
                 addressCountry: 'IT',
               },

@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
+import { ALLOWED_SLUGS } from '@/lib/tourService'
 
 export async function GET() {
   const { data, error } = await supabaseAdmin
@@ -8,7 +9,8 @@ export async function GET() {
     .select('*')
     .order('sort_order')
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json({ tours: data || [] })
+  const tours = (data || []).filter((t: any) => ALLOWED_SLUGS.includes(t.slug))
+  return NextResponse.json({ tours })
 }
 
 export async function PUT(request: Request) {

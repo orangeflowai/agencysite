@@ -5,11 +5,14 @@ export const siteConfig = {
   id: siteId,
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com',
-  email: process.env.EMAIL_FROM || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@romeagency.com",
-  adminEmail: process.env.ADMIN_EMAIL || 'wondersoffrome@gmail.com',
-  phone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 351 419 9425',
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '3514199425',
-  address: process.env.NEXT_PUBLIC_OFFICE_ADDRESS || 'Rome, Italy',
+  email: process.env.EMAIL_FROM || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com",
+  adminEmail: process.env.ADMIN_EMAIL || 'admin@goldenrometour.com',
+  phone: process.env.NEXT_PUBLIC_SUPPORT_PHONE || '+39 380 264 4344',
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '3802644344',
+  address: process.env.NEXT_PUBLIC_OFFICE_ADDRESS || 'Via Germanico 26, 00166 Roma RM, Italy',
+  legalName: 'Golden Rome Tours',
+  registrationNumber: '17958971008',
+  registeredIn: 'Italian Business Register, Italian Chambers of Commerce',
   stripePublishableKey:
     (process.env as any)[`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY_${stripeSuffix}`] ||
     process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ||
