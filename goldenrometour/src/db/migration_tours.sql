@@ -1,5 +1,8 @@
 -- goldenrometour: editable tours table (2 products)
-create table if not exists tours (
+-- Drop any stale/incorrectly-schema'd tours table first so this recreates it cleanly.
+drop table if exists tours cascade;
+
+create table tours (
   id uuid default gen_random_uuid() primary key,
   slug text not null unique,
   title text not null,
