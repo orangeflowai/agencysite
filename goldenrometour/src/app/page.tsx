@@ -5,7 +5,7 @@ import TourCardWide from '@/components/TourCardWide';
 import TestimonialRow from '@/components/TestimonialRow';
 import FaqPreview from '@/components/FaqPreview';
 import Footer from '@/components/Footer';
-import { getTours } from '@/lib/dataAdapter';
+import { getTours } from '@/lib/tourService';
 
 export const revalidate = 300;
 

@@ -16,65 +16,6 @@ function determineSiteFromEvent(event: any): string {
   return process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 }
 
-/** Write booking to Payload CMS (non-blocking — never fails the webhook) */
-async function writeToPayload(siteId: string, bookingData: {
-  tourTitle: string; tourSlug: string; date: string; time: string;
-  guestCount: number; adults: number; students: number; youths: number;
-  name: string; email: string; phone: string;
-  totalAmount: number; stripePaymentIntentId: string; stripeChargeId?: string;
-  addOns: any[];
-}) {
-  const payloadUrl = process.env.PAYLOAD_API_URL;
-  const apiKey = process.env.PAYLOAD_API_KEY;
-  if (!payloadUrl || !apiKey) return;
-
-  try {
-    const { nanoid } = await import('nanoid');
-    const bookingRef = nanoid(8).toUpperCase();
-    const pin = nanoid(6).toUpperCase();
-
-    await fetch(`${payloadUrl}/api/bookings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-tenant-id': siteId,
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        tenant: siteId,
-        bookingRef,
-        pin,
-        status: 'confirmed',
-        date: bookingData.date,
-        time: bookingData.time,
-        adults: bookingData.adults,
-        students: bookingData.students,
-        youths: bookingData.youths,
-        totalGuests: bookingData.guestCount,
-        totalAmount: bookingData.totalAmount,
-        currency: 'eur',
-        stripePaymentIntentId: bookingData.stripePaymentIntentId,
-        stripeChargeId: bookingData.stripeChargeId || '',
-        leadTraveler: {
-          firstName: bookingData.name.split(' ')[0] || '',
-          lastName: bookingData.name.split(' ').slice(1).join(' ') || '',
-          email: bookingData.email,
-          phone: bookingData.phone,
-        },
-        addons: bookingData.addOns.map((a: any) => ({
-          name: a.name,
-          price: a.price,
-          quantity: a.quantity,
-          total: a.price * a.quantity,
-        })),
-        emailStatus: 'sent',
-      }),
-    });
-  } catch (err) {
-    console.warn('[webhook] Payload write failed (non-blocking):', err);
-  }
-}
-
 async function sendEmails(siteId: string, email: string, name: string, tourTitle: string, date: string, time: string, guests: string, totalAmount: number, orderId: string, metadata: any) {
   if (!process.env.RESEND_API_KEY) return;
   const senderName = process.env.NEXT_PUBLIC_SITE_NAME || siteId;
@@ -143,9 +84,6 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Booking creation failed' }, { status: 500 });
       }
 
-      // Dual-write to Payload CMS
-      await writeToPayload(siteId, { tourTitle, tourSlug, date, time, guestCount, adults, students, youths, name, email, phone: meta.leadPhone || '', totalAmount, stripePaymentIntentId: pi.id, addOns });
-
       await logAuditAction('system', 'stripe_webhook', 'booking_created', 'booking', booking.id, { tour_title: tourTitle, customer_email: email, total_price: totalAmount, site_id: siteId, payment_intent_id: pi.id });
       await sendEmails(siteId, email, name, tourTitle, date, time, guests, totalAmount, pi.id, meta);
 
@@ -190,9 +128,6 @@ export async function POST(request: Request) {
         await releaseInventory(tourSlug, date, time, guestCount);
         return NextResponse.json({ error: 'Booking creation failed' }, { status: 500 });
       }
-
-      // Dual-write to Payload CMS
-      await writeToPayload(siteId, { tourTitle, tourSlug, date, time, guestCount, adults, students, youths, name, email, phone: meta.leadPhone || '', totalAmount, stripePaymentIntentId: session.payment_intent || '', addOns });
 
       await logAuditAction('system', 'stripe_webhook', 'booking_created', 'booking', booking.id, { tour_title: tourTitle, customer_email: email, total_price: totalAmount, site_id: siteId, session_id: session.id });
       await sendEmails(siteId, email, name, tourTitle, date, time, guests, totalAmount, session.id, meta);

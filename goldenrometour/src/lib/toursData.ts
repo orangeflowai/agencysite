@@ -23,7 +23,7 @@ export type TourProduct = {
 export const tours: TourProduct[] = [
     {
         id: 'vatican-museums-and-sistine-chapel-guided-tour',
-        title: 'Complete Guided Tour: Vatican Museums & Sistine Chapel',
+        title: 'Vatican Museums & Sistine Chapel Guided Tour',
         slug: 'vatican-museums-and-sistine-chapel-guided-tour',
         category: 'vatican',
         tourType: 'Guided Tour',
@@ -66,7 +66,7 @@ export const tours: TourProduct[] = [
     },
     {
         id: 'vatican-museums-sistine-chapel-skip-the-line',
-        title: 'Skip-the-Line: Vatican Museums & Sistine Chapel Ticket',
+        title: 'Vatican Museums & Sistine Chapel Skip-the-Line Tour',
         slug: 'vatican-museums-sistine-chapel-skip-the-line',
         category: 'vatican',
         tourType: 'Skip-the-Line',

@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BookingPanel from '@/components/BookingPanel';
 import TourCardCompact from '@/components/TourCardCompact';
-import { getTour, getTours } from '@/lib/dataAdapter';
+import { getTour, getTours } from '@/lib/tourService';
 import { Clock, Users, Star, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
 
 export const revalidate = 300;

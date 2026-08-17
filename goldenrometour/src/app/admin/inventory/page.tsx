@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getTours, Tour } from '@/lib/sanityService';
+import { Tour } from '@/lib/tourService';
 import { Loader2 } from 'lucide-react';
 import InventoryCalendar from '@/components/admin/InventoryCalendar';
 
@@ -17,8 +17,8 @@ export default function InventoryPage() {
             setLoading(true);
             try {
                 // Import dynamically to avoid build check issues if any, or just standard import
-                const { getTours } = await import('@/lib/sanityService');
-                const data = await getTours(SITE_ID);
+                const { getTours } = await import('@/lib/tourService');
+                const data = await getTours();
                 setTours(data);
             } catch (error) {
                 console.error("Failed to load tours", error);

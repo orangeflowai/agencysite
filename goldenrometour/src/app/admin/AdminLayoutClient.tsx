@@ -92,8 +92,9 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
                 <div>
                     <div className="text-xs font-bold text-zinc-500 tracking-tight px-3 mb-4">TOUR MANAGEMENT</div>
                     <div className="space-y-1">
-                        <NavLink href="/admin/inventory" icon={Calendar} onClick={onClose}>Inventory Control</NavLink>
-                        <NavLink href="/studio" icon={ExternalLink} external onClick={onClose}>Content Studio (Sanity)</NavLink>
+                        <NavLink href="/admin/tours" icon={Package} onClick={onClose}>Tours</NavLink>
+                        <NavLink href="/admin/inventory" icon={Calendar} onClick={onClose}>Availability</NavLink>
+                        <NavLink href="/admin/bookings" icon={Users} onClick={onClose}>Bookings</NavLink>
                     </div>
                 </div>
             </nav>
