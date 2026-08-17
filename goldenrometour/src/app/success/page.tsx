@@ -60,7 +60,7 @@ function SuccessContent() {
               <MapPin className="w-5 h-5 text-primary shrink-0" />
               <div>
                 <p className="text-xs text-muted-foreground uppercase tracking-wider">Meeting Point</p>
-                <p className="font-semibold text-foreground text-sm">Via Germanico, 40, 00192 Roma</p>
+                <p className="font-semibold text-foreground text-sm">Via Germanico 26, 00166 Roma RM, Italy</p>
               </div>
             </div>
             <div>

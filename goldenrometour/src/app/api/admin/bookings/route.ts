@@ -7,9 +7,11 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
+    const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
     const { data: bookings, error } = await supabaseAdmin
       .from('bookings')
       .select('*')
+      .eq('site_id', siteId)
       .order('created_at', { ascending: false });
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const title = tour.title || 'Vatican Tour';
   const desc = typeof tour.description === 'string' ? tour.description : '';
   return {
-    title: `${title} | Golden Rome Tour`,
+    title: `${title} | Golden Rome Tours`,
     description: desc.slice(0, 160),
     openGraph: {
       title,
@@ -97,7 +97,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
             </span>
             <span className="flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-primary" />
-              {(tour as any).meetingPoint || 'Via Germanico, 40, 00192 Roma'}
+              {(tour as any).meetingPoint || 'Via Germanico 26, 00166 Roma RM, Italy'}
             </span>
           </div>
         </div>

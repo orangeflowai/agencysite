@@ -3,7 +3,7 @@ const stripeSuffix = siteId.toUpperCase().replace(/-/g, '_')
 
 export const siteConfig = {
   id: siteId,
-  name: process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tour',
+  name: process.env.NEXT_PUBLIC_SITE_NAME || 'Golden Rome Tours',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com',
   email: process.env.EMAIL_FROM || process.env.NEXT_PUBLIC_CONTACT_EMAIL || "goldenrometours@gmail.com",
   adminEmail: process.env.ADMIN_EMAIL || 'admin@goldenrometour.com',

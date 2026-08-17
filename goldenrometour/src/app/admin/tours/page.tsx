@@ -57,7 +57,7 @@ export default function AdminToursPage() {
   if (loading) return <div className="p-8 text-muted-foreground">Loading tours…</div>
 
   return (
-    <div className="p-6 space-y-8 max-w-3xl">
+    <div className="p-6 space-y-8 w-full">
       <h1 className="text-2xl font-bold">Tours</h1>
       {msg && <p className="text-sm text-primary">{msg}</p>}
       {rows.map((t) => (

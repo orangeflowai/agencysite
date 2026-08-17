@@ -53,7 +53,7 @@ export default function ContactPage() {
             <div className="bg-primary pt-32 pb-20 text-center text-primary-foreground relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('/vatican-museums.jpg')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <p className="text-xs uppercase tracking-widest text-primary-foreground/60 mb-4 font-bold">Vatican Archives</p>
+                    <p className="text-xs uppercase tracking-widest text-primary-foreground/60 mb-4 font-bold">Golden Rome Tours</p>
                     <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Contact Us</h1>
                     <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto px-4 leading-relaxed">
                         Have questions about Vatican tours? Our team is here to help you plan your perfect visit.

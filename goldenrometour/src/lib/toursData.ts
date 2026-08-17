@@ -50,7 +50,7 @@ export const tours: TourProduct[] = [
             'Gratuities',
             'Food and beverages'
         ],
-        meetingPoint: 'Via Germanico, 40, 00192 Roma, RM, Italy',
+        meetingPoint: 'Via Germanico 26, 00166 Roma RM, Italy',
         importantInfo: [
             'Availability: Monday – Saturday (closed Sundays)',
             'Arrive 25 minutes before your scheduled start time',
@@ -59,7 +59,7 @@ export const tours: TourProduct[] = [
             'Large bags and sharp objects are not allowed',
             'Photography prohibited inside the Sistine Chapel'
         ],
-        imageUrl: 'https://images.pexels.com/photos/3874600/pexels-photo-3874600.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        imageUrl: '/vatican-guided-tour.jpg',
         badge: 'Best Seller',
         rating: 4.8,
         reviews: 2850
@@ -91,7 +91,7 @@ export const tours: TourProduct[] = [
             'Gratuities',
             'Food and beverages'
         ],
-        meetingPoint: 'Via Germanico, 40, 00192 Roma, RM, Italy',
+        meetingPoint: 'Via Germanico 26, 00166 Roma RM, Italy',
         importantInfo: [
             'Availability: Monday – Saturday (closed Sundays)',
             'Duration: Flexible — spend as long as you like',
@@ -99,7 +99,7 @@ export const tours: TourProduct[] = [
             'Dress code: shoulders and knees must be covered',
             'Photography prohibited inside the Sistine Chapel'
         ],
-        imageUrl: 'https://images.pexels.com/photos/2064827/pexels-photo-2064827.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        imageUrl: '/vatican-skip-line.jpg',
         badge: 'Popular',
         rating: 4.7,
         reviews: 1850

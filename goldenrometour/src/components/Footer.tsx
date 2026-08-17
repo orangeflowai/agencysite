@@ -31,7 +31,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <Link href="/" className="font-heading text-2xl font-bold tracking-tight">
-              Golden Rome<span className="text-accent"> Tour</span>
+              Golden Rome<span className="text-accent"> Tours</span>
             </Link>
             <p className="mt-4 text-white/60 text-sm leading-relaxed">
               Official Vatican Museum partner. Skip-the-line access with accredited art historian guides.

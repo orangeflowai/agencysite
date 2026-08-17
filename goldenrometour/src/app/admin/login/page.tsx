@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
             <Shield className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-2xl font-bold text-white">Admin Access</h1>
-          <p className="text-zinc-500 text-sm mt-2">Golden Rome Tour</p>
+          <p className="text-zinc-500 text-sm mt-2">Golden Rome Tours</p>
         </div>
 
         <form onSubmit={handleLogin} className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 space-y-4">

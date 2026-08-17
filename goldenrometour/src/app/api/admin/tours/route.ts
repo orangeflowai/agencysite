@@ -2,6 +2,7 @@ export const dynamic = 'force-dynamic'
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
 import { ALLOWED_SLUGS } from '@/lib/tourService'
+import { tours as staticTours } from '@/lib/toursData'
 
 export async function GET() {
   const { data, error } = await supabaseAdmin
@@ -9,7 +10,36 @@ export async function GET() {
     .select('*')
     .order('sort_order')
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  const tours = (data || []).filter((t: any) => ALLOWED_SLUGS.includes(t.slug))
+
+  let tours = (data || []).filter((t: any) => ALLOWED_SLUGS.includes(t.slug))
+
+  // Fall back to the hardcoded 2 tours when the DB has none (so the admin
+  // always sees and can edit the two products).
+  if (tours.length === 0) {
+    tours = staticTours.map((t) => ({
+      id: t.id,
+      slug: t.slug,
+      title: t.title,
+      tour_type: t.tourType,
+      price: t.price,
+      duration: t.duration,
+      description: t.description,
+      highlights: t.highlights,
+      includes: t.includes,
+      excludes: t.excludes || [],
+      meeting_point: t.meetingPoint,
+      important_info: t.importantInfo || [],
+      image_url: t.imageUrl,
+      badge: t.badge,
+      rating: t.rating,
+      reviews: t.reviews,
+      group_size: t.groupSize,
+      category: t.category,
+      sort_order: t.slug.includes('guided') ? 2 : 1,
+      active: true,
+    }))
+  }
+
   return NextResponse.json({ tours })
 }
 

@@ -25,7 +25,9 @@ export async function updateTour(formData: FormData) {
   }
   Object.keys(updates).forEach((k) => updates[k] === undefined && delete updates[k])
 
-  const { error } = await supabaseAdmin.from('tours').update(updates).eq('slug', slug)
+  const { error } = await supabaseAdmin
+    .from('tours')
+    .upsert({ slug, ...updates }, { onConflict: 'slug' })
   if (error) return { success: false, error: error.message }
 
   revalidatePath('/admin/tours')

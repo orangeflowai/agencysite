@@ -27,8 +27,8 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://goldenrometour.com'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Golden Rome Tour | Official Vatican Museum Tours',
-    template: '%s | Golden Rome Tour',
+    default: 'Golden Rome Tours | Official Vatican Museum Tours',
+    template: '%s | Golden Rome Tours',
   },
   description:
     'Skip-the-line Vatican Museums & Sistine Chapel tours with accredited art historians. Guided tours from €65, self-guided tickets from €45. Small groups, instant confirmation.',
@@ -37,17 +37,17 @@ export const metadata: Metadata = {
     'Vatican guided tour', 'Rome Vatican tickets', 'Vatican private tour',
   ],
   openGraph: {
-    siteName: 'Golden Rome Tour',
-    title: 'Golden Rome Tour | Official Vatican Museum Tours',
+    siteName: 'Golden Rome Tours',
+    title: 'Golden Rome Tours | Official Vatican Museum Tours',
     description:
       'Skip-the-line Vatican Museums & Sistine Chapel tours. Guided tours from €65, tickets from €45.',
     url: siteUrl,
     type: 'website',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Golden Rome Tour' }],
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Golden Rome Tours' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Golden Rome Tour | Vatican Tours',
+    title: 'Golden Rome Tours | Vatican Tours',
     description: 'Skip-the-line Vatican Museums & Sistine Chapel tours.',
   },
   icons: {

@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
                     </p>
 
                     <p>
-                        This Privacy Policy explains what information we collect about you and why, what we do with that information, and how we handle that information. Throughout this policy, when we write “Tickets in Rome” or “we” or “us,” we’re referring to {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, and our subsidiaries and other affiliates.
+                        This Privacy Policy explains what information we collect about you and why, what we do with that information, and how we handle that information. Throughout this policy, when we write “Golden Rome Tours” or “we” or “us,” we’re referring to {process.env.NEXT_PUBLIC_SITE_NAME || "Your Agency"}, and our subsidiaries and other affiliates.
                     </p>
 
                     <div className="bg-card p-8 rounded-xl border border-border shadow-sm my-8">

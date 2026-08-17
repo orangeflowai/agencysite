@@ -51,7 +51,7 @@ export default function Header() {
             <Link href="/" className="shrink-0 flex items-center gap-3">
               <img
                 src="/logo.svg"
-                alt="Golden Rome Tour"
+                alt="Golden Rome Tours"
                 className="h-8 md:h-10 w-auto"
               />
               <span className={clsx(
