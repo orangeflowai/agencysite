@@ -50,6 +50,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
             const { data, error } = await supabase
                 .from('inventory')
                 .select('*')
+                .eq('tenant', process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour')
                 .gte('date', start)
                 .lte('date', end);
 

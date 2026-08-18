@@ -5,18 +5,19 @@ import { releaseInventory } from '@/lib/inventoryService';
 
 export const dynamic = 'force-dynamic';
 
+const TENANT = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
+
 export async function GET() {
   try {
-    const siteId = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
     const { data: bookings, error } = await supabaseAdmin
       .from('bookings')
       .select('*')
-      .eq('site_id', siteId)
+      .eq('tenant', TENANT)
       .order('created_at', { ascending: false });
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    const stripe = getStripe(process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour');
+    const stripe = getStripe(TENANT);
     const enriched: any[] = [];
 
     for (const b of bookings || []) {
@@ -59,11 +60,11 @@ export async function PATCH(request: Request) {
 
     if (booking.stripe_payment_intent_id) {
       try {
-        const stripe = getStripe(process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour');
+        const stripe = getStripe(TENANT);
         const pi: any = await stripe.paymentIntents.retrieve(booking.stripe_payment_intent_id);
         const chargeId = pi.charges?.data?.[0]?.id;
         if (chargeId && pi.status === 'succeeded') {
-          const amountCents = Math.round((booking.total_price || pi.amount / 100) * 100);
+          const amountCents = Math.round((booking.total_amount || pi.amount / 100) * 100);
           const r = await stripe.refunds.create({
             charge: chargeId,
             amount: amountCents,
@@ -84,7 +85,7 @@ export async function PATCH(request: Request) {
 
     const { data: updated, error: updateErr } = await supabaseAdmin
       .from('bookings')
-      .update({ status: 'cancelled' })
+      .update({ status: 'cancelled', updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
       .single();

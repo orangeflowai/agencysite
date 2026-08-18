@@ -16,6 +16,21 @@ function determineSiteFromEvent(event: any): string {
   return process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 }
 
+function parseGuestCounts(meta: any): Record<string, number> {
+  let gc: Record<string, number> = {};
+  try {
+    if (meta.guestCounts) {
+      gc = typeof meta.guestCounts === 'string' ? JSON.parse(meta.guestCounts) : meta.guestCounts;
+    }
+  } catch { /* ignore malformed guestCounts */ }
+  return {
+    Adult: Number(gc.Adult ?? meta.adults ?? 0),
+    Student: Number(gc.Student ?? meta.students ?? 0),
+    Youth: Number(gc.Youth ?? meta.youths ?? 0),
+    Child: Number(gc.Child ?? 0),
+  };
+}
+
 async function sendEmails(siteId: string, email: string, name: string, tourTitle: string, date: string, time: string, guests: string, totalAmount: number, orderId: string, metadata: any) {
   if (!process.env.RESEND_API_KEY) return;
   const senderName = process.env.NEXT_PUBLIC_SITE_NAME || siteId;
@@ -56,27 +71,48 @@ export async function POST(request: Request) {
 
     const { tourTitle, tourSlug, date, time, guests } = meta;
     const guestCount = parseInt(guests);
-    const name = meta.leadName || 'Guest';
+    const fullName = (meta.leadName || 'Guest').split(' ');
+    const firstName = fullName[0] || 'Guest';
+    const lastName = fullName.slice(1).join(' ') || '';
     const email = meta.leadEmail || pi.receipt_email || '';
-    const adults = parseInt(meta.adults || '0');
-    const students = parseInt(meta.students || '0');
-    const youths = parseInt(meta.youths || '0');
-    const addOns = meta.addOns ? JSON.parse(meta.addOns) : [];
+    const guestCounts = parseGuestCounts(meta);
     const totalAmount = pi.amount / 100;
 
     try {
-      const { data: existing } = await supabaseAdmin.from('bookings').select('id').eq('stripe_payment_intent_id', pi.id).single();
-      if (existing) return NextResponse.json({ received: true });
+      const { data: existing } = await supabaseAdmin
+        .from('bookings')
+        .select('id, status')
+        .eq('stripe_payment_intent_id', pi.id)
+        .maybeSingle();
+
+      if (existing) {
+        if (existing.status === 'pending') {
+          await supabaseAdmin.from('bookings').update({ status: 'confirmed', total_amount: totalAmount }).eq('id', existing.id);
+        }
+        return NextResponse.json({ received: true, updated: existing.id });
+      }
 
       try { await reserveInventory(tourSlug, date, time, guestCount); } catch {}
 
       const { data: booking, error: bookingError } = await supabaseAdmin.from('bookings').insert({
-        tour_title: tourTitle, tour_slug: tourSlug, date, time, guests: guestCount,
-        total_price: totalAmount, customer_name: name, customer_email: email,
-        customer_phone: meta.leadPhone || null, status: 'paid',
-        stripe_payment_intent_id: pi.id, adults, students, youths,
-        guest_details: { hotel: meta.hotelName, pickup: meta.pickupRequired, luggage: meta.luggageDeposit, addOns, guestCounts: meta.guestCounts ? JSON.parse(meta.guestCounts) : {} },
-        site_id: siteId,
+        tour_title: tourTitle,
+        tour_slug: tourSlug,
+        date,
+        time,
+        guests: guestCount,
+        total_amount: totalAmount,
+        currency: 'eur',
+        lead_first_name: firstName,
+        lead_last_name: lastName,
+        lead_email: email,
+        lead_phone: meta.leadPhone || null,
+        status: 'confirmed',
+        stripe_payment_intent_id: pi.id,
+        guest_counts: guestCounts,
+        tenant: siteId,
+        notes: meta.notes || null,
+        pickup_location: meta.pickupLocation || null,
+        source: 'website',
       }).select().single();
 
       if (bookingError) {
@@ -84,8 +120,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Booking creation failed' }, { status: 500 });
       }
 
-      await logAuditAction('system', 'stripe_webhook', 'booking_created', 'booking', booking.id, { tour_title: tourTitle, customer_email: email, total_price: totalAmount, site_id: siteId, payment_intent_id: pi.id });
-      await sendEmails(siteId, email, name, tourTitle, date, time, guests, totalAmount, pi.id, meta);
+      await logAuditAction('system', 'stripe_webhook', 'booking_created', 'booking', booking.id, { tour_title: tourTitle, lead_email: email, total_amount: totalAmount, tenant: siteId, payment_intent_id: pi.id });
+      await sendEmails(siteId, email, `${firstName} ${lastName}`.trim(), tourTitle, date, time, guests, totalAmount, pi.id, meta);
 
     } catch (err) {
       console.error('Error processing payment intent:', err);
@@ -100,28 +136,49 @@ export async function POST(request: Request) {
 
     const { tourTitle, tourSlug, date, time, guests } = meta;
     const guestCount = parseInt(guests);
-    const name = meta.leadName || 'Guest';
+    const fullName = (meta.leadName || 'Guest').split(' ');
+    const firstName = fullName[0] || 'Guest';
+    const lastName = fullName.slice(1).join(' ') || '';
     const email = meta.leadEmail || session.customer_email || '';
-    const adults = parseInt(meta.adults || '0');
-    const students = parseInt(meta.students || '0');
-    const youths = parseInt(meta.youths || '0');
-    const addOns = meta.addOns ? JSON.parse(meta.addOns) : [];
+    const guestCounts = parseGuestCounts(meta);
     const totalAmount = (session.amount_total || 0) / 100;
 
     try {
-      const { data: existing } = await supabaseAdmin.from('bookings').select('id').eq('stripe_session_id', session.id).single();
-      if (existing) return NextResponse.json({ received: true });
+      const { data: existing } = await supabaseAdmin
+        .from('bookings')
+        .select('id, status')
+        .eq('stripe_session_id', session.id)
+        .maybeSingle();
+
+      if (existing) {
+        if (existing.status === 'pending') {
+          await supabaseAdmin.from('bookings').update({ status: 'confirmed', total_amount: totalAmount }).eq('id', existing.id);
+        }
+        return NextResponse.json({ received: true, updated: existing.id });
+      }
 
       try { await reserveInventory(tourSlug, date, time, guestCount); } catch {}
 
       const { data: booking, error: bookingError } = await supabaseAdmin.from('bookings').insert({
-        tour_title: tourTitle, tour_slug: tourSlug, date, time, guests: guestCount,
-        total_price: totalAmount, customer_name: name, customer_email: email,
-        customer_phone: meta.leadPhone, status: 'paid',
-        stripe_session_id: session.id, stripe_payment_intent_id: session.payment_intent,
-        adults, students, youths,
-        guest_details: { hotel: meta.hotelName, pickup: meta.pickupRequired, luggage: meta.luggageDeposit, addOns, guestCounts: meta.guestCounts ? JSON.parse(meta.guestCounts) : {} },
-        site_id: siteId,
+        tour_title: tourTitle,
+        tour_slug: tourSlug,
+        date,
+        time,
+        guests: guestCount,
+        total_amount: totalAmount,
+        currency: 'eur',
+        lead_first_name: firstName,
+        lead_last_name: lastName,
+        lead_email: email,
+        lead_phone: meta.leadPhone || null,
+        status: 'confirmed',
+        stripe_session_id: session.id,
+        stripe_payment_intent_id: session.payment_intent,
+        guest_counts: guestCounts,
+        tenant: siteId,
+        notes: meta.notes || null,
+        pickup_location: meta.pickupLocation || null,
+        source: 'website',
       }).select().single();
 
       if (bookingError) {
@@ -129,8 +186,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Booking creation failed' }, { status: 500 });
       }
 
-      await logAuditAction('system', 'stripe_webhook', 'booking_created', 'booking', booking.id, { tour_title: tourTitle, customer_email: email, total_price: totalAmount, site_id: siteId, session_id: session.id });
-      await sendEmails(siteId, email, name, tourTitle, date, time, guests, totalAmount, session.id, meta);
+      await logAuditAction('system', 'stripe_webhook', 'booking_created', 'booking', booking.id, { tour_title: tourTitle, lead_email: email, total_amount: totalAmount, tenant: siteId, session_id: session.id });
+      await sendEmails(siteId, email, `${firstName} ${lastName}`.trim(), tourTitle, date, time, guests, totalAmount, session.id, meta);
 
     } catch (err) {
       console.error('Error processing checkout session:', err);
@@ -140,7 +197,7 @@ export async function POST(request: Request) {
 
   else if (event.type === 'payment_intent.payment_failed') {
     const failedPayment = event.data.object;
-    await logAuditAction('system', 'stripe_webhook', 'booking_cancelled', 'payment_intent', failedPayment.id, { error_message: failedPayment.last_payment_error?.message, site_id: siteId, reason: 'payment_failed' });
+    await logAuditAction('system', 'stripe_webhook', 'booking_cancelled', 'payment_intent', failedPayment.id, { error_message: failedPayment.last_payment_error?.message, tenant: siteId, reason: 'payment_failed' });
   }
 
   return NextResponse.json({ received: true, site: siteId });

@@ -4,6 +4,8 @@ import { getTour } from '@/lib/tourService'
 
 export const dynamic = 'force-dynamic'
 
+const TENANT = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour'
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const slug = searchParams.get('slug') || ''
@@ -27,6 +29,7 @@ async function getDayAvailability(slug: string, basePrice: number, date: string)
   const { data, error } = await supabaseAdmin
     .from('inventory')
     .select('*')
+    .eq('tenant', TENANT)
     .eq('tour_slug', slug)
     .eq('date', date)
     .order('time')
@@ -55,6 +58,7 @@ async function getMonthAvailability(slug: string, basePrice: number, monthStr: s
   const { data, error } = await supabaseAdmin
     .from('inventory')
     .select('*')
+    .eq('tenant', TENANT)
     .eq('tour_slug', slug)
     .gte('date', monthStart)
     .lte('date', monthEnd)

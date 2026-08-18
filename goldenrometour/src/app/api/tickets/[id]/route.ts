@@ -39,30 +39,22 @@ export async function GET(
             return NextResponse.json({ error: 'Booking not found' }, { status: 404 });
         }
 
-        // Parse add-ons from guest_details
-        let addOns: Array<{ name: string; price: number }> = [];
-        try {
-            const gd = bookingData.guest_details;
-            if (gd?.addOns) {
-                const raw = typeof gd.addOns === 'string' ? JSON.parse(gd.addOns) : gd.addOns;
-                if (Array.isArray(raw)) addOns = raw;
-            }
-        } catch (_) {}
+        const guestCounts = bookingData.guest_counts || {};
+        const addOns: Array<{ name: string; price: number }> = [];
 
         const booking = {
             bookingRef: bookingData.id?.slice(-8).toUpperCase() || id.slice(-8).toUpperCase(),
             tourTitle: bookingData.tour_title || 'Tour',
             date: bookingData.date || '',
             time: bookingData.time || '',
-            meetingPoint: bookingData.guest_details?.meetingPoint
-                || process.env.NEXT_PUBLIC_DEFAULT_MEETING_POINT
+            meetingPoint: process.env.NEXT_PUBLIC_DEFAULT_MEETING_POINT
                 || 'See booking confirmation for details',
             duration: '3 hours',
-            customerName: bookingData.customer_name || 'Guest',
+            customerName: `${bookingData.lead_first_name || ''} ${bookingData.lead_last_name || ''}`.trim() || 'Guest',
             guests: bookingData.guests || 1,
-            adults: bookingData.adults || 0,
-            students: bookingData.students || 0,
-            youths: bookingData.youths || 0,
+            adults: guestCounts.Adult || 0,
+            students: guestCounts.Student || 0,
+            youths: guestCounts.Youth || 0,
             addOns,
             siteName: process.env.NEXT_PUBLIC_SITE_NAME || process.env.NEXT_PUBLIC_SITE_ID || 'agency',
         };

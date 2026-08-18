@@ -5,18 +5,16 @@ import { useEffect, useState } from 'react'
 type Booking = {
   id: string
   tour_title: string
-  tour_slug: string
   date: string
   time: string
-  customer_name: string
-  customer_email: string
-  customer_phone: string | null
+  lead_first_name: string
+  lead_last_name: string
+  lead_email: string
+  lead_phone: string | null
   guests: number
-  total_price: number
+  total_amount: number
+  currency: string
   status: string
-  adults: number
-  students: number
-  youths: number
   created_at: string
   card_brand: string | null
   card_last4: string | null
@@ -88,12 +86,12 @@ export default function AdminBookingsPage() {
                   <td className="p-3 whitespace-nowrap">{fmt(b.date)} {b.time}</td>
                   <td className="p-3">{b.tour_title}</td>
                   <td className="p-3">
-                    <p className="font-medium">{b.customer_name}</p>
-                    <p className="text-muted-foreground">{b.customer_email}</p>
-                    {b.customer_phone && <p className="text-muted-foreground">{b.customer_phone}</p>}
+                    <p className="font-medium">{`${b.lead_first_name || ''} ${b.lead_last_name || ''}`.trim() || '—'}</p>
+                    <p className="text-muted-foreground">{b.lead_email}</p>
+                    {b.lead_phone && <p className="text-muted-foreground">{b.lead_phone}</p>}
                   </td>
                   <td className="p-3">{b.guests}</td>
-                  <td className="p-3">€{b.total_price}</td>
+                  <td className="p-3">€{b.total_amount}</td>
                   <td className="p-3">
                     <span className={b.status === 'cancelled' ? 'text-destructive font-medium' : 'text-green-600 font-medium'}>
                       {b.status}

@@ -1,5 +1,7 @@
 import { supabaseAdmin } from './supabaseAdmin';
 
+const TENANT = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
+
 export interface InventorySlot {
   id?: string;
   tour_slug: string;
@@ -28,10 +30,10 @@ export async function checkAvailability(
   requestedGuests: number
 ): Promise<BookingReservation> {
   try {
-    // First, ensure the inventory slot exists
     const { data: existingSlot, error: fetchError } = await supabaseAdmin
       .from('inventory')
       .select('*')
+      .eq('tenant', TENANT)
       .eq('tour_slug', tourSlug)
       .eq('date', date)
       .eq('time', time)
@@ -43,7 +45,6 @@ export async function checkAvailability(
     }
 
     if (!existingSlot) {
-      // No inventory record exists - assume default capacity of 20
       return { success: true, availableSlots: 20 };
     }
 
@@ -75,11 +76,10 @@ export async function reserveInventory(
   guestCount: number
 ): Promise<BookingReservation> {
   try {
-    // Try to decrement using a transaction-like approach
-    // First, check and get current value
     const { data: slot, error: fetchError } = await supabaseAdmin
       .from('inventory')
       .select('*')
+      .eq('tenant', TENANT)
       .eq('tour_slug', tourSlug)
       .eq('date', date)
       .eq('time', time)
@@ -93,7 +93,6 @@ export async function reserveInventory(
     const currentSlots = slot?.available_slots ?? 20;
     const totalSlots = slot?.total_slots ?? 20;
 
-    // Check if enough slots available
     if (currentSlots < guestCount) {
       return {
         success: false,
@@ -104,11 +103,10 @@ export async function reserveInventory(
 
     const newSlots = currentSlots - guestCount;
 
-    // Upsert the inventory with new value
-    // Using upsert with onConflict ensures atomicity
     const { error: upsertError } = await supabaseAdmin
       .from('inventory')
       .upsert({
+        tenant: TENANT,
         tour_slug: tourSlug,
         date: date,
         time: time,
@@ -124,10 +122,10 @@ export async function reserveInventory(
       return { success: false, error: 'Failed to reserve spots' };
     }
 
-    // Verify the update worked (prevent race conditions)
     const { data: verifySlot, error: verifyError } = await supabaseAdmin
       .from('inventory')
       .select('available_slots')
+      .eq('tenant', TENANT)
       .eq('tour_slug', tourSlug)
       .eq('date', date)
       .eq('time', time)
@@ -138,21 +136,9 @@ export async function reserveInventory(
       return { success: false, error: 'Verification failed' };
     }
 
-    // If verification shows we overbooked, this is a critical error
     if (verifySlot.available_slots < 0) {
-      // Attempt to restore
       console.error('CRITICAL: Overbooking detected!', {
         tourSlug, date, time, guestCount, newSlots: verifySlot.available_slots
-      });
-      
-      // Log this incident
-      await supabaseAdmin.from('inventory_errors').insert({
-        tour_slug: tourSlug,
-        date,
-        time,
-        guest_count: guestCount,
-        error_type: 'overbooking_detected',
-        created_at: new Date().toISOString()
       });
 
       return { success: false, error: 'Inventory error - please contact support' };
@@ -178,6 +164,7 @@ export async function releaseInventory(
     const { data: slot, error: fetchError } = await supabaseAdmin
       .from('inventory')
       .select('*')
+      .eq('tenant', TENANT)
       .eq('tour_slug', tourSlug)
       .eq('date', date)
       .eq('time', time)
@@ -198,6 +185,7 @@ export async function releaseInventory(
         available_slots: newSlots,
         updated_at: new Date().toISOString()
       })
+      .eq('tenant', TENANT)
       .eq('tour_slug', tourSlug)
       .eq('date', date)
       .eq('time', time);
@@ -227,6 +215,7 @@ export async function initializeInventory(
     const { error } = await supabaseAdmin
       .from('inventory')
       .upsert({
+        tenant: TENANT,
         tour_slug: tourSlug,
         date: date,
         time: time,
@@ -261,6 +250,7 @@ export async function getInventoryForDateRange(
   const { data, error } = await supabaseAdmin
     .from('inventory')
     .select('*')
+    .eq('tenant', TENANT)
     .eq('tour_slug', tourSlug)
     .gte('date', startDate)
     .lte('date', endDate);
