@@ -7,7 +7,7 @@ import FaqPreview from '@/components/FaqPreview';
 import Footer from '@/components/Footer';
 import { getTours } from '@/lib/tourService';
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 export default async function Home() {
   const tours = await getTours();

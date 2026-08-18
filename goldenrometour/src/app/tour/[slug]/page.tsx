@@ -7,7 +7,7 @@ import TourCardCompact from '@/components/TourCardCompact';
 import { getTour, getTours } from '@/lib/tourService';
 import { Clock, Users, Star, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
 
-export const revalidate = 300;
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const tours = await getTours();
