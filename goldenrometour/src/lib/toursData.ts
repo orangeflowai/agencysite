@@ -59,7 +59,7 @@ export const tours: TourProduct[] = [
             'Large bags and sharp objects are not allowed',
             'Photography prohibited inside the Sistine Chapel'
         ],
-        imageUrl: '/vatican-guided-tour.jpg',
+        imageUrl: 'https://images.pexels.com/photos/37872307/pexels-photo-37872307.jpeg?auto=compress&cs=tinysrgb&w=1200',
         badge: 'Best Seller',
         rating: 4.8,
         reviews: 2850
@@ -99,7 +99,7 @@ export const tours: TourProduct[] = [
             'Dress code: shoulders and knees must be covered',
             'Photography prohibited inside the Sistine Chapel'
         ],
-        imageUrl: '/vatican-skip-line.jpg',
+        imageUrl: 'https://images.pexels.com/photos/28359706/pexels-photo-28359706.jpeg?auto=compress&cs=tinysrgb&w=1200',
         badge: 'Popular',
         rating: 4.7,
         reviews: 1850
