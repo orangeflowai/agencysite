@@ -22,6 +22,9 @@ export default async function Home() {
       <HeroSection />
       <TrustBar />
 
+      {/* DEBUG */}
+      <div style={{ display: 'none' }} data-debug={`count=${tours.length} tour1=${tour1?.price} tour2=${tour2?.price}`} />
+
       {/* Tours Section */}
       <section className="py-16 md:py-24 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
