@@ -96,7 +96,6 @@ export async function getTours(): Promise<Tour[]> {
     const { data, error } = await supabaseAdmin
       .from('tours')
       .select('*')
-      .eq('active', true)
       .order('sort_order')
     if (!error && data && data.length > 0) {
       const allowed = data.filter((r) => ALLOWED_SLUGS.includes(r.slug))
@@ -116,7 +115,6 @@ export async function getTour(slug: string): Promise<Tour | null> {
       .from('tours')
       .select('*')
       .eq('slug', slug)
-      .eq('active', true)
       .single()
     if (!error && data) return rowToTour(data)
   } catch (e) {
