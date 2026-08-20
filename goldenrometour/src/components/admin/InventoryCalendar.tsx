@@ -76,7 +76,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
         // Find existing slots for this tour/date
         const relevantSlots = inventory.filter(s =>
             s.tour_slug === tour.slug.current &&
-            s.date === dateStr // Database returns YYYY-MM-DD
+            String(s.date).slice(0, 10) === dateStr
         );
 
         setActiveSlotData({
@@ -163,7 +163,7 @@ export default function InventoryCalendar({ tours }: InventoryCalendarProps) {
                             <div className="flex-1 overflow-y-auto space-y-1 custom-scrollbar">
                                 {toursToDisplay.map(tour => {
                                     // Get slots for this tour/day
-                                    const slots = inventory.filter(s => s.tour_slug === tour.slug.current && s.date === dateStr);
+                                    const slots = inventory.filter(s => s.tour_slug === tour.slug.current && String(s.date).slice(0, 10) === dateStr);
                                     const totalSpots = slots.reduce((acc, s) => acc + s.available_slots, 0);
                                     const hasSlots = slots.length > 0;
                                     const isSoldOut = hasSlots && totalSpots === 0;

@@ -22,6 +22,8 @@ export default function AdminLoginPage() {
         body: JSON.stringify({ password }),
       });
       if (res.ok) {
+        // Set cookie client-side (non-HttpOnly) so admin API fetches carry it.
+        document.cookie = `grt_admin_token=${password}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
         router.push('/admin/inventory');
         router.refresh();
       } else {
