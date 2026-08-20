@@ -36,7 +36,7 @@ export default function TourCardWide({ tour, imageFirst = true }: TourCardWidePr
     : tour.description?.[0]?.children?.[0]?.text || '';
 
   const imageBlock = (
-    <div className="relative overflow-hidden rounded-2xl aspect-[4/3] md:aspect-auto">
+    <div className="relative overflow-hidden rounded-2xl aspect-[4/3]">
       <img
         src={imageUrl}
         alt={tour.title}

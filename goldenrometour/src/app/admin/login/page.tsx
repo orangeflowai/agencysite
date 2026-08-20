@@ -15,11 +15,24 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError('');
 
-    // Set cookie and redirect
-    document.cookie = `grt_admin_token=${password}; path=/; max-age=${60 * 60 * 24 * 7}; SameSite=Lax`;
-    router.push('/admin/inventory');
-    router.refresh();
-    setLoading(false);
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        router.push('/admin/inventory');
+        router.refresh();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || 'Incorrect password');
+      }
+    } catch {
+      setError('Network error. Try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
