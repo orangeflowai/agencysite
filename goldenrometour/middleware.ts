@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { ADMIN_COOKIE } from '@/lib/adminAuth';
 
-const ADMIN_COOKIE = 'grt_admin_token';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'vatican2026';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -11,15 +11,15 @@ export function middleware(request: NextRequest) {
     // Allow the login page
     if (pathname === '/admin/login') {
       const token = request.cookies.get(ADMIN_COOKIE)?.value;
-      if (token === ADMIN_PASSWORD) {
+      if (ADMIN_PASSWORD && token === ADMIN_PASSWORD) {
         return NextResponse.redirect(new URL('/admin/inventory', request.url));
       }
       return NextResponse.next();
     }
 
-    // Check auth for all other admin routes
+    // Check auth for all other admin routes (fail closed if no password set)
     const token = request.cookies.get(ADMIN_COOKIE)?.value;
-    if (token !== ADMIN_PASSWORD) {
+    if (!ADMIN_PASSWORD || token !== ADMIN_PASSWORD) {
       return NextResponse.redirect(new URL('/admin/login', request.url));
     }
   }

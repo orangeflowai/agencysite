@@ -36,14 +36,17 @@ export default function AdminToursPage() {
   const [rows, setRows] = useState<Row[]>([])
   const [loading, setLoading] = useState(true)
   const [msg, setMsg] = useState('')
+  const [showAdd, setShowAdd] = useState(false)
   const router = useRouter()
 
-  useEffect(() => {
+  const load = () => {
     fetch('/api/admin/tours')
       .then((r) => r.json())
       .then((d) => setRows(d.tours || []))
       .finally(() => setLoading(false))
-  }, [])
+  }
+
+  useEffect(load, [])
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>, slug: string) => {
     e.preventDefault()
@@ -54,12 +57,54 @@ export default function AdminToursPage() {
     router.refresh()
   }
 
+  const onCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const fd = new FormData(e.currentTarget)
+    const rawSlug = (fd.get('slug') as string || '').trim()
+    const slug = rawSlug.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+    const title = (fd.get('title') as string || '').trim()
+    const price = (fd.get('price') as string || '').trim()
+    if (!slug || !title || !price) { setMsg('Slug, title and price are required'); return }
+    fd.set('slug', slug)
+    const res = await updateTour(fd)
+    setMsg(res.success ? 'Product created' : res.error || 'Error')
+    if (res.success) { setShowAdd(false); e.currentTarget.reset(); load(); }
+    router.refresh()
+  }
+
   if (loading) return <div className="p-8 text-muted-foreground">Loading tours…</div>
 
   return (
     <div className="p-6 space-y-8 w-full">
-      <h1 className="text-2xl font-bold">Tours</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">Tours</h1>
+        <Button variant="primary" onClick={() => setShowAdd(!showAdd)}>{showAdd ? 'Cancel' : '+ Add Product'}</Button>
+      </div>
       {msg && <p className="text-sm text-primary">{msg}</p>}
+
+      {showAdd && (
+        <form onSubmit={onCreate} className="bg-card border-2 border-dashed border-primary/40 rounded-xl p-6 space-y-4">
+          <h2 className="font-semibold text-primary">New Product</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <label className="text-xs font-semibold text-muted-foreground">Slug (URL)</label>
+              <input name="slug" required placeholder="my-tour-slug" className="w-full bg-background border border-border rounded-lg p-2 text-sm" />
+            </div>
+            <Editable value="" label="title" />
+            <Editable value="" label="price" />
+            <Editable value="" label="duration" />
+            <Editable value="" label="badge" />
+            <Editable value="" label="image_url" />
+          </div>
+          <Editable value="" label="description" multiline />
+          <Editable value="" label="highlights" multiline />
+          <Editable value="" label="includes" multiline />
+          <Editable value="" label="excludes" multiline />
+          <Editable value="" label="important_info" multiline />
+          <Button type="submit" variant="primary">Create Product</Button>
+        </form>
+      )}
+
       {rows.map((t) => (
         <form key={t.id} onSubmit={(e) => onSubmit(e, t.slug)} className="bg-card border border-border rounded-xl p-6 space-y-4">
           <h2 className="font-semibold">{t.title}</h2>

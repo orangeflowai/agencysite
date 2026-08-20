@@ -1,10 +1,12 @@
 
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { isAdmin } from '@/lib/adminAuth';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     try {
         const { data, error, count } = await supabase
             .from('inventory')

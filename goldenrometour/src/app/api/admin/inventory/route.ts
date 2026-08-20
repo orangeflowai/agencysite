@@ -1,11 +1,13 @@
 export const dynamic = 'force-dynamic';
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { isAdmin } from '@/lib/adminAuth';
 
 const TENANT = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 
 // GET - fetch slots: by tour/date (single day) OR by date range with tenant
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
+    if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     const { searchParams } = new URL(request.url);
     const tourSlug = searchParams.get('tourSlug');
     const date = searchParams.get('date');
@@ -48,7 +50,8 @@ export async function GET(request: Request) {
 }
 
 // POST - add or update a slot (upsert by tour_slug + date + time)
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+    if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     const body = await request.json();
     const { tour_slug, date, time, available_slots, price_override } = body;
 
@@ -72,7 +75,8 @@ export async function POST(request: Request) {
 }
 
 // PATCH - update a slot (available_slots, price_override)
-export async function PATCH(request: Request) {
+export async function PATCH(request: NextRequest) {
+    if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     const body = await request.json();
     const { id, available_slots, price_override } = body;
 
@@ -94,7 +98,8 @@ export async function PATCH(request: Request) {
 }
 
 // DELETE - delete one slot or all slots for a tour/date
-export async function DELETE(request: Request) {
+export async function DELETE(request: NextRequest) {
+    if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     const body = await request.json();
     const { id, tour_slug, date } = body;
 

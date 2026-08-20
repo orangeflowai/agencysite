@@ -1,10 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { getTours } from '@/lib/tourService';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { isAdmin } from '@/lib/adminAuth';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const out: any = {};
 
   // Direct DB read (same as admin API)

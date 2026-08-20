@@ -1,13 +1,15 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabaseAdmin';
 import { getStripe } from '@/lib/stripe';
 import { releaseInventory } from '@/lib/inventoryService';
+import { isAdmin } from '@/lib/adminAuth';
 
 export const dynamic = 'force-dynamic';
 
 const TENANT = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const { data: bookings, error } = await supabaseAdmin
       .from('bookings')
@@ -44,7 +46,8 @@ export async function GET() {
   }
 }
 
-export async function PATCH(request: Request) {
+export async function PATCH(request: NextRequest) {
+  if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const body = await request.json();
     const { id } = body;

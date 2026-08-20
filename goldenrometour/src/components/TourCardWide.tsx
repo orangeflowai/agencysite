@@ -21,9 +21,9 @@ interface TourCardWideProps {
 }
 
 function getFallbackImage(slug: string): string {
-  if (slug.includes('guided')) return '/vatican-museums.jpg';
-  if (slug.includes('skip')) return '/vatican-sistine-chapel.jpg';
-  return '/vatican-museums.jpg';
+  if (slug.includes('guided')) return '/images/vatican-guided-tour.jpg';
+  if (slug.includes('skip')) return '/images/vatican-skip-line.jpg';
+  return '/images/vatican-guided-tour.jpg';
 }
 
 export default function TourCardWide({ tour, imageFirst = true }: TourCardWideProps) {

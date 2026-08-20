@@ -48,6 +48,7 @@ function BookingForm({ tourId, tourTitle, tourSlug, basePrice, guestTypes, onCom
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [lead, setLead] = useState({ firstName: '', lastName: '', email: '', phone: '' });
 
   const totalGuests = Object.values(counts).reduce((a, b) => a + b, 0);
   const totalPrice = guestTypes.reduce((sum, g) => sum + (counts[g.name] || 0) * g.price, 0);
@@ -80,6 +81,10 @@ function BookingForm({ tourId, tourTitle, tourSlug, basePrice, guestTypes, onCom
 
   const handleBook = async () => {
     if (!selectedDate || !selectedTime || totalGuests === 0) return;
+    if (!lead.firstName.trim() || !lead.email.trim()) {
+      setError('Please enter the lead traveler name and email.');
+      return;
+    }
     setSubmitting(true);
     setError('');
 
@@ -95,11 +100,19 @@ function BookingForm({ tourId, tourTitle, tourSlug, basePrice, guestTypes, onCom
           time: selectedTime,
           guests: totalGuests,
           guestCounts: counts,
+          bookingDetails: {
+            leadTraveler: {
+              firstName: lead.firstName,
+              lastName: lead.lastName,
+              email: lead.email,
+              phone: lead.phone,
+            },
+          },
         }),
       });
       const data = await res.json();
       if (data.clientSecret) {
-        onComplete({ clientSecret: data.clientSecret, paymentIntentId: data.paymentIntentId, date: selectedDate, time: selectedTime, totalPrice, guestCounts: counts });
+        onComplete({ clientSecret: data.clientSecret, paymentIntentId: data.paymentIntentId, date: selectedDate, time: selectedTime, totalPrice, guestCounts: counts, lead });
       } else {
         setError(data.error || 'Payment setup failed');
       }
@@ -193,6 +206,43 @@ function BookingForm({ tourId, tourTitle, tourSlug, basePrice, guestTypes, onCom
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Lead Traveler */}
+      <div>
+        <label className="block text-sm font-semibold text-foreground mb-2">Lead Traveler</label>
+        <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-3">
+            <input
+              type="text"
+              value={lead.firstName}
+              onChange={(e) => setLead({ ...lead, firstName: e.target.value })}
+              placeholder="First name"
+              className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none"
+            />
+            <input
+              type="text"
+              value={lead.lastName}
+              onChange={(e) => setLead({ ...lead, lastName: e.target.value })}
+              placeholder="Last name"
+              className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none"
+            />
+          </div>
+          <input
+            type="email"
+            value={lead.email}
+            onChange={(e) => setLead({ ...lead, email: e.target.value })}
+            placeholder="Email (for confirmation)"
+            className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none"
+          />
+          <input
+            type="tel"
+            value={lead.phone}
+            onChange={(e) => setLead({ ...lead, phone: e.target.value })}
+            placeholder="Phone (optional)"
+            className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none"
+          />
         </div>
       </div>
 
@@ -326,26 +376,8 @@ export default function BookingPanel(props: BookingPanelProps) {
     setStep('payment');
   };
 
-  const handlePaymentSuccess = async (paymentIntentId: string) => {
-    // Send booking confirmation
-    try {
-      await fetch('/api/book', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tourTitle: props.tourTitle,
-          tourSlug: props.tourSlug,
-          date: paymentData?.date ? format(paymentData.date, 'yyyy-MM-dd') : '',
-          time: paymentData?.time || '',
-          guests: paymentData?.totalPrice ? Math.round(paymentData.totalPrice / props.basePrice) : 1,
-          guestCounts: paymentData?.guestCounts || {},
-          price: paymentData?.totalPrice || 0,
-          paymentIntentId,
-          name: 'Traveler',
-          email: '',
-        }),
-      });
-    } catch { /* non-blocking */ }
+  const handlePaymentSuccess = async (_paymentIntentId: string) => {
+    // Booking is recorded + confirmed by the Stripe webhook (payment_intent.succeeded).
     setStep('done');
   };
 

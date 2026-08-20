@@ -12,24 +12,18 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   const tours = await getTours();
 
-  // We have exactly 2 Vatican tours
-  const tour1 = tours.find((t: any) => t.slug?.current?.includes('guided')) || tours[0];
-  const tour2 = tours.find((t: any) => t.slug?.current?.includes('skip')) || tours[1] || tours[0];
-
   return (
     <main className="min-h-screen bg-background">
       <Header />
       <HeroSection />
       <TrustBar />
 
-      {/* DEBUG */}
-      <div style={{ display: 'none' }} data-debug={`count=${tours.length} tour1=${tour1?.price} tour2=${tour2?.price}`} />
-
       {/* Tours Section */}
       <section className="py-16 md:py-24 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
-          {tour1 && <TourCardWide tour={tour1} imageFirst />}
-          {tour2 && <TourCardWide tour={tour2} imageFirst={false} />}
+          {tours.map((tour: any, i: number) => (
+            <TourCardWide key={tour._id} tour={tour} imageFirst={i % 2 === 0} />
+          ))}
         </div>
       </section>
 

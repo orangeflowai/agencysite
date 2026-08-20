@@ -1,8 +1,11 @@
 export const dynamic = 'force-dynamic';
-import { NextResponse } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { tours } from '@/lib/toursData';
 import { addDays, format } from 'date-fns';
+import { isAdmin } from '@/lib/adminAuth';
+
+const TENANT = process.env.NEXT_PUBLIC_SITE_ID || 'goldenrometour';
 
 // Create Admin Client with Service Role Key
 const supabaseAdmin = createClient(
@@ -10,7 +13,8 @@ const supabaseAdmin = createClient(
     process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    if (!isAdmin(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     try {
         console.log('Starting inventory seeding...');
         const today = new Date();
@@ -42,10 +46,12 @@ export async function GET() {
                     else slots = Math.floor(Math.random() * 20) + 10; // 10-29
 
                     rows.push({
+                        tenant: TENANT,
                         tour_slug: tour.slug,
                         date: dateStr,
                         time: time,
                         available_slots: slots,
+                        total_slots: 20,
                         price_override: tour.price // Use base price
                     });
                 }

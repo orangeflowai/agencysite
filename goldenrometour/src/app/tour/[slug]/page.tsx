@@ -43,7 +43,7 @@ export default async function TourPage({ params }: { params: Promise<{ slug: str
     ? tour.description
     : tour.description?.[0]?.children?.[0]?.text || '';
 
-  const imageUrl = tour.mainImage?.asset?.url || '/vatican-museums.jpg';
+  const imageUrl = tour.mainImage?.asset?.url || (slug.includes('guided') ? '/images/vatican-guided-tour.jpg' : '/images/vatican-skip-line.jpg');
   const highlights: string[] = tour.highlights || [];
   const includes: string[] = tour.includes || [];
   const excludes: string[] = (tour as any).excludes || [];
